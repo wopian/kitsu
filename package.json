@@ -2,8 +2,32 @@
   "name": "kitsu",
   "version": "0.0.1",
   "description": "NodeJS wrapper for Kitsu.io's API",
-  "main": "main.js",
-  "repository": "https://github.com/wopian/kitsu",
+  "license": "MIT",
   "author": "James Harris <wopian@wopian.me>",
-  "license": "MIT"
+  "scripts": {
+    "test": " "
+  },
+  "main": "src/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wopian/kitsu.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wopian/kitsu/issues"
+  },
+  "homepage": "https://github.com/wopian/kitsu#readme",
+  "dependencies": {
+    "client-oauth2": "~4.1.0",
+    "devour-client": "~1.4.1"
+  },
+  "devDependencies": {
+    "babel-cli": "~6.24.1",
+    "babel-core": "~6.24.1",
+    "babel-eslint": "~7.2.3",
+    "babel-preset-env": "~1.4.0",
+    "babel-preset-stage-0": "~6.24.1",
+    "eslint": "~3.19.0",
+    "jest": "^19.0.2",
+    "standard": "~10.0.2"
+  }
 }
