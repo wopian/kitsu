@@ -5,9 +5,9 @@
   "license": "MIT",
   "author": "James Harris <wopian@wopian.me>",
   "scripts": {
-    "test": " "
+    "test": "jest"
   },
-  "main": "src/main.js",
+  "main": "lib/main.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/wopian/kitsu.git"
@@ -28,6 +28,23 @@
     "babel-preset-stage-0": "~6.24.1",
     "eslint": "~3.19.0",
     "jest": "^19.0.2",
+    "js-beautify": "^1.6.12",
     "standard": "~10.0.2"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "lib/**/*.js"
+    ],
+    "coverageDirectory": "<rootDir>/test/coverage",
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
+    "moduleNameMapper": {
+      "lib/([^\\.]*)$": "<rootDir>/lib/$1.js"
+    },
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    }
   }
 }
