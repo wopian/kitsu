@@ -5,7 +5,8 @@
   "license": "MIT",
   "author": "James Harris <wopian@wopian.me>",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "babel-node --presets env,stage-0 ./example/basic.js"
   },
   "main": "lib/main.js",
   "repository": {
