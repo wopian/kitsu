@@ -1,5 +1,7 @@
 # Kitsu
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/wopian/kitsu.svg)](https://greenkeeper.io/)
+
 [![npm]][1]
 [![Travis]][2]
 [![AppVeyor]][3]
