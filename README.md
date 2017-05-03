@@ -101,7 +101,7 @@ All code released under [MIT]
 [CC Score]:https://img.shields.io/codeclimate/github/wopian/kitsu.svg?style=flat-square&label=quality
 [CC Issues]:https://img.shields.io/codeclimate/issues/github/wopian/kitsu.svg?style=flat-square
 [David]:https://img.shields.io/david/wopian/kitsu.svg?style=flat-square
-[AppVeyor]:https://img.shields.io/appveyor/ci/wopian/kitsu/master.svg?style=flat-square&label=windows
+[AppVeyor]:https://img.shields.io/appveyor/ci/wopian/kitsu/master.svg?style=flat-square&label=windows&logo=false&logoWidth=1
 
 [1]:https://www.npmjs.com/package/kitsu
 [2]:https://travis-ci.org/wopian/kitsu
