@@ -98,7 +98,7 @@ All code released under [MIT]
 [npm Downloads]:https://img.shields.io/npm/dt/kitsu.svg?style=flat-square
 [Travis]:https://img.shields.io/travis/wopian/kitsu/master.svg?style=flat-square&label=linux%20%26%20macOS
 [CC Coverage]:https://img.shields.io/codeclimate/coverage/github/wopian/kitsu.svg?style=flat-square
-[CC Score]:https://img.shields.io/codeclimate/github/wopian/kitsu.svg?style=flat-square
+[CC Score]:https://img.shields.io/codeclimate/github/wopian/kitsu.svg?style=flat-square&label=quality
 [CC Issues]:https://img.shields.io/codeclimate/issues/github/wopian/kitsu.svg?style=flat-square
 [David]:https://img.shields.io/david/wopian/kitsu.svg?style=flat-square
 [AppVeyor]:https://img.shields.io/appveyor/ci/wopian/kitsu/master.svg?style=flat-square&label=windows
