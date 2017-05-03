@@ -5,7 +5,6 @@
 [![Travis]][2]
 [![AppVeyor]][3]
 [![David]][7]
-
 [![CC Coverage]][4]
 [![CC Issues]][6]
 [![CC Score]][5]
