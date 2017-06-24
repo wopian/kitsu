@@ -27,7 +27,7 @@
     "babel-eslint": "~7.2.3",
     "babel-preset-env": "~1.5.0",
     "babel-preset-stage-0": "~6.24.1",
-    "eslint": "~3.19.0",
+    "eslint": "~4.1.0",
     "jest": "^20.0.1",
     "js-beautify": "^1.6.12",
     "standard": "~10.0.2"
