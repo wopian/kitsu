@@ -6,7 +6,7 @@
   "author": "James Harris <wopian@wopian.me>",
   "scripts": {
     "test": "jest",
-    "start": "babel-node --presets env,stage-0 ./example/basic.js"
+    "start": "babel-node --presets env,stage-0 ./example/auth.js"
   },
   "main": "lib/main.js",
   "repository": {

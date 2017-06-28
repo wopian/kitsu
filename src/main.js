@@ -1,8 +1,9 @@
 import r from 'got'
+import OAuth2 from 'client-oauth2'
 import { version } from '../package'
 
 const apiVersion = 'edge'
-const apiUrl = `https://kitsu.io/api/${apiVersion}`
+const apiUrl = `https://kitsu.io/api`
 
 const filterIncludes = async (included, { id, type }) => {
   return included.filter(async obj => {
@@ -43,7 +44,6 @@ const linkRelationships = async (data, included) => {
 
 export default class Kitsu {
   constructor (opts = {}) {
-    this._auth = false
     this._opts = opts
 
     // Set Headers
@@ -53,6 +53,26 @@ export default class Kitsu {
       'accept': 'application/vnd.api+json',
       'content-type': 'application/vnd.api+json'
     })
+  }
+
+  get isAuth () {
+    return Boolean(this._opts.headers.authorization)
+  }
+
+  auth = async ({ clientId, clientSecret, username, password }) => {
+    if (clientId && clientSecret && username && password) {
+      const auth = await new OAuth2({
+        clientId,
+        clientSecret,
+        accessTokenUri: `${apiUrl}/oauth/token`
+      })
+
+      let { accessToken } = await auth.owner.getToken(username, password)
+
+      this._opts.headers = Object.assign(this._opts.headers, {
+        'authorization': `Bearer ${accessToken}`
+      })
+    }
   }
 
   get = async (model, opts) => {
@@ -90,7 +110,7 @@ export default class Kitsu {
         query = '?' + query.slice(1)
       }
 
-      let { body } = await r(`${apiUrl}/${model}${query}`, this._opts)
+      let { body } = await r(`${apiUrl}/${apiVersion}/${model}${query}`, this._opts)
       body = await JSON.parse(body)
 
       // Handle relationships
