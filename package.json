@@ -19,17 +19,17 @@
   "homepage": "https://github.com/wopian/kitsu#readme",
   "dependencies": {
     "client-oauth2": "~4.1.0",
-    "devour-client": "~1.4.1"
+    "got": "~7.0.0"
   },
   "devDependencies": {
     "babel-cli": "~6.24.1",
-    "babel-core": "~6.24.1",
+    "babel-core": "~6.25.0",
     "babel-eslint": "~7.2.3",
-    "babel-preset-env": "~1.4.0",
+    "babel-preset-env": "~1.5.2",
     "babel-preset-stage-0": "~6.24.1",
-    "eslint": "~3.19.0",
-    "jest": "^19.0.2",
-    "js-beautify": "^1.6.12",
+    "eslint": "~4.1.1",
+    "jest": "~20.0.4",
+    "js-beautify": "~1.6.12",
     "standard": "~10.0.2"
   },
   "jest": {

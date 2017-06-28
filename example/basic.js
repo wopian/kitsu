@@ -1,3 +1,5 @@
-import kitsu from '../lib/main'
+import Kitsu from '../src/main'
 
-console.log(kitsu.searchAnime('Cowboy Bebop'))
+const kitsu = new Kitsu()
+
+console.log(kitsu.get('anime'))
