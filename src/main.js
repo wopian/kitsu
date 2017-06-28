@@ -24,6 +24,7 @@ const linkRelationships = async (data, included) => {
       } else if (relationships[key].data) {
         const { id, type } = relationships[key].data
         if (!attributes[type]) attributes[type] = (await filterIncludes(included, { id, type }))[0]
+        delete attributes[type].relationships
       }
     }
 
@@ -41,22 +42,55 @@ const linkRelationships = async (data, included) => {
 }
 
 export default class Kitsu {
-  constructor (opts = {
-    headers: {
-      'user-agent': `Kitsu/${version} (https://github.com/wopian/kitsu)`,
-      'accept': 'application/vnd.api+json',
-      'content-type': 'application/vnd.api+json'
-    }
-  }) {
+  constructor (opts = {}) {
     this._auth = false
     this._opts = opts
+
+    // Set Headers
+    this._opts.headers = Object.assign({
+      'user-agent': `Kitsu/${version} (https://github.com/wopian/kitsu)`
+    }, this._opts.headers, {
+      'accept': 'application/vnd.api+json',
+      'content-type': 'application/vnd.api+json'
+    })
   }
 
   get = async (model, opts) => {
-    opts = Object.assign(this._opts, opts)
-
     try {
-      let { body } = await r(`${apiUrl}/${model}?page[limit]=1&include=media`, opts)
+      // Handle options
+
+      /*
+      {
+        page: {
+          limit: 20,
+          offset: 500
+        },
+        fields: {
+          anime: 'canonicalTitle'
+        }
+        filter: {
+          canonicalTitle: 'Cowboy Bebop'
+        }
+        sort: '-id',
+        include: 'media'
+      }
+      */
+      // Handle query parameters
+      let query = ''
+      if (opts) {
+        for (let param in opts) {
+          if (typeof opts[param] === 'object') {
+            Object.keys(opts[param]).forEach(value => {
+              query += `&${param}[${value}]=${opts[param][value]}`
+            })
+          } else if (typeof opts[param] === 'string') {
+            query += `&${param}=${opts[param]}`
+          }
+        }
+        query = '?' + query.slice(1)
+      }
+
+      let { body } = await r(`${apiUrl}/${model}${query}`, this._opts)
       body = await JSON.parse(body)
 
       // Handle relationships
@@ -67,6 +101,8 @@ export default class Kitsu {
           linkRelationships(data, body.included)
         })
       } else await linkRelationships(body.data, body.included)
+
+      delete body.included
 
       return body
     } catch (err) {

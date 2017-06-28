@@ -1,20 +1,24 @@
 import Kitsu from '../src/main'
 
-const kitsu = new Kitsu({
-  /*
-  headers: {
-    accept: 'no'
-  }
-  */
-});
+const kitsu = new Kitsu()
 
-(async () => {
+/**
+ * Shows top 5 most popular anime
+ */
+const showPopular = async () => {
   try {
-    const { data, errors } = await kitsu.get('mappings')
+    const { data, error } = await kitsu.get('anime', {
+      page: { limit: 5 },
+      sort: 'popularityRank'
+    })
 
-    if (errors) console.log(errors)
-    else console.log(data[0])
+    if (error) console.error(error)
+    else data.forEach(anime => {
+      console.log(anime.attributes.canonicalTitle)
+    })
   } catch (err) {
     console.log(err)
   }
-})()
+}
+
+showPopular()
