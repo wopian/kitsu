@@ -1,46 +1,10 @@
 import r from 'got'
 import OAuth2 from 'client-oauth2'
 import { version } from '../package'
+import { buildQuery, errorHandler, linkRelationships } from './util'
 
 const apiVersion = 'edge'
 const apiUrl = `https://kitsu.io/api`
-
-const filterIncludes = async (included, { id, type }) => {
-  return included.filter(async obj => {
-    await linkRelationships([obj], included)
-    return obj.id === id && obj.type === type
-  })
-}
-
-const linkRelationships = async (data, included) => {
-  try {
-    const { attributes, relationships } = data
-
-    for (let key in relationships) {
-      if (relationships[key].data && relationships[key].data.constructor === Array) {
-        for (let { id, type } of relationships[key].data) {
-          if (!attributes[type]) attributes[type] = []
-          attributes[type].push((await filterIncludes(included, { id, type }))[0])
-        }
-      } else if (relationships[key].data) {
-        const { id, type } = relationships[key].data
-        if (!attributes[type]) attributes[type] = (await filterIncludes(included, { id, type }))[0]
-        delete attributes[type].relationships
-      }
-    }
-
-    delete data.relationships
-  } catch (err) {
-    console.log(err)
-  }
-
-  /*
-  console.log(relationships.mappings.data)
-  console.log(included)
-
-  console.log(attributes)
-  */
-}
 
 export default class Kitsu {
   constructor (opts = {}) {
@@ -60,56 +24,33 @@ export default class Kitsu {
   }
 
   auth = async ({ clientId, clientSecret, username, password }) => {
-    if (clientId && clientSecret && username && password) {
-      const auth = await new OAuth2({
-        clientId,
-        clientSecret,
-        accessTokenUri: `${apiUrl}/oauth/token`
-      })
+    try {
+      if (clientId && clientSecret && username && password) {
+        const { owner } = new OAuth2({
+          clientId,
+          clientSecret,
+          accessTokenUri: `${apiUrl}/oauth/token`
+        })
 
-      let { accessToken } = await auth.owner.getToken(username, password)
+        let { accessToken } = await owner.getToken(username, password)
 
-      this._opts.headers = Object.assign(this._opts.headers, {
-        'authorization': `Bearer ${accessToken}`
-      })
+        this._opts.headers = Object.assign(this._opts.headers, {
+          'authorization': `Bearer ${accessToken}`
+        })
+      } else {
+        console.error('Missing required properties for authentication')
+      }
+    } catch (err) {
+      console.error(err)
     }
   }
 
   get = async (model, opts) => {
     try {
-      // Handle options
-
-      /*
-      {
-        page: {
-          limit: 20,
-          offset: 500
-        },
-        fields: {
-          anime: 'canonicalTitle'
-        }
-        filter: {
-          canonicalTitle: 'Cowboy Bebop'
-        }
-        sort: '-id',
-        include: 'media'
-      }
-      */
       // Handle query parameters
-      let query = ''
-      if (opts) {
-        for (let param in opts) {
-          if (typeof opts[param] === 'object') {
-            Object.keys(opts[param]).forEach(value => {
-              query += `&${param}[${value}]=${opts[param][value]}`
-            })
-          } else if (typeof opts[param] === 'string') {
-            query += `&${param}=${opts[param]}`
-          }
-        }
-        query = '?' + query.slice(1)
-      }
+      const query = opts ? buildQuery(opts) : ''
 
+      // Handle response
       let { body } = await r(`${apiUrl}/${apiVersion}/${model}${query}`, this._opts)
       body = await JSON.parse(body)
 
@@ -126,17 +67,7 @@ export default class Kitsu {
 
       return body
     } catch (err) {
-      console.log(err)
-      return {
-        errors: [
-          {
-            title: err.statusMessage,
-            detail: err.statusMessage,
-            code: err.statusCode,
-            status: err.statusCode
-          }
-        ]
-      }
+      return errorHandler(err)
     }
   }
 }
