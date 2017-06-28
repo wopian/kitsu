@@ -1,5 +1,20 @@
 import Kitsu from '../src/main'
 
-const kitsu = new Kitsu()
+const kitsu = new Kitsu({
+  /*
+  headers: {
+    accept: 'no'
+  }
+  */
+});
 
-console.log(kitsu.get('anime'))
+(async () => {
+  try {
+    const { data, errors } = await kitsu.get('mappings')
+
+    if (errors) console.log(errors)
+    else console.log(data[0])
+  } catch (err) {
+    console.log(err)
+  }
+})()
