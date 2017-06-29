@@ -11,7 +11,6 @@ const showPopular = async () => {
       page: { limit: 5 },
       sort: 'popularityRank'
     })
-
     if (error) console.error(error)
     else data.forEach(anime => {
       console.log(anime.attributes.canonicalTitle)

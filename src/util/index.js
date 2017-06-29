@@ -27,7 +27,7 @@ export const errorHandler = err => {
   include: 'media'
 }
 */
-export const buildQuery = opts => {
+export const query = opts => {
   let query = ''
 
   for (let param in opts) {
@@ -39,7 +39,7 @@ export const buildQuery = opts => {
       query += `&${param}=${opts[param]}`
     }
   }
-  return '?' + query.slice(1)
+  return opts ? '?' + query.slice(1) : ''
 }
 
 export const filterIncludes = async (included, { id, type }) => {

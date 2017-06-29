@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/wopian/kitsu#readme",
   "dependencies": {
+    "camelcase": "^4.1.0",
     "client-oauth2": "~4.1.0",
     "got": "~7.0.0"
   },
