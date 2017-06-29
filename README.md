@@ -8,9 +8,15 @@
 [![CC Issues]][6]
 [![David]][7]
 
-NodeJS wrapper for [Kitsu.io][KITSU]
+Promise based NodeJS API wrapper for [Kitsu.io][KITSU]
 
 ## Features
+
+- Supports OAuth2 authentication
+- Supports the JSON API specification
+- Supports the [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises) API
+- Retries on network failure
+- Timeout handling
 
 ## Install
 
@@ -27,12 +33,67 @@ npm install kitsu --save
 ## Usage
 
 ```javascript
+// ES6+
 import Kitsu from 'kitsu'
+// CommonJS
+const Kitsu = require('kitsu').default
 
 const kitsu = new Kitsu()
+
+kitsu.get('anime').then(res => console.log(res))
 ```
 
+[More Examples](https://github.com/wopian/kitsu/tree/master/example)
+
 ## Docs
+
+### kitsu.get(model, [options])
+
+Returns a Promise of a `response` object
+
+#### model
+
+Type: `string`
+
+The resource model to request. Check out the [Kitsu API documentation](https://docs.kitsu.apiary.io) for available models
+
+#### options
+
+Type: `object`
+
+Any of the [JSON API](http://jsonapi.org/format/#fetching) request parameters
+
+##### include
+
+Type: `string`
+
+Include relationships. Multiple includes are comma seperated
+
+##### fields
+
+Type: `object`
+
+Returns only the specified fields
+
+##### sort
+
+Type: `string`
+
+Sort lists by an attribute. Append `-` for descending order. Multiple sorts are comma seperated
+
+##### page
+
+Type: `object`
+
+Limit number of returned resources (`page: { limit: 2 }`).
+
+Offset returned resources (`page: { offset: 20 }`)
+
+##### filter
+
+Type: `object`
+
+Filter returned resources by an attribute
 
 ## Contributing
 

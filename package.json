@@ -1,17 +1,18 @@
 {
   "name": "kitsu",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "NodeJS wrapper for Kitsu.io's API",
   "license": "MIT",
   "author": "James Harris <wopian@wopian.me>",
   "scripts": {
     "test": "jest",
-    "start": "yarn run example:basic && yarn run example:async && yarn run example:auth",
-    "example:basic": "babel-node --presets env,stage-0 ./example/basic.js",
-    "example:async": "babel-node --presets env,stage-0 ./example/async.js",
-    "example:auth": "babel-node --presets env,stage-0 ./example/auth.js"
+    "build": "babel src -d lib",
+    "start": "yarn run example:basic",
+    "example:basic": "node ./example/basic",
+    "example:async": "babel-node ./example/async",
+    "example:auth": "babel-node ./example/auth"
   },
-  "main": "lib/main.js",
+  "main": "lib/kitsu.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/wopian/kitsu.git"
@@ -21,7 +22,7 @@
   },
   "homepage": "https://github.com/wopian/kitsu#readme",
   "dependencies": {
-    "camelcase": "^4.1.0",
+    "camelcase": "~4.1.0",
     "client-oauth2": "~4.1.0",
     "got": "~7.0.0"
   },
@@ -29,6 +30,8 @@
     "babel-cli": "~6.24.1",
     "babel-core": "~6.25.0",
     "babel-eslint": "~7.2.3",
+    "babel-plugin-transform-runtime": "~6.23.0",
+    "babel-preset-babili": "~0.1.4",
     "babel-preset-env": "~1.5.2",
     "babel-preset-stage-0": "~6.24.1",
     "eslint": "~4.1.1",

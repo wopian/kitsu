@@ -32,15 +32,17 @@ export default class Kitsu {
       } : {
         filter: { self: true }
       })).data[0]
-    } else return {
-      errors: [
-        {
-          title: 'Not Logged In',
-          detail: 'No user is logged in',
-          code: 'K01',
-          status: 'K01'
-        }
-      ]
+    } else {
+      return {
+        errors: [
+          {
+            title: 'Not Logged In',
+            detail: 'No user is logged in',
+            code: 'K01',
+            status: 'K01'
+          }
+        ]
+      }
     }
   }
 

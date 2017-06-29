@@ -1,4 +1,4 @@
-import Kitsu from '../src/main'
+const Kitsu = require('../lib/kitsu').default
 
 const kitsu = new Kitsu()
 

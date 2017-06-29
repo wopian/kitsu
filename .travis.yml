@@ -6,7 +6,6 @@ node_js:
 - node
 - 7
 - 6
-- 5
 cache:
   yarn: true
 sudo: false
