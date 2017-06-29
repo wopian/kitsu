@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [0.1.1] - 2017-06-29
+
+### Fixed
+
+- Added `babel-runtime` to dependencies
+
+### Removed
+
+- Removed build files from published package
+
 ## [0.1.0] - 2017-06-29
 
 ### Added
