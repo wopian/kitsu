@@ -6,6 +6,7 @@
   "author": "James Harris <wopian@wopian.me>",
   "scripts": {
     "test": "jest",
+    "prepublishOnly": "yarn run build",
     "build": "babel src -d lib",
     "start": "yarn run example:basic",
     "example:basic": "node ./example/basic",
