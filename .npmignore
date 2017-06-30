@@ -1,13 +1,15 @@
 example
 src
 test
+.appveyor.yml
 .babelrc
 .editorconfig
+.eslintignore
 .eslintrc.yml
 .gitignore
 .hound.yml
 .yarnclean
 .travis.yml
-appveyor.yml
+rollup.config.js
 yarn.lock
 yarn.sh

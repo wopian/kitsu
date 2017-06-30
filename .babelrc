@@ -1,20 +1,29 @@
 {
-  "presets": [
-    ["env", {
-      "targets": {
-        "browsers": ["> 1%", "last 2 versions"],
-        "node": 6
-      }
-    }],
-    "stage-0",
-    ["babili", {
-      "mangle": false
-    }]
-  ],
-  "plugins": [
-    ["transform-runtime", {
-      "polyfill": false,
-      "regenerator": true
-    }]
-  ]
+  "env": {
+    "development": {
+      "presets": [
+        "env",
+        "stage-0"
+      ]
+    },
+    "production": {
+      "presets":[
+        ["env", {
+          "targets": {
+            "browsers": ["> 1%", "last 2 versions"],
+            "node": 6
+          },
+          "modules": false
+        }],
+        "stage-0",
+        "babili"
+      ],
+      "plugins": [
+        ["transform-runtime", {
+          "polyfill": false,
+          "regenerator": true
+        }]
+      ]
+    }
+  }
 }

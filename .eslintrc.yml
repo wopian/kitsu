@@ -2,6 +2,6 @@ root: true
 extends: standard
 parser: babel-eslint
 parserOptions:
-  ecmaVersion: 7
+  ecmaVersion: 2017
   ecmaFeatures:
     modules: true

@@ -1,7 +1,7 @@
 import r from 'got'
 import camel from 'camelcase'
 import OAuth2 from 'client-oauth2'
-import { version } from '../package'
+import { version } from '../package.json'
 import { query, errorHandler, linkRelationships } from './util'
 
 const apiVersion = 'edge'

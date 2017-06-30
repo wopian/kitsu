@@ -1,19 +1,36 @@
 {
   "name": "kitsu",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "NodeJS wrapper for Kitsu.io's API",
   "license": "MIT",
   "author": "James Harris <wopian@wopian.me>",
+  "main": "lib/kitsu.js",
+  "module": "lib/kitsu.mjs",
+  "engines": {
+    "node": ">=6"
+  },
   "scripts": {
     "test": "jest",
+    "build": "yarn run rollup && yarn run uglify",
     "prepublishOnly": "yarn run build",
-    "build": "babel src -d lib",
+    "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
+    "uglify": "uglifyjs lib/kitsu.js -c -m -o lib/kitsu.js && uglifyjs lib/kitsu.mjs -c -m -o lib/kitsu.mjs",
     "start": "yarn run example:basic",
     "example:basic": "node ./example/basic",
     "example:async": "babel-node ./example/async",
     "example:auth": "babel-node ./example/auth"
   },
-  "main": "lib/kitsu.js",
+  "keywords": [
+    "kitsu",
+    "anime",
+    "manga",
+    "drama",
+    "oauth2",
+    "authentication",
+    "api",
+    "wrapper",
+    "client"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/wopian/kitsu.git"
@@ -22,11 +39,14 @@
     "url": "https://github.com/wopian/kitsu/issues"
   },
   "homepage": "https://github.com/wopian/kitsu#readme",
+  "files": [
+    "lib"
+  ],
   "dependencies": {
     "babel-runtime": "~6.23.0",
     "camelcase": "~4.1.0",
     "client-oauth2": "~4.1.0",
-    "got": "~7.0.0"
+    "got": "~7.1.0"
   },
   "devDependencies": {
     "babel-cli": "~6.24.1",
@@ -36,10 +56,15 @@
     "babel-preset-babili": "~0.1.4",
     "babel-preset-env": "~1.5.2",
     "babel-preset-stage-0": "~6.24.1",
+    "cross-env": "~5.0.1",
     "eslint": "~4.1.1",
     "jest": "~20.0.4",
     "js-beautify": "~1.6.12",
-    "standard": "~10.0.2"
+    "rollup": "^0.43.0",
+    "rollup-plugin-babel": "~2.7.1",
+    "rollup-plugin-json": "~2.3.0",
+    "standard": "~10.0.2",
+    "uglify-es": "~3.0.22"
   },
   "jest": {
     "collectCoverageFrom": [

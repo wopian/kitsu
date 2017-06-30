@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.1.2] - 2017-06-30
+
+### Added
+
+- ES6 module version for webpack 2/3
+
 ## [0.1.1] - 2017-06-29
 
 ### Fixed

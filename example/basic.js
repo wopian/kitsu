@@ -1,4 +1,4 @@
-const Kitsu = require('../lib/kitsu').default
+const Kitsu = require('../lib/kitsu')
 
 const kitsu = new Kitsu()
 

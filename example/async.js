@@ -1,4 +1,4 @@
-import Kitsu from '../src/main'
+import Kitsu from '../lib/kitsu'
 
 const kitsu = new Kitsu()
 
