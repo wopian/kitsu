@@ -10,7 +10,7 @@
     "node": ">=6"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "build": "yarn run rollup && yarn run uglify",
     "prepublishOnly": "yarn run build",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
@@ -75,10 +75,6 @@
       "src/**/*.js"
     ],
     "coverageDirectory": "<rootDir>/test/coverage",
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
     "moduleNameMapper": {
       "^kitsu(.*)$": "<rootDir>/src/$1",
       "^pkg$": "<rootDir>/package.json"
