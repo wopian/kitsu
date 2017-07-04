@@ -1,8 +1,10 @@
+.vscode
 example
 src
 test
 .appveyor.yml
 .babelrc
+.codeclimate.yml
 .editorconfig
 .eslintignore
 .eslintrc.yml
