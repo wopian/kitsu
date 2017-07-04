@@ -1,12 +1,14 @@
 # Kitsu
 
 [![npm]][1]
+[![npm installs]][1]
+[![David]][7]
+
 [![Travis]][2]
 [![AppVeyor]][3]
 [![CC Coverage]][4]
 [![CC Score]][5]
 [![CC Issues]][6]
-[![David]][7]
 
 Promise based NodeJS API wrapper for [Kitsu.io][KITSU]
 
@@ -155,6 +157,7 @@ All code released under [MIT]
 [MIT]:https://github.com/wopian/kitsu-inactivity-pruner/blob/master/LICENSE.md
 
 [npm]:https://img.shields.io/npm/v/kitsu.svg?style=flat-square
+[npm installs]:https://img.shields.io/npm/dt/kitsu.svg?style=flat-square
 [Travis]:https://img.shields.io/travis/wopian/kitsu/master.svg?style=flat-square&label=linux%20%26%20macOS
 [CC Coverage]:https://img.shields.io/codeclimate/coverage/github/wopian/kitsu.svg?style=flat-square
 [CC Score]:https://img.shields.io/codeclimate/github/wopian/kitsu.svg?style=flat-square
