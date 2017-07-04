@@ -33,7 +33,7 @@
     "jsonapi",
     "json-api",
     "serialize",
-    "deserialize",
+    "deserialize"
   ],
   "repository": {
     "type": "git",
