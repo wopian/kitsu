@@ -9,6 +9,12 @@ const apiUrl = `https://kitsu.io/api`
 
 export default class Kitsu {
   constructor (opts = {}) {
+    // Set API Url
+    this._apiUrl = opts.apiUrl
+    this._apiVersion = opts.apiVersion
+    delete opts.apiUrl
+    delete opts.apiVersion
+
     this._opts = opts
 
     // Set Headers
@@ -18,6 +24,10 @@ export default class Kitsu {
       'accept': 'application/vnd.api+json',
       'content-type': 'application/vnd.api+json'
     })
+  }
+
+  get headers () {
+    return this._opts.headers
   }
 
   get isAuth () {
