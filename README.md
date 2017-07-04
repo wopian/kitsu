@@ -35,10 +35,10 @@ npm install kitsu --save
 ## Usage
 
 ```javascript
-// ES6+
+// ES6/Babel/Webpack
 import Kitsu from 'kitsu'
-// CommonJS
-const Kitsu = require('kitsu').default
+// CommonJS/Browserify
+const Kitsu = require('kitsu')
 
 const kitsu = new Kitsu()
 

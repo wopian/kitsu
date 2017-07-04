@@ -63,7 +63,7 @@
     "cross-env": "~5.0.1",
     "eslint": "~4.1.1",
     "jest": "~20.0.4",
-    "js-beautify": "~1.6.12",
+    "js-beautify": "~1.6.14",
     "rollup": "^0.43.0",
     "rollup-plugin-babel": "~2.7.1",
     "rollup-plugin-json": "~2.3.0",
@@ -72,7 +72,7 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "lib/**/*.js"
+      "src/**/*.js"
     ],
     "coverageDirectory": "<rootDir>/test/coverage",
     "coverageReporters": [
@@ -80,10 +80,8 @@
       "text"
     ],
     "moduleNameMapper": {
-      "lib/([^\\.]*)$": "<rootDir>/lib/$1.js"
-    },
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+      "^kitsu(.*)$": "<rootDir>/src/$1",
+      "^pkg$": "<rootDir>/package.json"
     }
   }
 }
