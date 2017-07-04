@@ -1,7 +1,7 @@
 {
   "name": "kitsu",
   "version": "0.1.2",
-  "description": "NodeJS wrapper for Kitsu.io's API",
+  "description": "Promise based NodeJS API wrapper for Kitsu.io",
   "license": "MIT",
   "author": "James Harris <wopian@wopian.me>",
   "main": "lib/kitsu.js",
@@ -29,7 +29,11 @@
     "authentication",
     "api",
     "wrapper",
-    "client"
+    "client",
+    "jsonapi",
+    "json-api",
+    "serialize",
+    "deserialize",
   ],
   "repository": {
     "type": "git",
