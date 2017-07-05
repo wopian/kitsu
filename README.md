@@ -1,5 +1,7 @@
 # Kitsu
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/wopian/kitsu.svg)](https://greenkeeper.io/)
+
 [![npm]][1]
 [![npm installs]][1]
 [![David]][7]
