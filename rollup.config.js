@@ -1,4 +1,5 @@
 import babel from 'rollup-plugin-babel'
+import babili from 'rollup-plugin-babili'
 import json from 'rollup-plugin-json'
 import pkg from './package.json'
 
@@ -8,6 +9,7 @@ let plugins = [
     exclude: [ '*.json', 'node_modules/**/*' ],
     runtimeHelpers: true
   }),
+  babili(),
   json()
 ]
 

@@ -21,8 +21,7 @@
           },
           "modules": false
         }],
-        "stage-0",
-        "babili"
+        "stage-0"
       ],
       "plugins": [
         ["transform-runtime", {
