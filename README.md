@@ -56,9 +56,9 @@ kitsu.get('anime').then(res => console.log(res))
 - [kitsu.get(model, [options])](#kitsugetmodel-options)
 - [kitsu.patch(model, data)](#kitsupatchmodel-data)
 - [kitsu.post(model, data)](#kitsupostmodel-data)
-- [kitsu.whoAmI([options])](#kitsuwhoAmIoptions)
+- [kitsu.whoAmI([options])](#kitsuwhoamioptions)
 - [kitsu.headers](#kitsuheaders)
-- [kitsu.isAuth](#kitsuisAuth)
+- [kitsu.isAuth](#kitsuisauth)
 
 ### new Kitsu([options])
 
