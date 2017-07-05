@@ -11,10 +11,12 @@ cache:
 sudo: false
 matrix:
   fast_finish: true
+before_install: yarn global add greenkeeper-lockfile@1
+before_script: greenkeeper-lockfile-update
 script:
 - yarn test
+after_script: greenkeeper-lockfile-upload
 after_success:
-- bash yarn.sh
 - travis_retry yarn global add codeclimate-test-reporter
 - codeclimate-test-reporter < test/coverage/lcov.info
 addons:
