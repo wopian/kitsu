@@ -3,7 +3,17 @@ const Kitsu = require('../lib/kitsu')
 const kitsu = new Kitsu()
 
 /**
- * Shows 5 most popular manga
+ * Fetches the top 5 most popular manga and displays their canonical
+ * titles in a list
+ *
+ * Returns:
+ *
+ * Top 5 popular manga:
+ * - Naruto
+ * - Shingeki no Kyojin
+ * - Berserk
+ * - Tokyo Ghoul
+ * - One Piece
  */
 try {
   kitsu.get('manga', {

@@ -3,7 +3,17 @@ import Kitsu from '../lib/kitsu'
 const kitsu = new Kitsu()
 
 /**
- * Shows 5 most popular anime
+ * Fetches the top 5 most popular anime and displays their canonical
+ * titles in a list
+ *
+ * Returns:
+ *
+ * Top 5 popular anime:
+ * - Fullmetal Alchemist: Brotherhood
+ * - Attack on Titan
+ * - Steins;Gate
+ * - Sword Art Online
+ * - Death Note
  */
 const showPopular = async () => {
   try {
