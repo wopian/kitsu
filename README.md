@@ -16,7 +16,8 @@ Promise based NodeJS API wrapper for [Kitsu.io][KITSU]
 
 - Supports OAuth2 authentication
 - Supports the JSON API specification
-- Supports the [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises) API
+  - Serialises and deserialises requests for pain-free usage
+- Supports the [Promise][10] API
 - Retries on network failure
 - Timeout handling
 
@@ -45,25 +46,115 @@ const kitsu = new Kitsu()
 kitsu.get('anime').then(res => console.log(res))
 ```
 
-[More Examples](https://github.com/wopian/kitsu/tree/master/example)
+[More Examples][11]
 
 ## Docs
 
-### kitsu.get(model, [options])
+- [new Kitsu([options])](#new-Kitsuoptions)
+- [kitsu.auth([options])](#kitsuauthoptions)
+- [kitsu.delete(model, data)](#kitsudeletemodel-data)
+- [kitsu.get(model, [options])](#kitsugetmodel-options)
+- [kitsu.patch(model, data)](#kitsupatchmodel-data)
+- [kitsu.post(model, data)](#kitsupostmodel-data)
+- [kitsu.whoAmI([options])](#kitsuwhoAmIoptions)
+- [kitsu.headers](#kitsuheaders)
+- [kitsu.isAuth](#kitsuisAuth)
 
-Returns a Promise of a `response` object
+### new Kitsu([options])
 
-#### model
-
-Type: `string`
-
-The resource model to request. Check out the [Kitsu API documentation](https://docs.kitsu.apiary.io) for available models
+Creates a new instance with the required JSON API headers already
+set
 
 #### options
 
 Type: `object`
 
-Any of the [JSON API](http://jsonapi.org/format/#fetching) request parameters
+##### headers
+
+Type: `object`
+
+Add extra headers to be sent with all requests, or override the
+default `user-agent` header
+(`Kitsu/<version> (https://github.com/wopian/kitsu)`)
+
+If you already have an `accessToken` for authentication, you can
+construct the `authorization` header here with
+`authorization: 'Bearer <accessToken>'`
+
+##### retries
+
+Type: `number`
+Default: `2`
+
+Number of times to retry requests after network failures
+
+##### timeout
+
+Type: `number`
+Default: `30000`
+
+Milliseconds to wait before aborting the request with an `ETIMEDOUT`
+error
+
+##### useElectronNet
+
+Type: `boolean`
+Default: `true`
+
+When used in Electron, Kitsu will automatically use
+[electron.net][14] instead of the NodeJS `http` module
+
+### kitsu.auth([options])
+
+Returns a Promised object containing an `accessToken` on successful
+authentication
+
+The `authorization` header is automatically applied and passed in
+all subsequent `DELETE`, `GET`, `PATCH` and `POST` requests
+
+#### options
+
+Type: `object`
+
+Inputs for the OAuth 2 Authorization Code grant type. See the
+[Kitsu API documentation][12] for further details
+
+##### clientId (required)
+
+Type: `string`
+
+##### clientSecret (required)
+
+Type: `string`
+
+##### username (required)
+
+Type: `string`
+
+##### password (required)
+
+Type: `string`
+
+### kitsu.delete(model, data)
+
+Not yet implemented!
+
+### kitsu.get(model, [options])
+
+Returns a Promised `response` object
+
+#### model
+
+Type: `string`
+
+The resource model to request. Check out the [Kitsu API documentation][12] for
+available models
+
+#### options
+
+Type: `object`
+
+Any of the [JSON API][13] request parameters
 
 ##### include
 
@@ -96,6 +187,42 @@ Offset returned resources (`page: { offset: 20 }`)
 Type: `object`
 
 Filter returned resources by an attribute
+
+### kitsu.patch(model, data)
+
+Not yet implemented!
+
+### kitsu.post(model, data)
+
+Not yet implemented!
+
+### kitsu.whoAmI([options])
+
+Returns a Promised object containing the user data if the
+`authorization` header is set
+
+#### options
+
+Type: object
+
+##### compact
+
+Type: boolean
+Default: false
+
+Returns just the user ID and name if `true`
+
+### kitsu.headers
+
+Type: `object`
+
+Returns the current headers
+
+### kitsu.isAuth
+
+Type: `boolean`
+
+Returns `true` if the `authorization` header is set
 
 ## Contributing
 
@@ -173,3 +300,8 @@ All code released under [MIT]
 [7]:https://david-dm.org/wopian/kitsu
 [8]:https://github.com/wopian/kitsu/blob/master/CHANGELOG.md
 [9]:https://github.com/wopian/kitsu/blob/master/LICENSE.md
+[10]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+[11]:https://github.com/wopian/kitsu/tree/master/example
+[12]:https://docs.kitsu.apiary.io
+[13]:http://jsonapi.org/format/#fetching
+[14]:https://electron.atom.io/docs/api/net/

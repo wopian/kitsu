@@ -17,6 +17,9 @@ export default class Kitsu {
 
     this._opts = opts
 
+    this._opts.timeout = this._opts.timeout || 30000
+    this._opts.retries = this._opts.retries || 2
+
     // Set Headers
     this._opts.headers = Object.assign({
       'user-agent': `Kitsu/${version} (https://github.com/wopian/kitsu)`
