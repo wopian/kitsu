@@ -9,16 +9,29 @@ let plugins = [
     runtimeHelpers: true
   }),
   json()
-  /*
-  resolve(),
-  commonjs()
-  */
 ]
 
 export default {
   entry: 'src/index.js',
-  external,
+  external: [
+    'babel-runtime/regenerator',
+    'babel-runtime/helpers/asyncToGenerator',
+    'babel-runtime/helpers/classCallCheck',
+    'babel-runtime/helpers/createClass',
+    'babel-runtime/helpers/typeof',
+    ...external
+  ],
   plugins,
+  globals: {
+    'babel-runtime/regenerator': '_regeneratorRuntime',
+    'babel-runtime/helpers/asyncToGenerator': '_asyncToGenerator',
+    'babel-runtime/helpers/classCallCheck': '_classCallCheck',
+    'babel-runtime/helpers/createClass': '_createClass',
+    'babel-runtime/helpers/typeof': '_typeof',
+    'client-oauth2': 'OAuth2',
+    camelcase: 'camel',
+    got: 'r'
+  },
   targets: [
     {
       dest: pkg.main,
@@ -31,5 +44,11 @@ export default {
       format: 'es',
       sourceMap: false
     }
-  ]
+  ],
+  onwarn: ({ code, message }) => {
+    // Suppress the following error message:
+    // https://github.com/rollup/rollup/wiki/Troubleshooting#this-is-undefined
+    if (code === 'THIS_IS_UNDEFINED') return
+    console.error(message)
+  }
 }
