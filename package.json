@@ -12,7 +12,7 @@
   "scripts": {
     "test": "jest --coverage",
     "build": "yarn run rollup && yarn run uglify",
-    "prepublishOnly": "yarn run build",
+    "prepublishOnly": "jest && yarn run build",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "uglify": "uglifyjs lib/kitsu.js -c -m -o lib/kitsu.js && uglifyjs lib/kitsu.mjs -c -m -o lib/kitsu.mjs",
     "start": "yarn run example:basic",
