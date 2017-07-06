@@ -21,12 +21,12 @@ automatically
 **Parameters**
 
 -   `opts` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options (optional, default `{}`)
-    -   `opts.apiUrl` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Override the API url (TBI)
-    -   `opts.apiVersion` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Override the API version (TBI)
-    -   `opts.timeout` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (Default `30000`)
-    -   `opts.retries` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Times to retry requests after network failures (Default `2`)
+    -   `opts.apiUrl` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Override the API url (default `https://kitsu.io/api`, not yet implemented)
+    -   `opts.apiVersion` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Override the API version (`edge`, not yet implemented)
+    -   `opts.timeout` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (default `30000`)
+    -   `opts.retries` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Times to retry requests after network failures (default `2`)
     -   `opts.headers` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Headers to send with requests
-    -   `opts.useElectronNet` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Use `electron.net` when used with Electron (Default `true`)
+    -   `opts.useElectronNet` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Use `electron.net` when used with Electron (default `true`)
 
 **Examples**
 
@@ -122,7 +122,7 @@ kitsu.auth({
   clientId: '1234567890',
   clientSecret: '0987654321',
   username: 'josh',
-  password: 'hunter2
+  password: 'hunter2'
 })
 ```
 

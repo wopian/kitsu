@@ -137,7 +137,7 @@ export default class Kitsu {
    *   clientId: '1234567890',
    *   clientSecret: '0987654321',
    *   username: 'josh',
-   *   password: 'hunter2
+   *   password: 'hunter2'
    * })
    */
   auth = async ({ clientId, clientSecret, username, password }) => {
