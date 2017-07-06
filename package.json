@@ -14,7 +14,7 @@
     "docs": "documentation build src/index.js -f md -o DOCS.md --sort-order source",
     "build": "yarn run docs && yarn run rollup && yarn run uglify",
     "release:build": "jest && yarn run build",
-    "release:push": "git push origin && git push origin --tags && git stash pop",
+    "release:push": "git push origin && git push origin --tags && npm publish && git stash pop",
     "release:commit": "git add package.json && git add DOCS.md && git add CHANGELOG.md && git commit -m \"release: bump version\" && git stash",
     "release:major": "yarn run release:build && changelog -M -x release && yarn run release:commit && npm version major && yarn run release:push",
     "release:minor": "yarn run release:build && changelog -m -x release && yarn run release:commit && npm version minor && yarn run release:push",
