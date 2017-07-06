@@ -1,3 +1,13 @@
+#### 1.0.3 (2017-07-06)
+
+##### Chores
+
+* remove debug log ([17e54311](https://github.com/wopian/kitsu/commit/17e5431188e923ce9bc72f917d288c46f2bd99c0))
+
+##### Continuous Integration
+
+* disable email notifications ([e2baf0f8](https://github.com/wopian/kitsu/commit/e2baf0f8ecf770d637ffb131c35a70ea782f1a01))
+
 #### 1.0.2 (2017-07-06)
 
 ##### Chores
