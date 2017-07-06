@@ -32,6 +32,7 @@ export default {
     'babel-runtime/helpers/typeof': '_typeof',
     'client-oauth2': 'OAuth2',
     camelcase: 'camel',
+    pluralize: 'plural',
     got: 'r'
   },
   targets: [
