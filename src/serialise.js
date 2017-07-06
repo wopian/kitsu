@@ -45,8 +45,8 @@ export const linkRelationships = async (data, included) => {
       }
     }
     delete data.relationships
-  } catch (err) {
-    throw (err)
+  } catch (e) {
+    throw e
   }
 }
 
@@ -63,14 +63,14 @@ export function serialise (model, obj = {}, method = 'POST') {
   try {
     // Check if obj is not an object or empty
     if (obj.constructor !== Object && Object.keys(obj).length === 0) {
-      throw `${method} requires a JSON object body`
+      throw new Error(`${method} requires a JSON object body`)
     }
     const type = camel(model)
     const data = { type }
 
     // A POST request is the only request to not require an ID
     if (method !== 'POST' && typeof obj.id === 'undefined') {
-      throw `${method} requires an ID for the ${type} type`
+      throw new Error(`${method} requires an ID for the ${type} type`)
     }
 
     // Add ID to data
@@ -98,8 +98,8 @@ export function serialise (model, obj = {}, method = 'POST') {
       }
     }
     return { data }
-  } catch (err) {
-    throw err
+  } catch (e) {
+    throw e
   }
 }
 
@@ -124,7 +124,7 @@ export function deserialise (obj) {
     delete obj.included
 
     return obj
-  } catch (err) {
-    throw err
+  } catch (e) {
+    throw e
   }
 }

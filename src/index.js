@@ -103,24 +103,16 @@ export default class Kitsu {
    * kitsu.whoAmI()
    */
   whoAmI = async ({ compact } = false) => {
-    if (this.isAuth) {
+    try {
+      if (!this.isAuth) throw new Error('Not authenticated')
       return (await this.get('users', compact ? {
         filter: { self: true },
         fields: { users: 'name' }
       } : {
         filter: { self: true }
       })).data[0]
-    } else {
-      throw {
-        errors: [
-          {
-            title: 'Not Logged In',
-            detail: 'No user is logged in',
-            code: 'K01',
-            status: 'K01'
-          }
-        ]
-      }
+    } catch (e) {
+      throw e
     }
   }
 
@@ -158,10 +150,10 @@ export default class Kitsu {
 
         return { accessToken }
       } else {
-        throw 'Missing required properties for authentication'
+        throw new Error('Missing required properties for authentication')
       }
-    } catch (err) {
-      throw err
+    } catch (e) {
+      throw e
     }
   }
 
@@ -193,10 +185,10 @@ export default class Kitsu {
     try {
       // Handle response
       let { body } = await r(`${apiUrl}/${apiVersion}/${kebab(model, '-')}${query(opts)}`, this._opts)
-        .catch(err => { throw JSON.parse(err.response.body) || err.response.body })
+        .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
       return deserialise(JSON.parse(body))
-    } catch (err) {
-      throw err
+    } catch (e) {
+      throw e
     }
   }
 
@@ -225,15 +217,15 @@ export default class Kitsu {
    */
   post = async (model, data) => {
     try {
-      if (!this.isAuth) throw 'Not authenticated'
+      if (!this.isAuth) throw new Error('Not authenticated')
       // Handle request
       const options = Object.assign({
         body: JSON.stringify(serialise(model, data))
       }, this._opts)
       await r.post(`${apiUrl}/${apiVersion}/${kebab(model, '-')}`, options)
-        .catch(err => { throw JSON.parse(err.response.body) || err.response.body })
-    } catch (err) {
-      throw err
+        .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
+    } catch (e) {
+      throw e
     }
   }
 
@@ -254,16 +246,16 @@ export default class Kitsu {
    */
   patch = async (model, data) => {
     try {
-      if (!this.isAuth) throw 'Not authenticated'
-      if (typeof data.id === 'undefined') throw 'PATCH request is missing a model ID'
+      if (!this.isAuth) throw new Error('Not authenticated')
+      if (typeof data.id === 'undefined') throw new Error('PATCH request is missing a model ID')
       // Handle request
       const options = Object.assign({
         body: JSON.stringify(serialise(model, data, 'PATCH'))
       }, this._opts)
       await r.patch(`${apiUrl}/${apiVersion}/${kebab(model, '-')}/${data.id}`, options)
-        .catch(err => { throw JSON.parse(err.response.body) || err.response.body })
-    } catch (err) {
-      throw err
+        .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
+    } catch (e) {
+      throw e
     }
   }
 
@@ -283,16 +275,16 @@ export default class Kitsu {
    */
   remove = async (model, data) => {
     try {
-      if (!this.isAuth) throw 'Not authenticated'
-      if (typeof data.id === 'undefined') throw 'PATCH request is missing a model ID'
+      if (!this.isAuth) throw new Error('Not authenticated')
+      if (typeof data.id === 'undefined') throw new Error('PATCH request is missing a model ID')
       // Handle request
       const options = Object.assign({
         body: JSON.stringify(serialise(model, data, 'DELETE'))
       }, this._opts)
       await r.patch(`${apiUrl}/${apiVersion}/${kebab(model, '-')}/${data.id}`, options)
-        .catch(err => { throw JSON.parse(err.response.body) || err.response.body })
-    } catch (err) {
-      throw err
+        .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
+    } catch (e) {
+      throw e
     }
   }
 
