@@ -1,3 +1,14 @@
+#### 1.0.2 (2017-07-06)
+
+##### Chores
+
+* add npm publish to release command ([d23c4fa0](https://github.com/wopian/kitsu/commit/d23c4fa0348190777bb5ba1d350ba7ee771a4dac))
+* improve release commit message ([d06e5ff3](https://github.com/wopian/kitsu/commit/d06e5ff350bb7c6ffdb893dee238439dc0b41ea2))
+
+##### New Features
+
+* check if console exists before logging ([046f3ab6](https://github.com/wopian/kitsu/commit/046f3ab6b63092f24fdaae017363cfc923950b24))
+
 #### 1.0.1 (2017-07-06)
 
 ##### Build System / Dependencies
