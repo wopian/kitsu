@@ -1,54 +1,43 @@
-# Changelog
+## 1.0.0 (2017-07-06)
 
-## [Unreleased]
-
-## [1.0.0] - 2017-07-06
-
-### Added
+##### Added
 
 - POST requests (`kitsu.<post|create>`)
 - PATCH requests (`kitsu.<patch|update>`)
 - DELETE requests (`kitsu.<remove|destroy>`)
 - Aliases for GET requests (`kitsu.<fetch|find>`)
 
-## [0.2.0] - 2017-07-05
+## 0.2.0 (2017-07-05)
 
-### Added
+##### Added
 
 - Exposed headers (`kitsu.headers`)
 
-### Changed
+##### Changed
 
 - Updated package description
 - Documented the api
 
-## [0.1.2] - 2017-06-30
+## 0.1.2 (2017-06-30)
 
-### Added
+##### Added
 
 - ES6 module version for webpack 2/3
 
-## [0.1.1] - 2017-06-29
+## 0.1.1 (2017-06-29)
 
-### Fixed
+##### Fixed
 
 - Added `babel-runtime` to dependencies
 
-### Removed
+##### Removed
 
 - Removed build files from published package
 
-## [0.1.0] - 2017-06-29
+## 0.1.0 (2017-06-29)
 
-### Added
+##### Added
 
 - GET requests for all models
 - JSON API query parameters
 - Authentication
-
-[Unreleased]:https://github.com/wopian/kitsu/compare/28bbaaab4db4914f5fe18cd3a1c8ce2db9f3bb29...HEAD
-[1.0.0]:https://github.com/wopian/kitsu/compare/0.2.0...1.0.0
-[0.2.0]:https://github.com/wopian/kitsu/compare/0.1.2...0.2.0
-[0.1.2]:https://github.com/wopian/kitsu/compare/0.1.1...0.1.2
-[0.1.1]:https://github.com/wopian/kitsu/compare/0.1.0...0.1.1
-[0.1.0]:https://github.com/wopian/kitsu/compare/28bbaaab4db4914f5fe18cd3a1c8ce2db9f3bb29...0.1.0
