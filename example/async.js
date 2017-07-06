@@ -17,17 +17,14 @@ const kitsu = new Kitsu()
  */
 const showPopular = async () => {
   try {
-    const { data, error } = await kitsu.get('anime', {
+    const { data } = await kitsu.get('anime', {
       page: { limit: 5 },
       sort: 'popularityRank'
     })
-    if (error) console.error(error)
-    else {
-      console.log('\nTop 5 popular anime:')
-      data.forEach(anime => {
-        console.log(`- ${anime.attributes.canonicalTitle}`)
-      })
-    }
+    console.log('\nTop 5 popular anime:')
+    data.forEach(anime => {
+      console.log(`- ${anime.attributes.canonicalTitle}`)
+    })
   } catch (err) {
     console.log(err)
   }
