@@ -280,7 +280,7 @@ export default class Kitsu {
    *
    * @example
    * // Delete a user's post
-   * kitsu.patch('posts', {
+   * kitsu.remove('posts', {
    *   id: '12345678',
    * })
    */

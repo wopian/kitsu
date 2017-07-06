@@ -218,7 +218,7 @@ Delete an existing resource - aliases: `destroy`
 
 ```javascript
 // Delete a user's post
-kitsu.patch('posts', {
+kitsu.remove('posts', {
   id: '12345678',
 })
 ```
