@@ -1,3 +1,9 @@
+### 1.2.0 (2017-07-06)
+
+##### Bug Fixes
+
+* throw new errors ([5aaf154a](https://github.com/wopian/kitsu/commit/5aaf154aac4c2785835c5564a431d1d4b0181c1a))
+
 ### 1.1.0 (2017-07-06)
 
 ##### Chores
