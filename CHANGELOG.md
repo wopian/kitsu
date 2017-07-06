@@ -1,3 +1,14 @@
+### 1.1.0 (2017-07-06)
+
+##### Chores
+
+* update examples ([1b5ed7b5](https://github.com/wopian/kitsu/commit/1b5ed7b56196843af2c2ad7e9ef2f8c9a64c80ee))
+
+##### Bug Fixes
+
+* throw errors ([8fd2979e](https://github.com/wopian/kitsu/commit/8fd2979e9a747219377293364ee0c40a0f05ae07))
+* kebab-case method names ([97907060](https://github.com/wopian/kitsu/commit/97907060ef713fa8e97e05a5deae0492227edb28))
+
 #### 1.0.3 (2017-07-06)
 
 ##### Chores
