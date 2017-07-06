@@ -12,7 +12,6 @@
   "scripts": {
     "test": "jest --coverage",
     "docs": "documentation build src/index.js -f md -o DOCS.md",
-    "toc": "markdown-toc -i README.md",
     "build": "yarn run rollup && yarn run uglify",
     "prepublishOnly": "jest && yarn run build && yarn run docs",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
@@ -67,7 +66,6 @@
     "eslint": "~4.1.1",
     "jest": "~20.0.4",
     "js-beautify": "~1.6.14",
-    "markdown-toc": "~1.1.0",
     "rollup": "^0.43.0",
     "rollup-plugin-babel": "~2.7.1",
     "rollup-plugin-babili": "~3.1.0",
