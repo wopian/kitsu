@@ -1,6 +1,6 @@
 engines:
   duplication:
-    enabled: true
+    enabled: false
     config:
       languages:
       - javascript
@@ -13,13 +13,6 @@ engines:
   # Waiting on https://github.com/nodesecurity/nsp/pull/142 to support yarn.lock
   nodesecurity:
     enabled: false
-  markdownlint:
-    enabled: true
-    checks:
-      MD024:
-        enabled: false
-      MD033:
-        enabled: false
   shellcheck:
     enabled: true
 ratings:
