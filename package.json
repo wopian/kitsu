@@ -45,7 +45,8 @@
   },
   "homepage": "https://github.com/wopian/kitsu#readme",
   "files": [
-    "lib"
+    "lib",
+    "DOCS.md"
   ],
   "dependencies": {
     "babel-runtime": "~6.23.0",
