@@ -1,6 +1,6 @@
 {
   "name": "kitsu",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Promise based NodeJS API wrapper for Kitsu.io",
   "license": "MIT",
   "author": "James Harris <wopian@wopian.me>",
