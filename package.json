@@ -13,7 +13,7 @@
     "test": "jest --coverage",
     "docs": "documentation build src/index.js -f md -o DOCS.md --sort-order source",
     "build": "npm run docs && npm run rollup && npm run uglify",
-    "release:build": "jest && npm run build",
+    "release:build": "yarn run jest && npm run build",
     "release:push": "git push origin && git push origin --tags && npm publish && git stash pop",
     "release:commit": "git add package.json && git add DOCS.md && git add CHANGELOG.md && git commit -m \"bump version\" && git stash",
     "release:major": "npm run release:build && changelog -M && npm run release:commit && npm version major && npm run release:push",
