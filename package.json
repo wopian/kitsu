@@ -15,7 +15,7 @@
     "build": "yarn run docs && yarn run rollup && yarn run uglify",
     "release:build": "jest && yarn run build",
     "release:push": "git push origin && git push origin --tags",
-    "release:commit": "git add package.json && git add DOCS.md && git add CHANGELOG.md && git commit -m 'build: bumped version'",
+    "release:commit": "git add package.json && git add DOCS.md && git add CHANGELOG.md && git commit -m \"build: bump version\"",
     "release:major": "yarn run release:build && changelog -M && yarn run release:commit && npm version major && yarn run release:push",
     "release:minor": "yarn run release:build && changelog -m && yarn run release:commit && npm version minor && yarn run release:push",
     "release:patch": "yarn run release:build && changelog -p && yarn run release:commit && npm version patch && yarn run release:push",

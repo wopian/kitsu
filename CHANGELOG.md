@@ -1,3 +1,10 @@
+#### 1.0.1 (2017-07-06)
+
+##### Chores
+
+* changelog adjustments ([3a7bc94f](https://github.com/wopian/kitsu/commit/3a7bc94ff385f9b7ee5829f6b9c644cdb9faa419))
+* add docs to npm releases ([c00e2f0b](https://github.com/wopian/kitsu/commit/c00e2f0bcfa976f090f35b8563958fe6a3ca4933))
+
 ## 1.0.0 (2017-07-06)
 
 ##### Added
