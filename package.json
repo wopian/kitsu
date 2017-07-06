@@ -12,7 +12,7 @@
   "scripts": {
     "test": "jest --coverage",
     "docs": "documentation build src/index.js -f md -o DOCS.md",
-    "toc": "markdown-toc README.md",
+    "toc": "markdown-toc -i README.md",
     "build": "yarn run rollup && yarn run uglify",
     "prepublishOnly": "jest && yarn run build && yarn run docs",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",

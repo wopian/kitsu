@@ -21,7 +21,21 @@ Promise based NodeJS API wrapper for [Kitsu.io][KITSU]
 - Retries on network failure
 - Timeout handling
 
+
+## Contents
+
 <!-- toc -->
+
+- [Install](#install)
+- [Usage](#usage)
+- [Docs](#docs)
+- [Contributing](#contributing)
+  * [Requirements](#requirements)
+  * [Setup](#setup)
+- [Releases](#releases)
+- [License](#license)
+
+<!-- tocstop -->
 
 ## Install
 
