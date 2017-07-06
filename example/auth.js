@@ -1,9 +1,9 @@
-import Kitsu from '../src/main'
+import Kitsu from '../src'
 
 const kitsu = new Kitsu()
 
 const app = async () => {
-  console.log(kitsu.isAuth)
+  // console.log(kitsu.isAuth)
 
   await kitsu.auth({
     username: '',
@@ -12,21 +12,19 @@ const app = async () => {
     clientSecret: ''
   })
 
-  console.log(kitsu.isAuth)
+  // console.log(kitsu.isAuth)
 
   const { id } = await kitsu.whoAmI({ compact: true })
 
-  await kitsu.post('posts', {
-    attributes: {
-      content: 'Hello world'
+  await kitsu.create('posts', {
+    content: 'Hello world',
+    targetUser: {
+      id,
+      type: 'users'
     },
-    relationships: {
-      targetUser: {
-        data: { id, type: 'users' }
-      },
-      user: {
-        data: { id, type: 'users' }
-      }
+    user: {
+      id,
+      type: 'users'
     }
   })
 }

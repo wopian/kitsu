@@ -1,8 +1,8 @@
 import r from 'got'
-import camel from 'camelcase'
 import OAuth2 from 'client-oauth2'
 import { version } from '../package.json'
-import { query, errorHandler, linkRelationships } from './util'
+import { serialise, deserialise } from './serialise'
+import { query, errorHandler } from './util'
 
 const apiVersion = 'edge'
 const apiUrl = `https://kitsu.io/api`
@@ -87,44 +87,73 @@ export default class Kitsu {
     try {
       // Handle response
       let { body } = await r(`${apiUrl}/${apiVersion}/${model}${query(opts)}`, this._opts)
-      body = JSON.parse(body)
-
-      // Handle relationships
-      // Note: constructor is currently faster than isArray()
-      // http://jsben.ch/QgYAV
-      if (body.data.constructor === Array) {
-        body.data.forEach(async data => {
-          linkRelationships(data, body.included)
-        })
-      } else linkRelationships(body.data, body.included)
-
-      delete body.included
-
-      return body
+      return deserialise(JSON.parse(body))
     } catch (err) {
       return errorHandler(err)
     }
   }
+
+  // Aliases of get()
+  fetch = this.get
+  find = this.get
 
   post = async (model, payload) => {
     try {
       if (this.isAuth) {
         // Handle request
         const options = Object.assign({
-          body: {
-            data: Object.assign(payload, {
-              type: camel(model)
-            })
-          },
+          body: serialise(model, payload),
           json: true,
           method: 'POST'
         }, this._opts)
 
-        console.log(options.body)
-        await r.post(`${apiUrl}/${apiVersion}/${model}`, options)
+        // await r.post(`${apiUrl}/${apiVersion}/${model}`, options)
       } else console.error('Not authenticated')
     } catch (err) {
-      console.log(err)
+      return errorHandler(err)
     }
   }
+
+  // Alias of post()
+  create = this.post
+
+  patch = async (model, payload) => {
+    try {
+      if (this.isAuth) {
+        // Handle request
+        const options = Object.assign({
+          body: serialise(model, payload, 'PATCH'),
+          json: true,
+          method: 'PATCH'
+        }, this._opts)
+
+        await r.patch(`${apiUrl}/${apiVersion}/${model}`, options)
+      } else console.error('Not authenticated')
+    } catch (err) {
+      return errorHandler(err)
+    }
+  }
+
+  // Alias of patch()
+  update = this.patch
+
+  remove = async (model, payload) => {
+    try {
+      if (this.isAuth) {
+        // Handle request
+        const options = Object.assign({
+          body: serialise(model, payload, 'DELETE'),
+          json: true,
+          method: 'DELETE'
+        }, this._opts)
+
+        await r.patch(`${apiUrl}/${apiVersion}/${model}`, options)
+      } else console.error('Not authenticated')
+    } catch (err) {
+      return errorHandler(err)
+    }
+  }
+
+  // Alias of remove()
+  destroy = this.remove
 }
