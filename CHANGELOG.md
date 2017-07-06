@@ -1,5 +1,9 @@
 #### 1.0.1 (2017-07-06)
 
+##### Build System / Dependencies
+
+* bump version ([aefdf577](https://github.com/wopian/kitsu/commit/aefdf57738e918b4a71317b553031f05780666da))
+
 ##### Chores
 
 * changelog adjustments ([3a7bc94f](https://github.com/wopian/kitsu/commit/3a7bc94ff385f9b7ee5829f6b9c644cdb9faa419))
