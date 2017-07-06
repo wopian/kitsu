@@ -1,8 +1,9 @@
 import r from 'got'
 import OAuth2 from 'client-oauth2'
+import kebab from 'decamelize'
 import { version } from '../package.json'
 import { serialise, deserialise } from './serialise'
-import { query, errorHandler } from './util'
+import { query } from './util'
 
 const apiVersion = 'edge'
 const apiUrl = `https://kitsu.io/api`
@@ -110,7 +111,7 @@ export default class Kitsu {
         filter: { self: true }
       })).data[0]
     } else {
-      return {
+      throw {
         errors: [
           {
             title: 'Not Logged In',
@@ -157,10 +158,10 @@ export default class Kitsu {
 
         return { accessToken }
       } else {
-        console.error('Missing required properties for authentication')
+        throw 'Missing required properties for authentication'
       }
     } catch (err) {
-      console.error(err)
+      throw err
     }
   }
 
@@ -191,10 +192,11 @@ export default class Kitsu {
   get = async (model, opts) => {
     try {
       // Handle response
-      let { body } = await r(`${apiUrl}/${apiVersion}/${model}${query(opts)}`, this._opts)
+      let { body } = await r(`${apiUrl}/${apiVersion}/${kebab(model, '-')}${query(opts)}`, this._opts)
+        .catch(err => { throw JSON.parse(err.response.body) || err.response.body })
       return deserialise(JSON.parse(body))
     } catch (err) {
-      return errorHandler(err)
+      throw err
     }
   }
 
@@ -223,18 +225,15 @@ export default class Kitsu {
    */
   post = async (model, data) => {
     try {
-      if (this.isAuth) {
-        // Handle request
-        const options = Object.assign({
-          body: serialise(model, data),
-          json: true,
-          method: 'POST'
-        }, this._opts)
-
-        await r.post(`${apiUrl}/${apiVersion}/${model}`, options)
-      } else console.error('Not authenticated')
+      if (!this.isAuth) throw 'Not authenticated'
+      // Handle request
+      const options = Object.assign({
+        body: JSON.stringify(serialise(model, data))
+      }, this._opts)
+      await r.post(`${apiUrl}/${apiVersion}/${kebab(model, '-')}`, options)
+        .catch(err => { throw JSON.parse(err.response.body) || err.response.body })
     } catch (err) {
-      return errorHandler(err)
+      throw err
     }
   }
 
@@ -255,18 +254,16 @@ export default class Kitsu {
    */
   patch = async (model, data) => {
     try {
-      if (this.isAuth) {
-        // Handle request
-        const options = Object.assign({
-          body: serialise(model, data, 'PATCH'),
-          json: true,
-          method: 'PATCH'
-        }, this._opts)
-
-        await r.patch(`${apiUrl}/${apiVersion}/${model}`, options)
-      } else console.error('Not authenticated')
+      if (!this.isAuth) throw 'Not authenticated'
+      if (typeof data.id === 'undefined') throw 'PATCH request is missing a model ID'
+      // Handle request
+      const options = Object.assign({
+        body: JSON.stringify(serialise(model, data, 'PATCH'))
+      }, this._opts)
+      await r.patch(`${apiUrl}/${apiVersion}/${kebab(model, '-')}/${data.id}`, options)
+        .catch(err => { throw JSON.parse(err.response.body) || err.response.body })
     } catch (err) {
-      return errorHandler(err)
+      throw err
     }
   }
 
@@ -286,17 +283,16 @@ export default class Kitsu {
    */
   remove = async (model, data) => {
     try {
-      if (this.isAuth) {
-        // Handle request
-        const options = Object.assign({
-          body: serialise(model, data, 'DELETE'),
-          json: true,
-          method: 'DELETE'
-        }, this._opts)
+      if (!this.isAuth) throw 'Not authenticated'
+      if (typeof data.id === 'undefined') throw 'PATCH request is missing a model ID'
+      // Handle request
+      const options = Object.assign({
+        body: JSON.stringify(serialise(model, data, 'DELETE'))
+      }, this._opts)
       await r.patch(`${apiUrl}/${apiVersion}/${kebab(model, '-')}/${data.id}`, options)
         .catch(err => { throw JSON.parse(err.response.body) || err.response.body })
     } catch (err) {
-      return errorHandler(err)
+      throw err
     }
   }
 

@@ -1,30 +1,3 @@
-/**
- * Error handler
- *
- * @param {*} err Error message
- * @returns {Object} An object containing the error details
- * @private
- */
-export const errorHandler = err => {
-  // Log errors to console
-  if (typeof window !== 'undefined' && typeof window.console !== 'undefined') window.console.error(err.statusMessage || err)
-  else if (typeof console !== 'undefined') console.error(err.statusMessage || err)
-
-  // Return error
-  if (err.constructor === Object) {
-    return {
-      errors: [
-        {
-          title: err.statusMessage,
-          detail: err.statusMessage,
-          code: err.statusCode,
-          status: err.statusCode
-        }
-      ]
-    }
-  }
-}
-
 /*
 {
   page: {
