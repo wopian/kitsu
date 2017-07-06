@@ -31,8 +31,9 @@ export default {
     'babel-runtime/helpers/createClass': '_createClass',
     'babel-runtime/helpers/typeof': '_typeof',
     'client-oauth2': 'OAuth2',
-    camelcase: 'camel',
+    decamelize: 'kebab',
     pluralize: 'plural',
+    camelcase: 'camel',
     got: 'r'
   },
   targets: [

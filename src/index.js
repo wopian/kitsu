@@ -293,9 +293,8 @@ export default class Kitsu {
           json: true,
           method: 'DELETE'
         }, this._opts)
-
-        await r.patch(`${apiUrl}/${apiVersion}/${model}`, options)
-      } else console.error('Not authenticated')
+      await r.patch(`${apiUrl}/${apiVersion}/${kebab(model, '-')}/${data.id}`, options)
+        .catch(err => { throw JSON.parse(err.response.body) || err.response.body })
     } catch (err) {
       return errorHandler(err)
     }
