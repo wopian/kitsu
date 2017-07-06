@@ -6,6 +6,11 @@
  * @private
  */
 export const errorHandler = err => {
+  // Log errors to console
+  if (typeof window !== 'undefined' && typeof window.console !== 'undefined') window.console.error(err.statusMessage || err)
+  else if (typeof console !== 'undefined') console.error(err.statusMessage || err)
+
+  // Return error
   if (err.constructor === Object) {
     return {
       errors: [
@@ -17,7 +22,7 @@ export const errorHandler = err => {
         }
       ]
     }
-  } else console.error(err)
+  }
 }
 
 /*
