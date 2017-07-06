@@ -1,3 +1,10 @@
+/**
+ * Error handler
+ *
+ * @param {*} err Error message
+ * @returns {Object} An object containing the error details
+ * @private
+ */
 export const errorHandler = err => {
   if (err.constructor === Object) {
     return {
@@ -29,6 +36,13 @@ export const errorHandler = err => {
   include: 'media'
 }
 */
+/**
+ * Query builder for requests
+ *
+ * @param {Object} opts Query parameters
+ * @returns {String} A query parameter chain
+ * @private
+ */
 export const query = opts => {
   let query = ''
 

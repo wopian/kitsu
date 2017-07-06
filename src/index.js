@@ -7,6 +7,31 @@ import { query, errorHandler } from './util'
 const apiVersion = 'edge'
 const apiUrl = `https://kitsu.io/api`
 
+/**
+ * JSON API `accept` and `content-type` headers are set
+ * automatically
+ * @param {Object} opts Options
+ * @param {String} opts.apiUrl Override the API url (default `https://kitsu.io/api`, not yet implemented)
+ * @param {String} opts.apiVersion Override the API version (`edge`, not yet implemented)
+ * @param {Number} opts.timeout Timeout in milliseconds (default `30000`)
+ * @param {Number} opts.retries Times to retry requests after network failures (default `2`)
+ * @param {Object} opts.headers Headers to send with requests
+ * @param {Boolean} opts.useElectronNet Use `electron.net` when used with Electron (default `true`)
+ *
+ * @example
+ * // Basic
+ * const kitsu = new Kitsu()
+ *
+ * @example
+ * // Set a custom `user-agent` header and reuse your authorization
+ * // `accessToken`
+ * const kitsu = new Kitsu({
+ *  headers: {
+ *    'user-agent': 'MyApp/1.0.0 (contact or link to repo)',
+ *    authorization: 'Bearer 1234567890'
+ *  }
+ * })
+ */
 export default class Kitsu {
   constructor (opts = {}) {
     // Set API Url
@@ -29,14 +54,53 @@ export default class Kitsu {
     })
   }
 
+  /**
+   * Get the current headers
+   * @returns {Object} Object containing the current headers
+   *
+   * @example
+   * console.log(kitsu.headers)
+   */
   get headers () {
     return this._opts.headers
   }
 
+  /**
+   * Check if the client is authenticated
+   * @returns {Boolean}
+   *
+   * @example
+   * if (kitsu.isAuth) console.log('Authenticated')
+   * else console.log('Not authenticated')
+   */
   get isAuth () {
     return Boolean(this._opts.headers.authorization)
   }
 
+  /**
+   * Set new or updated headers
+   * @param {String} field Header field name
+   * @param {String} value Header field value
+   *
+   * @example
+   * kitsu.setHeader('user-agent', 'MyApp/1.0.0 (contact or link to repo)')
+   */
+  setHeader = (field, value) => {
+    // Prevent overriding the JSON API headers
+    if (field.toLowerCase() !== 'user-agent' &&
+        field.toLowerCase() !== 'content-type'
+    ) this._opts.headers[field.toLowerCase()] = value
+  }
+
+  /**
+   * Get user data of the authenticated user
+   * @param {Object} opts
+   * @param {Boolean} opts.compact Return only the user ID & name
+   * @returns {Object} user data
+   *
+   * @example
+   * kitsu.whoAmI()
+   */
   whoAmI = async ({ compact } = false) => {
     if (this.isAuth) {
       return (await this.get('users', compact ? {
@@ -59,6 +123,23 @@ export default class Kitsu {
     }
   }
 
+  /**
+   * Authenticate as a Kitsu.io user
+   * @param {Object} opts
+   * @param {String} opts.clientId Unique client ID
+   * @param {String} opts.clientSecret Unique client secret
+   * @param {String} opts.username User's username
+   * @param {String} opts.password User's password
+   * @returns {Object} An object containing the `accessToken`
+   *
+   * @example
+   * kitsu.auth({
+   *   clientId: '1234567890',
+   *   clientSecret: '0987654321',
+   *   username: 'josh',
+   *   password: 'hunter2
+   * })
+   */
   auth = async ({ clientId, clientSecret, username, password }) => {
     try {
       if (clientId && clientSecret && username && password) {
@@ -83,6 +164,30 @@ export default class Kitsu {
     }
   }
 
+  /**
+   * Get resources - aliases: `fetch` & `find`
+   * @param {String} model Model to get data from
+   * @param {Object} opts Request queries
+   * @param {Object} opts.page
+   * @param {Number} opts.page.limit Number of resources to return in request (Max 20 for all methods other than `libraryEntries` (500))
+   * @param {Number} opts.page.offset Number of resources to offset the dataset by
+   * @param {Object} opts.fields Return a sparse fieldset with only the included attributes
+   * @param {Object} opts.filter Filter dataset by attribute values
+   * @param {String} opts.sort Sort dataset by one or more attributes (prepend `-` for descending order)
+   * @param {String} opts.include Include relationships
+   * @returns {Object} JSON parsed response
+   *
+   * @example
+   * // Get only a specific user's name and birthday
+   * kitsu.get('users', {
+   *   fields: {
+   *     users: 'name,birthday'
+   *   },
+   *   filter: {
+   *     name: 'wopian'
+   *   }
+   * })
+   */
   get = async (model, opts) => {
     try {
       // Handle response
@@ -93,21 +198,40 @@ export default class Kitsu {
     }
   }
 
-  // Aliases of get()
+  // Alias of get()
   fetch = this.get
   find = this.get
 
-  post = async (model, payload) => {
+  /**
+   * Create a new resource - aliases: `create`
+   * @param {String} model Model to create a resource under
+   * @param {Object} data Data to send in request
+   *
+   * @example
+   * // Post a comment to a user's own profile feed
+   * kitsu.post('posts', {
+   *   content: 'Hello world',
+   *   targetUser: {
+   *     id: '42603',
+   *     type: 'users'
+   *   },
+   *   user: {
+   *     id: '42603',
+   *     type: 'users'
+   *   }
+   * })
+   */
+  post = async (model, data) => {
     try {
       if (this.isAuth) {
         // Handle request
         const options = Object.assign({
-          body: serialise(model, payload),
+          body: serialise(model, data),
           json: true,
           method: 'POST'
         }, this._opts)
 
-        // await r.post(`${apiUrl}/${apiVersion}/${model}`, options)
+        await r.post(`${apiUrl}/${apiVersion}/${model}`, options)
       } else console.error('Not authenticated')
     } catch (err) {
       return errorHandler(err)
@@ -117,12 +241,24 @@ export default class Kitsu {
   // Alias of post()
   create = this.post
 
-  patch = async (model, payload) => {
+  /**
+   * Update an existing resource - aliases: `update`
+   * @param {String} model Model to update a resource under
+   * @param {Object} data Data to send in a request
+   *
+   * @example
+   * // Update a user's post (if created less than 30 mins ago)
+   * kitsu.patch('posts', {
+   *   id: '12345678',
+   *   content: 'Goodbye world',
+   * })
+   */
+  patch = async (model, data) => {
     try {
       if (this.isAuth) {
         // Handle request
         const options = Object.assign({
-          body: serialise(model, payload, 'PATCH'),
+          body: serialise(model, data, 'PATCH'),
           json: true,
           method: 'PATCH'
         }, this._opts)
@@ -137,12 +273,23 @@ export default class Kitsu {
   // Alias of patch()
   update = this.patch
 
-  remove = async (model, payload) => {
+  /**
+   * Delete an existing resource - aliases: `destroy`
+   * @param {String} model Model to update a resource under
+   * @param {Object} data Data to send in a request
+   *
+   * @example
+   * // Delete a user's post
+   * kitsu.patch('posts', {
+   *   id: '12345678',
+   * })
+   */
+  remove = async (model, data) => {
     try {
       if (this.isAuth) {
         // Handle request
         const options = Object.assign({
-          body: serialise(model, payload, 'DELETE'),
+          body: serialise(model, data, 'DELETE'),
           json: true,
           method: 'DELETE'
         }, this._opts)

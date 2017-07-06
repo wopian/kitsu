@@ -11,8 +11,10 @@
   },
   "scripts": {
     "test": "jest --coverage",
+    "docs": "documentation build src/index.js -f md -o DOCS.md",
+    "toc": "markdown-toc README.md",
     "build": "yarn run rollup && yarn run uglify",
-    "prepublishOnly": "jest && yarn run build",
+    "prepublishOnly": "jest && yarn run build && yarn run docs",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "uglify": "uglifyjs lib/kitsu.js -c -m -o lib/kitsu.js && uglifyjs lib/kitsu.mjs -c -m -o lib/kitsu.mjs",
     "start": "yarn run example:basic",
@@ -51,7 +53,7 @@
     "camelcase": "~4.1.0",
     "client-oauth2": "~4.1.0",
     "got": "~7.1.0",
-    "pluralize": "^5.0.0"
+    "pluralize": "~5.0.0"
   },
   "devDependencies": {
     "babel-cli": "~6.24.1",
@@ -61,12 +63,14 @@
     "babel-preset-env": "~1.6.0",
     "babel-preset-stage-0": "~6.24.1",
     "cross-env": "~5.0.1",
+    "documentation": "~4.0.0-rc.1",
     "eslint": "~4.1.1",
     "jest": "~20.0.4",
     "js-beautify": "~1.6.14",
+    "markdown-toc": "~1.1.0",
     "rollup": "^0.43.0",
     "rollup-plugin-babel": "~2.7.1",
-    "rollup-plugin-babili": "^3.1.0",
+    "rollup-plugin-babili": "~3.1.0",
     "rollup-plugin-json": "~2.3.0",
     "standard": "~10.0.2",
     "uglify-es": "~3.0.22"

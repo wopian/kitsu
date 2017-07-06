@@ -6,6 +6,16 @@ import { errorHandler } from './util'
 plural.addUncountableRule('anime')
 plural.addUncountableRule('manga')
 
+/**
+ * Filters includes for the specific relationship
+ *
+ * @param {Object} included The response included object
+ * @param {Object} options
+ * @param {String} options.id The relationship ID
+ * @param {String} options.type The relationship type
+ * @returns {Array} The matched includes
+ * @private
+ */
 export const filterIncludes = async (included, { id, type }) => {
   return included.filter(async obj => {
     await linkRelationships([obj], included)
@@ -13,6 +23,13 @@ export const filterIncludes = async (included, { id, type }) => {
   })
 }
 
+/**
+ * Links relationships to included data
+ *
+ * @param {Object} data The response data object
+ * @param {Object} included The response included object
+ * @private
+ */
 export const linkRelationships = async (data, included) => {
   try {
     const { attributes, relationships } = data
@@ -34,49 +51,14 @@ export const linkRelationships = async (data, included) => {
   }
 }
 
-/*
-  data: {
-    id: '1234',
-    type: 'posts'
-    attributes: {
-      content: 'Hello world'
-    },
-    relationships: {
-      targetUser: {
-        data: {
-          id: '1234',
-          type: 'users'
-        }
-      },
-      user: {
-        data: {
-          id: '1234',
-          type: 'users'
-        }
-      }
-    }
-  }
-*/
-
-/*
-  data: {
-    id: '1234'
-    content: 'Hello world',
-    targetUser: {
-      id: '1234',
-      type: 'users'
-    },
-    user: {
-      id: '1234'
-      type: 'users'
-    }
-  }
-*/
-
 /**
  * Serialises an object into a JSON-API structure
  *
- * @param {*} obj The payload object
+ * @param {String} model Request model
+ * @param {Object} obj The data
+ * @param {String} method Request type
+ * @returns {Object} The serialised data
+ * @private
  */
 export function serialise (model, obj = {}, method = 'POST') {
   try {
@@ -123,9 +105,11 @@ export function serialise (model, obj = {}, method = 'POST') {
 }
 
 /**
- * Deserialises the JSON-API structure
+ * Deserialises an object from a JSON-API structure
  *
- * @param {*} obj The response body object
+ * @param {Object} obj The response
+ * @returns {Object} The serialised response
+ * @private
  */
 export function deserialise (obj) {
   try {
