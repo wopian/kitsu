@@ -47,7 +47,7 @@ export const linkRelationships = async (data, included) => {
     }
     delete data.relationships
   } catch (err) {
-    console.log(err)
+    errorHandler(err)
   }
 }
 
@@ -95,8 +95,6 @@ export function serialise (model, obj = {}, method = 'POST') {
           data.attributes[prop] = obj[prop]
         }
       }
-
-      console.log(data.relationships)
       return { data }
     }
   } catch (err) {
