@@ -1,3 +1,13 @@
+#### 1.2.1 (2017-07-08)
+
+##### Build System / Dependencies
+
+* cause release script to fail on test failures ([b10dc982](https://github.com/wopian/kitsu/commit/b10dc98256468b63c9a2f86e44202af817674f8c))
+
+##### Bug Fixes
+
+* ensure isAuth returns true when header set ([1f3ee195](https://github.com/wopian/kitsu/commit/1f3ee19549855df77fb3609d74819d7196154f2a))
+
 ### 1.2.0 (2017-07-06)
 
 ##### Bug Fixes
