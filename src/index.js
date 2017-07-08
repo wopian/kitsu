@@ -75,7 +75,7 @@ export default class Kitsu {
    * else console.log('Not authenticated')
    */
   get isAuth () {
-    return Boolean(this._opts.headers.authorization)
+    return Boolean(typeof this._opts.headers.authorization !== 'undefined')
   }
 
   /**
