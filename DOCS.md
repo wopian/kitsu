@@ -5,13 +5,13 @@
 -   [Kitsu](#kitsu)
     -   [headers](#headers)
     -   [isAuth](#isauth)
-    -   [setHeader](#setheader)
     -   [auth](#auth)
     -   [get](#get)
     -   [patch](#patch)
     -   [post](#post)
     -   [remove](#remove)
     -   [whoAmI](#whoami)
+-   [header](#header)
 
 ## Kitsu
 
@@ -70,21 +70,6 @@ else console.log('Not authenticated')
 ```
 
 Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
-### setHeader
-
-Set new or updated headers
-
-**Parameters**
-
--   `field` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Header field name
--   `value` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Header field value
-
-**Examples**
-
-```javascript
-kitsu.setHeader('user-agent', 'MyApp/1.0.0 (contact or link to repo)')
-```
 
 ### auth
 
@@ -249,3 +234,18 @@ kitsu.whoAmI()
 ```
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** user data
+
+## header
+
+Set new or updated headers
+
+**Parameters**
+
+-   `field` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Header field name
+-   `value` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Header field value
+
+**Examples**
+
+```javascript
+kitsu.header('user-agent', 'MyApp/1.0.0 (contact or link to repo)')
+```
