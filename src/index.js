@@ -1,7 +1,6 @@
 import { version } from '../package.json'
 import auth from './methods/auth'
 import get from './methods/get'
-import header from './methods/header'
 import patch from './methods/patch'
 import post from './methods/post'
 import remove from './methods/remove'
@@ -55,7 +54,6 @@ export default class Kitsu {
 
     this.auth = auth.bind(this)
     this.get = get.bind(this)
-    this.header = header.bind(this)
     this.patch = patch.bind(this)
     this.post = post.bind(this)
     this.remove = remove.bind(this)
@@ -67,7 +65,16 @@ export default class Kitsu {
    * @returns {Object} Object containing the current headers
    *
    * @example
+   * // Display all headers
    * console.log(kitsu.headers)
+   *
+   * @example
+   * // Display a specific header
+   * console.log(kitsu.headers['user-agent'])
+   *
+   * @example
+   * // Add or update a header
+   * kitsu.headers['authorization'] = 'Bearer 1234567890'
    */
   get headers () {
     return this._opts.headers
@@ -92,6 +99,4 @@ export default class Kitsu {
   create = this.post
   update = this.patch
   destroy = this.remove
-  // Deprecation aliases
-  setHeader = this.header
 }
