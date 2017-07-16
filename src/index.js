@@ -60,6 +60,14 @@ export default class Kitsu {
     this.whoAmI = whoAmI.bind(this)
   }
 
+  // Aliases (devour migration)
+  fetch = this.get
+  find = this.get
+  findAll = this.get
+  create = this.post
+  update = this.patch
+  destroy = this.remove
+
   /**
    * Get the current headers
    * @returns {Object} Object containing the current headers
@@ -91,12 +99,4 @@ export default class Kitsu {
   get isAuth () {
     return Boolean(typeof this._opts.headers.authorization !== 'undefined')
   }
-
-  // Aliases (devour migration)
-  fetch = this.get
-  find = this.get
-  findAll = this.get
-  create = this.post
-  update = this.patch
-  destroy = this.remove
 }
