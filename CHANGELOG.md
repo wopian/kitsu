@@ -1,3 +1,17 @@
+#### 1.2.2 (2017-07-16)
+
+##### Build System / Dependencies
+
+* use rollup-cleanup over uglify-es ([2eb60f3c](https://github.com/wopian/kitsu/commit/2eb60f3c441224cb060a18ffd49d1e308d612641))
+
+##### Documentation Changes
+
+* add more get examples ([005bd996](https://github.com/wopian/kitsu/commit/005bd99644e2f49c60baf14c78866048b1ccc00a))
+
+##### Refactors
+
+* split class into multiple files ([8cf599e0](https://github.com/wopian/kitsu/commit/8cf599e0324c0e7492e96b4f4a0d09992583ea80))
+
 #### 1.2.1 (2017-07-08)
 
 ##### Build System / Dependencies

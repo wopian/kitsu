@@ -141,6 +141,33 @@ kitsu.get('users', {
 })
 ```
 
+```javascript
+// Get collection of anime resources and their categories
+kitsu.get('anime', {
+  include: 'categories'
+})
+```
+
+```javascript
+// Get a specific resource and its relationships by ID (method one)
+kitsu.get('anime', {
+  include: 'categories',
+  filter: { id: '2' }
+})
+```
+
+```javascript
+// Get a specific resource and its relationships by ID (method two)
+kitsu.get('anime/2', {
+  include: 'categories'
+})
+```
+
+```javascript
+// Get a specific resource's relationship data only
+kitsu.get('anime/2/categories')
+```
+
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON parsed response
 
 ### patch
