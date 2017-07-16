@@ -23,7 +23,7 @@ const showPopular = async () => {
     })
     console.log('\nTop 5 popular anime:')
     data.forEach(anime => {
-      console.log(`- ${anime.attributes.canonicalTitle}`)
+      console.log(`- ${anime.canonicalTitle}`)
     })
   } catch (err) {
     console.log(err)

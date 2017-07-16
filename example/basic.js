@@ -22,7 +22,7 @@ try {
   }).then(({ data }) => {
     console.log('\nTop 5 popular manga:')
     data.forEach(manga => {
-      console.log(`- ${manga.attributes.canonicalTitle}`)
+      console.log(`- ${manga.canonicalTitle}`)
     })
   })
 } catch (err) {
