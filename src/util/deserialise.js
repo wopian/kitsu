@@ -1,3 +1,4 @@
+import { deattribute } from './deattribute'
 import { linkRelationships } from './linkRelationships'
 
 /**
@@ -9,16 +10,22 @@ import { linkRelationships } from './linkRelationships'
  */
 export async function deserialise (obj) {
   try {
-    // Handle relationships
+    // Collection of resources
     // Note: constructor is currently faster than isArray()
     // http://jsben.ch/QgYAV
     if (obj.data && obj.data.constructor === Array) {
-      obj.data.forEach(async data => {
-        if (obj.included) await linkRelationships(data, obj.included)
-      })
-    } else if (obj.included) linkRelationships(obj.data, obj.included)
+      for (let [index, value] of await obj.data.entries()) {
+        if (obj.included) value = await linkRelationships(value, obj.included)
+        if (value.attributes) value = await deattribute(value)
+        obj.data[index] = value
+      }
+    // Single resource
+    } else if (obj.included) obj.data = await linkRelationships(obj.data, obj.included)
 
     delete obj.included
+
+    // Move attributes to the parent object
+    if (obj.data.attributes) obj.data = await deattribute(obj.data)
 
     return obj
   } catch (e) {
