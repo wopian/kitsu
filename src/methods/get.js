@@ -1,7 +1,6 @@
 import r from 'got'
 import kebab from 'decamelize'
-import { deserialise } from '../serialise'
-import { query } from '../util'
+import { deserialise, query } from '../util'
 
 /**
  * Get resources - aliases: `fetch` & `find`
@@ -56,6 +55,8 @@ export default async function (model, opts) {
     // Handle response
     let { body } = await r(`${this._apiUrl}/${this._apiVersion}/${kebab(model, '-')}${query(opts)}`, this._opts)
       .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
+    await console.log(await body)
+    await console.log(await deserialise(JSON.parse(body)))
     return deserialise(JSON.parse(body))
   } catch (e) {
     throw e

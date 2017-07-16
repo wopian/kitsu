@@ -1,7 +1,7 @@
 .vscode
 example
 src
-test
+coverage
 .appveyor.yml
 .babelrc
 .codeclimate.yml

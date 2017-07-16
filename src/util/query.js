@@ -21,7 +21,7 @@
  * @returns {String} A query parameter chain
  * @private
  */
-export const query = opts => {
+export function query (opts) {
   let query = ''
 
   for (let param in opts) {

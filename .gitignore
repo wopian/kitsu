@@ -1,5 +1,5 @@
 node_modules
 lib
-test/coverage
+coverage
 **/env.js
 *.log*

@@ -2,6 +2,7 @@ import babel from 'rollup-plugin-babel'
 import babili from 'rollup-plugin-babili'
 import json from 'rollup-plugin-json'
 import cleanup from 'rollup-plugin-cleanup'
+import local from 'rollup-plugin-local-resolve'
 import pkg from './package.json'
 
 let external = Object.keys(pkg.dependencies)
@@ -13,6 +14,7 @@ let plugins = [
   babili({
     comments: false
   }),
+  local(),
   json(),
   cleanup({
     extensions: [ '.js', '.mjs' ]

@@ -1,6 +1,6 @@
 import r from 'got'
 import kebab from 'decamelize'
-import { serialise } from '../serialise'
+import { serialise } from '../util'
 
 /**
  * Update an existing resource - aliases: `update`
