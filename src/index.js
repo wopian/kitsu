@@ -1,6 +1,7 @@
 import { version } from '../package.json'
 import auth from './methods/auth'
 import get from './methods/get'
+import header from './methods/header'
 import patch from './methods/patch'
 import post from './methods/post'
 import remove from './methods/remove'
@@ -9,13 +10,13 @@ import whoAmI from './methods/whoAmI'
 /**
  * JSON API `accept` and `content-type` headers are set
  * automatically
- * @param {Object} options Options
- * @param {String} options.apiUrl Override the API url (default `https://kitsu.io/api`, not yet implemented)
- * @param {String} options.apiVersion Override the API version (`edge`, not yet implemented)
- * @param {Number} options.timeout Timeout in milliseconds (default `30000`)
- * @param {Number} options.retries Times to retry requests after network failures (default `2`)
- * @param {Object} options.headers Headers to send with requests
- * @param {Boolean} options.useElectronNet Use `electron.net` when used with Electron (default `true`)
+ * @param {Object} opts Options
+ * @param {String} opts.apiUrl Override the API url (default `https://kitsu.io/api`, not yet implemented)
+ * @param {String} opts.apiVersion Override the API version (`edge`, not yet implemented)
+ * @param {Number} opts.timeout Timeout in milliseconds (default `30000`)
+ * @param {Number} opts.retries Times to retry requests after network failures (default `2`)
+ * @param {Object} opts.headers Headers to send with requests
+ * @param {Boolean} opts.useElectronNet Use `electron.net` when used with Electron (default `true`)
  *
  * @example
  * // Basic
@@ -32,25 +33,33 @@ import whoAmI from './methods/whoAmI'
  * })
  */
 export default class Kitsu {
-  constructor (options = {}) {
-    this._options = options
+  constructor (opts = {}) {
+    this._opts = opts
 
     // Set API Url
-    this._apiUrl = this._options.apiUrl || 'https://kitsu.io/api'
-    this._apiVersion = this._options.apiVersion || 'edge'
-    // delete options.apiUrl
-    // delete options.apiVersion
+    this._apiUrl = this._opts.apiUrl || 'https://kitsu.io/api'
+    this._apiVersion = this._opts.apiVersion || 'edge'
+    // delete opts.apiUrl
+    // delete opts.apiVersion
 
-    this._options.timeout = this._options.timeout || 30000
-    this._options.retries = this._options.retries || 2
+    this._opts.timeout = this._opts.timeout || 30000
+    this._opts.retries = this._opts.retries || 2
 
     // Set Headers
-    this._options.headers = Object.assign({
+    this._opts.headers = Object.assign({
       'user-agent': `Kitsu/${version} (https://github.com/wopian/kitsu)`
-    }, this._options.headers, {
+    }, this._opts.headers, {
       'accept': 'application/vnd.api+json',
       'content-type': 'application/vnd.api+json'
     })
+
+    this.auth = auth.bind(this)
+    this.get = get.bind(this)
+    this.header = header.bind(this)
+    this.patch = patch.bind(this)
+    this.post = post.bind(this)
+    this.remove = remove.bind(this)
+    this.whoAmI = whoAmI.bind(this)
   }
 
   /**
@@ -61,7 +70,7 @@ export default class Kitsu {
    * console.log(kitsu.headers)
    */
   get headers () {
-    return this._options.headers
+    return this._opts.headers
   }
 
   /**
@@ -73,7 +82,7 @@ export default class Kitsu {
    * else console.log('Not authenticated')
    */
   get isAuth () {
-    return Boolean(typeof this._options.headers.authorization !== 'undefined')
+    return Boolean(typeof this._opts.headers.authorization !== 'undefined')
   }
 
   // Aliases (devour migration)
@@ -86,12 +95,3 @@ export default class Kitsu {
   // Deprecation aliases
   setHeader = this.header
 }
-
-Object.assign(Kitsu.prototype, {
-  auth,
-  get,
-  patch,
-  post,
-  remove,
-  whoAmI
-})
