@@ -1,12 +1,10 @@
-import r from 'got'
-import OAuth2 from 'client-oauth2'
-import kebab from 'decamelize'
 import { version } from '../package.json'
-import { serialise, deserialise } from './serialise'
-import { query } from './util'
-
-const apiVersion = 'edge'
-const apiUrl = `https://kitsu.io/api`
+import auth from './methods/auth'
+import get from './methods/get'
+import patch from './methods/patch'
+import post from './methods/post'
+import remove from './methods/remove'
+import whoAmI from './methods/whoAmI'
 
 /**
  * JSON API `accept` and `content-type` headers are set
@@ -35,13 +33,13 @@ const apiUrl = `https://kitsu.io/api`
  */
 export default class Kitsu {
   constructor (opts = {}) {
-    // Set API Url
-    this._apiUrl = opts.apiUrl
-    this._apiVersion = opts.apiVersion
-    delete opts.apiUrl
-    delete opts.apiVersion
-
     this._opts = opts
+
+    // Set API Url
+    this._apiUrl = this._opts.apiUrl || 'https://kitsu.io/api'
+    this._apiVersion = this._opts.apiVersion || 'edge'
+    // delete opts.apiUrl
+    // delete opts.apiVersion
 
     this._opts.timeout = this._opts.timeout || 30000
     this._opts.retries = this._opts.retries || 2
@@ -93,201 +91,20 @@ export default class Kitsu {
     ) this._opts.headers[field.toLowerCase()] = value
   }
 
-  /**
-   * Get user data of the authenticated user
-   * @param {Object} opts
-   * @param {Boolean} opts.compact Return only the user ID & name
-   * @returns {Object} user data
-   *
-   * @example
-   * kitsu.whoAmI()
-   */
-  whoAmI = async ({ compact } = false) => {
-    try {
-      if (!this.isAuth) throw new Error('Not authenticated')
-      return (await this.get('users', compact ? {
-        filter: { self: true },
-        fields: { users: 'name' }
-      } : {
-        filter: { self: true }
-      })).data[0]
-    } catch (e) {
-      throw e
-    }
-  }
-
-  /**
-   * Authenticate as a Kitsu.io user
-   * @param {Object} opts
-   * @param {String} opts.clientId Unique client ID
-   * @param {String} opts.clientSecret Unique client secret
-   * @param {String} opts.username User's username
-   * @param {String} opts.password User's password
-   * @returns {Object} An object containing the `accessToken`
-   *
-   * @example
-   * kitsu.auth({
-   *   clientId: '1234567890',
-   *   clientSecret: '0987654321',
-   *   username: 'josh',
-   *   password: 'hunter2'
-   * })
-   */
-  auth = async ({ clientId, clientSecret, username, password }) => {
-    try {
-      if (clientId && clientSecret && username && password) {
-        const { owner } = new OAuth2({
-          clientId,
-          clientSecret,
-          accessTokenUri: `${apiUrl}/oauth/token`
-        })
-
-        let { accessToken } = await owner.getToken(username, password)
-
-        this._opts.headers = Object.assign(this._opts.headers, {
-          'authorization': `Bearer ${accessToken}`
-        })
-
-        return { accessToken }
-      } else {
-        throw new Error('Missing required properties for authentication')
-      }
-    } catch (e) {
-      throw e
-    }
-  }
-
-  /**
-   * Get resources - aliases: `fetch` & `find`
-   * @param {String} model Model to get data from
-   * @param {Object} opts Request queries
-   * @param {Object} opts.page
-   * @param {Number} opts.page.limit Number of resources to return in request (Max 20 for all methods other than `libraryEntries` (500))
-   * @param {Number} opts.page.offset Number of resources to offset the dataset by
-   * @param {Object} opts.fields Return a sparse fieldset with only the included attributes
-   * @param {Object} opts.filter Filter dataset by attribute values
-   * @param {String} opts.sort Sort dataset by one or more attributes (prepend `-` for descending order)
-   * @param {String} opts.include Include relationships
-   * @returns {Object} JSON parsed response
-   *
-   * @example
-   * // Get only a specific user's name and birthday
-   * kitsu.get('users', {
-   *   fields: {
-   *     users: 'name,birthday'
-   *   },
-   *   filter: {
-   *     name: 'wopian'
-   *   }
-   * })
-   */
-  get = async (model, opts) => {
-    try {
-      // Handle response
-      let { body } = await r(`${apiUrl}/${apiVersion}/${kebab(model, '-')}${query(opts)}`, this._opts)
-        .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
-      return deserialise(JSON.parse(body))
-    } catch (e) {
-      throw e
-    }
-  }
-
-  // Alias of get()
+  // Alias (devour)
   fetch = this.get
   find = this.get
-
-  /**
-   * Create a new resource - aliases: `create`
-   * @param {String} model Model to create a resource under
-   * @param {Object} data Data to send in request
-   *
-   * @example
-   * // Post a comment to a user's own profile feed
-   * kitsu.post('posts', {
-   *   content: 'Hello world',
-   *   targetUser: {
-   *     id: '42603',
-   *     type: 'users'
-   *   },
-   *   user: {
-   *     id: '42603',
-   *     type: 'users'
-   *   }
-   * })
-   */
-  post = async (model, data) => {
-    try {
-      if (!this.isAuth) throw new Error('Not authenticated')
-      // Handle request
-      const options = Object.assign({
-        body: JSON.stringify(serialise(model, data))
-      }, this._opts)
-      await r.post(`${apiUrl}/${apiVersion}/${kebab(model, '-')}`, options)
-        .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
-    } catch (e) {
-      throw e
-    }
-  }
-
-  // Alias of post()
+  findAll = this.get
   create = this.post
-
-  /**
-   * Update an existing resource - aliases: `update`
-   * @param {String} model Model to update a resource under
-   * @param {Object} data Data to send in a request
-   *
-   * @example
-   * // Update a user's post (if created less than 30 mins ago)
-   * kitsu.patch('posts', {
-   *   id: '12345678',
-   *   content: 'Goodbye world',
-   * })
-   */
-  patch = async (model, data) => {
-    try {
-      if (!this.isAuth) throw new Error('Not authenticated')
-      if (typeof data.id === 'undefined') throw new Error('PATCH request is missing a model ID')
-      // Handle request
-      const options = Object.assign({
-        body: JSON.stringify(serialise(model, data, 'PATCH'))
-      }, this._opts)
-      await r.patch(`${apiUrl}/${apiVersion}/${kebab(model, '-')}/${data.id}`, options)
-        .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
-    } catch (e) {
-      throw e
-    }
-  }
-
-  // Alias of patch()
   update = this.patch
-
-  /**
-   * Delete an existing resource - aliases: `destroy`
-   * @param {String} model Model to update a resource under
-   * @param {Object} data Data to send in a request
-   *
-   * @example
-   * // Delete a user's post
-   * kitsu.remove('posts', {
-   *   id: '12345678',
-   * })
-   */
-  remove = async (model, data) => {
-    try {
-      if (!this.isAuth) throw new Error('Not authenticated')
-      if (typeof data.id === 'undefined') throw new Error('PATCH request is missing a model ID')
-      // Handle request
-      const options = Object.assign({
-        body: JSON.stringify(serialise(model, data, 'DELETE'))
-      }, this._opts)
-      await r.patch(`${apiUrl}/${apiVersion}/${kebab(model, '-')}/${data.id}`, options)
-        .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
-    } catch (e) {
-      throw e
-    }
-  }
-
-  // Alias of remove()
   destroy = this.remove
 }
+
+Object.assign(Kitsu.prototype, {
+  auth,
+  get,
+  patch,
+  post,
+  remove,
+  whoAmI
+})

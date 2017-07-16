@@ -6,12 +6,12 @@
     -   [headers](#headers)
     -   [isAuth](#isauth)
     -   [setHeader](#setheader)
-    -   [whoAmI](#whoami)
     -   [auth](#auth)
     -   [get](#get)
-    -   [post](#post)
     -   [patch](#patch)
+    -   [post](#post)
     -   [remove](#remove)
+    -   [whoAmI](#whoami)
 
 ## Kitsu
 
@@ -86,23 +86,6 @@ Set new or updated headers
 kitsu.setHeader('user-agent', 'MyApp/1.0.0 (contact or link to repo)')
 ```
 
-### whoAmI
-
-Get user data of the authenticated user
-
-**Parameters**
-
--   `opts` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `opts.compact` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Return only the user ID & name
-
-**Examples**
-
-```javascript
-kitsu.whoAmI()
-```
-
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** user data
-
 ### auth
 
 Authenticate as a Kitsu.io user
@@ -160,6 +143,25 @@ kitsu.get('users', {
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON parsed response
 
+### patch
+
+Update an existing resource - aliases: `update`
+
+**Parameters**
+
+-   `model` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to update a resource under
+-   `data` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Data to send in a request
+
+**Examples**
+
+```javascript
+// Update a user's post (if created less than 30 mins ago)
+kitsu.patch('posts', {
+  id: '12345678',
+  content: 'Goodbye world',
+})
+```
+
 ### post
 
 Create a new resource - aliases: `create`
@@ -186,25 +188,6 @@ kitsu.post('posts', {
 })
 ```
 
-### patch
-
-Update an existing resource - aliases: `update`
-
-**Parameters**
-
--   `model` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to update a resource under
--   `data` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Data to send in a request
-
-**Examples**
-
-```javascript
-// Update a user's post (if created less than 30 mins ago)
-kitsu.patch('posts', {
-  id: '12345678',
-  content: 'Goodbye world',
-})
-```
-
 ### remove
 
 Delete an existing resource - aliases: `destroy`
@@ -222,3 +205,20 @@ kitsu.remove('posts', {
   id: '12345678',
 })
 ```
+
+### whoAmI
+
+Get user data of the authenticated user
+
+**Parameters**
+
+-   `opts` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `false`)
+    -   `opts.compact` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Return only the user ID & name
+
+**Examples**
+
+```javascript
+kitsu.whoAmI()
+```
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** user data
