@@ -76,28 +76,15 @@ export default class Kitsu {
     return Boolean(typeof this._options.headers.authorization !== 'undefined')
   }
 
-  /**
-   * Set new or updated headers
-   * @param {String} field Header field name
-   * @param {String} value Header field value
-   *
-   * @example
-   * kitsu.setHeader('user-agent', 'MyApp/1.0.0 (contact or link to repo)')
-   */
-  setHeader = (field, value) => {
-    // Prevent overriding the JSON API headers
-    if (field.toLowerCase() !== 'user-agent' &&
-        field.toLowerCase() !== 'content-type'
-    ) this._options.headers[field.toLowerCase()] = value
-  }
-
-  // Alias (devour)
+  // Aliases (devour migration)
   fetch = this.get
   find = this.get
   findAll = this.get
   create = this.post
   update = this.patch
   destroy = this.remove
+  // Deprecation aliases
+  setHeader = this.header
 }
 
 Object.assign(Kitsu.prototype, {
