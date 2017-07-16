@@ -27,6 +27,29 @@ import { query } from '../util'
  *     name: 'wopian'
  *   }
  * })
+ *
+ * @example
+ * // Get collection of anime resources and their categories
+ * kitsu.get('anime', {
+ *   include: 'categories'
+ * })
+ *
+ * @example
+ * // Get a specific resource and its relationships by ID (method one)
+ * kitsu.get('anime', {
+ *   include: 'categories',
+ *   filter: { id: '2' }
+ * })
+ *
+ * @example
+ * // Get a specific resource and its relationships by ID (method two)
+ * kitsu.get('anime/2', {
+ *   include: 'categories'
+ * })
+ *
+ * @example
+ * // Get a specific resource's relationship data only
+ * kitsu.get('anime/2/categories')
  */
 export default async function (model, opts) {
   try {
