@@ -28,14 +28,14 @@ describe('deserialise', () => {
     })).resolves.toEqual({
       data: [{
         attributes: {
-          characters: {
+          name: 'Josh',
+          waifu: {
             attributes: {
               name: 'Genkai'
             },
             id: '1',
             type: 'characters'
-          },
-          name: 'Josh'
+          }
         },
         id: '1',
         type: 'users'

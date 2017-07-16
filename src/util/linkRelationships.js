@@ -13,13 +13,13 @@ export async function linkRelationships (data, included) {
     for (let key in relationships) {
       if (relationships[key].data && relationships[key].data.constructor === Array) {
         for (let { id, type } of relationships[key].data) {
-          if (!attributes[type]) attributes[type] = []
-          attributes[type].push((await filterIncludes(included, { id, type }))[0])
+          if (!attributes[key]) attributes[key] = []
+          attributes[key].push((await filterIncludes(included, { id, type }))[0])
         }
       } else if (relationships[key].data) {
         const { id, type } = relationships[key].data
-        if (!attributes[type]) attributes[type] = (await filterIncludes(included, { id, type }))[0]
-        delete attributes[type].relationships
+        if (!attributes[key]) attributes[key] = (await filterIncludes(included, { id, type }))[0]
+        delete attributes[key].relationships
       }
     }
     delete data.relationships
