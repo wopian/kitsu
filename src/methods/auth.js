@@ -3,11 +3,11 @@ import OAuth2 from 'client-oauth2'
 /**
  * Authenticate as a Kitsu.io user
  * @memberof Kitsu
- * @param {Object} opts
- * @param {String} opts.clientId Unique client ID
- * @param {String} opts.clientSecret Unique client secret
- * @param {String} opts.username User's username
- * @param {String} opts.password User's password
+ * @param {Object} options
+ * @param {String} options.clientId Unique client ID
+ * @param {String} options.clientSecret Unique client secret
+ * @param {String} options.username User's username
+ * @param {String} options.password User's password
  * @returns {Object} An object containing the `accessToken`
  *
  * @example
@@ -29,7 +29,7 @@ export default async function ({ clientId, clientSecret, username, password }) {
 
       let { accessToken } = await owner.getToken(username, password)
 
-      this._opts.headers = Object.assign(this._opts.headers, {
+      this._options.headers = Object.assign(this._options.headers, {
         'authorization': `Bearer ${accessToken}`
       })
 

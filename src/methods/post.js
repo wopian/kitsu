@@ -28,7 +28,7 @@ export default async function (model, data) {
     // Handle request
     const options = Object.assign({
       body: JSON.stringify(serialise(model, data))
-    }, this._opts)
+    }, this._options)
     await r.post(`${this._apiUrl}/${this._apiVersion}/${kebab(model, '-')}`, options)
       .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
   } catch (e) {

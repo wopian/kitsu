@@ -21,7 +21,7 @@ export default async function (model, data) {
     // Handle request
     const options = Object.assign({
       body: JSON.stringify(serialise(model, data, 'DELETE'))
-    }, this._opts)
+    }, this._options)
     await r.patch(`${this._apiUrl}/${this._apiVersion}/${kebab(model, '-')}/${data.id}`, options)
       .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
   } catch (e) {

@@ -1,8 +1,8 @@
 /**
  * Get user data of the authenticated user
  * @memberof Kitsu
- * @param {Object} opts
- * @param {Boolean} opts.compact Return only the user ID & name
+ * @param {Object} options
+ * @param {Boolean} options.compact Return only the user ID & name
  * @returns {Object} user data
  *
  * @example
