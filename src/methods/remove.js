@@ -19,10 +19,10 @@ export default async function (model, data) {
     if (!this.isAuth) throw new Error('Not authenticated')
     if (typeof data.id === 'undefined') throw new Error('PATCH request is missing a model ID')
     // Handle request
-    const options = Object.assign({
+    const opts = Object.assign({
       body: JSON.stringify(serialise(model, data, 'DELETE'))
-    }, this._options)
-    await r.patch(`${this._apiUrl}/${this._apiVersion}/${kebab(model, '-')}/${data.id}`, options)
+    }, this._opts)
+    await r.patch(`${this._apiUrl}/${this._apiVersion}/${kebab(model, '-')}/${data.id}`, opts)
       .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
   } catch (e) {
     throw e

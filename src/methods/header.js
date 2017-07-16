@@ -10,5 +10,5 @@ export default async function (field, value) {
   // Prevent overriding the JSON API headers
   if (field.toLowerCase() !== 'accepts' &&
       field.toLowerCase() !== 'content-type'
-  ) this._options.headers[field.toLowerCase()] = value
+  ) this._opts.headers[field.toLowerCase()] = value
 }

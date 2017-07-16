@@ -9,9 +9,9 @@ plural.addUncountableRule('manga')
  * Filters includes for the specific relationship
  *
  * @param {Object} included The response included object
- * @param {Object} options
- * @param {String} options.id The relationship ID
- * @param {String} options.type The relationship type
+ * @param {Object} opts
+ * @param {String} opts.id The relationship ID
+ * @param {String} opts.type The relationship type
  * @returns {Array} The matched includes
  * @private
  */

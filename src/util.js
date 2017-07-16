@@ -21,17 +21,17 @@
  * @returns {String} A query parameter chain
  * @private
  */
-export const query = options => {
+export const query = opts => {
   let query = ''
 
-  for (let param in options) {
-    if (typeof options[param] === 'object') {
-      Object.keys(options[param]).forEach(value => {
-        query += `&${param}[${value}]=${options[param][value]}`
+  for (let param in opts) {
+    if (typeof opts[param] === 'object') {
+      Object.keys(opts[param]).forEach(value => {
+        query += `&${param}[${value}]=${opts[param][value]}`
       })
-    } else if (typeof options[param] === 'string') {
-      query += `&${param}=${options[param]}`
+    } else if (typeof opts[param] === 'string') {
+      query += `&${param}=${opts[param]}`
     }
   }
-  return options ? '?' + query.slice(1) : ''
+  return opts ? '?' + query.slice(1) : ''
 }

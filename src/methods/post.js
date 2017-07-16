@@ -26,10 +26,10 @@ export default async function (model, data) {
   try {
     if (!this.isAuth) throw new Error('Not authenticated')
     // Handle request
-    const options = Object.assign({
+    const opts = Object.assign({
       body: JSON.stringify(serialise(model, data))
-    }, this._options)
-    await r.post(`${this._apiUrl}/${this._apiVersion}/${kebab(model, '-')}`, options)
+    }, this._opts)
+    await r.post(`${this._apiUrl}/${this._apiVersion}/${kebab(model, '-')}`, opts)
       .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
   } catch (e) {
     throw e
