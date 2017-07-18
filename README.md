@@ -50,6 +50,7 @@ npm install kitsu
 - `header` (previously `setHeader`) has been removed. Identical implementation was already provided
   by `headers`
   - `kitsu.header('key', 'value')` becomes `kitsu.headers['key'] = 'value'`
+  - `kitsu.headers['key']` returns the header's `value` (1.x)
 
 ## Usage
 
