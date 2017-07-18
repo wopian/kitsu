@@ -24,4 +24,4 @@ exclude_paths:
 - .vscode
 - example
 - lib
-- test
+- "**.spec.js"
