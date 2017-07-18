@@ -1,10 +1,6 @@
 import camel from 'camelcase'
 import plural from 'pluralize'
 
-// Remove when https://github.com/blakeembrey/pluralize/pull/63 is released
-plural.addUncountableRule('anime')
-plural.addUncountableRule('manga')
-
 /**
  * Serialises an object into a JSON-API structure
  *
