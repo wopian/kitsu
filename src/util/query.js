@@ -22,16 +22,20 @@
  * @private
  */
 export function query (opts) {
-  let query = ''
+  try {
+    let query = ''
 
-  for (let param in opts) {
-    if (typeof opts[param] === 'object') {
-      Object.keys(opts[param]).forEach(value => {
-        query += `&${param}[${value}]=${opts[param][value]}`
-      })
-    } else if (typeof opts[param] === 'string') {
-      query += `&${param}=${opts[param]}`
+    for (let param in opts) {
+      if (typeof opts[param] === 'object') {
+        Object.keys(opts[param]).forEach(value => {
+          query += `&${param}[${value}]=${opts[param][value]}`
+        })
+      } else if (typeof opts[param] === 'string') {
+        query += `&${param}=${opts[param]}`
+      }
     }
+    return opts ? '?' + query.slice(1) : ''
+  } catch (e) {
+    throw e
   }
-  return opts ? '?' + query.slice(1) : ''
 }

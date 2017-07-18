@@ -10,8 +10,7 @@ import whoAmI from './methods/whoAmI'
  * JSON API `accept` and `content-type` headers are set
  * automatically
  * @param {Object} opts Options
- * @param {String} opts.apiUrl Override the API url (default `https://kitsu.io/api`, not yet implemented)
- * @param {String} opts.apiVersion Override the API version (`edge`, not yet implemented)
+ * @param {String} opts.apiUrl Override the HTTP API endpoint (default `https://kitsu.io/api/edge`)
  * @param {Number} opts.timeout Timeout in milliseconds (default `30000`)
  * @param {Number} opts.retries Times to retry requests after network failures (default `2`)
  * @param {Object} opts.headers Headers to send with requests
@@ -30,23 +29,25 @@ import whoAmI from './methods/whoAmI'
  *    authorization: 'Bearer 1234567890'
  *  }
  * })
+ *
+ * @example
+ * // Use with a different JSON-API server
+ * const example = new Kitsu({
+ *   apiUrl: 'https://example.org/api'
+ * })
  */
 export default class Kitsu {
   constructor (opts = {}) {
-    this._opts = opts
-
     // Set API Url
-    this._apiUrl = this._opts.apiUrl || 'https://kitsu.io/api'
-    this._apiVersion = this._opts.apiVersion || 'edge'
-    // delete opts.apiUrl
-    // delete opts.apiVersion
-
+    this._apiUrl = opts.apiUrl || 'https://kitsu.io/api/edge'
+    delete opts.apiUrl
+    this._opts = opts
     this._opts.timeout = this._opts.timeout || 30000
     this._opts.retries = this._opts.retries || 2
 
     // Set Headers
     this._opts.headers = Object.assign({
-      'user-agent': `Kitsu/${version} (https://github.com/wopian/kitsu)`
+      'user-agent': `Kitsu/${version} (github.com/wopian/kitsu)`
     }, this._opts.headers, {
       'accept': 'application/vnd.api+json',
       'content-type': 'application/vnd.api+json'
