@@ -2,15 +2,15 @@
 
 ##### **BREAKING CHANGES**
 
-* Attributes have been moved to the parent object
-  * `data.attributes.canonicalTitle` becomes `data.canonicalTitle`
+- Attributes have been moved to the parent object
+  - `data.attributes.canonicalTitle` becomes `data.canonicalTitle`
 
-* The relationship name is now used in the `GET` output instead of the relationship type, i.e:
-  * In 1.x, the `waifu` relationship erroneously became `characters: {}`
-  * In 2.x it remains `waifu: {}`
+- The relationship name is now used in the `GET` output instead of the relationship type, i.e:
+  - In 1.x, the `waifu` relationship erroneously became `characters: {}`
+  - In 2.x it remains `waifu: {}`
 
-* Removing resources has been simplified
-  * `kitsu.remove('model', { id: 1 })` becomes `kitsu.remove('model', 1)`
+- Removing resources has been simplified
+  - `kitsu.remove('model', { id: 1 })` becomes `kitsu.remove('model', 1)`
 
 - `header` (previously `setHeader`) has been **removed**. Identical implementation was already provided
   by `headers`
