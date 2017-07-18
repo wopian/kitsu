@@ -1,5 +1,3 @@
-import { linkRelationships } from './linkRelationships'
-
 /**
  * Filters includes for the specific relationship
  *
@@ -12,10 +10,9 @@ import { linkRelationships } from './linkRelationships'
  */
 export async function filterIncludes (included, { id, type }) {
   try {
-    return included.filter(async obj => {
-      await linkRelationships([obj], included)
-      return obj.id === id && obj.type === type
-    })
+    return included.filter(el => {
+      return el.id === id && el.type === type
+    })[0]
   } catch (e) {
     throw e
   }
