@@ -6,21 +6,24 @@ describe('linkRelationships', () => {
       relationships: {
         waifu: {
           data: {
-            id: '1',
+            id: '3',
             type: 'characters'
           }
         }
       }
-    }, [{
-      id: '1',
-      type: 'characters',
-      attributes: {
-        name: 'Genkai'
+    },
+    [
+      {
+        id: '3',
+        type: 'characters',
+        attributes: {
+          name: 'Maki'
+        }
       }
-    }])).resolves.toEqual({
+    ])).resolves.toEqual({
       waifu: {
-        id: '1',
-        name: 'Genkai',
+        id: '3',
+        name: 'Maki',
         type: 'characters'
       }
     })
