@@ -23,8 +23,8 @@ export default async function (model, data) {
     const opts = Object.assign({
       body: JSON.stringify(serialise(model, data, 'PATCH'))
     }, this._opts)
-    await r.patch(`${this._apiUrl}/${kebab(model, '-')}/${data.id}`, opts)
-      .catch(e => { throw JSON.parse(e.response.body) })
+    await r.patch(`${this._apiUrl}/${this._apiVer}/${kebab(model, '-')}/${data.id}`, opts)
+      .catch(e => { throw e.response.body })
   } catch (e) {
     throw e
   }

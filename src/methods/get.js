@@ -53,8 +53,8 @@ import { deserialise, query } from '../util'
 export default async function (model, opts) {
   try {
     // Handle response
-    let { body } = await r(`${this._apiUrl}/${kebab(model, '-')}${query(opts)}`, this._opts)
-      .catch(e => { throw JSON.parse(e.response.body) })
+    let { body } = await r(`${this._apiUrl}/${this._apiVer}/${kebab(model, '-')}${query(opts)}`, this._opts)
+      .catch(e => { throw e.response.body })
     return deserialise(JSON.parse(body))
   } catch (e) {
     throw e

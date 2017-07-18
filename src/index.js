@@ -10,7 +10,8 @@ import whoAmI from './methods/whoAmI'
  * JSON API `accept` and `content-type` headers are set
  * automatically
  * @param {Object} opts Options
- * @param {String} opts.apiUrl Override the HTTP API endpoint (default `https://kitsu.io/api/edge`)
+ * @param {String} opts.apiUrl Override the HTTP API endpoint (default `https://kitsu.io/api`)
+ * @param {String} opts.apiVer Override the API version (default `edge`)
  * @param {Number} opts.timeout Timeout in milliseconds (default `30000`)
  * @param {Number} opts.retries Times to retry requests after network failures (default `2`)
  * @param {Object} opts.headers Headers to send with requests
@@ -39,7 +40,8 @@ import whoAmI from './methods/whoAmI'
 export default class Kitsu {
   constructor (opts = {}) {
     // Set API Url
-    this._apiUrl = opts.apiUrl || 'https://kitsu.io/api/edge'
+    this._apiUrl = opts.apiUrl || 'https://kitsu.io/api'
+    this._apiVer = opts.apiVer || 'edge'
     delete opts.apiUrl
     this._opts = opts
     this._opts.timeout = this._opts.timeout || 30000
