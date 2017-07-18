@@ -15,6 +15,8 @@ Lightweight [JSON-API][15] client for [Kitsu.io][KITSU] and other complient APIs
 While yet another [JavaScript client implementation][14], none offer a simple
 solution with the needed features or without unneeded annoyances
 
+*For breaking changes in 2.0, check the [CHANGELOG][16]*
+
 ## Features
 
 - Supports OAuth2 token authentication
@@ -31,29 +33,6 @@ yarn add kitsu
 ```bash
 npm install kitsu --save
 ```
-
-## 1.x to 2.0 Migration Guide
-
-`2.0` contains several breaking changes to match `devour-client`
-
-### Changes
-
-- Attributes have been moved to the parent object
-  - `data.attributes.canonicalTitle` becomes `data.canonicalTitle`
-
-- The relationship name is now used in the `GET` output instead of the relationship type, i.e:
-  - In 1.x, the `waifu` relationship erroneously became `characters: {}`
-  - In 2.x it remains `waifu: {}`
-
-- Removing resources has been simplified
-  - `kitsu.remove('model', { id: 1 })` becomes `kitsu.remove('model', 1)`
-
-### Removed
-
-- `header` (previously `setHeader`) has been removed. Identical implementation was already provided
-  by `headers`
-  - `kitsu.header('key', 'value')` becomes `kitsu.headers['key'] = 'value'`
-  - `kitsu.headers['key']` returns the header's `value` (1.x)
 
 ## Usage
 
@@ -141,3 +120,4 @@ All code released under [MIT]
 [13]:https://github.com/wopian/kitsu/tree/master/DOCS.md
 [14]:http://jsonapi.org/implementations/#client-libraries-javascript
 [15]:http://jsonapi.org
+[16]:https://github.com/wopian/kitsu/blob/master/CHANGELOG.md#breaking-changes

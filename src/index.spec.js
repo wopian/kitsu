@@ -27,7 +27,7 @@ describe('Index', () => {
       expect(kitsu.headers).toEqual({
         'accept': 'application/vnd.api+json',
         'content-type': 'application/vnd.api+json',
-        'user-agent': `Kitsu/${version} (https://github.com/wopian/kitsu)`
+        'user-agent': `Kitsu/${version} (github.com/wopian/kitsu)`
       })
     })
 

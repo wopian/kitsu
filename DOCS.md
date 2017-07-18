@@ -11,7 +11,6 @@
     -   [post](#post)
     -   [remove](#remove)
     -   [whoAmI](#whoami)
--   [header](#header)
 
 ## Kitsu
 
@@ -21,8 +20,8 @@ automatically
 **Parameters**
 
 -   `opts` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options (optional, default `{}`)
-    -   `opts.apiUrl` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Override the API url (default `https://kitsu.io/api`, not yet implemented)
-    -   `opts.apiVersion` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Override the API version (`edge`, not yet implemented)
+    -   `opts.apiUrl` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Override the HTTP API endpoint (default `https://kitsu.io/api`)
+    -   `opts.apiVer` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Override the API version (default `edge`)
     -   `opts.timeout` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (default `30000`)
     -   `opts.retries` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Times to retry requests after network failures (default `2`)
     -   `opts.headers` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Headers to send with requests
@@ -46,6 +45,13 @@ const kitsu = new Kitsu({
 })
 ```
 
+```javascript
+// Use with a different JSON-API server
+const example = new Kitsu({
+  apiUrl: 'https://example.org/api'
+})
+```
+
 ### headers
 
 Get the current headers
@@ -53,7 +59,18 @@ Get the current headers
 **Examples**
 
 ```javascript
+// Display all headers
 console.log(kitsu.headers)
+```
+
+```javascript
+// Display a specific header
+console.log(kitsu.headers['user-agent'])
+```
+
+```javascript
+// Add or update a header
+kitsu.headers['authorization'] = 'Bearer 1234567890'
 ```
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Object containing the current headers
@@ -207,15 +224,13 @@ Delete an existing resource - aliases: `destroy`
 **Parameters**
 
 -   `model` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to update a resource under
--   `data` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Data to send in a request
+-   `id` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))** ID of the resource to delete
 
 **Examples**
 
 ```javascript
 // Delete a user's post
-kitsu.remove('posts', {
-  id: '12345678',
-})
+kitsu.remove('posts', 123)
 ```
 
 ### whoAmI
@@ -234,18 +249,3 @@ kitsu.whoAmI()
 ```
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** user data
-
-## header
-
-Set new or updated headers
-
-**Parameters**
-
--   `field` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Header field name
--   `value` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Header field value
-
-**Examples**
-
-```javascript
-kitsu.header('user-agent', 'MyApp/1.0.0 (contact or link to repo)')
-```

@@ -1259,11 +1259,11 @@ browser-resolve@^1.11.2, browser-resolve@^1.7.0:
     resolve "1.1.7"
 
 browserslist@^2.1.2:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-2.1.5.tgz#e882550df3d1cd6d481c1a3e0038f2baf13a4711"
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-2.2.0.tgz#5e35ec993e467c6464b8cb708447386891de9f50"
   dependencies:
-    caniuse-lite "^1.0.30000684"
-    electron-to-chromium "^1.3.14"
+    caniuse-lite "^1.0.30000701"
+    electron-to-chromium "^1.3.15"
 
 bser@1.0.2:
   version "1.0.2"
@@ -1315,7 +1315,7 @@ camelcase@~4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
-caniuse-lite@^1.0.30000684:
+caniuse-lite@^1.0.30000701:
   version "1.0.30000701"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000701.tgz#9d673cf6b74dcb3d5c21d213176b011ac6a45baa"
 
@@ -1811,7 +1811,7 @@ editorconfig@^0.13.2:
     lru-cache "^3.2.0"
     sigmund "^1.0.1"
 
-electron-to-chromium@^1.3.14:
+electron-to-chromium@^1.3.15:
   version "1.3.15"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.15.tgz#08397934891cbcfaebbd18b82a95b5a481138369"
 
@@ -1979,7 +1979,7 @@ eslint-plugin-import@~2.2.0:
     minimatch "^3.0.3"
     pkg-up "^1.0.0"
 
-eslint-plugin-jest@^20.0.3:
+eslint-plugin-jest@~20.0.3:
   version "20.0.3"
   resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-20.0.3.tgz#ec15eba6ac0ab44a67ebf6e02672ca9d7e7cba29"
 
@@ -3041,14 +3041,14 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
 istanbul-api@^1.1.1:
-  version "1.1.10"
-  resolved "https://registry.yarnpkg.com/istanbul-api/-/istanbul-api-1.1.10.tgz#f27e5e7125c8de13f6a80661af78f512e5439b2b"
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/istanbul-api/-/istanbul-api-1.1.11.tgz#fcc0b461e2b3bda71e305155138238768257d9de"
   dependencies:
     async "^2.1.4"
     fileset "^2.0.2"
     istanbul-lib-coverage "^1.1.1"
     istanbul-lib-hook "^1.0.7"
-    istanbul-lib-instrument "^1.7.3"
+    istanbul-lib-instrument "^1.7.4"
     istanbul-lib-report "^1.1.1"
     istanbul-lib-source-maps "^1.2.1"
     istanbul-reports "^1.1.1"
@@ -3066,9 +3066,9 @@ istanbul-lib-hook@^1.0.7:
   dependencies:
     append-transform "^0.4.0"
 
-istanbul-lib-instrument@^1.4.2, istanbul-lib-instrument@^1.7.2, istanbul-lib-instrument@^1.7.3:
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/istanbul-lib-instrument/-/istanbul-lib-instrument-1.7.3.tgz#925b239163eabdd68cc4048f52c2fa4f899ecfa7"
+istanbul-lib-instrument@^1.4.2, istanbul-lib-instrument@^1.7.2, istanbul-lib-instrument@^1.7.4:
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/istanbul-lib-instrument/-/istanbul-lib-instrument-1.7.4.tgz#e9fd920e4767f3d19edc765e2d6b3f5ccbd0eea8"
   dependencies:
     babel-generator "^6.18.0"
     babel-template "^6.16.0"
@@ -3193,8 +3193,8 @@ jest-environment-node@^20.0.3:
     jest-util "^20.0.3"
 
 jest-haste-map@^20.0.4:
-  version "20.0.4"
-  resolved "https://registry.yarnpkg.com/jest-haste-map/-/jest-haste-map-20.0.4.tgz#653eb55c889ce3c021f7b94693f20a4159badf03"
+  version "20.0.5"
+  resolved "https://registry.yarnpkg.com/jest-haste-map/-/jest-haste-map-20.0.5.tgz#abad74efb1a005974a7b6517e11010709cab9112"
   dependencies:
     fb-watchman "^2.0.0"
     graceful-fs "^4.1.11"
@@ -4561,7 +4561,7 @@ rollup-plugin-babili@~3.1.0:
     babel-core "^6.21.0"
     babel-preset-babili "^0.1.2"
 
-rollup-plugin-cleanup@^1.0.1:
+rollup-plugin-cleanup@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/rollup-plugin-cleanup/-/rollup-plugin-cleanup-1.0.1.tgz#ca056c74fe6ea21783f99851963b173cbe8e9359"
   dependencies:
@@ -4575,7 +4575,7 @@ rollup-plugin-json@~2.3.0:
   dependencies:
     rollup-pluginutils "^2.0.1"
 
-rollup-plugin-local-resolve@^1.0.7:
+rollup-plugin-local-resolve@~1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/rollup-plugin-local-resolve/-/rollup-plugin-local-resolve-1.0.7.tgz#c486701716c15add2127565c2eaa101123320887"
 
@@ -5236,8 +5236,8 @@ verror@1.3.6:
     extsprintf "1.0.2"
 
 vfile-location@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/vfile-location/-/vfile-location-2.0.1.tgz#0bf8816f732b0f8bd902a56fda4c62c8e935dc52"
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/vfile-location/-/vfile-location-2.0.2.tgz#d3675c59c877498e492b4756ff65e4af1a752255"
 
 vfile-reporter@^3.0.0:
   version "3.1.0"
@@ -5250,16 +5250,16 @@ vfile-reporter@^3.0.0:
     vfile-statistics "^1.0.0"
 
 vfile-sort@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/vfile-sort/-/vfile-sort-2.0.0.tgz#7279458d111a9ba3b18effd9f8a0169bb7c5112b"
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/vfile-sort/-/vfile-sort-2.1.0.tgz#49501c9e8bbe5adff2e9b3a7671ee1b1e20c5210"
 
 vfile-statistics@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/vfile-statistics/-/vfile-statistics-1.0.0.tgz#003d356c0f3e0233f3a2271c65e2acee5ed4d0f8"
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/vfile-statistics/-/vfile-statistics-1.1.0.tgz#02104c60fdeed1d11b1f73ad65330b7634b3d895"
 
 vfile@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/vfile/-/vfile-2.1.0.tgz#d3ce8b825e7b8d53b896164341273381936f02bd"
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/vfile/-/vfile-2.2.0.tgz#ce47a4fb335922b233e535db0f7d8121d8fced4e"
   dependencies:
     is-buffer "^1.1.4"
     replace-ext "1.0.0"
