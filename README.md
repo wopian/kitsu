@@ -27,11 +27,29 @@ Promise based NodeJS API wrapper for [Kitsu.io][KITSU]
 yarn add kitsu
 ```
 
-or
-
 ```bash
-npm install kitsu --save
+# note: npm <5 requires --save
+npm install kitsu
 ```
+
+## 1.x to 2.0 Migration Guide
+
+`2.0` contains several breaking changes to match `devour-client`
+
+### Changes
+
+- Attributes have been moved to the parent object
+  - `data.attributes.canonicalTitle` becomes `data.canonicalTitle`
+
+- The relationship name is now used in the `GET` output instead of the relationship type, i.e:
+  - In 1.x, the `waifu` relationship erroneously became `characters: {}`
+  - In 2.x it remains `waifu: {}`
+
+### Removed
+
+- `header` (previously `setHeader`) has been removed. Identical implementation was already provided
+  by `headers`
+  - `kitsu.header('key', 'value')` becomes `kitsu.headers['key'] = 'value'`
 
 ## Usage
 
