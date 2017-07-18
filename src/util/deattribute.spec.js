@@ -1,7 +1,8 @@
 import { deattribute } from './deattribute'
 
 describe('deattribute', () => {
-  it('Should do something', () => {
+  it('Should deattribute an object', () => {
+    expect.assertions(1)
     expect(deattribute({
       attributes: {
         key: 'value'
@@ -12,6 +13,7 @@ describe('deattribute', () => {
   })
 
   it('Should handle arrays', () => {
+    expect.assertions(1)
     expect(deattribute([{
       attributes: {
         key: 'value'
