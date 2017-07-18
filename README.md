@@ -10,14 +10,15 @@
 [![CC Score]][5]
 [![CC Issues]][6]
 
-Promise based NodeJS API wrapper for [Kitsu.io][KITSU]
+Lightweight [JSON-API][15] client for [Kitsu.io][KITSU] and other complient APIs
+
+While yet another [JavaScript client implementation][14], none offer a simple
+solution with the needed features or without unneeded annoyances
 
 ## Features
 
-- Supports OAuth2 authentication
-- Supports the JSON API specification
-  - Serialises and deserialises requests for pain-free usage
-- Supports the [Promise][10] API
+- Supports OAuth2 token authentication
+- Uses the [Promise][10] API
 - Retries on network failure
 - Timeout handling
 
@@ -28,8 +29,7 @@ yarn add kitsu
 ```
 
 ```bash
-# note: npm <5 requires --save
-npm install kitsu
+npm install kitsu --save
 ```
 
 ## 1.x to 2.0 Migration Guide
@@ -44,6 +44,9 @@ npm install kitsu
 - The relationship name is now used in the `GET` output instead of the relationship type, i.e:
   - In 1.x, the `waifu` relationship erroneously became `characters: {}`
   - In 2.x it remains `waifu: {}`
+
+- Removing resources has been simplified
+  - `kitsu.remove('model', { id: 1 })` becomes `kitsu.remove('model', 1)`
 
 ### Removed
 
@@ -60,66 +63,47 @@ import Kitsu from 'kitsu'
 // CommonJS/Browserify
 const Kitsu = require('kitsu')
 
+// For kitsu.io developers
 const kitsu = new Kitsu()
 
+// For other JSON-API uses
+const example = new Kitsu({
+  apiUrl: 'https://example.org/api'
+})
+
+// Get a collection of resources
 kitsu.get('anime').then(res => console.log(res))
+
+// Get a resource
+kitsu.get('anime/1')
+
+// Create a resource
+kitsu.post('post', {
+  content: 'some content'
+})
+
+// Update a resource
+kitsu.patch('post', {
+  id: '1',
+  content: 'new content'
+})
+
+// Delete a resource
+kitsu.remove('post', 1)
 ```
 
 [More Examples][11]
 
 ## Docs
 
-You can find the kitsu [documentation here][13]
+You can find the kitsu package [documentation here][13]
 
 Check out the [Kitsu.io API documentation][12] for all the available
 models and their responses and relationships
 
 ## Contributing
 
-### Requirements
-
-- [git](https://git-scm.com/) 2.0.0 or newer
-- [node.js](https://nodejs.org) 7.0.0 or newer
-- [yarn](https://https://yarnpkg.com) 0.21.0 or newer (optional)
-
-### Setup
-
-1. Fork this repo
-
-1. Clone your fork:
-
-    ```bash
-    git clone https://github.com/your-username/kitsu.git
-    cd kitsu
-    ```
-
-1. Create a feature branch:
-
-    ```bash
-    git checkout -b your-feature-name
-    ```
-
-1. Install dependencies:
-
-    ```bash
-    yarn install
-    # or
-    npm install
-    ```
-
-1. Commit changes:
-
-    ```bash
-    git commit -am 'feat: add feature name'
-    ```
-
-1. Push changes:
-
-    ```bash
-    git push origin your-feature-name
-    ```
-
-1. Open a pull request
+See [CONTRIBUTING]
 
 ## Releases
 
@@ -131,6 +115,7 @@ All code released under [MIT]
 
 [KITSU]:https://kitsu.io
 [CHANGELOG]:https://github.com/wopian/kitsu-inactivity-pruner/blob/master/CHANGELOG.md
+[CONTRIBUTING]:https://github.com/wopian/kitsu-inactivity-pruner/blob/master/CONTRIBUTING.md
 [MIT]:https://github.com/wopian/kitsu-inactivity-pruner/blob/master/LICENSE.md
 
 [npm]:https://img.shields.io/npm/v/kitsu.svg?style=flat-square
@@ -154,3 +139,5 @@ All code released under [MIT]
 [11]:https://github.com/wopian/kitsu/tree/master/example
 [12]:https://docs.kitsu.apiary.io
 [13]:https://github.com/wopian/kitsu/tree/master/DOCS.md
+[14]:http://jsonapi.org/implementations/#client-libraries-javascript
+[15]:http://jsonapi.org
