@@ -1,3 +1,9 @@
+#### 2.0.1 (2017-07-18)
+
+##### Documentation Changes
+
+* update package description ([61968965](https://github.com/wopian/kitsu/commit/619689659c3a1065884dd5df19338694063aeb31))
+
 ## 2.0.0 (2017-07-18)
 
 ##### **BREAKING CHANGES**
