@@ -30,8 +30,8 @@ export default async function (model, data) {
       body: JSON.stringify(serialise(model, data))
     }, this._opts)
     await r.post(`${this._apiUrl}/${this._apiVersion}/${kebab(model, '-')}`, opts)
-      .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
+      .catch(e => { throw e.response.body })
   } catch (e) {
-    throw e
+    throw JSON.parse(e) || e
   }
 }

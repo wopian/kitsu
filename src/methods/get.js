@@ -54,9 +54,9 @@ export default async function (model, opts) {
   try {
     // Handle response
     let { body } = await r(`${this._apiUrl}/${this._apiVersion}/${kebab(model, '-')}${query(opts)}`, this._opts)
-      .catch(e => { throw JSON.parse(e.response.body) || e.response.body })
+      .catch(e => { throw e.response.body })
     return deserialise(JSON.parse(body))
   } catch (e) {
-    throw e
+    throw JSON.parse(e) || e
   }
 }
