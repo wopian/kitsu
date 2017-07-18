@@ -23,7 +23,8 @@
     "start": "yarn example:basic",
     "example:basic": "node ./example/basic",
     "example:async": "babel-node ./example/async",
-    "example:auth": "babel-node ./example/auth"
+    "example:auth": "babel-node ./example/auth",
+    "example:test": "babel-node ./example/test"
   },
   "keywords": [
     "kitsu",
