@@ -10,10 +10,7 @@
 [![CC Score]][5]
 [![CC Issues]][6]
 
-Lightweight [JSON-API][15] client for [Kitsu.io][KITSU] and other complient APIs
-
-While yet another [JavaScript client implementation][14], none offer a simple
-solution with the needed features or without unneeded annoyances
+Simple & lightweight [JSON-API][15] client for [Kitsu.io][KITSU] and other complient APIs
 
 *For breaking changes in 2.0, check the [CHANGELOG][16]*
 
