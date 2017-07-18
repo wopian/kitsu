@@ -12,9 +12,7 @@
 * Removing resources has been simplified
   * `kitsu.remove('model', { id: 1 })` becomes `kitsu.remove('model', 1)`
 
-### Removed
-
-- `header` (previously `setHeader`) has been removed. Identical implementation was already provided
+- `header` (previously `setHeader`) has been **removed**. Identical implementation was already provided
   by `headers`
   - `kitsu.header('key', 'value')` becomes `kitsu.headers['key'] = 'value'`
   - `kitsu.headers['key']` returns the header's `value` (1.x)
