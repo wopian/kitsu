@@ -54,14 +54,14 @@ export default class Kitsu {
       'accept': 'application/vnd.api+json',
       'content-type': 'application/vnd.api+json'
     })
-
-    this.auth = auth.bind(this)
-    this.get = get.bind(this)
-    this.patch = patch.bind(this)
-    this.post = post.bind(this)
-    this.remove = remove.bind(this)
-    this.whoAmI = whoAmI.bind(this)
   }
+
+  auth = auth.bind(this)
+  get = get.bind(this)
+  patch = patch.bind(this)
+  post = post.bind(this)
+  remove = remove.bind(this)
+  whoAmI = whoAmI.bind(this)
 
   // Aliases (devour migration)
   fetch = this.get

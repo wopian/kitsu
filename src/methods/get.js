@@ -3,7 +3,7 @@ import kebab from 'decamelize'
 import { deserialise, query } from '../util'
 
 /**
- * Get resources - aliases: `fetch` & `find`
+ * Get resources - aliases: `fetch`,`find` & `findAll`
  * @memberof Kitsu
  * @param {String} model Model to get data from
  * @param {Object} opts Request queries
