@@ -1,3 +1,13 @@
+#### 2.0.2 (2017-07-19)
+
+##### Build System / Dependencies
+
+* codeclimate ignore spec files ([eacdfea5](https://github.com/wopian/kitsu/commit/eacdfea546f4bab653fd51b7f68cd48321136609))
+
+##### Bug Fixes
+
+* bind methods outside of constructor (fixes aliases) ([ed319d9c](https://github.com/wopian/kitsu/commit/ed319d9c692d15a94cdec7b4859c387c8a35e205))
+
 #### 2.0.1 (2017-07-18)
 
 ##### Documentation Changes
