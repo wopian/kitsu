@@ -115,7 +115,7 @@ Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 ### get
 
-Get resources - aliases: `fetch` & `find`
+Get resources - aliases: `fetch`,`find` & `findAll`
 
 **Parameters**
 
