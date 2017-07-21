@@ -55,6 +55,9 @@ kitsu.get('anime').then(res => console.log(res))
 // Get a resource
 kitsu.get('anime/1')
 
+// Get a resource's relationship
+kitsu.get('anime/1/episodes')
+
 // Create a resource
 kitsu.post('post', {
   content: 'some content'
