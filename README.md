@@ -43,8 +43,10 @@ const Kitsu = require('kitsu')
 const kitsu = new Kitsu()
 
 // For other JSON-API uses
+// e.g example.org/api/2
 const example = new Kitsu({
-  apiUrl: 'https://example.org/api'
+  apiUrl: 'https://example.org/api',
+  apiVer: 2
 })
 
 // Get a collection of resources
