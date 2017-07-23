@@ -1,3 +1,19 @@
+#### 2.0.3 (2017-07-23)
+
+##### Build System / Dependencies
+
+* codeclimate ignore spec files ([eacdfea5](https://github.com/wopian/kitsu/commit/eacdfea546f4bab653fd51b7f68cd48321136609))
+
+##### Documentation Changes
+
+* fix link to repo LICENSE ([dccdb9ea](https://github.com/wopian/kitsu/commit/dccdb9eae252711dd25395cb299c9586f15e6da4))
+* add resource relationship example ([794bf978](https://github.com/wopian/kitsu/commit/794bf97898ef9fb3421e4a028b1189119c23262e))
+* update apiUrl override example ([8ce83d27](https://github.com/wopian/kitsu/commit/8ce83d27e14b5b41d286ef50b751dae4238dc252))
+
+##### Bug Fixes
+
+* bind methods outside of constructor (fixes aliases) ([9d3f74fd](https://github.com/wopian/kitsu/commit/9d3f74fd84a7f4296577b8d7c0bc08c8f751063b))
+
 #### 2.0.2 (2017-07-19)
 
 ##### Build System / Dependencies
