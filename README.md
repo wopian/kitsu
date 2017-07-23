@@ -97,7 +97,7 @@ All code released under [MIT]
 [KITSU]:https://kitsu.io
 [CHANGELOG]:https://github.com/wopian/kitsu-inactivity-pruner/blob/master/CHANGELOG.md
 [CONTRIBUTING]:https://github.com/wopian/kitsu-inactivity-pruner/blob/master/CONTRIBUTING.md
-[MIT]:https://github.com/wopian/kitsu-inactivity-pruner/blob/master/LICENSE.md
+[MIT]:https://github.com/wopian/kitsu/blob/master/LICENSE.md
 
 [npm]:https://img.shields.io/npm/v/kitsu.svg?style=flat-square
 [npm installs]:https://img.shields.io/npm/dt/kitsu.svg?style=flat-square
