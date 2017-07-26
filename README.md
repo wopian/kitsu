@@ -10,7 +10,7 @@
 [![CC Score]][5]
 [![CC Issues]][6]
 
-Simple & lightweight [JSON-API][15] client for [Kitsu.io][KITSU] and other complient APIs
+Simple & lightweight [JSON-API][15] client for [Kitsu.io][KITSU] and other compliant APIs
 
 *For breaking changes in 2.0, check the [CHANGELOG][16]*
 
