@@ -1,3 +1,13 @@
+#### 2.0.4 (2017-08-10)
+
+##### Chores
+
+* update yarn.lock ([c7bfbc79](https://github.com/wopian/kitsu/commit/c7bfbc79d50c1adfa410ec3d06f379b28cce6a98))
+
+##### Documentation Changes
+
+* fix compliant typo ([95dbdd18](https://github.com/wopian/kitsu/commit/95dbdd189a4bae51cc16a2f19a343e908960e629))
+
 #### 2.0.3 (2017-07-23)
 
 ##### Build System / Dependencies
