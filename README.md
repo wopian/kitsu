@@ -71,6 +71,11 @@ kitsu.patch('post', {
 
 // Delete a resource
 kitsu.remove('post', 1)
+
+// Destructuring with Async/Await
+const { id } = await kitsu.get('users', { 
+  filter: { id: 2 } 
+})
 ```
 
 [More Examples][11]
