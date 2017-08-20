@@ -234,7 +234,7 @@ aws4@^1.2.1:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
-babel-cli@6.26.0:
+babel-cli@~6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-cli/-/babel-cli-6.26.0.tgz#502ab54874d7db88ad00b887a06383ce03d002f1"
   dependencies:
@@ -4472,6 +4472,10 @@ pkg-up@^1.0.0:
   dependencies:
     find-up "^1.0.0"
 
+pluralize@7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
+
 pluralize@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-1.2.1.tgz#d1a21483fd22bb41e58a12fa3421823140897c45"
@@ -4479,10 +4483,6 @@ pluralize@^1.2.1:
 pluralize@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-4.0.0.tgz#59b708c1c0190a2f692f1c7618c446b052fd1762"
-
-pluralize@~6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-6.0.0.tgz#d9b51afad97d3d51075cc1ddba9b132cacccb7ba"
 
 popsicle@^9.1.0:
   version "9.1.0"
@@ -4974,7 +4974,7 @@ rollup-pluginutils@^2.0.1:
     estree-walker "^0.3.0"
     micromatch "^2.3.11"
 
-rollup@0.48.2:
+rollup@~0.48.2:
   version "0.48.2"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.48.2.tgz#dd9214eaf78d98a7771bf5583123cc80a0b5d6dc"
 
