@@ -1,17 +1,16 @@
 import kebab from 'decamelize'
+import plural from 'pluralize'
 import { serialise } from '../util'
 
-export default async function (model, data) {
+export default async function (model, body) {
   try {
-    console.log(this.axios)
     if (!this.axios.defaults.headers.Authorization) throw new Error('Not logged in')
-
-    let result = await this.axios.get(kebab(model), {
-      data: serialise(model, data)
+    let { data } = await this.axios.post(plural(kebab(model)), {
+      data: await serialise(model, body)
     })
-
-    return result
+    return data
   } catch (error) {
-    return error
+    const e = error.response.data
+    return e.errors ? e.errors : e
   }
 }
