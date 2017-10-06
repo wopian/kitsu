@@ -10,7 +10,7 @@ describe('query', () => {
     expect.assertions(1)
     expect(query({
       filter: { slug: 'cowboy-bebop' }
-    })).toBe('?filter[slug]=cowboy-bebop')
+    })).toBe('filter[slug]=cowboy-bebop')
   })
 
   it('Should append multiple queries', () => {
@@ -18,6 +18,6 @@ describe('query', () => {
     expect(query({
       page: { limit: 1 },
       sort: '-popularityRank'
-    })).toBe('?page[limit]=1&sort=-popularityRank')
+    })).toBe('page[limit]=1&sort=-popularityRank')
   })
 })

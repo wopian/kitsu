@@ -10,19 +10,13 @@ export default class Kitsu {
   constructor (options = {}) {
     try {
       this.axios = axios.create({
+        ...options,
         baseURL: (options.baseURL || 'https://kitsu.io/api') + '/' + (options.version || 'edge'),
         timeout: options.timeout || 3000,
-        headers: Object.assign(
-          // Add user-agent by default only if in node environment
-          typeof process !== 'undefined' && process.release.name === 'node'
-            ? { 'user-agent': `Kitsu/${version} (github.com/wopian/kitsu)` } : {},
-          options.headers,
-          {
-            'accept': 'application/vnd.api+json',
-            'content-type': 'application/vnd.api+json'
-          }
-        ),
-        ...options
+        headers: Object.assign(options.headers, {
+          'accept': 'application/vnd.api+json',
+          'content-type': 'application/vnd.api+json'
+        })
       })
     } catch (error) {
       console.error(error)
