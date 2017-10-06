@@ -1,7 +1,5 @@
 const Kitsu = require('../lib/kitsu')
 
-const kitsu = new Kitsu()
-
 /**
  * Fetches the top 5 most popular manga and displays their canonical
  * titles in a list
@@ -16,15 +14,31 @@ const kitsu = new Kitsu()
  * - One Piece
  */
 try {
-  kitsu.get('manga', {
-    page: { limit: 5 },
-    sort: 'popularityRank'
-  }).then(({ data }) => {
-    console.log('\nTop 5 popular manga:')
-    data.forEach(manga => {
-      console.log(`- ${manga.canonicalTitle}`)
-    })
+  const api = new Kitsu({
+    headers: {
+      'Authorization': 'Bearer bbfb842d4a9aa70057c3a8299eac007cf8ddec5bc9f560db54882102c1d6bc8d'
+    }
   })
+  api.fetch('users', {
+    page: { limit: 1, offset: 2 },
+    fields: { users: 'name,waifu', characters: 'name' },
+    include: 'waifu'
+  }).then(response => console.log(JSON.stringify(response, null, 2)))
+    .catch(err => console.error(err))
+
+  /*
+  api.create('posts', {
+    content: 'Hello World',
+    targetUser: {
+      id: 42603,
+      type: 'users'
+    },
+    user: {
+      id: 42603,
+      type: 'users'
+    }
+  }).then(response => console.log(response))
+  */
 } catch (err) {
   console.log(err)
 }

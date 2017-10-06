@@ -1,41 +1,19 @@
-/*
-{
-  page: {
-    limit: 20,
-    offset: 500
-  },
-  fields: {
-    anime: 'canonicalTitle'
-  }
-  filter: {
-    canonicalTitle: 'Cowboy Bebop'
-  }
-  sort: '-id',
-  include: 'media'
-}
-*/
-/**
- * Query builder for requests
- *
- * @param {Object} options Query parameters
- * @returns {String} A query parameter chain
- * @private
- */
-export function query (opts) {
+export function query (params) {
   try {
     let query = ''
 
-    for (let param in opts) {
-      if (typeof opts[param] === 'object') {
-        Object.keys(opts[param]).forEach(value => {
-          query += `&${param}[${value}]=${opts[param][value]}`
+    for (let param in params) {
+      if (typeof params[param] === 'object') {
+        Object.keys(params[param]).forEach(value => {
+          query += `&${param}[${value}]=${params[param][value]}`
         })
-      } else if (typeof opts[param] === 'string') {
-        query += `&${param}=${opts[param]}`
+      } else if (typeof params[param] === 'string') {
+        query += `&${param}=${params[param]}`
       }
     }
-    return opts ? '?' + query.slice(1) : ''
-  } catch (e) {
-    throw e
+
+    return params ? query.slice(1) : ''
+  } catch (error) {
+    throw error
   }
 }

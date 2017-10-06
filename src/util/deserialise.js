@@ -10,6 +10,7 @@ import { linkRelationships } from './linkRelationships'
  */
 export async function deserialise (obj) {
   try {
+    console.log(obj)
     // Collection of resources
     // Note: constructor is currently faster than isArray()
     // http://jsben.ch/QgYAV

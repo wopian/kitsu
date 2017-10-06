@@ -1,5 +1,5 @@
 import babel from 'rollup-plugin-babel'
-import babili from 'rollup-plugin-babili'
+import minify from 'rollup-plugin-babel-minify'
 import json from 'rollup-plugin-json'
 import cleanup from 'rollup-plugin-cleanup'
 import local from 'rollup-plugin-local-resolve'
@@ -11,7 +11,7 @@ let plugins = [
     exclude: [ '*.json', 'node_modules/**/*' ],
     runtimeHelpers: true
   }),
-  babili({
+  minify({
     comments: false
   }),
   local(),
@@ -22,7 +22,7 @@ let plugins = [
 ]
 
 export default {
-  entry: 'src/index.js',
+  input: 'src/index.js',
   external: [
     'babel-runtime/regenerator',
     'babel-runtime/helpers/asyncToGenerator',
@@ -44,19 +44,19 @@ export default {
     decamelize: 'kebab',
     pluralize: 'plural',
     camelcase: 'camel',
-    got: 'r'
+    axios: 'r'
   },
-  targets: [
+  output: [
     {
-      dest: pkg.main,
+      file: pkg.main,
       format: 'umd',
-      moduleName: 'kitsu',
-      sourceMap: false
+      name: 'kitsu',
+      sourcemap: false
     },
     {
-      dest: pkg.module,
+      file: pkg.module,
       format: 'es',
-      sourceMap: false
+      sourcemap: false
     }
   ],
   onwarn: ({ code, message }) => {
