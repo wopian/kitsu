@@ -7,7 +7,7 @@ export default async function (model, body) {
     if (!this.axios.defaults.headers.Authorization) throw new Error('Not logged in')
     if (typeof body.id === 'undefined') throw new Error('Updating a resource requires an ID')
     let { data } = await this.axios.patch(`${plural(kebab(model))}/${body.id}`, {
-      data: await serialise(model, body, 'PATCH')
+      data: (await serialise(model, body, 'PATCH')).data
     })
     return data
   } catch (error) {

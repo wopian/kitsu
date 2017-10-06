@@ -43,14 +43,12 @@ export async function serialise (model, obj = {}, method = 'POST') {
         // Guess relationship type if not provided
         if (typeof obj[prop].type === 'undefined') obj[prop].type = plural(camel(prop))
         data.relationships[prop] = { data: Object.assign(obj[prop]) }
-      } else if (prop !== 'id' || prop === 'type') {
-        // Do something
-      } else { // its an attribute
+      } else if (prop !== 'id') { // Its an attribute
         if (typeof data.attributes === 'undefined') data.attributes = {}
         data.attributes[prop] = obj[prop]
       }
     }
-    return data
+    return { data }
   } catch (e) {
     throw e
   }

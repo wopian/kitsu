@@ -16,17 +16,16 @@ const Kitsu = require('../lib/kitsu')
 try {
   const api = new Kitsu({
     headers: {
-      'Authorization': 'Bearer bbfb842d4a9aa70057c3a8299eac007cf8ddec5bc9f560db54882102c1d6bc8d'
+      'Authorization': 'Bearer ...'
     }
   })
+
   api.fetch('users', {
     page: { limit: 1, offset: 2 },
     fields: { users: 'name,waifu', characters: 'name' },
     include: 'waifu'
-  }).then(response => console.log(JSON.stringify(response, null, 2)))
-    .catch(err => console.error(err))
+  }).then(response => console.log(response))
 
-  /*
   api.create('posts', {
     content: 'Hello World',
     targetUser: {
@@ -34,11 +33,18 @@ try {
       type: 'users'
     },
     user: {
-      id: 42603,
+      id: 77404,
       type: 'users'
     }
   }).then(response => console.log(response))
-  */
+
+  api.update('posts', {
+    id: '8819453',
+    type: 'posts',
+    content: 'Goodbye World'
+  }).then(response => console.log(response))
+
+  api.remove('post', 8819453).then(response => console.log(response))
 } catch (err) {
   console.log(err)
 }

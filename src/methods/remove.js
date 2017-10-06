@@ -7,7 +7,7 @@ export default async function (model, id) {
     console.log(await serialise(model, { id }, 'DELETE'))
     if (!this.axios.defaults.headers.Authorization) throw new Error('Not logged in')
     let { data } = await this.axios.delete(`${plural(kebab(model))}/${id}`, {
-      data: await serialise(model, { id }, 'DELETE')
+      data: (await serialise(model, { id }, 'DELETE')).data
     })
     return data
   } catch (error) {

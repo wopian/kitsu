@@ -8,19 +8,14 @@ import { version } from '../package.json'
 
 export default class Kitsu {
   constructor (options = {}) {
-    try {
-      this.axios = axios.create({
-        ...options,
-        baseURL: (options.baseURL || 'https://kitsu.io/api') + '/' + (options.version || 'edge'),
-        timeout: options.timeout || 3000,
-        headers: Object.assign(options.headers, {
-          'accept': 'application/vnd.api+json',
-          'content-type': 'application/vnd.api+json'
-        })
+    this.axios = axios.create({
+      baseURL: (options.baseURL || 'https://kitsu.io/api') + '/' + (options.version || 'edge'),
+      timeout: options.timeout || 3000,
+      headers: Object.assign(options.headers, {
+        'accept': 'application/vnd.api+json',
+        'content-type': 'application/vnd.api+json'
       })
-    } catch (error) {
-      console.error(error)
-    }
+    })
   }
 
   fetch = fetch.bind(this)
@@ -36,18 +31,10 @@ export default class Kitsu {
   patch = this.update
   post = this.create
   destroy = this.remove
+  whoAmI = this.self
+
+  // TODO: Fix headers for 3.0.0 release
+  get headers () {
+    return this.axios.defaults.headers
+  }
 }
-
-/*
-
-import kitsu from 'kitsu'
-
-const api = kitsu({
-  baseUrl: 'https://api.yourservice.com'
-})
-
-api.get('users', {
-  page: { limit: 2 }
-})
-
-*/
