@@ -1,3 +1,41 @@
+## 3.0.0 (2017-10-09)
+
+##### **BREAKING CHANGES**
+
+- Built in oAuth2 authentication has been removed. Use `client-oauth2` directly (example in `auth.js`)
+
+- Option variable for the API URL and version on creating a new instance has changed
+  - `apiUrl` is now `baseURL`
+  - `apiVer` is now `version`
+
+- Removed the `compact` option in the `whoAmI` function
+
+- Removed the network failure retry ability (was a built-in feature of `got` not included with `axios`)
+
+##### Chores
+
+* readd header (broken) ([4d2ad285](https://github.com/wopian/kitsu/commit/4d2ad285c13c14673af8b53ac6ac9b015376a943))
+* add doc linter command ([2481775d](https://github.com/wopian/kitsu/commit/2481775d19ee9411e04f939b6d99fd350a5cb6f9))
+
+##### Documentation Changes
+
+* update documentation and examples ([a43bc4fa](https://github.com/wopian/kitsu/commit/a43bc4fa4a289dc552ef452e08c667ad7d2f62f2))
+* add destructuring example to readme ([28585a34](https://github.com/wopian/kitsu/commit/28585a349fe5c16aa2efe463c08c4464e64a3193))
+
+##### New Features
+
+* migrate utils to axios ([6a4ea87d](https://github.com/wopian/kitsu/commit/6a4ea87d6f2c86850810b1e75e9977e8983ee388))
+* migrate whoAmI to axios ([e741b0fc](https://github.com/wopian/kitsu/commit/e741b0fc5532f303de45f033b9953af4298135ae))
+* migrate update to axios ([581805b5](https://github.com/wopian/kitsu/commit/581805b5674c64b777569c2f6ebbf4a98bbea8b8))
+* migrate remove to axios ([3eb7d335](https://github.com/wopian/kitsu/commit/3eb7d3354bea91eb01e89c4fd7e56656d62a2439))
+* migrate fetch to axios ([6f255f84](https://github.com/wopian/kitsu/commit/6f255f84b1916ac7a388ec88af50159df39fc61a))
+* migrate create to axios ([dbaacfae](https://github.com/wopian/kitsu/commit/dbaacfae5d0003b6fe0e8ae83afaf4f739841e52))
+* switch to axios ([3cd7e5f8](https://github.com/wopian/kitsu/commit/3cd7e5f84942f3adae80fd7c7a1b0e14a49e7539))
+
+##### Bug Fixes
+
+* fix changing headers ([bdab1937](https://github.com/wopian/kitsu/commit/bdab1937471fc01242712bd720ac7f1648956671))
+
 #### 2.0.4 (2017-08-10)
 
 ##### Chores
