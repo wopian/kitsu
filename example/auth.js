@@ -1,27 +1,31 @@
 import Kitsu from '../src'
+import OAuth2 from 'client-oauth2'
 
-const kitsu = new Kitsu()
+const api = new Kitsu()
 
 /**
  * Authenticate as a user and create a post on their profile feed
  */
 const app = async () => {
-  console.log(kitsu.isAuth) // false
+  console.log(api.isAuth) // false
 
-  await kitsu.auth({
-    username: '',
-    password: '',
+  const { owner } = new OAuth2({
     clientId: '',
-    clientSecret: ''
+    clientSecret: '',
+    accessTokenUri: 'https://kitsu.io/api/oauth/token'
   })
 
-  console.log(kitsu.isAuth) // true if auth succeeded
+  let { accessToken } = await owner.getToken('username', 'password')
+
+  api.headers['Authorization'] = `Bearer ${accessToken}`
+
+  console.log(api.isAuth) // true if auth succeeded
 
   // Get the logged in user's ID
-  const { id } = await kitsu.whoAmI({ compact: true })
+  const { id } = await api.self()
 
   // internally checks isAuth before sending request
-  await kitsu.create('posts', {
+  await api.create('posts', {
     content: 'Hello world',
     targetUser: {
       id,

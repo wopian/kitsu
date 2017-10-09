@@ -1,31 +1,17 @@
 const Kitsu = require('../lib/kitsu')
 
-/**
- * Fetches the top 5 most popular manga and displays their canonical
- * titles in a list
- *
- * Displays:
- *
- * Top 5 popular manga:
- * - Naruto
- * - Shingeki no Kyojin
- * - Berserk
- * - Tokyo Ghoul
- * - One Piece
- */
 try {
-  const api = new Kitsu({
-    headers: {
-      'Authorization': 'Bearer ...'
-    }
-  })
+  // Create a new Kitsu class
+  const api = new Kitsu({})
 
+  // Fetch resources
   api.fetch('users', {
     page: { limit: 1, offset: 2 },
     fields: { users: 'name,waifu', characters: 'name' },
     include: 'waifu'
   }).then(response => console.log(response))
 
+  // Create new resources
   api.create('posts', {
     content: 'Hello World',
     targetUser: {
@@ -38,12 +24,14 @@ try {
     }
   }).then(response => console.log(response))
 
+  // Update existing resources
   api.update('posts', {
     id: '8819453',
     type: 'posts',
     content: 'Goodbye World'
   }).then(response => console.log(response))
 
+  // Remove a resource
   api.remove('post', 8819453).then(response => console.log(response))
 } catch (err) {
   console.log(err)

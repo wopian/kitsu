@@ -10,71 +10,75 @@
 [![CC Score]][5]
 [![CC Issues]][6]
 
-Simple & lightweight [JSON-API][15] client for [Kitsu.io][KITSU] and other compliant APIs
+Simple, lightweight & framework agnostic [JSON-API][15] client for [Kitsu.io][KITSU] and other API backends
 
-*For breaking changes in 2.0, check the [CHANGELOG][16]*
+*For breaking changes in 3.0, check the [CHANGELOG][16]*
 
 ## Features
 
-- Supports OAuth2 token authentication
+- Fully JSON-API complient
+- Works in Node and the web
 - Uses the [Promise][10] API
-- Retries on network failure
 - Timeout handling
 
 ## Install
+
+### Yarn
 
 ```bash
 yarn add kitsu
 ```
 
+### NPM 5
+
 ```bash
-npm install kitsu --save
+npm install kitsu
 ```
 
 ## Usage
 
 ```javascript
-// ES6/Babel/Webpack
+// ES2015+/Babel
 import Kitsu from 'kitsu'
 // CommonJS/Browserify
 const Kitsu = require('kitsu')
 
 // For kitsu.io developers
-const kitsu = new Kitsu()
+const api = new Kitsu()
 
 // For other JSON-API uses
-// e.g example.org/api/2
-const example = new Kitsu({
-  apiUrl: 'https://example.org/api',
-  apiVer: 2
+// e.g api.example.org/2
+const api = new Kitsu({
+  baseURL: 'https://api.example.org',
+  version: 2
 })
 
 // Get a collection of resources
-kitsu.get('anime').then(res => console.log(res))
+api.get('anime').then(res => console.log(res))
 
 // Get a resource
-kitsu.get('anime/1')
+api.get('anime/1')
 
 // Get a resource's relationship
-kitsu.get('anime/1/episodes')
+api.get('anime/1/episodes')
 
 // Create a resource
-kitsu.post('post', {
+api.create('post', {
   content: 'some content'
 })
 
 // Update a resource
-kitsu.patch('post', {
+api.update('post', {
   id: '1',
   content: 'new content'
 })
 
 // Delete a resource
-kitsu.remove('post', 1)
+api.remove('post', 1)
 
 // Destructuring with Async/Await
-const { id } = await kitsu.get('users', { 
-  filter: { id: 2 } 
+const { id } = await kitsu.get('users', {
+  filter: { id: 2 }
 })
 ```
 
@@ -85,7 +89,7 @@ const { id } = await kitsu.get('users', {
 You can find the kitsu package [documentation here][13]
 
 Check out the [Kitsu.io API documentation][12] for all the available
-models and their responses and relationships
+models with their attributes and relationships
 
 ## Contributing
 

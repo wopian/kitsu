@@ -1,6 +1,6 @@
 import Kitsu from '../lib/kitsu'
 
-const kitsu = new Kitsu()
+const api = new Kitsu()
 
 /**
  * Fetches the top 5 most popular anime and displays their canonical
@@ -17,7 +17,7 @@ const kitsu = new Kitsu()
  */
 const showPopular = async () => {
   try {
-    const { data } = await kitsu.get('anime', {
+    const { data } = await api.get('anime', {
       page: { limit: 5 },
       sort: 'popularityRank'
     })

@@ -1,6 +1,6 @@
 import Kitsu from '../src'
 
-const kitsu = new Kitsu()
+const api = new Kitsu()
 
 /**
  * Displays the 10-star ratings of a user's anime, manga or drama
@@ -18,7 +18,7 @@ const get = async ({ userId, kind }) => {
     // Get the user's library entries sorted by highest rated first
     // Ignoring pagination as they're highly unlikely to have more
     // than 500 20/20 of that media
-    const { data } = await kitsu.get('libraryEntries', {
+    const { data } = await api.get('libraryEntries', {
       page: { limit: 500 },
       sort: '-rating',
       fields: {
