@@ -1,3 +1,9 @@
+#### 3.0.1 (2017-10-09)
+
+##### Chores
+
+* remove unused globals from rollup config ([f0e002ba](https://github.com/wopian/kitsu/commit/f0e002baec59767886e64f97cf08b072fc41e930))
+
 ## 3.0.0 (2017-10-09)
 
 ##### **BREAKING CHANGES**
