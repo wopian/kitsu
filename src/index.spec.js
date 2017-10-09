@@ -34,12 +34,5 @@ describe('Index', () => {
       kitsu.headers['test'] = '123'
       expect(kitsu.headers['test']).toBe('123')
     })
-
-    it('should allow modifying axios directly', () => {
-      const kitsu = new Kitsu()
-      console.log(kitsu)
-      kitsu.axios.defaults.headers['test'] = '123'
-      expect(kitsu.axios.defaults.headers['test']).toBe('123')
-    })
   })
 })
