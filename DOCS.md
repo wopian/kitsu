@@ -34,7 +34,7 @@ const api = new Kitsu()
 // Set a `user-agent` and pre-existing `authorization` token
 const api = new Kitsu({
   headers: {
-    'user-agent': 'MyApp/1.0.0 (github.com/username/repo),
+    'user-agent': 'MyApp/1.0.0 (github.com/username/repo)',
     authorization: 'Bearer 1234567890'
   }
 })
