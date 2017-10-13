@@ -7,7 +7,7 @@ platform:
 - x64
 - x86
 cache:
-- "%LOCALAPPDATA%\\Yarn"
+# - "%LOCALAPPDATA%\\Yarn"
 install:
 - ps: Install-Product node $env:nodejs_version $env:platform
 - yarn upgrade
