@@ -1,3 +1,9 @@
+#### 3.0.2 (2017-10-13)
+
+##### Documentation Changes
+
+* fix typo in header example (#53) ([0b682aee](https://github.com/wopian/kitsu/commit/0b682aee79bb361e58b0e28b0eb224f5c90f06ef))
+
 #### 3.0.1 (2017-10-09)
 
 ##### Chores
