@@ -88,7 +88,7 @@ const { id } = await kitsu.get('users', {
 
 You can find the kitsu package [documentation here][13]
 
-Check out the [Kitsu.io API documentation][12] for all the available
+If you're working with [Kitsu.io][KITSU]'s API, their [API documentation][12] lists all available
 models with their attributes and relationships
 
 ## Contributing
