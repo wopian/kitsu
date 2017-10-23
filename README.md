@@ -16,7 +16,7 @@ Simple, lightweight & framework agnostic [JSON-API][15] client for [Kitsu.io][KI
 
 ## Features
 
-- Fully JSON-API complient
+- Fully JSON-API compliant
 - Works in Node and the web
 - Uses the [Promise][10] API
 - Timeout handling
