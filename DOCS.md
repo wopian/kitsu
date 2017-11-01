@@ -54,12 +54,12 @@ Get the current headers or add additional headers
 **Examples**
 
 ```javascript
-// Recieve all the headers
+// Receive all the headers
 console.log(api.headers)
 ```
 
 ```javascript
-// Recieve a specific header
+// Receive a specific header
 console.log(api.headers['user-agent'])
 ```
 
@@ -124,9 +124,9 @@ Aliases: `get`, `find`, `findAll`
     -   `params.page` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** jsonapi.org/format/#fetching-pagination
         -   `params.page.limit` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of resources to return in request (Max `20` for Kitsu.io except on `libraryEntries` which has a max of `500`)
         -   `params.page.offset` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of resources to offset the dataset by
-    -   `params.fields` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Return a sparce fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
+    -   `params.fields` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Return a sparse fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
     -   `params.filter` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Filter dataset by attribute values jsonapi.org/format/#fetching-filtering
-    -   `params.sort` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Sort dataset by one or more comma seperated attributes (prepend `-` for descending order) jsonapi.org/format/#fetching-sorting
+    -   `params.sort` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Sort dataset by one or more comma separated attributes (prepend `-` for descending order) jsonapi.org/format/#fetching-sorting
     -   `params.include` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Include relationship data jsonapi.org/format/#fetching-includes
 
 **Examples**
@@ -200,18 +200,18 @@ Aliases: `whoAmI`
 **Parameters**
 
 -   `params` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-API request queries
-    -   `params.fields` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Return a sparce fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
+    -   `params.fields` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Return a sparse fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
     -   `params.include` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Include relationship data jsonapi.org/format/#fetching-includes
 
 **Examples**
 
 ```javascript
-// Recieve all attributes
+// Receive all attributes
 api.self()
 ```
 
 ```javascript
-// Recieve a sparce fieldset
+// Receive a sparse fieldset
 api.self({
   fields: 'name,birthday'
 })

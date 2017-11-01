@@ -1,3 +1,22 @@
+#### 3.0.3 (2017-11-01)
+
+##### Chores
+
+* loosen production dependencies to major versions ([8bb3bc35](https://github.com/wopian/kitsu/commit/8bb3bc35a65416e295f4e198ecbbe8756e768c69))
+* remove oauth2 and authorisation tags ([fc13f42d](https://github.com/wopian/kitsu/commit/fc13f42d75bb3a1a0f145043b392361941c4bad2))
+
+##### Continuous Integration
+
+* disable appveyor cache until they fix unzipping it ([2b3f8d70](https://github.com/wopian/kitsu/commit/2b3f8d70f31e89e278ed8d483125c68163542f69))
+
+##### Documentation Changes
+
+* fix typos ([3a8c0aad](https://github.com/wopian/kitsu/commit/3a8c0aadcf4848399da0a5428db1bcaa2b39601e))
+* fix timeout capitalisation ([eae07a2f](https://github.com/wopian/kitsu/commit/eae07a2fcb5ea69275e42d4334faca4ae0f9096b))
+* reword features list ([ee3d0ccb](https://github.com/wopian/kitsu/commit/ee3d0ccbca924f89eb3ea507325523ba644b009a))
+* fix compliant typo in README ([657cc188](https://github.com/wopian/kitsu/commit/657cc1886d2e730cb1566decf516cd6284ee46d9))
+* reword kitsu.io api documentation ([eb814cec](https://github.com/wopian/kitsu/commit/eb814cec91865709c737f702e4620baee4486348))
+
 #### 3.0.2 (2017-10-13)
 
 ##### Documentation Changes
