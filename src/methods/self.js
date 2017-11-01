@@ -6,16 +6,16 @@ import fetch from './fetch'
  * Aliases: `whoAmI`
  * @memberof Kitsu
  * @param {Object} params JSON-API request queries
- * @param {Object} params.fields Return a sparce fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
+ * @param {Object} params.fields Return a sparse fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
  * @param {String} params.include Include relationship data jsonapi.org/format/#fetching-includes
  * @returns {Object} JSON-parsed response
  *
  * @example
- * // Recieve all attributes
+ * // Receive all attributes
  * api.self()
  *
  * @example
- * // Recieve a sparce fieldset
+ * // Receive a sparse fieldset
  * api.self({
  *   fields: 'name,birthday'
  * })

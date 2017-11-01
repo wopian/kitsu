@@ -53,11 +53,11 @@ export default class Kitsu {
    * @returns {Object} All the current headers
    *
    * @example
-   * // Recieve all the headers
+   * // Receive all the headers
    * console.log(api.headers)
    *
    * @example
-   * // Recieve a specific header
+   * // Receive a specific header
    * console.log(api.headers['user-agent'])
    *
    * @example

@@ -11,9 +11,9 @@ import { deserialise, query } from '../util'
  * @param {Object} params.page jsonapi.org/format/#fetching-pagination
  * @param {Number} params.page.limit Number of resources to return in request (Max `20` for Kitsu.io except on `libraryEntries` which has a max of `500`)
  * @param {Number} params.page.offset Number of resources to offset the dataset by
- * @param {Object} params.fields Return a sparce fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
+ * @param {Object} params.fields Return a sparse fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
  * @param {Object} params.filter Filter dataset by attribute values jsonapi.org/format/#fetching-filtering
- * @param {String} params.sort Sort dataset by one or more comma seperated attributes (prepend `-` for descending order) jsonapi.org/format/#fetching-sorting
+ * @param {String} params.sort Sort dataset by one or more comma separated attributes (prepend `-` for descending order) jsonapi.org/format/#fetching-sorting
  * @param {String} params.include Include relationship data jsonapi.org/format/#fetching-includes
  * @returns {Object} JSON-parsed response
  *

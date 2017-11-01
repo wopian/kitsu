@@ -2,7 +2,7 @@
 
 - [git](https://git-scm.com/) 2.0.0 or newer
 - [node.js](https://nodejs.org) 7.0.0 or newer
-- [yarn](https://https://yarnpkg.com) 0.21.0 or newer (optional)
+- [yarn](https://https://yarnpkg.com) 1.0.0 or newer (optional)
 
 ### Setup
 
