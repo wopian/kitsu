@@ -1,3 +1,9 @@
+#### 3.0.4 (2017-11-02)
+
+##### Chores
+
+* HTTPS -> HTTP for Apiary API docs link ([ee6fd365](https://github.com/wopian/kitsu/commit/ee6fd36548490c7c40549d66e4bb3ec04a402d7c))
+
 #### 3.0.3 (2017-11-01)
 
 ##### Chores
