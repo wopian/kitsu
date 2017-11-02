@@ -127,7 +127,7 @@ All code released under [MIT]
 [9]:https://github.com/wopian/kitsu/blob/master/LICENSE.md
 [10]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 [11]:https://github.com/wopian/kitsu/tree/master/example
-[12]:https://docs.kitsu.apiary.io
+[12]:http://docs.kitsu.apiary.io
 [13]:https://github.com/wopian/kitsu/tree/master/DOCS.md
 [14]:http://jsonapi.org/implementations/#client-libraries-javascript
 [15]:http://jsonapi.org
