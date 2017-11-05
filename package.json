@@ -90,5 +90,46 @@
       "^kitsu(.*)$": "<rootDir>/src/$1",
       "^pkg$": "<rootDir>/package.json"
     }
+  },
+  "renovate": {
+    "extends": [ "config:base" ],
+    "assignees": [ "wopian" ],
+    "pinVersions": false,
+    "automerge": false,
+    "commitMessage": "{{semanticPrefix}}update {{depName}} to {{newVersion}}",
+    "labels": [ "dependencies" ],
+    "lockFileMaintenance": {
+      "enabled": true,
+      "recreateClosed": true,
+      "branchName": "renovate/lock-files",
+      "commitMessage": "{{semanticPrefix}}update lock file",
+      "prTitle": "{{semanticPrefix}}lock file maintenance",
+      "prBody": "This PR regenerates lock files to keep them up-to-date.",
+      "schedule": [ "before 5am on monday" ]
+    },
+    "semanticCommits": true,
+    "separateMajorReleases": false,
+    "unpublishSafe": true,
+    "schedule": [ "before 5am on monday" ],
+    "prCreation": "not-pending",
+    "prTitle": "{{semanticPrefix}}{{#if isPin}}pin{{else}}update{{/if}} {{depName}} to {{#if isRange}}{{newVersion}}{{else}}{{#if isMajor}}{{newVersionMajor}}.x{{else}}{{newVersion}}{{/if}}{{/if}}",
+    "packageRules": [
+      {
+        "packagePatterns": ["^eslint"],
+        "groupName": "eslint"
+      },
+      {
+        "packagePatterns": ["^webpack"],
+        "groupName": "webpack"
+      },
+      {
+        "packagePatterns": ["^babel"],
+        "groupName": "babel"
+      },
+      {
+        "packagePatterns": ["^react"],
+        "groupName": "react"
+      }
+    ]
   }
 }
