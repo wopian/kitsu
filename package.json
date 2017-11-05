@@ -127,8 +127,8 @@
         "groupName": "babel"
       },
       {
-        "packagePatterns": ["^react"],
-        "groupName": "react"
+        "packagePatterns": ["^rollup"],
+        "groupName": "rollup"
       }
     ]
   }
