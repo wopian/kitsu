@@ -105,7 +105,7 @@
       "commitMessage": "{{semanticPrefix}}update lock file",
       "prTitle": "{{semanticPrefix}}lock file maintenance",
       "prBody": "This PR regenerates lock files to keep them up-to-date.",
-      "schedule": [ "before 5am on monday" ]
+      "schedule": [ "after 5am on monday", "before 9am on monday" ]
     },
     "semanticCommits": true,
     "separateMajorReleases": false,
