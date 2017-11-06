@@ -98,15 +98,7 @@
     "automerge": false,
     "commitMessage": "{{semanticPrefix}}update {{depName}} to {{newVersion}}",
     "labels": [ "dependencies" ],
-    "lockFileMaintenance": {
-      "enabled": true,
-      "recreateClosed": true,
-      "branchName": "renovate/lock-files",
-      "commitMessage": "{{semanticPrefix}}update lock file",
-      "prTitle": "{{semanticPrefix}}lock file maintenance",
-      "prBody": "This PR regenerates lock files to keep them up-to-date.",
-      "schedule": [ "after 5am on monday", "before 9am on monday" ]
-    },
+    "lockFileMaintenance": { "enabled": false },
     "semanticCommits": true,
     "separateMajorReleases": false,
     "unpublishSafe": true,
