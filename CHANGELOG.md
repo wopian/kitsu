@@ -1,3 +1,16 @@
+### 3.1.0 (2017-11-07)
+
+##### Chores
+
+* add kitsu.io to npm tags ([fec517ba](https://github.com/wopian/kitsu/commit/fec517badb4103a36e23cb63330316333d46448c))
+* disable lockfile maintenance ([aef0a52b](https://github.com/wopian/kitsu/commit/aef0a52b1d829fed8f48ac55d672710e1d996749))
+* enable renovate (#60) ([27608b1f](https://github.com/wopian/kitsu/commit/27608b1f14914ed0346b0829a38e9fc2de198059))
+* **deps:** update lock file (#61) ([dd37a4c6](https://github.com/wopian/kitsu/commit/dd37a4c6efb0986441d65ac065d32e70c8625989))
+
+##### New Features
+
+* allow additional headers with requests ([6872b4e5](https://github.com/wopian/kitsu/commit/6872b4e512dc31ea8e14a5aa307d2d4328d58802))
+
 #### 3.0.4 (2017-11-02)
 
 ##### Chores
