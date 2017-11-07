@@ -1,6 +1,6 @@
 {
   "name": "kitsu",
-  "version": "3.0.4",
+  "version": "3.1.0",
   "description": "Simple & lightweight JSON-API client for Kitsu and other compliant APIs",
   "license": "MIT",
   "author": "James Harris <wopian@wopian.me>",
@@ -94,34 +94,52 @@
     }
   },
   "renovate": {
-    "extends": [ "config:base" ],
-    "assignees": [ "wopian" ],
+    "extends": [
+      "config:base"
+    ],
+    "assignees": [
+      "wopian"
+    ],
     "pinVersions": false,
     "automerge": false,
     "commitMessage": "{{semanticPrefix}}update {{depName}} to {{newVersion}}",
-    "labels": [ "dependencies" ],
-    "lockFileMaintenance": { "enabled": false },
+    "labels": [
+      "dependencies"
+    ],
+    "lockFileMaintenance": {
+      "enabled": false
+    },
     "semanticCommits": true,
     "separateMajorReleases": false,
     "unpublishSafe": true,
-    "schedule": [ "before 5am on monday" ],
+    "schedule": [
+      "before 5am on monday"
+    ],
     "prCreation": "not-pending",
     "prTitle": "{{semanticPrefix}}{{#if isPin}}pin{{else}}update{{/if}} {{depName}} to {{#if isRange}}{{newVersion}}{{else}}{{#if isMajor}}{{newVersionMajor}}.x{{else}}{{newVersion}}{{/if}}{{/if}}",
     "packageRules": [
       {
-        "packagePatterns": ["^eslint"],
+        "packagePatterns": [
+          "^eslint"
+        ],
         "groupName": "eslint"
       },
       {
-        "packagePatterns": ["^webpack"],
+        "packagePatterns": [
+          "^webpack"
+        ],
         "groupName": "webpack"
       },
       {
-        "packagePatterns": ["^babel"],
+        "packagePatterns": [
+          "^babel"
+        ],
         "groupName": "babel"
       },
       {
-        "packagePatterns": ["^rollup"],
+        "packagePatterns": [
+          "^rollup"
+        ],
         "groupName": "rollup"
       }
     ]
