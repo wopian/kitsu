@@ -8,6 +8,7 @@ import { serialise } from '../util'
  * @memberof Kitsu
  * @param {String} model Model to create a resource under
  * @param {Object} body Data to send in the request
+ * @param {Object} headers Additional headers to send with request
  * @returns {Object} JSON-parsed response
  *
  * @example
@@ -24,12 +25,12 @@ import { serialise } from '../util'
  *   }
  * })
  */
-export default async function (model, body) {
+export default async function (model, body, headers = {}) {
   try {
     if (!this.axios.defaults.headers.Authorization) throw new Error('Not logged in')
     let { data } = await this.axios.post(plural(kebab(model)), {
       data: (await serialise(model, body)).data,
-      headers: this.headers
+      headers: Object.assign(this.headers, headers)
     })
     return data
   } catch (error) {

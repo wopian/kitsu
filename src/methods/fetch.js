@@ -15,6 +15,7 @@ import { deserialise, query } from '../util'
  * @param {Object} params.filter Filter dataset by attribute values jsonapi.org/format/#fetching-filtering
  * @param {String} params.sort Sort dataset by one or more comma separated attributes (prepend `-` for descending order) jsonapi.org/format/#fetching-sorting
  * @param {String} params.include Include relationship data jsonapi.org/format/#fetching-includes
+ * @param {Object} headers Additional headers to send with request
  * @returns {Object} JSON-parsed response
  *
  * @example
@@ -51,12 +52,12 @@ import { deserialise, query } from '../util'
  * // Get a resource's relationship data only
  * api.get('anime/2/categories')
  */
-export default async function (model, params) {
+export default async function (model, params = {}, headers = {}) {
   try {
     let { data } = await this.axios.get(plural(kebab(model)), {
       params,
       paramsSerializer: a => query(a),
-      headers: this.headers
+      headers: Object.assign(this.headers, headers)
     })
     return deserialise(data)
   } catch (error) {

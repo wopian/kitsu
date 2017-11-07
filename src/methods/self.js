@@ -8,6 +8,7 @@ import fetch from './fetch'
  * @param {Object} params JSON-API request queries
  * @param {Object} params.fields Return a sparse fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
  * @param {String} params.include Include relationship data jsonapi.org/format/#fetching-includes
+ * @param {Object} headers Additional headers to send with request
  * @returns {Object} JSON-parsed response
  *
  * @example
@@ -20,9 +21,9 @@ import fetch from './fetch'
  *   fields: 'name,birthday'
  * })
  */
-export default async function (params) {
+export default async function (params = {}, headers = {}) {
   try {
-    const { data } = await fetch.bind(this)('users', Object.assign({ filter: { self: true } }, params))
+    const { data } = await fetch.bind(this)('users', Object.assign({ filter: { self: true } }, params), headers)
     return data[0]
   } catch (error) {
     return error

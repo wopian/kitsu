@@ -8,6 +8,7 @@ import { serialise } from '../util'
  * @memberof Kitsu
  * @param {String} model Model to update data in
  * @param {Object} body Data to send in the request
+ * @param {Object} headers Additional headers to send with request
  * @returns {Object} JSON-parsed response
  *
  * @example
@@ -17,13 +18,13 @@ import { serialise } from '../util'
  *   content: 'Goodbye World'
  * })
  */
-export default async function (model, body) {
+export default async function (model, body, headers = {}) {
   try {
     if (!this.axios.defaults.headers.Authorization) throw new Error('Not logged in')
     if (typeof body.id === 'undefined') throw new Error('Updating a resource requires an ID')
     let { data } = await this.axios.patch(`${plural(kebab(model))}/${body.id}`, {
       data: (await serialise(model, body, 'PATCH')).data,
-      headers: this.headers
+      headers: Object.assign(this.headers, headers)
     })
     return data
   } catch (error) {

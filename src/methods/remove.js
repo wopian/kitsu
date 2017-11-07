@@ -8,19 +8,19 @@ import { serialise } from '../util'
  * @memberof Kitsu
  * @param {String} model Model to remove data from
  * @param {String|Number} id Resource ID to remove
+ * @param {Object} headers Additional headers to send with request
  * @returns {Object} JSON-parsed response
  *
  * @example
  * // Delete a user's post
  * api.remove('posts', 123)
  */
-export default async function (model, id) {
+export default async function (model, id, headers = {}) {
   try {
-    console.log(await serialise(model, { id }, 'DELETE'))
     if (!this.axios.defaults.headers.Authorization) throw new Error('Not logged in')
     let { data } = await this.axios.delete(`${plural(kebab(model))}/${id}`, {
       data: (await serialise(model, { id }, 'DELETE')).data,
-      headers: this.headers
+      headers: Object.assign(this.headers, headers)
     })
     return data
   } catch (error) {
