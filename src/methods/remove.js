@@ -16,10 +16,11 @@ import { serialise } from '../util'
  */
 export default async function (model, id, headers = {}) {
   try {
-    if (!this.axios.defaults.headers.Authorization) throw new Error('Not logged in')
+    headers = Object.assign(this.headers, headers)
+    if (!headers.Authorization) throw new Error('Not logged in')
     let { data } = await this.axios.delete(`${kebab(model)}/${id}`, {
-      data: (await serialise(model, { id }, 'DELETE')).data,
-      headers: Object.assign(this.headers, headers)
+      data: await serialise(model, { id }, 'DELETE'),
+      headers
     })
     return data
   } catch (error) {

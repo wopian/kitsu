@@ -43,8 +43,7 @@ export default class Kitsu {
     })
     this.axios = axios.create({
       baseURL: this.baseURL + '/' + (options.version || this.baseURL === kitsu ? 'edge' : ''),
-      timeout: options.timeout || 30000,
-      headers: this.headers
+      timeout: options.timeout || 30000
     })
   }
 
@@ -77,7 +76,7 @@ export default class Kitsu {
    * else console.log('Not authenticated')
    */
   get isAuth () {
-    return Boolean(typeof this.headers.authorization !== 'undefined')
+    return Boolean(this.headers.Authorization)
   }
 
   fetch = fetch.bind(this)
