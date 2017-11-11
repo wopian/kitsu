@@ -3,7 +3,7 @@ os:
 - osx
 language: node_js
 node_js:
-- latest
+- node
 - 8 # LTS Jan 20
 - 6 # LTS Apr 19
 cache:
