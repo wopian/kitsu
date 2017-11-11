@@ -1,5 +1,4 @@
 import kebab from 'decamelize'
-import plural from 'pluralize'
 import { serialise } from '../util'
 
 /**
@@ -22,7 +21,7 @@ export default async function (model, body, headers = {}) {
   try {
     if (!this.axios.defaults.headers.Authorization) throw new Error('Not logged in')
     if (typeof body.id === 'undefined') throw new Error('Updating a resource requires an ID')
-    let { data } = await this.axios.patch(`${plural(kebab(model))}/${body.id}`, {
+    let { data } = await this.axios.patch(`${kebab(model)}/${body.id}`, {
       data: (await serialise(model, body, 'PATCH')).data,
       headers: Object.assign(this.headers, headers)
     })

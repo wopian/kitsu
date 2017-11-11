@@ -1,5 +1,4 @@
 import kebab from 'decamelize'
-import plural from 'pluralize'
 import { serialise } from '../util'
 
 /**
@@ -28,7 +27,7 @@ import { serialise } from '../util'
 export default async function (model, body, headers = {}) {
   try {
     if (!this.axios.defaults.headers.Authorization) throw new Error('Not logged in')
-    let { data } = await this.axios.post(plural(kebab(model)), {
+    let { data } = await this.axios.post(kebab(model), {
       data: (await serialise(model, body)).data,
       headers: Object.assign(this.headers, headers)
     })

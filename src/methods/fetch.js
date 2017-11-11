@@ -1,5 +1,4 @@
 import kebab from 'decamelize'
-import plural from 'pluralize'
 import { deserialise, query } from '../util'
 
 /**
@@ -54,7 +53,7 @@ import { deserialise, query } from '../util'
  */
 export default async function (model, params = {}, headers = {}) {
   try {
-    let { data } = await this.axios.get(plural(kebab(model)), {
+    let { data } = await this.axios.get(kebab(model), {
       params,
       paramsSerializer: a => query(a),
       headers: Object.assign(this.headers, headers)
