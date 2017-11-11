@@ -1,3 +1,13 @@
+#### 3.2.0-rc.2 (2017-11-11)
+
+##### Bug Fixes
+
+* use header objects for Authorization checks ([a6d4b11b](https://github.com/wopian/kitsu/commit/a6d4b11bd49d9dfb66dc050ca4851b396566e129))
+
+##### Refactors
+
+* reduce error logging size ([064833b6](https://github.com/wopian/kitsu/commit/064833b6b3fd4f5bc9cf26521dde49cfc20341d1))
+
 ### 3.2.0-rc.1 (2017-11-11)
 
 The `pluralization` dependency has been removed in this candidate. This is a quick fix to resolve issues with models that end with numeric values and will be resolved and `pluralization` re-added with configuration in the proper release.
