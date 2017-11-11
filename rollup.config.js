@@ -12,9 +12,7 @@ let plugins = [
     runtimeHelpers: true
   }),
   minify({
-    comments: false,
-    removeConsole: true,
-    removeDebugger: true
+    comments: false
   }),
   local(),
   json(),

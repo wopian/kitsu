@@ -1,5 +1,5 @@
 import kebab from 'decamelize'
-import { deserialise, query } from '../util'
+import { deserialise, error, query } from '../util'
 
 /**
  * Fetch resources
@@ -59,8 +59,7 @@ export default async function (model, params = {}, headers = {}) {
       headers: Object.assign(this.headers, headers)
     })
     return deserialise(data)
-  } catch (error) {
-    const e = error.response.data
-    return e.errors ? e.errors : e
+  } catch (E) {
+    return error(E)
   }
 }

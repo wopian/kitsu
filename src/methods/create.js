@@ -1,5 +1,5 @@
 import kebab from 'decamelize'
-import { serialise } from '../util'
+import { error, serialise } from '../util'
 
 /**
  * Create a new resource
@@ -33,8 +33,7 @@ export default async function (model, body, headers = {}) {
       headers
     })
     return data
-  } catch (error) {
-    const e = error.response.data
-    return e.errors ? e.errors : e
+  } catch (E) {
+    return error(E)
   }
 }
