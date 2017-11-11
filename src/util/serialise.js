@@ -1,5 +1,4 @@
 import camel from 'camelcase'
-import plural from 'pluralize'
 
 /**
  * Serialises an object into a JSON-API structure
@@ -16,7 +15,7 @@ export async function serialise (model, obj = {}, method = 'POST') {
     if (obj.constructor !== Object || Object.keys(obj).length === 0) {
       throw new Error(`${method} requires a JSON object body`)
     }
-    const type = plural(camel(model))
+    const type = camel(model)
     const data = { type }
 
     // A POST request is the only request to not require an ID
