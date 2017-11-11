@@ -38,34 +38,6 @@ describe('serialise', () => {
     })
   })
 
-  it('Should pluralise type', () => {
-    expect.assertions(1)
-    expect(serialise('libraryEntry', {
-      rating: '1'
-    })).resolves.toEqual({
-      data: {
-        type: 'libraryEntries',
-        attributes: {
-          rating: '1'
-        }
-      }
-    })
-  })
-
-  it('Should not pluralise mass nouns', () => {
-    expect.assertions(1)
-    expect(serialise('anime', {
-      slug: 'Cowboy Bebop 2'
-    })).resolves.toEqual({
-      data: {
-        type: 'anime',
-        attributes: {
-          slug: 'Cowboy Bebop 2'
-        }
-      }
-    })
-  })
-
   it('Should throw an error if obj is missing', async () => {
     expect.assertions(1)
     await expect(serialise('post'))
