@@ -21,7 +21,8 @@ describe('serialise', () => {
     expect(serialise('LibraryEntries', {
       id: '1',
       user: {
-        id: '2'
+        id: '2',
+        type: 'users'
       }
     })).resolves.toEqual({
       data: {
@@ -40,21 +41,21 @@ describe('serialise', () => {
 
   it('Should throw an error if obj is missing', async () => {
     expect.assertions(1)
-    await expect(serialise('post'))
+    await expect(serialise('posts'))
       .rejects
       .toEqual(Error('POST requires a JSON object body'))
   })
 
   it('Should throw an error if obj is not an Object', async () => {
     expect.assertions(1)
-    await expect(serialise('post', 'id: 1', 'DELETE'))
+    await expect(serialise('posts', 'id: 1', 'DELETE'))
       .rejects
       .toEqual(Error('DELETE requires a JSON object body'))
   })
 
   it('Should throw an error when missing ID', async () => {
     expect.assertions(1)
-    await expect(serialise('user', { theme: 'dark' }, 'PATCH'))
+    await expect(serialise('users', { theme: 'dark' }, 'PATCH'))
       .rejects
       .toEqual(Error('PATCH requires an ID for the users type'))
   })
