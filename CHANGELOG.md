@@ -1,3 +1,32 @@
+### 3.2.0-rc.1 (2017-11-11)
+
+The `pluralization` dependency has been removed in this candidate. This is a quick fix to resolve issues with models that end with numeric values and will be resolved and `pluralization` re-added with configuration in the proper release.
+
+As a side effect, the body of `POST`, `PATCH` and `DELETE` requests **must** contain an `id` and `type`.
+
+Do not upgrade to this candidate if the model pluralization has not been affecting you.
+
+##### Chores
+
+* remove pluralisation tests ([624f1287](https://github.com/wopian/kitsu/commit/624f12874680eed921c5059e633b422b652518fa))
+* drop pluralize from serialiser ([cc111b90](https://github.com/wopian/kitsu/commit/cc111b9050f9e94f38d4c75a59bbf9c6ca7c8c43))
+* strip stray console logging from being bundled ([da72d534](https://github.com/wopian/kitsu/commit/da72d534231c0384411f6f3efcf1a277250c2ca9))
+
+##### Continuous Integration
+
+* **travis:**
+  * fix latest node version ([d4a1d71d](https://github.com/wopian/kitsu/commit/d4a1d71d948d26a39e4c2ad4baaaff09b6473aba))
+  * add comments for when LTS ends ([15cf0e94](https://github.com/wopian/kitsu/commit/15cf0e9445e1f210d2b161f5c76f1df59a064a96))
+* **appveyor:** drop testing node 7 and add 8 ([ae4dbb94](https://github.com/wopian/kitsu/commit/ae4dbb94e021a38289c7defae5f3eee3643c6147))
+
+##### Bug Fixes
+
+* drop pluralisation of request models ([053706a0](https://github.com/wopian/kitsu/commit/053706a02c2b34b408e170aff00b06b69c23ba09))
+
+##### Tests
+
+* fix pluralisation ([f028768a](https://github.com/wopian/kitsu/commit/f028768af5130e0c82f7bd65523c0e19ae6a246a))
+
 ### 3.1.0 (2017-11-07)
 
 ##### Chores
