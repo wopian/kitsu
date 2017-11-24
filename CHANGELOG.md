@@ -1,3 +1,14 @@
+#### 3.1.2 (2017-11-24)
+
+##### Chores
+
+* update build scripts ([bc3b1807](https://github.com/wopian/kitsu/commit/bc3b1807238391afbe536a0f65271abf56da12c6))
+* use common error function ([c25e4dc2](https://github.com/wopian/kitsu/commit/c25e4dc2cf81c7f4058239039ecdd5bff8604270))
+
+##### Continuous Integration
+
+* test against LTS node versions ([184ee6f7](https://github.com/wopian/kitsu/commit/184ee6f7b4a0bcf909fea3ef9594155f89b0f605))
+
 #### 3.1.1 (2017-11-24)
 
 ##### Chores
