@@ -1,3 +1,23 @@
+#### 3.1.1 (2017-11-24)
+
+##### Chores
+
+* **deps:**
+  * renovate eslint packages (#62) ([115a8b0d](https://github.com/wopian/kitsu/commit/115a8b0d2bb1f3b2f4b200db7713d0540f655ea0))
+  * update rollup to ~0.51.0 (#63) ([0b4ae24f](https://github.com/wopian/kitsu/commit/0b4ae24fb88fc6269e13a01bd145ebe0f55c044f))
+
+##### Continuous Integration
+
+* **travis:** remove greenkeeper integrations ([bfae4aae](https://github.com/wopian/kitsu/commit/bfae4aae8d9aefee2e37b38acc32af2e021ae458))
+
+##### Bug Fixes
+
+* handle empty data arrays ([d95f0593](https://github.com/wopian/kitsu/commit/d95f059364d4083cb362c4ff487050878a8a0850))
+
+##### Tests
+
+* add empty data array spec ([122387a1](https://github.com/wopian/kitsu/commit/122387a1262a9908fc130dceabf29feb207d3b5d))
+
 ### 3.1.0 (2017-11-07)
 
 ##### Chores

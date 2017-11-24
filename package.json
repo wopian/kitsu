@@ -15,7 +15,7 @@
     "lintdocs": "documentation lint src/index.js",
     "build": "yarn docs && yarn rollup",
     "release:build": "jest && yarn build",
-    "release:push": "git push origin && git push origin --tags && npm publish && git stash pop",
+    "release:push": "git push origin && git push origin --tags && yarn publish && git stash pop",
     "release:commit": "git add package.json && git add DOCS.md && git add CHANGELOG.md && git commit -m \"update changelog\" && git stash",
     "release:major": "yarn release:build && changelog -M && yarn release:commit && npm version major && yarn release:push",
     "release:minor": "yarn release:build && changelog -m && yarn release:commit && npm version minor && yarn release:push",
