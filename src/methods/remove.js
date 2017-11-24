@@ -1,6 +1,6 @@
 import kebab from 'decamelize'
 import plural from 'pluralize'
-import { serialise } from '../util'
+import { error, serialise } from '../util'
 
 /**
  * Remove a resource
@@ -17,14 +17,14 @@ import { serialise } from '../util'
  */
 export default async function (model, id, headers = {}) {
   try {
-    if (!this.axios.defaults.headers.Authorization) throw new Error('Not logged in')
+    headers = Object.assign(this.headers, headers)
+    if (!headers.Authorization) throw new Error('Not logged in')
     let { data } = await this.axios.delete(`${plural(kebab(model))}/${id}`, {
       data: (await serialise(model, { id }, 'DELETE')).data,
-      headers: Object.assign(this.headers, headers)
+      headers
     })
     return data
-  } catch (error) {
-    const e = error.response.data
-    return e.errors ? e.errors : e
+  } catch (E) {
+    return error(E)
   }
 }

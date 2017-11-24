@@ -48,12 +48,12 @@ export default {
       file: pkg.main,
       format: 'umd',
       name: 'kitsu',
-      sourcemap: false
+      sourcemap: true
     },
     {
       file: pkg.module,
       format: 'es',
-      sourcemap: false
+      sourcemap: true
     }
   ],
   onwarn: ({ code, message }) => {

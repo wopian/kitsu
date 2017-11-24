@@ -77,7 +77,7 @@ export default class Kitsu {
    * else console.log('Not authenticated')
    */
   get isAuth () {
-    return Boolean(typeof this.headers.authorization !== 'undefined')
+    return Boolean(this.headers.Authorization)
   }
 
   fetch = fetch.bind(this)

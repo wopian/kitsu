@@ -35,4 +35,22 @@ describe('Index', () => {
       expect(kitsu.headers['test']).toBe('123')
     })
   })
+
+  describe('auth', () => {
+    it('should return false is auth token missing', () => {
+      const kitsu = new Kitsu()
+      expect(kitsu.isAuth).toEqual(false)
+    })
+
+    it('should return true if auth token set in initialisation', () => {
+      const kitsu = new Kitsu({ headers: { Authorization: '123 '}})
+      expect(kitsu.isAuth).toEqual(true)
+    })
+
+    it('should return true if auth token set after initialisation', () => {
+      const kitsu = new Kitsu()
+      kitsu.headers['Authorization'] = '123'
+        expect(kitsu.isAuth).toEqual(true)
+      })
+   })
 })
