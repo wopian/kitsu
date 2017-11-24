@@ -12,7 +12,7 @@ export async function filterIncludes (included, { id, type }) {
   try {
     return included.filter(el => {
       return el.id === id && el.type === type
-    })[0]
+    })[0] || { id, type }
   } catch (e) {
     throw e
   }

@@ -13,15 +13,19 @@ export async function linkRelationships (data, included) {
     const { relationships } = data
     for (let key in await relationships) {
       // Relationship contains collection of resources
-      if (relationships[key].data && relationships[key].data.constructor === Array) {
+      if (relationships[key].data && Array.isArray(relationships[key].data)) {
         for (let { id, type } of await relationships[key].data) {
-          if (!data[key]) data[key] = []
-          data[key].push(await deattribute(await filterIncludes(included, { id, type })))
+          const deattributed = await deattribute(await filterIncludes(included, { id, type }))
+          if (typeof deattributed !== 'undefined') {
+            if (!data[key]) data[key] = []
+            data[key].push(deattributed)
+          }
         }
       // Relationship contains a single resource
       } else if (relationships[key].data) {
         const { id, type } = relationships[key].data
-        if (!data[key]) data[key] = await deattribute(await filterIncludes(included, { id, type }))
+        const deattributed = await deattribute(await filterIncludes(included, { id, type }))
+        if (typeof deattributed !== 'undefined' && !data[key]) data[key] = deattributed
         delete data[key].relationships
       }
     }
