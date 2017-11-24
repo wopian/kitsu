@@ -122,4 +122,23 @@ describe('deserialise', () => {
       }
     })
   })
+
+  it('Should deserialise with empty data arrays', async () => {
+    expect.assertions(1)
+    await expect(deserialise({
+      data: {
+        id: '1',
+        type: 'users',
+        attributes: {
+          data: []
+        }
+      }
+    })).resolves.toEqual({
+      data: {
+        data: [],
+        id: '1',
+        type: 'users'
+      }
+    })
+  })
 })
