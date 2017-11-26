@@ -1,4 +1,4 @@
-#### 3.1.2 (2017-11-26)
+#### 3.1.3 (2017-11-26)
 
 ##### Chores
 
@@ -12,17 +12,6 @@
 ##### Bug Fixes
 
 * add parentheses to fix short-circuiting of URL version (#64) ([b74fd7e3](https://github.com/wopian/kitsu/commit/b74fd7e37c9913a20b6efbe6a96503b48473817c))
-
-#### 3.1.2 (2017-11-24)
-
-##### Chores
-
-* update build scripts ([bc3b1807](https://github.com/wopian/kitsu/commit/bc3b1807238391afbe536a0f65271abf56da12c6))
-* use common error function ([c25e4dc2](https://github.com/wopian/kitsu/commit/c25e4dc2cf81c7f4058239039ecdd5bff8604270))
-
-##### Continuous Integration
-
-* test against LTS node versions ([184ee6f7](https://github.com/wopian/kitsu/commit/184ee6f7b4a0bcf909fea3ef9594155f89b0f605))
 
 #### 3.1.2 (2017-11-24)
 
