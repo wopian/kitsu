@@ -42,7 +42,7 @@ export default class Kitsu {
       'content-type': 'application/vnd.api+json'
     })
     this.axios = axios.create({
-      baseURL: this.baseURL + '/' + (options.version || this.baseURL === kitsu ? 'edge' : ''),
+      baseURL: this.baseURL + '/' + (options.version || (this.baseURL === kitsu ? 'edge' : '')),
       timeout: options.timeout || 30000,
       headers: this.headers
     })
