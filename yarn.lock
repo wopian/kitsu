@@ -2593,9 +2593,9 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
-generate-changelog@~1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/generate-changelog/-/generate-changelog-1.5.0.tgz#1ec4f88f58539b174d01e1bf6f993b857b470866"
+generate-changelog@~1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/generate-changelog/-/generate-changelog-1.6.0.tgz#faf302bbc83b147cafe38bfb10487f560f1ad640"
   dependencies:
     bluebird "^3.0.6"
     commander "^2.9.0"
