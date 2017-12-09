@@ -1,24 +1,26 @@
 # Kitsu
 
-[![npm]][1]
-[![npm installs]][1]
-[![David]][7]
+[![npm badge]][npm]
+[![npm install badge]][npm]
+[![david badge]][david]
+[![cc coverage badge]][cc coverage]
+[![donate badge]][donate]
 
-[![Travis]][2]
-[![AppVeyor]][3]
-[![CC Coverage]][4]
-[![CC Score]][5]
-[![CC Issues]][6]
+[![travis badge]][travis]
+[![appveyor badge]][appveyor]
+[![david dev badge]][david dev]
+[![cc maintainability badge]][cc maintainability]
 
-Simple, lightweight & framework agnostic [JSON-API][15] client for [Kitsu.io][KITSU] and other API backends
+A Simple framework agnostic [JSON:API] client for [Kitsu.io] and other spec compliant APIs
 
-*For breaking changes in 3.0, check the [CHANGELOG][16]*
+*For breaking changes in 3.0, check the [CHANGELOG][BREAKING]*
 
 ## Features
 
 - Fully JSON-API compliant
+- Automatically links relationships to data
 - Works in Node and on the web
-- Uses the [Promise][10] API
+- Uses the [Promise] API
 - Configurable timeout handling
 
 ## Install
@@ -33,6 +35,63 @@ yarn add kitsu
 
 ```bash
 npm install kitsu
+```
+
+## Response Comparison
+
+A GET request to a JSON:API API returns:
+
+```json5
+{
+  data: [
+    {
+      id: '4923ee67-19b0-4093-8aee-ab6ceeecf784'
+      type: 'users'
+      attributes: {
+        name: 'wopian'
+      }
+      relationships: {
+        followers: {
+          data: [
+            {
+              id: '50cfe2db-8157-4999-be87-450fea1b4b52'
+              type: 'follows'
+            }
+          ]
+        }
+      }
+    }
+  ]
+  included: [
+    {
+      id: '50cfe2db-8157-4999-be87-450fea1b4b52'
+      type: 'follows'
+      attributes: {
+        createdAt: '2017-08-24T02:36:26.006Z'
+      }
+    }
+  ]
+}
+```
+
+A GET request made with `kitsu` returns:
+```json5
+{
+  data: [
+    {
+      id: '4923ee67-19b0-4093-8aee-ab6ceeecf784'
+      type: 'users'
+      name: 'wopian'
+      followers: [
+        {
+          id: '50cfe2db-8157-4999-be87-450fea1b4b52'
+          type: 'follows'
+          createdAt: '2017-08-24T02:36:26.006Z'
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ## Usage
@@ -82,13 +141,13 @@ const { id } = await kitsu.get('users', {
 })
 ```
 
-[More Examples][11]
+[More Examples]
 
 ## Docs
 
-You can find the kitsu package [documentation here][13]
+You can find the kitsu package [documentation here][Kitsu Docs]
 
-If you're working with [Kitsu.io][KITSU]'s API, their [API documentation][12] lists all available
+If you're working with [Kitsu.io]'s API, their [API documentation][Kitsu.io API Docs] lists all available
 models with their attributes and relationships
 
 ## Contributing
@@ -103,32 +162,37 @@ See [CHANGELOG]
 
 All code released under [MIT]
 
-[KITSU]:https://kitsu.io
+[Kitsu.io]:https://kitsu.io
+[JSON:API]:http://jsonapi.org
+[Promise]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+[More Examples]:https://github.com/wopian/kitsu/tree/master/example
+[Kitsu Docs]:https://github.com/wopian/kitsu/tree/master/DOCS.md
+[Kitsu.io API Docs]:http://docs.kitsu.apiary.io
+
+[BREAKING]:https://github.com/wopian/kitsu/blob/master/CHANGELOG.md#breaking-changes
 [CHANGELOG]:https://github.com/wopian/kitsu-inactivity-pruner/blob/master/CHANGELOG.md
 [CONTRIBUTING]:https://github.com/wopian/kitsu-inactivity-pruner/blob/master/CONTRIBUTING.md
 [MIT]:https://github.com/wopian/kitsu/blob/master/LICENSE.md
 
-[npm]:https://img.shields.io/npm/v/kitsu.svg?style=flat-square
-[npm installs]:https://img.shields.io/npm/dt/kitsu.svg?style=flat-square
-[Travis]:https://img.shields.io/travis/wopian/kitsu/master.svg?style=flat-square&label=linux%20%26%20macOS
-[CC Coverage]:https://img.shields.io/codeclimate/coverage/github/wopian/kitsu.svg?style=flat-square
-[CC Score]:https://img.shields.io/codeclimate/github/wopian/kitsu.svg?style=flat-square
-[CC Issues]:https://img.shields.io/codeclimate/issues/github/wopian/kitsu.svg?style=flat-square
-[David]:https://img.shields.io/david/wopian/kitsu.svg?style=flat-square
-[AppVeyor]:https://img.shields.io/appveyor/ci/wopian/kitsu/master.svg?style=flat-square&label=windows
-[1]:https://www.npmjs.com/package/kitsu
-[2]:https://travis-ci.org/wopian/kitsu
-[3]:https://ci.appveyor.com/project/wopian/kitsu
-[4]:https://codeclimate.com/github/wopian/kitsu/coverage
-[5]:https://codeclimate.com/github/wopian/kitsu
-[6]:https://codeclimate.com/github/wopian/kitsu/issues
-[7]:https://david-dm.org/wopian/kitsu
-[8]:https://github.com/wopian/kitsu/blob/master/CHANGELOG.md
-[9]:https://github.com/wopian/kitsu/blob/master/LICENSE.md
-[10]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
-[11]:https://github.com/wopian/kitsu/tree/master/example
-[12]:http://docs.kitsu.apiary.io
-[13]:https://github.com/wopian/kitsu/tree/master/DOCS.md
-[14]:http://jsonapi.org/implementations/#client-libraries-javascript
-[15]:http://jsonapi.org
-[16]:https://github.com/wopian/kitsu/blob/master/CHANGELOG.md#breaking-changes
+[npm]:https://www.npmjs.com/package/kitsu
+[npm badge]:https://img.shields.io/npm/v/kitsu.svg?style=flat-square
+[npm install badge]:https://img.shields.io/npm/dt/kitsu.svg?style=flat-square
+
+[travis]:https://travis-ci.org/wopian/kitsu
+[travis badge]:https://img.shields.io/travis/wopian/kitsu/master.svg?style=flat-square&label=linux%20%26%20macOS
+
+[appveyor]:https://ci.appveyor.com/project/wopian/kitsu
+[appveyor badge]:https://img.shields.io/appveyor/ci/wopian/kitsu/master.svg?style=flat-square&label=windows
+
+[cc coverage]:https://codeclimate.com/github/wopian/kitsu/coverage
+[cc coverage badge]:https://img.shields.io/codeclimate/coverage/github/wopian/kitsu.svg?style=flat-square
+[cc maintainability]:https://codeclimate.com/github/wopian/kitsu
+[cc maintainability badge]:https://img.shields.io/codeclimate/maintainability/wopian/kitsu.svg?style=flat-square
+
+[david]:https://david-dm.org/wopian/kitsu
+[david badge]:https://img.shields.io/david/wopian/kitsu.svg?style=flat-square
+[david dev]:https://david-dm.org/wopian/kitsu?type=dev
+[david dev badge]:https://img.shields.io/david/dev/wopian/kitsu.svg?style=flat-square
+
+[donate]:https://www.paypal.me/wopian
+[donate badge]:https://img.shields.io/badge/£-donate-ff69b4.svg?style=flat-square
