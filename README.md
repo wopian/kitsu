@@ -194,5 +194,5 @@ All code released under [MIT]
 [david dev]:https://david-dm.org/wopian/kitsu?type=dev
 [david dev badge]:https://img.shields.io/david/dev/wopian/kitsu.svg?style=flat-square
 
-[donate]:https://www.paypal.me/wopian
+[donate]:https://paypal.me/pools/c/7ZZSVeBON7
 [donate badge]:https://img.shields.io/badge/£-donate-ff69b4.svg?style=flat-square
