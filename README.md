@@ -167,7 +167,7 @@ All code released under [MIT]
 [Promise]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 [More Examples]:https://github.com/wopian/kitsu/tree/master/example
 [Kitsu Docs]:https://github.com/wopian/kitsu/tree/master/DOCS.md
-[Kitsu.io API Docs]:http://docs.kitsu.apiary.io
+[Kitsu.io API Docs]:https://docs.kitsu.apiary.io
 
 [BREAKING]:https://github.com/wopian/kitsu/blob/master/CHANGELOG.md#breaking-changes
 [CHANGELOG]:https://github.com/wopian/kitsu-inactivity-pruner/blob/master/CHANGELOG.md
