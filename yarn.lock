@@ -2135,9 +2135,9 @@ eslint-plugin-import@~2.2.0:
     minimatch "^3.0.3"
     pkg-up "^1.0.0"
 
-eslint-plugin-jest@~21.3.0:
-  version "21.3.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-21.3.2.tgz#b1cefc05f0fed700eb40185a94d16f6d575d1ef9"
+eslint-plugin-jest@~21.4.0:
+  version "21.4.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-21.4.2.tgz#0e8ec03687259169cef46656827a0a0715e8a8d4"
 
 eslint-plugin-node@~4.2.2:
   version "4.2.3"
@@ -2214,9 +2214,9 @@ eslint@~3.19.0:
     text-table "~0.2.0"
     user-home "^2.0.0"
 
-eslint@~4.12.0:
-  version "4.12.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.12.0.tgz#a7ce78eba8cc8f2443acfbbc870cc31a65135884"
+eslint@~4.13.0:
+  version "4.13.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.13.0.tgz#1991aa359586af83877bde59de9d41f53e20826d"
   dependencies:
     ajv "^5.3.0"
     babel-code-frame "^6.22.0"
