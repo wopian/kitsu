@@ -22,7 +22,7 @@ notifications:
   email: false
 deploy:
   provider: releases
-  api_key: $GITHUB_TOKEN
+  api_key: $GH_TOKEN
   file_glob: true
   file: lib/*
   skip_cleanup: true
