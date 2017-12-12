@@ -3,13 +3,14 @@
 [![npm badge]][npm]
 [![npm install badge]][npm]
 [![david badge]][david]
-[![cc coverage badge]][cc coverage]
+[![contributors badge]][contributors]
 [![donate badge]][donate]
 
 [![travis badge]][travis]
 [![appveyor badge]][appveyor]
 [![david dev badge]][david dev]
 [![cc maintainability badge]][cc maintainability]
+[![cc coverage badge]][cc coverage]
 
 A Simple framework agnostic [JSON:API] client for [Kitsu.io] and other spec compliant APIs
 
@@ -193,6 +194,9 @@ All code released under [MIT]
 [david badge]:https://img.shields.io/david/wopian/kitsu.svg?style=flat-square
 [david dev]:https://david-dm.org/wopian/kitsu?type=dev
 [david dev badge]:https://img.shields.io/david/dev/wopian/kitsu.svg?style=flat-square
+
+[contributors]:https://github.com/wopian/kitsu/graphs/contributors
+[contributors badge]:https://img.shields.io/github/contributors/wopian/kitsu.svg?style=flat-square
 
 [donate]:https://paypal.me/pools/c/7ZZSVeBON7
 [donate badge]:https://img.shields.io/badge/£-donate-ff69b4.svg?style=flat-square
