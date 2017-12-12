@@ -1,3 +1,37 @@
+#### 3.1.4 (2017-12-12)
+
+##### Chores
+
+* update release scripts ([6f81ed9a](https://github.com/wopian/kitsu/commit/6f81ed9ac521f434fc3c169faf4c773ab3499f1c))
+* remove 3.1.2 commits from 3.1.3 changelog ([64acafd5](https://github.com/wopian/kitsu/commit/64acafd55bb623d1464afcd4ed8027ba66e7b46a))
+* fix changelog versioning ([53c10dab](https://github.com/wopian/kitsu/commit/53c10dab5f539adc8b1c81566da7831ff2eb6159))
+* update build scripts ([bc3b1807](https://github.com/wopian/kitsu/commit/bc3b1807238391afbe536a0f65271abf56da12c6))
+* use common error function ([c25e4dc2](https://github.com/wopian/kitsu/commit/c25e4dc2cf81c7f4058239039ecdd5bff8604270))
+* **deps:**
+  * renovate eslint packages (#68) ([151405ff](https://github.com/wopian/kitsu/commit/151405ff5df73b9c2b41b833699a8a61575357a5))
+  * renovate eslint packages (#67) ([b8c66c25](https://github.com/wopian/kitsu/commit/b8c66c256f96733636e6bb605956ee265d240b4f))
+  * update generate-changelog to ~1.6.0 (#65) ([563fc22b](https://github.com/wopian/kitsu/commit/563fc22bf2af8fc5b15b8d844d22fb15d5591700))
+  * update rollup to ~0.52.0 (#66) ([853fa39d](https://github.com/wopian/kitsu/commit/853fa39d6b2e8a017428324493a4f8b123d5cdfc))
+
+##### Continuous Integration
+
+* **travis:**
+  * use existing oauth token ([1f7f8373](https://github.com/wopian/kitsu/commit/1f7f83733796774b4941600cd43b7f2138a5a7d7))
+  * add package files to github releases ([2c6e577e](https://github.com/wopian/kitsu/commit/2c6e577e9a7712dfc2305f319bc28ef436aac4a2))
+* test against LTS node versions ([184ee6f7](https://github.com/wopian/kitsu/commit/184ee6f7b4a0bcf909fea3ef9594155f89b0f605))
+
+##### Documentation Changes
+
+* add contributors badge ([7bb04ba8](https://github.com/wopian/kitsu/commit/7bb04ba8860f3741285a9dba1c04074c4fbf0439))
+* fix kitsu.io docs url ([39b337a1](https://github.com/wopian/kitsu/commit/39b337a1ea61de2ff7194dee17e280f163a93a69))
+* update donation link ([c43b10b3](https://github.com/wopian/kitsu/commit/c43b10b38cd053f8608f3ae1816044143e97d216))
+* use https for kitsu.io api docs link ([c0494cbc](https://github.com/wopian/kitsu/commit/c0494cbc1fa51fb465c2888e8ca9edb1170d8cf6))
+* update badges and add example response comparison ([70be0a71](https://github.com/wopian/kitsu/commit/70be0a71707b81cc2a19e324f7ff1485faedcbed))
+
+##### Bug Fixes
+
+* add parentheses to fix short-circuiting of URL version (#64) ([b74fd7e3](https://github.com/wopian/kitsu/commit/b74fd7e37c9913a20b6efbe6a96503b48473817c))
+
 #### 3.1.3 (2017-11-26)
 
 ##### Bug Fixes
