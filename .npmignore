@@ -9,8 +9,6 @@ coverage
 .eslintrc.yml
 .gitignore
 .hound.yml
-.yarnclean
 .travis.yml
 rollup.config.js
 yarn.lock
-yarn.sh
