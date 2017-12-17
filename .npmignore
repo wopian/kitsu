@@ -1,6 +1,5 @@
 .vscode
 example
-src
 coverage
 .appveyor.yml
 .babelrc
