@@ -71,7 +71,7 @@
     "documentation": "~5.3.3",
     "eslint": "~4.13.0",
     "eslint-plugin-jest": "~21.5.0",
-    "generate-changelog": "~1.6.0",
+    "generate-changelog": "~1.7.0",
     "jest": "~21.2.1",
     "js-beautify": "~1.7.4",
     "rollup": "~0.52.0",
