@@ -101,7 +101,7 @@
     ],
     "pinVersions": false,
     "automerge": false,
-    "commitMessage": "{{semanticPrefix}}update {{depName}} to {{newVersion}}",
+    "commitMessage": "chore(deps): update {{depName}} to {{newVersion}}",
     "labels": [
       "dependencies"
     ],
@@ -115,7 +115,7 @@
       "before 5am on monday"
     ],
     "prCreation": "not-pending",
-    "prTitle": "{{semanticPrefix}}{{#if isPin}}pin{{else}}update{{/if}} {{depName}} to {{#if isRange}}{{newVersion}}{{else}}{{#if isMajor}}{{newVersionMajor}}.x{{else}}{{newVersion}}{{/if}}{{/if}}",
+    "prTitle": "chore(deps): {{#if isPin}}pin{{else}}update{{/if}} {{depName}} to {{#if isRange}}{{newVersion}}{{else}}{{#if isMajor}}{{newVersionMajor}}.x{{else}}{{newVersion}}{{/if}}{{/if}}",
     "packageRules": [
       {
         "packagePatterns": [
