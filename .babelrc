@@ -2,7 +2,6 @@
   "env": {
     "development": {
       "presets": [
-        "minify",
         "env",
         "stage-0"
       ]
