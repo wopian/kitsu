@@ -25,7 +25,7 @@ import { error, serialise } from '../util'
  *   }
  * })
  */
-export default async function (model, body, headers = {}) {
+export async function post (model, body, headers = {}) {
   try {
     headers = Object.assign(this.headers, headers)
     if (!headers.Authorization) throw new Error('Not logged in')

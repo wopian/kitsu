@@ -18,7 +18,7 @@ import { error, serialise } from '../util'
  *   content: 'Goodbye World'
  * })
  */
-export default async function (model, body, headers = {}) {
+export async function patch (model, body, headers = {}) {
   try {
     headers = Object.assign(this.headers, headers)
     if (!headers.Authorization) throw new Error('Not logged in')

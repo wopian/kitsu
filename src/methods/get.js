@@ -4,7 +4,7 @@ import { deserialise, error, query } from '../util'
 
 /**
  * Fetch resources
- * Aliases: `get`, `find`, `findAll`
+ * Aliases: `fetch`
  * @memberof Kitsu
  * @param {string} model Model to fetch data from
  * @param {Object} params JSON-API request queries
@@ -52,7 +52,7 @@ import { deserialise, error, query } from '../util'
  * // Get a resource's relationship data only
  * api.get('anime/2/categories')
  */
-export default async function (model, params = {}, headers = {}) {
+export async function get (model, params = {}, headers = {}) {
   try {
     let { data } = await this.axios.get(plural(kebab(model)), {
       params,

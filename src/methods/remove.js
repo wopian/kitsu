@@ -15,7 +15,7 @@ import { error, serialise } from '../util'
  * // Delete a user's post
  * api.remove('posts', 123)
  */
-export default async function (model, id, headers = {}) {
+export async function remove (model, id, headers = {}) {
   try {
     headers = Object.assign(this.headers, headers)
     if (!headers.Authorization) throw new Error('Not logged in')

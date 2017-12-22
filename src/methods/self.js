@@ -1,9 +1,8 @@
-import fetch from './fetch'
+import { get } from './'
 
 /**
- * Fetch user data of the authenticated user
- * Note: Requires the JSON-API server to support `filter[self]=true`
- * Aliases: `whoAmI`
+ * Get the authenticated user's data
+ * Note: Requires the JSON:API server to support `filter[self]=true`
  * @memberof Kitsu
  * @param {Object} params JSON-API request queries
  * @param {Object} params.fields Return a sparse fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
@@ -21,9 +20,9 @@ import fetch from './fetch'
  *   fields: 'name,birthday'
  * })
  */
-export default async function (params = {}, headers = {}) {
+export async function self (params = {}, headers = {}) {
   try {
-    const { data } = await fetch.bind(this)('users', Object.assign({ filter: { self: true } }, params), headers)
+    const { data } = await get.bind(this)('users', Object.assign({ filter: { self: true } }, params), headers)
     return data[0]
   } catch (error) {
     return error

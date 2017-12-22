@@ -5,11 +5,11 @@
 -   [Kitsu](#kitsu)
     -   [headers](#headers)
     -   [isAuth](#isauth)
-    -   [create](#create)
-    -   [fetch](#fetch)
+    -   [get](#get)
+    -   [patch](#patch)
+    -   [post](#post)
     -   [remove](#remove)
     -   [self](#self)
-    -   [update](#update)
 
 ## Kitsu
 
@@ -19,30 +19,32 @@ A simple, lightweight & framework agnostic JSON-API client JSON API
 
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options (optional, default `{}`)
     -   `options.baseURL` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Set the API endpoint (default `https://kitsu.io/api/edge`)
-    -   `options.timeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Set the request timeout in milliseconds (default `30000`)
     -   `options.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with requests
+    -   `options.kebabcase` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If `true`, `/libraryEntries` will become `/library-entries` in the URL request (default `true`)
+    -   `options.pluralize` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If `true`, `type` will be pluralized in post, patch and delete requests - `user` -> `users` (default `true`)
+    -   `options.timeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Set the request timeout in milliseconds (default `30000`)
 
 **Examples**
 
 ```javascript
-// Basic
+// If using Kitsu.io's API
 const api = new Kitsu()
 ```
 
 ```javascript
-// Set a `user-agent` and pre-existing `authorization` token
+// If using another API server
 const api = new Kitsu({
-  headers: {
-    'user-agent': 'MyApp/1.0.0 (github.com/username/repo)',
-    authorization: 'Bearer 1234567890'
-  }
+  baseURL: 'https://api.example.org/2'
 })
 ```
 
 ```javascript
-// Use a different JSON-API backend
+// Set a `user-agent` and an `authorization` token
 const api = new Kitsu({
-  baseURL: 'https://api.example.org'
+  headers: {
+    'User-Agent': 'MyApp/1.0.0 (github.com/username/repo)',
+    Authorization: 'Bearer 1234567890'
+  }
 })
 ```
 
@@ -54,17 +56,17 @@ Get the current headers or add additional headers
 
 ```javascript
 // Receive all the headers
-console.log(api.headers)
+api.headers
 ```
 
 ```javascript
 // Receive a specific header
-console.log(api.headers['user-agent'])
+api.headers['User-Agent']
 ```
 
 ```javascript
 // Add or update a header
-api.headers['authorization'] = 'Bearer 1234567890'
+api.headers['Authorization'] = 'Bearer 1234567890'
 ```
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** All the current headers
@@ -82,40 +84,10 @@ else console.log('Not authenticated')
 
 Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
-### create
-
-Create a new resource
-Aliases: `post`
-
-**Parameters**
-
--   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to create a resource under
--   `body` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Data to send in the request
--   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
-
-**Examples**
-
-```javascript
-// Post a comment to a user's own profile
-api.post('posts', {
-  content: 'Hello World',
-  targetUser: {
-    id: '42603',
-    type: 'users'
-  },
-  user: {
-    id: '42603',
-    type: 'users'
-  }
-})
-```
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
-
-### fetch
+### get
 
 Fetch resources
-Aliases: `get`, `find`, `findAll`
+Aliases: `fetch`
 
 **Parameters**
 
@@ -173,6 +145,59 @@ api.get('anime/2/categories')
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
 
+### patch
+
+Update a resource
+Aliases: `patch`
+
+**Parameters**
+
+-   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to update data in
+-   `body` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Data to send in the request
+-   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
+
+**Examples**
+
+```javascript
+// Update a user's post (Note: For Kitsu.io, posts cannot be edited 30 minutes after creation)
+api.update('posts', {
+  id: '12345678',
+  content: 'Goodbye World'
+})
+```
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
+
+### post
+
+Create a new resource
+Aliases: `post`
+
+**Parameters**
+
+-   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to create a resource under
+-   `body` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Data to send in the request
+-   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
+
+**Examples**
+
+```javascript
+// Post a comment to a user's own profile
+api.post('posts', {
+  content: 'Hello World',
+  targetUser: {
+    id: '42603',
+    type: 'users'
+  },
+  user: {
+    id: '42603',
+    type: 'users'
+  }
+})
+```
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
+
 ### remove
 
 Remove a resource
@@ -195,9 +220,8 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### self
 
-Fetch user data of the authenticated user
-Note: Requires the JSON-API server to support `filter[self]=true`
-Aliases: `whoAmI`
+Get the authenticated user's data
+Note: Requires the JSON:API server to support `filter[self]=true`
 
 **Parameters**
 
@@ -217,29 +241,6 @@ api.self()
 // Receive a sparse fieldset
 api.self({
   fields: 'name,birthday'
-})
-```
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
-
-### update
-
-Update a resource
-Aliases: `patch`
-
-**Parameters**
-
--   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to update data in
--   `body` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Data to send in the request
--   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
-
-**Examples**
-
-```javascript
-// Update a user's post (Note: For Kitsu.io, posts cannot be edited 30 minutes after creation)
-api.update('posts', {
-  id: '12345678',
-  content: 'Goodbye World'
 })
 ```
 
