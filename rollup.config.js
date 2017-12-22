@@ -24,20 +24,12 @@ let plugins = [
 export default {
   input: 'src/index.js',
   external: [
-    'babel-runtime/regenerator',
     'babel-runtime/helpers/asyncToGenerator',
-    'babel-runtime/helpers/classCallCheck',
-    'babel-runtime/helpers/createClass',
-    'babel-runtime/helpers/typeof',
     ...external
   ],
   plugins,
   globals: {
-    'babel-runtime/regenerator': '_regeneratorRuntime',
     'babel-runtime/helpers/asyncToGenerator': '_asyncToGenerator',
-    'babel-runtime/helpers/classCallCheck': '_classCallCheck',
-    'babel-runtime/helpers/createClass': '_createClass',
-    'babel-runtime/helpers/typeof': '_typeof',
     decamelize: 'kebab',
     pluralize: 'plural',
     camelcase: 'camel',
