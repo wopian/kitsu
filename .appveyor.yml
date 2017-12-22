@@ -10,7 +10,7 @@ cache:
 # - "%LOCALAPPDATA%\\Yarn"
 install:
 - ps: Install-Product node $env:nodejs_version $env:platform
-- yarn upgrade
+- yarn
 test_script:
 - yarn test
 build: off
