@@ -1,5 +1,7 @@
 import axios from 'axios'
-import { get, patch, post, remove, self } from './methods'
+import kebab from 'decamelize'
+import plural from 'pluralize'
+import { deserialise, serialise, error, query } from './util'
 
 const kitsu = 'https://kitsu.io/api/edge'
 
@@ -77,11 +79,192 @@ export default class Kitsu {
     return Boolean(this.headers.Authorization)
   }
 
-  get = get.bind(this)
-  patch = patch.bind(this)
-  post = post.bind(this)
-  remove = remove.bind(this)
-  self = self.bind(this)
+  /**
+   * Fetch resources
+   * Aliases: `fetch`
+   * @memberof Kitsu
+   * @param {string} model Model to fetch data from
+   * @param {Object} params JSON-API request queries
+   * @param {Object} params.page jsonapi.org/format/#fetching-pagination
+   * @param {number} params.page.limit Number of resources to return in request (Max `20` for Kitsu.io except on `libraryEntries` which has a max of `500`)
+   * @param {number} params.page.offset Number of resources to offset the dataset by
+   * @param {Object} params.fields Return a sparse fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
+   * @param {Object} params.filter Filter dataset by attribute values jsonapi.org/format/#fetching-filtering
+   * @param {string} params.sort Sort dataset by one or more comma separated attributes (prepend `-` for descending order) jsonapi.org/format/#fetching-sorting
+   * @param {string} params.include Include relationship data jsonapi.org/format/#fetching-includes
+   * @param {Object} headers Additional headers to send with request
+   * @returns {Object} JSON-parsed response
+   *
+   * @example
+   * // Get a specific user's name & birthday
+   * api.get('users', {
+   *   fields: {
+   *     users: 'name,birthday'
+   *   },
+   *   filter: {
+   *     name: 'wopian'
+   *   }
+   * })
+   *
+   * @example
+   * // Get a collection of anime resources and their categories
+   * api.get('anime', {
+   *   include: 'categories'
+   * })
+   *
+   * @example
+   * // Get a single resource and its relationships by ID (method one)
+   * api.get('anime', {
+   *   include: 'categories',
+   *   filter: { id: '2' }
+   * })
+   *
+   * @example
+   * // Get a single resource and its relationships by ID (method two)
+   * api.get('anime/2', {
+   *   include: 'categories'
+   * })
+   *
+   * @example
+   * // Get a resource's relationship data only
+   * api.get('anime/2/categories')
+   */
+  async get (model, params = {}, headers = {}) {
+    try {
+      let { data } = await this.axios.get(plural(kebab(model)), {
+        params,
+        paramsSerializer: a => query(a),
+        headers: Object.assign(this.headers, headers)
+      })
+      return deserialise(data)
+    } catch (E) {
+      return error(E)
+    }
+  }
+
+  /**
+   * Update a resource
+   * Aliases: `patch`
+   * @memberof Kitsu
+   * @param {string} model Model to update data in
+   * @param {Object} body Data to send in the request
+   * @param {Object} headers Additional headers to send with request
+   * @returns {Object} JSON-parsed response
+   *
+   * @example
+   * // Update a user's post (Note: For Kitsu.io, posts cannot be edited 30 minutes after creation)
+   * api.update('posts', {
+   *   id: '12345678',
+   *   content: 'Goodbye World'
+   * })
+   */
+  async patch (model, body, headers = {}) {
+    try {
+      headers = Object.assign(this.headers, headers)
+      if (!headers.Authorization) throw new Error('Not logged in')
+      if (typeof body.id === 'undefined') throw new Error('Updating a resource requires an ID')
+      let { data } = await this.axios.patch(`${plural(kebab(model))}/${body.id}`, {
+        data: (await serialise(model, body, 'PATCH')).data,
+        headers
+      })
+      return data
+    } catch (E) {
+      return error(E)
+    }
+  }
+
+  /**
+   * Create a new resource
+   * Aliases: `post`
+   * @memberof Kitsu
+   * @param {string} model Model to create a resource under
+   * @param {Object} body Data to send in the request
+   * @param {Object} headers Additional headers to send with request
+   * @returns {Object} JSON-parsed response
+   *
+   * @example
+   * // Post a comment to a user's own profile
+   * api.post('posts', {
+   *   content: 'Hello World',
+   *   targetUser: {
+   *     id: '42603',
+   *     type: 'users'
+   *   },
+   *   user: {
+   *     id: '42603',
+   *     type: 'users'
+   *   }
+   * })
+   */
+  async post (model, body, headers = {}) {
+    try {
+      headers = Object.assign(this.headers, headers)
+      if (!headers.Authorization) throw new Error('Not logged in')
+      let { data } = await this.axios.post(plural(kebab(model)), {
+        data: (await serialise(model, body)).data,
+        headers
+      })
+      return data
+    } catch (E) {
+      return error(E)
+    }
+  }
+
+  /**
+   * Remove a resource
+   * Aliases: `destroy`
+   * @memberof Kitsu
+   * @param {string} model Model to remove data from
+   * @param {string|number} id Resource ID to remove
+   * @param {Object} headers Additional headers to send with request
+   * @returns {Object} JSON-parsed response
+   *
+   * @example
+   * // Delete a user's post
+   * api.remove('posts', 123)
+   */
+  async remove (model, id, headers = {}) {
+    try {
+      headers = Object.assign(this.headers, headers)
+      if (!headers.Authorization) throw new Error('Not logged in')
+      let { data } = await this.axios.delete(`${plural(kebab(model))}/${id}`, {
+        data: (await serialise(model, { id }, 'DELETE')).data,
+        headers
+      })
+      return data
+    } catch (E) {
+      return error(E)
+    }
+  }
+
+  /**
+   * Get the authenticated user's data
+   * Note: Requires the JSON:API server to support `filter[self]=true`
+   * @memberof Kitsu
+   * @param {Object} params JSON-API request queries
+   * @param {Object} params.fields Return a sparse fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
+   * @param {string} params.include Include relationship data jsonapi.org/format/#fetching-includes
+   * @param {Object} headers Additional headers to send with request
+   * @returns {Object} JSON-parsed response
+   *
+   * @example
+   * // Receive all attributes
+   * api.self()
+   *
+   * @example
+   * // Receive a sparse fieldset
+   * api.self({
+   *   fields: 'name,birthday'
+   * })
+   */
+  async self (params = {}, headers = {}) {
+    try {
+      const { data } = await this.get('users', Object.assign({ filter: { self: true } }, params), headers)
+      return data[0]
+    } catch (error) {
+      return error
+    }
+  }
 
   fetch = this.get
   update = this.patch
