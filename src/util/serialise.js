@@ -4,9 +4,9 @@ import plural from 'pluralize'
 /**
  * Serialises an object into a JSON-API structure
  *
- * @param {String} model Request model
+ * @param {string} model Request model
  * @param {Object} obj The data
- * @param {String} method Request type
+ * @param {string} method Request type
  * @returns {Object} The serialised data
  * @private
  */

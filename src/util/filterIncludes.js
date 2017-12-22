@@ -3,8 +3,8 @@
  *
  * @param {Object} included The response included object
  * @param {Object} opts
- * @param {String} opts.id The relationship ID
- * @param {String} opts.type The relationship type
+ * @param {string} opts.id The relationship ID
+ * @param {string} opts.type The relationship type
  * @returns {Array} The matched includes
  * @private
  */

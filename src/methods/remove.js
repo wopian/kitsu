@@ -6,8 +6,8 @@ import { error, serialise } from '../util'
  * Remove a resource
  * Aliases: `destroy`
  * @memberof Kitsu
- * @param {String} model Model to remove data from
- * @param {String|Number} id Resource ID to remove
+ * @param {string} model Model to remove data from
+ * @param {string|number} id Resource ID to remove
  * @param {Object} headers Additional headers to send with request
  * @returns {Object} JSON-parsed response
  *

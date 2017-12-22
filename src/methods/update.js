@@ -6,7 +6,7 @@ import { error, serialise } from '../util'
  * Update a resource
  * Aliases: `patch`
  * @memberof Kitsu
- * @param {String} model Model to update data in
+ * @param {string} model Model to update data in
  * @param {Object} body Data to send in the request
  * @param {Object} headers Additional headers to send with request
  * @returns {Object} JSON-parsed response

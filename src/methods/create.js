@@ -6,7 +6,7 @@ import { error, serialise } from '../util'
  * Create a new resource
  * Aliases: `post`
  * @memberof Kitsu
- * @param {String} model Model to create a resource under
+ * @param {string} model Model to create a resource under
  * @param {Object} body Data to send in the request
  * @param {Object} headers Additional headers to send with request
  * @returns {Object} JSON-parsed response

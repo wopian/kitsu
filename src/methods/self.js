@@ -7,7 +7,7 @@ import fetch from './fetch'
  * @memberof Kitsu
  * @param {Object} params JSON-API request queries
  * @param {Object} params.fields Return a sparse fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
- * @param {String} params.include Include relationship data jsonapi.org/format/#fetching-includes
+ * @param {string} params.include Include relationship data jsonapi.org/format/#fetching-includes
  * @param {Object} headers Additional headers to send with request
  * @returns {Object} JSON-parsed response
  *
