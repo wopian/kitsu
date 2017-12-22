@@ -14,6 +14,13 @@ let plugins = [
   }),
   local()
 ]
+let globals = {
+  'babel-runtime/helpers/asyncToGenerator': '_asyncToGenerator',
+  decamelize: 'kebab',
+  pluralize: 'plural',
+  camelcase: 'camel',
+  axios: 'axios'
+}
 
 export default {
   input: 'src/index.js',
@@ -22,24 +29,19 @@ export default {
     ...external
   ],
   plugins,
-  globals: {
-    'babel-runtime/helpers/asyncToGenerator': '_asyncToGenerator',
-    decamelize: 'kebab',
-    pluralize: 'plural',
-    camelcase: 'camel',
-    axios: 'axios'
-  },
   output: [
     {
       file: pkg.main,
       format: 'umd',
       name: 'kitsu',
-      sourcemap: true
+      sourcemap: true,
+      globals
     },
     {
       file: pkg.module,
       format: 'es',
-      sourcemap: true
+      sourcemap: true,
+      globals
     }
   ],
   onwarn: ({ code, message }) => {
