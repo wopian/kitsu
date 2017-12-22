@@ -19,7 +19,7 @@
     "test": "jest --coverage",
     "docs": "documentation build src/index.js -f md -o DOCS.md --sort-order alpha",
     "lintdocs": "documentation lint src/index.js",
-    "build": "yarn docs && yarn rollup",
+    "build": "yarn docs && yarn lintdocs && yarn rollup",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "start": "yarn example:basic",
     "example:basic": "node ./example/basic",
