@@ -5,14 +5,13 @@ import remove from './methods/remove'
 import self from './methods/self'
 import update from './methods/update'
 
-const kitsu = 'https://kitsu.io/api'
+const kitsu = 'https://kitsu.io/api/edge'
 
 /**
  * A simple, lightweight & framework agnostic JSON-API client JSON API
  * @param {Object} options Options
- * @param {string} options.baseURL Override the HTTP API endpoint (default `https://kitsu.io/api)
- * @param {string} options.version Override the HTTP API version (default `edge` if kitsu.io, else defaults to an empty `String`)
- * @param {number} options.timeout Override the request timeout in milliseconds (default `30000`)
+ * @param {string} options.baseURL Set the API endpoint (default `https://kitsu.io/api/edge`)
+ * @param {number} options.timeout Set the request timeout in milliseconds (default `30000`)
  * @param {Object} options.headers Additional headers to send with requests
  *
  * @example
@@ -42,7 +41,7 @@ export default class Kitsu {
       'content-type': 'application/vnd.api+json'
     })
     this.axios = axios.create({
-      baseURL: this.baseURL + '/' + (options.version || (this.baseURL === kitsu ? 'edge' : '')),
+      baseURL: this.baseURL,
       timeout: options.timeout || 30000,
       headers: this.headers
     })

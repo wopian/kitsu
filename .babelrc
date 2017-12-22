@@ -9,7 +9,6 @@
     },
     "test": {
       "presets":[
-        "minify",
         "env",
         "stage-0"
       ]
