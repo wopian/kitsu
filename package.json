@@ -16,7 +16,7 @@
     ":major": "yarn :build && changelog -M && yarn :commit && npm version major && yarn :publish",
     ":minor": "yarn :build && changelog -m && yarn :commit && npm version minor && yarn :publish",
     ":patch": "yarn :build && changelog -p && yarn :commit && npm version patch && yarn :publish",
-    "test": "cross-env NODE_ENV=test jest --coverage",
+    "test": "jest --coverage",
     "docs": "documentation build src/index.js -f md -o DOCS.md --sort-order alpha",
     "lintdocs": "documentation lint src/index.js",
     "build": "yarn docs && yarn lintdocs && yarn rollup",
