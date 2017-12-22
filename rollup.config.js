@@ -1,7 +1,5 @@
 import babel from 'rollup-plugin-babel'
 import minify from 'rollup-plugin-babel-minify'
-import json from 'rollup-plugin-json'
-import cleanup from 'rollup-plugin-cleanup'
 import local from 'rollup-plugin-local-resolve'
 import pkg from './package.json'
 
@@ -14,11 +12,7 @@ let plugins = [
   minify({
     comments: false
   }),
-  local(),
-  json(),
-  cleanup({
-    extensions: [ '.js', '.mjs' ]
-  })
+  local()
 ]
 
 export default {

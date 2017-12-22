@@ -82,8 +82,6 @@
     "rollup": "~0.52.0",
     "rollup-plugin-babel": "~3.0.1",
     "rollup-plugin-babel-minify": "~3.1.2",
-    "rollup-plugin-cleanup": "~2.0.0",
-    "rollup-plugin-json": "~2.3.0",
     "rollup-plugin-local-resolve": "~1.0.7",
     "standard": "~10.0.2"
   },

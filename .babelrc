@@ -2,18 +2,21 @@
   "env": {
     "development": {
       "presets": [
+        "minify",
         "env",
         "stage-0"
       ]
     },
     "test": {
       "presets":[
+        "minify",
         "env",
         "stage-0"
       ]
     },
     "production": {
       "presets":[
+        "minify",
         ["env", {
           "targets": {
             "browsers": [">= 1%", "not ie <= 11", "not ie_mob <= 11"],
