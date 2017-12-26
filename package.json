@@ -116,8 +116,7 @@
       "group:jestMonorepo",
       "group:linters",
       "group:reactMonorepo",
-      "group:storybookMonorepo",
-      "schedule:weekly"
+      "group:storybookMonorepo"
     ],
     "prTitle": "update {{depName}} to {{newVersion}}",
     "commitMessage": "update {{depName}} to {{newVersion}}"
