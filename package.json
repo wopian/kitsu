@@ -79,7 +79,7 @@
     "generate-changelog": "~1.7.0",
     "jest": "~22.0.0",
     "js-beautify": "~1.7.4",
-    "rollup": "~0.52.0",
+    "rollup": "~0.53.0",
     "rollup-plugin-babel": "~3.0.1",
     "rollup-plugin-babel-minify": "~3.1.2",
     "rollup-plugin-local-resolve": "~1.0.7",
