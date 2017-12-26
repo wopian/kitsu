@@ -112,6 +112,7 @@
       ":updateNotScheduled",
       ":label(dependencies)",
       ":timezone(Europe/London)",
+      ":assignee(wopian)",
       "group:babelMonorepo",
       "group:jestMonorepo",
       "group:linters",
