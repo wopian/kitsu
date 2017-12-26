@@ -111,7 +111,6 @@
       ":ignoreUnstable",
       ":updateNotScheduled",
       ":label(dependencies)",
-      ":assignAndReview(wopian)",
       ":timezone(Europe/London)",
       "group:babelMonorepo",
       "group:jestMonorepo",
