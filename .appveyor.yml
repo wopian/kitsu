@@ -5,7 +5,6 @@ environment:
     - nodejs_version: "6" # LTS Apr 19
 platform:
 - x64
-- x86
 cache:
 # - "%LOCALAPPDATA%\\Yarn"
 install:
