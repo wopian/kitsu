@@ -38,6 +38,35 @@ describe('serialise', () => {
     })
   })
 
+  it('Should serialise JSON API array relationships', () => {
+    expect.assertions(1)
+    expect(serialise('LibraryEntries', {
+      id: '1',
+      user: [{
+        id: '2'
+      },
+      {
+        id: '3'
+      }]
+    })).resolves.toEqual({
+      data: {
+        relationships: {
+          user: {
+            data: [{
+              id: '2',
+              type: 'users'
+            },
+            {
+              id: '3',
+              type: 'users'
+            }]
+          }
+        },
+        type: 'libraryEntries'
+      }
+    })
+  })
+
   it('Should pluralise type', () => {
     expect.assertions(1)
     expect(serialise('libraryEntry', {
