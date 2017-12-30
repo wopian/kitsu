@@ -17,12 +17,12 @@ A simple framework agnostic JSON-API client JSON API
 
 **Parameters**
 
--   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options
-    -   `options.baseURL` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Set the API endpoint (default `https://kitsu.io/api/edge`)
-    -   `options.headers` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with requests
-    -   `options.decamelize` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If `true`, `/libraryEntries` will become `/library-entries` in the URL request (default `true`)
-    -   `options.pluralize` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If `true`, `type` will be pluralized in post, patch and delete requests - `user` -> `users` (default `true`)
-    -   `options.timeout` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Set the request timeout in milliseconds (default `30000`)
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options
+    -   `options.baseURL` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Set the API endpoint (default `https://kitsu.io/api/edge`)
+    -   `options.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with requests
+    -   `options.decamelize` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If `true`, `/libraryEntries` will become `/library-entries` in the URL request (default `true`)
+    -   `options.pluralize` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If `true`, `type` will be pluralized in post, patch and delete requests - `user` -> `users` (default `true`)
+    -   `options.timeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Set the request timeout in milliseconds (default `30000`)
 
 **Examples**
 
@@ -55,16 +55,16 @@ Aliases: `fetch`
 
 **Parameters**
 
--   `model` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to fetch data from
--   `params` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-API request queries (optional, default `{}`)
-    -   `params.page` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** jsonapi.org/format/#fetching-pagination
-        -   `params.page.limit` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of resources to return in request (Max `20` for Kitsu.io except on `libraryEntries` which has a max of `500`)
-        -   `params.page.offset` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of resources to offset the dataset by
-    -   `params.fields` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Return a sparse fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
-    -   `params.filter` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Filter dataset by attribute values jsonapi.org/format/#fetching-filtering
-    -   `params.sort` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Sort dataset by one or more comma separated attributes (prepend `-` for descending order) jsonapi.org/format/#fetching-sorting
-    -   `params.include` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Include relationship data jsonapi.org/format/#fetching-includes
--   `headers` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
+-   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to fetch data from
+-   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-API request queries (optional, default `{}`)
+    -   `params.page` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** jsonapi.org/format/#fetching-pagination
+        -   `params.page.limit` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of resources to return in request (Max `20` for Kitsu.io except on `libraryEntries` which has a max of `500`)
+        -   `params.page.offset` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of resources to offset the dataset by
+    -   `params.fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Return a sparse fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
+    -   `params.filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Filter dataset by attribute values jsonapi.org/format/#fetching-filtering
+    -   `params.sort` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Sort dataset by one or more comma separated attributes (prepend `-` for descending order) jsonapi.org/format/#fetching-sorting
+    -   `params.include` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Include relationship data jsonapi.org/format/#fetching-includes
+-   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
 
 **Examples**
 
@@ -107,7 +107,7 @@ api.get('anime/2', {
 api.get('anime/2/categories')
 ```
 
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
 
 ### headers
 
@@ -130,7 +130,7 @@ api.headers['User-Agent']
 api.headers['Authorization'] = 'Bearer 1234567890'
 ```
 
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** All the current headers
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** All the current headers
 
 ### isAuth
 
@@ -143,7 +143,7 @@ if (api.isAuth) console.log('Authenticated')
 else console.log('Not authenticated')
 ```
 
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 ### patch
 
@@ -152,9 +152,9 @@ Aliases: `update`
 
 **Parameters**
 
--   `model` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to update data in
--   `body` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Data to send in the request
--   `headers` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
+-   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to update data in
+-   `body` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Data to send in the request
+-   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
 
 **Examples**
 
@@ -166,7 +166,7 @@ api.update('posts', {
 })
 ```
 
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
 
 ### post
 
@@ -175,9 +175,9 @@ Aliases: `create`
 
 **Parameters**
 
--   `model` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to create a resource under
--   `body` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Data to send in the request
--   `headers` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
+-   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to create a resource under
+-   `body` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Data to send in the request
+-   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
 
 **Examples**
 
@@ -196,7 +196,7 @@ api.create('posts', {
 })
 ```
 
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
 
 ### remove
 
@@ -204,9 +204,9 @@ Remove a resource
 
 **Parameters**
 
--   `model` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to remove data from
--   `id` **([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))** Resource ID to remove
--   `headers` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
+-   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to remove data from
+-   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** Resource ID to remove
+-   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
 
 **Examples**
 
@@ -215,7 +215,7 @@ Remove a resource
 api.remove('posts', 123)
 ```
 
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
 
 ### self
 
@@ -224,10 +224,10 @@ Note: Requires the JSON:API server to support `filter[self]=true`
 
 **Parameters**
 
--   `params` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-API request queries (optional, default `{}`)
-    -   `params.fields` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Return a sparse fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
-    -   `params.include` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Include relationship data jsonapi.org/format/#fetching-includes
--   `headers` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
+-   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-API request queries (optional, default `{}`)
+    -   `params.fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Return a sparse fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
+    -   `params.include` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Include relationship data jsonapi.org/format/#fetching-includes
+-   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
 
 **Examples**
 
@@ -243,4 +243,4 @@ api.self({
 })
 ```
 
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
