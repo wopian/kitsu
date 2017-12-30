@@ -1,56 +1,65 @@
+import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
 import Kitsu from 'kitsu'
+import {
+  getCollection,
+  getCollectionWithIncludes,
+  getSingle,
+  getSingleWithIncludes
+} from './__cases__'
 
-describe('Index', () => {
-  describe('Kitsu', () => {
-    it('should have required JSON-API headers', () => {
-      expect.assertions(2)
-      const kitsu = new Kitsu()
-      expect(kitsu.headers['accept']).toBe('application/vnd.api+json')
-      expect(kitsu.headers['content-type']).toBe('application/vnd.api+json')
-    })
+const mock = new MockAdapter(axios)
 
-    it('should set auth header if provided', () => {
-      const token = 'Bearer 1234567890'
-      const kitsu = new Kitsu({
-        headers: {
-          authorization: token
-        }
-      })
-      expect(kitsu.headers['authorization']).toBe(token)
-    })
+afterEach(() => {
+  mock.reset()
+})
+
+describe('Kitsu Class', () => {
+
+})
+
+describe('GET Requests', () => {
+  it('Should fetch a collection of resources', async () => {
+    expect.assertions(1)
+    const api = new Kitsu()
+    mock.onGet().reply(200, getCollection.jsonapi)
+    const request = await api.get('anime')
+    expect(request).toEqual(getCollection.kitsu)
   })
 
-  describe('headers', () => {
-    it('should display all headers', () => {
-      const kitsu = new Kitsu()
-      expect(kitsu.headers).toEqual({
-        'accept': 'application/vnd.api+json',
-        'content-type': 'application/vnd.api+json'
-      })
-    })
-
-    it('should set a header', () => {
-      const kitsu = new Kitsu()
-      kitsu.headers['test'] = '123'
-      expect(kitsu.headers['test']).toBe('123')
-    })
+  it('Should fetch a collection of resources with includes', async () => {
+    expect.assertions(1)
+    const api = new Kitsu()
+    mock.onGet().reply(200, getCollectionWithIncludes.jsonapi)
+    const request = await api.get('anime')
+    expect(request).toEqual(getCollectionWithIncludes.kitsu)
   })
 
-  describe('auth', () => {
-    it('should return false is auth token missing', () => {
-      const kitsu = new Kitsu()
-      expect(kitsu.isAuth).toEqual(false)
-    })
+  it('Should fetch a single resource', async () => {
+    expect.assertions(1)
+    const api = new Kitsu()
+    mock.onGet().reply(200, getSingle.jsonapi)
+    const request = await api.get('anime/1')
+    expect(request).toEqual(getSingle.kitsu)
+  })
 
-    it('should return true if auth token set in initialisation', () => {
-      const kitsu = new Kitsu({ headers: { Authorization: '123 '}})
-      expect(kitsu.isAuth).toEqual(true)
-    })
+  it('Should fetch a single resource with includes', async () => {
+    expect.assertions(1)
+    const api = new Kitsu()
+    mock.onGet().reply(200, getSingleWithIncludes.jsonapi)
+    const request = await api.get('anime/1')
+    expect(request).toEqual(getSingleWithIncludes.kitsu)
+  })
+})
 
-    it('should return true if auth token set after initialisation', () => {
-      const kitsu = new Kitsu()
-      kitsu.headers['Authorization'] = '123'
-        expect(kitsu.isAuth).toEqual(true)
-      })
-   })
+describe('PATCH Requests', () => {
+
+})
+
+describe('POST Requests', () => {
+
+})
+
+describe('DELETE Requests', () => {
+
 })
