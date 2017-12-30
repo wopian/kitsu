@@ -1,4 +1,4 @@
-import { query } from './query'
+import { query } from './'
 
 describe('query', () => {
   it('Should return an empty string by default', () => {

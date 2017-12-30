@@ -1,3 +1,5 @@
+import { error } from '../'
+
 export function query (params) {
   try {
     let query = ''
@@ -13,7 +15,7 @@ export function query (params) {
     }
 
     return params ? query.slice(1) : ''
-  } catch (error) {
-    throw error
+  } catch (E) {
+    error(E)
   }
 }

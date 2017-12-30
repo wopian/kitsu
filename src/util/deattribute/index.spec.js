@@ -1,4 +1,4 @@
-import { deattribute } from './deattribute'
+import { deattribute } from './'
 
 describe('deattribute', () => {
   it('Should deattribute an object', () => {

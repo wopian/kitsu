@@ -1,4 +1,4 @@
-import { deserialise } from './deserialise'
+import { deserialise } from './'
 
 describe('deserialise', () => {
   it('Should deserialise a resource without included relationships', () => {

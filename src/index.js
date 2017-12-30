@@ -1,16 +1,18 @@
 import axios from 'axios'
-import kebab from 'decamelize'
-import plural from 'pluralize'
-import { deserialise, serialise, error, query } from './util'
+import { deserialise, error, query, serialise } from './util'
 
 const kitsu = 'https://kitsu.io/api/edge'
+const jsonAPI = 'application/vnd.api+json'
+const jsonAPIHeader = { 'accept': jsonAPI, 'content-type': jsonAPI }
 
 /**
- * A simple, lightweight & framework agnostic JSON-API client JSON API
+ * A simple framework agnostic JSON-API client JSON API
+ *
+ * @name Kitsu
  * @param {Object} options Options
  * @param {string} options.baseURL Set the API endpoint (default `https://kitsu.io/api/edge`)
  * @param {Object} options.headers Additional headers to send with requests
- * @param {boolean} options.kebabcase If `true`, `/libraryEntries` will become `/library-entries` in the URL request (default `true`)
+ * @param {boolean} options.decamelize If `true`, `/libraryEntries` will become `/library-entries` in the URL request (default `true`)
  * @param {boolean} options.pluralize If `true`, `type` will be pluralized in post, patch and delete requests - `user` -> `users` (default `true`)
  * @param {number} options.timeout Set the request timeout in milliseconds (default `30000`)
  *
@@ -45,10 +47,16 @@ export default class Kitsu {
       timeout: options.timeout || 30000,
       headers: this.headers
     })
+
+    this.headers = Object.assign({}, options.headers, jsonAPIHeader)
+    axios.defaults.baseURL = options.baseURL || kitsu
+    axios.defaults.timeout = options.timeout || 30000
   }
 
   /**
    * Get the current headers or add additional headers
+   *
+   * @memberof Kitsu
    * @returns {Object} All the current headers
    *
    * @example
@@ -68,7 +76,9 @@ export default class Kitsu {
   }
 
   /**
-   * Check if the client is authenticated (oAuth2)
+   * Check if the client is authenticated (oAuth2/Authorization header)
+   *
+   * @memberof Kitsu
    * @returns {boolean}
    *
    * @example
@@ -82,6 +92,7 @@ export default class Kitsu {
   /**
    * Fetch resources
    * Aliases: `fetch`
+   *
    * @memberof Kitsu
    * @param {string} model Model to fetch data from
    * @param {Object} params JSON-API request queries
@@ -133,9 +144,10 @@ export default class Kitsu {
     try {
       let { data } = await this.axios.get(plural(kebab(model)), {
         params,
-        paramsSerializer: a => query(a),
-        headers: Object.assign(this.headers, headers)
+        paramsSerializer: p => query(p),
+        headers: Object.assign(this.headers, headers, jsonAPIHeader)
       })
+
       return deserialise(data)
     } catch (E) {
       return error(E)
@@ -144,7 +156,8 @@ export default class Kitsu {
 
   /**
    * Update a resource
-   * Aliases: `patch`
+   * Aliases: `update`
+   *
    * @memberof Kitsu
    * @param {string} model Model to update data in
    * @param {Object} body Data to send in the request
@@ -160,13 +173,15 @@ export default class Kitsu {
    */
   async patch (model, body, headers = {}) {
     try {
-      headers = Object.assign(this.headers, headers)
+      headers = Object.assign(this.headers, headers, jsonAPIHeader)
       if (!headers.Authorization) throw new Error('Not logged in')
       if (typeof body.id === 'undefined') throw new Error('Updating a resource requires an ID')
+
       let { data } = await this.axios.patch(`${plural(kebab(model))}/${body.id}`, {
         data: (await serialise(model, body, 'PATCH')).data,
         headers
       })
+
       return data
     } catch (E) {
       return error(E)
@@ -175,7 +190,8 @@ export default class Kitsu {
 
   /**
    * Create a new resource
-   * Aliases: `post`
+   * Aliases: `create`
+   *
    * @memberof Kitsu
    * @param {string} model Model to create a resource under
    * @param {Object} body Data to send in the request
@@ -183,8 +199,8 @@ export default class Kitsu {
    * @returns {Object} JSON-parsed response
    *
    * @example
-   * // Post a comment to a user's own profile
-   * api.post('posts', {
+   * // Post to a user's own profile
+   * api.create('posts', {
    *   content: 'Hello World',
    *   targetUser: {
    *     id: '42603',
@@ -198,12 +214,14 @@ export default class Kitsu {
    */
   async post (model, body, headers = {}) {
     try {
-      headers = Object.assign(this.headers, headers)
+      headers = Object.assign(this.headers, headers, jsonAPIHeader)
       if (!headers.Authorization) throw new Error('Not logged in')
+
       let { data } = await this.axios.post(plural(kebab(model)), {
         data: (await serialise(model, body)).data,
         headers
       })
+
       return data
     } catch (E) {
       return error(E)
@@ -212,7 +230,7 @@ export default class Kitsu {
 
   /**
    * Remove a resource
-   * Aliases: `destroy`
+   *
    * @memberof Kitsu
    * @param {string} model Model to remove data from
    * @param {string|number} id Resource ID to remove
@@ -225,12 +243,14 @@ export default class Kitsu {
    */
   async remove (model, id, headers = {}) {
     try {
-      headers = Object.assign(this.headers, headers)
+      headers = Object.assign(this.headers, headers, jsonAPIHeader)
       if (!headers.Authorization) throw new Error('Not logged in')
+
       let { data } = await this.axios.delete(`${plural(kebab(model))}/${id}`, {
         data: (await serialise(model, { id }, 'DELETE')).data,
         headers
       })
+
       return data
     } catch (E) {
       return error(E)
@@ -240,6 +260,7 @@ export default class Kitsu {
   /**
    * Get the authenticated user's data
    * Note: Requires the JSON:API server to support `filter[self]=true`
+   *
    * @memberof Kitsu
    * @param {Object} params JSON-API request queries
    * @param {Object} params.fields Return a sparse fieldset with only the included attributes/relationships jsonapi.org/format/#fetching-sparse-fieldsets
@@ -261,8 +282,8 @@ export default class Kitsu {
     try {
       const { data } = await this.get('users', Object.assign({ filter: { self: true } }, params), headers)
       return data[0]
-    } catch (error) {
-      return error
+    } catch (E) {
+      return error(E)
     }
   }
 

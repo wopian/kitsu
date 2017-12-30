@@ -1,4 +1,4 @@
-import { filterIncludes } from './filterIncludes'
+import { filterIncludes } from './'
 
 describe('filterIncludes', () => {
   it('Should throw an error if included is not an array', () => {

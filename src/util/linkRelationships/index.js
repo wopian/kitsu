@@ -1,5 +1,4 @@
-import { deattribute } from './deattribute'
-import { filterIncludes } from './filterIncludes'
+import { deattribute, error, filterIncludes } from '../'
 
 /**
  * Links relationships to included data
@@ -33,7 +32,7 @@ export async function linkRelationships (data, included) {
     delete data.relationships
 
     return data
-  } catch (e) {
-    throw e
+  } catch (E) {
+    error(E)
   }
 }

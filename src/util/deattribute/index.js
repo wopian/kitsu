@@ -1,3 +1,5 @@
+import { error } from '../'
+
 export async function deattribute (data) {
   try {
     if (typeof data !== 'undefined') {
@@ -14,7 +16,7 @@ export async function deattribute (data) {
       }
     }
     return data
-  } catch (e) {
-    throw e
+  } catch (E) {
+    error(E)
   }
 }

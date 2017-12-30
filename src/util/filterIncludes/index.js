@@ -1,3 +1,5 @@
+import { error } from '../'
+
 /**
  * Filters includes for the specific relationship
  *
@@ -13,7 +15,7 @@ export async function filterIncludes (included, { id, type }) {
     return included.filter(el => {
       return el.id === id && el.type === type
     })[0] || { id, type }
-  } catch (e) {
-    throw e
+  } catch (E) {
+    error(E)
   }
 }

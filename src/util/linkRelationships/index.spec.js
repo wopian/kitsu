@@ -1,4 +1,4 @@
-import { linkRelationships } from './linkRelationships'
+import { linkRelationships } from './'
 
 describe('linkRelationships', () => {
   it('Should link single relationship to included data', () => {
