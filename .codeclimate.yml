@@ -24,4 +24,5 @@ exclude_paths:
 - .vscode
 - example
 - lib
+- "**/__cases__/**"
 - "**.spec.js"
