@@ -143,13 +143,10 @@ const { id } = await kitsu.get('users', {
 ```
 
 [More Examples]
+[View the Documentation]
 
-## Docs
-
-You can find the kitsu package [documentation here][Kitsu Docs]
-
-If you're working with [Kitsu.io]'s API, their [API documentation][Kitsu.io API Docs] lists all available
-models with their attributes and relationships
+If you're working with [Kitsu.io]'s API, their [API docs][Kitsu.io API Docs] lists all available
+endpoints with their attributes and relationships
 
 ## Contributing
 
@@ -167,7 +164,7 @@ All code released under [MIT]
 [JSON:API]:http://jsonapi.org
 [Promise]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 [More Examples]:https://github.com/wopian/kitsu/tree/master/example
-[Kitsu Docs]:https://github.com/wopian/kitsu/blob/v3.1.4/DOCS.md
+[View the Documentation]:https://github.com/wopian/kitsu/blob/v3.1.4/DOCS.md
 [Kitsu.io API Docs]:https://kitsu.docs.apiary.io
 
 [BREAKING]:https://github.com/wopian/kitsu/blob/master/CHANGELOG.md#breaking-changes
