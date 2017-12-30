@@ -3,7 +3,7 @@ import { deserialise, error, query, serialise } from './util'
 
 const kitsu = 'https://kitsu.io/api/edge'
 const jsonAPI = 'application/vnd.api+json'
-const jsonAPIHeader = { 'accept': jsonAPI, 'content-type': jsonAPI }
+const jsonAPIHeader = { 'Accept': jsonAPI, 'Content-Type': jsonAPI }
 
 /**
  * A simple framework agnostic JSON-API client JSON API
@@ -45,31 +45,28 @@ export default class Kitsu {
       this.plural.singular = s => s
     } else this.plural = require('pluralize')
 
+    /**
+     * Get the current headers or add additional headers
+     *
+     * @memberof Kitsu
+     * @returns {Object} All the current headers
+     *
+     * @example
+     * // Receive all the headers
+     * api.headers
+     *
+     * @example
+     * // Receive a specific header
+     * api.headers['User-Agent']
+     *
+     * @example
+     * // Add or update a header
+     * api.headers['Authorization'] = 'Bearer 1234567890'
+     */
     this.headers = Object.assign({}, options.headers, jsonAPIHeader)
+
     axios.defaults.baseURL = options.baseURL || kitsu
     axios.defaults.timeout = options.timeout || 30000
-  }
-
-  /**
-   * Get the current headers or add additional headers
-   *
-   * @memberof Kitsu
-   * @returns {Object} All the current headers
-   *
-   * @example
-   * // Receive all the headers
-   * api.headers
-   *
-   * @example
-   * // Receive a specific header
-   * api.headers['User-Agent']
-   *
-   * @example
-   * // Add or update a header
-   * api.headers['Authorization'] = 'Bearer 1234567890'
-   */
-  headers () {
-    return this.headers
   }
 
   /**
