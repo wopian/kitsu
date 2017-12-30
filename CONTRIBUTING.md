@@ -24,9 +24,17 @@
 1. Install dependencies:
 
     ```bash
-    yarn install
+    yarn
     # or
     npm install
+    ```
+
+1. Test changes
+
+    ```
+    yarn test
+    # or
+    npm test
     ```
 
 1. Commit changes:
