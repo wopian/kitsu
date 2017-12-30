@@ -185,8 +185,8 @@ All code released under [MIT]
 [appveyor]:https://ci.appveyor.com/project/wopian/kitsu
 [appveyor badge]:https://img.shields.io/appveyor/ci/wopian/kitsu/master.svg?style=flat-square&label=windows
 
-[cc coverage]:https://codeclimate.com/github/wopian/kitsu/coverage
-[cc coverage badge]:https://img.shields.io/codeclimate/coverage/github/wopian/kitsu.svg?style=flat-square
+[cc coverage]:https://codeclimate.com/github/wopian/kitsu/code
+[cc coverage badge]:https://img.shields.io/codeclimate/c/github/wopian/kitsu.svg?style=flat-square
 [cc maintainability]:https://codeclimate.com/github/wopian/kitsu
 [cc maintainability badge]:https://img.shields.io/codeclimate/maintainability/wopian/kitsu.svg?style=flat-square
 
