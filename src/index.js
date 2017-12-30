@@ -37,16 +37,13 @@ const jsonAPIHeader = { 'accept': jsonAPI, 'content-type': jsonAPI }
  */
 export default class Kitsu {
   constructor (options = {}) {
-    this.baseURL = options.baseURL || kitsu
-    this.headers = Object.assign(options.headers ? options.headers : {}, {
-      'accept': 'application/vnd.api+json',
-      'content-type': 'application/vnd.api+json'
-    })
-    this.axios = axios.create({
-      baseURL: this.baseURL,
-      timeout: options.timeout || 30000,
-      headers: this.headers
-    })
+    if (options.decamelize === false) this.kebab = s => s
+    else this.kebab = require('decamelize')
+
+    if (options.pluralize === false) {
+      this.plural = s => s
+      this.plural.singular = s => s
+    } else this.plural = require('pluralize')
 
     this.headers = Object.assign({}, options.headers, jsonAPIHeader)
     axios.defaults.baseURL = options.baseURL || kitsu
@@ -142,7 +139,8 @@ export default class Kitsu {
    */
   async get (model, params = {}, headers = {}) {
     try {
-      let { data } = await this.axios.get(plural(kebab(model)), {
+      const url = this.plural(this.kebab(model))
+      const { data } = await axios.get(url, {
         params,
         paramsSerializer: p => query(p),
         headers: Object.assign(this.headers, headers, jsonAPIHeader)
@@ -177,7 +175,8 @@ export default class Kitsu {
       if (!headers.Authorization) throw new Error('Not logged in')
       if (typeof body.id === 'undefined') throw new Error('Updating a resource requires an ID')
 
-      let { data } = await this.axios.patch(`${plural(kebab(model))}/${body.id}`, {
+      const url = this.plural(this.kebab(model)) + '/' + body.id
+      const { data } = await axios.patch(url, {
         data: (await serialise(model, body, 'PATCH')).data,
         headers
       })
@@ -217,7 +216,8 @@ export default class Kitsu {
       headers = Object.assign(this.headers, headers, jsonAPIHeader)
       if (!headers.Authorization) throw new Error('Not logged in')
 
-      let { data } = await this.axios.post(plural(kebab(model)), {
+      const url = this.plural(this.kebab(model))
+      const { data } = await axios.post(url, {
         data: (await serialise(model, body)).data,
         headers
       })
@@ -246,7 +246,8 @@ export default class Kitsu {
       headers = Object.assign(this.headers, headers, jsonAPIHeader)
       if (!headers.Authorization) throw new Error('Not logged in')
 
-      let { data } = await this.axios.delete(`${plural(kebab(model))}/${id}`, {
+      const url = this.plural(this.kebab(model)) + '/' + id
+      const { data } = await axios.delete(url, {
         data: (await serialise(model, { id }, 'DELETE')).data,
         headers
       })
