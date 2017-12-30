@@ -167,7 +167,7 @@ All code released under [MIT]
 [JSON:API]:http://jsonapi.org
 [Promise]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 [More Examples]:https://github.com/wopian/kitsu/tree/master/example
-[Kitsu Docs]:https://github.com/wopian/kitsu/tree/master/DOCS.md
+[Kitsu Docs]:https://github.com/wopian/kitsu/blob/v3.1.4/DOCS.md
 [Kitsu.io API Docs]:https://kitsu.docs.apiary.io
 
 [BREAKING]:https://github.com/wopian/kitsu/blob/master/CHANGELOG.md#breaking-changes
