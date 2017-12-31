@@ -72,6 +72,23 @@ describe('serialise', () => {
     })
   })
 
+
+  it('Should throw an error when trying to serialise JSON API array relationships without ID', async () => {
+    await expect(serialise('LibraryEntries', {
+      id: '1',
+      user: [
+        {
+          foo: 'bar'
+        },
+        {
+          id: 3
+        }
+      ]
+    }))
+      .rejects
+      .toEqual(Error('POST requires an ID for the user relationships'))
+  })
+
   it('Should pluralise type', async () => {
     expect.assertions(1)
     const input = await serialise('libraryEntry', {

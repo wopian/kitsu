@@ -57,9 +57,7 @@ export async function serialise (model, obj = {}, method = 'POST') {
             // Guess relationship type if not provided
             if (typeof obj[prop][i].type === 'undefined') obj[prop][i].type = ptype
           } else {
-            // XXX: Better error handling?
-            // prop is not a valid relationship entry object
-            console.log('Invalid relationship prop')
+            throw new Error(`${method} requires an ID for the ${prop} relationships`)
           }
         }
 
