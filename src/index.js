@@ -169,7 +169,7 @@ export default class Kitsu {
   async patch (model, body, headers = {}) {
     try {
       headers = Object.assign(this.headers, headers, jsonAPIHeader)
-      if (!headers.Authorization) throw new Error('Not logged in')
+      if (!this.isAuth) throw new Error('Not logged in')
       if (typeof body.id === 'undefined') throw new Error('Updating a resource requires an ID')
 
       const url = this.plural(this.kebab(model)) + '/' + body.id
@@ -211,7 +211,7 @@ export default class Kitsu {
   async post (model, body, headers = {}) {
     try {
       headers = Object.assign(this.headers, headers, jsonAPIHeader)
-      if (!headers.Authorization) throw new Error('Not logged in')
+      if (!this.isAuth) throw new Error('Not logged in')
 
       const url = this.plural(this.kebab(model))
       const { data } = await axios.post(url, {
@@ -241,7 +241,7 @@ export default class Kitsu {
   async remove (model, id, headers = {}) {
     try {
       headers = Object.assign(this.headers, headers, jsonAPIHeader)
-      if (!headers.Authorization) throw new Error('Not logged in')
+      if (!this.isAuth) throw new Error('Not logged in')
 
       const url = this.plural(this.kebab(model)) + '/' + id
       const { data } = await axios.delete(url, {
