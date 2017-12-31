@@ -1,14 +1,5 @@
 export default {
   data: {
-    attributes: {
-      array: [
-        'string'
-      ],
-      object: {
-        string: 'string'
-      },
-      string: 'string'
-    },
     id: '1',
     relationships: {
       author: {
@@ -23,10 +14,6 @@ export default {
       },
       comments: {
         data: [
-          {
-            id: '1',
-            type: 'comments'
-          },
           {
             id: '2',
             type: 'comments'
@@ -50,18 +37,15 @@ export default {
     },
     {
       attributes: {
-        nullable: null
-      },
-      id: '1',
-      type: 'comments'
-    },
-    {
-      attributes: {
         'boolean': true
       },
       id: '2',
       relationships: {
         author: {
+          data: {
+            id: '1',
+            type: 'people'
+          },
           links: {
             related: 'https://api.example/articles/1/author',
             self: 'https://api.example/articles/1/relationships/author'
