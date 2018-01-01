@@ -43,6 +43,26 @@ export async function serialise (model, obj = {}, method = 'POST') {
         // Guess relationship type if not provided
         if (typeof obj[prop].type === 'undefined') obj[prop].type = plural(camel(prop))
         data.relationships[prop] = { data: Object.assign(obj[prop]) }
+      } else if (
+        obj[prop] !== null &&
+        obj[prop].constructor === Array
+      ) {
+        // validate whole array
+        const ptype = plural(camel(prop))
+        for (var i = 0; i < obj[prop].length; i++) {
+          if (
+            typeof obj[prop][i].id === 'string' ||
+            typeof obj[prop][i].type === 'string'
+          ) {
+            // Guess relationship type if not provided
+            if (typeof obj[prop][i].type === 'undefined') obj[prop][i].type = ptype
+          } else {
+            throw new Error(`${method} requires an ID for the ${prop} relationships`)
+          }
+        }
+
+        if (typeof data.relationships === 'undefined') data.relationships = {}
+        data.relationships[prop] = { data: Object.assign(obj[prop]) }
       } else if (prop !== 'id') { // Its an attribute
         if (typeof data.attributes === 'undefined') data.attributes = {}
         data.attributes[prop] = obj[prop]

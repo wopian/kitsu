@@ -1,12 +1,13 @@
 import { serialise } from './serialise'
 
 describe('serialise', () => {
-  it('Should serialise to a JSON API complient object', () => {
+  it('Should serialise to a JSON API compliant object', async () => {
     expect.assertions(1)
-    expect(serialise('libraryEntries', {
+    const input = await serialise('LibraryEntries', {
       id: '1',
       ratingTwenty: 20
-    })).resolves.toEqual({
+    })
+    expect(input).toEqual({
       data: {
         attributes: {
           ratingTwenty: 20
@@ -16,14 +17,15 @@ describe('serialise', () => {
     })
   })
 
-  it('Should serialise JSON API relationships', () => {
+  it('Should serialise JSON API relationships', async () => {
     expect.assertions(1)
-    expect(serialise('LibraryEntries', {
+    const input = await serialise('LibraryEntries', {
       id: '1',
       user: {
         id: '2'
       }
-    })).resolves.toEqual({
+    })
+    expect(input).toEqual({
       data: {
         relationships: {
           user: {
@@ -38,11 +40,61 @@ describe('serialise', () => {
     })
   })
 
-  it('Should pluralise type', () => {
+  it('Should serialise JSON API array relationships', async () => {
     expect.assertions(1)
-    expect(serialise('libraryEntry', {
+    const input = await serialise('LibraryEntries', {
+      id: '1',
+      user: [
+        {
+          id: '2'
+        },
+        {
+          id: '3'
+        }
+      ]
+    })
+    expect(input).toEqual({
+      data: {
+        relationships: {
+          user: {
+            data: [{
+              id: '2',
+              type: 'users'
+            },
+            {
+              id: '3',
+              type: 'users'
+            }]
+          }
+        },
+        type: 'libraryEntries'
+      }
+    })
+  })
+
+
+  it('Should throw an error when trying to serialise JSON API array relationships without ID', async () => {
+    await expect(serialise('LibraryEntries', {
+      id: '1',
+      user: [
+        {
+          foo: 'bar'
+        },
+        {
+          id: 3
+        }
+      ]
+    }))
+      .rejects
+      .toEqual(Error('POST requires an ID for the user relationships'))
+  })
+
+  it('Should pluralise type', async () => {
+    expect.assertions(1)
+    const input = await serialise('libraryEntry', {
       rating: '1'
-    })).resolves.toEqual({
+    })
+    expect(input).toEqual({
       data: {
         type: 'libraryEntries',
         attributes: {
@@ -52,11 +104,12 @@ describe('serialise', () => {
     })
   })
 
-  it('Should not pluralise mass nouns', () => {
+  it('Should not pluralise mass nouns', async () => {
     expect.assertions(1)
-    expect(serialise('anime', {
+    const input = await serialise('anime', {
       slug: 'Cowboy Bebop 2'
-    })).resolves.toEqual({
+    })
+    expect(input).toEqual({
       data: {
         type: 'anime',
         attributes: {
