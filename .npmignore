@@ -12,3 +12,5 @@ coverage
 .travis.yml
 rollup.config.js
 yarn.lock
+src/__cases__
+*.spec.js
