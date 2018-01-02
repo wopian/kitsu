@@ -26,17 +26,24 @@ A Simple framework agnostic [JSON:API] client for [Kitsu.io] and other spec comp
 
 ## Install
 
-### Yarn
-
 ```bash
 yarn add kitsu
-```
-
-### NPM 5
-
-```bash
 npm install kitsu
 ```
+
+
+## Browser Support
+
+| Package | ![chrome]</br>Chrome | ![firefox]</br>Firefox | ![safari]</br>Safari | ![edge]</br>IE/Edge
+| ------- | -------------------- | ---------------------- | -------------------- | ----------------
+| Default | 61+                  | 56+                    | 10+                  | Edge 15+
+| Legacy  | 49+                  | 48+                    | 4.2+                 | IE 8+, Edge 14+
+
+[chrome]:https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/chrome.png
+[firefox]:https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/firefox.png
+[safari]:https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/safari.png
+[edge]:https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/edge.png
+
 
 ## Response Comparison
 
@@ -44,31 +51,27 @@ A GET request to a JSON:API API returns:
 
 ```json5
 {
-  data: [
-    {
-      id: '4923ee67-19b0-4093-8aee-ab6ceeecf784'
-      type: 'users'
-      attributes: {
-        name: 'wopian'
-      }
-      relationships: {
-        followers: {
-          data: [
-            {
-              id: '50cfe2db-8157-4999-be87-450fea1b4b52'
-              type: 'follows'
-            }
-          ]
+  data: {
+    id: '1'
+    type: 'articles'
+    attributes: {
+      title: 'JSON API paints my bikeshed'
+    }
+    relationships: {
+      author: {
+        data: {
+          id: '42'
+          type: 'people'
         }
       }
     }
-  ]
+  }
   included: [
     {
-      id: '50cfe2db-8157-4999-be87-450fea1b4b52'
-      type: 'follows'
+      id: '42'
+      type: 'people'
       attributes: {
-        createdAt: '2017-08-24T02:36:26.006Z'
+        name: 'John'
       }
     }
   ]
@@ -78,20 +81,16 @@ A GET request to a JSON:API API returns:
 A GET request made with `kitsu` returns:
 ```json5
 {
-  data: [
-    {
-      id: '4923ee67-19b0-4093-8aee-ab6ceeecf784'
-      type: 'users'
-      name: 'wopian'
-      followers: [
-        {
-          id: '50cfe2db-8157-4999-be87-450fea1b4b52'
-          type: 'follows'
-          createdAt: '2017-08-24T02:36:26.006Z'
-        }
-      ]
+  data: {
+    id: '1'
+    type: 'articles'
+    title: 'JSON API paints my bikeshed'
+    author: {
+      id: '42',
+      type: 'people'
+      name: 'John'
     }
-  ]
+  }
 }
 ```
 
@@ -102,6 +101,8 @@ A GET request made with `kitsu` returns:
 import Kitsu from 'kitsu'
 // CommonJS/Browserify
 const Kitsu = require('kitsu')
+// Legacy IE8+ support
+const Kitsu = require('kitsu/lib/legacy')
 
 // For kitsu.io developers
 const api = new Kitsu()
