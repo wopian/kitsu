@@ -10,8 +10,11 @@ const kebab = s => s
 const camel = s => s
 const plural = s => s
 plural.singular = s => s
+// convertCamelCase: true, pluralize: true
 const serialisePluralConvertCamelCase = serialise.bind({ kebab: decamelize, camel: camelcase, plural: pluralize })
+// convertCamelCase: false, pluralize: true
 const serialisePluralize = serialise.bind({ kebab, camel, plural: pluralize })
+// convertCamelCase: true, pluralize: false
 const serialiseConvertCamelCase = serialise.bind({ kebab: decamelize, camel: camelcase, plural })
 
 describe('serialise', () => {
@@ -56,7 +59,7 @@ describe('serialise', () => {
 
   it('Should serialise JSON API array relationships', async () => {
     expect.assertions(1)
-    const input = await serialisePluralConvertCamelCase('LibraryEntries', {
+    const input = await serialisePluralConvertCamelCase('libraryEntries', {
       id: '1',
       user: [
         {
@@ -87,7 +90,7 @@ describe('serialise', () => {
   })
 
   it('Should throw an error when trying to serialise JSON API array relationships without ID', async () => {
-    await expect(serialisePluralConvertCamelCase('LibraryEntries', {
+    await expect(serialisePluralConvertCamelCase('libraryEntries', {
       id: '1',
       user: [
         {
@@ -97,9 +100,7 @@ describe('serialise', () => {
           id: 3
         }
       ]
-    }))
-      .rejects
-      .toEqual(Error('POST requires an ID for the user relationships'))
+    })).rejects.toThrowError('POST requires an ID for the user relationships')
   })
 
   it('Should pluralise type', async () => {
