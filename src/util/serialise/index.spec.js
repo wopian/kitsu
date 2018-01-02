@@ -1,4 +1,4 @@
-import { serialise } from './serialise'
+import { serialise } from './'
 
 describe('serialise', () => {
   it('Should serialise to a JSON API compliant object', async () => {
@@ -71,7 +71,6 @@ describe('serialise', () => {
       }
     })
   })
-
 
   it('Should throw an error when trying to serialise JSON API array relationships without ID', async () => {
     await expect(serialise('LibraryEntries', {
