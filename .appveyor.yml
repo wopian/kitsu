@@ -5,11 +5,9 @@ environment:
     - nodejs_version: "6" # LTS Apr 19
 platform:
 - x64
-cache:
-# - "%LOCALAPPDATA%\\Yarn"
 install:
 - ps: Install-Product node $env:nodejs_version $env:platform
-- yarn
+- yarn install --frozen-lockfile
 test_script:
 - yarn test
 build: off
