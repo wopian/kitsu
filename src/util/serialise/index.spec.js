@@ -1,9 +1,23 @@
+import camelcase from 'camelcase'
+import decamelize from 'decamelize'
+import pluralize from 'pluralize'
+
 import { serialise } from './'
+
+// Mock being run from the Kitsu Class:
+// serialise.call(this, ...args) is used to pass constructor options
+const kebab = s => s
+const camel = s => s
+const plural = s => s
+plural.singular = s => s
+const serialisePluralConvertCamelCase = serialise.bind({ kebab: decamelize, camel: camelcase, plural: pluralize })
+const serialisePluralize = serialise.bind({ kebab, camel, plural: pluralize })
+const serialiseConvertCamelCase = serialise.bind({ kebab: decamelize, camel: camelcase, plural })
 
 describe('serialise', () => {
   it('Should serialise to a JSON API compliant object', async () => {
     expect.assertions(1)
-    const input = await serialise('LibraryEntries', {
+    const input = await serialisePluralConvertCamelCase('LibraryEntries', {
       id: '1',
       ratingTwenty: 20
     })
@@ -19,7 +33,7 @@ describe('serialise', () => {
 
   it('Should serialise JSON API relationships', async () => {
     expect.assertions(1)
-    const input = await serialise('LibraryEntries', {
+    const input = await serialisePluralConvertCamelCase('LibraryEntries', {
       id: '1',
       user: {
         id: '2'
@@ -42,7 +56,7 @@ describe('serialise', () => {
 
   it('Should serialise JSON API array relationships', async () => {
     expect.assertions(1)
-    const input = await serialise('LibraryEntries', {
+    const input = await serialisePluralConvertCamelCase('LibraryEntries', {
       id: '1',
       user: [
         {
@@ -73,7 +87,7 @@ describe('serialise', () => {
   })
 
   it('Should throw an error when trying to serialise JSON API array relationships without ID', async () => {
-    await expect(serialise('LibraryEntries', {
+    await expect(serialisePluralConvertCamelCase('LibraryEntries', {
       id: '1',
       user: [
         {
@@ -90,7 +104,7 @@ describe('serialise', () => {
 
   it('Should pluralise type', async () => {
     expect.assertions(1)
-    const input = await serialise('libraryEntry', {
+    const input = await serialisePluralConvertCamelCase('libraryEntry', {
       rating: '1'
     })
     expect(input).toEqual({
@@ -105,7 +119,7 @@ describe('serialise', () => {
 
   it('Should not pluralise mass nouns', async () => {
     expect.assertions(1)
-    const input = await serialise('anime', {
+    const input = await serialisePluralConvertCamelCase('anime', {
       slug: 'Cowboy Bebop 2'
     })
     expect(input).toEqual({
@@ -120,21 +134,21 @@ describe('serialise', () => {
 
   it('Should throw an error if obj is missing', async () => {
     expect.assertions(1)
-    await expect(serialise('post'))
+    await expect(serialisePluralConvertCamelCase('post'))
       .rejects
       .toEqual(Error('POST requires a JSON object body'))
   })
 
   it('Should throw an error if obj is not an Object', async () => {
     expect.assertions(1)
-    await expect(serialise('post', 'id: 1', 'DELETE'))
+    await expect(serialisePluralConvertCamelCase('post', 'id: 1', 'DELETE'))
       .rejects
       .toEqual(Error('DELETE requires a JSON object body'))
   })
 
   it('Should throw an error when missing ID', async () => {
     expect.assertions(1)
-    await expect(serialise('user', { theme: 'dark' }, 'PATCH'))
+    await expect(serialisePluralConvertCamelCase('user', { theme: 'dark' }, 'PATCH'))
       .rejects
       .toEqual(Error('PATCH requires an ID for the users type'))
   })

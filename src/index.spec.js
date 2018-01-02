@@ -66,7 +66,7 @@ describe('Kitsu Class', () => {
   it('Should not use decamelize if disabled in options', () => {
     expect.assertions(2)
     const api = new Kitsu({
-      decamelize: false
+      convertCamelCase: false
     })
     expect(api.kebab('longWord')).not.toBe('long_word')
     expect(api.kebab('longWord')).toBe('longWord')

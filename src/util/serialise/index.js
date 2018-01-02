@@ -1,6 +1,3 @@
-import camel from 'camelcase'
-import plural from 'pluralize'
-
 /**
  * Serialises an object into a JSON-API structure
  *
@@ -16,7 +13,7 @@ export async function serialise (model, obj = {}, method = 'POST') {
     if (obj.constructor !== Object || Object.keys(obj).length === 0) {
       throw new Error(`${method} requires a JSON object body`)
     }
-    const type = plural(camel(model))
+    const type = this.plural(this.camel(model))
     const data = { type }
 
     // A POST request is the only request to not require an ID
@@ -41,14 +38,14 @@ export async function serialise (model, obj = {}, method = 'POST') {
       ) {
         if (typeof data.relationships === 'undefined') data.relationships = {}
         // Guess relationship type if not provided
-        if (typeof obj[prop].type === 'undefined') obj[prop].type = plural(camel(prop))
+        if (typeof obj[prop].type === 'undefined') obj[prop].type = this.plural(this.camel(prop))
         data.relationships[prop] = { data: Object.assign(obj[prop]) }
       } else if (
         obj[prop] !== null &&
         obj[prop].constructor === Array
       ) {
         // validate whole array
-        const ptype = plural(camel(prop))
+        const ptype = this.plural(this.camel(prop))
         for (var i = 0; i < obj[prop].length; i++) {
           if (
             typeof obj[prop][i].id === 'string' ||

@@ -12,8 +12,8 @@ const jsonAPIHeader = { 'Accept': jsonAPI, 'Content-Type': jsonAPI }
  * @param {Object} options Options
  * @param {string} options.baseURL Set the API endpoint (default `https://kitsu.io/api/edge`)
  * @param {Object} options.headers Additional headers to send with requests
- * @param {boolean} options.decamelize If `true`, `/libraryEntries` will become `/library-entries` in the URL request (default `true`)
- * @param {boolean} options.pluralize If `true`, `type` will be pluralized in post, patch and delete requests - `user` -> `users` (default `true`)
+ * @param {boolean} options.convertCamelCase If `true`, `/libraryEntries` will become `/library-entries` in the URL request and `type` will be camelCased  (default `true`)
+ * @param {boolean} options.pluralize If `true`, `/user` will become `/users` in the URL request and `type` will be pluralized in post, patch and delete requests - `user` -> `users` (default `true`)
  * @param {number} options.timeout Set the request timeout in milliseconds (default `30000`)
  *
  * @example
@@ -37,8 +37,13 @@ const jsonAPIHeader = { 'Accept': jsonAPI, 'Content-Type': jsonAPI }
  */
 export default class Kitsu {
   constructor (options = {}) {
-    if (options.decamelize === false) this.kebab = s => s
-    else this.kebab = require('decamelize')
+    if (options.convertCamelCase === false) {
+      this.kebab = s => s
+      this.camel = s => s
+    } else {
+      this.kebab = require('decamelize')
+      this.camel = require('camelcase')
+    }
 
     if (options.pluralize === false) {
       this.plural = s => s
@@ -174,7 +179,7 @@ export default class Kitsu {
 
       const url = this.plural(this.kebab(model)) + '/' + body.id
       const { data } = await axios.patch(url, {
-        data: (await serialise(model, body, 'PATCH')).data,
+        data: (await serialise.apply(this, [ model, body, 'PATCH' ])).data,
         headers
       })
 
@@ -215,7 +220,7 @@ export default class Kitsu {
 
       const url = this.plural(this.kebab(model))
       const { data } = await axios.post(url, {
-        data: (await serialise(model, body)).data,
+        data: (await serialise.apply(this, [ model, body ])).data,
         headers
       })
 
@@ -245,7 +250,7 @@ export default class Kitsu {
 
       const url = this.plural(this.kebab(model)) + '/' + id
       const { data } = await axios.delete(url, {
-        data: (await serialise(model, { id }, 'DELETE')).data,
+        data: (await serialise.apply(this, [ model, { id }, 'DELETE' ])).data,
         headers
       })
 
