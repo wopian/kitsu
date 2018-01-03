@@ -16,10 +16,13 @@
     ":major": "yarn :build && changelog -M && yarn :commit && npm version major && yarn :publish",
     ":minor": "yarn :build && changelog -m && yarn :commit && npm version minor && yarn :publish",
     ":patch": "yarn :build && changelog -p && yarn :commit && npm version patch && yarn :publish",
-    "test": "eslint src && jest --coverage",
+    "test": "jest --coverage && yarn lint && yarn spellcheck",
     "docs": "documentation build src/index.js -f md -o DOCS.md --sort-order alpha",
+    "lint": "eslint src",
     "lintdocs": "documentation lint src/index.js",
-    "build": "yarn docs && yarn lintdocs && yarn rollup",
+    "spellcheck": "yaspeller-ci README.md DOCS.md CONTRIBUTING.md",
+    "size": "size-limit",
+    "build": "yarn docs && yarn lintdocs && yarn rollup && yarn size",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "start": "yarn example:basic",
     "example:basic": "node ./example/basic",
@@ -82,8 +85,23 @@
     "rollup-plugin-babel": "~3.0.1",
     "rollup-plugin-babel-minify": "~3.1.2",
     "rollup-plugin-local-resolve": "~1.0.7",
-    "standard": "~10.0.2"
+    "size-limit": "^0.13.2",
+    "standard": "~10.0.2",
+    "yaspeller-ci": "~1.0.0"
   },
+  "size-limit": [
+    {
+      "path": "./lib/kitsu.js",
+      "limit": "15 kb"
+    },
+    {
+      "path": "./lib/kitsu.mjs",
+      "limit": "15 kb"
+    },
+    {
+      "path": "./lib/legacy/index.js"
+    }
+  ],
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.js",
