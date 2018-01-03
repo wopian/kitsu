@@ -1,9 +1,7 @@
-engines:
+version: '2'
+plugins:
   duplication:
     enabled: false
-    config:
-      languages:
-      - javascript
   eslint:
     enabled: true
     config:
@@ -15,12 +13,7 @@ engines:
     enabled: false
   shellcheck:
     enabled: true
-ratings:
-  paths:
-  - "**.js"
-  - "**.md"
-  - "**.sh"
-exclude_paths:
+exclude_patterns:
 - .vscode
 - example
 - lib
