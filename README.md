@@ -33,7 +33,7 @@ npm install kitsu
 
 ## Browser Support
 
-| Package | Global<br>Usage | Chrome | Firefox | Safari | IE/Edge
+| Package | Global<br> Usage | Chrome | Firefox | Safari | IE/Edge
 | ------- | --------------- | ------ | ------- | ------ | -------
 | Default | [> 1%]          | 61+    | 56+     | 10+    | Edge 15+
 | Legacy  | [> 0.1%]        | 49+    | 48+     | 5.1+   | IE 8+, Edge 14+

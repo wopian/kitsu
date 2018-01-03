@@ -3,7 +3,7 @@
   "ignoreDigits": true,
   "ignoreCapitalization": true,
   "ignoreText": [
-    "</br>",
+    "<br>",
     "\\s?\\[.*\\]\\(#.*\\)" // Ignore anchors [text](#anchor)
   ],
   "ignoreUrls": true,
@@ -48,6 +48,8 @@
     "apiUrl",
     "apiVer",
     "canonicalTitle",
-    "waifu"
+    "waifu",
+    "ES",
+    "async"
   ]
 }
