@@ -1,3 +1,10 @@
+#### 4.0.1 (2018-01-03)
+
+##### Documentation Changes
+
+*  fix typos ([c55335ef](https://github.com/wopian/kitsu/commit/c55335efab0ba50f3db350648b540736580fd0f8))
+*  update DOCS link to 4.x ([cfd44c5b](https://github.com/wopian/kitsu/commit/cfd44c5bdb4e8e9876c391995a189caec844fee4))
+
 ## 4.0.0 (2018-01-03)
 
 ##### Breaking Changes
