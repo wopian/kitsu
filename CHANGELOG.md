@@ -1,3 +1,110 @@
+## 4.0.0 (2018-01-03)
+
+##### Breaking Changes
+
+*  change default camelCase conversion from snake_case to kebab-case ([60181d7a](https://github.com/wopian/kitsu/commit/60181d7a165a21bdf825799c151b4d55cdd1a7ec))
+*  create legacy bundle for IE8, 9, 10 and 11 support ([e8a31c78](https://github.com/wopian/kitsu/commit/e8a31c78e4aca6f040905b76c562788c8693e87e))
+*  merge API version into baseURL ([d9d8c4f7](https://github.com/wopian/kitsu/commit/d9d8c4f7709959edc595eb0520103cd67a64ace3))
+*  exclude ie mobile ([90b84346](https://github.com/wopian/kitsu/commit/90b843462ff14277a47f78d452aa5323fcc6b1cf))
+* **fix:**  error object can now be destructured ([af067881](https://github.com/wopian/kitsu/commit/af067881be603a4d6f920fc5edc2873a6b06257d))
+
+##### Build System / Dependencies
+
+*  add spellchecker and library size reporter ([c4e20dad](https://github.com/wopian/kitsu/commit/c4e20dad28e33433d9a1d87681f660d72142f91e))
+*  update globals location ([9c9436ae](https://github.com/wopian/kitsu/commit/9c9436aea317551f5600d79197faa06117bade03))
+*  cleanup rollup config ([425a24e0](https://github.com/wopian/kitsu/commit/425a24e075c8974f98a220430e4d6c873c8c4d5c))
+*  remove unused runtime helpers ([1bb4310c](https://github.com/wopian/kitsu/commit/1bb4310c1aef901394b6862a6f8ba7803b54d4f0))
+*  lint docs ([1a76938d](https://github.com/wopian/kitsu/commit/1a76938d6f58706a5e7fa7a0857b5f3c5f5b0902))
+
+##### Chores
+
+* **deps:**
+  *  update lockfile ([b7ae9d20](https://github.com/wopian/kitsu/commit/b7ae9d20bc3d0c4a483cf12ceaf1e52a744a2a97))
+  *  lock file maintenance ([#83](https://github.com/wopian/kitsu/pull/83)) ([135e85c8](https://github.com/wopian/kitsu/commit/135e85c8dc9d49184c0c91f07151cd4c67987350))
+  *  update babel-eslint to ~8.1.0 ([#79](https://github.com/wopian/kitsu/pull/79)) ([3343ebbb](https://github.com/wopian/kitsu/commit/3343ebbbe8e1375ef3d47e7570603b91124678e2))
+  *  update eslint to ~4.14.0 ([#77](https://github.com/wopian/kitsu/pull/77)) ([fb8fcb86](https://github.com/wopian/kitsu/commit/fb8fcb8692e4ff6a083775167d070156c87f5449))
+  *  update rollup to ~0.53.0 ([#78](https://github.com/wopian/kitsu/pull/78)) ([e283a28e](https://github.com/wopian/kitsu/commit/e283a28e6ff7ca3a4fb67ef938487488fc35c5bc))
+  *  update jest to ~22.0.0 ([#75](https://github.com/wopian/kitsu/pull/75)) ([bf501352](https://github.com/wopian/kitsu/commit/bf50135220190c59e3e8eb908f86e39b10474e38))
+  *  add missing eslint plugins ([6b8253f2](https://github.com/wopian/kitsu/commit/6b8253f23d8811407c5f077f83aea9b2fec2e35f))
+  *  update generate-changelog to ~1.7.0 ([#72](https://github.com/wopian/kitsu/pull/72)) ([2a5a3da3](https://github.com/wopian/kitsu/commit/2a5a3da3fc273317bdbe6fe95b9f0815d8c21e90))
+  *  update eslint-plugin-jest to ~21.5.0 ([#71](https://github.com/wopian/kitsu/pull/71)) ([eb87da70](https://github.com/wopian/kitsu/commit/eb87da7016d9c68308e548da7287a7ed044ac7a2))
+* **npm:**
+  *  ignore test usecases and spec files ([8d83c8c7](https://github.com/wopian/kitsu/commit/8d83c8c711f4165b6a00aeb020ff7f2c658e931e))
+  *  remove non-existent ignores ([279f882e](https://github.com/wopian/kitsu/commit/279f882e40c73f10b855421c521296541702fcca))
+  *  include source code in releases ([154ebd97](https://github.com/wopian/kitsu/commit/154ebd970ae2b09f3969e33732544e60e09296a1))
+*  move serialise into directory ([87637c5f](https://github.com/wopian/kitsu/commit/87637c5f31b3d9ba18092d28145bc2c1093b81bc))
+*  update renovate config ([936013c4](https://github.com/wopian/kitsu/commit/936013c4a08a6d422fcbcbf6e78c0e2661f11807))
+* **readme:**  combine usage and docs section ([2c586b38](https://github.com/wopian/kitsu/commit/2c586b384c2da278534008d74422336485bfa20d))
+* **renovate:**
+  *  fix commit type ([a8344e97](https://github.com/wopian/kitsu/commit/a8344e9793984c3eb043bd21954cd9f3f2f56163))
+  *  remove linters config ([c541abb4](https://github.com/wopian/kitsu/commit/c541abb44461c24cbbcc191410a0d3f865b41756))
+  *  remove schedule ([e15c066e](https://github.com/wopian/kitsu/commit/e15c066e83e1c84b4aa854a608bd22b5508f6fe2))
+  *  remove assign ([d3462de1](https://github.com/wopian/kitsu/commit/d3462de177778ad7cf112f90e5d810bb82fcccc4))
+  *  stop displaying fix(deps) commits ([cd19bf3a](https://github.com/wopian/kitsu/commit/cd19bf3a4e8cfa1b670c546b9a0259400e19c525))
+
+##### Continuous Integration
+
+*  enforce eslint formatting rules ([f1f7df20](https://github.com/wopian/kitsu/commit/f1f7df2073cb645fb53459bf1cde29f344e2af91))
+* **codeclimate:**
+  *  migrate config to version 2 ([869288e4](https://github.com/wopian/kitsu/commit/869288e4f264c7f083fc2aa7a11b701a019d7751))
+  *  ignore __cases__ directory ([e0842177](https://github.com/wopian/kitsu/commit/e08421777f0d731f70a5240cddd961acd35ce536))
+* **appveyor:**
+  *  update config ([d840e1b2](https://github.com/wopian/kitsu/commit/d840e1b287110c53f06b4f0edfff6dc541ae521d))
+  *  stop testing with 32bit ([fc6bfcc2](https://github.com/wopian/kitsu/commit/fc6bfcc2ad84ea3cea0ff8c6160605b38cfb5326))
+  *  don't mutate lockfile when testing ([0534ec21](https://github.com/wopian/kitsu/commit/0534ec21597b079bae22bd064f3e47bfce55688d))
+* **travis:**
+  *  disable macOS builds due to backlog ([5118fe14](https://github.com/wopian/kitsu/commit/5118fe1484f41242701b3a55e67c3921c491754d))
+  *  force test node environment ([91140570](https://github.com/wopian/kitsu/commit/91140570eb4a80a950d1d42f73182d83c7840cfe))
+
+##### Documentation Changes
+
+*  add 4.x migration guide ([ef714744](https://github.com/wopian/kitsu/commit/ef7147440513d0cdc2dd110e69a0ae0324713f05))
+*  update links ([2f66c1bc](https://github.com/wopian/kitsu/commit/2f66c1bccf9525d07d21ef1fbfb22dd3f44f71fe))
+*  fix codeclimate coverage badge again ([78177dde](https://github.com/wopian/kitsu/commit/78177ddee87204a3837c5fba7b1c2a5725c8f69c))
+*  fix codeclimate coverage badge ([b3719e36](https://github.com/wopian/kitsu/commit/b3719e36d75abfa993fd96e3b1f7410d9b3a22dc))
+*  version tag link to docs ([77985497](https://github.com/wopian/kitsu/commit/779854973e8c2a8f0e1db632c3a438167ba755f3))
+*  resolve lint warnings ([79589d7f](https://github.com/wopian/kitsu/commit/79589d7f7d8cd31d8d06f1bf5050b04d85898365))
+*  add patreon ([854b3a08](https://github.com/wopian/kitsu/commit/854b3a0878adb0f24cf36ac24d64f01d4fcba9c6))
+* **contributing:**  add test section ([c0c71657](https://github.com/wopian/kitsu/commit/c0c716572a92529e4c16a14c54ac27b3805b3d5a))
+
+##### New Features
+
+*  use pluralisation and camelisation options for data serialisation ([74a290f5](https://github.com/wopian/kitsu/commit/74a290f56f6058f5f4000a6dec7a7e01484a9f36))
+*  allow disabling pluralize and decamelize ([#69](https://github.com/wopian/kitsu/pull/69)) ([aaa0c876](https://github.com/wopian/kitsu/commit/aaa0c87674afce6343ec40df24ad7f84e752b594))
+*  support all browsers with usage higher than 0.1% (reverts 379ac32) ([432cdb16](https://github.com/wopian/kitsu/commit/432cdb16eef3799b581c39578594c370b6b7e78d))
+*  drop browser support for ie ([379ac329](https://github.com/wopian/kitsu/commit/379ac32934aefe207b1f1a41c530ebf97e5dad3e))
+
+##### Bug Fixes
+
+*  prevent pluralising {baseURL}/resources/1 as {baseURL}/resource/1S ([91da8f09](https://github.com/wopian/kitsu/commit/91da8f09670476afedf9ecf170153563c89605b3))
+*  handle relationship arrays (fixes [#80](https://github.com/wopian/kitsu/pull/80)) ([#81](https://github.com/wopian/kitsu/pull/81)) ([596ff898](https://github.com/wopian/kitsu/commit/596ff8980d9e59e51c7fe020460946134f450ea0))
+
+##### Other Changes
+
+*  mock axios and add response test cases ([937169a8](https://github.com/wopian/kitsu/commit/937169a8fcb92ec2facbd57166918aa088692f3a))
+
+##### Refactors
+
+*  avoid using template literal ([48c61150](https://github.com/wopian/kitsu/commit/48c61150c2c878eb699a9a59a65536fbddfd2793))
+*  use own isAuth getter to check auth header ([fafcdc0e](https://github.com/wopian/kitsu/commit/fafcdc0e594b1a14f82145da1b6d7be1e38fea7f))
+*  clean up source ([905ef7b0](https://github.com/wopian/kitsu/commit/905ef7b090120933ff44bf7457e94121718ce776))
+*  don't bind methods to class ([da4efadd](https://github.com/wopian/kitsu/commit/da4efadd8d488ad50fb7a1819e4079b5ad67e573))
+*  cleaner method imports ([8ece462d](https://github.com/wopian/kitsu/commit/8ece462d0f66a70ed209a692b4567a697a69da61))
+
+##### Reverts
+
+* **renovate:**  add assignee back ([bff492f0](https://github.com/wopian/kitsu/commit/bff492f0ccd25bc3d3444568fb513d160a7b4b1f))
+*  force test node environment ([77c1dbb2](https://github.com/wopian/kitsu/commit/77c1dbb28e884a11a98f0ce5cf102c2b4025b602))
+
+##### Tests
+
+*  use exact url paths for axios mocking ([99568a53](https://github.com/wopian/kitsu/commit/99568a534179560f4922cd9ed8e86d5e274e58a3))
+*  use toThrowError for serialise array test ([2cf31406](https://github.com/wopian/kitsu/commit/2cf31406f5d0c0acf03bc05135d597df859f818f))
+*  add basic patch, post and delete tests ([89f2b45c](https://github.com/wopian/kitsu/commit/89f2b45c72d56d4c06a4a426de83221c99d02c54))
+*  add more get test cases ([9dc2ce02](https://github.com/wopian/kitsu/commit/9dc2ce02a2e4b6fe2de4a258d5ed486ac36d4387))
+*  add a few patch test cases ([3631d24b](https://github.com/wopian/kitsu/commit/3631d24bad15a67d061f5ddbf1f8390e45b488d5))
+*  add Kitsu constructor tests ([17519c6e](https://github.com/wopian/kitsu/commit/17519c6e6ee523cdffbc06de98fb7e028803b7d0))
+
 #### 3.1.4 (2017-12-12)
 
 ##### Chores
