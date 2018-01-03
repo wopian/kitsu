@@ -2,15 +2,12 @@ import axios from 'axios'
 import pluralize from 'pluralize'
 import MockAdapter from 'axios-mock-adapter'
 import Kitsu from 'kitsu'
-import camel from './util/camel'
-import kebab from './util/kebab'
 import {
   getCollection,
   getCollectionWithIncludes,
   getError,
   getSingle,
   getSingleWithIncludes,
-  getSingleWithNestedIncludes,
   patchSingle,
   patchSingleMissingID
 } from './__cases__'
