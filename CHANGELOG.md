@@ -1,3 +1,9 @@
+#### 4.0.2 (2018-01-03)
+
+##### Documentation Changes
+
+*  add package size to browser support table ([78f85915](https://github.com/wopian/kitsu/commit/78f8591555fae384266ffd00f69f597dc43d407f))
+
 #### 4.0.1 (2018-01-03)
 
 ##### Documentation Changes
