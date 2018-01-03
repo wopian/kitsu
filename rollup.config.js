@@ -11,6 +11,7 @@ let plugins = [
 ]
 let globals = {
   'babel-runtime/helpers/asyncToGenerator': '_asyncToGenerator',
+  'babel-runtime/helpers/slicedToArray': '_slicedToArray',
   'axios': 'axios'
 }
 let legacy = {
@@ -39,6 +40,7 @@ export default [
     input: 'src/index.js',
     external: [
       'babel-runtime/helpers/asyncToGenerator',
+      'babel-runtime/helpers/slicedToArray',
       ...external
     ],
     plugins,
@@ -72,6 +74,7 @@ export default [
       'babel-runtime/helpers/asyncToGenerator',
       'babel-runtime/helpers/classCallCheck',
       'babel-runtime/helpers/createClass',
+      'babel-runtime/helpers/slicedToArray',
       'babel-runtime/helpers/typeof',
       ...external
     ],
