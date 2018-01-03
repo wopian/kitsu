@@ -10,12 +10,12 @@
     "node": ">=6"
   },
   "scripts": {
-    ":build": "jest && yarn lint && yarn build",
+    ":test": "jest && yarn lint && yarn build",
     ":commit": "git add package.json && git add DOCS.md && git add CHANGELOG.md && git commit -m \"update changelog\"",
     ":publish": "git push origin && git push origin --tags && yarn publish",
-    ":major": "yarn :build && changelog -M && yarn :commit && npm version major && yarn :publish",
-    ":minor": "yarn :build && changelog -m && yarn :commit && npm version minor && yarn :publish",
-    ":patch": "yarn :build && changelog -p && yarn :commit && npm version patch && yarn :publish",
+    ":major": "yarn :test && changelog -M && yarn :commit && npm version major && yarn :publish",
+    ":minor": "yarn :test && changelog -m && yarn :commit && npm version minor && yarn :publish",
+    ":patch": "yarn :test && changelog -p && yarn :commit && npm version patch && yarn :publish",
     "docs": "documentation build src/index.js -f md -o DOCS.md --sort-order alpha && documentation lint src/index.js",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "build": "yarn docs && yarn rollup && size-limit",
@@ -28,6 +28,22 @@
     "example:auth": "babel-node ./example/auth",
     "example:complex": "babel-node ./example/complex"
   },
+  "pre-commit": [
+    ":test"
+  ],
+  "size-limit": [
+    {
+      "path": "./lib/kitsu.js",
+      "limit": "15 kb"
+    },
+    {
+      "path": "./lib/kitsu.mjs",
+      "limit": "15 kb"
+    },
+    {
+      "path": "./lib/legacy/index.js"
+    }
+  ],
   "keywords": [
     "kitsu",
     "kitsu.io",
@@ -89,19 +105,6 @@
     "standard": "~10.0.2",
     "yaspeller-ci": "~1.0.0"
   },
-  "size-limit": [
-    {
-      "path": "./lib/kitsu.js",
-      "limit": "15 kb"
-    },
-    {
-      "path": "./lib/kitsu.mjs",
-      "limit": "15 kb"
-    },
-    {
-      "path": "./lib/legacy/index.js"
-    }
-  ],
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.js",
