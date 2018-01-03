@@ -143,7 +143,7 @@ describe('get', () => {
   it('Should fetch a collection of resources', async () => {
     expect.assertions(1)
     const api = new Kitsu()
-    mock.onGet().reply(200, getCollection.jsonapi)
+    mock.onGet('/anime').reply(200, getCollection.jsonapi)
     const request = await api.get('anime')
     expect(request).toEqual(getCollection.kitsu)
   })
@@ -151,7 +151,7 @@ describe('get', () => {
   it('Should fetch a single resource', async () => {
     expect.assertions(1)
     const api = new Kitsu()
-    mock.onGet().reply(200, getSingle.jsonapi)
+    mock.onGet(`anime/${getSingle.jsonapi.data.id}`).reply(200, getSingle.jsonapi)
     const request = await api.get('anime/1')
     expect(request).toEqual(getSingle.kitsu)
   })
@@ -159,7 +159,7 @@ describe('get', () => {
   it('Should fetch a collection of resources with includes', async () => {
     expect.assertions(1)
     const api = new Kitsu()
-    mock.onGet().reply(200, getCollectionWithIncludes.jsonapi)
+    mock.onGet('/anime', { include: 'author,comments' }).reply(200, getCollectionWithIncludes.jsonapi)
     const request = await api.get('anime', { include: 'author,comments' })
     expect(request).toEqual(getCollectionWithIncludes.kitsu)
   })
@@ -167,7 +167,7 @@ describe('get', () => {
   it('Should fetch a single resource with includes', async () => {
     expect.assertions(1)
     const api = new Kitsu()
-    mock.onGet().reply(200, getSingleWithIncludes.jsonapi)
+    mock.onGet(`anime/${getSingleWithIncludes.jsonapi.data.id}`, { include: 'author,comments' }).reply(200, getSingleWithIncludes.jsonapi)
     const request = await api.get('anime/1', { include: 'author,comments' })
     expect(request).toEqual(getSingleWithIncludes.kitsu)
   })
@@ -186,7 +186,7 @@ describe('get', () => {
   it('Should return a JSON:API error object for invalid queries', async () => {
     expect.assertions(5)
     const api = new Kitsu()
-    mock.onGet().reply(400, getError.jsonapi)
+    mock.onGet('articles', { include: 'author' }).reply(400, getError.jsonapi)
     const { errors } = await api.get('articles', { include: 'author' })
     expect(errors).toHaveLength(1)
     expect(errors[0].title).toBe('Invalid field')
@@ -215,7 +215,7 @@ describe('patch', () => {
   it('Should update a single resource', async () => {
     expect.assertions(1)
     const api = new Kitsu({ headers: { Authorization: true } })
-    mock.onPatch().reply(200, patchSingle.jsonapi)
+    mock.onPatch(`posts/${patchSingle.jsonapi.data.id}`).reply(200, patchSingle.jsonapi)
     const request = await api.patch('posts', patchSingle.kitsu)
     expect(request).toEqual(patchSingle.jsonapi)
   })
