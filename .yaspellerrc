@@ -39,6 +39,15 @@
     "prepend",
     "wopian",
     "targetUser",
-    "isAuth"
+    "isAuth",
+    "gzipped",
+    "camelCase",
+    "camelCasing",
+    "destructured",
+    "whoAmI",
+    "apiUrl",
+    "apiVer",
+    "canonicalTitle",
+    "waifu"
   ]
 }

@@ -20,7 +20,7 @@
     "docs": "documentation build src/index.js -f md -o DOCS.md --sort-order alpha",
     "lint": "eslint src",
     "lintdocs": "documentation lint src/index.js",
-    "spellcheck": "yaspeller-ci README.md DOCS.md CONTRIBUTING.md",
+    "spellcheck": "yaspeller-ci README.md MIGRATING.md DOCS.md CONTRIBUTING.md",
     "size": "size-limit",
     "build": "yarn docs && yarn lintdocs && yarn rollup && yarn size",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",

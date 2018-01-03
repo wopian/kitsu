@@ -12,13 +12,13 @@
 [![cc maintainability badge]][cc maintainability]
 [![cc coverage badge]][cc coverage]
 
-A Simple framework agnostic [JSON:API] client for [Kitsu.io] and other spec compliant APIs
+A Simple and lightweight framework agnostic [JSON:API] client for [Kitsu.io] and other APIs
 
-*For breaking changes in 3.0, check the [CHANGELOG][BREAKING]*
+*Check out the [Migration Guide] for breaking changes and new features in `4.x`*
 
 ## Features
 
-- Fully JSON-API compliant
+- JSON-API 1.0 compliant
 - Automatically links relationships to data
 - Works in Node and on the web
 - Uses the [Promise] API
@@ -31,23 +31,19 @@ yarn add kitsu
 npm install kitsu
 ```
 
-
 ## Browser Support
 
-| Package | ![chrome]</br>Chrome | ![firefox]</br>Firefox | ![safari]</br>Safari | ![edge]</br>IE/Edge
-| ------- | -------------------- | ---------------------- | -------------------- | ----------------
-| Default | 61+                  | 56+                    | 10+                  | Edge 15+
-| Legacy  | 49+                  | 48+                    | 4.2+                 | IE 8+, Edge 14+
+| Package | Global<br>Usage | Chrome | Firefox | Safari | IE/Edge
+| ------- | --------------- | ------ | ------- | ------ | -------
+| Default | [> 1%]          | 61+    | 56+     | 10+    | Edge 15+
+| Legacy  | [> 0.1%]        | 49+    | 48+     | 5.1+   | IE 8+, Edge 14+
 
-[chrome]:https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/chrome.png
-[firefox]:https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/firefox.png
-[safari]:https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/safari.png
-[edge]:https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/edge.png
-
+[> 1%]:http://browserl.ist/?q=%3E1%25%2C+not+ie+%3C%3D+11%2C+not+ie_mob+%3C%3D+11
+[> 0.1%]:http://browserl.ist/?q=%3E0.1%25
 
 ## Response Comparison
 
-A GET request to a JSON:API API returns:
+A GET response by a JSON:API server returns:
 
 ```json5
 {
@@ -78,7 +74,7 @@ A GET request to a JSON:API API returns:
 }
 ```
 
-A GET request made with `kitsu` returns:
+A GET request with `kitsu` returns:
 ```json5
 {
   data: {
@@ -97,57 +93,46 @@ A GET request made with `kitsu` returns:
 ## Usage
 
 ```javascript
-// ES2015+/Babel
-import Kitsu from 'kitsu'
-// CommonJS/Browserify
-const Kitsu = require('kitsu')
-// Legacy IE8+ support
-const Kitsu = require('kitsu/lib/legacy')
+import Kitsu from 'kitsu'                 // ES Modules and Babel
+const Kitsu = require('kitsu')            // CommonJS and Browserify
+const Kitsu = require('kitsu/lib/legacy') // Legacy IE8+ support
 
-// For kitsu.io developers
-const api = new Kitsu()
+const api = new Kitsu()                   // For kitsu.io developers
 
-// For other JSON-API uses
-// e.g api.example.org/2
-const api = new Kitsu({
-  baseURL: 'https://api.example.org',
-  version: 2
+const api = new Kitsu({                   // For other JSON:API servers
+  baseURL: 'https://api.example/2'        // e.g https://api.example/2
 })
 
-// Get a collection of resources
-api.get('anime').then(res => console.log(res))
+const { data } = api.get('anime')         // Using with Promises
+  .then(res => res)
 
-// Get a resource
-api.get('anime/1')
+const { data } = await api.get('anime')   // Using with async/await
 
-// Get a resource's relationship
-api.get('anime/1/episodes')
+// Fetching resources with get() or fetch()
+api.get('anime')                          // Collection of resources
+api.get('anime/1')                        // Single resource
+api.get('anime/1/episodes')               // Single resource's relationship
 
-// Create a resource
+// Creating resources with post() or create()
 api.create('post', {
   content: 'some content'
 })
 
-// Update a resource
+// Updating resources with patch() or update()
 api.update('post', {
   id: '1',
   content: 'new content'
 })
 
-// Delete a resource
+// Deleting resources
 api.remove('post', 1)
-
-// Destructuring with Async/Await
-const { id } = await kitsu.get('users', {
-  filter: { id: 2 }
-})
 ```
 
-[More Examples]
-[View the Documentation]
+[Read the Documentation]
 
-If you're working with [Kitsu.io]'s API, their [API docs][Kitsu.io API Docs] lists all available
-endpoints with their attributes and relationships
+[More Examples]
+
+If you're working with [Kitsu.io]'s API, their [API docs][Kitsu.io API Docs] lists all available resources with their attributes and relationships
 
 ## Contributing
 
@@ -165,10 +150,10 @@ All code released under [MIT]
 [JSON:API]:http://jsonapi.org
 [Promise]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 [More Examples]:https://github.com/wopian/kitsu/tree/master/example
-[View the Documentation]:https://github.com/wopian/kitsu/blob/v3.1.4/DOCS.md
+[Read the Documentation]:https://github.com/wopian/kitsu/blob/v3.1.4/DOCS.md
 [Kitsu.io API Docs]:https://kitsu.docs.apiary.io
 
-[BREAKING]:https://github.com/wopian/kitsu/blob/master/CHANGELOG.md#breaking-changes
+[Migration Guide]:https://github.com/wopian/kitsu/blob/master/MIGRATING.md
 [CHANGELOG]:https://github.com/wopian/kitsu-inactivity-pruner/blob/master/CHANGELOG.md
 [CONTRIBUTING]:https://github.com/wopian/kitsu-inactivity-pruner/blob/master/CONTRIBUTING.md
 [MIT]:https://github.com/wopian/kitsu/blob/master/LICENSE.md
