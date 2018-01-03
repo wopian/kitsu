@@ -11,9 +11,7 @@ let plugins = [
 ]
 let globals = {
   'babel-runtime/helpers/asyncToGenerator': '_asyncToGenerator',
-  'axios': 'axios',
-  'camelcase': 'camel',
-  'pluralize': 'plural'
+  'axios': 'axios'
 }
 let legacy = {
   plugins: [

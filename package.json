@@ -56,8 +56,6 @@
   "dependencies": {
     "axios": "^0.17.0",
     "babel-runtime": "^6.26.0",
-    "camelcase": "^4.1.0",
-    "decamelize": "^1.2.0",
     "pluralize": "^7.0.0"
   },
   "devDependencies": {

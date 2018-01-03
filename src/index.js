@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { deserialise, error, query, serialise } from './util'
+import { camel, deserialise, error, kebab, query, serialise, snake } from './util'
 
 const kitsu = 'https://kitsu.io/api/edge'
 const jsonAPI = 'application/vnd.api+json'
@@ -12,7 +12,8 @@ const jsonAPIHeader = { 'Accept': jsonAPI, 'Content-Type': jsonAPI }
  * @param {Object} options Options
  * @param {string} options.baseURL Set the API endpoint (default `https://kitsu.io/api/edge`)
  * @param {Object} options.headers Additional headers to send with requests
- * @param {boolean} options.convertCamelCase If `true`, `/libraryEntries` will become `/library-entries` in the URL request and `type` will be camelCased  (default `true`)
+ * @param {boolean} options.camelCaseTypes If true, the `type` value will be camelCased, e.g `library-entries` and `library_entries` become `libraryEntries`  (default `true`)
+ * @param {string} options.resourceCase `kebab`, `snake` or `none`. If `kebab`, `/libraryEntries` will become `/library-entries`. If `snake`, `/libraryEntries` will become `/library_entries`, If `none`, `/libraryEntries` will be unchanged (default `kebab`)
  * @param {boolean} options.pluralize If `true`, `/user` will become `/users` in the URL request and `type` will be pluralized in post, patch and delete requests - `user` -> `users` (default `true`)
  * @param {number} options.timeout Set the request timeout in milliseconds (default `30000`)
  *
@@ -37,18 +38,15 @@ const jsonAPIHeader = { 'Accept': jsonAPI, 'Content-Type': jsonAPI }
  */
 export default class Kitsu {
   constructor (options = {}) {
-    if (options.convertCamelCase === false) {
-      this.kebab = s => s
-      this.camel = s => s
-    } else {
-      this.kebab = require('decamelize')
-      this.camel = require('camelcase')
-    }
+    if (options.camelCaseTypes === false) this.camel = s => s
+    else this.camel = camel
 
-    if (options.pluralize === false) {
-      this.plural = s => s
-      this.plural.singular = s => s
-    } else this.plural = require('pluralize')
+    if (options.resourceCase === 'none') this.resCase = s => s
+    else if (options.resourceCase === 'snake') this.resCase = snake
+    else this.resCase = kebab
+
+    if (options.pluralize === false) this.plural = s => s
+    else this.plural = require('pluralize')
 
     /**
      * Get the current headers or add additional headers
@@ -141,7 +139,7 @@ export default class Kitsu {
    */
   async get (model, params = {}, headers = {}) {
     try {
-      const url = this.plural(this.kebab(model))
+      const url = this.plural(this.resCase(model))
       const { data } = await axios.get(url, {
         params,
         paramsSerializer: p => query(p),
@@ -177,7 +175,7 @@ export default class Kitsu {
       if (!this.isAuth) throw new Error('Not logged in')
       if (typeof body.id === 'undefined') throw new Error('Updating a resource requires an ID')
 
-      const url = this.plural(this.kebab(model)) + '/' + body.id
+      const url = this.plural(this.resCase(model)) + '/' + body.id
       const { data } = await axios.patch(url, {
         data: (await serialise.apply(this, [ model, body, 'PATCH' ])).data,
         headers
@@ -218,7 +216,7 @@ export default class Kitsu {
       headers = Object.assign(this.headers, headers, jsonAPIHeader)
       if (!this.isAuth) throw new Error('Not logged in')
 
-      const url = this.plural(this.kebab(model))
+      const url = this.plural(this.resCase(model))
       const { data } = await axios.post(url, {
         data: (await serialise.apply(this, [ model, body ])).data,
         headers
@@ -248,7 +246,7 @@ export default class Kitsu {
       headers = Object.assign(this.headers, headers, jsonAPIHeader)
       if (!this.isAuth) throw new Error('Not logged in')
 
-      const url = this.plural(this.kebab(model)) + '/' + id
+      const url = this.plural(this.resCase(model)) + '/' + id
       const { data } = await axios.delete(url, {
         data: (await serialise.apply(this, [ model, { id }, 'DELETE' ])).data,
         headers

@@ -1,8 +1,9 @@
 import axios from 'axios'
-import decamelize from 'decamelize'
 import pluralize from 'pluralize'
 import MockAdapter from 'axios-mock-adapter'
 import Kitsu from 'kitsu'
+import camel from './util/camel'
+import kebab from './util/kebab'
 import {
   getCollection,
   getCollectionWithIncludes,
@@ -56,37 +57,63 @@ describe('Kitsu Class', () => {
     })
   })
 
-  it('Should use decamelize by default', () => {
-    expect.assertions(2)
+  it('Should convert types into camelCase by default', () => {
+    expect.assertions(3)
     const api = new Kitsu()
-    expect(api.kebab).toEqual(decamelize)
-    expect(api.kebab('longWord')).toBe('long_word')
+    expect(api.camel('long-word')).toBe('longWord')
+    expect(api.camel('long_word')).toBe('longWord')
+    expect(api.camel('longWord')).toBe('longWord')
   })
 
-  it('Should not use decamelize if disabled in options', () => {
+  it('Should not convert types into camelCase if camelCaseTypes option is false', () => {
+    expect.assertions(3)
+    const api = new Kitsu({
+      camelCaseTypes: false
+    })
+    expect(api.camel('long-word')).toBe('long-word')
+    expect(api.camel('long_word')).toBe('long_word')
+    expect(api.camel('longWord')).toBe('longWord')
+  })
+
+  it('Should convert resource requests into kebab-case by default', () => {
+    expect.assertions(2)
+    const api = new Kitsu()
+    expect(api.resCase('long-word')).toBe('long-word')
+    expect(api.resCase('longWord')).toBe('long-word')
+  })
+
+  it('Should convert resource requests into snake_case if resourceCase option is \'snake\'', () => {
     expect.assertions(2)
     const api = new Kitsu({
-      convertCamelCase: false
+      resourceCase: 'snake'
     })
-    expect(api.kebab('longWord')).not.toBe('long_word')
-    expect(api.kebab('longWord')).toBe('longWord')
+    expect(api.resCase('long_word')).toBe('long_word')
+    expect(api.resCase('longWord')).toBe('long_word')
+  })
+
+  it('Should not convert resource requests if resourceCase option is \'none\'', () => {
+    expect.assertions(3)
+    const api = new Kitsu({
+      resourceCase: 'none'
+    })
+    expect(api.resCase('long-word')).toBe('long-word')
+    expect(api.resCase('long_word')).toBe('long_word')
+    expect(api.resCase('longWord')).toBe('longWord')
   })
 
   it('Should use pluralize by default', () => {
-    expect.assertions(3)
+    expect.assertions(2)
     const api = new Kitsu()
     expect(api.plural).toEqual(pluralize)
     expect(api.plural('apple')).toBe('apples')
-    expect(api.plural.singular('apples')).toBe('apple')
   })
 
-  it('Should not use pluralize if disabled in options', () => {
-    expect.assertions(2)
+  it('Should not use pluralize if pluralize option is false', () => {
+    expect.assertions(1)
     const api = new Kitsu({
       pluralize: false
     })
     expect(api.plural('apple')).toBe('apple')
-    expect(api.plural.singular('apples')).toBe('apples')
   })
 })
 
