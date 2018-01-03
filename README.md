@@ -33,10 +33,10 @@ npm install kitsu
 
 ## Browser Support
 
-| Package | Global<br> Usage | Chrome | Firefox | Safari | IE/Edge
-| ------- | --------------- | ------ | ------- | ------ | -------
-| Default | [> 1%]          | 61+    | 56+     | 10+    | Edge 15+
-| Legacy  | [> 0.1%]        | 49+    | 48+     | 5.1+   | IE 8+, Edge 14+
+| Package | Package<br> Size | Global<br> Usage | Chrome | Firefox | Safari | IE/Edge
+| ------- | ---------------- | ---------------- | ------ | ------- | ------ | -------
+| Default | 14.4 kb          | [> 1%]           | 61+    | 56+     | 10+    | Edge 15+
+| Legacy  | 19.9 kb          | [> 0.1%]         | 49+    | 48+     | 5.1+   | IE 8+, Edge 14+
 
 [> 1%]:http://browserl.ist/?q=%3E1%25%2C+not+ie+%3C%3D+11%2C+not+ie_mob+%3C%3D+11
 [> 0.1%]:http://browserl.ist/?q=%3E0.1%25
@@ -103,10 +103,10 @@ const api = new Kitsu({                   // For other JSON:API servers
   baseURL: 'https://api.example/2'        // e.g https://api.example/2
 })
 
-const { data } = api.get('anime')         // Using with Promises
-  .then(res => res)
-
 const { data } = await api.get('anime')   // Using with async/await
+
+api.get('anime')                          // Using with Promises
+  .then(({ data }) => { ... })
 
 // Fetching resources with get() or fetch()
 api.get('anime')                          // Collection of resources
