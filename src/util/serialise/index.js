@@ -28,18 +28,20 @@ export async function serialise (model, obj = {}, method = 'POST') {
 
     // Attributes and relationships
     for (let prop in obj) {
-      // Check if its a relationship
+      // Check if it's a relationship
       if (
         obj[prop] !== null &&
-        obj[prop].constructor === Object && (
-          typeof obj[prop].id === 'string' ||
-          typeof obj[prop].type === 'string'
-        )
+        obj[prop].constructor === Object
       ) {
-        if (typeof data.relationships === 'undefined') data.relationships = {}
-        // Guess relationship type if not provided
-        if (typeof obj[prop].type === 'undefined') obj[prop].type = this.plural(this.camel(prop))
-        data.relationships[prop] = { data: Object.assign(obj[prop]) }
+        if (typeof obj[prop].id === 'string') {
+          if (typeof data.relationships === 'undefined') data.relationships = {}
+          // Guess relationship type if not provided
+          if (typeof obj[prop].type === 'undefined') obj[prop].type = this.plural(this.camel(prop))
+          data.relationships[prop] = { data: Object.assign(obj[prop]) }
+        } else {
+          throw new Error(`${method} requires an ID for the ${prop} relationships`)
+        }
+      // Check if it's a relationship array
       } else if (
         obj[prop] !== null &&
         obj[prop].constructor === Array
@@ -47,10 +49,7 @@ export async function serialise (model, obj = {}, method = 'POST') {
         // validate whole array
         const ptype = this.plural(this.camel(prop))
         for (var i = 0; i < obj[prop].length; i++) {
-          if (
-            typeof obj[prop][i].id === 'string' ||
-            typeof obj[prop][i].type === 'string'
-          ) {
+          if (typeof obj[prop][i].id === 'string') {
             // Guess relationship type if not provided
             if (typeof obj[prop][i].type === 'undefined') obj[prop][i].type = ptype
           } else {

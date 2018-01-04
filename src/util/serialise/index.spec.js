@@ -78,7 +78,8 @@ describe('serialise', () => {
       id: '1',
       user: [
         {
-          id: '2'
+          id: '2',
+          type: 'users'
         },
         {
           id: '3'
