@@ -9,7 +9,7 @@ import { error } from '../'
  */
 export async function deattribute (data) {
   try {
-    if (typeof data !== 'undefined') {
+    if (typeof data === 'object' && data !== null) {
       // Check if data is an array of resources and recursively loop
       // this function for each resource
       if (Array.isArray(data)) await data.map(async el => deattribute(el))
