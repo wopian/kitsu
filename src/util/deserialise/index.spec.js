@@ -1,8 +1,9 @@
 import { deserialise } from './'
 
 describe('deserialise', () => {
-  it('Should deserialise a resource without included relationships', () => {
-    expect(deserialise({
+  it('Should deserialise a resource without included relationships', async () => {
+    expect.assertions(1)
+    expect(await deserialise({
       data: {
         id: '9',
         type: 'roles',
@@ -10,7 +11,7 @@ describe('deserialise', () => {
           name: 'mod'
         }
       }
-    })).resolves.toEqual({
+    })).toEqual({
       data: {
         id: '9',
         type: 'roles',
@@ -19,8 +20,9 @@ describe('deserialise', () => {
     })
   })
 
-  it('Should deserialise a collection without attributes and included relationships', () => {
-    expect(deserialise({
+  it('Should deserialise a collection without attributes and included relationships', async () => {
+    expect.assertions(1)
+    expect(await deserialise({
       data: [
         {
           id: '1',
@@ -31,7 +33,7 @@ describe('deserialise', () => {
           type: 'userRoles'
         }
       ]
-    })).resolves.toEqual({
+    })).toEqual({
       data: [
         {
           id: '1',
@@ -47,7 +49,7 @@ describe('deserialise', () => {
 
   it('Should deserialise a collection of resources with included relationships', async () => {
     expect.assertions(1)
-    await expect(deserialise({
+    expect(await deserialise({
       data: [{
         id: '1',
         type: 'users',
@@ -70,7 +72,7 @@ describe('deserialise', () => {
           name: 'Genkai'
         }
       }]
-    })).resolves.toEqual({
+    })).toEqual({
       data: [{
         name: 'Josh',
         waifu: {
@@ -86,7 +88,7 @@ describe('deserialise', () => {
 
   it('Should deserialise a single resource with included relationships', async () => {
     expect.assertions(1)
-    await expect(deserialise({
+    expect(await deserialise({
       data: {
         id: '1',
         type: 'users',
@@ -109,7 +111,7 @@ describe('deserialise', () => {
           name: 'Genkai'
         }
       }]
-    })).resolves.toEqual({
+    })).toEqual({
       data: {
         name: 'Josh',
         waifu: {
@@ -125,7 +127,7 @@ describe('deserialise', () => {
 
   it('Should deserialise with empty data arrays', async () => {
     expect.assertions(1)
-    await expect(deserialise({
+    expect(await deserialise({
       data: {
         id: '1',
         type: 'users',
@@ -133,7 +135,7 @@ describe('deserialise', () => {
           data: []
         }
       }
-    })).resolves.toEqual({
+    })).toEqual({
       data: {
         data: [],
         id: '1',
