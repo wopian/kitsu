@@ -18,4 +18,4 @@ exclude_patterns:
 - example
 - lib
 - "**/__cases__/**"
-- "**.spec.js"
+- "*.spec.js"
