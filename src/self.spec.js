@@ -1,9 +1,6 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import Kitsu from 'kitsu'
-import {
-  getCollection
-} from './__cases__'
 
 const mock = new MockAdapter(axios)
 
