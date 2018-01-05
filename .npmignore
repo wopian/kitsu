@@ -1,6 +1,8 @@
 .vscode
 example
 coverage
+src
+*.spec.js
 .appveyor.yml
 .babelrc
 .codeclimate.yml
@@ -10,7 +12,6 @@ coverage
 .gitignore
 .hound.yml
 .travis.yml
+.yaspellerrc
 rollup.config.js
 yarn.lock
-src/__cases__
-*.spec.js
