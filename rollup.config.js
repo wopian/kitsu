@@ -82,7 +82,7 @@ export default [
     plugins: pluginsLegacy,
     onwarn,
     output: {
-      file: 'lib/legacy/index.js',
+      file: 'lib/legacy.js',
       format: 'umd',
       name: 'kitsu',
       globals: globalsLegacy
