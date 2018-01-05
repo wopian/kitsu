@@ -1,3 +1,39 @@
+### 4.1.0 (2018-01-05)
+
+##### Build System / Dependencies
+
+*  cleanup path to legacy package - still `kitsu/lib/legacy` for end users ([d4a658e3](https://github.com/wopian/kitsu/commit/d4a658e331d66b6e8549280b54544234d9d4f00f))
+*  don't mangle variables in releases - removes need for sourcemap bloat ([b766c167](https://github.com/wopian/kitsu/commit/b766c167d1ff1e115a88b7999b5f85eb1c2a407c))
+*  ignore src and dictionary in releases ([7d13695d](https://github.com/wopian/kitsu/commit/7d13695dd4c7218896636cb0a8b5ed7825d3eba5))
+*  run jest without coverage report in pre-commit hook ([32ff71d9](https://github.com/wopian/kitsu/commit/32ff71d94f7a0457080cbafc128fc3098fb155df))
+*  add pre-commit hook for tests ([fde20010](https://github.com/wopian/kitsu/commit/fde20010daf86398fbd8bea30018ad57d46efd3e))
+*  update package scripts ([656137f6](https://github.com/wopian/kitsu/commit/656137f66dc9c24375e5ca3019e690ef5206e00f))
+
+##### Continuous Integration
+
+*  fix spec exclusion pattern ([a5115acf](https://github.com/wopian/kitsu/commit/a5115acf30e13ba5f61de25c0ac78e6e8564ed14))
+
+##### Documentation Changes
+
+*  document camel, kebab and snake functions ([24d27aab](https://github.com/wopian/kitsu/commit/24d27aab08c4d3cdfe5995cbf7aa8d0a3203f4dd))
+
+##### Bug Fixes
+
+* **deattribute:**  check data is an object/array instead of undefined, prevent throwing an error if data is defined but an invalid type ([d490ff27](https://github.com/wopian/kitsu/commit/d490ff277d3818eb6f4d001966edd0ceec789b9a))
+
+##### Refactors
+
+*  cleanup serialisation validation ([#85](https://github.com/wopian/kitsu/pull/85)) ([f99286eb](https://github.com/wopian/kitsu/commit/f99286eb85faf1a8ad0ca8fb17ce4bbb251da5e2))
+*  make deattribute function 54% faster ([8cac0f04](https://github.com/wopian/kitsu/commit/8cac0f049d143c765f19cc4d509e8f7831a0f15a))
+
+##### Tests
+
+* **self:**  remove unused case import ([b8e7411e](https://github.com/wopian/kitsu/commit/b8e7411eb38fe2d603bdc5dd4a4f4b367240667d))
+*  split Kitsu class tests into seperate files for each method ([757acab2](https://github.com/wopian/kitsu/commit/757acab2b6c33d754239225fb6eb8a7019624eb8))
+*  properly capture thrown error by filterIncludes ([8f7fbebd](https://github.com/wopian/kitsu/commit/8f7fbebd06d3338c252f524e62d9b2dba205b34e))
+*  properly handle async failures for deserialise ([19fd5587](https://github.com/wopian/kitsu/commit/19fd558784d4a6caad7dc2b636c8d951e939002f))
+*  cleanup deattribute tests ([47a7fbaf](https://github.com/wopian/kitsu/commit/47a7fbaf1283e0c6490255a71e967832a0a26359))
+
 #### 4.0.2 (2018-01-03)
 
 ##### Documentation Changes
