@@ -12,7 +12,7 @@
 [![cc maintainability badge]][cc maintainability]
 [![cc coverage badge]][cc coverage]
 
-A Simple and lightweight framework agnostic [JSON:API] client for [Kitsu.io] and other APIs
+A simple, lightweight & framework agnostic [JSON:API] client for [Kitsu.io] and other APIs
 
 *Check out the [Migration Guide] for breaking changes and new features in `4.x`*
 
