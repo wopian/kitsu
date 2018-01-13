@@ -143,9 +143,8 @@ export default class Kitsu {
       const url = this.plural(this.resCase(res)) + (id ? '/' + id : '')
       const { data } = await axios.get(url, {
         params,
-        paramsSerializer: p => query(p),
-        headers: Object.assign(this.headers, headers, jsonAPIHeader)
-      })
+        paramsSerializer: p => query(p)
+      }, { headers: Object.assign(this.headers, headers, jsonAPIHeader) })
 
       return deserialise(data)
     } catch (E) {
@@ -178,9 +177,8 @@ export default class Kitsu {
 
       const url = this.plural(this.resCase(model)) + '/' + body.id
       const { data } = await axios.patch(url, {
-        data: (await serialise.apply(this, [ model, body, 'PATCH' ])).data,
-        headers
-      })
+        data: (await serialise.apply(this, [ model, body, 'PATCH' ])).data
+      }, { headers })
 
       return data
     } catch (E) {
@@ -219,9 +217,8 @@ export default class Kitsu {
 
       const url = this.plural(this.resCase(model))
       const { data } = await axios.post(url, {
-        data: (await serialise.apply(this, [ model, body ])).data,
-        headers
-      })
+        data: (await serialise.apply(this, [ model, body ])).data
+      }, { headers })
 
       return data
     } catch (E) {
@@ -249,9 +246,8 @@ export default class Kitsu {
 
       const url = this.plural(this.resCase(model)) + '/' + id
       const { data } = await axios.delete(url, {
-        data: (await serialise.apply(this, [ model, { id }, 'DELETE' ])).data,
-        headers
-      })
+        data: (await serialise.apply(this, [ model, { id }, 'DELETE' ])).data
+      }, { headers })
 
       return data
     } catch (E) {
