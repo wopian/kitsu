@@ -16,6 +16,24 @@ afterEach(() => {
 })
 
 describe('get', () => {
+  it('Should send headers', async done => {
+    expect.assertions(1)
+    const api = new Kitsu({ headers: { init: true } })
+    mock.onGet('/anime').reply(config => {
+      expect(config.headers).toEqual({
+        'Accept': 'application/vnd.api+json',
+        'Content-Type': 'application/vnd.api+json',
+        init: true,
+        extra: true
+      })
+      return [ 200, { data: [] } ]
+    })
+    api.get('anime', undefined, { extra: true }).catch(err => {
+      done.fail(err)
+    })
+    done()
+  })
+
   it('Should fetch a collection of resources', async () => {
     expect.assertions(1)
     const api = new Kitsu()

@@ -28,9 +28,6 @@
     "example:auth": "babel-node ./example/auth",
     "example:complex": "babel-node ./example/complex"
   },
-  "pre-commit": [
-    ":test"
-  ],
   "size-limit": [
     {
       "path": "./lib/kitsu.js",
@@ -96,7 +93,6 @@
     "generate-changelog": "~1.7.0",
     "jest": "~22.0.0",
     "js-beautify": "~1.7.4",
-    "pre-commit": "~1.2.2",
     "rollup": "~0.53.0",
     "rollup-plugin-babel": "~3.0.1",
     "rollup-plugin-babel-minify": "~3.1.2",
