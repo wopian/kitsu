@@ -31,15 +31,16 @@ yarn add kitsu
 npm install kitsu
 ```
 
-## Browser Support
+## Node / Browser Support
 
-| Package | Package<br> Size | Global<br> Usage | Chrome | Firefox | Safari | IE/Edge
-| ------- | ---------------- | ---------------- | ------ | ------- | ------ | -------
-| Default | 14.4 kb          | [> 1%]           | 61+    | 56+     | 10+    | Edge 15+
-| Legacy  | 19.9 kb          | [> 0.1%]         | 49+    | 48+     | 5.1+   | IE 8+, Edge 14+
+| Package   | Package<br> Size | Node | Chrome | Firefox | Safari | Edge | IE
+| --------: | :--------------: | :--: | :----: | :-----: | :----: | :--: | :-:
+| [Default] | 17.8 kb          | 6+   | 49+    | 57+     | 10.1+  | 15+
+| [Legacy]  | 19.8 kb          | 6+   | 4+     | 3+      | 3.1+   | 12+  | 8+
+| Node      | 14.0 kb          | 6+
 
-[> 1%]:http://browserl.ist/?q=%3E1%25%2C+not+ie+%3C%3D+11%2C+not+ie_mob+%3C%3D+11
-[> 0.1%]:http://browserl.ist/?q=%3E0.1%25
+[Default]:http://browserl.ist/?q=last+2+years%2C+not+%3C+0.5%25
+[Legacy]:http://browserl.ist/?q=last+10+years
 
 ## Response Comparison
 
@@ -96,6 +97,7 @@ A GET request with `kitsu` returns:
 import Kitsu from 'kitsu'                 // ES Modules and Babel
 const Kitsu = require('kitsu')            // CommonJS and Browserify
 const Kitsu = require('kitsu/lib/legacy') // Legacy IE8+ support
+const Kitsu = require('kitsu/lib/node')   // Lighter node-only package
 
 const api = new Kitsu()                   // For kitsu.io developers
 
@@ -107,9 +109,10 @@ const { data } = await api.get('anime')   // Using with async/await
 
 api.get('anime')                          // Using with Promises
   .then(({ data }) => { ... })
+  .catch(err => throw err)
 
 // Fetching resources with get() or fetch()
-api.get('anime')                          // Collection of resources
+api.get('anime', { params }, { headers }) // Collection of resources
 api.get('anime/1')                        // Single resource
 api.get('anime/1/episodes')               // Single resource's relationship
 

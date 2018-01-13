@@ -11,55 +11,58 @@ const onwarn = ({ code, message }) => {
 }
 
 let external = [
-  'babel-runtime/helpers/asyncToGenerator',
-  'babel-runtime/helpers/slicedToArray',
-  ...Object.keys(pkg.dependencies)
-]
-let externalLegacy = [
+  ...Object.keys(pkg.dependencies),
   'babel-runtime/regenerator',
+  'babel-runtime/helpers/slicedToArray',
   'babel-runtime/helpers/asyncToGenerator',
   'babel-runtime/helpers/classCallCheck',
   'babel-runtime/helpers/createClass',
-  'babel-runtime/helpers/slicedToArray',
-  'babel-runtime/helpers/typeof',
-  ...external
+  'babel-runtime/helpers/typeof'
 ]
 
-let pluginsCommon = [
+let globals = {
+  'axios': 'axios',
+  'babel-runtime/regenerator': '_regeneratorRuntime',
+  'babel-runtime/helpers/slicedToArray': '_slicedToArray',
+  'babel-runtime/helpers/asyncToGenerator': '_asyncToGenerator',
+  'babel-runtime/helpers/classCallCheck': '_classCallCheck',
+  'babel-runtime/helpers/createClass': '_createClass',
+  'babel-runtime/helpers/typeof': '_typeof'
+}
+
+let plugins = [
   minify({ comments: false, mangle: false }),
   local()
 ]
-let plugins = [
+let pluginsMain = [
   babel({ exclude: [ '*.json', 'node_modules/**/*' ], runtimeHelpers: true }),
-  ...pluginsCommon
+  ...plugins
+]
+let pluginsNode = [
+  babel({
+    babelrc: false,
+    exclude: [ '*.json', 'node_modules/**/*' ],
+    runtimeHelpers: true,
+    presets: [ [ 'env', { targets: { node: 9 }, modules: false } ], 'stage-0' ],
+    plugins: [ [ 'transform-runtime', { polyfill: false, regenerator: true } ]
+    ]
+  }),
+  ...plugins
 ]
 let pluginsLegacy = [
   babel({
     exclude: [ '*.json', 'node_modules/**/*' ],
     runtimeHelpers: true,
-    presets: [ [ 'env', { targets: { browsers: ['>= 0.1%'], node: 6 }, modules: false } ], 'stage-0' ]
+    presets: [ [ 'env', { targets: { browsers: ['last 10 years'], node: 6 }, modules: false } ], 'stage-0' ]
   }),
-  ...pluginsCommon
+  ...plugins
 ]
-
-let globals = {
-  'babel-runtime/helpers/asyncToGenerator': '_asyncToGenerator',
-  'babel-runtime/helpers/slicedToArray': '_slicedToArray',
-  'axios': 'axios'
-}
-let globalsLegacy = {
-  'babel-runtime/regenerator': '_regeneratorRuntime',
-  'babel-runtime/helpers/classCallCheck': '_classCallCheck',
-  'babel-runtime/helpers/createClass': '_createClass',
-  'babel-runtime/helpers/typeof': '_typeof',
-  ...globals
-}
 
 export default [
   {
     input: 'src/index.js',
     external,
-    plugins,
+    plugins: pluginsMain,
     onwarn,
     output: [
       {
@@ -76,16 +79,36 @@ export default [
     ]
   },
   {
+    // Node-only bundle
+    input: 'src/index.js',
+    external,
+    plugins: pluginsNode,
+    onwarn,
+    output: [
+      {
+        file: 'lib/node.js',
+        format: 'umd',
+        name: 'kitsu',
+        globals
+      },
+      {
+        file: 'lib/node.mjs',
+        format: 'es',
+        globals
+      }
+    ]
+  },
+  {
     // Legacy IE10+ bundle
     input: 'src/index.js',
-    external: externalLegacy,
+    external,
     plugins: pluginsLegacy,
     onwarn,
     output: {
       file: 'lib/legacy.js',
       format: 'umd',
       name: 'kitsu',
-      globals: globalsLegacy
+      globals
     }
   }
 ]

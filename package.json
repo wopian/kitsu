@@ -31,14 +31,23 @@
   "size-limit": [
     {
       "path": "./lib/kitsu.js",
-      "limit": "15 kb"
+      "limit": "18 kb"
     },
     {
       "path": "./lib/kitsu.mjs",
+      "limit": "18 kb"
+    },
+    {
+      "path": "./lib/legacy.js",
+      "limit": "20 kb"
+    },
+    {
+      "path": "./lib/node.js",
       "limit": "15 kb"
     },
     {
-      "path": "./lib/legacy.js"
+      "path": "./lib/node.mjs",
+      "limit": "15 kb"
     }
   ],
   "keywords": [
