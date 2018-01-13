@@ -177,10 +177,11 @@ export default class Kitsu {
       if (typeof body.id === 'undefined') throw new Error('Updating a resource requires an ID')
 
       const url = this.plural(this.resCase(model)) + '/' + body.id
-      const { data } = await axios.patch(url, {
-        data: (await serialise.apply(this, [ model, body, 'PATCH' ])).data,
-        headers
-      })
+      const { data } = await axios.patch(
+        url,
+        (await serialise.apply(this, [ model, body, 'PATCH' ])).data,
+        { headers }
+      )
 
       return data
     } catch (E) {
@@ -218,10 +219,11 @@ export default class Kitsu {
       if (!this.isAuth) throw new Error('Not logged in')
 
       const url = this.plural(this.resCase(model))
-      const { data } = await axios.post(url, {
-        data: (await serialise.apply(this, [ model, body ])).data,
-        headers
-      })
+      const { data } = await axios.post(
+        url,
+        (await serialise.apply(this, [ model, body ])).data,
+        { headers }
+      )
 
       return data
     } catch (E) {
