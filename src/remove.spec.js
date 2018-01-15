@@ -34,7 +34,6 @@ describe('remove', () => {
     expect.assertions(1)
     const api = new Kitsu({ headers: { Authorization: true } })
     mock.onDelete('/posts/1').reply(config => {
-      console.log(config)
       expect(JSON.parse(config.data)).toEqual({
         data: {
           id: '1',
