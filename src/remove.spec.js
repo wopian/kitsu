@@ -30,6 +30,25 @@ describe('remove', () => {
     done()
   })
 
+  it('Should send data in request', async done => {
+    expect.assertions(1)
+    const api = new Kitsu({ headers: { Authorization: true } })
+    mock.onDelete('/posts/1').reply(config => {
+      console.log(config)
+      expect(JSON.parse(config.data)).toEqual({
+        data: {
+          id: '1',
+          type: 'posts'
+        }
+      })
+      return [ 200 ]
+    })
+    api.remove('post', 1).catch(err => {
+      done.fail(err)
+    })
+    done()
+  })
+
   it('should throw an error if Authorization header is not set (remove)', async () => {
     expect.assertions(1)
     const api = new Kitsu()

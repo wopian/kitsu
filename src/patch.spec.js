@@ -31,6 +31,27 @@ describe('patch', () => {
     done()
   })
 
+  it('Should send data in request', async done => {
+    expect.assertions(1)
+    const api = new Kitsu({ headers: { Authorization: true } })
+    mock.onPatch('/posts/1').reply(config => {
+      expect(JSON.parse(config.data)).toEqual({
+        data: {
+          id: '1',
+          type: 'posts',
+          attributes: {
+            content: 'Hello World'
+          }
+        }
+      })
+      return [ 200 ]
+    })
+    api.patch('post', { id: '1', content: 'Hello World' }).catch(err => {
+      done.fail(err)
+    })
+    done()
+  })
+
   it('should throw an error if Authorization header is not set (patch)', async () => {
     expect.assertions(1)
     const api = new Kitsu()

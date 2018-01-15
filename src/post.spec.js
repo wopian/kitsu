@@ -30,6 +30,26 @@ describe('post', () => {
     done()
   })
 
+  it('Should send data in request', async done => {
+    expect.assertions(1)
+    const api = new Kitsu({ headers: { Authorization: true } })
+    mock.onPost('/anime').reply(config => {
+      expect(JSON.parse(config.data)).toEqual({
+        data: {
+          type: 'anime',
+          attributes: {
+            name: 'Name'
+          }
+        }
+      })
+      return [ 200 ]
+    })
+    api.post('anime', { type: 'anime', name: 'Name' }).catch(err => {
+      done.fail(err)
+    })
+    done()
+  })
+
   it('should throw an error if Authorization header is not set (post)', async () => {
     expect.assertions(1)
     const api = new Kitsu()
