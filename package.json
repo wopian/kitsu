@@ -106,7 +106,7 @@
     "rollup-plugin-babel": "~3.0.1",
     "rollup-plugin-babel-minify": "~3.1.2",
     "rollup-plugin-local-resolve": "~1.0.7",
-    "size-limit": "~0.13.2",
+    "size-limit": "~0.14.0",
     "standard": "~10.0.2",
     "yaspeller-ci": "~1.0.0"
   },
