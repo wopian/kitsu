@@ -21,9 +21,9 @@ export async function serialise (model, obj = {}, method = 'POST') {
       throw new Error(`${method} requires an ID for the ${type} type`)
     }
 
-    // Add ID to data
+    // Add ID to data - MUST be a string
     if (method !== 'POST') {
-      data.id = obj.id
+      data.id = obj.id.toString()
     }
 
     // Attributes and relationships
