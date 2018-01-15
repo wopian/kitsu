@@ -251,7 +251,7 @@ export default class Kitsu {
 
       const url = this.plural(this.resCase(model)) + '/' + id
       const { data } = await axios.delete(url, {
-        data: (await serialise.apply(this, [ model, { id }, 'DELETE' ])).data,
+        data: await serialise.apply(this, [ model, { id }, 'DELETE' ]),
         headers
       })
 
