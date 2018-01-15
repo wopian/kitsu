@@ -48,7 +48,7 @@ export async function serialise (model, obj = {}, method = 'POST') {
             type: elem.type || ptype
           }
         })}
-      } else if (prop !== 'id') { // Its an attribute
+      } else if (prop !== 'id' && prop !== 'type') { // Its an attribute
         if (typeof data.attributes === 'undefined') data.attributes = {}
         data.attributes[prop] = obj[prop]
       }
