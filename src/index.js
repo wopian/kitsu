@@ -179,7 +179,7 @@ export default class Kitsu {
       const url = this.plural(this.resCase(model)) + '/' + body.id
       const { data } = await axios.patch(
         url,
-        (await serialise.apply(this, [ model, body, 'PATCH' ])).data,
+        await serialise.apply(this, [ model, body, 'PATCH' ]),
         { headers }
       )
 
@@ -221,7 +221,7 @@ export default class Kitsu {
       const url = this.plural(this.resCase(model))
       const { data } = await axios.post(
         url,
-        (await serialise.apply(this, [ model, body ])).data,
+        await serialise.apply(this, [ model, body ]),
         { headers }
       )
 
