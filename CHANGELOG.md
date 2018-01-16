@@ -1,3 +1,39 @@
+### 4.2.0 (2018-01-16)
+
+##### Chores
+
+* **deps:**
+  *  update size-limit to ~0.14.0 ([#93](https://github.com/wopian/kitsu/pull/93)) ([91d51aa4](https://github.com/wopian/kitsu/commit/91d51aa44369d978c2dac05d0c7cfadc830a22df))
+  *  update rollup to ~0.54.0 ([#92](https://github.com/wopian/kitsu/pull/92)) ([e09f3b78](https://github.com/wopian/kitsu/commit/e09f3b78eb626948ea4921678ff42c78c88486f0))
+  *  update eslint-plugin-jest to ~21.6.0 ([#89](https://github.com/wopian/kitsu/pull/89)) ([af49aacd](https://github.com/wopian/kitsu/commit/af49aacdf23f48b904c02f4084ba7443ff9fc3e3))
+  *  update babel-eslint to ~8.2.0 ([#88](https://github.com/wopian/kitsu/pull/88)) ([6b0ee2b9](https://github.com/wopian/kitsu/commit/6b0ee2b91ad19f4c131506a182b48171d9ee8a3c))
+  *  update eslint to ~4.15.0 ([#87](https://github.com/wopian/kitsu/pull/87)) ([196964d1](https://github.com/wopian/kitsu/commit/196964d16e762a87b8b30c9f90b7e50617179293))
+
+##### Documentation Changes
+
+* **readme:**  fix tagline grammar ([b77c13f6](https://github.com/wopian/kitsu/commit/b77c13f6f1972b057137b72ca6b25052276b5b50))
+
+##### New Features
+
+*  use last 2/10 years for default/legacy browser support + add node-only package ([55e74d58](https://github.com/wopian/kitsu/commit/55e74d58e3ba720e3e0b73796d836490b27d40c9))
+
+##### Bug Fixes
+
+*  forward get request errors through self function ([29fc2fa0](https://github.com/wopian/kitsu/commit/29fc2fa0e7cbd0e5982516f4d2671110d60ed103))
+*  send serialised object instead of its data object (delete method) ([f1bb10b6](https://github.com/wopian/kitsu/commit/f1bb10b634398df96fcd749db48242c66ae04f6c))
+*  serialised ID MUST return a string ([64c6df68](https://github.com/wopian/kitsu/commit/64c6df68eaaeaac2d68486a573bf56abb4d63638))
+*  send serialised object instead of its data object ([74435db3](https://github.com/wopian/kitsu/commit/74435db383f90b9511c08ba74738083a3d46c8a3))
+*  prevent adding types into serialised attributes ([d8c11da7](https://github.com/wopian/kitsu/commit/d8c11da71c30f18e669a9e44ea1254615b610cdd))
+*  resolve headers not being applied for patch and post requests ([ff2d0d07](https://github.com/wopian/kitsu/commit/ff2d0d075b94ad9837c5baeae32832900cda6299))
+
+##### Tests
+
+*  add test for filterIncludes branch ([8522a964](https://github.com/wopian/kitsu/commit/8522a9641c0fa9aba61068879472bd0831d2041c))
+*  add tests for error function ([0e27e8c8](https://github.com/wopian/kitsu/commit/0e27e8c827921c1bb7ad538e60ca2ef3d1a7829e))
+*  remove console log ([9ba1a00a](https://github.com/wopian/kitsu/commit/9ba1a00ac2cab80383f913568c820c3810245ba8))
+*  add tests to check requests' data contents ([5ca470d3](https://github.com/wopian/kitsu/commit/5ca470d33898e6fbca3eb1a033481815ba08c058))
+*  test headers are sent in request ([32435ce8](https://github.com/wopian/kitsu/commit/32435ce8c48b0ce165208dc17fb3e36346ff3227))
+
 ### 4.1.0 (2018-01-05)
 
 ##### Build System / Dependencies
