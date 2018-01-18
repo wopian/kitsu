@@ -68,8 +68,10 @@ export default class Kitsu {
      */
     this.headers = Object.assign({}, options.headers, jsonAPIHeader)
 
-    axios.defaults.baseURL = options.baseURL || kitsu
-    axios.defaults.timeout = options.timeout || 30000
+    this.axios = axios.create({
+      baseURL: options.baseURL || kitsu,
+      timeout: options.timeout || 30000
+    })
   }
 
   /**
@@ -141,7 +143,7 @@ export default class Kitsu {
     try {
       let [ res, id ] = model.split('/')
       const url = this.plural(this.resCase(res)) + (id ? '/' + id : '')
-      const { data } = await axios.get(url, {
+      const { data } = await this.axios.get(url, {
         params,
         paramsSerializer: p => query(p),
         headers: Object.assign(this.headers, headers, jsonAPIHeader)
@@ -177,7 +179,7 @@ export default class Kitsu {
       if (typeof body.id === 'undefined') throw new Error('Updating a resource requires an ID')
 
       const url = this.plural(this.resCase(model)) + '/' + body.id
-      const { data } = await axios.patch(
+      const { data } = await this.axios.patch(
         url,
         await serialise.apply(this, [ model, body, 'PATCH' ]),
         { headers }
@@ -219,7 +221,7 @@ export default class Kitsu {
       if (!this.isAuth) throw new Error('Not logged in')
 
       const url = this.plural(this.resCase(model))
-      const { data } = await axios.post(
+      const { data } = await this.axios.post(
         url,
         await serialise.apply(this, [ model, body ]),
         { headers }
@@ -250,7 +252,7 @@ export default class Kitsu {
       if (!this.isAuth) throw new Error('Not logged in')
 
       const url = this.plural(this.resCase(model)) + '/' + id
-      const { data } = await axios.delete(url, {
+      const { data } = await this.axios.delete(url, {
         data: await serialise.apply(this, [ model, { id }, 'DELETE' ]),
         headers
       })
