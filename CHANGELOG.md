@@ -1,3 +1,13 @@
+### 4.3.0 (2018-01-18)
+
+##### Chores
+
+* **deps:**  update eslint-plugin-jest to ~21.7.0 ([#97](https://github.com/wopian/kitsu/pull/97)) ([784cca45](https://github.com/wopian/kitsu/commit/784cca4533d62ce6794b6e19240af0b01fa550b1))
+
+##### Reverts
+
+*  use instance of axios instead of global axios ([#96](https://github.com/wopian/kitsu/pull/96)) ([a589ba01](https://github.com/wopian/kitsu/commit/a589ba01771aa9e5dd166d5a1e07cbe17dfba67f))
+
 #### 4.2.1 (2018-01-18)
 
 ##### Chores
