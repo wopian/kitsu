@@ -1,3 +1,13 @@
+#### 4.2.1 (2018-01-18)
+
+##### Chores
+
+* **deps:**  update jest to ~22.1.0 ([#94](https://github.com/wopian/kitsu/pull/94)) ([5b5a76b8](https://github.com/wopian/kitsu/commit/5b5a76b881856f0ac5fe0ac5107447ff06bbb290))
+
+##### Bug Fixes
+
+*  convert CamelCase into lowercase for kebab and snake conversions ([#95](https://github.com/wopian/kitsu/pull/95)) ([ad948322](https://github.com/wopian/kitsu/commit/ad9483228056813c62979850aada1951c4648057))
+
 ### 4.2.0 (2018-01-16)
 
 ##### Chores
