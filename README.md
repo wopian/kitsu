@@ -152,14 +152,14 @@ All code released under [MIT]
 [Kitsu.io]:https://kitsu.io
 [JSON:API]:http://jsonapi.org
 [Promise]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
-[More Examples]:https://github.com/wopian/kitsu/tree/master/example
-[Read the Documentation]:https://github.com/wopian/kitsu/blob/v4.0.1/DOCS.md
+[More Examples]:example
+[Read the Documentation]:DOCS.md
 [Kitsu.io API Docs]:https://kitsu.docs.apiary.io
 
-[Migration Guide]:https://github.com/wopian/kitsu/blob/master/MIGRATING.md
-[CHANGELOG]:https://github.com/wopian/kitsu-inactivity-pruner/blob/master/CHANGELOG.md
-[CONTRIBUTING]:https://github.com/wopian/kitsu-inactivity-pruner/blob/master/CONTRIBUTING.md
-[MIT]:https://github.com/wopian/kitsu/blob/master/LICENSE.md
+[Migration Guide]:MIGRATING.md
+[CHANGELOG]:CHANGELOG.md
+[CONTRIBUTING]:CONTRIBUTING.md
+[MIT]:LICENSE.md
 
 [npm]:https://www.npmjs.com/package/kitsu
 [npm badge]:https://img.shields.io/npm/v/kitsu.svg?style=flat-square
