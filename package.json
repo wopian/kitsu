@@ -83,7 +83,7 @@
     "pluralize": "^7.0.0"
   },
   "devDependencies": {
-    "axios-mock-adapter": "~1.10.0",
+    "axios-mock-adapter": "~1.11.0",
     "babel-cli": "~6.26.0",
     "babel-core": "~6.26.0",
     "babel-eslint": "~8.2.0",
