@@ -141,8 +141,12 @@ export default class Kitsu {
    */
   async get (model, params = {}, headers = {}) {
     try {
-      let [ res, id ] = model.split('/')
-      const url = this.plural(this.resCase(res)) + (id ? '/' + id : '')
+      let [ res, id, relationship ] = model.split('/')
+
+      let url = this.plural(this.resCase(res))
+      if (id) url += `/${id}`
+      if (relationship) url += `/${this.resCase(relationship)}`
+
       const { data } = await this.axios.get(url, {
         params,
         paramsSerializer: p => query(p),
