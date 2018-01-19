@@ -50,6 +50,22 @@ describe('get', () => {
     expect(request).toEqual(getSingle.kitsu)
   })
 
+  it('Should fetch a relationship collection of resources', async () => {
+    expect.assertions(1)
+    const api = new Kitsu()
+    mock.onGet('authors/1/anime').reply(200, getCollection.jsonapi)
+    const request = await api.get('author/1/anime')
+    expect(request).toEqual(getCollection.kitsu)
+  })
+
+  it('Should fetch a relationshop single resource', async () => {
+    expect.assertions(1)
+    const api = new Kitsu()
+    mock.onGet('comments/1/anime').reply(200, getSingle.jsonapi)
+    const request = await api.get('comment/1/anime')
+    expect(request).toEqual(getSingle.kitsu)
+  })
+
   it('Should fetch a collection of resources with includes', async () => {
     expect.assertions(1)
     const api = new Kitsu()
