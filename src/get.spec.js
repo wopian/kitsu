@@ -6,7 +6,8 @@ import {
   getCollectionWithIncludes,
   getError,
   getSingle,
-  getSingleWithIncludes
+  getSingleWithIncludes,
+  getSingleWithNestedIncludes
 } from './__cases__'
 
 const mock = new MockAdapter(axios)
@@ -82,8 +83,6 @@ describe('get', () => {
     expect(request).toEqual(getSingleWithIncludes.kitsu)
   })
 
-  // TODO: Support nested includes
-  /*
   it('Should fetch a single resource with nested includes', async () => {
     expect.assertions(1)
     const api = new Kitsu()
@@ -91,7 +90,6 @@ describe('get', () => {
     const request = await api.get('anime/1')
     expect(request).toEqual(getSingleWithNestedIncludes.kitsu)
   })
-  */
 
   it('Should return a JSON:API error object for invalid queries', async () => {
     expect.assertions(5)
