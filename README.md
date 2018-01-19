@@ -85,7 +85,7 @@ A GET request with `kitsu` returns:
     type: 'articles'
     title: 'JSON API paints my bikeshed'
     author: {
-      id: '42',
+      id: '42'
       type: 'people'
       name: 'John'
     }
