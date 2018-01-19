@@ -35,9 +35,9 @@ npm install kitsu
 
 |   Package | Package<br> Size | Node | Chrome | Firefox | Safari | Edge |  IE |
 | --------: | :--------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-| [Default] |      17.8 kb     |  6+  |   49+  |   57+   |  10.1+ |  15+ |     |
-|  [Legacy] |      19.8 kb     |  6+  |   4+   |    3+   |  3.1+  |  12+ |  8+ |
-|      Node |      14.0 kb     |  6+  |        |         |        |      |     |
+| [Default] |      17.9 kb     |  6+  |   49+  |   57+   |  10.1+ |  15+ |     |
+|  [Legacy] |      19.9 kb     |  6+  |   4+   |    3+   |  3.1+  |  12+ |  8+ |
+|      Node |      14.1 kb     |  6+  |        |         |        |      |     |
 
 [default]: http://browserl.ist/?q=last+2+years%2C+not+%3C+0.5%25
 
