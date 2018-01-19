@@ -153,7 +153,7 @@ All code released under [MIT]
 [JSON:API]:http://jsonapi.org
 [Promise]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 [More Examples]:https://github.com/wopian/kitsu/tree/master/example
-[Read the Documentation]:https://github.com/wopian/kitsu/blob/v4.0.1/DOCS.md
+[Read the Documentation]:https://github.com/wopian/kitsu/blob/v4.3.0/DOCS.md
 [Kitsu.io API Docs]:https://kitsu.docs.apiary.io
 
 [Migration Guide]:https://github.com/wopian/kitsu/blob/master/MIGRATING.md
