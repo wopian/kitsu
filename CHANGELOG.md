@@ -1,3 +1,30 @@
+### 4.4.0 (2018-01-19)
+
+##### Build System / Dependencies
+
+*  add :docs script ([9eed1b64](https://github.com/wopian/kitsu/commit/9eed1b640dd1fb359a6b543f105a25a4c8e6d3c7))
+*  lint docs but don't build during tests ([24ace510](https://github.com/wopian/kitsu/commit/24ace51036e2c07d0c4248a3afcd62fe851bd448))
+
+##### Chores
+
+* **deps:**  update axios-mock-adapter to ~1.11.0 ([#98](https://github.com/wopian/kitsu/pull/98)) ([2d36968b](https://github.com/wopian/kitsu/commit/2d36968b24e1ec7e6059eb9ae1ff1c99050572c1))
+
+##### Documentation Changes
+
+*  remove comma in example ([33a11083](https://github.com/wopian/kitsu/commit/33a1108322c4f26fab893d2639e67af35df9f66e))
+*  fix changelog and contributing links pointing to wrong repo ([89ac6547](https://github.com/wopian/kitsu/commit/89ac654757a2c7a60b51175476cb63afb59941a9))
+*  update dictionary ([62e6adec](https://github.com/wopian/kitsu/commit/62e6adec0390812d2f36a58dfb4017d6b53c62a9))
+*  include api documentation inside readme instead of docs.md ([61ec6837](https://github.com/wopian/kitsu/commit/61ec68374214881b9159e569359d78b074dc5abe))
+*  link to latest version's documentation ([eac1bd44](https://github.com/wopian/kitsu/commit/eac1bd44908cf82f34e808adb6e13640fc7c6d62))
+
+##### New Features
+
+*  support nested relationships ([#101](https://github.com/wopian/kitsu/pull/101)) ([4285e194](https://github.com/wopian/kitsu/commit/4285e1949383acc40683cd1b828a41bb25863461))
+
+##### Bug Fixes
+
+*  get item related resource ([#99](https://github.com/wopian/kitsu/pull/99)) ([e8da7575](https://github.com/wopian/kitsu/commit/e8da7575c9ab86bd820107a57a0b1e6a8b6483f0))
+
 ### 4.3.0 (2018-01-18)
 
 ##### Chores

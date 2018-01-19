@@ -283,7 +283,7 @@ if (api.isAuth) console.log('Authenticated')
 else console.log('Not authenticated')
 ```
 
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 #### patch
 
