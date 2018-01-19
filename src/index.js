@@ -6,8 +6,6 @@ const jsonAPI = 'application/vnd.api+json'
 const jsonAPIHeader = { 'Accept': jsonAPI, 'Content-Type': jsonAPI }
 
 /**
- * A simple framework agnostic JSON-API client JSON API
- *
  * @name Kitsu
  * @param {Object} options Options
  * @param {string} options.baseURL Set the API endpoint (default `https://kitsu.io/api/edge`)
