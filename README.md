@@ -283,7 +283,7 @@ if (api.isAuth) console.log('Authenticated')
 else console.log('Not authenticated')
 ```
 
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 #### patch
 
@@ -409,9 +409,9 @@ All code released under [MIT]
 
 [migration guide]: https://github.com/wopian/kitsu/blob/master/MIGRATING.md
 
-[changelog]: https://github.com/wopian/kitsu-inactivity-pruner/blob/master/CHANGELOG.md
+[changelog]: https://github.com/wopian/kitsu/blob/master/CHANGELOG.md
 
-[contributing]: https://github.com/wopian/kitsu-inactivity-pruner/blob/master/CONTRIBUTING.md
+[contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
 
 [mit]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
 
