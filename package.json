@@ -22,7 +22,7 @@
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "build": "yarn docs && yarn rollup && size-limit",
     "jest": "jest --coverage",
-    "spellcheck": "yaspeller-ci README.md MIGRATING.md DOCS.md CONTRIBUTING.md",
+    "spellcheck": "yaspeller-ci README.md MIGRATING.md CONTRIBUTING.md",
     "lint": "eslint src && yarn spellcheck",
     "test": "yarn jest && yarn lint && yarn build",
     "example:basic": "node ./example/basic",
@@ -76,8 +76,7 @@
   },
   "homepage": "https://github.com/wopian/kitsu#readme",
   "files": [
-    "lib",
-    "DOCS.md"
+    "lib"
   ],
   "dependencies": {
     "axios": "^0.17.0",
