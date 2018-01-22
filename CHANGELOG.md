@@ -1,3 +1,13 @@
+#### 4.4.3 (2018-01-22)
+
+##### Chores
+
+*  simplify baseURL logical or operation ([0d2f8c55](https://github.com/wopian/kitsu/commit/0d2f8c5556260bc261933ab0c58decb4c6d4370b))
+
+##### Tests
+
+*  add tests for baseURL constructor ([b3ecd672](https://github.com/wopian/kitsu/commit/b3ecd672a7739d6853bf413297d897d56b09702e))
+
 #### 4.4.2 (2018-01-22)
 
 ##### Documentation Changes
