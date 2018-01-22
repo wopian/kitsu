@@ -1,3 +1,9 @@
+#### 4.4.2 (2018-01-22)
+
+##### Documentation Changes
+
+*  add navigatable links to JSON:API spec references ([9ba8db6b](https://github.com/wopian/kitsu/commit/9ba8db6bc25c32a4e3d61a2b18a4be1d2c752c16))
+
 #### 4.4.1 (2018-01-22)
 
 ##### Chores
