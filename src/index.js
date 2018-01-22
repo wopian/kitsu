@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { camel, deserialise, error, kebab, query, serialise, snake } from './util'
 
-const kitsu = 'https://kitsu.io/api/edge'
 const jsonAPI = 'application/vnd.api+json'
 const jsonAPIHeader = { 'Accept': jsonAPI, 'Content-Type': jsonAPI }
 
@@ -67,7 +66,7 @@ export default class Kitsu {
     this.headers = Object.assign({}, options.headers, jsonAPIHeader)
 
     this.axios = axios.create({
-      baseURL: options.baseURL || kitsu,
+      baseURL: options.baseURL || 'https://kitsu.io/api/edge',
       timeout: options.timeout || 30000
     })
   }
