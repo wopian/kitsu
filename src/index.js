@@ -1,9 +1,6 @@
 import axios from 'axios'
 import { camel, deserialise, error, kebab, query, serialise, snake } from './util'
 
-const jsonAPI = 'application/vnd.api+json'
-const jsonAPIHeader = { 'Accept': jsonAPI, 'Content-Type': jsonAPI }
-
 /**
  * @name Kitsu
  * @param {Object} options Options
@@ -63,7 +60,7 @@ export default class Kitsu {
      * // Add or update a header
      * api.headers['Authorization'] = 'Bearer 1234567890'
      */
-    this.headers = Object.assign({}, options.headers, jsonAPIHeader)
+    this.headers = Object.assign({}, options.headers, { 'Accept': 'application/vnd.api+json', 'Content-Type': 'application/vnd.api+json' })
 
     this.axios = axios.create({
       baseURL: options.baseURL || 'https://kitsu.io/api/edge',
@@ -147,7 +144,7 @@ export default class Kitsu {
       const { data } = await this.axios.get(url, {
         params,
         paramsSerializer: p => query(p),
-        headers: Object.assign(this.headers, headers, jsonAPIHeader)
+        headers: Object.assign(this.headers, headers)
       })
 
       return deserialise(data)
@@ -175,7 +172,7 @@ export default class Kitsu {
    */
   async patch (model, body, headers = {}) {
     try {
-      headers = Object.assign(this.headers, headers, jsonAPIHeader)
+      headers = Object.assign(this.headers, headers)
       if (!this.isAuth) throw new Error('Not logged in')
       if (typeof body.id === 'undefined') throw new Error('Updating a resource requires an ID')
 
@@ -218,7 +215,7 @@ export default class Kitsu {
    */
   async post (model, body, headers = {}) {
     try {
-      headers = Object.assign(this.headers, headers, jsonAPIHeader)
+      headers = Object.assign(this.headers, headers)
       if (!this.isAuth) throw new Error('Not logged in')
 
       const url = this.plural(this.resCase(model))
@@ -249,7 +246,7 @@ export default class Kitsu {
    */
   async remove (model, id, headers = {}) {
     try {
-      headers = Object.assign(this.headers, headers, jsonAPIHeader)
+      headers = Object.assign(this.headers, headers)
       if (!this.isAuth) throw new Error('Not logged in')
 
       const url = this.plural(this.resCase(model)) + '/' + id
