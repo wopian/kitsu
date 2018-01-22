@@ -114,4 +114,16 @@ describe('Constructor', () => {
     })
     expect(api.plural('apple')).toBe('apple')
   })
+
+  it('Should use Kitsu.io\'s API by default', () => {
+    expect.assertions(1)
+    const api = new Kitsu()
+    expect(api.axios.defaults.baseURL).toBe('https://kitsu.io/api/edge')
+  })
+
+  it('Should use API provided in constructor', () => {
+    expect.assertions(1)
+    const api = new Kitsu({ baseURL: 'https://example.api' })
+    expect(api.axios.defaults.baseURL).toBe('https://example.api')
+  })
 })
