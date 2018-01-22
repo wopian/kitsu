@@ -43,7 +43,7 @@ let pluginsNode = [
     babelrc: false,
     exclude: [ '*.json', 'node_modules/**/*' ],
     runtimeHelpers: true,
-    presets: [ [ 'env', { targets: { node: 9 }, modules: false } ], 'stage-0' ],
+    presets: [ [ 'env', { targets: { node: 6 }, modules: false } ], 'stage-0' ],
     plugins: [ [ 'transform-runtime', { polyfill: false, regenerator: true } ]
     ]
   }),
