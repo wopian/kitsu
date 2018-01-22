@@ -1,3 +1,18 @@
+#### 4.4.1 (2018-01-22)
+
+##### Chores
+
+* **deps:**  update eslint to ~4.16.0 ([#102](https://github.com/wopian/kitsu/pull/102)) ([fa7805f2](https://github.com/wopian/kitsu/commit/fa7805f25d3f421526488fc45a3188002c1b0834))
+
+##### Continuous Integration
+
+* **codeclimate:**  increase cognitive complexity limit by 1 ([010290c0](https://github.com/wopian/kitsu/commit/010290c0a67a318d2d76d0430de15c956d4628ec))
+
+##### Bug Fixes
+
+*  correct name for exported module (fixes [#103](https://github.com/wopian/kitsu/pull/103)) ([f945e566](https://github.com/wopian/kitsu/commit/f945e5662f0c75bf2d95fbca9183bcfd23d3b4d7))
+* **rollup:**  transpile node package for node 6 support ([b84a8253](https://github.com/wopian/kitsu/commit/b84a8253a4dbf79fc7cd7702d24a6d18c33f3c1c))
+
 ### 4.4.0 (2018-01-19)
 
 ##### Build System / Dependencies
