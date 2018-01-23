@@ -132,6 +132,28 @@ export default class Kitsu {
    * @example
    * // Get a resource's relationship data only
    * api.get('anime/2/categories')
+   *
+   * @example
+   * // Handling errors (async/await)
+   * // http://jsonapi.org/format/#error-objects
+   * try {
+   *   const { data } = api.get('anime')
+   * } catch (err) {
+   *   if (err.errors) err.errors.forEach(error => {
+   *       console.log(error) // Prints JSON:API error object
+   *   })
+   * }
+   *
+   * @example
+   * // Handling errors (Promise)
+   * // http://jsonapi.org/format/#error-objects
+   * api.get('anime')
+   *   .then(res => res.data)
+   *   .catch(err => {
+   *     if (err.errors) err.errors.forEach(error => {
+   *       console.log(error) // Prints JSON:API error object
+   *     })
+   *   })
    */
   async get (model, params = {}, headers = {}) {
     try {
@@ -149,7 +171,7 @@ export default class Kitsu {
 
       return deserialise(data)
     } catch (E) {
-      return error(E)
+      throw error(E)
     }
   }
 
@@ -169,6 +191,27 @@ export default class Kitsu {
    *   id: '12345678',
    *   content: 'Goodbye World'
    * })
+   *
+   * @example
+   * // Handling errors (async/await)
+   * // http://jsonapi.org/format/#error-objects
+   * try {
+   *   api.update('posts', { ... })
+   * } catch (err) {
+   *   if (err.errors) err.errors.forEach(error => {
+   *       console.log(error) // Prints JSON:API error object
+   *   })
+   * }
+   *
+   * @example
+   * // Handling errors (Promise)
+   * // http://jsonapi.org/format/#error-objects
+   * api.update('posts', { ... })
+   *   .catch(err => {
+   *     if (err.errors) err.errors.forEach(error => {
+   *       console.log(error) // Prints JSON:API error object
+   *     })
+   *   })
    */
   async patch (model, body, headers = {}) {
     try {
@@ -185,7 +228,7 @@ export default class Kitsu {
 
       return data
     } catch (E) {
-      return error(E)
+      throw error(E)
     }
   }
 
@@ -212,6 +255,27 @@ export default class Kitsu {
    *     type: 'users'
    *   }
    * })
+   *
+   * @example
+   * // Handling errors (async/await)
+   * // http://jsonapi.org/format/#error-objects
+   * try {
+   *   api.create('posts', { ... })
+   * } catch (err) {
+   *   if (err.errors) err.errors.forEach(error => {
+   *       console.log(error) // Prints JSON:API error object
+   *   })
+   * }
+   *
+   * @example
+   * // Handling errors (Promise)
+   * // http://jsonapi.org/format/#error-objects
+   * api.create('posts', { ... })
+   *   .catch(err => {
+   *     if (err.errors) err.errors.forEach(error => {
+   *       console.log(error) // Prints JSON:API error object
+   *     })
+   *   })
    */
   async post (model, body, headers = {}) {
     try {
@@ -227,7 +291,7 @@ export default class Kitsu {
 
       return data
     } catch (E) {
-      return error(E)
+      throw error(E)
     }
   }
 
@@ -243,6 +307,27 @@ export default class Kitsu {
    * @example
    * // Delete a user's post
    * api.remove('posts', 123)
+   *
+   * @example
+   * // Handling errors (async/await)
+   * // http://jsonapi.org/format/#error-objects
+   * try {
+   *   api.remove('posts', 1)
+   * } catch (err) {
+   *   if (err.errors) err.errors.forEach(error => {
+   *       console.log(error) // Prints JSON:API error object
+   *   })
+   * }
+   *
+   * @example
+   * // Handling errors (Promise)
+   * // http://jsonapi.org/format/#error-objects
+   * api.remove('posts', 1)
+   *   .catch(err => {
+   *     if (err.errors) err.errors.forEach(error => {
+   *       console.log(error) // Prints JSON:API error object
+   *     })
+   *   })
    */
   async remove (model, id, headers = {}) {
     try {
@@ -257,7 +342,7 @@ export default class Kitsu {
 
       return data
     } catch (E) {
-      return error(E)
+      throw error(E)
     }
   }
 
@@ -281,6 +366,28 @@ export default class Kitsu {
    * api.self({
    *   fields: 'name,birthday'
    * })
+   *
+   * @example
+   * // Handling errors (async/await)
+   * // http://jsonapi.org/format/#error-objects
+   * try {
+   *   const { data } = api.self()
+   * } catch (err) {
+   *   if (err.errors) err.errors.forEach(error => {
+   *       console.log(error) // Prints JSON:API error object
+   *   })
+   * }
+   *
+   * @example
+   * // Handling errors (Promise)
+   * // http://jsonapi.org/format/#error-objects
+   * api.self()
+   *   .then(res => res.data)
+   *   .catch(err => {
+   *     if (err.errors) err.errors.forEach(error => {
+   *       console.log(error) // Prints JSON:API error object
+   *     })
+   *   })
    */
   async self (params = {}, headers = {}) {
     try {
@@ -288,7 +395,7 @@ export default class Kitsu {
       if (res.errors) throw res
       return res.data[0]
     } catch (E) {
-      return error(E)
+      throw error(E)
     }
   }
 

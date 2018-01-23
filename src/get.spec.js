@@ -95,11 +95,14 @@ describe('get', () => {
     expect.assertions(5)
     const api = new Kitsu()
     mock.onGet('articles', { include: 'author' }).reply(400, getError.jsonapi)
-    const { errors } = await api.get('articles', { include: 'author' })
-    expect(errors).toHaveLength(1)
-    expect(errors[0].title).toBe('Invalid field')
-    expect(errors[0].detail).toBeDefined()
-    expect(errors[0].code).toBeDefined()
-    expect(errors[0].status).toBe('400')
+    try {
+      await api.get('articles', { include: 'author' })
+    } catch ({ errors }) {
+      expect(errors).toHaveLength(1)
+      expect(errors[0].title).toBe('Invalid field')
+      expect(errors[0].detail).toBeDefined()
+      expect(errors[0].code).toBeDefined()
+      expect(errors[0].status).toBe('400')
+    }
   })
 })
