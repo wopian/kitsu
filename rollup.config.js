@@ -67,8 +67,7 @@ export default [
     output: [
       {
         file: pkg.main,
-        format: 'umd',
-        name: 'Kitsu',
+        format: 'cjs',
         globals
       },
       {
@@ -87,8 +86,7 @@ export default [
     output: [
       {
         file: 'lib/node.js',
-        format: 'umd',
-        name: 'Kitsu',
+        format: 'cjs',
         globals
       },
       {
@@ -106,8 +104,7 @@ export default [
     onwarn,
     output: {
       file: 'lib/legacy.js',
-      format: 'umd',
-      name: 'Kitsu',
+      format: 'cjs',
       globals
     }
   }
