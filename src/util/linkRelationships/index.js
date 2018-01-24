@@ -20,6 +20,7 @@ async function link (id, type, included) {
  * @param {Object} data The response data object
  * @param {Object} included The response included object
  * @param {string} key Name of the relationship item
+ * @private
  */
 async function linkArray (data, included, key) {
   data[key] = []
@@ -34,6 +35,7 @@ async function linkArray (data, included, key) {
  * @param {Object} data The response data object
  * @param {Object} included The response included object
  * @param {string} key Name of the relationship item
+ * @private
  */
 async function linkObject (data, included, key) {
   const { id, type } = data.relationships[key].data
