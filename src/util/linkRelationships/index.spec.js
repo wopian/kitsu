@@ -1,8 +1,9 @@
 import { linkRelationships } from './'
 
 describe('linkRelationships', () => {
-  it('Should link single relationship to included data', () => {
-    expect(linkRelationships({
+  it('Should link single relationship to included data', async () => {
+    expect.assertions(1)
+    const data = {
       relationships: {
         waifu: {
           data: {
@@ -11,8 +12,8 @@ describe('linkRelationships', () => {
           }
         }
       }
-    },
-    [
+    }
+    const included = [
       {
         id: '3',
         type: 'characters',
@@ -20,17 +21,20 @@ describe('linkRelationships', () => {
           name: 'Maki'
         }
       }
-    ])).resolves.toEqual({
-      waifu: {
-        id: '3',
-        name: 'Maki',
-        type: 'characters'
-      }
-    })
+    ]
+    expect(await linkRelationships(data, included))
+      .toEqual({
+        waifu: {
+          id: '3',
+          name: 'Maki',
+          type: 'characters'
+        }
+      })
   })
 
-  it('Should link a relationship collection to included data', () => {
-    expect(linkRelationships({
+  it('Should link a relationship collection to included data', async () => {
+    expect.assertions(1)
+    const data = {
       relationships: {
         favorites: {
           data: [
@@ -45,8 +49,8 @@ describe('linkRelationships', () => {
           ]
         }
       }
-    },
-    [
+    }
+    const included = [
       {
         id: '1',
         type: 'favorites',
@@ -61,19 +65,21 @@ describe('linkRelationships', () => {
           favRank: 1
         }
       }
-    ])).resolves.toEqual({
-      favorites: [
-        {
-          id: '1',
-          favRank: 1,
-          type: 'favorites'
-        },
-        {
-          id: '2',
-          favRank: 1,
-          type: 'favorites'
-        }
-      ]
-    })
+    ]
+    expect(await linkRelationships(data, included))
+      .toEqual({
+        favorites: [
+          {
+            id: '1',
+            favRank: 1,
+            type: 'favorites'
+          },
+          {
+            id: '2',
+            favRank: 1,
+            type: 'favorites'
+          }
+        ]
+      })
   })
 })

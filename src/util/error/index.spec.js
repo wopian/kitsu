@@ -12,13 +12,25 @@ describe('error', () => {
     const obj = {
       response: {
         data: {
-          errors: [ { code: 400 } ]
+          errors: [
+            {
+              title: 'Filter is not allowed',
+              detail: 'x is not allowed',
+              code: '102',
+              status: '400'
+            }
+          ]
         }
       }
     }
-    expect(error(obj)).toEqual({
-      errors: [ { code: 400 } ]
-    })
+    expect(error(obj).errors).toEqual([
+      {
+        title: 'Filter is not allowed',
+        detail: 'x is not allowed',
+        code: '102',
+        status: '400'
+      }
+    ])
   })
 
   it('Should handle top-level JSON:API errors', () => {
