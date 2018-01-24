@@ -52,14 +52,6 @@ describe('patch', () => {
     done()
   })
 
-  it('should throw an error if Authorization header is not set (patch)', async () => {
-    expect.assertions(1)
-    const api = new Kitsu()
-    mock.onPatch().reply(200)
-    // expect(api.patch('posts', patchSingle.kitsu)).rejects.toThrow('Not logged in')
-    expect(api.patch('posts', patchSingle.kitsu)).rejects.toThrowError('Not logged in')
-  })
-
   it('should throw an error if ID is missing (patch)', async () => {
     expect.assertions(1)
     const api = new Kitsu({ headers: { Authorization: true } })

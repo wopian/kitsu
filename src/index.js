@@ -194,15 +194,13 @@ export default class Kitsu {
    */
   async patch (model, body, headers = {}) {
     try {
-      headers = Object.assign(this.headers, headers)
-      if (!this.isAuth) throw new Error('Not logged in')
       if (typeof body.id === 'undefined') throw new Error('Updating a resource requires an ID')
 
       const url = this.plural(this.resCase(model)) + '/' + body.id
       const { data } = await this.axios.patch(
         url,
         await serialise.apply(this, [ model, body, 'PATCH' ]),
-        { headers }
+        { headers: Object.assign(this.headers, headers) }
       )
 
       return data
@@ -237,14 +235,11 @@ export default class Kitsu {
    */
   async post (model, body, headers = {}) {
     try {
-      headers = Object.assign(this.headers, headers)
-      if (!this.isAuth) throw new Error('Not logged in')
-
       const url = this.plural(this.resCase(model))
       const { data } = await this.axios.post(
         url,
         await serialise.apply(this, [ model, body ]),
-        { headers }
+        { headers: Object.assign(this.headers, headers) }
       )
 
       return data
@@ -268,13 +263,10 @@ export default class Kitsu {
    */
   async remove (model, id, headers = {}) {
     try {
-      headers = Object.assign(this.headers, headers)
-      if (!this.isAuth) throw new Error('Not logged in')
-
       const url = this.plural(this.resCase(model)) + '/' + id
       const { data } = await this.axios.delete(url, {
         data: await serialise.apply(this, [ model, { id }, 'DELETE' ]),
-        headers
+        headers: Object.assign(this.headers, headers)
       })
 
       return data
