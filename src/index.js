@@ -392,7 +392,6 @@ export default class Kitsu {
   async self (params = {}, headers = {}) {
     try {
       const res = await this.get('users', Object.assign({ filter: { self: true } }, params), headers)
-      if (res.errors) throw res
       return res.data[0]
     } catch (E) {
       throw error(E)
