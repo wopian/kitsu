@@ -1,4 +1,4 @@
-import { deattribute, error, linkRelationships } from '../'
+import { deattribute, linkRelationships } from '../'
 
 /**
  * Deserialises an array from a JSON-API structure
@@ -8,16 +8,12 @@ import { deattribute, error, linkRelationships } from '../'
  * @private
  */
 async function deserialiseArray (obj) {
-  try {
-    for (let value of await obj.data) {
-      if (obj.included) value = await linkRelationships(value, obj.included)
-      if (value.attributes) value = await deattribute(value)
-      obj.data[obj.data.indexOf(value)] = value
-    }
-    return obj
-  } catch (E) {
-    error(E)
+  for (let value of await obj.data) {
+    if (obj.included) value = await linkRelationships(value, obj.included)
+    if (value.attributes) value = await deattribute(value)
+    obj.data[obj.data.indexOf(value)] = value
   }
+  return obj
 }
 
 /**
@@ -28,21 +24,17 @@ async function deserialiseArray (obj) {
  * @private
  */
 export async function deserialise (obj) {
-  try {
-    // Collection of resources
-    // Note: constructor is currently faster than isArray()
-    // http://jsben.ch/QgYAV
-    if (obj.data && obj.data.constructor === Array) obj = await deserialiseArray(obj)
-    // Single resource with included relationships
-    else if (obj.included) obj.data = await linkRelationships(obj.data, obj.included)
+  // Collection of resources
+  // Note: constructor is currently faster than isArray()
+  // http://jsben.ch/QgYAV
+  if (obj.data && obj.data.constructor === Array) obj = await deserialiseArray(obj)
+  // Single resource with included relationships
+  else if (obj.included) obj.data = await linkRelationships(obj.data, obj.included)
 
-    delete obj.included
+  delete obj.included
 
-    // Move attributes to the parent object
-    if (obj.data.attributes) obj.data = await deattribute(obj.data)
+  // Move attributes to the parent object
+  if (obj.data.attributes) obj.data = await deattribute(obj.data)
 
-    return obj
-  } catch (E) {
-    error(E)
-  }
+  return obj
 }

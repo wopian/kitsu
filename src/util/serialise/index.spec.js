@@ -105,18 +105,33 @@ describe('serialise', () => {
     })
   })
 
-  it('Should throw an error when trying to serialise JSON API array relationships without ID', async () => {
-    await expect(serial.camelKebabPlural('libraryEntries', {
-      id: '1',
-      user: [
-        {
-          foo: 'bar'
-        },
-        {
-          id: 3
-        }
-      ]
-    })).rejects.toThrowError('POST requires an ID for the user relationships')
+  it('Should throw an error when serialising array relationships with missing ID', async () => {
+    expect.assertions(2)
+    try {
+      await serial.camelKebabPlural('libraryEntries', {
+        id: '1',
+        user: [
+          { foo: 'bar' },
+          { id: 3 }
+        ]
+      })
+    } catch (err) {
+      expect(err.name).toEqual('Error')
+      expect(err.message).toEqual('POST requires an ID for the user relationships')
+    }
+  })
+
+  it('Should throw an error when serialising  relationships with missing ID', async () => {
+    expect.assertions(2)
+    try {
+      await serial.camelKebabPlural('libraryEntries', {
+        id: '1',
+        bar: { foo: 'bar' }
+      })
+    } catch (err) {
+      expect(err.name).toEqual('Error')
+      expect(err.message).toEqual('POST requires an ID for the bar relationships')
+    }
   })
 
   it('Should pluralise type', async () => {
