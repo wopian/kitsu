@@ -24,13 +24,6 @@ _Check out the [Migration Guide] for breaking changes and new features in `4.x`_
 -   Uses the [Promise] API
 -   Configurable timeout handling
 
-## Install
-
-```bash
-yarn add kitsu
-npm install kitsu
-```
-
 ## Node / Browser Support
 
 |   Package | Package<br> Size | Node | Chrome | Firefox | Safari | Edge |  IE |
@@ -45,7 +38,8 @@ npm install kitsu
 
 ## Response Comparison
 
-A GET response by a JSON:API server returns:
+<details>
+<summary>A GET response by a JSON:API server</summary>
 
 ```json5
 {
@@ -75,8 +69,10 @@ A GET response by a JSON:API server returns:
   ]
 }
 ```
+</details>
 
-A GET request with `kitsu` returns:
+<details open>
+<summary>A GET response with `kitsu`:</summary>
 
 ```json5
 {
@@ -92,38 +88,65 @@ A GET request with `kitsu` returns:
   }
 }
 ```
+</details>
 
-## Quick Start
+## Install
 
-```javascript
+### Yarn / NPM
+
+```bash
+yarn add kitsu
+npm install kitsu
+```
+
+```js
 import Kitsu from 'kitsu'                 // ES Modules and Babel
 const Kitsu = require('kitsu')            // CommonJS and Browserify
 const Kitsu = require('kitsu/lib/legacy') // Legacy IE8+ support
 const Kitsu = require('kitsu/lib/node')   // Lighter node-only package
+```
 
-const api = new Kitsu()                   // For kitsu.io developers
+[Try it on RunKit](https://runkit.com/embed/6mrx8ay7xuut)
 
-const api = new Kitsu({                   // For other JSON:API servers
-  baseURL: 'https://api.example/2'        // e.g https://api.example/2
+### Packd CDN
+
+```html
+<script src='https://bundle.run/kitsu@4?name=Kitsu'></script>
+<script src='https://bundle.run/kitsu@4/lib/legacy.js?name=Kitsu'></script>
+```
+
+[Try it on CodePen](https://codepen.io/wopian/pen/RxmEeK?editors=0010)
+
+## Quick Start
+
+```javascript
+// Kitsu.io's API
+const api = new Kitsu()
+
+// Other JSON:API servers
+const api = new Kitsu({
+  baseURL: 'https://api.example/2'
 })
 
-const { data } = await api.get('anime')   // Using with async/await
+// Using with async/await
+const res = await api.get('anime')
 
-api.get('anime')                          // Using with Promises
-  .then(({ data }) => { ... })
-  .catch(err => throw err)
+// Using with Promises
+api.get('anime')
+  .then(res => { ... })
+  .catch(err => { ... })
 
-// Fetching resources with get() or fetch()
-api.get('anime', { params }, { headers }) // Collection of resources
-api.get('anime/1')                        // Single resource
-api.get('anime/1/episodes')               // Single resource's relationship
+// Fetching resources (get/fetch)
+api.fetch('anime')
+api.fetch('anime/1')
+api.fetch('anime/1/episodes')
 
-// Creating resources with post() or create()
+// Creating resources (post/create)
 api.create('post', {
   content: 'some content'
 })
 
-// Updating resources with patch() or update()
+// Updating resources (patch/update)
 api.update('post', {
   id: '1',
   content: 'new content'
@@ -307,7 +330,7 @@ if (api.isAuth) console.log('Authenticated')
 else console.log('Not authenticated')
 ```
 
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 #### patch
 
