@@ -45,12 +45,13 @@ describe('remove', () => {
     done()
   })
 
-  /*
   it('should throw an error if ID is missing (delete)', async () => {
     expect.assertions(1)
-    const api = new Kitsu({ headers: { Authorization: true } })
-    mock.onDelete().reply(200)
-    expect(api.remove('posts', 1)).rejects.toThrowError('Deleting a resource requires an ID')
+    const api = new Kitsu()
+    try {
+      await api.remove('posts')
+    } catch (err) {
+      expect(err.message).toEqual('DELETE requires an ID for the posts type')
+    }
   })
-  */
 })

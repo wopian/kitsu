@@ -194,12 +194,11 @@ export default class Kitsu {
    */
   async patch (model, body, headers = {}) {
     try {
-      if (typeof body.id === 'undefined') throw new Error('Updating a resource requires an ID')
-
+      const serialData = await serialise.apply(this, [ model, body, 'PATCH' ])
       const url = this.plural(this.resCase(model)) + '/' + body.id
       const { data } = await this.axios.patch(
         url,
-        await serialise.apply(this, [ model, body, 'PATCH' ]),
+        serialData,
         { headers: Object.assign(this.headers, headers) }
       )
 

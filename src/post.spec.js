@@ -46,4 +46,14 @@ describe('post', () => {
     })
     done()
   })
+
+  it('Should throw an error if missing a JSON object body', async () => {
+    expect.assertions(1)
+    const api = new Kitsu()
+    try {
+      await api.post('posts')
+    } catch (err) {
+      expect(err.message).toEqual('POST requires a JSON object body')
+    }
+  })
 })

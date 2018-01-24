@@ -1,3 +1,5 @@
+import { error } from '../'
+
 /**
  * Serialises an object into a JSON-API structure
  *
@@ -54,7 +56,7 @@ export async function serialise (model, obj = {}, method = 'POST') {
       }
     }
     return { data }
-  } catch (e) {
-    throw e
+  } catch (E) {
+    throw error(E)
   }
 }
