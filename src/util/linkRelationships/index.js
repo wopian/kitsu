@@ -1,4 +1,45 @@
-import { deattribute, error, filterIncludes } from '../'
+import { deattribute, filterIncludes } from '../'
+
+/**
+ * Core function to link relationships to included data
+ *
+ * @param {string} id The included data's ID
+ * @param {type} type The included data's type
+ * @param {Object} included The response included object
+ * @private
+ */
+async function link (id, type, included) {
+  const filtered = await filterIncludes(included, { id, type })
+  if (filtered.relationships) await linkRelationships(filtered, included)
+  return deattribute(filtered)
+}
+
+/**
+ * Helper function for multiple relationships
+ *
+ * @param {Object} data The response data object
+ * @param {Object} included The response included object
+ * @param {string} key Name of the relationship item
+ */
+async function linkArray (data, included, key) {
+  data[key] = []
+  for (let { id, type } of await data.relationships[key].data) {
+    data[key].push(await link(id, type, included))
+  }
+}
+
+/**
+ * Helper function for single relationships
+ *
+ * @param {Object} data The response data object
+ * @param {Object} included The response included object
+ * @param {string} key Name of the relationship item
+ */
+async function linkObject (data, included, key) {
+  const { id, type } = data.relationships[key].data
+  data[key] = await link(id, type, included)
+  delete data[key].relationships
+}
 
 /**
  * Links relationships to included data
@@ -8,39 +49,22 @@ import { deattribute, error, filterIncludes } from '../'
  * @private
  */
 export async function linkRelationships (data, included) {
-  let removeRelationshipsAttribute = false
+  const { relationships } = data
+  let removeRelationships = false
 
-  try {
-    const { relationships } = data
-    for (let key in await relationships) {
-      // Relationship contains collection of resources
-      if (relationships[key].data && Array.isArray(relationships[key].data)) {
-        for (let { id, type } of await relationships[key].data) {
-          const filtered = await filterIncludes(included, { id, type })
-          if (filtered.relationships) await linkRelationships(filtered, included)
-          const deattributed = await deattribute(filtered)
-          if (typeof deattributed !== 'undefined') {
-            if (!data[key]) data[key] = []
-            data[key].push(deattributed)
-          }
-        }
-        removeRelationshipsAttribute = true
-      // Relationship contains a single resource
-      } else if (relationships[key].data) {
-        const { id, type } = relationships[key].data
-        const filtered = await filterIncludes(included, { id, type })
-        if (filtered.relationships) await linkRelationships(filtered, included)
-        const deattributed = await deattribute(filtered)
-        if (typeof deattributed !== 'undefined' && !data[key]) data[key] = deattributed
-        delete data[key].relationships
-        removeRelationshipsAttribute = true
-      }
+  for (let key in await relationships) {
+    // Relationship contains collection of resources
+    if (relationships[key].data && Array.isArray(relationships[key].data)) {
+      await linkArray(data, included, key)
+      removeRelationships = true
+    // Relationship contains a single resource
+    } else if (relationships[key].data) {
+      await linkObject(data, included, key)
+      removeRelationships = true
     }
-
-    if (removeRelationshipsAttribute) delete data.relationships
-
-    return data
-  } catch (E) {
-    error(E)
   }
+
+  if (removeRelationships) delete data.relationships
+
+  return data
 }

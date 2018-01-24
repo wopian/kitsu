@@ -82,4 +82,98 @@ describe('linkRelationships', () => {
         ]
       })
   })
+
+  it('Should not deattribute key if theres a relationship (single) with same name (handle invalid JSON:API)', async () => {
+    expect.assertions(1)
+    const data = {
+      attributes: {
+        author: 'Joe'
+      },
+      relationships: {
+        author: {
+          data: {
+            id: '1',
+            type: 'people'
+          }
+        }
+      }
+    }
+    const included = [
+      {
+        id: '1',
+        type: 'people',
+        attributes: {
+          name: 'Joe'
+        }
+      }
+    ]
+    expect(await linkRelationships(data, included))
+      .toEqual({
+        attributes: {
+          author: 'Joe'
+        },
+        author: {
+          id: '1',
+          name: 'Joe',
+          type: 'people'
+        }
+      })
+  })
+
+  it('Should not deattribute key if theres a relationship (array) with same name (handle invalid JSON:API)', async () => {
+    expect.assertions(1)
+    const data = {
+      attributes: {
+        authors: [ 'Joe', 'Mary' ]
+      },
+      relationships: {
+        authors: {
+          data: [
+            {
+              id: '1',
+              type: 'people'
+            },
+            {
+              id: '2',
+              type: 'people'
+            }
+          ]
+        }
+      }
+    }
+    const included = [
+      {
+        id: '1',
+        type: 'people',
+        attributes: {
+          name: 'Joe'
+        }
+      },
+      {
+        id: '2',
+        type: 'people',
+        attributes: {
+          name: 'Mary'
+        }
+      }
+    ]
+    expect(await linkRelationships(data, included))
+      .toEqual({
+        attributes: {
+          authors: [ 'Joe', 'Mary' ]
+        },
+        authors: [
+          {
+            id: '1',
+            name: 'Joe',
+            type: 'people'
+          },
+          {
+            id: '2',
+            name: 'Mary',
+            type: 'people'
+          }
+        ]
+      })
+  })
 })
