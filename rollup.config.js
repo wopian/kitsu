@@ -24,7 +24,7 @@ let globals = {
 }
 
 let plugins = [
-  minify({ comments: false, mangle: false }),
+  minify({ comments: false, mangle: true }),
   local()
 ]
 let pluginsMain = [
@@ -63,11 +63,6 @@ export default [
         name: 'Kitsu',
         sourcemap: true,
         globals
-      },
-      {
-        file: pkg.module,
-        format: 'es',
-        globals
       }
     ]
   },
@@ -82,11 +77,6 @@ export default [
         format: 'umd',
         name: 'Kitsu',
         sourcemap: true,
-        globals
-      },
-      {
-        file: 'lib/node.mjs',
-        format: 'es',
         globals
       }
     ]
