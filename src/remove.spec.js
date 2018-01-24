@@ -45,7 +45,7 @@ describe('remove', () => {
     done()
   })
 
-  it('should throw an error if ID is missing (delete)', async () => {
+  it('should throw an error if ID is missing', async () => {
     expect.assertions(1)
     const api = new Kitsu()
     try {
