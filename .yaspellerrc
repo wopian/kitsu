@@ -53,6 +53,13 @@
     "whoAmI",
     "wopian",
     "changelog",
-    "forEach"
+    "forEach",
+    "NPM",
+    "RunKit",
+    "Packd",
+    "CDN",
+    "src",
+    "CodePen",
+    "js"
   ]
 }
