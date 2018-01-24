@@ -3,13 +3,6 @@ import minify from 'rollup-plugin-babel-minify'
 import local from 'rollup-plugin-local-resolve'
 import pkg from './package.json'
 
-const onwarn = ({ code, message }) => {
-  // Suppress the following error message:
-  // https://github.com/rollup/rollup/wiki/Troubleshooting#this-is-undefined
-  if (code === 'THIS_IS_UNDEFINED') return
-  console.error(message)
-}
-
 let external = [
   ...Object.keys(pkg.dependencies),
   'babel-runtime/regenerator',
@@ -63,11 +56,12 @@ export default [
     input: 'src/index.js',
     external,
     plugins: pluginsMain,
-    onwarn,
     output: [
       {
         file: pkg.main,
-        format: 'cjs',
+        format: 'umd',
+        name: 'Kitsu',
+        sourcemap: true,
         globals
       },
       {
@@ -82,11 +76,12 @@ export default [
     input: 'src/index.js',
     external,
     plugins: pluginsNode,
-    onwarn,
     output: [
       {
         file: 'lib/node.js',
-        format: 'cjs',
+        format: 'umd',
+        name: 'Kitsu',
+        sourcemap: true,
         globals
       },
       {
@@ -101,10 +96,10 @@ export default [
     input: 'src/index.js',
     external,
     plugins: pluginsLegacy,
-    onwarn,
     output: {
       file: 'lib/legacy.js',
-      format: 'cjs',
+      format: 'umd',
+      name: 'Kitsu',
       globals
     }
   }

@@ -52,6 +52,7 @@
     "waifu",
     "whoAmI",
     "wopian",
-    "changelog"
+    "changelog",
+    "forEach"
   ]
 }
