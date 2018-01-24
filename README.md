@@ -247,6 +247,30 @@ api.get('anime/2', {
 api.get('anime/2/categories')
 ```
 
+```javascript
+// Handling errors (async/await)
+// http://jsonapi.org/format/#error-objects
+try {
+  const { data } = api.get('anime')
+} catch (err) {
+  if (err.errors) err.errors.forEach(error => {
+      console.log(error) // Prints JSON:API error object
+  })
+}
+```
+
+```javascript
+// Handling errors (Promise)
+// http://jsonapi.org/format/#error-objects
+api.get('anime')
+  .then(res => res.data)
+  .catch(err => {
+    if (err.errors) err.errors.forEach(error => {
+      console.log(error) // Prints JSON:API error object
+    })
+  })
+```
+
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
 
 #### headers
