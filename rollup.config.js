@@ -90,6 +90,7 @@ export default [
       file: 'lib/legacy.js',
       format: 'umd',
       name: 'Kitsu',
+      sourcemap: true,
       globals
     }
   }

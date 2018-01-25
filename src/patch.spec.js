@@ -52,19 +52,24 @@ describe('patch', () => {
     done()
   })
 
-  it('should throw an error if Authorization header is not set (patch)', async () => {
+  it('Should throw an error if missing a JSON object body', async () => {
     expect.assertions(1)
     const api = new Kitsu()
-    mock.onPatch().reply(200)
-    // expect(api.patch('posts', patchSingle.kitsu)).rejects.toThrow('Not logged in')
-    expect(api.patch('posts', patchSingle.kitsu)).rejects.toThrowError('Not logged in')
+    try {
+      await api.patch('posts')
+    } catch (err) {
+      expect(err.message).toEqual('PATCH requires a JSON object body')
+    }
   })
 
   it('should throw an error if ID is missing (patch)', async () => {
     expect.assertions(1)
-    const api = new Kitsu({ headers: { Authorization: true } })
-    mock.onPatch().reply(200)
-    expect(api.patch('posts', patchSingleMissingID.kitsu)).rejects.toThrowError('Updating a resource requires an ID')
+    const api = new Kitsu()
+    try {
+      await api.patch('posts', patchSingleMissingID.kitsu)
+    } catch (err) {
+      expect(err.message).toEqual('PATCH requires an ID for the posts type')
+    }
   })
 
   it('Should update a single resource', async () => {
