@@ -163,6 +163,7 @@ export default class Kitsu {
       if (id) url += `/${id}`
       if (relationship) url += `/${this.resCase(relationship)}`
 
+      /* istanbul ignore next */
       const { data } = await this.axios.get(url, {
         params,
         paramsSerializer: p => query(p),
