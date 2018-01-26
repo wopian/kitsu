@@ -370,9 +370,9 @@ aws4@^1.2.1, aws4@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
-axios-mock-adapter@~1.11.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/axios-mock-adapter/-/axios-mock-adapter-1.11.0.tgz#96e4bb2702cf6900f2ae5f9bdbef6e5dc86669e2"
+axios-mock-adapter@~1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/axios-mock-adapter/-/axios-mock-adapter-1.12.0.tgz#0c3f70ef469d5565f18d39fdeb0ab220bd79140a"
   dependencies:
     deep-equal "^1.0.1"
 
