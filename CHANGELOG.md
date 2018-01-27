@@ -15,7 +15,8 @@
 
 ##### Breaking Changes
 
-*  remove ES module format ([2d484e02](https://github.com/wopian/kitsu/commit/2d484e029c02cc8fda12ecda814af9c829c8b11b))
+*  ~~remove ES module format~~ ([2d484e02](https://github.com/wopian/kitsu/commit/2d484e029c02cc8fda12ecda814af9c829c8b11b))
+    - reverted in `4.5.1`
 * **fix:**  rethrow JSON:API errors (fixes [#104](https://github.com/wopian/kitsu/pull/104)) ([4a3c6078](https://github.com/wopian/kitsu/commit/4a3c6078a4337115122f9c66691df058ddda53ee))
 * **rollup:**  ~~use commonjs format instead of UMD for lib files~~ ([204ab3e3](https://github.com/wopian/kitsu/commit/204ab3e3c93b21109f1515ae3ebc168b06181a7f))
     - reverted in ([2dc27467](https://github.com/wopian/kitsu/commit/2dc274676abaf0b23a5d3ffb2b29b8278f44188a))
