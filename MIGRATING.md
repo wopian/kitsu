@@ -28,6 +28,50 @@ Many new options have been added inside `new Kitsu({ options })`
   - `resourceCase: 'snake'` - previous behavior, `/libraryEntries/1` becomes `/library_entries/1`
   - `resourceCase: 'none'` - new behavior, `/libraryEntries/1` is not modified
 
+### Error Handling
+#### Network Errors (Axios)
+
+Network errors contain the request and response settings used by Axios. Accessing these from `kitsu` errors in `4.5` and above:
+
+```js
+catch (err) {
+	err.name // 'Error'
+	err.message // 'Request failed with status code 404'
+	err.config // Object containing everything used to send the request
+	err.response // Same as config, but for response
+}
+```
+
+#### JSON:API Errors
+
+In `4.5` and above, if a JSON:API error is found in this, `kitsu` copies them to the error's top level for destructuring. They're also accessible from `err.response.data.errors`:
+
+```js
+catch (err) {
+	err.name // 'Error'
+	err.message // 'Request failed with status code 404'
+	err.config // Object containing everything used to send the request
+	err.response // Same as config, but for response
+	err.errors // Array of JSON:API errors: { title, detail, code, status }
+}
+```
+
+In `3.x` and before `4.5``, JSON:API errors are found and replace the axios error entirely, but were not thrown:
+
+```js
+const { data, errors } = await api.get(...)
+errors // Undefined or an array of JSON:API errors
+```
+
+#### `kitsu` Errors
+
+Unchanged from `3.x`, if there is an error thrown by `kitsu` itself, then you only have:
+
+```js
+catch (err) {
+	err.name // 'Error'
+	err.message // 'POST requires a JSON object body'
+}
 
 ## Migrating to `3.0.0`
 
