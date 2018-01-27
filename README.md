@@ -69,6 +69,7 @@ _Check out the [Migration Guide] for breaking changes and new features in `4.x`_
   ]
 }
 ```
+
 </details>
 
 <details open>
@@ -88,6 +89,7 @@ _Check out the [Migration Guide] for breaking changes and new features in `4.x`_
   }
 }
 ```
+
 </details>
 
 ## Install
@@ -171,15 +173,18 @@ If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lis
     -   [headers](#headers)
     -   [isAuth](#isauth)
     -   [patch](#patch)
+    -   [plural](#plural)
     -   [post](#post)
     -   [remove](#remove)
     -   [self](#self)
 
 ### Kitsu
 
+Creates a new `kitsu` instance
+
 **Parameters**
 
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options (optional, default `{}`)
     -   `options.baseURL` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Set the API endpoint (default `https://kitsu.io/api/edge`)
     -   `options.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with requests
     -   `options.camelCaseTypes` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If true, the `type` value will be camelCased, e.g `library-entries` and `library_entries` become `libraryEntries`  (default `true`)
@@ -189,20 +194,23 @@ If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lis
 
 **Examples**
 
+_Using with Kitsu.io's API_
+
 ```javascript
-// If using Kitsu.io's API
 const api = new Kitsu()
 ```
 
+_Using another API server_
+
 ```javascript
-// If using another API server
 const api = new Kitsu({
   baseURL: 'https://api.example.org/2'
 })
 ```
 
+_Setting headers_
+
 ```javascript
-// Set a `user-agent` and an `authorization` token
 const api = new Kitsu({
   headers: {
     'User-Agent': 'MyApp/1.0.0 (github.com/username/repo)',
@@ -213,8 +221,7 @@ const api = new Kitsu({
 
 #### get
 
-Fetch resources
-Aliases: `fetch`
+Fetch resources (alias `fetch`)
 
 **Parameters**
 
@@ -231,8 +238,9 @@ Aliases: `fetch`
 
 **Examples**
 
+_Getting a resource with JSON:API parameters_
+
 ```javascript
-// Get a specific user's name & birthday
 api.get('users', {
   fields: {
     users: 'name,birthday'
@@ -243,54 +251,72 @@ api.get('users', {
 })
 ```
 
+_Getting a collection of resources with their relationships_
+
 ```javascript
-// Get a collection of anime resources and their categories
 api.get('anime', {
   include: 'categories'
 })
 ```
 
+_Getting a single resource by ID (method one)_
+
 ```javascript
-// Get a single resource and its relationships by ID (method one)
+api.get('anime/2', {
+  include: 'categories'
+})
+```
+
+_Getting a single resource by ID (method two)_
+
+```javascript
 api.get('anime', {
   include: 'categories',
   filter: { id: '2' }
 })
 ```
 
-```javascript
-// Get a single resource and its relationships by ID (method two)
-api.get('anime/2', {
-  include: 'categories'
-})
-```
+_Getting a resource's relationship data only_
 
 ```javascript
-// Get a resource's relationship data only
 api.get('anime/2/categories')
 ```
 
+_Handling errors (async/await)_
+
 ```javascript
-// Handling errors (async/await)
-// http://jsonapi.org/format/#error-objects
 try {
-  const { data } = api.get('anime')
+  const { data } = await api.get('anime')
 } catch (err) {
-  if (err.errors) err.errors.forEach(error => {
-      console.log(error) // Prints JSON:API error object
-  })
+  // Array of JSON:API errors: http://jsonapi.org/format/#error-objects
+  if (err.errors) err.errors.forEach(error => { ... })
+  // Error type (Error, TypeError etc.)
+  err.name
+  // Error message
+  err.message
+  // Axios request parameters
+  err.config
+  // Axios response parameters
+  err.response
 }
 ```
 
+_Handling errors (Promises)_
+
 ```javascript
-// Handling errors (Promise)
-// http://jsonapi.org/format/#error-objects
 api.get('anime')
-  .then(res => res.data)
+  .then(({ data }) => { ... })
   .catch(err => {
-    if (err.errors) err.errors.forEach(error => {
-      console.log(error) // Prints JSON:API error object
-    })
+    // Array of JSON:API errors: http://jsonapi.org/format/#error-objects
+    if (err.errors) err.errors.forEach(error => { ... })
+    // Error type (Error, TypeError etc.)
+    err.name
+    // Error message
+    err.message
+    // Axios request parameters
+    err.config
+    // Axios response parameters
+    err.response
   })
 ```
 
@@ -302,18 +328,21 @@ Get the current headers or add additional headers
 
 **Examples**
 
+_Get all headers_
+
 ```javascript
-// Receive all the headers
 api.headers
 ```
 
+_Get a single header's value_
+
 ```javascript
-// Receive a specific header
 api.headers['User-Agent']
 ```
 
+_Add or update a header's value_
+
 ```javascript
-// Add or update a header
 api.headers['Authorization'] = 'Bearer 1234567890'
 ```
 
@@ -330,12 +359,16 @@ if (api.isAuth) console.log('Authenticated')
 else console.log('Not authenticated')
 ```
 
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+**Meta**
+
+-   **deprecated**: since 4.5.0 - will be removed in 5.0.0 as it doesn't guarantee client is genuinely authenticated with the API
+
 
 #### patch
 
-Update a resource
-Aliases: `update`
+Update a resource (alias `update`)
 
 **Parameters**
 
@@ -345,8 +378,9 @@ Aliases: `update`
 
 **Examples**
 
+_Update a post_
+
 ```javascript
-// Update a user's post (Note: For Kitsu.io, posts cannot be edited 30 minutes after creation)
 api.update('posts', {
   id: '12345678',
   content: 'Goodbye World'
@@ -355,10 +389,26 @@ api.update('posts', {
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
 
+#### plural
+
+-   **See: <https://www.npmjs.com/package/pluralize> for documentation**
+-   **See: Kitsu constructor options for disabling pluralization**
+
+If pluralization is enabled (default, see Kitsu constructor docs) then pluralization rules can be added
+
+**Examples**
+
+_Adding an uncountable pluralization rule_
+
+```javascript
+api.plural.plural('paper') //=> 'papers'
+api.plural.addUncountableRule('paper')
+api.plural.plural('paper') //=> 'paper'
+```
+
 #### post
 
-Create a new resource
-Aliases: `create`
+Create a new resource (alias `create`)
 
 **Parameters**
 
@@ -368,8 +418,9 @@ Aliases: `create`
 
 **Examples**
 
+_Create a post on a user's profile feed_
+
 ```javascript
-// Post to a user's own profile
 api.create('posts', {
   content: 'Hello World',
   targetUser: {
@@ -397,8 +448,9 @@ Remove a resource
 
 **Examples**
 
+_Remove a user's post_
+
 ```javascript
-// Delete a user's post
 api.remove('posts', 123)
 ```
 
@@ -407,7 +459,8 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 #### self
 
 Get the authenticated user's data
-Note: Requires the JSON:API server to support `filter[self]=true`
+
+**Note** Requires the JSON:API server to support `filter[self]=true`
 
 **Parameters**
 
@@ -418,13 +471,15 @@ Note: Requires the JSON:API server to support `filter[self]=true`
 
 **Examples**
 
+_Get the authenticated user's resource_
+
 ```javascript
-// Receive all attributes
 api.self()
 ```
 
+_Using JSON:API parameters_
+
 ```javascript
-// Receive a sparse fieldset
 api.self({
   fields: 'name,birthday'
 })

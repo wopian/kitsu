@@ -1,3 +1,51 @@
+### 4.5.0 (2018-01-27)
+
+##### Breaking Changes
+
+*  remove ES module format ([2d484e02](https://github.com/wopian/kitsu/commit/2d484e029c02cc8fda12ecda814af9c829c8b11b))
+* **fix:**  rethrow JSON:API errors (fixes [#104](https://github.com/wopian/kitsu/pull/104)) ([4a3c6078](https://github.com/wopian/kitsu/commit/4a3c6078a4337115122f9c66691df058ddda53ee))
+* **rollup:**  use commonjs format instead of UMD for lib files ([204ab3e3](https://github.com/wopian/kitsu/commit/204ab3e3c93b21109f1515ae3ebc168b06181a7f))
+
+##### Build System / Dependencies
+
+*  lint docs during doc generation ([95c44478](https://github.com/wopian/kitsu/commit/95c4447802648fabbbc118e013eb1e6aba34a0f1))
+
+##### Chores
+
+* **deps:**
+  *  update axios-mock-adapter to ~1.12.0 ([#108](https://github.com/wopian/kitsu/pull/108)) ([24ccbc77](https://github.com/wopian/kitsu/commit/24ccbc77f753b6316bce8f27a60d97e82456e3a9))
+  *  update rollup to ~0.55.0 ([#105](https://github.com/wopian/kitsu/pull/105)) ([264f2009](https://github.com/wopian/kitsu/commit/264f2009cc678716148f1506dbc82e1752593963))
+*  remove useless throw case after 4a3c607 ([85e7cc67](https://github.com/wopian/kitsu/commit/85e7cc67287ca4d197874bcc91607bfa3027b80f))
+
+##### Documentation Changes
+
+* **readme:**  update package size in support table ([978d0430](https://github.com/wopian/kitsu/commit/978d0430e11ec928cd02a0967b0b7189365843cf))
+* **isAuth:**  add deprecation notice ([c583889b](https://github.com/wopian/kitsu/commit/c583889bf42a5aca633885d0b6358cd0061d3685))
+* **error:**  add documentation ([97a35564](https://github.com/wopian/kitsu/commit/97a355641a4689165530d6ee446fc41cbf8df994))
+* **query:**  add documentation ([216a20d2](https://github.com/wopian/kitsu/commit/216a20d2750b42831f88536ef872ccb796050584))
+*  update dictionary ([27a3c341](https://github.com/wopian/kitsu/commit/27a3c341fc2ad533ba2538b938c5f2a6880f2539))
+*  add cdn usage and demo services (node & browser) ([671f7d34](https://github.com/wopian/kitsu/commit/671f7d348d2dd0ac1d61e03c661e95c7952a14d8))
+*  tag linkArray/Object as private functions ([601612c9](https://github.com/wopian/kitsu/commit/601612c92b1403e5c1e63a156cf2b021ffa573ba))
+
+##### Refactors
+
+*  remove authentication requirements for post/patch/delete ([#107](https://github.com/wopian/kitsu/pull/107)) ([b91057e5](https://github.com/wopian/kitsu/commit/b91057e5bb50c6fb35fdc0125942824393e04f06))
+*  don't check query param type is a string ([a4486b3d](https://github.com/wopian/kitsu/commit/a4486b3d38a5e9771da7e5561422730bda879c50))
+*  cleanup linkRelationships ([c0e1aae8](https://github.com/wopian/kitsu/commit/c0e1aae84b57cac7e6ad295b1d2e65817438d899))
+*  inject JSON:API error array into top level of axios error ([d4019919](https://github.com/wopian/kitsu/commit/d4019919f1ecd8c78af57f8c55af333feead6ee6))
+*  simplify required jsonapi headers inclusion ([6f018c71](https://github.com/wopian/kitsu/commit/6f018c711d648f448e0c513e97add2a07c6a73f4))
+
+##### Reverts
+
+*  switch back to using UMD instead of CommonJS ([2dc27467](https://github.com/wopian/kitsu/commit/2dc274676abaf0b23a5d3ffb2b29b8278f44188a))
+
+##### Tests
+
+* **error:**  update test cases ([5ea1f130](https://github.com/wopian/kitsu/commit/5ea1f1302edde30d6b71b791bfff39c1be4c852d))
+*  ignore axios paramSerializer function line ([1a8dd927](https://github.com/wopian/kitsu/commit/1a8dd9272130e7f6a7b7b985df5aecf642aaa88d))
+*  test uncovered throw in serialise ([0b055d36](https://github.com/wopian/kitsu/commit/0b055d36c9797902c96c8b822835c82449220368))
+*  update test cases ([f974a2a0](https://github.com/wopian/kitsu/commit/f974a2a0b158635f785935d615bcb09cc551dea1))
+
 #### 4.4.3 (2018-01-22)
 
 ##### Chores
