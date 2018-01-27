@@ -1,3 +1,10 @@
+/**
+ * Constructs a URL query string for JSON:API parameters
+ *
+ * @param {Object} params Parameters to parse
+ * @returns {string} URL query string
+ * @private
+ */
 export function query (params) {
   let query = ''
 
