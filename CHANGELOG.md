@@ -1,3 +1,14 @@
+#### 4.5.1 (2018-01-27)
+
+##### Build System / Dependencies
+
+*  add TypeError and addUncountableRule to dictionary ([118a430a](https://github.com/wopian/kitsu/commit/118a430aa94781fd54f2f6354daa963e425e7c04))
+*  run doc tasks before tests ([cdde056f](https://github.com/wopian/kitsu/commit/cdde056fa1a5d703baa7dc41c7fe337c47f76fb1))
+
+##### Reverts
+
+*  re-add ES modules ([47037566](https://github.com/wopian/kitsu/commit/47037566a23160307b42da7e3cd47f067f8c4d49))
+
 ### 4.5.0 (2018-01-27)
 
 ##### Breaking Changes
