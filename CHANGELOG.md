@@ -4,7 +4,8 @@
 
 *  remove ES module format ([2d484e02](https://github.com/wopian/kitsu/commit/2d484e029c02cc8fda12ecda814af9c829c8b11b))
 * **fix:**  rethrow JSON:API errors (fixes [#104](https://github.com/wopian/kitsu/pull/104)) ([4a3c6078](https://github.com/wopian/kitsu/commit/4a3c6078a4337115122f9c66691df058ddda53ee))
-* **rollup:**  use commonjs format instead of UMD for lib files ([204ab3e3](https://github.com/wopian/kitsu/commit/204ab3e3c93b21109f1515ae3ebc168b06181a7f))
+* **rollup:**  ~~use commonjs format instead of UMD for lib files~~ ([204ab3e3](https://github.com/wopian/kitsu/commit/204ab3e3c93b21109f1515ae3ebc168b06181a7f))
+    - reverted in ([2dc27467](https://github.com/wopian/kitsu/commit/2dc274676abaf0b23a5d3ffb2b29b8278f44188a))
 
 ##### Build System / Dependencies
 
@@ -34,10 +35,6 @@
 *  cleanup linkRelationships ([c0e1aae8](https://github.com/wopian/kitsu/commit/c0e1aae84b57cac7e6ad295b1d2e65817438d899))
 *  inject JSON:API error array into top level of axios error ([d4019919](https://github.com/wopian/kitsu/commit/d4019919f1ecd8c78af57f8c55af333feead6ee6))
 *  simplify required jsonapi headers inclusion ([6f018c71](https://github.com/wopian/kitsu/commit/6f018c711d648f448e0c513e97add2a07c6a73f4))
-
-##### Reverts
-
-*  switch back to using UMD instead of CommonJS ([2dc27467](https://github.com/wopian/kitsu/commit/2dc274676abaf0b23a5d3ffb2b29b8278f44188a))
 
 ##### Tests
 

@@ -63,6 +63,12 @@ export default [
         name: 'Kitsu',
         sourcemap: true,
         globals
+      },
+      {
+        file: pkg.module,
+        format: 'es',
+        sourcemap: true,
+        globals
       }
     ]
   },
@@ -76,6 +82,12 @@ export default [
         file: 'lib/node.js',
         format: 'umd',
         name: 'Kitsu',
+        sourcemap: true,
+        globals
+      },
+      {
+        file: 'lib/node.mjs',
+        format: 'es',
         sourcemap: true,
         globals
       }
