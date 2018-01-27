@@ -60,6 +60,8 @@
     "CDN",
     "src",
     "CodePen",
-    "js"
+    "js",
+    "TypeError",
+    "addUncountableRule"
   ]
 }
