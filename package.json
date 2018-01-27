@@ -16,7 +16,7 @@
     "jest": "jest --coverage",
     "spellcheck": "yaspeller-ci README.md MIGRATING.md CONTRIBUTING.md",
     "lint": "eslint src && yarn spellcheck",
-    "test": "yarn jest && yarn lint && yarn docs && yarn build",
+    "test": "yarn jest && yarn docs && yarn lint && yarn build",
     ":test": "jest && yarn lint && yarn docs && yarn build",
     ":docs": "yarn docs && documentation readme src/index.js --section=API --sort-order alpha",
     ":commit": "git add package.json && git add README.md && git add CHANGELOG.md && git commit -m \"update changelog\"",
