@@ -2,7 +2,8 @@ import axios from 'axios'
 import { camel, deserialise, error, kebab, query, serialise, snake } from './util'
 
 /**
- * @name Kitsu
+ * Creates a new `kitsu` instance
+ *
  * @param {Object} options Options
  * @param {string} options.baseURL Set the API endpoint (default `https://kitsu.io/api/edge`)
  * @param {Object} options.headers Additional headers to send with requests
@@ -10,19 +11,13 @@ import { camel, deserialise, error, kebab, query, serialise, snake } from './uti
  * @param {string} options.resourceCase `kebab`, `snake` or `none`. If `kebab`, `/libraryEntries` will become `/library-entries`. If `snake`, `/libraryEntries` will become `/library_entries`, If `none`, `/libraryEntries` will be unchanged (default `kebab`)
  * @param {boolean} options.pluralize If `true`, `/user` will become `/users` in the URL request and `type` will be pluralized in post, patch and delete requests - `user` -> `users` (default `true`)
  * @param {number} options.timeout Set the request timeout in milliseconds (default `30000`)
- *
- * @example
- * // If using Kitsu.io's API
+ * @example <caption>Using with Kitsu.io's API</caption>
  * const api = new Kitsu()
- *
- * @example
- * // If using another API server
+ * @example <caption>Using another API server</caption>
  * const api = new Kitsu({
  *   baseURL: 'https://api.example.org/2'
  * })
- *
- * @example
- * // Set a `user-agent` and an `authorization` token
+ * @example <caption>Setting headers</caption>
  * const api = new Kitsu({
  *   headers: {
  *     'User-Agent': 'MyApp/1.0.0 (github.com/username/repo)',
@@ -39,6 +34,19 @@ export default class Kitsu {
     else if (options.resourceCase === 'snake') this.resCase = snake
     else this.resCase = kebab
 
+    /**
+     * If pluralization is enabled (default, see Kitsu constructor docs) then pluralization rules can be added
+     *
+     * @memberof Kitsu
+     * @external plural
+     * @see {@link https://www.npmjs.com/package/pluralize} for documentation
+     * @see Kitsu constructor options for disabling pluralization
+     * @example <caption>Adding an uncountable pluralization rule</caption>
+     * api.plural.plural('paper') //=> 'papers'
+     * api.plural.addUncountableRule('paper')
+     * api.plural.plural('paper') //=> 'paper'
+     *
+     */
     if (options.pluralize === false) this.plural = s => s
     else this.plural = require('pluralize')
 
@@ -47,17 +55,11 @@ export default class Kitsu {
      *
      * @memberof Kitsu
      * @returns {Object} All the current headers
-     *
-     * @example
-     * // Receive all the headers
+     * @example <caption>Get all headers</caption>
      * api.headers
-     *
-     * @example
-     * // Receive a specific header
+     * @example <caption>Get a single header's value</caption>
      * api.headers['User-Agent']
-     *
-     * @example
-     * // Add or update a header
+     * @example <caption>Add or update a header's value</caption>
      * api.headers['Authorization'] = 'Bearer 1234567890'
      */
     this.headers = Object.assign({}, options.headers, { 'Accept': 'application/vnd.api+json', 'Content-Type': 'application/vnd.api+json' })
@@ -73,7 +75,7 @@ export default class Kitsu {
    *
    * @memberof Kitsu
    * @returns {boolean}
-   *
+   * @deprecated since 4.5.0 - will be removed in 5.0.0 as it doesn't guarantee client is genuinely authenticated with the API
    * @example
    * if (api.isAuth) console.log('Authenticated')
    * else console.log('Not authenticated')
@@ -83,8 +85,7 @@ export default class Kitsu {
   }
 
   /**
-   * Fetch resources
-   * Aliases: `fetch`
+   * Fetch resources (alias `fetch`)
    *
    * @memberof Kitsu
    * @param {string} model Model to fetch data from
@@ -98,9 +99,7 @@ export default class Kitsu {
    * @param {string} params.include Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
    * @param {Object} headers Additional headers to send with request
    * @returns {Object} JSON-parsed response
-   *
-   * @example
-   * // Get a specific user's name & birthday
+   * @example <caption>Getting a resource with JSON:API parameters</caption>
    * api.get('users', {
    *   fields: {
    *     users: 'name,birthday'
@@ -109,50 +108,50 @@ export default class Kitsu {
    *     name: 'wopian'
    *   }
    * })
-   *
-   * @example
-   * // Get a collection of anime resources and their categories
+   * @example <caption>Getting a collection of resources with their relationships</caption>
    * api.get('anime', {
    *   include: 'categories'
    * })
-   *
-   * @example
-   * // Get a single resource and its relationships by ID (method one)
+   * @example <caption>Getting a single resource by ID (method one)</caption>
+   * api.get('anime/2', {
+   *   include: 'categories'
+   * })
+   * @example <caption>Getting a single resource by ID (method two)</caption>
    * api.get('anime', {
    *   include: 'categories',
    *   filter: { id: '2' }
    * })
-   *
-   * @example
-   * // Get a single resource and its relationships by ID (method two)
-   * api.get('anime/2', {
-   *   include: 'categories'
-   * })
-   *
-   * @example
-   * // Get a resource's relationship data only
+   * @example <caption>Getting a resource's relationship data only</caption>
    * api.get('anime/2/categories')
-   *
-   * @example
-   * // Handling errors (async/await)
-   * // http://jsonapi.org/format/#error-objects
+   * @example <caption>Handling errors (async/await)</caption>
    * try {
-   *   const { data } = api.get('anime')
+   *   const { data } = await api.get('anime')
    * } catch (err) {
-   *   if (err.errors) err.errors.forEach(error => {
-   *       console.log(error) // Prints JSON:API error object
-   *   })
+   *   // Array of JSON:API errors: http://jsonapi.org/format/#error-objects
+   *   if (err.errors) err.errors.forEach(error => { ... })
+   *   // Error type (Error, TypeError etc.)
+   *   err.name
+   *   // Error message
+   *   err.message
+   *   // Axios request parameters
+   *   err.config
+   *   // Axios response parameters
+   *   err.response
    * }
-   *
-   * @example
-   * // Handling errors (Promise)
-   * // http://jsonapi.org/format/#error-objects
+   * @example <caption>Handling errors (Promises)</caption>
    * api.get('anime')
-   *   .then(res => res.data)
+   *   .then(({ data }) => { ... })
    *   .catch(err => {
-   *     if (err.errors) err.errors.forEach(error => {
-   *       console.log(error) // Prints JSON:API error object
-   *     })
+   *     // Array of JSON:API errors: http://jsonapi.org/format/#error-objects
+   *     if (err.errors) err.errors.forEach(error => { ... })
+   *     // Error type (Error, TypeError etc.)
+   *     err.name
+   *     // Error message
+   *     err.message
+   *     // Axios request parameters
+   *     err.config
+   *     // Axios response parameters
+   *     err.response
    *   })
    */
   async get (model, params = {}, headers = {}) {
@@ -177,17 +176,14 @@ export default class Kitsu {
   }
 
   /**
-   * Update a resource
-   * Aliases: `update`
+   * Update a resource (alias `update`)
    *
    * @memberof Kitsu
    * @param {string} model Model to update data in
    * @param {Object} body Data to send in the request
    * @param {Object} headers Additional headers to send with request
    * @returns {Object} JSON-parsed response
-   *
-   * @example
-   * // Update a user's post (Note: For Kitsu.io, posts cannot be edited 30 minutes after creation)
+   * @example <caption>Update a post</caption>
    * api.update('posts', {
    *   id: '12345678',
    *   content: 'Goodbye World'
@@ -210,17 +206,14 @@ export default class Kitsu {
   }
 
   /**
-   * Create a new resource
-   * Aliases: `create`
+   * Create a new resource (alias `create`)
    *
    * @memberof Kitsu
    * @param {string} model Model to create a resource under
    * @param {Object} body Data to send in the request
    * @param {Object} headers Additional headers to send with request
    * @returns {Object} JSON-parsed response
-   *
-   * @example
-   * // Post to a user's own profile
+   * @example <caption>Create a post on a user's profile feed</caption>
    * api.create('posts', {
    *   content: 'Hello World',
    *   targetUser: {
@@ -256,9 +249,7 @@ export default class Kitsu {
    * @param {string|number} id Resource ID to remove
    * @param {Object} headers Additional headers to send with request
    * @returns {Object} JSON-parsed response
-   *
-   * @example
-   * // Delete a user's post
+   * @example <caption>Remove a user's post</caption>
    * api.remove('posts', 123)
    */
   async remove (model, id, headers = {}) {
@@ -277,7 +268,8 @@ export default class Kitsu {
 
   /**
    * Get the authenticated user's data
-   * Note: Requires the JSON:API server to support `filter[self]=true`
+   *
+   * **Note** Requires the JSON:API server to support `filter[self]=true`
    *
    * @memberof Kitsu
    * @param {Object} params JSON-API request queries
@@ -285,13 +277,9 @@ export default class Kitsu {
    * @param {string} params.include Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
    * @param {Object} headers Additional headers to send with request
    * @returns {Object} JSON-parsed response
-   *
-   * @example
-   * // Receive all attributes
+   * @example <caption>Get the authenticated user's resource</caption>
    * api.self()
-   *
-   * @example
-   * // Receive a sparse fieldset
+   * @example <caption>Using JSON:API parameters</caption>
    * api.self({
    *   fields: 'name,birthday'
    * })
