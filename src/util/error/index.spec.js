@@ -23,14 +23,18 @@ describe('error', () => {
         }
       }
     }
-    expect(error(obj).errors).toEqual([
-      {
-        title: 'Filter is not allowed',
-        detail: 'x is not allowed',
-        code: '102',
-        status: '400'
-      }
-    ])
+    try {
+      error(obj)
+    } catch ({ errors }) {
+      expect(errors).toEqual([
+        {
+          title: 'Filter is not allowed',
+          detail: 'x is not allowed',
+          code: '102',
+          status: '400'
+        }
+      ])
+    }
   })
 
   it('Should handle top-level JSON:API errors', () => {
@@ -38,9 +42,13 @@ describe('error', () => {
     const obj = {
       errors: [ { code: 400 } ]
     }
-    expect(error(obj)).toEqual({
-      errors: [ { code: 400 } ]
-    })
+    try {
+      error(obj)
+    } catch (err) {
+      expect(err).toEqual({
+        errors: [ { code: 400 } ]
+      })
+    }
   })
 
   it('Should throw all other errors', () => {
