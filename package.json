@@ -94,7 +94,7 @@
     "eslint": "~4.17.0",
     "eslint-config-wopian": "~1.0.4",
     "generate-changelog": "~1.7.0",
-    "jest": "~22.1.0",
+    "jest": "~22.2.0",
     "js-beautify": "~1.7.4",
     "rollup": "~0.55.0",
     "rollup-plugin-babel": "~3.0.1",
