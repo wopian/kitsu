@@ -124,7 +124,10 @@ export default {
           data: [
             {
               type: 'categories',
-              id: '155'
+              id: '155',
+              meta: {
+                dic1: 'def1'
+              }
             },
             {
               type: 'categories',

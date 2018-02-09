@@ -12,9 +12,10 @@ import { error } from '../'
  */
 export async function filterIncludes (included, { id, type }) {
   try {
-    return included.filter(el => {
+    const filtered = included.filter(el => {
       return el.id === id && el.type === type
     })[0] || { id, type }
+    return Object.assign({}, filtered)
   } catch (E) {
     error(E)
   }

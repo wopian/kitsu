@@ -116,6 +116,9 @@ export default {
           links: {
             self: 'https://kitsu.io/api/edge/categories/155'
           },
+          meta: {
+            dic1: 'def1'
+          },
           nsfw: false,
           relationships: {
             parent: {
