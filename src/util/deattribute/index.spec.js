@@ -14,8 +14,8 @@ describe('deattribute', () => {
 
   it('Should deattribute an array of objects', async () => {
     expect.assertions(1)
-    expect(await deattribute([attributesKey.jsonapi, attributesKey.jsonapi]))
-      .toEqual([attributesKey.kitsu, attributesKey.kitsu])
+    expect(await deattribute([ attributesKey.jsonapi, attributesKey.jsonapi ]))
+      .toEqual([ attributesKey.kitsu, attributesKey.kitsu ])
   })
 
   it('Should do nothing if no attributes supplied', async () => {

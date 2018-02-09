@@ -50,39 +50,45 @@ describe('deserialise', () => {
   it('Should deserialise a collection of resources with included relationships', async () => {
     expect.assertions(1)
     expect(await deserialise({
-      data: [{
-        id: '1',
-        type: 'users',
-        attributes: {
-          name: 'Josh'
-        },
-        relationships: {
-          waifu: {
-            data: {
-              id: '1',
-              type: 'characters'
+      data: [
+        {
+          id: '1',
+          type: 'users',
+          attributes: {
+            name: 'Josh'
+          },
+          relationships: {
+            waifu: {
+              data: {
+                id: '1',
+                type: 'characters'
+              }
             }
           }
         }
-      }],
-      included: [{
-        id: '1',
-        type: 'characters',
-        attributes: {
-          name: 'Genkai'
-        }
-      }]
-    })).toEqual({
-      data: [{
-        name: 'Josh',
-        waifu: {
-          name: 'Genkai',
+      ],
+      included: [
+        {
           id: '1',
-          type: 'characters'
-        },
-        id: '1',
-        type: 'users'
-      }]
+          type: 'characters',
+          attributes: {
+            name: 'Genkai'
+          }
+        }
+      ]
+    })).toEqual({
+      data: [
+        {
+          name: 'Josh',
+          waifu: {
+            name: 'Genkai',
+            id: '1',
+            type: 'characters'
+          },
+          id: '1',
+          type: 'users'
+        }
+      ]
     })
   })
 
@@ -104,13 +110,15 @@ describe('deserialise', () => {
           }
         }
       },
-      included: [{
-        id: '1',
-        type: 'characters',
-        attributes: {
-          name: 'Genkai'
+      included: [
+        {
+          id: '1',
+          type: 'characters',
+          attributes: {
+            name: 'Genkai'
+          }
         }
-      }]
+      ]
     })).toEqual({
       data: {
         name: 'Josh',

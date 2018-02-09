@@ -90,14 +90,16 @@ describe('serialise', () => {
       data: {
         relationships: {
           user: {
-            data: [{
-              id: '2',
-              type: 'users'
-            },
-            {
-              id: '3',
-              type: 'users'
-            }]
+            data: [
+              {
+                id: '2',
+                type: 'users'
+              },
+              {
+                id: '3',
+                type: 'users'
+              }
+            ]
           }
         },
         type: 'libraryEntries'
