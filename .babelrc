@@ -16,7 +16,7 @@
       "presets":[
         ["env", {
           "targets": {
-            "browsers": ["last 2 years", "not < 0.5%"],
+            "browsers": ["last 2 years", "not < 0.05%"],
             "node": 6
           },
           "modules": false
