@@ -1,3 +1,37 @@
+#### 4.5.3 (2018-02-10)
+
+##### Build System / Dependencies
+
+*  remove unused js-beautify devDependency ([708f15e8](https://github.com/wopian/kitsu/commit/708f15e8e3df36c4748c97e3e0bd6ef9fa4d546f))
+
+##### Chores
+
+* **deps:**
+  *  update eslint-config-wopian to ~1.1.0 ([#120](https://github.com/wopian/kitsu/pull/120)) ([986b3732](https://github.com/wopian/kitsu/commit/986b3732f765d4816c5a4f1fc6a1d15b860240f3))
+  *  update axios-mock-adapter to ~1.13.0 ([#119](https://github.com/wopian/kitsu/pull/119)) ([30da1e8a](https://github.com/wopian/kitsu/commit/30da1e8a4c8eddc43ebbf8944436b23588cddad5))
+  *  update jest to ~22.2.0 ([#117](https://github.com/wopian/kitsu/pull/117)) ([f5165ba0](https://github.com/wopian/kitsu/commit/f5165ba0dc4f94e47a22af5c659eea30d5455720))
+  *  update eslint-plugin-node to ~6.0.0 ([#116](https://github.com/wopian/kitsu/pull/116)) ([e7112ba5](https://github.com/wopian/kitsu/commit/e7112ba5a9204fce5acb53461c4c64cbce113b92))
+  *  update rollup-plugin-babel-minify to ~4.0.0 ([#115](https://github.com/wopian/kitsu/pull/115)) ([41b8f4a6](https://github.com/wopian/kitsu/commit/41b8f4a6f113575e3bccae37f6d097b1975517d0))
+  *  update eslint to ~4.17.0 ([#114](https://github.com/wopian/kitsu/pull/114)) ([571a168c](https://github.com/wopian/kitsu/commit/571a168c63827d2c7edb9aa5bb344ee3612ee9e5))
+  *  update lock file ([#112](https://github.com/wopian/kitsu/pull/112)) ([bf24d5b2](https://github.com/wopian/kitsu/commit/bf24d5b281ea9c3c8422cb758f9a14a6ce71940c))
+
+##### Documentation Changes
+
+* **readme:**
+  *  update browser section ([1452e7d1](https://github.com/wopian/kitsu/commit/1452e7d1336f4044ab745c4ad2759b47f3c432e3))
+  *  add package size notice ([1f87617d](https://github.com/wopian/kitsu/commit/1f87617d9a54eefd1e20abd0a6aaa59904e48d94))
+* **dictionary:**  add JS destructuring ([a8dd1169](https://github.com/wopian/kitsu/commit/a8dd1169a004a53b1f2f329ae08b1357825e1caa))
+* **migrating:**  update error handling for 3.x to 4.x ([86a77130](https://github.com/wopian/kitsu/commit/86a77130948dc8563fcb3c45a9406883e9e4e23d))
+* **changelog:**  add revert notice to es module files ([dd83ed6c](https://github.com/wopian/kitsu/commit/dd83ed6c74a9d00ee5703c46a9c114cf53b41739))
+
+##### New Features
+
+*  use eslint-config-wopian ([82d057cd](https://github.com/wopian/kitsu/commit/82d057cdec24329523037327882b5bb2186006c0))
+
+##### Bug Fixes
+
+*  set browser usage cutoff to 0.05% instead of 0.5% for default usage ([dc1f8463](https://github.com/wopian/kitsu/commit/dc1f846352b92954b499caaf9a4caf954222f07f))
+
 #### 4.5.2 (2018-01-27)
 
 #### 4.5.1 (2018-01-27)
