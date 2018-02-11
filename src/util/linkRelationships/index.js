@@ -3,14 +3,17 @@ import { deattribute, filterIncludes } from '../'
 /**
  * Core function to link relationships to included data
  *
- * @param {string} id The included data's ID
- * @param {type} type The included data's type
+ * @param {Object} resource The included resource
+ * @param {string} resource.id Resource ID
+ * @param {string} resource.type Resource type
+ * @param {Object} resource.meta Meta information
  * @param {Object} included The response included object
  * @private
  */
-async function link (id, type, included) {
+async function link ({ id, type, meta }, included) {
   const filtered = await filterIncludes(included, { id, type })
   if (filtered.relationships) await linkRelationships(filtered, included)
+  if (meta) filtered.meta = meta
   return deattribute(filtered)
 }
 
@@ -24,8 +27,8 @@ async function link (id, type, included) {
  */
 async function linkArray (data, included, key) {
   data[key] = []
-  for (let { id, type } of await data.relationships[key].data) {
-    data[key].push(await link(id, type, included))
+  for (let resource of await data.relationships[key].data) {
+    data[key].push(await link(resource, included))
   }
 }
 
@@ -38,8 +41,7 @@ async function linkArray (data, included, key) {
  * @private
  */
 async function linkObject (data, included, key) {
-  const { id, type } = data.relationships[key].data
-  data[key] = await link(id, type, included)
+  data[key] = await link(data.relationships[key].data, included)
   delete data[key].relationships
 }
 
