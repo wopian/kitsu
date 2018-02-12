@@ -1,3 +1,13 @@
+### 4.6.0 (2018-02-12)
+
+##### Chores
+
+* **deps:**  update documentation to ~5.4.0 ([#122](https://github.com/wopian/kitsu/pull/122)) ([d91434ee](https://github.com/wopian/kitsu/commit/d91434ee3e42b77f92358ba825d6accedfefe95e))
+
+##### New Features
+
+*  include meta from relationships ([#118](https://github.com/wopian/kitsu/pull/118)) ([1add511c](https://github.com/wopian/kitsu/commit/1add511c552150421b91979da5d8cc160bc7b7f8))
+
 #### 4.5.3 (2018-02-10)
 
 ##### Build System / Dependencies
