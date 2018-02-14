@@ -2628,14 +2628,14 @@ eslint-config-standard@~11.0.0-beta.0:
   version "11.0.0-beta.0"
   resolved "https://registry.yarnpkg.com/eslint-config-standard/-/eslint-config-standard-11.0.0-beta.0.tgz#f8afe69803d95c685a4b8392b8793188eb03cbb3"
 
-eslint-config-wopian@~1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-wopian/-/eslint-config-wopian-1.1.0.tgz#adf8981190a958d59b2b82883544aa09038d5518"
+eslint-config-wopian@~1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-wopian/-/eslint-config-wopian-1.2.0.tgz#911c19a92a5f0d2946817d642d70aa4797b0d02b"
   dependencies:
     babel-eslint "~8.2.0"
     eslint-config-standard "~11.0.0-beta.0"
     eslint-plugin-import "~2.8.0"
-    eslint-plugin-jest "~21.7.0"
+    eslint-plugin-jest "~21.12.0"
     eslint-plugin-node "~6.0.0"
     eslint-plugin-promise "~3.6.0"
     eslint-plugin-standard "~3.0.0"
@@ -2669,9 +2669,9 @@ eslint-plugin-import@~2.8.0:
     minimatch "^3.0.3"
     read-pkg-up "^2.0.0"
 
-eslint-plugin-jest@~21.7.0:
-  version "21.7.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-21.7.0.tgz#651f1c6ce999af3ac59ab8bf8a376d742fd0fc23"
+eslint-plugin-jest@~21.12.0:
+  version "21.12.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-21.12.1.tgz#0a70b3e2be5172ab558f46bbff02ed11069266d6"
 
 eslint-plugin-node@~6.0.0:
   version "6.0.0"
