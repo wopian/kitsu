@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { camel, deserialise, error, kebab, query, serialise, snake } from './util'
+import { camel, deserialise, error, kebab, query, serialise, snake } from 'kitsu-core'
 
 /**
  * Creates a new `kitsu` instance

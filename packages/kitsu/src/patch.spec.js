@@ -4,7 +4,7 @@ import Kitsu from 'kitsu'
 import {
   patchSingle,
   patchSingleMissingID
-} from './__cases__'
+} from '../__cases__'
 
 const mock = new MockAdapter(axios)
 

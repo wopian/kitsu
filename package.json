@@ -1,88 +1,26 @@
 {
-  "name": "kitsu",
-  "version": "4.6.0",
-  "description": "Simple & lightweight JSON-API client for Kitsu and other compliant APIs",
-  "license": "MIT",
-  "author": "James Harris <wopian@wopian.me>",
-  "main": "lib/kitsu.js",
-  "module": "lib/kitsu.mjs",
-  "engines": {
-    "node": ">=6"
-  },
-  "scripts": {
-    "docs": "documentation lint src/index.js",
-    "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
-    "build": "yarn rollup && size-limit",
-    "jest": "jest --coverage",
-    "spellcheck": "yaspeller-ci README.md MIGRATING.md CONTRIBUTING.md",
-    "lint": "eslint src && yarn spellcheck",
-    "test": "yarn jest && yarn docs && yarn lint && yarn build",
-    ":test": "jest && yarn lint && yarn docs && yarn build",
-    ":docs": "yarn docs && documentation readme src/index.js --section=API --sort-order alpha",
-    ":commit": "git add package.json && git add README.md && git add CHANGELOG.md && git commit -m \"update changelog\"",
-    ":publish": "git push origin && git push origin --tags && yarn publish",
-    ":major": "yarn :docs && yarn :test && changelog -M && yarn :commit && npm version major && yarn :publish",
-    ":minor": "yarn :docs && yarn :test && changelog -m && yarn :commit && npm version minor && yarn :publish",
-    ":patch": "yarn :docs && yarn :test && changelog -p && yarn :commit && npm version patch && yarn :publish",
-    "example:basic": "node ./example/basic",
-    "example:async": "babel-node ./example/async",
-    "example:auth": "babel-node ./example/auth",
-    "example:complex": "babel-node ./example/complex"
-  },
-  "size-limit": [
-    {
-      "path": "./lib/kitsu.js",
-      "limit": "18 kb"
-    },
-    {
-      "path": "./lib/kitsu.mjs",
-      "limit": "18 kb"
-    },
-    {
-      "path": "./lib/legacy.js",
-      "limit": "20 kb"
-    },
-    {
-      "path": "./lib/node.js",
-      "limit": "15 kb"
-    },
-    {
-      "path": "./lib/node.mjs",
-      "limit": "15 kb"
-    }
-  ],
-  "keywords": [
-    "kitsu",
-    "kitsu.io",
-    "anime",
-    "manga",
-    "drama",
-    "json",
-    "api",
-    "wrapper",
-    "client",
-    "jsonapi",
-    "json-api",
-    "serialize",
-    "deserialize"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wopian/kitsu.git"
-  },
+  "private": true,
+  "homepage": "https://github.com/wopian/kitsu#readme",
+  "repository": "https://github.com/wopian/kitsu",
   "bugs": {
     "url": "https://github.com/wopian/kitsu/issues"
   },
-  "homepage": "https://github.com/wopian/kitsu#readme",
-  "files": [
-    "lib"
+  "engines": {
+    "node": ">=6"
+  },
+  "workspaces": [
+    "packages/*"
   ],
-  "dependencies": {
-    "axios": "^0.17.0",
-    "babel-runtime": "^6.26.0",
-    "pluralize": "^7.0.0"
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna exec --bail=false yarn build",
+    "lint": "eslint packages",
+    "test": "yarn test:coverage && yarn lint",
+    "test:coverage": "jest --coverage",
+    "test:release": "jest && yarn lint"
   },
   "devDependencies": {
+    "lerna": "~2.8.0",
     "axios-mock-adapter": "~1.13.0",
     "babel-cli": "~6.26.0",
     "babel-core": "~6.26.0",
@@ -93,7 +31,6 @@
     "documentation": "~5.4.0",
     "eslint": "~4.17.0",
     "eslint-config-wopian": "~1.2.0",
-    "generate-changelog": "~1.7.0",
     "jest": "~22.3.0",
     "rollup": "~0.55.0",
     "rollup-plugin-babel": "~3.0.1",
@@ -104,12 +41,13 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.js",
+      "**/src/**/*.js",
       "!**/__cases__/**"
     ],
     "coverageDirectory": "<rootDir>/coverage",
     "moduleNameMapper": {
-      "^kitsu(.*)$": "<rootDir>/src/$1",
+      "^kitsu-core(.*)$": "<rootDir>/packages/kitsu-core/src/$1",
+      "^kitsu(.*)$": "<rootDir>/packages/kitsu/src/$1",
       "^pkg$": "<rootDir>/package.json"
     }
   },
