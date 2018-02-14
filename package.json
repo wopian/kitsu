@@ -15,9 +15,9 @@
     "bootstrap": "lerna bootstrap",
     "build": "lerna exec --bail=false yarn build",
     "lint": "eslint packages",
-    "test": "yarn test:coverage && yarn lint",
-    "test:coverage": "jest --coverage",
-    "test:release": "jest && yarn lint"
+    "test": "yarn test:coverage && yarn lint && yarn build",
+    "test:release": "jest && yarn lint && yarn build",
+    "test:coverage": "jest --coverage"
   },
   "devDependencies": {
     "lerna": "~2.8.0",
