@@ -1,7 +1,7 @@
 import { deserialise } from './'
 
 describe('deserialise', () => {
-  it('Should deserialise a resource without included relationships', async () => {
+  it('should deserialise a resource without included relationships', async () => {
     expect.assertions(1)
     expect(await deserialise({
       data: {
@@ -20,7 +20,7 @@ describe('deserialise', () => {
     })
   })
 
-  it('Should deserialise a collection without attributes and included relationships', async () => {
+  it('should deserialise a collection without attributes and included relationships', async () => {
     expect.assertions(1)
     expect(await deserialise({
       data: [
@@ -47,7 +47,7 @@ describe('deserialise', () => {
     })
   })
 
-  it('Should deserialise a collection of resources with included relationships', async () => {
+  it('should deserialise a collection of resources with included relationships', async () => {
     expect.assertions(1)
     expect(await deserialise({
       data: [
@@ -92,7 +92,7 @@ describe('deserialise', () => {
     })
   })
 
-  it('Should deserialise a single resource with included relationships', async () => {
+  it('should deserialise a single resource with included relationships', async () => {
     expect.assertions(1)
     expect(await deserialise({
       data: {
@@ -133,7 +133,7 @@ describe('deserialise', () => {
     })
   })
 
-  it('Should deserialise with empty data arrays', async () => {
+  it('should deserialise with empty data arrays', async () => {
     expect.assertions(1)
     expect(await deserialise({
       data: {

@@ -33,7 +33,7 @@ const serial = {
 }
 
 describe('serialise', () => {
-  it('Should serialise to a JSON API compliant object', async () => {
+  it('should serialise to a JSON API compliant object', async () => {
     expect.assertions(1)
     const input = await serial.camelKebabPlural('libraryEntries', {
       id: '1',
@@ -49,7 +49,7 @@ describe('serialise', () => {
     })
   })
 
-  it('Should serialise JSON API relationships', async () => {
+  it('should serialise JSON API relationships', async () => {
     expect.assertions(1)
     const input = await serial.camelKebabPlural('libraryEntries', {
       id: '1',
@@ -72,7 +72,7 @@ describe('serialise', () => {
     })
   })
 
-  it('Should serialise JSON API array relationships', async () => {
+  it('should serialise JSON API array relationships', async () => {
     expect.assertions(1)
     const input = await serial.camelKebabPlural('libraryEntries', {
       id: '1',
@@ -107,7 +107,7 @@ describe('serialise', () => {
     })
   })
 
-  it('Should throw an error when serialising array relationships with missing ID', async () => {
+  it('should throw an error when serialising array relationships with missing ID', async () => {
     expect.assertions(2)
     try {
       await serial.camelKebabPlural('libraryEntries', {
@@ -123,7 +123,7 @@ describe('serialise', () => {
     }
   })
 
-  it('Should throw an error when serialising  relationships with missing ID', async () => {
+  it('should throw an error when serialising  relationships with missing ID', async () => {
     expect.assertions(2)
     try {
       await serial.camelKebabPlural('libraryEntries', {
@@ -136,7 +136,7 @@ describe('serialise', () => {
     }
   })
 
-  it('Should pluralise type', async () => {
+  it('should pluralise type', async () => {
     expect.assertions(1)
     const input = await serial.camelKebabPlural('libraryEntry', {
       rating: '1'
@@ -151,7 +151,7 @@ describe('serialise', () => {
     })
   })
 
-  it('Should not pluralise mass nouns', async () => {
+  it('should not pluralise mass nouns', async () => {
     expect.assertions(1)
     const input = await serial.camelKebabPlural('anime', {
       slug: 'Cowboy Bebop 2'
@@ -166,21 +166,21 @@ describe('serialise', () => {
     })
   })
 
-  it('Should throw an error if obj is missing', async () => {
+  it('should throw an error if obj is missing', async () => {
     expect.assertions(1)
     await expect(serial.camelKebabPlural('post'))
       .rejects
       .toEqual(Error('POST requires a JSON object body'))
   })
 
-  it('Should throw an error if obj is not an Object', async () => {
+  it('should throw an error if obj is not an Object', async () => {
     expect.assertions(1)
     await expect(serial.camelKebabPlural('post', 'id: 1', 'DELETE'))
       .rejects
       .toEqual(Error('DELETE requires a JSON object body'))
   })
 
-  it('Should throw an error when missing ID', async () => {
+  it('should throw an error when missing ID', async () => {
     expect.assertions(1)
     await expect(serial.camelKebabPlural('user', { theme: 'dark' }, 'PATCH'))
       .rejects

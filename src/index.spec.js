@@ -1,7 +1,7 @@
 import pluralize from 'pluralize'
 import Kitsu from 'kitsu'
 
-describe('Method Aliases', () => {
+describe('method aliases', () => {
   const api = new Kitsu()
 
   it('should alias fetch to get', () => {
@@ -20,8 +20,8 @@ describe('Method Aliases', () => {
   })
 })
 
-describe('Constructor', () => {
-  it('Should set the required JSON:API headers', () => {
+describe('class constructor', () => {
+  it('should set the required JSON:API headers', () => {
     expect.assertions(2)
     const api = new Kitsu()
     const header = 'application/vnd.api+json'
@@ -29,7 +29,7 @@ describe('Constructor', () => {
     expect(api.headers['Content-Type']).toBe(header)
   })
 
-  it('Should set provided headers in constructor', () => {
+  it('should set provided headers in constructor', () => {
     expect.assertions(1)
     const api = new Kitsu({
       headers: {
@@ -39,14 +39,14 @@ describe('Constructor', () => {
     expect(api.headers['Key']).toBe('value')
   })
 
-  it('Should set additional headers', () => {
+  it('should set additional headers', () => {
     expect.assertions(1)
     const api = new Kitsu()
     api.headers['Key'] = 'value'
     expect(api.headers['Key']).toBe('value')
   })
 
-  it('Should return all headers', () => {
+  it('should return all headers', () => {
     expect.assertions(1)
     const api = new Kitsu()
     const header = 'application/vnd.api+json'
@@ -56,7 +56,7 @@ describe('Constructor', () => {
     })
   })
 
-  it('Should convert types into camelCase by default', () => {
+  it('should convert types into camelCase by default', () => {
     expect.assertions(3)
     const api = new Kitsu()
     expect(api.camel('long-word')).toBe('longWord')
@@ -64,7 +64,7 @@ describe('Constructor', () => {
     expect(api.camel('longWord')).toBe('longWord')
   })
 
-  it('Should not convert types into camelCase if camelCaseTypes option is false', () => {
+  it('should not convert types into camelCase if camelCaseTypes option is false', () => {
     expect.assertions(3)
     const api = new Kitsu({
       camelCaseTypes: false
@@ -74,14 +74,14 @@ describe('Constructor', () => {
     expect(api.camel('longWord')).toBe('longWord')
   })
 
-  it('Should convert resource requests into kebab-case by default', () => {
+  it('should convert resource requests into kebab-case by default', () => {
     expect.assertions(2)
     const api = new Kitsu()
     expect(api.resCase('long-word')).toBe('long-word')
     expect(api.resCase('longWord')).toBe('long-word')
   })
 
-  it('Should convert resource requests into snake_case if resourceCase option is \'snake\'', () => {
+  it('should convert resource requests into snake_case if resourceCase option is \'snake\'', () => {
     expect.assertions(2)
     const api = new Kitsu({
       resourceCase: 'snake'
@@ -90,7 +90,7 @@ describe('Constructor', () => {
     expect(api.resCase('longWord')).toBe('long_word')
   })
 
-  it('Should not convert resource requests if resourceCase option is \'none\'', () => {
+  it('should not convert resource requests if resourceCase option is \'none\'', () => {
     expect.assertions(3)
     const api = new Kitsu({
       resourceCase: 'none'
@@ -100,14 +100,14 @@ describe('Constructor', () => {
     expect(api.resCase('longWord')).toBe('longWord')
   })
 
-  it('Should use pluralize by default', () => {
+  it('should use pluralize by default', () => {
     expect.assertions(2)
     const api = new Kitsu()
     expect(api.plural).toEqual(pluralize)
     expect(api.plural('apple')).toBe('apples')
   })
 
-  it('Should not use pluralize if pluralize option is false', () => {
+  it('should not use pluralize if pluralize option is false', () => {
     expect.assertions(1)
     const api = new Kitsu({
       pluralize: false
@@ -115,13 +115,13 @@ describe('Constructor', () => {
     expect(api.plural('apple')).toBe('apple')
   })
 
-  it('Should use Kitsu.io\'s API by default', () => {
+  it('should use Kitsu.io\'s API by default', () => {
     expect.assertions(1)
     const api = new Kitsu()
     expect(api.axios.defaults.baseURL).toBe('https://kitsu.io/api/edge')
   })
 
-  it('Should use API provided in constructor', () => {
+  it('should use API provided in constructor', () => {
     expect.assertions(1)
     const api = new Kitsu({ baseURL: 'https://example.api' })
     expect(api.axios.defaults.baseURL).toBe('https://example.api')

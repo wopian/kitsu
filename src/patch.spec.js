@@ -13,7 +13,7 @@ afterEach(() => {
 })
 
 describe('patch', () => {
-  it('Should send headers', async done => {
+  it('should send headers', async done => {
     expect.assertions(1)
     const api = new Kitsu({ headers: { Authorization: true } })
     mock.onPatch('/anime/1').reply(config => {
@@ -31,7 +31,7 @@ describe('patch', () => {
     done()
   })
 
-  it('Should send data in request', async done => {
+  it('should send data in request', async done => {
     expect.assertions(1)
     const api = new Kitsu({ headers: { Authorization: true } })
     mock.onPatch('/posts/1').reply(config => {
@@ -52,7 +52,7 @@ describe('patch', () => {
     done()
   })
 
-  it('Should throw an error if missing a JSON object body', async () => {
+  it('should throw an error if missing a JSON object body', async () => {
     expect.assertions(1)
     const api = new Kitsu()
     try {
@@ -72,7 +72,7 @@ describe('patch', () => {
     }
   })
 
-  it('Should update a single resource', async () => {
+  it('should update a single resource', async () => {
     expect.assertions(1)
     const api = new Kitsu({ headers: { Authorization: true } })
     mock.onPatch(`posts/${patchSingle.jsonapi.data.id}`).reply(200, patchSingle.jsonapi)
