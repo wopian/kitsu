@@ -20,4 +20,4 @@ plugins:
     enabled: true
 exclude_patterns:
 - "packages/**/src/*.spec.js"
-- "!packages/**/src"
+- "packages/**/{example,__cases__}"
