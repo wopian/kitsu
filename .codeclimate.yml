@@ -1,8 +1,4 @@
 version: '2'
-prepare:
-  fetch:
-  - url: "https://raw.githubusercontent.com/wopian/kitsu/master/.eslintrc.yml"
-    path: .eslintrc.yml
 checks:
   method-complexity:
     enabled: true
@@ -23,8 +19,5 @@ plugins:
   shellcheck:
     enabled: true
 exclude_patterns:
-- .vscode
-- example
-- lib
-- "**/__cases__/**"
-- "*.spec.js"
+- "packages/**/src/.spec.js"
+- "!packages/**/src"
