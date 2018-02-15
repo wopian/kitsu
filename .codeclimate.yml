@@ -19,5 +19,5 @@ plugins:
   shellcheck:
     enabled: true
 exclude_patterns:
-- "packages/**/src/.spec.js"
+- "packages/**/src/*.spec.js"
 - "!packages/**/src"
