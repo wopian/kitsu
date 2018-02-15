@@ -376,7 +376,7 @@ axios-mock-adapter@~1.13.0:
   dependencies:
     deep-equal "^1.0.1"
 
-axios@^0.17.0:
+axios@^0.17.0, axios@~0.17.0:
   version "0.17.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.17.1.tgz#2d8e3e5d0bdbd7327f91bc814f5c57660f81824d"
   dependencies:
@@ -6880,7 +6880,7 @@ rollup-plugin-local-resolve@~1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/rollup-plugin-local-resolve/-/rollup-plugin-local-resolve-1.0.7.tgz#c486701716c15add2127565c2eaa101123320887"
 
-rollup-plugin-replace@^2.0.0:
+rollup-plugin-replace@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/rollup-plugin-replace/-/rollup-plugin-replace-2.0.0.tgz#19074089c8ed57184b8cc64e967a03d095119277"
   dependencies:
