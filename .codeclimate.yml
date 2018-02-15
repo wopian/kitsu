@@ -1,4 +1,8 @@
 version: '2'
+prepare:
+  fetch:
+  - url: "https://raw.githubusercontent.com/wopian/kitsu/master/.eslintrc.yml"
+    path: .eslintrc.yml
 checks:
   method-complexity:
     enabled: true
