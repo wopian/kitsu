@@ -1,13 +1,10 @@
 import babel from 'rollup-plugin-babel'
 import minify from 'rollup-plugin-babel-minify'
 import local from 'rollup-plugin-local-resolve'
-import replace from 'rollup-plugin-replace'
 import pkg from './package.json'
 
 let external = [
   ...Object.keys(pkg.dependencies),
-  'kitsu-core/node',
-  'kitsu-core/legacy',
   'babel-runtime/regenerator',
   'babel-runtime/helpers/asyncToGenerator',
   'babel-runtime/helpers/slicedToArray',
@@ -18,8 +15,7 @@ let external = [
 
 let globals = {
   'axios': 'axios',
-  'kitsu-core/node': 'KitsuCore',
-  'kitsu-core/legacy': 'KitsuCore',
+  'kitsu-core': 'kitsuCore',
   'babel-runtime/regenerator': '_regeneratorRuntime',
   'babel-runtime/helpers/asyncToGenerator': '_asyncToGenerator',
   'babel-runtime/helpers/slicedToArray': '_slicedToArray',
@@ -37,7 +33,6 @@ let pluginsMain = [
   ...plugins
 ]
 let pluginsNode = [
-  replace({ 'kitsu-core': 'kitsu-core/node' }),
   babel({
     babelrc: false,
     exclude: [ '*.json', 'node_modules/**/*' ],
@@ -49,7 +44,6 @@ let pluginsNode = [
   ...plugins
 ]
 let pluginsLegacy = [
-  replace({ 'kitsu-core': 'kitsu-core/legacy' }),
   babel({
     exclude: [ '*.json', 'node_modules/**/*' ],
     runtimeHelpers: true,

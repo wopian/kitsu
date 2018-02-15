@@ -1,0 +1,6 @@
+{
+  "files.exclude": {
+    "**/{legacy,lib,node}/": true,
+    "coverage/**/*.{info,json,xml,css,js,png}": true
+  }
+}
