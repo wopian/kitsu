@@ -7,8 +7,9 @@ checks:
 plugins:
   duplication:
     enabled: false
+  # Waiting for CodeClimate to support custom configs
   eslint:
-    enabled: true
+    enabled: false
     config:
       config: .eslintrc.yml
   fixme:
