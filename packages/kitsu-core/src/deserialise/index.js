@@ -21,7 +21,6 @@ async function deserialiseArray (obj) {
  *
  * @param {Object} obj The response
  * @returns {Object} The deserialised response
- * @private
  */
 export async function deserialise (obj) {
   // Collection of resources

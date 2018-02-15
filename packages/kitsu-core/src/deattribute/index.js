@@ -3,7 +3,6 @@
  *
  * @param {Object|Array} data Resource data
  * @returns {Object|Array} Deattributed resource data
- * @private
  */
 export async function deattribute (data) {
   if (typeof data === 'object' && data !== null) {

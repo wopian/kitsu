@@ -7,7 +7,6 @@ import { error } from '../'
  * @param {Object} obj The data
  * @param {string} method Request type
  * @returns {Object} The serialised data
- * @private
  */
 export async function serialise (model, obj = {}, method = 'POST') {
   try {

@@ -8,7 +8,6 @@ import { error } from '../'
  * @param {string} opts.id The relationship ID
  * @param {string} opts.type The relationship type
  * @returns {Array} The matched includes
- * @private
  */
 export async function filterIncludes (included, { id, type }) {
   try {

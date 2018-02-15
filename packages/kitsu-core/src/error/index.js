@@ -3,7 +3,6 @@
  *
  * @param {Object} E The Error
  * @throws {Object} The mutated Error
- * @private
  */
 export function error (E) {
   if (E.response) {

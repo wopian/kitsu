@@ -50,7 +50,6 @@ async function linkObject (data, included, key) {
  *
  * @param {Object} data The response data object
  * @param {Object} included The response included object
- * @private
  */
 export async function linkRelationships (data, included) {
   const { relationships } = data
