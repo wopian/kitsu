@@ -1,13 +1,12 @@
 # Kitsu
 
+[![travis badge]][travis]
+[![appveyor badge]][appveyor]
+[![david dev badge]][david dev]
 [![cc maintainability badge]][cc maintainability]
 [![cc coverage badge]][cc coverage]
 [![contributors badge]][contributors]
 [![donate badge]][donate]
-
-[![travis badge]][travis]
-[![appveyor badge]][appveyor]
-[![david dev badge]][david dev]
 
 This is a monorepo of two npm packages:
 
