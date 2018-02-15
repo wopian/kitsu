@@ -14,8 +14,8 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna exec yarn build",
-    "docs": "lerna exec yarn docs:lint",
-    "docs:build": "lerna exec yarn docs:build",
+    "docs": "lerna exec --parallel yarn docs:lint",
+    "docs:build": "lerna exec --parallel yarn docs:build",
     "docs:release": "yarn docs && yarn docs:build",
     "lint": "eslint packages",
     "test": "yarn test:coverage && yarn lint && yarn docs && yarn build",

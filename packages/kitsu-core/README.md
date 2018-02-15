@@ -42,8 +42,8 @@ _Check out the [Migration Guide] for breaking changes and new features in `4.x`_
 ### Yarn / NPM
 
 ```bash
-yarn add kitsu
-npm install kitsu
+yarn add kitsu-core
+npm install kitsu-core
 ```
 
 ```js
@@ -76,16 +76,26 @@ kitsuCore.camel(...)
 
 #### Table of Contents
 
+-   [camel](#camel)
 -   [deattribute](#deattribute)
 -   [deserialise](#deserialise)
 -   [error](#error)
 -   [filterIncludes](#filterincludes)
--   [index](#index)
--   [index](#index-1)
--   [index](#index-2)
+-   [kebab](#kebab)
 -   [linkRelationships](#linkrelationships)
 -   [query](#query)
 -   [serialise](#serialise)
+-   [snake](#snake)
+
+### camel
+
+Converts kebab-case and snake_case into camelCase
+
+**Parameters**
+
+-   `s` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** String to convert
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase formatted string
 
 ### deattribute
 
@@ -131,27 +141,7 @@ Filters includes for the specific relationship
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** The matched includes
 
-### index
-
-Converts kebab-case and snake_case into camelCase
-
-**Parameters**
-
--   `s` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** String to convert
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase formatted string
-
-### index
-
-Converts camelCase into snake_case
-
-**Parameters**
-
--   `s` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase string
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** snake_case formatted string
-
-### index
+### kebab
 
 Converts camelCase into kebab-case
 
@@ -191,6 +181,16 @@ Serialises an object into a JSON-API structure
 -   `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Request type (optional, default `'POST'`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The serialised data
+
+### snake
+
+Converts camelCase into snake_case
+
+**Parameters**
+
+-   `s` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase string
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** snake_case formatted string
 
 ## Contributing
 

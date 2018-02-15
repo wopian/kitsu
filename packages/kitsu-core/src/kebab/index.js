@@ -1,6 +1,7 @@
 /**
  * Converts camelCase into kebab-case
  *
+ * @name kebab
  * @param {string} s camelCase string
  * @returns {string} kekab-case formatted string
  */

@@ -1,6 +1,7 @@
 /**
  * Converts camelCase into snake_case
  *
+ * @name snake
  * @param {string} s camelCase string
  * @returns {string} snake_case formatted string
  */
