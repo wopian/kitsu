@@ -23,7 +23,8 @@
     "test:coverage": "jest --coverage",
     "release:lerna": "lerna publish --skip-npm",
     "release:changelog": "lerna exec --parallel changelog",
-    "release": "yarn test:release && yarn release:lerna && yarn release:changelog && yarn publish"
+    "release:publish": "lerna exec --parallel yarn publish",
+    "release": "yarn test:release && yarn release:lerna && yarn release:changelog && yarn release:publish"
   },
   "devDependencies": {
     "axios": "~0.17.0",
