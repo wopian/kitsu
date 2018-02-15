@@ -39,7 +39,7 @@ let pluginsLegacy = [
   babel({
     exclude: [ '*.json', 'node_modules/**/*' ],
     runtimeHelpers: true,
-    presets: [ [ 'env', { targets: { browsers: ['last 10 years'], node: 6 }, modules: false } ], 'stage-0' ]
+    presets: [ [ 'env', { targets: { browsers: [ 'last 10 years' ], node: 6 }, modules: false } ], 'stage-0' ]
   }),
   ...plugins
 ]
