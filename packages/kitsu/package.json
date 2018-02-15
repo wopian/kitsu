@@ -39,7 +39,7 @@
   "dependencies": {
     "axios": "^0.17.0",
     "babel-runtime": "^6.26.0",
-    "kitsu-core": "^5.0.0-beta.2",
+    "kitsu-core": "^4.6.0",
     "pluralize": "^7.0.0"
   },
   "size-limit": [
