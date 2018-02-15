@@ -1,5 +1,7 @@
 node_modules
+legacy
 lib
+node
 coverage
 **/env.js
 *.log*

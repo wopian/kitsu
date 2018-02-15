@@ -11,6 +11,7 @@ cache:
 sudo: false
 matrix:
   fast_finish: true
+after_install: yarn bootstrap
 script: yarn test
 after_success:
 - travis_retry yarn global add codeclimate-test-reporter
@@ -20,11 +21,3 @@ addons:
     repo_token: 7a4b78747587abb295ccb41439d7d067b9de2d885a766e7e88d5e8409599d2ea
 notifications:
   email: false
-deploy:
-  provider: releases
-  api_key: $GH_TOKEN
-  file_glob: true
-  file: lib/*
-  skip_cleanup: true
-  on:
-    tags: true

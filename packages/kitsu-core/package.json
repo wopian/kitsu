@@ -21,9 +21,31 @@
   "scripts": {
     "docs:lint": "documentation lint src/index.js",
     "docs:build": "documentation readme src/index.js --section=API --sort-order alpha",
-    "build": "cross-env NODE_ENV=production rollup -c --environment BUILD:production"
+    "build": "cross-env NODE_ENV=production rollup -c --environment BUILD:production && size-limit"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0"
-  }
+  },
+  "size-limit": [
+    {
+      "path": "./lib/index.js",
+      "limit": "10 kb"
+    },
+    {
+      "path": "./lib/index.mjs",
+      "limit": "10 kb"
+    },
+    {
+      "path": "./legacy/index.js",
+      "limit": "12 kb"
+    },
+    {
+      "path": "./node/index.js",
+      "limit": "8 kb"
+    },
+    {
+      "path": "./node/index.mjs",
+      "limit": "8 kb"
+    }
+  ]
 }
