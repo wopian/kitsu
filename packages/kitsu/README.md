@@ -26,15 +26,15 @@ _Check out the [Migration Guide] for breaking changes and new features in `4.x`_
 
 ## Node / Browser Support
 
-|   Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
-| --------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-| [Default] |       17.6 kb      |  6+  |   49+  |   48+   |  9.1+  |  14+ |     |
-|  [Legacy] |       19.7 kb      |  6+  |   4+   |    3+   |  3.1+  |  12+ |  8+ |
-|      Node |       14.4 kb      |  6+  |        |         |        |      |     |
+|        Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
+| -------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
+|        `kitsu` |       17.7 kb      |  6+  |   49+  |   47+   |  9.1+  |  14+ |     |
+| `kitsu/legacy` |       19.7 kb      |  6+  |   4+   |    3+   |  3.1+  |  12+ |  8+ |
+|   `kitsu/node` |       14.5 kb      |  6+  |        |         |        |      |     |
 
 \* Including all dependencies, minified & gzipped
 
-[default]: http://browserl.ist/?q=last+2+years%2C+not+%3C+0.1%25
+[default]: http://browserl.ist/?q=last+2+years%2C+not+%3C+0.05%25
 
 [legacy]: http://browserl.ist/?q=last+10+years
 
