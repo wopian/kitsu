@@ -1,0 +1,67 @@
+{
+  "name": "kitsu",
+  "version": "4.6.0",
+  "description": "Simple & lightweight JSON-API client for Kitsu and other compliant APIs",
+  "license": "MIT",
+  "author": "James Harris <wopian@wopian.me>",
+  "main": "lib/index.js",
+  "module": "lib/index.mjs",
+  "engines": {
+    "node": ">=6"
+  },
+  "keywords": [
+    "kitsu",
+    "kitsu.io",
+    "anime",
+    "manga",
+    "drama",
+    "json",
+    "api",
+    "wrapper",
+    "client",
+    "jsonapi",
+    "json-api",
+    "serialize",
+    "deserialize"
+  ],
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "docs:lint": "documentation lint src/index.js",
+    "docs:build": "documentation readme src/index.js --section=API --sort-order alpha",
+    "replace:node": "replace-in-file kitsu-core kitsu-core/node node/*.*js",
+    "replace:legacy": "replace-in-file kitsu-core kitsu-core/legacy legacy/*.js",
+    "replace": "yarn replace:node && yarn replace:legacy",
+    "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
+    "build": "yarn rollup && yarn replace"
+  },
+  "dependencies": {
+    "axios": "^0.17.0",
+    "babel-runtime": "^6.26.0",
+    "kitsu-core": "^4.6.0",
+    "pluralize": "^7.0.0"
+  },
+  "size-limit": [
+    {
+      "path": "./lib/index.js",
+      "limit": "18 kb"
+    },
+    {
+      "path": "./lib/index.mjs",
+      "limit": "18 kb"
+    },
+    {
+      "path": "./legacy/index.js",
+      "limit": "20 kb"
+    },
+    {
+      "path": "./node/index.js",
+      "limit": "15 kb"
+    },
+    {
+      "path": "./node/index.mjs",
+      "limit": "15 kb"
+    }
+  ]
+}

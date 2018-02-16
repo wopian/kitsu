@@ -7,8 +7,9 @@ checks:
 plugins:
   duplication:
     enabled: false
+  # Waiting for CodeClimate to support custom configs
   eslint:
-    enabled: true
+    enabled: false
     config:
       config: .eslintrc.yml
   fixme:
@@ -19,8 +20,5 @@ plugins:
   shellcheck:
     enabled: true
 exclude_patterns:
-- .vscode
-- example
-- lib
-- "**/__cases__/**"
-- "*.spec.js"
+- "packages/**/src/*.spec.js"
+- "packages/**/{example,__cases__}"
