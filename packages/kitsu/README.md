@@ -513,7 +513,7 @@ All code released under [MIT]
 
 [migration guide]: https://github.com/wopian/kitsu/blob/master/MIGRATING.md
 
-[changelog]: https://github.com/wopian/kitsu/blob/master/CHANGELOG.md
+[changelog]: https://github.com/wopian/kitsu/blob/lerna/packages/kitsu/CHANGELOG.md
 
 [contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
 
