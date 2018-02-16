@@ -16,7 +16,7 @@ feat(category): added feature x
 
 | Category   | Usage
 | ---------: | -----
-| `empty`    | Changes to monorepo, no change to packages
+| `empty`    | Changes to monorepo, no change to packages (alternatively, the filename - e.g `readme`)
 | kitsu      | Changes to the `kitsu` package
 | kitsu-core | Changes to the `kitsu-core` package
 
