@@ -2,6 +2,14 @@
 
 ##### Chores
 
+* **kitsu-core:**  add homepage and repository urls (8764512d)
+* **kitsu:**  re-add homepage and repository urls (45efe3c4)
+* **lerna:**  commit changelog before publishing (ea321fed)
+
+#### 5.0.1 (2018-02-16)
+
+##### Chores
+
 * **lerna:**  commit changelog before publishing (ea321fed)
 
 ## 5.0.0 (2018-02-16)
