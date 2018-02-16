@@ -23,9 +23,10 @@
     "test:release": "jest && yarn lint && yarn docs:release && yarn build",
     "test:coverage": "jest --coverage",
     "release:lerna": "lerna publish",
-    "major": "yarn test:release && lerna exec --parallel changelog -- -M && yarn release:lerna --cd-version major",
-    "minor": "yarn test:release && lerna exec --parallel changelog -- -m && yarn release:lerna --cd-version minor",
-    "patch": "yarn test:release && lerna exec --parallel changelog -- -p && yarn release:lerna --cd-version patch"
+    "release:changelog": "git commit -am \"update changelog\"",
+    "major": "yarn test:release && lerna exec --parallel changelog -- -M && yarn release:commit && yarn release:lerna --cd-version major",
+    "minor": "yarn test:release && lerna exec --parallel changelog -- -m && yarn release:commit && yarn release:lerna --cd-version minor",
+    "patch": "yarn test:release && lerna exec --parallel changelog -- -p && yarn release:commit && yarn release:lerna --cd-version patch"
   },
   "devDependencies": {
     "axios": "~0.17.0",
