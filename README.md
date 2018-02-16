@@ -27,7 +27,7 @@ All code released under [MIT]
 
 [kitsu]: https://github.com/wopian/kitsu/tree/master/packages/kitsu
 
-[kitsu-core]: https://github.com/wopian/kitsu/tree/lerna/packages/kitsu-core
+[kitsu-core]: https://github.com/wopian/kitsu/tree/master/packages/kitsu-core
 
 [kitsu.io]: https://kitsu.io
 
