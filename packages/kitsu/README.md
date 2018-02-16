@@ -29,8 +29,8 @@ _Check out the [Migration Guide] for breaking changes and new features in `5.x`_
 |        Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
 | -------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
 |        `kitsu` |       17.7 kb      |  6+  |   49+  |   47+   |  9.1+  |  14+ |     |
-| `kitsu/legacy` |       19.6 kb      |  6+  |   4+   |    3+   |  3.1+  |  12+ |  8+ |
-|   `kitsu/node` |       14.4 kb      |  6+  |        |         |        |      |     |
+| `kitsu/legacy` |       19.7 kb      |  6+  |   4+   |    3+   |  3.1+  |  12+ |  8+ |
+|   `kitsu/node` |       14.5 kb      |  6+  |        |         |        |      |     |
 
 \* Including all dependencies, minified & gzipped
 
@@ -173,7 +173,6 @@ If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lis
 -   [Kitsu](#kitsu)
     -   [get](#get)
     -   [headers](#headers)
-    -   [isAuth](#isauth)
     -   [patch](#patch)
     -   [plural](#plural)
     -   [post](#post)
@@ -349,24 +348,6 @@ api.headers['Authorization'] = 'Bearer 1234567890'
 ```
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** All the current headers
-
-#### isAuth
-
-Check if the client is authenticated (oAuth2/Authorization header)
-
-**Examples**
-
-```javascript
-if (api.isAuth) console.log('Authenticated')
-else console.log('Not authenticated')
-```
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
-
-**Meta**
-
--   **deprecated**: since 4.5.0 - will be removed in 5.0.0 as it doesn't guarantee client is genuinely authenticated with the API
-
 
 #### patch
 

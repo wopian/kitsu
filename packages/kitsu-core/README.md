@@ -12,7 +12,7 @@
 [![cc maintainability badge]][cc maintainability]
 [![cc coverage badge]][cc coverage]
 
-Core [JSON:API](de)serialisation components for [kitsu]
+Core [JSON:API] serialisation and deserialisation components for [kitsu]
 
 ## Features
 
@@ -25,9 +25,9 @@ Core [JSON:API](de)serialisation components for [kitsu]
 
 |             Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
 | ------------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-|        `kitsu-core` |       10.0 kb      |  6+  |   49+  |   47+   |  9.1+  |  14+ |     |
+|        `kitsu-core` |       9.9 kb       |  6+  |   49+  |   47+   |  9.1+  |  14+ |     |
 | `kitsu-core/legacy` |       11.9 kb      |  6+  |   4+   |    3+   |  3.1+  |  12+ |  8+ |
-|   `kitsu-core/node` |       7.3 kb       |  6+  |        |         |        |      |     |
+|   `kitsu-core/node` |       7.2 kb       |  6+  |        |         |        |      |     |
 
 \* Including all dependencies, minified & gzipped
 
