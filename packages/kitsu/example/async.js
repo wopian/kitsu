@@ -1,4 +1,4 @@
-import Kitsu from '../lib/kitsu'
+import Kitsu from '../lib'
 
 const api = new Kitsu()
 

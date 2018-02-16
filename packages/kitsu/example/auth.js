@@ -7,7 +7,6 @@ const api = new Kitsu()
  * Authenticate as a user and create a post on their profile feed
  */
 const app = async () => {
-  console.log(api.isAuth) // false
 
   const { owner } = new OAuth2({
     clientId: '',
@@ -19,12 +18,9 @@ const app = async () => {
 
   api.headers['Authorization'] = `Bearer ${accessToken}`
 
-  console.log(api.isAuth) // true if auth succeeded
-
   // Get the logged in user's ID
   const { id } = await api.self()
 
-  // internally checks isAuth before sending request
   await api.create('posts', {
     content: 'Hello world',
     targetUser: {
