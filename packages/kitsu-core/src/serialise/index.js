@@ -20,7 +20,7 @@ export async function serialise (model, obj = {}, method = 'POST') {
     const data = { type }
 
     // A POST request is the only request to not require an ID
-    if (method !== 'POST' && typeof obj.id === 'undefined') {
+    if (method !== 'POST' && !obj.id) {
       throw new Error(`${method} requires an ID for the ${type} type`)
     }
 
@@ -34,25 +34,25 @@ export async function serialise (model, obj = {}, method = 'POST') {
       // Check if it's a relationship
       if (obj[key] !== null && obj[key].constructor === Object) {
         if (typeof obj[key].id === 'string') {
-          if (typeof data.relationships === 'undefined') data.relationships = {}
+          if (!data.relationships) data.relationships = {}
           // Guess relationship type if not provided
-          if (typeof obj[key].type === 'undefined') obj[key].type = this.plural(this.camel(key))
+          if (!obj[key].type) obj[key].type = this.plural(this.camel(key))
           data.relationships[key] = { data: Object.assign(obj[key]) }
         } else throw new Error(requiresID(method, key))
       // Check if it's a relationship array
       } else if (obj[key] !== null && Array.isArray(obj[key])) {
         // validate whole array
         const keytype = this.plural(this.camel(key))
-        if (typeof data.relationships === 'undefined') data.relationships = {}
+        if (!data.relationships) data.relationships = {}
         data.relationships[key] = { data: obj[key].map(elem => {
-          if (typeof elem.id === 'undefined') throw new Error(requiresID(method, key))
+          if (!elem.id) throw new Error(requiresID(method, key))
           return {
             id: elem.id,
             type: elem.type || keytype
           }
         }) }
       } else if (key !== 'id' && key !== 'type') { // Its an attribute
-        if (typeof data.attributes === 'undefined') data.attributes = {}
+        if (!data.attributes) data.attributes = {}
         data.attributes[key] = obj[key]
       }
     }
