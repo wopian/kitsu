@@ -22,7 +22,7 @@
     "test": "yarn test:coverage && yarn lint && yarn docs && yarn build",
     "test:release": "jest && yarn lint && yarn docs:release && yarn build",
     "test:coverage": "jest --coverage",
-    "release:lerna": "lerna publish --skip-git --skip-npm",
+    "release:lerna": "lerna publish",
     "patch": "yarn test:release && lerna exec --parallel changelog -- -p && yarn release:lerna --cd-version patch"
   },
   "devDependencies": {
