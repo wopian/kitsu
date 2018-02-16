@@ -1,3 +1,9 @@
+#### 5.0.2 (2018-02-16)
+
+##### Documentation Changes
+
+* **kitsu:**  update installation section with correct legacy/node require path (eb70f0c1)
+
 #### 5.0.1 (2018-02-16)
 
 ##### Chores
