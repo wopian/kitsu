@@ -9,6 +9,15 @@ Internal functions of `kitsu` was split into a standalone package, `kitsu-core`,
 - `isAuth()` was deprecated in 4.5.0 and removed in this major release as it didn't guarantee client is genuinely authenticated with the API.
   - With oAuth2, use the `expires_in` property to check when your `access_token` needs refreshing in the `Authorization` header.
 
+### Legacy/Node Changes
+
+- `/lib/` from the legacy and node version paths has been removed:
+
+  ```diff
+  - import Kitsu from 'kitsu/lib/legacy'
+  + import Kitsu from 'kitsu/legacy'
+  ```
+
 ## Migrating to `4.0.0`
 
 Major overhaul of the codebase and further bundle size optimization - now 14kb gzipped!

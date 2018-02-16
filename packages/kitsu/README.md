@@ -14,7 +14,7 @@
 
 A simple, lightweight & framework agnostic [JSON:API] client for [Kitsu.io] and other APIs
 
-_Check out the [Migration Guide] for breaking changes and new features in `4.x`_
+_Check out the [Migration Guide] for breaking changes and new features in `5.x`_
 
 ## Features
 
