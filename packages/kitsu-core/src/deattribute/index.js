@@ -6,8 +6,6 @@
  */
 export async function deattribute (data) {
   if (typeof data === 'object' && data !== null) {
-    // Check if data is an array of resources and recursively loop
-    // this function for each resource
     if (Array.isArray(data)) await data.map(async el => deattribute(el))
     else if (data.attributes && data.attributes.constructor === Object) {
       Object.keys(data.attributes).forEach(key => { data[key] = data.attributes[key] })
