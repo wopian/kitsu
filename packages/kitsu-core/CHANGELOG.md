@@ -1,3 +1,10 @@
+#### 5.0.3 (2018-02-16)
+
+##### Chores
+
+* **kitsu-core:**  remove files property from package.json (f882d20e)
+* **npm:**  remove files property from package.json (a8decf9e)
+
 #### 5.0.2 (2018-02-16)
 
 ##### Documentation Changes
