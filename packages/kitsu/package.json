@@ -1,11 +1,16 @@
 {
-  "name": "kitsu",
   "version": "5.0.0",
+  "name": "kitsu",
   "description": "Simple & lightweight JSON-API client for Kitsu and other compliant APIs",
-  "license": "MIT",
   "author": "James Harris <wopian@wopian.me>",
+  "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
+  "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu#readme",
+  "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu",
+  "bugs": {
+    "url": "https://github.com/wopian/kitsu/issues"
+  },
   "engines": {
     "node": ">=6"
   },
