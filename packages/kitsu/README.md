@@ -104,19 +104,19 @@ npm install kitsu
 ```
 
 ```js
-import Kitsu from 'kitsu'                 // ES Modules and Babel
-const Kitsu = require('kitsu')            // CommonJS and Browserify
-const Kitsu = require('kitsu/lib/legacy') // Legacy IE8+ support
-const Kitsu = require('kitsu/lib/node')   // Lighter node-only package
+import Kitsu from 'kitsu'             // ES Modules and Babel
+const Kitsu = require('kitsu')        // CommonJS and Browserify
+const Kitsu = require('kitsu/legacy') // Legacy IE8+ support
+const Kitsu = require('kitsu/node')   // Lighter node-only package
 ```
 
-[Try it on RunKit](https://runkit.com/embed/6mrx8ay7xuut)
+[Try it on RunKit](https://npm.runkit.com/kitsu)
 
 ### Packd CDN
 
 ```html
-<script src='https://bundle.run/kitsu@4?name=Kitsu'></script>
-<script src='https://bundle.run/kitsu@4/lib/legacy.js?name=Kitsu'></script>
+<script src='https://bundle.run/kitsu@5?name=Kitsu'></script>
+<script src='https://bundle.run/kitsu@5/legacy/index.js?name=Kitsu'></script>
 ```
 
 [Try it on CodePen](https://codepen.io/wopian/pen/RxmEeK?editors=0010)
