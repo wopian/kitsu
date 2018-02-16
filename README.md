@@ -19,7 +19,7 @@ See [CONTRIBUTING]
 
 ## Releases
 
-See [CHANGELOG]
+See [Github Releases]
 
 ## License
 
@@ -41,7 +41,7 @@ All code released under [MIT]
 
 [migration guide]: https://github.com/wopian/kitsu/blob/master/MIGRATING.md
 
-[changelog]: https://github.com/wopian/kitsu/blob/master/CHANGELOG.md
+[github releases]: https://github.com/wopian/kitsu/releases
 
 [contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
 
