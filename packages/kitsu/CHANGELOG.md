@@ -1,3 +1,9 @@
+#### 5.0.1 (2018-02-16)
+
+##### Chores
+
+* **lerna:**  commit changelog before publishing (ea321fed)
+
 ## 5.0.0 (2018-02-16)
 
 ##### Breaking Changes
