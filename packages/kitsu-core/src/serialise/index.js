@@ -1,5 +1,7 @@
 import { error } from '../'
 
+const requiresID = (method, key) => `${method} requires an ID for the ${key} relationships`
+
 /**
  * Serialises an object into a JSON-API structure
  *
@@ -28,30 +30,30 @@ export async function serialise (model, obj = {}, method = 'POST') {
     }
 
     // Attributes and relationships
-    for (let prop in obj) {
+    for (let key in obj) {
       // Check if it's a relationship
-      if (obj[prop] !== null && obj[prop].constructor === Object) {
-        if (typeof obj[prop].id === 'string') {
+      if (obj[key] !== null && obj[key].constructor === Object) {
+        if (typeof obj[key].id === 'string') {
           if (typeof data.relationships === 'undefined') data.relationships = {}
           // Guess relationship type if not provided
-          if (typeof obj[prop].type === 'undefined') obj[prop].type = this.plural(this.camel(prop))
-          data.relationships[prop] = { data: Object.assign(obj[prop]) }
-        } else throw new Error(`${method} requires an ID for the ${prop} relationships`)
+          if (typeof obj[key].type === 'undefined') obj[key].type = this.plural(this.camel(key))
+          data.relationships[key] = { data: Object.assign(obj[key]) }
+        } else throw new Error(requiresID(method, key))
       // Check if it's a relationship array
-      } else if (obj[prop] !== null && Array.isArray(obj[prop])) {
+      } else if (obj[key] !== null && Array.isArray(obj[key])) {
         // validate whole array
-        const ptype = this.plural(this.camel(prop))
+        const keytype = this.plural(this.camel(key))
         if (typeof data.relationships === 'undefined') data.relationships = {}
-        data.relationships[prop] = { data: obj[prop].map(elem => {
-          if (typeof elem.id === 'undefined') throw new Error(`${method} requires an ID for the ${prop} relationships`)
+        data.relationships[key] = { data: obj[key].map(elem => {
+          if (typeof elem.id === 'undefined') throw new Error(requiresID(method, key))
           return {
             id: elem.id,
-            type: elem.type || ptype
+            type: elem.type || keytype
           }
         }) }
-      } else if (prop !== 'id' && prop !== 'type') { // Its an attribute
+      } else if (key !== 'id' && key !== 'type') { // Its an attribute
         if (typeof data.attributes === 'undefined') data.attributes = {}
-        data.attributes[prop] = obj[prop]
+        data.attributes[key] = obj[key]
       }
     }
     return { data }
