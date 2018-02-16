@@ -208,7 +208,7 @@ All code released under [MIT]
 
 [promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 
-[changelog]: https://github.com/wopian/kitsu/blob/master/CHANGELOG.md
+[changelog]: https://github.com/wopian/kitsu/blob/lerna/packages/kitsu-core/CHANGELOG.md
 
 [contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
 
