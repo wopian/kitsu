@@ -71,20 +71,6 @@ export default class Kitsu {
   }
 
   /**
-   * Check if the client is authenticated (oAuth2/Authorization header)
-   *
-   * @memberof Kitsu
-   * @returns {boolean}
-   * @deprecated since 4.5.0 - will be removed in 5.0.0 as it doesn't guarantee client is genuinely authenticated with the API
-   * @example
-   * if (api.isAuth) console.log('Authenticated')
-   * else console.log('Not authenticated')
-   */
-  get isAuth () {
-    return Boolean(this.headers.Authorization)
-  }
-
-  /**
    * Fetch resources (alias `fetch`)
    *
    * @memberof Kitsu

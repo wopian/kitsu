@@ -29,8 +29,8 @@ _Check out the [Migration Guide] for breaking changes and new features in `4.x`_
 |        Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
 | -------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
 |        `kitsu` |       17.7 kb      |  6+  |   49+  |   47+   |  9.1+  |  14+ |     |
-| `kitsu/legacy` |       19.7 kb      |  6+  |   4+   |    3+   |  3.1+  |  12+ |  8+ |
-|   `kitsu/node` |       14.5 kb      |  6+  |        |         |        |      |     |
+| `kitsu/legacy` |       19.6 kb      |  6+  |   4+   |    3+   |  3.1+  |  12+ |  8+ |
+|   `kitsu/node` |       14.4 kb      |  6+  |        |         |        |      |     |
 
 \* Including all dependencies, minified & gzipped
 
@@ -361,7 +361,7 @@ if (api.isAuth) console.log('Authenticated')
 else console.log('Not authenticated')
 ```
 
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 **Meta**
 
