@@ -53,7 +53,7 @@ const { camel } = require('kitsu-core/node')   // Lighter node-only package
 camel(...)
 ```
 
-[Try it on RunKit](https://runkit.com/embed/6mrx8ay7xuut) <!-- TODO: Update to kitsu-core example -->
+[Try it on RunKit](https://npm.runkit.com/kitsu-core)
 
 ### Packd CDN
 
@@ -66,7 +66,7 @@ camel(...)
 kitsuCore.camel(...)
 ```
 
-[Try it on CodePen](https://codepen.io/wopian/pen/RxmEeK?editors=0010) <!-- TODO: Update to kitsu-core example -->
+[Try it on CodePen](https://codepen.io/wopian/pen/KQZwzq?editors=0010)
 
 ## API
 
@@ -133,7 +133,7 @@ Filters includes for the specific relationship
 **Parameters**
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
