@@ -1,15 +1,21 @@
 {
-  "name": "kitsu-core",
   "version": "5.0.0",
-  "description": "Core (de)serialisation functions for the kitsu JSON:API client",
-  "license": "MIT",
+  "name": "kitsu-core",
+  "description": "Core serialisation and deserialsation functions for the kitsu JSON:API client",
   "author": "James Harris <wopian@wopian.me>",
+  "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
+  "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core#readme",
+  "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core",
+  "bugs": {
+    "url": "https://github.com/wopian/kitsu/issues"
+  },
   "engines": {
     "node": ">=6"
   },
   "keywords": [
+    "kitsu",
     "jsonapi",
     "json-api",
     "serialize",
