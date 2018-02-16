@@ -34,7 +34,7 @@
     "replace:legacy": "replace-in-file kitsu-core kitsu-core/legacy legacy/*.js",
     "replace": "yarn replace:node && yarn replace:legacy",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
-    "build": "yarn rollup && yarn replace && size-limit"
+    "build": "yarn rollup && yarn replace"
   },
   "dependencies": {
     "axios": "^0.17.0",
