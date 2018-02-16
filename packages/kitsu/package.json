@@ -29,9 +29,6 @@
     "serialize",
     "deserialize"
   ],
-  "files": [
-    "lib"
-  ],
   "scripts": {
     "docs:lint": "documentation lint src/index.js",
     "docs:build": "documentation readme src/index.js --section=API --sort-order alpha",
