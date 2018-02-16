@@ -7,7 +7,6 @@ const api = new Kitsu()
  * Authenticate as a user and create a post on their profile feed
  */
 const app = async () => {
-
   const { owner } = new OAuth2({
     clientId: '',
     clientSecret: '',
