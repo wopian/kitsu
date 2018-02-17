@@ -93,6 +93,20 @@ Converts kebab-case and snake_case into camelCase
 
 -   `s` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** String to convert
 
+**Examples**
+
+_Convert kebab-case_
+
+```javascript
+camel('hello-world') // 'helloWorld'
+```
+
+_Convert snake_case_
+
+```javascript
+camel('hello_world') // 'helloWorld'
+```
+
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase formatted string
 
 ### deattribute
@@ -103,15 +117,83 @@ Hoists attributes to be top-level
 
 -   `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array))** Resource data
 
+**Examples**
+
+_Deattribute an array of resources_
+
+```javascript
+// JSON:API 'data' field
+const data = [
+  {
+    id: '1',
+    type: 'users',
+    attributes: { slug: 'wopian' }
+  }
+]
+
+const output = await deattribute(data) // [ { id: '1', type: 'users', slug: 'wopian' } ]
+```
+
+_Deattribute a resource_
+
+```javascript
+// JSON:API 'data' field
+const data = {
+  id: '1',
+  type: 'users',
+  attributes: { slug: 'wopian' }
+}
+
+const output = await deattribute(data) // { id: '1', type: 'users', slug: 'wopian' }
+```
+
 Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array))** Deattributed resource data
 
 ### deserialise
 
-Deserialises an object from a JSON-API structure
+Deserialises a JSON-API response
 
 **Parameters**
 
 -   `obj` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response
+
+**Examples**
+
+_Deserialise with a basic data object_
+
+```javascript
+await deserialise({
+  data: {
+    id: '1',
+    attributes: { liked: true }
+  },
+  meta: { hello: 'world' }
+}) // { data: { id: '1', liked: true }, meta: { hello: 'world' } }
+```
+
+_Deserialise with relationships_
+
+```javascript
+await deserialise({
+  data: {
+    id: '1',
+    relationships: {
+      user: {
+        data: {
+          type: 'users',
+          id: '2' }
+      }
+    }
+  },
+  included: [
+    {
+      type: 'users',
+      id: '2',
+      attributes: { slug: 'wopian' }
+    }
+  ]
+}) // { data: { id: '1', user: { type: 'users', id: '2', slug: 'wopian' } } }
+```
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The deserialised response
 
@@ -147,6 +229,12 @@ Converts camelCase into kebab-case
 
 -   `s` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase string
 
+**Examples**
+
+```javascript
+kebab('helloWorld') // 'hello-world'
+```
+
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** kekab-case formatted string
 
 ### linkRelationships
@@ -178,6 +266,17 @@ Serialises an object into a JSON-API structure
 -   `obj` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The data (optional, default `{}`)
 -   `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Request type (optional, default `'POST'`)
 
+**Examples**
+
+_Due to its usage in kitsu, it **MUST** be called with **this** set in 5.0.x_
+
+```javascript
+import { serialise, camel, kebab } from 'kitsu-core'
+import plural from 'pluralize'
+
+const output = await serialise.apply({ camel, resCase: kebab, plural }, [ model, obj, 'PATCH' ])
+```
+
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The serialised data
 
 ### snake
@@ -187,6 +286,12 @@ Converts camelCase into snake_case
 **Parameters**
 
 -   `s` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase string
+
+**Examples**
+
+```javascript
+snake('helloWorld') // 'hello_world'
+```
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** snake_case formatted string
 
