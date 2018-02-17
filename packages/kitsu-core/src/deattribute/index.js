@@ -3,6 +3,28 @@
  *
  * @param {Object|Array} data Resource data
  * @returns {Object|Array} Deattributed resource data
+ *
+ * @example <caption>Deattribute an array of resources</caption>
+ * // JSON:API 'data' field
+ * const data = [
+ *   {
+ *     id: '1',
+ *     type: 'users',
+ *     attributes: { slug: 'wopian' }
+ *   }
+ * ]
+ *
+ * const output = await deattribute(data) // [ { id: '1', type: 'users', slug: 'wopian' } ]
+ *
+ * @example <caption>Deattribute a resource</caption>
+ * // JSON:API 'data' field
+ * const data = {
+ *   id: '1',
+ *   type: 'users',
+ *   attributes: { slug: 'wopian' }
+ * }
+ *
+ * const output = await deattribute(data) // { id: '1', type: 'users', slug: 'wopian' }
  */
 export async function deattribute (data) {
   if (typeof data === 'object' && data !== null) {
