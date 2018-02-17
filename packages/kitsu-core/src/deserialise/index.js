@@ -17,10 +17,40 @@ async function deserialiseArray (obj) {
 }
 
 /**
- * Deserialises an object from a JSON-API structure
+ * Deserialises a JSON-API response
  *
  * @param {Object} obj The response
  * @returns {Object} The deserialised response
+ *
+ * @example <caption>Deserialise with a basic data object</caption>
+ * await deserialise({
+ *   data: {
+ *     id: '1',
+ *     attributes: { liked: true }
+ *   },
+ *   meta: { hello: 'world' }
+ * }) // { data: { id: '1', liked: true }, meta: { hello: 'world' } }
+ *
+ * @example <caption>Deserialise with relationships</caption>
+ * await deserialise({
+ *   data: {
+ *     id: '1',
+ *     relationships: {
+ *       user: {
+ *         data: {
+ *           type: 'users',
+ *           id: '2' }
+ *       }
+ *     }
+ *   },
+ *   included: [
+ *     {
+ *       type: 'users',
+ *       id: '2',
+ *       attributes: { slug: 'wopian' }
+ *     }
+ *   ]
+ * }) // { data: { id: '1', user: { type: 'users', id: '2', slug: 'wopian' } } }
  */
 export async function deserialise (obj) {
   // Collection of resources
