@@ -9,6 +9,12 @@ const requiresID = (method, key) => `${method} requires an ID for the ${key} rel
  * @param {Object} obj The data
  * @param {string} method Request type
  * @returns {Object} The serialised data
+ *
+ * @example <caption>Due to its usage in kitsu, it **MUST** be called with **this** set in 5.0.x</caption>
+ * import { serialise, camel, kebab } from 'kitsu-core'
+ * import plural from 'pluralize'
+ *
+ * const output = await serialise.apply({ camel, resCase: kebab, plural }, [ model, obj, 'PATCH' ])
  */
 export async function serialise (model, obj = {}, method = 'POST') {
   try {
