@@ -15,5 +15,6 @@ export function query (params, prefix = false) {
       })
     } else query += `&${param}=${params[param]}`
   }
-  return params ? (prefix ? query : query.slice(1)) : ''
+  query = query.slice(1)
+  return params ? (prefix ? `?${query}` : query) : ''
 }
