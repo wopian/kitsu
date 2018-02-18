@@ -21,4 +21,5 @@ plugins:
     enabled: true
 exclude_patterns:
 - "packages/**/src/*.spec.js"
-- "packages/**/{example,__cases__}"
+- "packages/**/example"
+- "specification"

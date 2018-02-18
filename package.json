@@ -43,6 +43,7 @@
     "generate-changelog": "~1.7.0",
     "jest": "~22.3.0",
     "lerna": "~2.9.0",
+    "nock": "^9.1.6",
     "replace-in-file": "~3.1.1",
     "rollup": "~0.56.0",
     "rollup-plugin-babel": "~3.0.1",
@@ -52,13 +53,15 @@
     "yaspeller-ci": "~1.0.0"
   },
   "jest": {
+    "testEnvironment": "node",
     "collectCoverageFrom": [
-      "**/src/**/*.js",
-      "!**/__cases__/**"
+      "**/src/**/*.js"
     ],
     "coverageDirectory": "<rootDir>/coverage",
     "moduleNameMapper": {
+      "^specification(.*)$": "<rootDir>/specification/$1",
       "^kitsu-core(.*)$": "<rootDir>/packages/kitsu-core/src/$1",
+      "^kitsu-snekfetch(.*)$": "<rootDir>/packages/kitsu-snekfetch/src/$1",
       "^kitsu(.*)$": "<rootDir>/packages/kitsu/src/$1",
       "^pkg$": "<rootDir>/package.json"
     }
@@ -88,5 +91,6 @@
     ],
     "prTitle": "update {{depName}} to {{newVersion}}",
     "commitMessage": "update {{depName}} to {{newVersion}}"
-  }
+  },
+  "dependencies": {}
 }

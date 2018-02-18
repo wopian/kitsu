@@ -8,7 +8,7 @@ import {
   getSingle,
   getSingleWithIncludes,
   getSingleWithNestedIncludes
-} from '../__cases__'
+} from 'specification'
 
 const mock = new MockAdapter(axios)
 

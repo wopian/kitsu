@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter'
 import Kitsu from 'kitsu'
 import {
   getError
-} from '../__cases__'
+} from 'specification'
 
 const mock = new MockAdapter(axios)
 
