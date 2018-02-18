@@ -2,9 +2,10 @@
  * Constructs a URL query string for JSON:API parameters
  *
  * @param {Object} params Parameters to parse
+ * @param {boolean} prefix Prefix returned string with `?` (default `false`)
  * @returns {string} URL query string
  */
-export function query (params) {
+export function query (params, prefix = false) {
   let query = ''
 
   for (let param in params) {
@@ -14,6 +15,5 @@ export function query (params) {
       })
     } else query += `&${param}=${params[param]}`
   }
-
-  return params ? query.slice(1) : ''
+  return params ? (prefix ? query : query.slice(1)) : ''
 }
