@@ -63,7 +63,7 @@ export async function deserialise (obj) {
   delete obj.included
 
   // Move attributes to the parent object
-  if (obj.data.attributes) obj.data = await deattribute(obj.data)
+  if (obj.data && obj.data.attributes) obj.data = await deattribute(obj.data)
 
   return obj
 }
