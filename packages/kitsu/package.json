@@ -39,7 +39,7 @@
     "build": "yarn rollup && yarn replace"
   },
   "dependencies": {
-    "axios": "^0.17.0",
+    "axios": "^0.18.0",
     "babel-runtime": "^6.26.0",
     "kitsu-core": "^5.0.3",
     "pluralize": "^7.0.0"
