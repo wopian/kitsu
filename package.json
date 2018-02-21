@@ -29,7 +29,7 @@
     "patch": "yarn test:release && lerna exec --parallel changelog -- -p && yarn release:commit && yarn release:lerna --cd-version patch"
   },
   "devDependencies": {
-    "axios": "~0.17.0",
+    "axios": "~0.18.0",
     "axios-mock-adapter": "~1.14.0",
     "babel-cli": "~6.26.0",
     "babel-core": "~6.26.0",
