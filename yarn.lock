@@ -2687,9 +2687,9 @@ doctrine@^2.1.0:
   dependencies:
     esutils "^2.0.2"
 
-documentation@~5.4.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/documentation/-/documentation-5.4.0.tgz#49006a8ca444e835f03a990fe8c393e15cb4f853"
+documentation@~5.5.0:
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/documentation/-/documentation-5.5.0.tgz#1b1ff8875f6531b330408bd030ab1735dfc36aab"
   dependencies:
     ansi-html "^0.0.7"
     babel-core "^6.26.0"
@@ -2718,13 +2718,14 @@ documentation@~5.4.0:
     lodash "^4.17.4"
     mdast-util-inject "^1.1.0"
     micromatch "^3.1.5"
-    mime "^2.2.0"
+    mime "^1.4.1"
     module-deps-sortable "4.0.6"
     parse-filepath "^1.0.2"
     pify "^3.0.0"
     read-pkg-up "^3.0.0"
     remark "^9.0.0"
     remark-html "7.0.0"
+    remark-reference-links "^4.0.1"
     remark-toc "^5.0.0"
     remote-origin-url "0.4.0"
     shelljs "^0.8.1"
@@ -5418,9 +5419,9 @@ mime@1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
 
-mime@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/mime/-/mime-2.2.0.tgz#161e541965551d3b549fa1114391e3a3d55b923b"
+mime@^1.4.1:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
 
 mimic-fn@^1.0.0:
   version "1.2.0"
@@ -6776,6 +6777,12 @@ remark-parse@^5.0.0:
     unist-util-remove-position "^1.0.0"
     vfile-location "^2.0.0"
     xtend "^4.0.1"
+
+remark-reference-links@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/remark-reference-links/-/remark-reference-links-4.0.1.tgz#021aed1c55c187d712b3c76d0057bf510d300ba7"
+  dependencies:
+    unist-util-visit "^1.0.0"
 
 remark-slug@^5.0.0:
   version "5.0.0"
