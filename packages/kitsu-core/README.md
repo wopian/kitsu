@@ -25,8 +25,8 @@ Core [JSON:API] serialisation and deserialisation components for [kitsu]
 
 |             Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
 | ------------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-|        `kitsu-core` |       9.9 kb       |  6+  |   49+  |   47+   |  9.1+  |  14+ |     |
-| `kitsu-core/legacy` |       11.9 kb      |  6+  |   4+   |    3+   |  3.1+  |  12+ |  8+ |
+|        `kitsu-core` |       9.9 kb       |  6+  |   51+  |   47+   |  9.1+  |  14+ |     |
+| `kitsu-core/legacy` |       11.8 kb      |  6+  |   4+   |    3+   |  3.1+  |  12+ |  8+ |
 |   `kitsu-core/node` |       7.2 kb       |  6+  |        |         |        |      |     |
 
 \* Including all dependencies, minified & gzipped
@@ -215,7 +215,7 @@ Filters includes for the specific relationship
 **Parameters**
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
@@ -253,6 +253,7 @@ Constructs a URL query string for JSON:API parameters
 **Parameters**
 
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Parameters to parse
+-   `prefix` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Prefix returned string with `?` (default `false`) (optional, default `false`)
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** URL query string
 

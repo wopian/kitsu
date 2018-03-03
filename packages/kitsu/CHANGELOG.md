@@ -1,3 +1,51 @@
+#### 5.0.4 (2018-03-03)
+
+##### Build System / Dependencies
+
+* **kitsu:**  fix size-limit errors (closes #138) (#141) (3b730f7a)
+
+##### Chores
+
+* **deps:**
+  *  update documentation to ~6.0.0 (#142) (9faef85f)
+  *  update documentation to ~5.5.0 (#140) (d2792aa3)
+  *  lock file maintenance (#139) (56d69d9d)
+  *  update axios to ^0.18.0 (#135) (ed426417)
+  *  update jest to ~22.4.0 (#136) (7c6909c9)
+  *  update axios-mock-adapter to ~1.14.0 (#134) (4790c559)
+  *  update eslint to ~4.18.0 (#131) (4f2ac2fe)
+*  remove empty object in package.json (cde44b38)
+*  move test json:api cases to monorepo root (576a9d87)
+* **kitsu-core:**  build documentation (d642353a)
+
+##### Documentation Changes
+
+* **kitsu-core:**
+  *  add examples for deserialise function (4d9197a7)
+  *  add example for snake function (560196bd)
+  *  add example for kebab function (eec0fecf)
+  *  add example for deattribute function (89d9a401)
+  *  add examples for camel function (05bf2d60)
+  *  add serialise example with 5.0.x 'this' limitiation (8384c16e)
+
+##### New Features
+
+* **kitsu-core:**  add prefix option to query function (c91e1f72)
+
+##### Bug Fixes
+
+* **kitsu-core:**
+  *  slice first character of query before adding prefix (756748b3)
+  *  check data object exists before deattributing it (8b5f7615)
+
+##### Refactors
+
+* **kitsu-core:**  remove circular imports (f733d729)
+
+##### Tests
+
+*  namespace package tests (8c22d35c)
+
 #### 5.0.3 (2018-02-16)
 
 ##### Chores
