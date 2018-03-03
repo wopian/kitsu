@@ -215,7 +215,7 @@ Filters includes for the specific relationship
 **Parameters**
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
@@ -313,7 +313,7 @@ All code released under [MIT]
 
 [promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 
-[changelog]: https://github.com/wopian/kitsu/blob/lerna/packages/kitsu-core/CHANGELOG.md
+[changelog]: https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/CHANGELOG.md
 
 [contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
 

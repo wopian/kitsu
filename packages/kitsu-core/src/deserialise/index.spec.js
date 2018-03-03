@@ -1,5 +1,6 @@
 import { deserialise } from './'
 
+describe('kitsu-core', () => {
 describe('deserialise', () => {
   it('should deserialise a resource without included relationships', async () => {
     expect.assertions(1)
@@ -151,4 +152,5 @@ describe('deserialise', () => {
       }
     })
   })
+})
 })
