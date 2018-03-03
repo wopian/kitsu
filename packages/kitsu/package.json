@@ -50,19 +50,11 @@
       "limit": "18 kb"
     },
     {
-      "path": "./lib/index.mjs",
-      "limit": "18 kb"
-    },
-    {
       "path": "./legacy/index.js",
       "limit": "20 kb"
     },
     {
       "path": "./node/index.js",
-      "limit": "15 kb"
-    },
-    {
-      "path": "./node/index.mjs",
       "limit": "15 kb"
     }
   ]
