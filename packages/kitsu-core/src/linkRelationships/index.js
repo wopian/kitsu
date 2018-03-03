@@ -1,4 +1,5 @@
-import { deattribute, filterIncludes } from '../'
+import { deattribute } from '../deattribute'
+import { filterIncludes } from '../filterIncludes'
 
 /**
  * Core function to link relationships to included data

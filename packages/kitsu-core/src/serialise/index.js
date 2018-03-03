@@ -1,4 +1,4 @@
-import { error } from '../'
+import { error } from '../error'
 
 const requiresID = (method, key) => `${method} requires an ID for the ${key} relationships`
 

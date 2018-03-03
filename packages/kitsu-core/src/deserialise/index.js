@@ -1,4 +1,5 @@
-import { deattribute, linkRelationships } from '../'
+import { deattribute } from '../deattribute'
+import { linkRelationships } from '../linkRelationships'
 
 /**
  * Deserialises an array from a JSON-API structure

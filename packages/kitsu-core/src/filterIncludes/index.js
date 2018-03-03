@@ -1,4 +1,4 @@
-import { error } from '../'
+import { error } from '../error'
 
 /**
  * Filters includes for the specific relationship
