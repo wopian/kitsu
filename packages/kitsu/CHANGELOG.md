@@ -1,3 +1,9 @@
+#### 5.0.5 (2018-03-07)
+
+##### Bug Fixes
+
+* **kitsu-core:**  correctly deattribute nested filter/field queries (b6d2dd4a)
+
 #### 5.0.4 (2018-03-03)
 
 ##### Build System / Dependencies
