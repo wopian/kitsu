@@ -10,7 +10,7 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('remove', () => {
-    it('should send headers', done => {
+    it('sends headers', done => {
       expect.assertions(1)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onDelete('/anime/1').reply(config => {
@@ -28,7 +28,7 @@ describe('kitsu', () => {
       done()
     })
 
-    it('should send data in request', async done => {
+    it('sends data in request', async done => {
       expect.assertions(1)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onDelete('/posts/1').reply(config => {
@@ -46,7 +46,7 @@ describe('kitsu', () => {
       done()
     })
 
-    it('should throw an error if ID is missing', async () => {
+    it('throws an error if ID is missing', async () => {
       expect.assertions(1)
       const api = new Kitsu()
       try {

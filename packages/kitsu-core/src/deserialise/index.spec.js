@@ -2,7 +2,7 @@ import { deserialise } from './'
 
 describe('kitsu-core', () => {
   describe('deserialise', () => {
-    it('should deserialise a resource without included relationships', async () => {
+    it('deserialises a resource without included relationships', async () => {
       expect.assertions(1)
       expect(await deserialise({
         data: {
@@ -21,7 +21,7 @@ describe('kitsu-core', () => {
       })
     })
 
-    it('should deserialise a collection without attributes and included relationships', async () => {
+    it('deserialises a collection without attributes and included relationships', async () => {
       expect.assertions(1)
       expect(await deserialise({
         data: [
@@ -48,7 +48,7 @@ describe('kitsu-core', () => {
       })
     })
 
-    it('should deserialise a collection of resources with included relationships', async () => {
+    it('deserialises a collection of resources with included relationships', async () => {
       expect.assertions(1)
       expect(await deserialise({
         data: [
@@ -93,7 +93,7 @@ describe('kitsu-core', () => {
       })
     })
 
-    it('should deserialise a single resource with included relationships', async () => {
+    it('deserialises a single resource with included relationships', async () => {
       expect.assertions(1)
       expect(await deserialise({
         data: {
@@ -134,7 +134,7 @@ describe('kitsu-core', () => {
       })
     })
 
-    it('should deserialise with empty data arrays', async () => {
+    it('deserialises with empty data arrays', async () => {
       expect.assertions(1)
       expect(await deserialise({
         data: {

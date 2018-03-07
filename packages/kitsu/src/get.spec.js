@@ -18,7 +18,7 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('get', () => {
-    it('should send headers', async done => {
+    it('sends headers', async done => {
       expect.assertions(1)
       const api = new Kitsu({ headers: { init: true } })
       mock.onGet('/anime').reply(config => {
@@ -36,7 +36,7 @@ describe('kitsu', () => {
       done()
     })
 
-    it('should fetch a collection of resources', async () => {
+    it('fetches a collection of resources', async () => {
       expect.assertions(1)
       const api = new Kitsu()
       mock.onGet('/anime').reply(200, getCollection.jsonapi)
@@ -44,7 +44,7 @@ describe('kitsu', () => {
       expect(request).toEqual(getCollection.kitsu)
     })
 
-    it('should fetch a single resource', async () => {
+    it('fetches a single resource', async () => {
       expect.assertions(1)
       const api = new Kitsu()
       mock.onGet(`anime/${getSingle.jsonapi.data.id}`).reply(200, getSingle.jsonapi)
@@ -52,7 +52,7 @@ describe('kitsu', () => {
       expect(request).toEqual(getSingle.kitsu)
     })
 
-    it('should fetch a relationship collection of resources', async () => {
+    it('fetches a relationship collection of resources', async () => {
       expect.assertions(1)
       const api = new Kitsu()
       mock.onGet('authors/1/anime').reply(200, getCollection.jsonapi)
@@ -60,7 +60,7 @@ describe('kitsu', () => {
       expect(request).toEqual(getCollection.kitsu)
     })
 
-    it('should fetch a relationshop single resource', async () => {
+    it('fetches a relationshop single resource', async () => {
       expect.assertions(1)
       const api = new Kitsu()
       mock.onGet('comments/1/anime').reply(200, getSingle.jsonapi)
@@ -68,7 +68,7 @@ describe('kitsu', () => {
       expect(request).toEqual(getSingle.kitsu)
     })
 
-    it('should fetch a collection of resources with includes', async () => {
+    it('fetches a collection of resources with includes', async () => {
       expect.assertions(1)
       const api = new Kitsu()
       mock.onGet('anime').reply(200, getCollectionWithIncludes.jsonapi)
@@ -76,7 +76,7 @@ describe('kitsu', () => {
       expect(request).toEqual(getCollectionWithIncludes.kitsu)
     })
 
-    it('should fetch a single resource with includes', async () => {
+    it('fetches a single resource with includes', async () => {
       expect.assertions(1)
       const api = new Kitsu()
       mock.onGet(`anime/${getSingleWithIncludes.jsonapi.data.id}`, { include: 'author,comments' }).reply(200, getSingleWithIncludes.jsonapi)
@@ -84,7 +84,7 @@ describe('kitsu', () => {
       expect(request).toEqual(getSingleWithIncludes.kitsu)
     })
 
-    it('should fetch a single resource with nested includes', async () => {
+    it('fetches a single resource with nested includes', async () => {
       expect.assertions(1)
       const api = new Kitsu()
       mock.onGet('anime/1').reply(200, getSingleWithNestedIncludes.jsonapi)
@@ -92,7 +92,7 @@ describe('kitsu', () => {
       expect(request).toEqual(getSingleWithNestedIncludes.kitsu)
     })
 
-    it('should return a JSON:API error object for invalid queries', async () => {
+    it('returns a JSON:API error object for invalid queries', async () => {
       expect.assertions(5)
       const api = new Kitsu()
       mock.onGet('articles', { include: 'author' }).reply(400, getError.jsonapi)

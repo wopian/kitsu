@@ -14,7 +14,7 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('patch', () => {
-    it('should send headers', async done => {
+    it('sends headers', async done => {
       expect.assertions(1)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPatch('/anime/1').reply(config => {
@@ -32,7 +32,7 @@ describe('kitsu', () => {
       done()
     })
 
-    it('should send data in request', async done => {
+    it('sends data in request', async done => {
       expect.assertions(1)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPatch('/posts/1').reply(config => {
@@ -53,7 +53,7 @@ describe('kitsu', () => {
       done()
     })
 
-    it('should throw an error if missing a JSON object body', async () => {
+    it('throws an error if missing a JSON object body', async () => {
       expect.assertions(1)
       const api = new Kitsu()
       try {
@@ -63,7 +63,7 @@ describe('kitsu', () => {
       }
     })
 
-    it('should throw an error if ID is missing (patch)', async () => {
+    it('throws an error if ID is missing (patch)', async () => {
       expect.assertions(1)
       const api = new Kitsu()
       try {
@@ -73,7 +73,7 @@ describe('kitsu', () => {
       }
     })
 
-    it('should update a single resource', async () => {
+    it('updates a single resource', async () => {
       expect.assertions(1)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPatch(`posts/${patchSingle.jsonapi.data.id}`).reply(200, patchSingle.jsonapi)

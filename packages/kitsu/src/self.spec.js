@@ -13,7 +13,7 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('self', () => {
-    it('should send headers', async done => {
+    it('sends headers', async done => {
       expect.assertions(1)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onGet('/users', { filter: { self: true } }).reply(config => {
@@ -31,7 +31,7 @@ describe('kitsu', () => {
       done()
     })
 
-    it('should fetch the authenticated user', async () => {
+    it('fetches the authenticated user', async () => {
       expect.assertions(1)
       const api = new Kitsu()
       mock.onGet('/users', { filter: { self: true } }).reply(200, {
@@ -50,7 +50,7 @@ describe('kitsu', () => {
       })
     })
 
-    it('should return a JSON:API error object for invalid queries', async () => {
+    it('returns a JSON:API error object for invalid queries', async () => {
       expect.assertions(5)
       const api = new Kitsu()
       mock.onGet('/users', { filter: { self: true }, include: 'author' }).reply(400, getError.jsonapi)

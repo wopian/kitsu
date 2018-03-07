@@ -10,7 +10,7 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('post', () => {
-    it('should send headers', async done => {
+    it('sends headers', async done => {
       expect.assertions(1)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPost('/anime').reply(config => {
@@ -28,7 +28,7 @@ describe('kitsu', () => {
       done()
     })
 
-    it('should send data in request', async done => {
+    it('sends data in request', async done => {
       expect.assertions(1)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPost('/anime').reply(config => {
@@ -48,7 +48,7 @@ describe('kitsu', () => {
       done()
     })
 
-    it('should throw an error if missing a JSON object body', async () => {
+    it('throws an error if missing a JSON object body', async () => {
       expect.assertions(1)
       const api = new Kitsu()
       try {

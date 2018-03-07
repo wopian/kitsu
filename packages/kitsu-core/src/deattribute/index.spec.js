@@ -7,36 +7,36 @@ const attributesKey = {
 
 describe('kitsu-core', () => {
   describe('deattribute', () => {
-    it('should deattribute an object', async () => {
+    it('deattributes an object', async () => {
       expect.assertions(1)
       expect(await deattribute(attributesKey.jsonapi))
         .toEqual(attributesKey.kitsu)
     })
 
-    it('should deattribute an array of objects', async () => {
+    it('deattributes an array of objects', async () => {
       expect.assertions(1)
       expect(await deattribute([ attributesKey.jsonapi, attributesKey.jsonapi ]))
         .toEqual([ attributesKey.kitsu, attributesKey.kitsu ])
     })
 
-    it('should do nothing if no attributes supplied', async () => {
+    it('does nothing if no attributes supplied', async () => {
       expect.assertions(1)
       expect(await deattribute({ id: '1' }))
         .toEqual({ id: '1' })
     })
 
-    it('should strip attributes object if empty', async () => {
+    it('strips attributes object if empty', async () => {
       expect.assertions(1)
       expect(await deattribute({ id: '1', attributes: {} }))
         .toEqual({ id: '1' })
     })
 
-    it('should do nothing if data is missing', async () => {
+    it('does nothing if data is missing', async () => {
       expect.assertions(1)
       expect(await deattribute(undefined)).toBeUndefined()
     })
 
-    it('should do nothing for invalid JSON:API data types', async () => {
+    it('does nothing for invalid JSON:API data types', async () => {
       expect.assertions(9)
       const symbol = Symbol('foo')
       const set = new Set()

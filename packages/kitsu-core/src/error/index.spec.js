@@ -2,13 +2,13 @@ import { error } from './'
 
 describe('kitsu-core', () => {
   describe('error', () => {
-    it('should handle axios response errors', () => {
+    it('handles axios response errors', () => {
       expect.assertions(1)
       const obj = { response: {} }
       expect(() => { error(obj) }).toThrow()
     })
 
-    it('should handle axios response errors with JSON:API errors', () => {
+    it('handles axios response errors with JSON:API errors', () => {
       expect.assertions(1)
       const obj = {
         response: {
@@ -38,7 +38,7 @@ describe('kitsu-core', () => {
       }
     })
 
-    it('should handle top-level JSON:API errors', () => {
+    it('handles top-level JSON:API errors', () => {
       expect.assertions(1)
       const obj = {
         errors: [ { code: 400 } ]
@@ -52,7 +52,7 @@ describe('kitsu-core', () => {
       }
     })
 
-    it('should throw all other errors', () => {
+    it('throws all other errors', () => {
       expect.assertions(2)
       expect(() => { error('Hello') }).toThrowError('Hello')
       expect(() => { error(new Error('Hello')) }).toThrowError('Hello')

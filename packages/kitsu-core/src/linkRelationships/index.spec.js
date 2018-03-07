@@ -2,7 +2,7 @@ import { linkRelationships } from './'
 
 describe('kitsu-core', () => {
   describe('linkRelationships', () => {
-    it('should link single relationship to included data', async () => {
+    it('links single relationship to included data', async () => {
       expect.assertions(1)
       const data = {
         relationships: {
@@ -33,7 +33,7 @@ describe('kitsu-core', () => {
         })
     })
 
-    it('should link a relationship collection to included data', async () => {
+    it('links a relationship collection to included data', async () => {
       expect.assertions(1)
       const data = {
         relationships: {
@@ -84,7 +84,7 @@ describe('kitsu-core', () => {
         })
     })
 
-    it('should not deattribute key if theres a relationship (single) with same name (handle invalid JSON:API)', async () => {
+    it('does not deattribute key if theres a relationship (single) with same name (handle invalid JSON:API)', async () => {
       expect.assertions(1)
       const data = {
         attributes: {
@@ -121,7 +121,7 @@ describe('kitsu-core', () => {
         })
     })
 
-    it('should not deattribute key if theres a relationship (array) with same name (handle invalid JSON:API)', async () => {
+    it('does not deattribute key if theres a relationship (array) with same name (handle invalid JSON:API)', async () => {
       expect.assertions(1)
       const data = {
         attributes: {

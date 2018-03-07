@@ -2,17 +2,17 @@ import kebab from './'
 
 describe('kitsu-core', () => {
   describe('kebab', () => {
-    it('should snake_case a camelCase string', () => {
+    it('snake_cases a camelCase string', () => {
       expect.assertions(1)
       expect(kebab('helloWorld')).toBe('hello_world')
     })
 
-    it('should snake_case a CamelCase string', () => {
+    it('snake_cases a CamelCase string', () => {
       expect.assertions(1)
       expect(kebab('HelloWorld')).toBe('hello_world')
     })
 
-    it('should snake_case a snake_case string', () => {
+    it('snake_cases a snake_case string', () => {
       expect.assertions(1)
       expect(kebab('hello-world')).toBe('hello-world')
     })
