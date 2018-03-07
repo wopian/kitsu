@@ -1,3 +1,14 @@
+function deObject (obj, param) {
+  let query = ''
+  for (let key in obj) {
+    let value = obj[key]
+    if (param) query += `&${param}`
+    if (typeof value === 'object') query += `[${key}]${deObject(value)}`
+    else query += `[${key}]=${value}`
+  }
+  return query
+}
+
 /**
  * Constructs a URL query string for JSON:API parameters
  *
@@ -7,13 +18,10 @@
  */
 export function query (params, prefix = false) {
   let query = ''
-
   for (let param in params) {
-    if (typeof params[param] === 'object') {
-      Object.keys(params[param]).forEach(value => {
-        query += `&${param}[${value}]=${params[param][value]}`
-      })
-    } else query += `&${param}=${params[param]}`
+    let value = params[param]
+    if (typeof value === 'object') query += deObject(value, param)
+    else query += `&${param}=${value}`
   }
   query = query.slice(1)
   return params ? (prefix ? `?${query}` : query) : ''
