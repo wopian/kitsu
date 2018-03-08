@@ -16,7 +16,7 @@ describe('kitsu-core', () => {
             value: 'foo'
           }
         }
-      })).toEqual('filter[slug]=cowboy-bebop&filter[title][value]=foo')
+      })).toEqual('filter%5Bslug%5D=cowboy-bebop&filter%5Btitle%5D%5Bvalue%5D=foo')
     })
 
     it('builds an include query string', () => {
@@ -33,7 +33,7 @@ describe('kitsu-core', () => {
           articles: 'title',
           author: 'name'
         }
-      })).toEqual('fields[articles]=title&fields[author]=name')
+      })).toEqual('fields%5Barticles%5D=title&fields%5Bauthor%5D=name')
     })
 
     it('appends multiple queries', () => {
@@ -41,7 +41,7 @@ describe('kitsu-core', () => {
       expect(query({
         page: { limit: 1 },
         sort: '-popularityRank'
-      })).toEqual('page[limit]=1&sort=-popularityRank')
+      })).toEqual('page%5Blimit%5D=1&sort=-popularityRank')
     })
   })
 })
