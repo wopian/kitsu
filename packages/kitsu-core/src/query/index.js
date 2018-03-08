@@ -23,6 +23,6 @@ export function query (params, prefix = false) {
     if (typeof value === 'object') query += deObject(value, param)
     else query += `&${param}=${value}`
   }
-  query = query.slice(1)
+  query = encodeURI(query.slice(1))
   return params ? (prefix ? `?${query}` : query) : ''
 }
