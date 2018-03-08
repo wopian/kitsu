@@ -1,3 +1,20 @@
+#### 5.0.6 (2018-03-08)
+
+##### Chores
+
+* **deps:**
+  *  update replace-in-file to ~3.2.0 (#145) (6b004bd6)
+  *  update size-limit to ~0.16.0 (#143) (87513ba5)
+
+##### Bug Fixes
+
+*  escape uri query string (e4210fc8)
+
+##### Tests
+
+*  update query expectations (dc494a3c)
+*  remove 'should' from test names (eba777ab)
+
 #### 5.0.5 (2018-03-07)
 
 ##### Bug Fixes
