@@ -1,3 +1,13 @@
+#### 5.0.7 (2018-03-19)
+
+##### Chores
+
+* **deps:**
+  *  update size-limit to ~0.17.0 (#151) (7b71ab81)
+  *  update eslint to ~4.19.0 (#150) (8c1764ae)
+  *  update rollup to ~0.57.0 (#149) (ef441b33)
+  *  update documentation to ~6.1.0 (#147) (350a37db)
+
 #### 5.0.6 (2018-03-08)
 
 ##### Chores
