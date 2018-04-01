@@ -5,7 +5,6 @@
   "author": "James Harris <wopian@wopian.me>",
   "license": "MIT",
   "main": "lib/index.js",
-  "module": "lib/index.mjs",
   "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu#readme",
   "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu",
   "bugs": {
