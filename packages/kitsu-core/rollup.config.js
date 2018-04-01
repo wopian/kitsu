@@ -55,7 +55,7 @@ export default [
         format: 'cjs',
         sourcemap: true,
         globals
-      },
+      }
       /*
       TODO: Use Babel itself instead of Rollup to produce output
             e.g CommonJS: src -> lib,node,legacy
@@ -80,7 +80,7 @@ export default [
         format: 'cjs',
         sourcemap: true,
         globals
-      },
+      }
       /*
       {
         file: 'node/index.mjs',

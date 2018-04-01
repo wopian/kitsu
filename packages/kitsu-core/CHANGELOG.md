@@ -1,3 +1,13 @@
+### 5.1.0 (2018-04-01)
+
+##### Chores
+
+* **deps:**  update replace-in-file to ~3.4.0 (#153) (1df1c961)
+
+##### Bug Fixes
+
+*  temporarily disable ecmascript module output (resolves #155) (3da9a540)
+
 #### 5.0.7 (2018-03-19)
 
 ##### Chores
