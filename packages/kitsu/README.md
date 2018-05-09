@@ -464,7 +464,9 @@ _Using JSON:API parameters_
 
 ```javascript
 api.self({
-  fields: 'name,birthday'
+  fields: {
+    users: 'name,birthday'
+  }
 })
 ```
 

@@ -267,7 +267,9 @@ export default class Kitsu {
    * api.self()
    * @example <caption>Using JSON:API parameters</caption>
    * api.self({
-   *   fields: 'name,birthday'
+   *   fields: {
+   *     users: 'name,birthday'
+   *   }
    * })
    */
   async self (params = {}, headers = {}) {
