@@ -47,7 +47,7 @@
     "replace-in-file": "~3.4.0",
     "rollup": "~0.59.0",
     "rollup-plugin-babel": "~3.0.1",
-    "rollup-plugin-babel-minify": "~4.0.0",
+    "rollup-plugin-babel-minify": "~5.0.0",
     "rollup-plugin-local-resolve": "~1.0.7",
     "size-limit": "~0.18.0",
     "yaspeller-ci": "~1.0.0"
