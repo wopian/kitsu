@@ -68,7 +68,9 @@
   },
   "renovate": {
     "extends": [
-      "@wopian"
+      "@wopian",
+      ":pathSemanticCommitType(packages/kitsu/**,build(kitsu)",
+      ":pathSemanticCommitType(packages/kitsu-core/**,build(kitsu-core)"
     ]
   }
 }
