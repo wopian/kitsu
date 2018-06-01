@@ -1,3 +1,28 @@
+#### 5.1.1 (2018-06-01)
+
+##### Chores
+
+* **vscode:**  hide output directories (afdd4831)
+* **deps:**
+  *  update dependency documentation to ~7.1.0 (#171) (8526d828)
+  *  update dependency jest to v23 (#170) (ec74d6bb)
+  *  update dependency documentation to v7 (#169) (05ee3320)
+  *  update dependency rollup-plugin-babel-minify to v5 (#168) (2ac8fca5)
+  *  update dependency rollup to ~0.59.0 (#167) (6b989f93)
+  *  update dependency size-limit to ~0.18.0 (#166) (5395b12d)
+  *  update dependency babel-preset-env to ~1.7.0 (#165) (34e2042f)
+  *  lock file maintenance (#163) (8c0b650f)
+  *  lock file maintenance (4fac11f0)
+  *  update lerna to ~2.10.0 (#157) (955c694a)
+  *  update documentation to ~6.2.0 (#158) (cbc87cc2)
+  *  update axios-mock-adapter to ~1.15.0 (#156) (b9cde7db)
+* **renovate:**  use shareable config (86b0d93a)
+
+##### Documentation Changes
+
+* **kitsu-core:**  update browser support table (577b38f1)
+* **kitsu:**  update browser support table (c564c907)
+
 ### 5.1.0 (2018-04-01)
 
 ##### Chores
