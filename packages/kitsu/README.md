@@ -28,9 +28,9 @@ _Check out the [Migration Guide] for breaking changes and new features in `5.x`_
 
 |        Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
 | -------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-|        `kitsu` |       17.8 kb      |  6+  |   51+  |   47+   |  9.1+  |  14+ |     |
-| `kitsu/legacy` |       19.7 kb      |  6+  |   4+   |    3+   |  3.1+  |  12+ |  8+ |
-|   `kitsu/node` |       14.6 kb      |  6+  |        |         |        |      |     |
+|        `kitsu` |       17.7 kb      |  6+  |   52+  |   47+   |  10+   |  14+ |     |
+| `kitsu/legacy` |       19.8 kb      |  6+  |   4+   |    3+   |  3.2+  |  12+ |  8+ |
+|   `kitsu/node` |       14.7 kb      |  6+  |        |         |        |      |     |
 
 \* Including all dependencies, minified & gzipped
 
