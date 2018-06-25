@@ -228,7 +228,7 @@ export default class Kitsu {
   }
 
   /**
-   * Remove a resource
+   * Remove a resource (alias `remove`)
    *
    * @memberof Kitsu
    * @param {string} model Model to remove data from
@@ -284,4 +284,5 @@ export default class Kitsu {
   fetch = this.get
   update = this.patch
   create = this.post
+  remove = this.delete
 }
