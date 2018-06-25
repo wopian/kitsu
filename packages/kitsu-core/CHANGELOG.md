@@ -1,3 +1,24 @@
+### 5.2.0 (2018-06-25)
+
+##### Build System / Dependencies
+
+*  update dependency eslint to ~5.0.0 (#179) (91dd6e5f)
+*  update dependency rollup to ~0.61.0 (#178) (8244747e)
+*  update dependency cross-env to ~5.2.0 (#176) (84ca9373)
+*  update dependency documentation to ~8.0.0 (#173) (a1e441b8)
+*  update dependency rollup to ~0.60.0 (#174) (1ead68dd)
+
+##### Chores
+
+* **deps:**  update dependency jest to ~23.1.0 (#172) (b84b615f)
+* **renovate:**  scope package updates (00f934da)
+
+##### New Features
+
+* **kitsu:**
+  *  alias `remove` to `delete` (closes #180) (90cad878)
+  *  rename `remove` to `delete` (ae38b027)
+
 #### 5.1.1 (2018-06-01)
 
 ##### Chores

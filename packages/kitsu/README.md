@@ -171,19 +171,33 @@ If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lis
 #### Table of Contents
 
 -   [Kitsu](#kitsu)
+    -   [Parameters](#parameters)
+    -   [Examples](#examples)
+    -   [delete](#delete)
+        -   [Parameters](#parameters-1)
+        -   [Examples](#examples-1)
     -   [get](#get)
+        -   [Parameters](#parameters-2)
+        -   [Examples](#examples-2)
     -   [headers](#headers)
+        -   [Examples](#examples-3)
     -   [patch](#patch)
+        -   [Parameters](#parameters-3)
+        -   [Examples](#examples-4)
     -   [plural](#plural)
+        -   [Examples](#examples-5)
     -   [post](#post)
-    -   [remove](#remove)
+        -   [Parameters](#parameters-4)
+        -   [Examples](#examples-6)
     -   [self](#self)
+        -   [Parameters](#parameters-5)
+        -   [Examples](#examples-7)
 
 ### Kitsu
 
 Creates a new `kitsu` instance
 
-**Parameters**
+#### Parameters
 
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options (optional, default `{}`)
     -   `options.baseURL` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Set the API endpoint (default `https://kitsu.io/api/edge`)
@@ -193,7 +207,7 @@ Creates a new `kitsu` instance
     -   `options.pluralize` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If `true`, `/user` will become `/users` in the URL request and `type` will be pluralized in post, patch and delete requests - `user` -> `users` (default `true`)
     -   `options.timeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Set the request timeout in milliseconds (default `30000`)
 
-**Examples**
+#### Examples
 
 _Using with Kitsu.io's API_
 
@@ -220,11 +234,31 @@ const api = new Kitsu({
 })
 ```
 
+#### delete
+
+Remove a resource (alias `remove`)
+
+##### Parameters
+
+-   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to remove data from
+-   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** Resource ID to remove
+-   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
+
+##### Examples
+
+_Remove a user's post_
+
+```javascript
+api.delete('posts', 123)
+```
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
+
 #### get
 
 Fetch resources (alias `fetch`)
 
-**Parameters**
+##### Parameters
 
 -   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to fetch data from
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-API request queries (optional, default `{}`)
@@ -237,7 +271,7 @@ Fetch resources (alias `fetch`)
     -   `params.include` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
 -   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
 
-**Examples**
+##### Examples
 
 _Getting a resource with JSON:API parameters_
 
@@ -327,7 +361,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Get the current headers or add additional headers
 
-**Examples**
+##### Examples
 
 _Get all headers_
 
@@ -353,13 +387,13 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Update a resource (alias `update`)
 
-**Parameters**
+##### Parameters
 
 -   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to update data in
 -   `body` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Data to send in the request
 -   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
 
-**Examples**
+##### Examples
 
 _Update a post_
 
@@ -379,7 +413,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 If pluralization is enabled (default, see Kitsu constructor docs) then pluralization rules can be added
 
-**Examples**
+##### Examples
 
 _Adding an uncountable pluralization rule_
 
@@ -393,13 +427,13 @@ api.plural.plural('paper') //=> 'paper'
 
 Create a new resource (alias `create`)
 
-**Parameters**
+##### Parameters
 
 -   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to create a resource under
 -   `body` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Data to send in the request
 -   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
 
-**Examples**
+##### Examples
 
 _Create a post on a user's profile feed_
 
@@ -419,40 +453,20 @@ api.create('posts', {
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
 
-#### remove
-
-Remove a resource
-
-**Parameters**
-
--   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to remove data from
--   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** Resource ID to remove
--   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
-
-**Examples**
-
-_Remove a user's post_
-
-```javascript
-api.remove('posts', 123)
-```
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
-
 #### self
 
 Get the authenticated user's data
 
 **Note** Requires the JSON:API server to support `filter[self]=true`
 
-**Parameters**
+##### Parameters
 
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-API request queries (optional, default `{}`)
     -   `params.fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Return a sparse fieldset with only the included attributes/relationships - [JSON:API Sparse Fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets)
     -   `params.include` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
 -   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
 
-**Examples**
+##### Examples
 
 _Get the authenticated user's resource_
 

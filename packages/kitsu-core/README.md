@@ -75,25 +75,41 @@ kitsuCore.camel(...)
 #### Table of Contents
 
 -   [camel](#camel)
+    -   [Parameters](#parameters)
+    -   [Examples](#examples)
 -   [deattribute](#deattribute)
+    -   [Parameters](#parameters-1)
+    -   [Examples](#examples-1)
 -   [deserialise](#deserialise)
+    -   [Parameters](#parameters-2)
+    -   [Examples](#examples-2)
 -   [error](#error)
+    -   [Parameters](#parameters-3)
 -   [filterIncludes](#filterincludes)
+    -   [Parameters](#parameters-4)
 -   [kebab](#kebab)
+    -   [Parameters](#parameters-5)
+    -   [Examples](#examples-3)
 -   [linkRelationships](#linkrelationships)
+    -   [Parameters](#parameters-6)
 -   [query](#query)
+    -   [Parameters](#parameters-7)
 -   [serialise](#serialise)
+    -   [Parameters](#parameters-8)
+    -   [Examples](#examples-4)
 -   [snake](#snake)
+    -   [Parameters](#parameters-9)
+    -   [Examples](#examples-5)
 
 ### camel
 
 Converts kebab-case and snake_case into camelCase
 
-**Parameters**
+#### Parameters
 
 -   `s` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** String to convert
 
-**Examples**
+#### Examples
 
 _Convert kebab-case_
 
@@ -113,11 +129,11 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Hoists attributes to be top-level
 
-**Parameters**
+#### Parameters
 
 -   `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array))** Resource data
 
-**Examples**
+#### Examples
 
 _Deattribute an array of resources_
 
@@ -153,11 +169,11 @@ Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 Deserialises a JSON-API response
 
-**Parameters**
+#### Parameters
 
 -   `obj` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response
 
-**Examples**
+#### Examples
 
 _Deserialise with a basic data object_
 
@@ -201,7 +217,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Mutates an error and rethrows it
 
-**Parameters**
+#### Parameters
 
 -   `E` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The Error
 
@@ -212,7 +228,7 @@ Mutates an error and rethrows it
 
 Filters includes for the specific relationship
 
-**Parameters**
+#### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
 -   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
@@ -225,11 +241,11 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 Converts camelCase into kebab-case
 
-**Parameters**
+#### Parameters
 
 -   `s` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase string
 
-**Examples**
+#### Examples
 
 ```javascript
 kebab('helloWorld') // 'hello-world'
@@ -241,7 +257,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Links relationships to included data
 
-**Parameters**
+#### Parameters
 
 -   `data` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response data object
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
@@ -250,7 +266,7 @@ Links relationships to included data
 
 Constructs a URL query string for JSON:API parameters
 
-**Parameters**
+#### Parameters
 
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Parameters to parse
 -   `prefix` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Prefix returned string with `?` (default `false`) (optional, default `false`)
@@ -261,13 +277,13 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Serialises an object into a JSON-API structure
 
-**Parameters**
+#### Parameters
 
 -   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Request model
 -   `obj` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The data (optional, default `{}`)
 -   `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Request type (optional, default `'POST'`)
 
-**Examples**
+#### Examples
 
 _Due to its usage in kitsu, it **MUST** be called with **this** set in 5.0.x_
 
@@ -284,11 +300,11 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Converts camelCase into snake_case
 
-**Parameters**
+#### Parameters
 
 -   `s` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase string
 
-**Examples**
+#### Examples
 
 ```javascript
 snake('helloWorld') // 'hello_world'
