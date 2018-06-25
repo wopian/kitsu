@@ -236,9 +236,9 @@ export default class Kitsu {
    * @param {Object} headers Additional headers to send with request
    * @returns {Object} JSON-parsed response
    * @example <caption>Remove a user's post</caption>
-   * api.remove('posts', 123)
+   * api.delete('posts', 123)
    */
-  async remove (model, id, headers = {}) {
+  async delete (model, id, headers = {}) {
     try {
       const url = this.plural(this.resCase(model)) + '/' + id
       const { data } = await this.axios.delete(url, {

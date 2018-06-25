@@ -9,7 +9,7 @@ afterEach(() => {
 })
 
 describe('kitsu', () => {
-  describe('remove', () => {
+  describe('delete', () => {
     it('sends headers', done => {
       expect.assertions(1)
       const api = new Kitsu({ headers: { Authorization: true } })
@@ -22,7 +22,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      api.remove('anime', 1, { extra: true }).catch(err => {
+      api.delete('anime', 1, { extra: true }).catch(err => {
         done.fail(err)
       })
       done()
@@ -40,7 +40,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      api.remove('post', 1).catch(err => {
+      api.delete('post', 1).catch(err => {
         done.fail(err)
       })
       done()
@@ -50,7 +50,7 @@ describe('kitsu', () => {
       expect.assertions(1)
       const api = new Kitsu()
       try {
-        await api.remove('posts')
+        await api.delete('posts')
       } catch (err) {
         expect(err.message).toEqual('DELETE requires an ID for the posts type')
       }
