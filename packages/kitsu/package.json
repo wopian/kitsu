@@ -50,7 +50,7 @@
     },
     {
       "path": "./legacy/index.js",
-      "limit": "20 kb"
+      "limit": "20.1 kb"
     },
     {
       "path": "./node/index.js",
