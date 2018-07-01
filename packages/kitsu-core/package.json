@@ -32,15 +32,15 @@
   "size-limit": [
     {
       "path": "./lib/index.js",
-      "limit": "10 kb"
+      "limit": "10.2 kb"
     },
     {
       "path": "./legacy/index.js",
-      "limit": "12 kb"
+      "limit": "12.2 kb"
     },
     {
       "path": "./node/index.js",
-      "limit": "8 kb"
+      "limit": "7.6 kb"
     }
   ]
 }
