@@ -41,7 +41,7 @@
     "eslint": "~5.0.0",
     "eslint-config-wopian": "~1.3.0",
     "generate-changelog": "~1.7.0",
-    "jest": "~23.2.0",
+    "jest": "~23.3.0",
     "lerna": "~2.11.0",
     "nock": "^9.1.6",
     "replace-in-file": "~3.4.0",
