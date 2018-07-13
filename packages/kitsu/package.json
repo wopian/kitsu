@@ -1,5 +1,5 @@
 {
-  "version": "5.2.0",
+  "version": "5.2.1",
   "name": "kitsu",
   "description": "Simple & lightweight JSON-API client for Kitsu and other compliant APIs",
   "author": "James Harris <wopian@wopian.me>",
@@ -47,7 +47,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-runtime": "^6.26.0",
-    "kitsu-core": "^5.2.0",
+    "kitsu-core": "^5.2.1",
     "pluralize": "^7.0.0"
   },
   "size-limit": [
