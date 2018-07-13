@@ -1,3 +1,16 @@
+#### 5.2.1 (2018-07-13)
+
+##### Build System / Dependencies
+
+*  update dependency jest to ~23.3.0 (#184) (5975041c)
+*  update dependency jest to ~23.2.0 (#181) (552202b1)
+*  update dependency rollup to ~0.62.0 (#182) (8abaab74)
+
+##### Chores
+
+*  add contributors to package.json (789125b2)
+*  lock file maintenance (#183) (9cb4f037)
+
 ### 5.2.0 (2018-06-25)
 
 ##### Build System / Dependencies
