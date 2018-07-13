@@ -25,9 +25,9 @@ Core [JSON:API] serialisation and deserialisation components for [kitsu]
 
 |             Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
 | ------------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-|        `kitsu-core` |       9.9 kb       |  6+  |   52+  |   47+   |   10+  |  14+ |     |
-| `kitsu-core/legacy` |       11.9 kb      |  6+  |   4+   |    3+   |  3.2+  |  12+ |  8+ |
-|   `kitsu-core/node` |       7.3 kb       |  6+  |        |         |        |      |     |
+|        `kitsu-core` |      10.1 kb       |  6+  |   52+  |   48+   |   10+  |  14+ |     |
+| `kitsu-core/legacy` |        12 kb       |  6+  |   4+   |  3.5+   |  3.2+  |  12+ |  8+ |
+|   `kitsu-core/node` |       7.4 kb       |  6+  |        |         |        |      |     |
 
 \* Including all dependencies, minified & gzipped
 
@@ -231,7 +231,7 @@ Filters includes for the specific relationship
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
@@ -370,6 +370,6 @@ All code released under [MIT]
 
 [contributors badge]: https://img.shields.io/github/contributors/wopian/kitsu.svg?style=flat-square
 
-[donate]: https://www.patreon.com/wopian
+[donate]: https://paypal.me/wopian
 
-[donate badge]: https://img.shields.io/badge/patreon-donate-ff69b4.svg?style=flat-square
+[donate badge]: https://img.shields.io/badge/support%20me%20on-paypal.me-ff69b4.svg?style=flat-square

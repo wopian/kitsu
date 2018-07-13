@@ -81,6 +81,6 @@ All code released under [MIT]
 
 [contributors badge]: https://img.shields.io/github/contributors/wopian/kitsu.svg?style=flat-square
 
-[donate]: https://www.patreon.com/wopian
+[donate]: https://paypal.me/wopian
 
-[donate badge]: https://img.shields.io/badge/patreon-donate-ff69b4.svg?style=flat-square
+[donate badge]: https://img.shields.io/badge/support%20me%20on-paypal.me-ff69b4.svg?style=flat-square

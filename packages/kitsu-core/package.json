@@ -3,6 +3,13 @@
   "name": "kitsu-core",
   "description": "Core serialisation and deserialsation functions for the kitsu JSON:API client",
   "author": "James Harris <wopian@wopian.me>",
+  "contributors": [
+    "Brandon Martinez <me@brandonmartinez.com>",
+    "Daniel Skogly <daniel.skogly@protonmail.com>",
+    "Lukas Erlacher <erlacher@in.tum.de>",
+    "Matthew Dias <matthewdias@me.com>",
+    "Menthol <bennetteson@gmail.com>"
+  ],
   "license": "MIT",
   "main": "lib/index.js",
   "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core#readme",

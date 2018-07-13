@@ -28,9 +28,9 @@ _Check out the [Migration Guide] for breaking changes and new features in `5.x`_
 
 |        Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
 | -------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-|        `kitsu` |       17.7 kb      |  6+  |   52+  |   47+   |   10+  |  14+ |     |
-| `kitsu/legacy` |       19.8 kb      |  6+  |   4+   |    3+   |  3.2+  |  12+ |  8+ |
-|   `kitsu/node` |       14.7 kb      |  6+  |        |         |        |      |     |
+|        `kitsu` |       17.8 kb      |  6+  |   52+  |   48+   |   10+  |  14+ |     |
+| `kitsu/legacy` |       19.9 kb      |  6+  |   4+   |  3.5+   |  3.2+  |  12+ |  8+ |
+|   `kitsu/node` |       14.8 kb      |  6+  |        |         |        |      |     |
 
 \* Including all dependencies, minified & gzipped
 
@@ -550,6 +550,6 @@ All code released under [MIT]
 
 [contributors badge]: https://img.shields.io/github/contributors/wopian/kitsu.svg?style=flat-square
 
-[donate]: https://www.patreon.com/wopian
+[donate]: https://paypal.me/wopian
 
-[donate badge]: https://img.shields.io/badge/patreon-donate-ff69b4.svg?style=flat-square
+[donate badge]: https://img.shields.io/badge/support%20me%20on-paypal.me-ff69b4.svg?style=flat-square
