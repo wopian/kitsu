@@ -26,7 +26,7 @@ Core [JSON:API] serialisation and deserialisation components for [kitsu]
 
 |             Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
 | ------------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-|        `kitsu-core` |       10.1 kb      |  6+  |   52+  |   48+   |   10+  |  14+ |     |
+|        `kitsu-core` |       10.1 kb      |  6+  |   54+  |   48+   |   10+  |  14+ |     |
 | `kitsu-core/legacy` |        12 kb       |  6+  |   4+   |   3.5+  |  3.2+  |  12+ |  8+ |
 |   `kitsu-core/node` |       7.4 kb       |  6+  |        |         |        |      |     |
 

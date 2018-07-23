@@ -26,7 +26,10 @@
     "release:commit": "git commit -am \"update changelog\"",
     "major": "yarn test:release && lerna exec --parallel changelog -- -M && yarn release:commit && yarn release:lerna --cd-version major",
     "minor": "yarn test:release && lerna exec --parallel changelog -- -m && yarn release:commit && yarn release:lerna --cd-version minor",
-    "patch": "yarn test:release && lerna exec --parallel changelog -- -p && yarn release:commit && yarn release:lerna --cd-version patch"
+    "patch": "yarn test:release && lerna exec --parallel changelog -- -p && yarn release:commit && yarn release:lerna --cd-version patch",
+    "browserlist": "yarn browserlist:default && yarn browserlist:legacy",
+    "browserlist:default": "npx browserslist \"last 2 years, not < 0.05%\"",
+    "browserlist:legacy": "npx browserslist \"last 10 years\""
   },
   "devDependencies": {
     "axios": "~0.18.0",

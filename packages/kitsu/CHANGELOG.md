@@ -1,3 +1,25 @@
+#### 5.2.2 (2018-07-23)
+
+##### Build System / Dependencies
+
+*  update dependency eslint to ~5.2.0 (#188) (c1b50b4f)
+*  update dependency rollup to ~0.63.0 (#187) (a792cff5)
+*  update dependency jest to ~23.4.0 (#186) (b0a206ed)
+*  update dependency eslint to ~5.1.0 (#185) (cd66096f)
+*  update dependency jest to ~23.3.0 (#184) (5975041c)
+*  update dependency jest to ~23.2.0 (#181) (552202b1)
+*  update dependency rollup to ~0.62.0 (#182) (8abaab74)
+
+##### Chores
+
+*  add contributors to package.json (789125b2)
+*  lock file maintenance (#183) (9cb4f037)
+
+##### Documentation Changes
+
+* **kitsu:**  add bundlephobia size badge (f32fa913)
+* **kitsu-core:**  add bundlephobia size badge (ed0c23b3)
+
 #### 5.2.1 (2018-07-13)
 
 ##### Build System / Dependencies
