@@ -1,6 +1,7 @@
 # Kitsu
 
 [![npm badge]][npm]
+[![bundlephobia badge]][bundlephobia]
 [![npm install badge]][npm]
 [![david badge]][david]
 [![contributors badge]][contributors]
@@ -553,3 +554,7 @@ All code released under [MIT]
 [donate]: https://paypal.me/wopian
 
 [donate badge]: https://img.shields.io/badge/support%20me%20on-paypal.me-ff69b4.svg?style=flat-square
+
+[bundlephobia]: https://bundlephobia.com/result?p=kitsu
+
+[bundlephobia badge]: https://img.shields.io/bundlephobia/minzip/kitsu.svg?style=flat-square
