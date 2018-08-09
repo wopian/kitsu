@@ -48,7 +48,7 @@
     "lerna": "~2.11.0",
     "nock": "^9.1.6",
     "replace-in-file": "~3.4.0",
-    "rollup": "~0.63.0",
+    "rollup": "~0.64.0",
     "rollup-plugin-babel": "~3.0.1",
     "rollup-plugin-babel-minify": "~5.0.0",
     "rollup-plugin-local-resolve": "~1.0.7",
