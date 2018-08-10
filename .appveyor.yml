@@ -2,7 +2,6 @@ environment:
   matrix:
     - nodejs_version: ""
     - nodejs_version: "8" # LTS Jan 20
-    - nodejs_version: "6" # LTS Apr 19
 platform:
 - x64
 install:
