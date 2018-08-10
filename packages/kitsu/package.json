@@ -11,7 +11,8 @@
     "Menthol <bennetteson@gmail.com>"
   ],
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "lib",
+  "module": "lib",
   "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu#readme",
   "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu",
   "bugs": {
@@ -54,15 +55,23 @@
   "size-limit": [
     {
       "path": "./lib/index.js",
-      "limit": "12.52 kb"
+      "limit": "12.31 kb"
+    },
+    {
+      "path": "./lib/index.mjs",
+      "limit": "12.09 kb"
     },
     {
       "path": "./legacy/index.js",
-      "limit": "12.67 kb"
+      "limit": "12.45 kb"
     },
     {
       "path": "./node/index.js",
-      "limit": "9.25 kb"
+      "limit": "9.05 kb"
+    },
+    {
+      "path": "./node/index.mjs",
+      "limit": "8.90 kb"
     }
   ]
 }

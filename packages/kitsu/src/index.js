@@ -1,4 +1,5 @@
 import axios from 'axios'
+import pluralise from 'pluralize'
 import { camel, deserialise, error, kebab, query, serialise, snake } from 'kitsu-core'
 
 /**
@@ -48,7 +49,7 @@ export default class Kitsu {
      *
      */
     if (options.pluralize === false) this.plural = s => s
-    else this.plural = require('pluralize')
+    else this.plural = pluralise
 
     /**
      * Get the current headers or add additional headers

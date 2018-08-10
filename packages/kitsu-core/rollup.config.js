@@ -44,22 +44,22 @@ export default [
     plugins: pluginsMain,
     output: [
       {
-        file: pkg.main,
+        file: `${pkg.main}/index.js`,
         format: 'cjs',
         sourcemap: true,
         globals
-      }
+      },
       /*
       TODO: Use Babel itself instead of Rollup to produce output
             e.g CommonJS: src -> lib,node,legacy
                  Modules: src -> lib,node
+                 */
       {
-        file: pkg.module,
+        file: `${pkg.module}/index.mjs`,
         format: 'es',
         sourcemap: true,
         globals
       }
-      */
     ]
   },
   {
@@ -73,15 +73,13 @@ export default [
         format: 'cjs',
         sourcemap: true,
         globals
-      }
-      /*
+      },
       {
         file: 'node/index.mjs',
         format: 'es',
         sourcemap: true,
         globals
       }
-      */
     ]
   },
   {
