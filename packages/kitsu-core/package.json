@@ -33,21 +33,22 @@
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "build": "yarn rollup"
   },
+  "sideEffects": false,
   "dependencies": {
-    "babel-runtime": "^6.26.0"
+    "@babel/runtime": "^7.0.0-rc.1"
   },
   "size-limit": [
     {
       "path": "./lib/index.js",
-      "limit": "10.2 kb"
+      "limit": "4.83 kb"
     },
     {
       "path": "./legacy/index.js",
-      "limit": "12.2 kb"
+      "limit": "4.88 kb"
     },
     {
       "path": "./node/index.js",
-      "limit": "7.6 kb"
+      "limit": "2.01 kb"
     }
   ]
 }

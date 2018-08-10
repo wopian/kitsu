@@ -1,54 +1,46 @@
 import babel from 'rollup-plugin-babel'
-import minify from 'rollup-plugin-babel-minify'
 import local from 'rollup-plugin-local-resolve'
 import pkg from './package.json'
 
+const {
+  sharedExternals,
+  sharedGlobals,
+  babelMain,
+  babelNode,
+  babelLegacy
+} = require('../../config/presets')
+
 let external = [
   ...Object.keys(pkg.dependencies),
-  'babel-runtime/regenerator',
-  'babel-runtime/helpers/asyncToGenerator',
-  'babel-runtime/helpers/slicedToArray',
-  'babel-runtime/helpers/classCallCheck',
-  'babel-runtime/helpers/createClass',
-  'babel-runtime/helpers/typeof'
+  ...sharedExternals,
+  '@babel/runtime/helpers/slicedToArray',
+  '@babel/runtime/helpers/classCallCheck', // Legacy
+  '@babel/runtime/helpers/createClass' // Legacy
 ]
 
 let globals = {
+  ...sharedGlobals,
   'axios': 'axios',
   'kitsu-core': 'kitsuCore',
-  'babel-runtime/regenerator': '_regeneratorRuntime',
-  'babel-runtime/helpers/asyncToGenerator': '_asyncToGenerator',
-  'babel-runtime/helpers/slicedToArray': '_slicedToArray',
-  'babel-runtime/helpers/classCallCheck': '_classCallCheck',
-  'babel-runtime/helpers/createClass': '_createClass',
-  'babel-runtime/helpers/typeof': '_typeof' // Legacy
+  'querystringify': 'qs',
+  '@babel/runtime/helpers/slicedToArray': '_slicedToArray',
+  '@babel/runtime/helpers/classCallCheck': '_classCallCheck', // Legacy
+  '@babel/runtime/helpers/createClass': '_createClass' // Legacy
 }
 
 let plugins = [
-  minify({ comments: false, mangle: true }),
   local()
 ]
 let pluginsMain = [
-  babel({ exclude: [ '*.json', 'node_modules/**/*' ], runtimeHelpers: true }),
+  babel(babelMain),
   ...plugins
 ]
 let pluginsNode = [
-  babel({
-    babelrc: false,
-    exclude: [ '*.json', 'node_modules/**/*' ],
-    runtimeHelpers: true,
-    presets: [ [ 'env', { targets: { node: 6 }, modules: false } ], 'stage-0' ],
-    plugins: [ [ 'transform-runtime', { polyfill: false, regenerator: true } ]
-    ]
-  }),
+  babel(babelNode),
   ...plugins
 ]
 let pluginsLegacy = [
-  babel({
-    exclude: [ '*.json', 'node_modules/**/*' ],
-    runtimeHelpers: true,
-    presets: [ [ 'env', { targets: { browsers: [ 'last 10 years' ], node: 6 }, modules: false } ], 'stage-0' ]
-  }),
+  babel(babelLegacy),
   ...plugins
 ]
 

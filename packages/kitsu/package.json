@@ -44,24 +44,25 @@
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "build": "yarn rollup && yarn replace"
   },
+  "sideEffects": false,
   "dependencies": {
+    "@babel/runtime": "^7.0.0-rc.1",
     "axios": "^0.18.0",
-    "babel-runtime": "^6.26.0",
     "kitsu-core": "^5.2.2",
     "pluralize": "^7.0.0"
   },
   "size-limit": [
     {
       "path": "./lib/index.js",
-      "limit": "18 kb"
+      "limit": "12.52 kb"
     },
     {
       "path": "./legacy/index.js",
-      "limit": "20.1 kb"
+      "limit": "12.67 kb"
     },
     {
       "path": "./node/index.js",
-      "limit": "15 kb"
+      "limit": "9.25 kb"
     }
   ]
 }

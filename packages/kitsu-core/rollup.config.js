@@ -1,46 +1,39 @@
 import babel from 'rollup-plugin-babel'
-import minify from 'rollup-plugin-babel-minify'
 import local from 'rollup-plugin-local-resolve'
 import pkg from './package.json'
 
+const {
+  sharedExternals,
+  sharedGlobals,
+  babelMain,
+  babelNode,
+  babelLegacy
+} = require('../../config/presets')
+
 let external = [
   ...Object.keys(pkg.dependencies),
-  'babel-runtime/regenerator',
-  'babel-runtime/helpers/asyncToGenerator',
-  'babel-runtime/helpers/typeof'
+  ...sharedExternals,
+  '@babel/runtime/helpers/typeof' // Legacy
 ]
 
 let globals = {
-  'babel-runtime/regenerator': '_regeneratorRuntime',
-  'babel-runtime/helpers/asyncToGenerator': '_asyncToGenerator',
-  'babel-runtime/helpers/typeof': '_typeof'
+  ...sharedGlobals,
+  '@babel/runtime/helpers/typeof': '_typeof' // Legacy
 }
 
 let plugins = [
-  minify({ comments: false, mangle: true }),
   local()
 ]
 let pluginsMain = [
-  babel({ exclude: [ '*.json', 'node_modules/**/*' ], runtimeHelpers: true }),
+  babel(babelMain),
   ...plugins
 ]
 let pluginsNode = [
-  babel({
-    babelrc: false,
-    exclude: [ '*.json', 'node_modules/**/*' ],
-    runtimeHelpers: true,
-    presets: [ [ 'env', { targets: { node: 6 }, modules: false } ], 'stage-0' ],
-    plugins: [ [ 'transform-runtime', { polyfill: false, regenerator: true } ]
-    ]
-  }),
+  babel(babelNode),
   ...plugins
 ]
 let pluginsLegacy = [
-  babel({
-    exclude: [ '*.json', 'node_modules/**/*' ],
-    runtimeHelpers: true,
-    presets: [ [ 'env', { targets: { browsers: [ 'last 10 years' ], node: 6 }, modules: false } ], 'stage-0' ]
-  }),
+  babel(babelLegacy),
   ...plugins
 ]
 
@@ -99,7 +92,7 @@ export default [
     output: {
       file: 'legacy/index.js',
       format: 'umd',
-      name: 'Kitsu',
+      name: 'KitsuCore',
       sourcemap: true,
       globals
     }
