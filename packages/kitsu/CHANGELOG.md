@@ -1,3 +1,13 @@
+#### 6.0.2 (2018-08-10)
+
+##### Documentation Changes
+
+*  switch badges to badgen (19166bd6)
+
+##### Other Changes
+
+*  remove unused @babel/stage-0 devDependency (a9a2ab0d)
+
 #### 6.0.1 (2018-08-10)
 
 ##### Chores
