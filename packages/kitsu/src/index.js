@@ -68,6 +68,11 @@ export default class Kitsu {
       baseURL: options.baseURL || 'https://kitsu.io/api/edge',
       timeout: options.timeout || 30000
     })
+
+    this.fetch = this.get
+    this.update = this.patch
+    this.create = this.post
+    this.remove = this.delete
   }
 
   /**
@@ -280,9 +285,4 @@ export default class Kitsu {
       throw error(E)
     }
   }
-
-  fetch = this.get
-  update = this.patch
-  create = this.post
-  remove = this.delete
 }
