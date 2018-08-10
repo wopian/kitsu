@@ -16,6 +16,8 @@
 
 Core [JSON:API] serialisation and deserialisation components for [kitsu]
 
+_Check out the [Migration Guide] for breaking changes and new features in `6.x`_
+
 ## Features
 
 -   JSON-API 1.0 compliant
@@ -229,7 +231,7 @@ Filters includes for the specific relationship
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
@@ -327,6 +329,8 @@ All code released under [MIT]
 [json:api]: http://jsonapi.org
 
 [promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+
+[migration guide]: https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md
 
 [changelog]: https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/CHANGELOG.md
 

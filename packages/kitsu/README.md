@@ -16,7 +16,7 @@
 
 A simple, lightweight & framework agnostic [JSON:API] client for [Kitsu.io] and other APIs
 
-_Check out the [Migration Guide] for breaking changes and new features in `5.x`_
+_Check out the [Migration Guide] for breaking changes and new features in `6.x`_
 
 ## Features
 
@@ -506,7 +506,7 @@ All code released under [MIT]
 
 [kitsu.io api docs]: https://kitsu.docs.apiary.io
 
-[migration guide]: https://github.com/wopian/kitsu/blob/master/MIGRATING.md
+[migration guide]: https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md
 
 [changelog]: https://github.com/wopian/kitsu/blob/master/packages/kitsu/CHANGELOG.md
 
