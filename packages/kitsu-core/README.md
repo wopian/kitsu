@@ -12,6 +12,7 @@
 [![david dev badge]][david dev]
 [![cc maintainability badge]][cc maintainability]
 [![cc coverage badge]][cc coverage]
+[![packagephobia badge]][packagephobia]
 
 Core [JSON:API] serialisation and deserialisation components for [kitsu]
 
@@ -228,7 +229,7 @@ Filters includes for the specific relationship
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
@@ -335,17 +336,17 @@ All code released under [MIT]
 
 [npm]: https://www.npmjs.com/package/kitsu-core
 
-[npm badge]: https://img.shields.io/npm/v/kitsu-core.svg?style=flat-square
+[npm badge]: https://flat.badgen.net/npm/v/kitsu-core
 
-[npm install badge]: https://img.shields.io/npm/dt/kitsu-core.svg?style=flat-square
+[npm install badge]: https://flat.badgen.net/npm/dt/kitsu-core
 
 [travis]: https://travis-ci.org/wopian/kitsu
 
-[travis badge]: https://img.shields.io/travis/wopian/kitsu/master.svg?style=flat-square&label=linux%20%26%20macOS
+[travis badge]: https://flat.badgen.net/travis/wopian/kitsu
 
 [appveyor]: https://ci.appveyor.com/project/wopian/kitsu
 
-[appveyor badge]: https://img.shields.io/appveyor/ci/wopian/kitsu/master.svg?style=flat-square&label=windows
+[appveyor badge]: https://flat.badgen.net/appveyor/ci/wopian/kitsu
 
 [cc coverage]: https://codeclimate.com/github/wopian/kitsu/code
 
@@ -361,7 +362,7 @@ All code released under [MIT]
 
 [david dev]: https://david-dm.org/wopian/kitsu?type=dev
 
-[david dev badge]: https://img.shields.io/david/dev/wopian/kitsu.svg?style=flat-square
+[david dev badge]: https://flat.badgen.net/david/dev/wopian/kitsu
 
 [contributors]: https://github.com/wopian/kitsu/graphs/contributors
 
@@ -369,8 +370,12 @@ All code released under [MIT]
 
 [donate]: https://paypal.me/wopian
 
-[donate badge]: https://img.shields.io/badge/support%20me%20on-paypal.me-ff69b4.svg?style=flat-square
+[donate badge]: https://flat.badgen.net/badge/support%20me%20on/paypal.me/pink
 
 [bundlephobia]: https://bundlephobia.com/result?p=kitsu-core
 
-[bundlephobia badge]: https://img.shields.io/bundlephobia/minzip/kitsu-core.svg?style=flat-square
+[bundlephobia badge]: https://flat.badgen.net/bundlephobia/minzip/kitsu-core
+
+[packagephobia]: https://packagephobia.now.sh/result?p=kitsu-core
+
+[packagephobia badge]: https://flat.badgen.net/packagephobia/install/kitsu-core

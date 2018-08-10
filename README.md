@@ -29,17 +29,9 @@ All code released under [MIT]
 
 [kitsu-core]: https://github.com/wopian/kitsu/tree/master/packages/kitsu-core
 
-[kitsu.io]: https://kitsu.io
-
 [json:api]: http://jsonapi.org
 
-[promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
-
-[more examples]: https://github.com/wopian/kitsu/tree/master/example
-
-[kitsu.io api docs]: https://kitsu.docs.apiary.io
-
-[migration guide]: https://github.com/wopian/kitsu/blob/master/MIGRATING.md
+[kitsu.io]: https://kitsu.io
 
 [github releases]: https://github.com/wopian/kitsu/releases
 
@@ -47,19 +39,13 @@ All code released under [MIT]
 
 [mit]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
 
-[npm]: https://www.npmjs.com/package/kitsu
-
-[npm badge]: https://img.shields.io/npm/v/kitsu.svg?style=flat-square
-
-[npm install badge]: https://img.shields.io/npm/dt/kitsu.svg?style=flat-square
-
 [travis]: https://travis-ci.org/wopian/kitsu
 
-[travis badge]: https://img.shields.io/travis/wopian/kitsu/master.svg?style=flat-square&label=linux%20%26%20macOS
+[travis badge]: https://flat.badgen.net/travis/wopian/kitsu
 
 [appveyor]: https://ci.appveyor.com/project/wopian/kitsu
 
-[appveyor badge]: https://img.shields.io/appveyor/ci/wopian/kitsu/master.svg?style=flat-square&label=windows
+[appveyor badge]: https://flat.badgen.net/appveyor/ci/wopian/kitsu
 
 [cc coverage]: https://codeclimate.com/github/wopian/kitsu/code
 
@@ -69,13 +55,9 @@ All code released under [MIT]
 
 [cc maintainability badge]: https://img.shields.io/codeclimate/maintainability/wopian/kitsu.svg?style=flat-square
 
-[david]: https://david-dm.org/wopian/kitsu
-
-[david badge]: https://img.shields.io/david/wopian/kitsu.svg?style=flat-square
-
 [david dev]: https://david-dm.org/wopian/kitsu?type=dev
 
-[david dev badge]: https://img.shields.io/david/dev/wopian/kitsu.svg?style=flat-square
+[david dev badge]: https://flat.badgen.net/david/dev/wopian/kitsu
 
 [contributors]: https://github.com/wopian/kitsu/graphs/contributors
 
@@ -83,4 +65,4 @@ All code released under [MIT]
 
 [donate]: https://paypal.me/wopian
 
-[donate badge]: https://img.shields.io/badge/support%20me%20on-paypal.me-ff69b4.svg?style=flat-square
+[donate badge]: https://flat.badgen.net/badge/support%20me%20on/paypal.me/pink
