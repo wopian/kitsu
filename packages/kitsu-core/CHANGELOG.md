@@ -1,3 +1,9 @@
+#### 6.0.3 (2018-08-10)
+
+##### Documentation Changes
+
+*  fix links to migration guide (cad735c4)
+
 #### 6.0.2 (2018-08-10)
 
 ##### Documentation Changes
