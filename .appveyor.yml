@@ -1,9 +1,13 @@
 environment:
   matrix:
     - nodejs_version: ""
-    - nodejs_version: "8" # LTS Jan 20
+    - nodejs_version: 8 # LTS Jan 20
+    - nodejs_version: 6 # EOL Apr 19
 platform:
 - x64
+matrix:
+  allow_failures:
+    - nodejs_version: 6
 install:
 - ps: Install-Product node $env:nodejs_version $env:platform
 - yarn install --frozen-lockfile

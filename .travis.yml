@@ -5,11 +5,14 @@ language: node_js
 node_js:
 - node
 - 8 # EOL Dec 19
+- 6 # EOL Apr 19
 cache:
   yarn: true
 sudo: false
 matrix:
   fast_finish: true
+  allow_failures:
+    - node_js: 6
 after_install: yarn bootstrap
 script: yarn test
 after_success:
