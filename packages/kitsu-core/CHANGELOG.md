@@ -1,3 +1,30 @@
+## 6.0.0 (2018-08-10)
+
+##### Breaking Changes
+
+* **kitsu-core:**  support nested parameters  (closes #148) [breaking] (14b7747f)
+
+##### Build System / Dependencies
+
+*  update dependency rollup to ~0.64.0 (#193) (279f85a7)
+*  update dependency eslint to ~5.3.0 (#192) (64c36c20)
+*  update dependency documentation to ~8.1.0 (#191) (80d2aade)
+*  update dependency size-limit to ~0.19.0 (#189) (032c98c2)
+
+##### Chores
+
+*  lock file maintenance (#190) (aa43d781)
+
+##### Documentation Changes
+
+* **kitsu-core:**  update README (037d8423)
+* **kitsu:**  update README (20b72f2b)
+
+##### Refactors
+
+* **kitsu:**  set aliases in constructor, avoid class properties (3bd6de57)
+*  upgrade to babel 7 (6372acfa)
+
 #### 5.2.2 (2018-07-23)
 
 ##### Build System / Dependencies

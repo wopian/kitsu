@@ -31,7 +31,7 @@ _Check out the [Migration Guide] for breaking changes and new features in `5.x`_
 | -------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
 |        `kitsu` |       12.0 kb      |  6+  |   54+  |   51+   |   10+  |  15+ |     |
 | `kitsu/legacy` |       12.2 kb      |  6+  |   4+   |   3.5+  |  3.2+  |  12+ |  8+ |
-|   `kitsu/node` |        8.8 kb      |  6+  |        |         |        |      |     |
+|   `kitsu/node` |       8.8 kb       |  6+  |        |         |        |      |     |
 
 \* Including all dependencies, minified & gzipped
 
