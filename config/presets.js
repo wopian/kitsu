@@ -1,3 +1,12 @@
+const minNode = 6
+const mainBrowsers = [
+  'last 2 years',
+  'not < 0.05%'
+]
+const legacyBrowsers = [
+  'last 10 years'
+]
+
 const sharedExternals = [
   '@babel/runtime/regenerator',
   '@babel/runtime/helpers/asyncToGenerator'
@@ -33,11 +42,8 @@ const babelMain = {
   presets: [
     [ '@babel/env', {
       targets: {
-        browsers: [
-          'last 2 years',
-          'not < 0.05%'
-        ],
-        node: 6
+        browsers: mainBrowsers,
+        node: minNode
       },
       modules: false
     } ],
@@ -53,7 +59,7 @@ const babelNode = {
   presets: [
     [ '@babel/env', {
       targets: {
-        node: 6
+        node: minNode
       },
       modules: false
     } ],
@@ -69,10 +75,8 @@ const babelLegacy = {
   presets: [
     [ '@babel/env', {
       targets: {
-        browsers: [
-          'last 10 years'
-        ],
-        node: 6
+        browsers: legacyBrowsers,
+        node: minNode
       },
       modules: false
     } ],
