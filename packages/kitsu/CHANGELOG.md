@@ -1,3 +1,9 @@
+### 6.1.0 (2018-08-10)
+
+##### New Features
+
+*  re-add ES modules (closes #155) (7506fd0e)
+
 #### 6.0.3 (2018-08-10)
 
 ##### Documentation Changes
