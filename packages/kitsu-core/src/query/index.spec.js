@@ -23,7 +23,7 @@ describe('kitsu-core', () => {
       expect.assertions(1)
       expect(query({
         include: 'author,comments.author'
-      })).toEqual('include=author,comments.author')
+      })).toEqual('include=author%2Ccomments.author')
     })
 
     it('builds a fields query string', () => {
@@ -42,6 +42,21 @@ describe('kitsu-core', () => {
         page: { limit: 1 },
         sort: '-popularityRank'
       })).toEqual('page%5Blimit%5D=1&sort=-popularityRank')
+    })
+
+    it('builds nested parameters', () => {
+      expect.assertions(1)
+      expect(query({
+        fields: {
+          abc: {
+            def: {
+              ghi: {
+                jkl: 'mno'
+              }
+            }
+          }
+        }
+      })).toEqual('fields%5Babc%5D%5Bdef%5D%5Bghi%5D%5Bjkl%5D=mno')
     })
   })
 })
