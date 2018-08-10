@@ -1,3 +1,18 @@
+#### 6.0.1 (2018-08-10)
+
+##### Chores
+
+*  move targets to top of config/presets (6b2e9736)
+*  drop testing on node 6/non active LTS (5e1fb268)
+
+##### Continuous Integration
+
+*  allow node 6 test failures (0088d7c3)
+
+##### Documentation Changes
+
+*  add ^6 migration note (60bad611)
+
 ## 6.0.0 (2018-08-10)
 
 ##### Breaking Changes
