@@ -26,15 +26,11 @@ Core [JSON:API] serialisation and deserialisation components for [kitsu]
 
 |             Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
 | ------------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-|        `kitsu-core` |       10.1 kb      |  6+  |   54+  |   48+   |   10+  |  14+ |     |
-| `kitsu-core/legacy` |        12 kb       |  6+  |   4+   |   3.5+  |  3.2+  |  12+ |  8+ |
-|   `kitsu-core/node` |       7.4 kb       |  6+  |        |         |        |      |     |
+|        `kitsu-core` |       4.3 kb       |  6+  |   54+  |   51+   |   10+  |  15+ |     |
+| `kitsu-core/legacy` |       4.4 kb       |  6+  |   4+   |   3.5+  |  3.2+  |  12+ |  8+ |
+|   `kitsu-core/node` |       1.5 kb       |  6+  |        |         |        |      |     |
 
 \* Including all dependencies, minified & gzipped
-
-[default]: http://browserl.ist/?q=last+2+years%2C+not+%3C+0.05%25
-
-[legacy]: http://browserl.ist/?q=last+10+years
 
 ## Install
 
@@ -232,7 +228,7 @@ Filters includes for the specific relationship
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
