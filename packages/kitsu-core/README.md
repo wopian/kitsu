@@ -1,22 +1,31 @@
+<center>
+
 # Kitsu Core
 
 [![npm badge]][npm]
-[![bundlephobia badge]][bundlephobia]
 [![npm install badge]][npm]
 [![david badge]][david]
 [![contributors badge]][contributors]
-[![donate badge]][donate]
+
+[![cc coverage badge]][cc coverage]
+[![cc maintainability badge]][cc maintainability]
+[![cc debt badge]][cc debt]
+[![cc issues badge]][cc issues]
+
+[![bundlephobia badge]][bundlephobia]
+[![packagephobia badge]][packagephobia]
 
 [![travis badge]][travis]
 [![appveyor badge]][appveyor]
-[![david dev badge]][david dev]
-[![cc maintainability badge]][cc maintainability]
-[![cc coverage badge]][cc coverage]
-[![packagephobia badge]][packagephobia]
 
-Core [JSON:API] serialisation and deserialisation components for [kitsu]
+[![donate badge]][donate]
+
+Core [JSON:API] serialisation and deserialisation components
 
 _Check out the [Migration Guide] for breaking changes and new features in `6.x`_
+</center>
+
+---
 
 ## Features
 
@@ -231,7 +240,7 @@ Filters includes for the specific relationship
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
@@ -354,23 +363,27 @@ All code released under [MIT]
 
 [cc coverage]: https://codeclimate.com/github/wopian/kitsu/code
 
-[cc coverage badge]: https://img.shields.io/codeclimate/c/wopian/kitsu.svg?style=flat-square
+[cc coverage badge]: https://flat.badgen.net/codeclimate/coverage/wopian/kitsu
 
 [cc maintainability]: https://codeclimate.com/github/wopian/kitsu
 
-[cc maintainability badge]: https://img.shields.io/codeclimate/maintainability/wopian/kitsu.svg?style=flat-square
+[cc maintainability badge]: https://flat.badgen.net/codeclimate/maintainability/wopian/kitsu
+
+[cc debt]: https://codeclimate.com/github/wopian/kitsu
+
+[cc debt badge]: https://flat.badgen.net/codeclimate/tech-debt/wopian/kitsu
+
+[cc issues]: https://codeclimate.com/github/wopian/kitsu/issues
+
+[cc issues badge]: https://flat.badgen.net/codeclimate/issues/wopian/kitsu
 
 [david]: https://david-dm.org/wopian/kitsu?path=packages/kitsu-core
 
 [david badge]: https://david-dm.org/wopian/kitsu/status.svg?path=packages/kitsu-core&style=flat-square
 
-[david dev]: https://david-dm.org/wopian/kitsu?type=dev
-
-[david dev badge]: https://flat.badgen.net/david/dev/wopian/kitsu
-
 [contributors]: https://github.com/wopian/kitsu/graphs/contributors
 
-[contributors badge]: https://img.shields.io/github/contributors/wopian/kitsu.svg?style=flat-square
+[contributors badge]: https://flat.badgen.net/github/contributors/wopian/kitsu
 
 [donate]: https://paypal.me/wopian
 
