@@ -30,10 +30,12 @@ let globals = {
 let plugins = [
   local()
 ]
+
 let pluginsMain = [
   babel(babelMain),
   ...plugins
 ]
+
 let pluginsNode = [
   babel(babelNode),
   ...plugins
