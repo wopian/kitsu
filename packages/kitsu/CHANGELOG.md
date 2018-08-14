@@ -1,3 +1,33 @@
+### 6.2.0 (2018-08-14)
+
+##### Build System / Dependencies
+
+*  update devdependency lerna to ~3.0.0 (#195) (6d599022)
+*  update devdependency jest to ~23.5.0 (#194) (292345fd)
+
+##### Chores
+
+*  remove todos in rollup configs (410b20b5)
+*  remove legacy @babel/runtime dependencies (03056f80)
+*  remove redundent package.json script (7e182d77)
+*  update npmignore (6afa4d09)
+*  remove need for sourcemaps No longer minifies lib/node files to 1-line. (1b37fbd3)
+*  remove legacy bundles They haven't seen any usage and are causing unneccessary package size bloat. (df084d21)
+
+##### Documentation Changes
+
+*  link to coverage, maintainability & debt pages in codeclimate badges (f267c03e)
+*  format READMEs (d4b23845)
+*  restore itallic text for migration guide notices (e9a764eb)
+*  fix links in READMEs (ef629c92)
+*  use source order for API documentation (8e3d2bb9)
+*  update README to 6.x (436644d1)
+*  switch codeclimate and contributor badges to badgen (ef56b765)
+
+##### Refactors
+
+* **kitsu-core:**  reduce query's cognitive complexity (fb167b2e)
+
 ### 6.1.0 (2018-08-10)
 
 ##### New Features
