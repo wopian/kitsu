@@ -30,7 +30,7 @@
   ],
   "scripts": {
     "docs:lint": "documentation lint src/index.js",
-    "docs:build": "documentation readme src/index.js --section=API --sort-order alpha",
+    "docs:build": "documentation readme src/index.js --section=API -g true --sort-order source",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "build": "yarn rollup"
   },

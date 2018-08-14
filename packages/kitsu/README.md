@@ -177,20 +177,20 @@ If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lis
 -   [Kitsu](#kitsu)
     -   [Parameters](#parameters)
     -   [Examples](#examples)
-    -   [delete](#delete)
-        -   [Parameters](#parameters-1)
+    -   [plural](#plural)
         -   [Examples](#examples-1)
-    -   [get](#get)
-        -   [Parameters](#parameters-2)
-        -   [Examples](#examples-2)
     -   [headers](#headers)
+        -   [Examples](#examples-2)
+    -   [get](#get)
+        -   [Parameters](#parameters-1)
         -   [Examples](#examples-3)
     -   [patch](#patch)
-        -   [Parameters](#parameters-3)
+        -   [Parameters](#parameters-2)
         -   [Examples](#examples-4)
-    -   [plural](#plural)
-        -   [Examples](#examples-5)
     -   [post](#post)
+        -   [Parameters](#parameters-3)
+        -   [Examples](#examples-5)
+    -   [delete](#delete)
         -   [Parameters](#parameters-4)
         -   [Examples](#examples-6)
     -   [self](#self)
@@ -198,6 +198,8 @@ If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lis
         -   [Examples](#examples-7)
 
 ### Kitsu
+
+[packages/kitsu/src/index.js:29-289](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu/src/index.js#L29-L289 "Source code on GitHub")
 
 Creates a new `kitsu` instance
 
@@ -238,27 +240,56 @@ const api = new Kitsu({
 })
 ```
 
-#### delete
+#### plural
 
-Remove a resource (alias `remove`)
+[packages/kitsu/src/index.js:51-52](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu/src/index.js#L51-L52 "Source code on GitHub")
 
-##### Parameters
+-   **See: <https://www.npmjs.com/package/pluralize> for documentation**
+-   **See: Kitsu constructor options for disabling pluralization**
 
--   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to remove data from
--   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** Resource ID to remove
--   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
+If pluralization is enabled (default, see Kitsu constructor docs) then pluralization rules can be added
 
 ##### Examples
 
-_Remove a user's post_
+_Adding an uncountable pluralization rule_
 
 ```javascript
-api.delete('posts', 123)
+api.plural.plural('paper') //=> 'papers'
+api.plural.addUncountableRule('paper')
+api.plural.plural('paper') //=> 'paper'
 ```
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
+#### headers
+
+[packages/kitsu/src/index.js:66-66](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu/src/index.js#L66-L66 "Source code on GitHub")
+
+Get the current headers or add additional headers
+
+##### Examples
+
+_Get all headers_
+
+```javascript
+api.headers
+```
+
+_Get a single header's value_
+
+```javascript
+api.headers['User-Agent']
+```
+
+_Add or update a header's value_
+
+```javascript
+api.headers['Authorization'] = 'Bearer 1234567890'
+```
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** All the current headers
 
 #### get
+
+[packages/kitsu/src/index.js:149-168](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu/src/index.js#L149-L168 "Source code on GitHub")
 
 Fetch resources (alias `fetch`)
 
@@ -361,33 +392,9 @@ api.get('anime')
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
 
-#### headers
-
-Get the current headers or add additional headers
-
-##### Examples
-
-_Get all headers_
-
-```javascript
-api.headers
-```
-
-_Get a single header's value_
-
-```javascript
-api.headers['User-Agent']
-```
-
-_Add or update a header's value_
-
-```javascript
-api.headers['Authorization'] = 'Bearer 1234567890'
-```
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** All the current headers
-
 #### patch
+
+[packages/kitsu/src/index.js:184-198](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu/src/index.js#L184-L198 "Source code on GitHub")
 
 Update a resource (alias `update`)
 
@@ -410,24 +417,9 @@ api.update('posts', {
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
 
-#### plural
-
--   **See: <https://www.npmjs.com/package/pluralize> for documentation**
--   **See: Kitsu constructor options for disabling pluralization**
-
-If pluralization is enabled (default, see Kitsu constructor docs) then pluralization rules can be added
-
-##### Examples
-
-_Adding an uncountable pluralization rule_
-
-```javascript
-api.plural.plural('paper') //=> 'papers'
-api.plural.addUncountableRule('paper')
-api.plural.plural('paper') //=> 'paper'
-```
-
 #### post
+
+[packages/kitsu/src/index.js:221-234](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu/src/index.js#L221-L234 "Source code on GitHub")
 
 Create a new resource (alias `create`)
 
@@ -457,7 +449,31 @@ api.create('posts', {
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
 
+#### delete
+
+[packages/kitsu/src/index.js:247-259](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu/src/index.js#L247-L259 "Source code on GitHub")
+
+Remove a resource (alias `remove`)
+
+##### Parameters
+
+-   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to remove data from
+-   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** Resource ID to remove
+-   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional headers to send with request (optional, default `{}`)
+
+##### Examples
+
+_Remove a user's post_
+
+```javascript
+api.delete('posts', 123)
+```
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
+
 #### self
+
+[packages/kitsu/src/index.js:281-288](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu/src/index.js#L281-L288 "Source code on GitHub")
 
 Get the authenticated user's data
 

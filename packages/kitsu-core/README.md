@@ -29,7 +29,7 @@
 
 <p align=center>Check out the <a src='https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md'>Migration Guide</a> for breaking changes in <code>6.x</code></p>
 
-#
+# 
 
 ## Features
 
@@ -40,10 +40,10 @@
 
 ## Node / Browser Support
 
-|             Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
-| ------------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-|        `kitsu-core` |     ≤ 4.3 kb       |  6+  |   54+  |   51+   |   10+  |  15+ |     |
-|   `kitsu-core/node` |     ≤ 1.5 kb       |  6+  |        |         |        |      |     |
+|           Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
+| ----------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
+|      `kitsu-core` |      ≤ 4.3 kb      |  6+  |   54+  |   51+   |   10+  |  15+ |     |
+| `kitsu-core/node` |      ≤ 1.5 kb      |  6+  |        |         |        |      |     |
 
 \* Including all dependencies, minified & gzipped<br>
 
@@ -80,58 +80,36 @@ kitsuCore.camel(...)
 
 #### Table of Contents
 
--   [camel](#camel)
+-   [deattribute](#deattribute)
     -   [Parameters](#parameters)
     -   [Examples](#examples)
--   [deattribute](#deattribute)
+-   [deserialise](#deserialise)
     -   [Parameters](#parameters-1)
     -   [Examples](#examples-1)
--   [deserialise](#deserialise)
-    -   [Parameters](#parameters-2)
-    -   [Examples](#examples-2)
 -   [error](#error)
-    -   [Parameters](#parameters-3)
+    -   [Parameters](#parameters-2)
 -   [filterIncludes](#filterincludes)
-    -   [Parameters](#parameters-4)
--   [kebab](#kebab)
-    -   [Parameters](#parameters-5)
-    -   [Examples](#examples-3)
+    -   [Parameters](#parameters-3)
 -   [linkRelationships](#linkrelationships)
-    -   [Parameters](#parameters-6)
+    -   [Parameters](#parameters-4)
 -   [query](#query)
-    -   [Parameters](#parameters-7)
+    -   [Parameters](#parameters-5)
 -   [serialise](#serialise)
+    -   [Parameters](#parameters-6)
+    -   [Examples](#examples-2)
+-   [camel](#camel)
+    -   [Parameters](#parameters-7)
+    -   [Examples](#examples-3)
+-   [kebab](#kebab)
     -   [Parameters](#parameters-8)
     -   [Examples](#examples-4)
 -   [snake](#snake)
     -   [Parameters](#parameters-9)
     -   [Examples](#examples-5)
 
-### camel
-
-Converts kebab-case and snake_case into camelCase
-
-#### Parameters
-
--   `s` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** String to convert
-
-#### Examples
-
-_Convert kebab-case_
-
-```javascript
-camel('hello-world') // 'helloWorld'
-```
-
-_Convert snake_case_
-
-```javascript
-camel('hello_world') // 'helloWorld'
-```
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase formatted string
-
 ### deattribute
+
+[packages/kitsu-core/src/deattribute/index.js:29-38](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu-core/src/deattribute/index.js#L29-L38 "Source code on GitHub")
 
 Hoists attributes to be top-level
 
@@ -172,6 +150,8 @@ const output = await deattribute(data) // { id: '1', type: 'users', slug: 'wopia
 Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array))** Deattributed resource data
 
 ### deserialise
+
+[packages/kitsu-core/src/deserialise/index.js:56-70](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu-core/src/deserialise/index.js#L56-L70 "Source code on GitHub")
 
 Deserialises a JSON-API response
 
@@ -221,6 +201,8 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### error
 
+[packages/kitsu-core/src/error/index.js:7-13](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu-core/src/error/index.js#L7-L13 "Source code on GitHub")
+
 Mutates an error and rethrows it
 
 #### Parameters
@@ -232,34 +214,22 @@ Mutates an error and rethrows it
 
 ### filterIncludes
 
+[packages/kitsu-core/src/filterIncludes/index.js:12-21](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu-core/src/filterIncludes/index.js#L12-L21 "Source code on GitHub")
+
 Filters includes for the specific relationship
 
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** The matched includes
 
-### kebab
-
-Converts camelCase into kebab-case
-
-#### Parameters
-
--   `s` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase string
-
-#### Examples
-
-```javascript
-kebab('helloWorld') // 'hello-world'
-```
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** kekab-case formatted string
-
 ### linkRelationships
+
+[packages/kitsu-core/src/linkRelationships/index.js:55-74](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu-core/src/linkRelationships/index.js#L55-L74 "Source code on GitHub")
 
 Links relationships to included data
 
@@ -269,6 +239,8 @@ Links relationships to included data
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
 
 ### query
+
+[packages/kitsu-core/src/query/index.js:9-23](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu-core/src/query/index.js#L9-L23 "Source code on GitHub")
 
 Constructs a URL query string for JSON:API parameters
 
@@ -280,6 +252,8 @@ Constructs a URL query string for JSON:API parameters
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** URL query string
 
 ### serialise
+
+[packages/kitsu-core/src/serialise/index.js:19-69](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu-core/src/serialise/index.js#L19-L69 "Source code on GitHub")
 
 Serialises an object into a JSON-API structure
 
@@ -302,7 +276,53 @@ const output = await serialise.apply({ camel, resCase: kebab, plural }, [ model,
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The serialised data
 
+### camel
+
+[packages/kitsu-core/src/camel/index.js:14-14](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu-core/src/camel/index.js#L14-L14 "Source code on GitHub")
+
+Converts kebab-case and snake_case into camelCase
+
+#### Parameters
+
+-   `s` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** String to convert
+
+#### Examples
+
+_Convert kebab-case_
+
+```javascript
+camel('hello-world') // 'helloWorld'
+```
+
+_Convert snake_case_
+
+```javascript
+camel('hello_world') // 'helloWorld'
+```
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase formatted string
+
+### kebab
+
+[packages/kitsu-core/src/kebab/index.js:11-11](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu-core/src/kebab/index.js#L11-L11 "Source code on GitHub")
+
+Converts camelCase into kebab-case
+
+#### Parameters
+
+-   `s` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase string
+
+#### Examples
+
+```javascript
+kebab('helloWorld') // 'hello-world'
+```
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** kekab-case formatted string
+
 ### snake
+
+[packages/kitsu-core/src/snake/index.js:11-11](https://github.com/wopian/kitsu/blob/7e182d7773140f4509088be391717f02b69ad891/packages/kitsu-core/src/snake/index.js#L11-L11 "Source code on GitHub")
 
 Converts camelCase into snake_case
 
