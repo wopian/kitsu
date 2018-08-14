@@ -49,11 +49,6 @@ export default [
         sourcemap: false,
         globals
       },
-      /*
-      TODO: Use Babel itself instead of Rollup to produce output
-            e.g CommonJS: src -> lib,node,legacy
-                 Modules: src -> lib,node
-                 */
       {
         file: `${pkg.module}/index.mjs`,
         format: 'es',
@@ -63,7 +58,6 @@ export default [
     ]
   },
   {
-    // Node-only bundle
     input: 'src/index.js',
     external,
     plugins: pluginsNode,
