@@ -3,9 +3,6 @@ const mainBrowsers = [
   'last 2 years',
   'not < 0.05%'
 ]
-const legacyBrowsers = [
-  'last 10 years'
-]
 
 const sharedExternals = [
   '@babel/runtime/regenerator',
@@ -62,25 +59,7 @@ const babelNode = {
         node: minNode
       },
       modules: false
-    } ],
-    'minify'
-  ]
-}
-
-const babelLegacy = {
-  babelrc: false,
-  exclude,
-  runtimeHelpers,
-  plugins,
-  presets: [
-    [ '@babel/env', {
-      targets: {
-        browsers: legacyBrowsers,
-        node: minNode
-      },
-      modules: false
-    } ],
-    'minify'
+    } ]
   ]
 }
 
@@ -89,6 +68,5 @@ module.exports = {
   sharedGlobals,
   babelTest,
   babelMain,
-  babelNode,
-  babelLegacy
+  babelNode
 }

@@ -39,9 +39,7 @@
   "scripts": {
     "docs:lint": "documentation lint src/index.js",
     "docs:build": "documentation readme src/index.js --section=API --sort-order alpha",
-    "replace:node": "replace-in-file kitsu-core kitsu-core/node node/*.*js",
-    "replace:legacy": "replace-in-file kitsu-core kitsu-core/legacy legacy/*.js",
-    "replace": "yarn replace:node && yarn replace:legacy",
+    "replace": "replace-in-file kitsu-core kitsu-core/node node/*.*js",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "build": "yarn rollup && yarn replace"
   },
@@ -60,10 +58,6 @@
     {
       "path": "./lib/index.mjs",
       "limit": "12.09 kb"
-    },
-    {
-      "path": "./legacy/index.js",
-      "limit": "12.45 kb"
     },
     {
       "path": "./node/index.js",

@@ -48,10 +48,6 @@
       "limit": "4.58 kb"
     },
     {
-      "path": "./legacy/index.js",
-      "limit": "4.63 kb"
-    },
-    {
       "path": "./node/index.js",
       "limit": "1.75 kb"
     },

@@ -6,8 +6,7 @@ const {
   sharedExternals,
   sharedGlobals,
   babelMain,
-  babelNode,
-  babelLegacy
+  babelNode
 } = require('../../config/presets')
 
 let external = [
@@ -24,16 +23,14 @@ let globals = {
 let plugins = [
   local()
 ]
+
 let pluginsMain = [
   babel(babelMain),
   ...plugins
 ]
+
 let pluginsNode = [
   babel(babelNode),
-  ...plugins
-]
-let pluginsLegacy = [
-  babel(babelLegacy),
   ...plugins
 ]
 
@@ -81,18 +78,5 @@ export default [
         globals
       }
     ]
-  },
-  {
-    // Legacy IE10+ bundle
-    input: 'src/index.js',
-    external,
-    plugins: pluginsLegacy,
-    output: {
-      file: 'legacy/index.js',
-      format: 'umd',
-      name: 'KitsuCore',
-      sourcemap: true,
-      globals
-    }
   }
 ]
