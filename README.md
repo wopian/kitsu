@@ -8,9 +8,9 @@
 </p>
 
 <p align=center>
-  <a href=https://codeclimate.com/github/wopian/kitsu/code><img alt=coverage src=https://flat.badgen.net/codeclimate/coverage/wopian/kitsu></a>
-  <a href=https://codeclimate.com/github/wopian/kitsu><img alt=maintainability src=https://flat.badgen.net/codeclimate/maintainability/wopian/kitsu></a>
-  <a href=https://codeclimate.com/github/wopian/kitsu><img alt="technical debt"src=https://flat.badgen.net/codeclimate/tech-debt/wopian/kitsu></a>
+  <a href=https://codeclimate.com/github/wopian/kitsu/code?sort=test_coverage><img alt=coverage src=https://flat.badgen.net/codeclimate/coverage/wopian/kitsu></a>
+  <a href=https://codeclimate.com/github/wopian/kitsu/code?sort=maintainability><img alt=maintainability src=https://flat.badgen.net/codeclimate/maintainability/wopian/kitsu></a>
+  <a href=https://codeclimate.com/github/wopian/kitsu/trends/technical_debt><img alt="technical debt"src=https://flat.badgen.net/codeclimate/tech-debt/wopian/kitsu></a>
   <a href=https://codeclimate.com/github/wopian/kitsu/issues><img alt=issues src=https://flat.badgen.net/codeclimate/issues/wopian/kitsu></a>
 </p>
 
