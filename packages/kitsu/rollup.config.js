@@ -12,9 +12,7 @@ const {
 let external = [
   ...Object.keys(pkg.dependencies),
   ...sharedExternals,
-  '@babel/runtime/helpers/slicedToArray',
-  '@babel/runtime/helpers/classCallCheck', // Legacy
-  '@babel/runtime/helpers/createClass' // Legacy
+  '@babel/runtime/helpers/slicedToArray'
 ]
 
 let globals = {
@@ -22,9 +20,7 @@ let globals = {
   'axios': 'axios',
   'kitsu-core': 'kitsuCore',
   'pluralize': 'pluralise',
-  '@babel/runtime/helpers/slicedToArray': '_slicedToArray',
-  '@babel/runtime/helpers/classCallCheck': '_classCallCheck', // Legacy
-  '@babel/runtime/helpers/createClass': '_createClass' // Legacy
+  '@babel/runtime/helpers/slicedToArray': '_slicedToArray'
 }
 
 let plugins = [

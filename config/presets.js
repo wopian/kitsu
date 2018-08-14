@@ -40,9 +40,12 @@ const plugins = [
 
 const babelTest = {
   retainLines: true,
-  plugins,
   presets: [
-    '@babel/env'
+    [ '@babel/env', {
+      targets: {
+        node: minNode
+      }
+    } ]
   ]
 }
 

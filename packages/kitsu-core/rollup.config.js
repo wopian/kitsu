@@ -11,13 +11,11 @@ const {
 
 let external = [
   ...Object.keys(pkg.dependencies),
-  ...sharedExternals,
-  '@babel/runtime/helpers/typeof' // Legacy
+  ...sharedExternals
 ]
 
 let globals = {
-  ...sharedGlobals,
-  '@babel/runtime/helpers/typeof': '_typeof' // Legacy
+  ...sharedGlobals
 }
 
 let plugins = [
