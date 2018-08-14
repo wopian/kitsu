@@ -18,7 +18,7 @@
   <a href='https://paypal.me/wopian'><img alt='support me on paypal.me' src='https://flat.badgen.net/badge/support%20me%20on/paypal.me/pink'></a>
 </p>
 
-<p align=center>A simple, lightweight & framework agnostic <a src='http://jsonapi.org'>JSON:API</a> client for <a src='https://kitsu.io'>Kitsu.io</a> and other APIs</p>
+<p align=center>A simple, lightweight & framework agnostic <a href='http://jsonapi.org'>JSON:API</a> client for <a href='https://kitsu.io'>Kitsu.io</a> and other APIs</p>
 
 #
 

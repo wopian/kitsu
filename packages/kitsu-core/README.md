@@ -25,11 +25,11 @@
   <a href='https://paypal.me/wopian'><img alt='support me on paypal.me' src='https://flat.badgen.net/badge/support%20me%20on/paypal.me/pink'></a>
 </p>
 
-<p align=center>Core <a src='http://jsonapi.org'>JSON:API</a> serialisation and deserialisation components</p>
+<p align=center>Core <a href='http://jsonapi.org'>JSON:API</a> serialisation and deserialisation components</p>
 
-<p align=center>Check out the <a src='https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md'>Migration Guide</a> for breaking changes in <code>6.x</code></p>
+<p align=center>Check out the <a href='https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md'>Migration Guide</a> for breaking changes in <code>6.x</code></p>
 
-# 
+#
 
 ## Features
 
@@ -221,7 +221,7 @@ Filters includes for the specific relationship
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
