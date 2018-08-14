@@ -18,6 +18,21 @@ const sharedGlobals = {
 const exclude = [ '*.json', 'node_modules/**/*' ]
 const runtimeHelpers = true
 const plugins = [
+  'babel-plugin-minify-constant-folding',
+  'babel-plugin-minify-dead-code-elimination',
+  'babel-plugin-minify-flip-comparisons',
+  'babel-plugin-minify-guarded-expressions',
+  'babel-plugin-minify-infinity',
+  'babel-plugin-minify-simplify',
+  'babel-plugin-minify-type-constructors',
+  'babel-plugin-transform-inline-consecutive-adds',
+  'babel-plugin-transform-member-expression-literals',
+  'babel-plugin-transform-merge-sibling-variables',
+  'babel-plugin-transform-minify-booleans',
+  'babel-plugin-transform-property-literals',
+  'babel-plugin-transform-regexp-constructors',
+  'babel-plugin-transform-remove-undefined',
+  'babel-plugin-transform-undefined-to-void',
   [ '@babel/plugin-transform-runtime', {
     regenerator: true
   } ]
@@ -33,6 +48,7 @@ const babelTest = {
 
 const babelMain = {
   babelrc: false,
+  comments: false,
   exclude,
   runtimeHelpers,
   plugins,
@@ -43,13 +59,13 @@ const babelMain = {
         node: minNode
       },
       modules: false
-    } ],
-    'minify'
+    } ]
   ]
 }
 
 const babelNode = {
   babelrc: false,
+  comments: false,
   exclude,
   runtimeHelpers,
   plugins,

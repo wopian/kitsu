@@ -30,12 +30,10 @@ let globals = {
 let plugins = [
   local()
 ]
-
 let pluginsMain = [
   babel(babelMain),
   ...plugins
 ]
-
 let pluginsNode = [
   babel(babelNode),
   ...plugins
@@ -50,7 +48,7 @@ export default [
       {
         file: `${pkg.main}/index.js`,
         format: 'cjs',
-        sourcemap: true,
+        sourcemap: false,
         globals
       },
       /*
@@ -61,7 +59,7 @@ export default [
       {
         file: `${pkg.module}/index.mjs`,
         format: 'es',
-        sourcemap: true,
+        sourcemap: false,
         globals
       }
     ]
@@ -75,13 +73,13 @@ export default [
       {
         file: 'node/index.js',
         format: 'cjs',
-        sourcemap: true,
+        sourcemap: false,
         globals
       },
       {
         file: 'node/index.mjs',
         format: 'es',
-        sourcemap: true,
+        sourcemap: false,
         globals
       }
     ]
