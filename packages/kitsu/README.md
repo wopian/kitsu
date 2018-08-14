@@ -27,7 +27,7 @@
 
 <p align=center>A simple, lightweight & framework agnostic <a href='http://jsonapi.org'>JSON:API</a> client for <a href='https://kitsu.io'>Kitsu.io</a> and other APIs</p>
 
-<p align=center>Check out the <a href='https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md'>Migration Guide</a> for breaking changes in <code>6.x</code></p>
+<em align=center>Check out the <a href='https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md'>Migration Guide</a> for breaking changes in <code>6.x</code></em>
 
 #
 

@@ -27,7 +27,7 @@
 
 <p align=center>Core <a href='http://jsonapi.org'>JSON:API</a> serialisation and deserialisation components</p>
 
-<p align=center>Check out the <a href='https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md'>Migration Guide</a> for breaking changes in <code>6.x</code></p>
+<em align=center>Check out the <a href='https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md'>Migration Guide</a> for breaking changes in <code>6.x</code></em>
 
 #
 
