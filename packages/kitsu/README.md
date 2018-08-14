@@ -1,31 +1,35 @@
-<center>
+<h1 align=center>Kitsu</h1>
 
-# Kitsu
+<p align=center>
+  <a href='https://www.npmjs.com/package/kitsu'><img alt='npm' src='https://flat.badgen.net/npm/v/kitsu'></a>
+  <a href='https://www.npmjs.com/package/kitsu'><img alt='npm' src='https://flat.badgen.net/npm/dt/kitsu'></a>
+  <a href='https://bundlephobia.com/result?p=kitsu'><img alt='bundlephobia' src='https://flat.badgen.net/bundlephobia/minzip/kitsu'></a>
+  <a href='https://david-dm.org/wopian/kitsu?path=packages/kitsu'><img alt='deps' src='https://david-dm.org/wopian/kitsu/status.svg?path=packages/kitsu&style=flat-square'></a>
+</p>
 
-[![npm badge]][npm]
-[![npm install badge]][npm]
-[![david badge]][david]
-[![contributors badge]][contributors]
+<p align=center>
+  <a href='https://travis-ci.org/wopian/kitsu'><img alt='travis' src='https://flat.badgen.net/travis/wopian/kitsu'></a>
+  <a href='https://ci.appveyor.com/project/wopian/kitsu'><img alt='appveyor' src='https://flat.badgen.net/appveyor/ci/wopian/kitsu'></a>
+  <a href='https://packagephobia.now.sh/result?p=kitsu'><img alt='packagephobia' src='https://flat.badgen.net/packagephobia/install/kitsu'></a>
+  <a href='https://github.com/wopian/kitsu/graphs/contributors'><img alt='contributors' src='https://flat.badgen.net/github/contributors/wopian/kitsu'></a>
+</p>
 
-[![cc coverage badge]][cc coverage]
-[![cc maintainability badge]][cc maintainability]
-[![cc debt badge]][cc debt]
-[![cc issues badge]][cc issues]
+<p align=center>
+  <a href='https://codeclimate.com/github/wopian/kitsu/code'><img alt='coverage' src='https://flat.badgen.net/codeclimate/coverage/wopian/kitsu'></a>
+  <a href='https://codeclimate.com/github/wopian/kitsu'><img alt='maintainability' src='https://flat.badgen.net/codeclimate/maintainability/wopian/kitsu'></a>
+  <a href='https://codeclimate.com/github/wopian/kitsu'><img alt='technical debt' src='https://flat.badgen.net/codeclimate/tech-debt/wopian/kitsu'></a>
+  <a href='https://codeclimate.com/github/wopian/kitsu/issues'><img alt='issues' src='https://flat.badgen.net/codeclimate/issues/wopian/kitsu'></a>
+</p>
 
-[![bundlephobia badge]][bundlephobia]
-[![packagephobia badge]][packagephobia]
+<p align=center>
+  <a href='https://paypal.me/wopian'><img alt='support me on paypal.me' src='https://flat.badgen.net/badge/support%20me%20on/paypal.me/pink'></a>
+</p>
 
-[![travis badge]][travis]
-[![appveyor badge]][appveyor]
+<p align=center>A simple, lightweight & framework agnostic <a src='http://jsonapi.org'>JSON:API</a> client for <a src='https://kitsu.io'>Kitsu.io</a> and other APIs</p>
 
-[![donate badge]][donate]
+<p align=center>Check out the <a src='https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md'>Migration Guide</a> for breaking changes in <code>6.x</code></p>
 
-A simple, lightweight & framework agnostic [JSON:API] client for [Kitsu.io] and other APIs
-
-_Check out the [Migration Guide] for breaking changes and new features in `6.x`_
-</center>
-
----
+# 
 
 ## Features
 
@@ -37,11 +41,10 @@ _Check out the [Migration Guide] for breaking changes and new features in `6.x`_
 
 ## Node / Browser Support
 
-|        Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
-| -------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-|        `kitsu` |       12.0 kb      |  6+  |   54+  |   51+   |   10+  |  15+ |     |
-| `kitsu/legacy` |       12.2 kb      |  6+  |   4+   |   3.5+  |  3.2+  |  12+ |  8+ |
-|   `kitsu/node` |       8.8 kb       |  6+  |        |         |        |      |     |
+|      Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
+| -----------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
+|      `kitsu` |      ≤ 12.1 kb     |  6+  |   54+  |   51+   |   10+  |  15+ |     |
+| `kitsu/node` |      ≤ 8.8 kb      |  6+  |        |         |        |      |     |
 
 \* Including all dependencies, minified & gzipped
 
@@ -111,22 +114,16 @@ npm install kitsu
 ```
 
 ```js
-import Kitsu from 'kitsu'             // ES Modules and Babel
-const Kitsu = require('kitsu')        // CommonJS and Browserify
-const Kitsu = require('kitsu/legacy') // Legacy IE8+ support
-const Kitsu = require('kitsu/node')   // Lighter node-only package
+import Kitsu from 'kitsu'      // ES Modules and Babel
+import Kitsu from 'kitsu/node' // Lighter node-only package
+const Kitsu = require('kitsu') // CommonJS and Browserify
 ```
-
-[Try it on RunKit](https://npm.runkit.com/kitsu)
 
 ### Packd CDN
 
 ```html
-<script src='https://bundle.run/kitsu@5?name=Kitsu'></script>
-<script src='https://bundle.run/kitsu@5/legacy/index.js?name=Kitsu'></script>
+<script src='https://bundle.run/kitsu@6?name=Kitsu'></script>
 ```
-
-[Try it on CodePen](https://codepen.io/wopian/pen/RxmEeK?editors=0010)
 
 ## Quick Start
 

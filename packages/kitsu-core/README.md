@@ -1,31 +1,35 @@
-<center>
+<h1 align=center>Kitsu Core</h1>
 
-# Kitsu Core
+<p align=center>
+  <a href='https://www.npmjs.com/package/kitsu-core'><img alt='npm' src='https://flat.badgen.net/npm/v/kitsu-core'></a>
+  <a href='https://www.npmjs.com/package/kitsu-core'><img alt='npm' src='https://flat.badgen.net/npm/dt/kitsu-core'></a>
+  <a href='https://bundlephobia.com/result?p=kitsu-core'><img alt='bundlephobia' src='https://flat.badgen.net/bundlephobia/minzip/kitsu-core'></a>
+  <a href='https://david-dm.org/wopian/kitsu?path=packages/kitsu-core'><img alt='deps' src='https://david-dm.org/wopian/kitsu/status.svg?path=packages/kitsu-core&style=flat-square'></a>
+</p>
 
-[![npm badge]][npm]
-[![npm install badge]][npm]
-[![david badge]][david]
-[![contributors badge]][contributors]
+<p align=center>
+  <a href='https://travis-ci.org/wopian/kitsu'><img alt='travis' src='https://flat.badgen.net/travis/wopian/kitsu'></a>
+  <a href='https://ci.appveyor.com/project/wopian/kitsu'><img alt='appveyor' src='https://flat.badgen.net/appveyor/ci/wopian/kitsu'></a>
+  <a href='https://packagephobia.now.sh/result?p=kitsu-core'><img alt='packagephobia' src='https://flat.badgen.net/packagephobia/install/kitsu-core'></a>
+  <a href='https://github.com/wopian/kitsu/graphs/contributors'><img alt='contributors' src='https://flat.badgen.net/github/contributors/wopian/kitsu'></a>
+</p>
 
-[![cc coverage badge]][cc coverage]
-[![cc maintainability badge]][cc maintainability]
-[![cc debt badge]][cc debt]
-[![cc issues badge]][cc issues]
+<p align=center>
+  <a href='https://codeclimate.com/github/wopian/kitsu/code'><img alt='coverage' src='https://flat.badgen.net/codeclimate/coverage/wopian/kitsu'></a>
+  <a href='https://codeclimate.com/github/wopian/kitsu'><img alt='maintainability' src='https://flat.badgen.net/codeclimate/maintainability/wopian/kitsu'></a>
+  <a href='https://codeclimate.com/github/wopian/kitsu'><img alt='technical debt' src='https://flat.badgen.net/codeclimate/tech-debt/wopian/kitsu'></a>
+  <a href='https://codeclimate.com/github/wopian/kitsu/issues'><img alt='issues' src='https://flat.badgen.net/codeclimate/issues/wopian/kitsu'></a>
+</p>
 
-[![bundlephobia badge]][bundlephobia]
-[![packagephobia badge]][packagephobia]
+<p align=center>
+  <a href='https://paypal.me/wopian'><img alt='support me on paypal.me' src='https://flat.badgen.net/badge/support%20me%20on/paypal.me/pink'></a>
+</p>
 
-[![travis badge]][travis]
-[![appveyor badge]][appveyor]
+<p align=center>Core <a src='http://jsonapi.org'>JSON:API</a> serialisation and deserialisation components</p>
 
-[![donate badge]][donate]
+<p align=center>Check out the <a src='https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md'>Migration Guide</a> for breaking changes in <code>6.x</code></p>
 
-Core [JSON:API] serialisation and deserialisation components
-
-_Check out the [Migration Guide] for breaking changes and new features in `6.x`_
-</center>
-
----
+#
 
 ## Features
 
@@ -38,11 +42,10 @@ _Check out the [Migration Guide] for breaking changes and new features in `6.x`_
 
 |             Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
 | ------------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-|        `kitsu-core` |       4.3 kb       |  6+  |   54+  |   51+   |   10+  |  15+ |     |
-| `kitsu-core/legacy` |       4.4 kb       |  6+  |   4+   |   3.5+  |  3.2+  |  12+ |  8+ |
-|   `kitsu-core/node` |       1.5 kb       |  6+  |        |         |        |      |     |
+|        `kitsu-core` |     ≤ 4.3 kb       |  6+  |   54+  |   51+   |   10+  |  15+ |     |
+|   `kitsu-core/node` |     ≤ 1.5 kb       |  6+  |        |         |        |      |     |
 
-\* Including all dependencies, minified & gzipped
+\* Including all dependencies, minified & gzipped<br>
 
 ## Install
 
@@ -54,28 +57,22 @@ npm install kitsu-core
 ```
 
 ```js
-import { camel } from 'kitsu-core'             // ES Modules and Babel
-const { camel } = require('kitsu-core')        // CommonJS and Browserify
-const { camel } = require('kitsu-core/legacy') // Legacy IE8+ support
-const { camel } = require('kitsu-core/node')   // Lighter node-only package
+import { camel } from 'kitsu-core'      // ES Modules and Babel
+import { camel } from 'kitsu-core/node' // Lighter node-only package
+const { camel } = require('kitsu-core') // CommonJS and Browserify
 
 camel(...)
 ```
 
-[Try it on RunKit](https://npm.runkit.com/kitsu-core)
-
 ### Packd CDN
 
 ```html
-<script src='https://bundle.run/kitsu-core@5?name=kitsuCore'></script>
-<script src='https://bundle.run/kitsu@5/legacy/index.js?name=kitsuCore'></script>
+<script src='https://bundle.run/kitsu-core@6?name=kitsuCore'></script>
 ```
 
 ```js
 kitsuCore.camel(...)
 ```
-
-[Try it on CodePen](https://codepen.io/wopian/pen/KQZwzq?editors=0010)
 
 ## API
 
@@ -333,66 +330,12 @@ See [CHANGELOG]
 
 All code released under [MIT]
 
-[kitsu]: https://github.com/wopian/kitsu#readme
-
 [json:api]: http://jsonapi.org
 
 [promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
-
-[migration guide]: https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md
 
 [changelog]: https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/CHANGELOG.md
 
 [contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
 
 [mit]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
-
-[npm]: https://www.npmjs.com/package/kitsu-core
-
-[npm badge]: https://flat.badgen.net/npm/v/kitsu-core
-
-[npm install badge]: https://flat.badgen.net/npm/dt/kitsu-core
-
-[travis]: https://travis-ci.org/wopian/kitsu
-
-[travis badge]: https://flat.badgen.net/travis/wopian/kitsu
-
-[appveyor]: https://ci.appveyor.com/project/wopian/kitsu
-
-[appveyor badge]: https://flat.badgen.net/appveyor/ci/wopian/kitsu
-
-[cc coverage]: https://codeclimate.com/github/wopian/kitsu/code
-
-[cc coverage badge]: https://flat.badgen.net/codeclimate/coverage/wopian/kitsu
-
-[cc maintainability]: https://codeclimate.com/github/wopian/kitsu
-
-[cc maintainability badge]: https://flat.badgen.net/codeclimate/maintainability/wopian/kitsu
-
-[cc debt]: https://codeclimate.com/github/wopian/kitsu
-
-[cc debt badge]: https://flat.badgen.net/codeclimate/tech-debt/wopian/kitsu
-
-[cc issues]: https://codeclimate.com/github/wopian/kitsu/issues
-
-[cc issues badge]: https://flat.badgen.net/codeclimate/issues/wopian/kitsu
-
-[david]: https://david-dm.org/wopian/kitsu?path=packages/kitsu-core
-
-[david badge]: https://david-dm.org/wopian/kitsu/status.svg?path=packages/kitsu-core&style=flat-square
-
-[contributors]: https://github.com/wopian/kitsu/graphs/contributors
-
-[contributors badge]: https://flat.badgen.net/github/contributors/wopian/kitsu
-
-[donate]: https://paypal.me/wopian
-
-[donate badge]: https://flat.badgen.net/badge/support%20me%20on/paypal.me/pink
-
-[bundlephobia]: https://bundlephobia.com/result?p=kitsu-core
-
-[bundlephobia badge]: https://flat.badgen.net/bundlephobia/minzip/kitsu-core
-
-[packagephobia]: https://packagephobia.now.sh/result?p=kitsu-core
-
-[packagephobia badge]: https://flat.badgen.net/packagephobia/install/kitsu-core
