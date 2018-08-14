@@ -1,33 +1,33 @@
 <h1 align=center>Kitsu</h1>
 
 <p align=center>
-  <a href='https://www.npmjs.com/package/kitsu'><img alt='npm' src='https://flat.badgen.net/npm/v/kitsu'></a>
-  <a href='https://www.npmjs.com/package/kitsu'><img alt='npm' src='https://flat.badgen.net/npm/dt/kitsu'></a>
-  <a href='https://bundlephobia.com/result?p=kitsu'><img alt='bundlephobia' src='https://flat.badgen.net/bundlephobia/minzip/kitsu'></a>
-  <a href='https://david-dm.org/wopian/kitsu?path=packages/kitsu'><img alt='deps' src='https://david-dm.org/wopian/kitsu/status.svg?path=packages/kitsu&style=flat-square'></a>
+  <a href=https://www.npmjs.com/package/kitsu><img alt=npm src=https://flat.badgen.net/npm/v/kitsu></a>
+  <a href=https://www.npmjs.com/package/kitsu><img alt=npm src=https://flat.badgen.net/npm/dt/kitsu></a>
+  <a href="https://bundlephobia.com/result?p=kitsu"><img alt=bundlephobia src=https://flat.badgen.net/bundlephobia/minzip/kitsu></a>
+  <a href="https://david-dm.org/wopian/kitsu?path=packages/kitsu"><img alt=deps src="https://david-dm.org/wopian/kitsu/status.svg?path=packages/kitsu&style=flat-square"></a>
 </p>
 
 <p align=center>
-  <a href='https://travis-ci.org/wopian/kitsu'><img alt='travis' src='https://flat.badgen.net/travis/wopian/kitsu'></a>
-  <a href='https://ci.appveyor.com/project/wopian/kitsu'><img alt='appveyor' src='https://flat.badgen.net/appveyor/ci/wopian/kitsu'></a>
-  <a href='https://packagephobia.now.sh/result?p=kitsu'><img alt='packagephobia' src='https://flat.badgen.net/packagephobia/install/kitsu'></a>
-  <a href='https://github.com/wopian/kitsu/graphs/contributors'><img alt='contributors' src='https://flat.badgen.net/github/contributors/wopian/kitsu'></a>
+  <a href=https://travis-ci.org/wopian/kitsu><img alt=travis src=https://flat.badgen.net/travis/wopian/kitsu></a>
+  <a href=https://ci.appveyor.com/project/wopian/kitsu><img alt=appveyor src=https://flat.badgen.net/appveyor/ci/wopian/kitsu></a>
+  <a href="https://packagephobia.now.sh/result?p=kitsu"><img alt=packagephobia src=https://flat.badgen.net/packagephobia/install/kitsu></a>
+  <a href=https://github.com/wopian/kitsu/graphs/contributors><img alt=contributors src=https://flat.badgen.net/github/contributors/wopian/kitsu></a>
 </p>
 
 <p align=center>
-  <a href='https://codeclimate.com/github/wopian/kitsu/code'><img alt='coverage' src='https://flat.badgen.net/codeclimate/coverage/wopian/kitsu'></a>
-  <a href='https://codeclimate.com/github/wopian/kitsu'><img alt='maintainability' src='https://flat.badgen.net/codeclimate/maintainability/wopian/kitsu'></a>
-  <a href='https://codeclimate.com/github/wopian/kitsu'><img alt='technical debt' src='https://flat.badgen.net/codeclimate/tech-debt/wopian/kitsu'></a>
-  <a href='https://codeclimate.com/github/wopian/kitsu/issues'><img alt='issues' src='https://flat.badgen.net/codeclimate/issues/wopian/kitsu'></a>
+  <a href=https://codeclimate.com/github/wopian/kitsu/code><img alt=coverage src=https://flat.badgen.net/codeclimate/coverage/wopian/kitsu></a>
+  <a href=https://codeclimate.com/github/wopian/kitsu><img alt=maintainability src=https://flat.badgen.net/codeclimate/maintainability/wopian/kitsu></a>
+  <a href=https://codeclimate.com/github/wopian/kitsu><img alt="technical debt"src=https://flat.badgen.net/codeclimate/tech-debt/wopian/kitsu></a>
+  <a href=https://codeclimate.com/github/wopian/kitsu/issues><img alt=issues src=https://flat.badgen.net/codeclimate/issues/wopian/kitsu></a>
 </p>
 
 <p align=center>
-  <a href='https://paypal.me/wopian'><img alt='support me on paypal.me' src='https://flat.badgen.net/badge/support%20me%20on/paypal.me/pink'></a>
+  <a href=https://paypal.me/wopian><img alt="support me on paypal.me"src=https://flat.badgen.net/badge/support%20me%20on/paypal.me/pink></a>
 </p>
 
-<p align=center>A simple, lightweight & framework agnostic <a href='http://jsonapi.org'>JSON:API</a> client for <a href='https://kitsu.io'>Kitsu.io</a> and other APIs</p>
+<p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client for <a href=https://kitsu.io>Kitsu.io</a> and other APIs</p>
 
-<em align=center>Check out the <a href='https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md'>Migration Guide</a> for breaking changes in <code>6.x</code></em>
+<p align=center><em>Check out the <a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration Guide</a> for breaking changes in <code>6.x</code></em></p>
 
 #
 
