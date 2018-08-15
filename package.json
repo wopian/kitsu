@@ -38,7 +38,7 @@
     "axios-mock-adapter": "~1.15.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "~23.4.2",
-    "babel-plugin-minify-constant-folding": "0.5.0-alpha.3cc09dcf",
+    "babel-plugin-minify-constant-folding": "0.5.0-alpha.e9f96ffe",
     "babel-plugin-minify-dead-code-elimination": "0.5.0-alpha.3cc09dcf",
     "babel-plugin-minify-flip-comparisons": "0.5.0-alpha.3cc09dcf",
     "babel-plugin-minify-guarded-expressions": "0.5.0-alpha.3cc09dcf",
