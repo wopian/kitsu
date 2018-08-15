@@ -2,7 +2,15 @@
 
 ## Migrating to `6.0.0`
 
+### Babel 7
+
 Kitsu Core now depends on Babel 7 with a significantly lower package size (over 50% reduction for the node variant). If your web app depends on Babel 6 you may want to hold off upgrading as you'll have two runtimes in your web bundles.
+
+### Legacy Bundle
+
+`kitsu-core/legacy` has been removed as it didn't see any usage.
+
+### Nested Query Parameters
 
 Query parameters handling has been rewritten to support nested parameters. This should not be a breaking change for daily use, but edge cases may be effected.
 
