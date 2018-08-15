@@ -21,12 +21,10 @@
     "lint": "eslint .",
     "test": "yarn test:coverage && yarn lint && yarn docs && yarn build",
     "test:coverage": "jest --coverage",
+    "release": "yarn release:test && yarn release:commit && yarn release:lerna",
     "release:test": "jest && yarn lint && yarn docs:release && yarn build",
     "release:commit": "git commit -am \"chore(release): update documentation\"",
-    "release:lerna": "lerna publish",
-    "major": "yarn release:test && yarn release:commit && yarn release:lerna major --conventional-commits",
-    "minor": "yarn release:test && yarn release:commit && yarn release:lerna minor --conventional-commits",
-    "patch": "yarn release:test && yarn release:commit && yarn release:lerna patch --conventional-commits",
+    "release:lerna": "lerna publish --conventional-commits",
     "browserlist": "npx browserslist \"last 2 years, not < 0.05%\""
   },
   "devDependencies": {
