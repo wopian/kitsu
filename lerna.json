@@ -16,7 +16,6 @@
     "**/example/**",
     "specification/**",
     "**/*.spec.js",
-    "**/*.md",
     "**/*.tgz"
   ]
 }
