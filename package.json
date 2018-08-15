@@ -25,7 +25,9 @@
     "release:test": "jest && yarn lint && yarn docs:release && yarn build",
     "release:commit": "git commit -am \"chore(release): update documentation\"",
     "release:lerna": "lerna publish",
-    "browserlist": "npx browserslist \"last 2 years, not < 0.05%\""
+    "browserlist": "npx browserslist \"last 2 years, not < 0.05%\"",
+    "diff": "lerna diff",
+    "updated": "lerna updated"
   },
   "devDependencies": {
     "@babel/cli": "~7.0.0-rc.1",
