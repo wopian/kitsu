@@ -1,7 +1,19 @@
 {
-  "lerna": "2.10.0",
   "version": "6.2.0",
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "loglevel": "silent"
+  "command": {
+    "publish": {
+      "allowBranch": [ "master" ],
+      "npmClient": "yarn",
+      "message": "chore(release): publish %s"
+    }
+  },
+  "ignoreChanges": [
+    "**/example/**",
+    "specification/**",
+    "**/*.spec.js",
+    "**/*.md",
+    "**/*.tgz"
+  ]
 }

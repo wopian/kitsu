@@ -1,6 +1,6 @@
 example
 legacy
 src
-CHANGELOG.md
 MIGRATING.md
 rollup.config.js
+*.tgz
