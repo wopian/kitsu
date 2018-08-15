@@ -4,6 +4,9 @@ checks:
     enabled: true
     config:
       threshold: 6
+  argument-count:
+    config:
+      threshold: 5
 plugins:
   duplication:
     enabled: false
