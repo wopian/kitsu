@@ -7,8 +7,9 @@
       "allowBranch": [
         "master"
       ],
-      "npmClient": "yarn",
-      "message": "chore(release): publish %s"
+      "conventionalCommits": true,
+      "message": "chore(release): publish %s",
+      "npmClient": "yarn"
     }
   },
   "ignoreChanges": [
