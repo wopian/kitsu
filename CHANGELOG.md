@@ -1,3 +1,9 @@
+#### 2018-08-15
+
+##### Build System / Dependencies
+
+*  update devdependency lerna to ~3.0.5 to fix regressions (867d1609)
+
 ### 6.2.0 (2018-08-14)
 
 ##### Build System / Dependencies
