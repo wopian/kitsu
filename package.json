@@ -42,7 +42,7 @@
     "babel-plugin-minify-dead-code-elimination": "0.5.0-alpha.3cc09dcf",
     "babel-plugin-minify-flip-comparisons": "0.5.0-alpha.3cc09dcf",
     "babel-plugin-minify-guarded-expressions": "0.5.0-alpha.3cc09dcf",
-    "babel-plugin-minify-infinity": "0.5.0-alpha.3cc09dcf",
+    "babel-plugin-minify-infinity": "0.5.0-alpha.e9f96ffe",
     "babel-plugin-minify-simplify": "0.5.0-alpha.3cc09dcf",
     "babel-plugin-minify-type-constructors": "0.5.0-alpha.3cc09dcf",
     "babel-plugin-transform-inline-consecutive-adds": "0.5.0-alpha.3cc09dcf",
