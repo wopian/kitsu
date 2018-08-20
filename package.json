@@ -48,7 +48,7 @@
     "babel-plugin-transform-inline-consecutive-adds": "0.5.0-alpha.3cc09dcf",
     "babel-plugin-transform-member-expression-literals": "6.10.0-alpha.3cc09dcf",
     "babel-plugin-transform-merge-sibling-variables": "6.10.0-alpha.3cc09dcf",
-    "babel-plugin-transform-minify-booleans": "6.10.0-alpha.3cc09dcf",
+    "babel-plugin-transform-minify-booleans": "6.10.0-alpha.f95869d4",
     "babel-plugin-transform-property-literals": "6.10.0-alpha.3cc09dcf",
     "babel-plugin-transform-regexp-constructors": "0.5.0-alpha.3cc09dcf",
     "babel-plugin-transform-remove-undefined": "0.5.0-alpha.3cc09dcf",
