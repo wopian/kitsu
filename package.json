@@ -51,7 +51,7 @@
     "babel-plugin-transform-minify-booleans": "6.10.0-alpha.3cc09dcf",
     "babel-plugin-transform-property-literals": "6.10.0-alpha.3cc09dcf",
     "babel-plugin-transform-regexp-constructors": "0.5.0-alpha.3cc09dcf",
-    "babel-plugin-transform-remove-undefined": "0.5.0-alpha.3cc09dcf",
+    "babel-plugin-transform-remove-undefined": "0.5.0-alpha.e9f96ffe",
     "babel-plugin-transform-undefined-to-void": "6.10.0-alpha.3cc09dcf",
     "cross-env": "~5.2.0",
     "documentation": "~8.1.0",
