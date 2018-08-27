@@ -1,5 +1,5 @@
 {
-  "version": "6.2.3",
+  "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
@@ -8,7 +8,7 @@
         "master"
       ],
       "conventionalCommits": true,
-      "message": "chore(release): publish %s",
+      "message": "chore(release): publish packages",
       "npmClient": "yarn"
     }
   },
