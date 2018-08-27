@@ -4,7 +4,7 @@
   <a href=https://www.npmjs.com/package/kitsu-core><img alt=npm src=https://flat.badgen.net/npm/v/kitsu-core></a>
   <a href=https://www.npmjs.com/package/kitsu-core><img alt=npm src=https://flat.badgen.net/npm/dt/kitsu-core></a>
   <a href="https://bundlephobia.com/result?p=kitsu-core"><img alt=bundlephobia src=https://flat.badgen.net/bundlephobia/minzip/kitsu-core></a>
-  <a href="https://david-dm.org/wopian/kitsu?path=packages/kitsu-core"><img alt=deps src="https://david-dm.org/wopian/kitsu/status.svg?path=packages/kitsu-core&style=flat-square"></a>
+  <a href="https://david-dm.org/wopian/kitsu?path=packages/kitsu-core"><img alt=deps src="https://flat.badgen.net/david/dep/wopian/kitsu/packages/kitsu-core"></a>
 </p>
 
 <p align=center>
@@ -29,7 +29,7 @@
 
 <p align=center><em>Check out the <a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md>Migration Guide</a> for breaking changes in <code>6.x</code></em></p>
 
-# 
+#
 
 ## Features
 
@@ -225,7 +225,7 @@ Filters includes for the specific relationship
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
@@ -278,7 +278,7 @@ Checks if data is valid for serialisation
 
 -   `obj` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The data
 -   `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Request type
--   `type`  
+-   `type`
 
 ### serialise
 
