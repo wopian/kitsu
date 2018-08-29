@@ -3,6 +3,288 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.3.0"></a>
+# 6.3.0 (2018-08-29)
+
+
+### Chores
+
+* **release:** update documentation ([c59db70](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/c59db70))
+
+
+### Documentation
+
+* switch david-dm badges to badgen ([8172616](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/8172616))
+
+
+
+<a name="6.2.3"></a>
+## 6.2.3 (2018-08-15)
+
+
+### Chores
+
+* restore pre-conventional-changelog changelogs ([e44ab97](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/e44ab97))
+* **release:** publish v6.2.3 ([1c767b8](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/1c767b8))
+* **release:** update documentation ([49390b9](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/49390b9))
+
+
+### Documentation
+
+* **kitsu:** update migration guide ([3dc00b6](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/3dc00b6))
+
+
+
+<a name="6.2.2"></a>
+## 6.2.2 (2018-08-15)
+
+
+### Chores
+
+* **release:** publish v6.2.2 ([245d1b8](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/245d1b8))
+* **release:** update documentation ([d15797f](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/d15797f))
+* **release:** update documentation ([ad160e4](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/ad160e4))
+
+
+
+<a name="6.2.1"></a>
+## 6.2.1 (2018-08-15)
+
+
+### Chores
+
+* **release:** publish v6.2.1 ([c284051](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/c284051))
+
+
+
+<a name="6.2.0"></a>
+# 6.2.0 (2018-08-14)
+
+
+### Chores
+
+* remove legacy [@babel](https://github.com/babel)/runtime dependencies ([03056f8](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/03056f8))
+* remove legacy bundles ([df084d2](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/df084d2))
+* remove need for sourcemaps ([1b37fbd](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/1b37fbd))
+* remove redundent package.json script ([7e182d7](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/7e182d7))
+* remove todos in rollup configs ([410b20b](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/410b20b))
+* update npmignore ([6afa4d0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/6afa4d0))
+
+
+### Documentation
+
+* fix links in READMEs ([ef629c9](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/ef629c9))
+* format READMEs ([d4b2384](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/d4b2384))
+* link to coverage, maintainability & debt pages in codeclimate badges ([f267c03](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/f267c03))
+* restore itallic text for migration guide notices ([e9a764e](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/e9a764e))
+* switch codeclimate and contributor badges to badgen ([ef56b76](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/ef56b76))
+* update README to 6.x ([436644d](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/436644d))
+* use source order for API documentation ([8e3d2bb](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/8e3d2bb))
+
+
+
+<a name="6.1.0"></a>
+# 6.1.0 (2018-08-10)
+
+
+### Features
+
+* re-add ES modules (closes [#155](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/155)) ([7506fd0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/7506fd0))
+
+
+
+<a name="6.0.3"></a>
+## 6.0.3 (2018-08-10)
+
+
+### Documentation
+
+* fix links to migration guide ([cad735c](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/cad735c))
+
+
+
+<a name="6.0.2"></a>
+## 6.0.2 (2018-08-10)
+
+
+### Documentation
+
+* switch badges to badgen ([19166bd](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/19166bd))
+
+
+
+<a name="6.0.1"></a>
+## 6.0.1 (2018-08-10)
+
+
+### Documentation
+
+* add ^6 migration note ([60bad61](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/60bad61))
+
+
+
+<a name="6.0.0"></a>
+# 6.0.0 (2018-08-10)
+
+
+### Code Refactoring
+
+* upgrade to babel 7 ([6372acf](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/6372acf))
+* **kitsu:** set aliases in constructor, avoid class properties ([3bd6de5](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/3bd6de5))
+
+
+### Documentation
+
+* **kitsu:** update README ([20b72f2](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/20b72f2))
+
+
+
+<a name="5.2.2"></a>
+## 5.2.2 (2018-07-23)
+
+
+### Chores
+
+* add contributors to package.json ([789125b](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/789125b))
+* lock file maintenance ([#183](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/183)) ([9cb4f03](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/9cb4f03))
+
+
+### Documentation
+
+* **kitsu:** add bundlephobia size badge ([f32fa91](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/f32fa91))
+
+
+
+<a name="5.2.0"></a>
+# 5.2.0 (2018-06-25)
+
+
+### Features
+
+* **kitsu:** alias `remove` to `delete` (closes [#180](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/180)) ([90cad87](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/90cad87))
+* **kitsu:** rename `remove` to `delete` ([ae38b02](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/ae38b02))
+
+
+
+<a name="5.1.1"></a>
+## 5.1.1 (2018-06-01)
+
+
+### Documentation
+
+* **kitsu:** update browser support table ([c564c90](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/c564c90))
+
+
+
+<a name="5.1.0"></a>
+# 5.1.0 (2018-04-01)
+
+
+### Bug Fixes
+
+* temporarily disable ecmascript module output (resolves [#155](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/155)) ([3da9a54](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/3da9a54))
+
+
+
+<a name="5.0.7"></a>
+## 5.0.7 (2018-03-19)
+
+
+
+<a name="5.0.6"></a>
+## 5.0.6 (2018-03-08)
+
+
+### Tests
+
+* remove 'should' from test names ([eba777a](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/eba777a))
+
+
+
+<a name="5.0.5"></a>
+## 5.0.5 (2018-03-07)
+
+
+
+<a name="5.0.4"></a>
+## 5.0.4 (2018-03-03)
+
+
+### Chores
+
+* move test json:api cases to monorepo root ([576a9d8](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/576a9d8))
+* **deps:** update axios to ^0.18.0 ([#135](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/135)) ([ed42641](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/ed42641))
+
+
+### Tests
+
+* namespace package tests ([8c22d35](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/8c22d35))
+
+
+
+<a name="5.0.3"></a>
+## 5.0.3 (2018-02-16)
+
+
+### Chores
+
+* **npm:** remove files property from package.json ([a8decf9](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/a8decf9))
+
+
+
+<a name="5.0.2"></a>
+## 5.0.2 (2018-02-16)
+
+
+### Documentation
+
+* **kitsu:** update installation section with correct legacy/node require path ([eb70f0c](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/eb70f0c))
+
+
+
+<a name="5.0.1"></a>
+## 5.0.1 (2018-02-16)
+
+
+### Chores
+
+* **kitsu:** re-add homepage and repository urls ([45efe3c](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/45efe3c))
+
+
+
+<a name="5.0.0"></a>
+# 5.0.0 (2018-02-16)
+
+
+### Chores
+
+* **deps:** revert changes to kitsu-core dependency ([227a313](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/227a313))
+* **deps:** update lerna to ~2.9.0 ([4f43c66](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/4f43c66))
+* **kitsu:** removed unused files from npmignore ([ec382e2](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/ec382e2))
+* **kitsu:** update examples ([8a826cb](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/8a826cb))
+
+
+### Documentation
+
+* **kitsu:** add node/legacy paths change to migration guide ([7bcebcc](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/7bcebcc))
+* **kitsu:** link to package changelog ([1cfed46](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/1cfed46))
+* **readme:** update readmes ([bb824f8](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/bb824f8))
+
+
+### Features
+
+* split internal functions into a seperate package ([a0bab70](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/a0bab70))
+* use node/legacy version of kitsu-core for node/legacy packages ([8c77574](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/8c77574))
+
+
+### Styles
+
+* fix spacing in auth example ([489760d](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/489760d))
+
+
+
+
+
 <a name="6.2.3"></a>
 ## [6.2.3](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v6.2.2...v6.2.3) (2018-08-15)
 

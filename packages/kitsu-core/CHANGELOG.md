@@ -3,6 +3,332 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.3.0"></a>
+# 6.3.0 (2018-08-29)
+
+
+### Chores
+
+* **release:** update documentation ([c59db70](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/c59db70))
+
+
+### Documentation
+
+* switch david-dm badges to badgen ([8172616](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/8172616))
+
+
+
+<a name="6.2.3"></a>
+## 6.2.3 (2018-08-15)
+
+
+### Chores
+
+* restore pre-conventional-changelog changelogs ([e44ab97](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/e44ab97))
+* **release:** publish v6.2.3 ([1c767b8](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/1c767b8))
+* **release:** update documentation ([49390b9](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/49390b9))
+
+
+### Documentation
+
+* **kitsu-core:** update migration guide ([16f01c3](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/16f01c3))
+
+
+
+<a name="6.2.2"></a>
+## 6.2.2 (2018-08-15)
+
+
+### Chores
+
+* **release:** publish v6.2.2 ([245d1b8](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/245d1b8))
+* **release:** update documentation ([d15797f](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/d15797f))
+* **release:** update documentation ([ad160e4](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/ad160e4))
+
+
+### Code Refactoring
+
+* **serialise :** reduce cognitive complexity ([593b2af](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/593b2af))
+
+
+
+<a name="6.2.1"></a>
+## 6.2.1 (2018-08-15)
+
+
+### Chores
+
+* **release:** publish v6.2.1 ([c284051](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/c284051))
+
+
+
+<a name="6.2.0"></a>
+# 6.2.0 (2018-08-14)
+
+
+### Chores
+
+* remove legacy [@babel](https://github.com/babel)/runtime dependencies ([03056f8](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/03056f8))
+* remove legacy bundles ([df084d2](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/df084d2))
+* remove need for sourcemaps ([1b37fbd](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/1b37fbd))
+* remove todos in rollup configs ([410b20b](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/410b20b))
+* update npmignore ([6afa4d0](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/6afa4d0))
+
+
+### Code Refactoring
+
+* **kitsu-core:** reduce query's cognitive complexity ([fb167b2](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/fb167b2))
+
+
+### Documentation
+
+* fix links in READMEs ([ef629c9](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/ef629c9))
+* format READMEs ([d4b2384](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/d4b2384))
+* link to coverage, maintainability & debt pages in codeclimate badges ([f267c03](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/f267c03))
+* restore itallic text for migration guide notices ([e9a764e](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/e9a764e))
+* switch codeclimate and contributor badges to badgen ([ef56b76](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/ef56b76))
+* update README to 6.x ([436644d](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/436644d))
+* use source order for API documentation ([8e3d2bb](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/8e3d2bb))
+
+
+
+<a name="6.1.0"></a>
+# 6.1.0 (2018-08-10)
+
+
+### Features
+
+* re-add ES modules (closes [#155](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/155)) ([7506fd0](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/7506fd0))
+
+
+
+<a name="6.0.3"></a>
+## 6.0.3 (2018-08-10)
+
+
+### Documentation
+
+* fix links to migration guide ([cad735c](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/cad735c))
+
+
+
+<a name="6.0.2"></a>
+## 6.0.2 (2018-08-10)
+
+
+### Documentation
+
+* switch badges to badgen ([19166bd](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/19166bd))
+
+
+
+<a name="6.0.1"></a>
+## 6.0.1 (2018-08-10)
+
+
+### Documentation
+
+* add ^6 migration note ([60bad61](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/60bad61))
+
+
+
+<a name="6.0.0"></a>
+# 6.0.0 (2018-08-10)
+
+
+### Code Refactoring
+
+* upgrade to babel 7 ([6372acf](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/6372acf))
+
+
+### Documentation
+
+* **kitsu-core:** update README ([037d842](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/037d842))
+
+
+### Features
+
+* **kitsu-core:** support nested parameters  (closes [#148](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/148)) [breaking] ([14b7747](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/14b7747))
+
+
+
+<a name="5.2.2"></a>
+## 5.2.2 (2018-07-23)
+
+
+### Chores
+
+* add contributors to package.json ([789125b](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/789125b))
+* lock file maintenance ([#183](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/183)) ([9cb4f03](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/9cb4f03))
+
+
+### Documentation
+
+* **kitsu-core:** add bundlephobia size badge ([ed0c23b](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/ed0c23b))
+
+
+
+<a name="5.2.0"></a>
+# 5.2.0 (2018-06-25)
+
+
+
+<a name="5.1.1"></a>
+## 5.1.1 (2018-06-01)
+
+
+### Documentation
+
+* **kitsu-core:** update browser support table ([577b38f](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/577b38f))
+
+
+
+<a name="5.1.0"></a>
+# 5.1.0 (2018-04-01)
+
+
+### Bug Fixes
+
+* temporarily disable ecmascript module output (resolves [#155](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/155)) ([3da9a54](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/3da9a54))
+
+
+
+<a name="5.0.7"></a>
+## 5.0.7 (2018-03-19)
+
+
+
+<a name="5.0.6"></a>
+## 5.0.6 (2018-03-08)
+
+
+### Bug Fixes
+
+* escape uri query string ([e4210fc](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/e4210fc))
+
+
+### Tests
+
+* remove 'should' from test names ([eba777a](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/eba777a))
+* update query expectations ([dc494a3](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/dc494a3))
+
+
+
+<a name="5.0.5"></a>
+## 5.0.5 (2018-03-07)
+
+
+### Bug Fixes
+
+* **kitsu-core:** correctly deattribute nested filter/field queries ([b6d2dd4](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/b6d2dd4))
+
+
+
+<a name="5.0.4"></a>
+## 5.0.4 (2018-03-03)
+
+
+### Bug Fixes
+
+* **kitsu-core:** check data object exists before deattributing it ([8b5f761](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/8b5f761))
+* **kitsu-core:** slice first character of query before adding prefix ([756748b](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/756748b))
+
+
+### Chores
+
+* **kitsu-core:** build documentation ([d642353](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/d642353))
+
+
+### Code Refactoring
+
+* **kitsu-core:** remove circular imports ([f733d72](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/f733d72))
+
+
+### Documentation
+
+* **kitsu-core:** add example for deattribute function ([89d9a40](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/89d9a40))
+* **kitsu-core:** add example for kebab function ([eec0fec](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/eec0fec))
+* **kitsu-core:** add example for snake function ([560196b](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/560196b))
+* **kitsu-core:** add examples for camel function ([05bf2d6](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/05bf2d6))
+* **kitsu-core:** add examples for deserialise function ([4d9197a](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/4d9197a))
+* **kitsu-core:** add serialise example with 5.0.x 'this' limitiation ([8384c16](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/8384c16))
+
+
+### Features
+
+* **kitsu-core:** add prefix option to query function ([c91e1f7](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/c91e1f7))
+
+
+### Tests
+
+* namespace package tests ([8c22d35](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/8c22d35))
+
+
+
+<a name="5.0.3"></a>
+## 5.0.3 (2018-02-16)
+
+
+### Chores
+
+* **kitsu-core:** remove files property from package.json ([f882d20](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/f882d20))
+
+
+
+<a name="5.0.2"></a>
+## 5.0.2 (2018-02-16)
+
+
+
+<a name="5.0.1"></a>
+## 5.0.1 (2018-02-16)
+
+
+### Chores
+
+* **kitsu-core:** add homepage and repository urls ([8764512](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/8764512))
+
+
+
+<a name="5.0.0"></a>
+# 5.0.0 (2018-02-16)
+
+
+### Chores
+
+* **deps:** update eslint-config-wopian to ~1.3.0 ([7655109](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/7655109))
+* **deps:** update lerna to ~2.9.0 ([4f43c66](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/4f43c66))
+* **kitsu-core:** add npmignore ([108fc95](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/108fc95))
+* **kitsu-core:** rename prop to key in serialise ([64b44d2](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/64b44d2))
+
+
+### Code Refactoring
+
+* **kitsu-core:** optimise undefined checks ([f551955](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/f551955))
+
+
+### Documentation
+
+* **kitsu-core:** add name for default exports ([03356eb](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/03356eb))
+* **kitsu-core:** link to package changelog ([35f1113](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/35f1113))
+* **kitsu-core:** remove private flags ([8099b9b](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/8099b9b))
+* **readme:** update readmes ([bb824f8](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/bb824f8))
+
+
+### Features
+
+* split internal functions into a seperate package ([a0bab70](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/a0bab70))
+* use node/legacy version of kitsu-core for node/legacy packages ([8c77574](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/8c77574))
+
+
+### Styles
+
+* fix eslint issues ([d1372b1](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/d1372b1))
+
+
+
+
+
 <a name="6.2.3"></a>
 ## [6.2.3](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v6.2.2...v6.2.3) (2018-08-15)
 
