@@ -8,7 +8,7 @@
         "master"
       ],
       "conventionalCommits": true,
-      "changelogPreset": "angular-all",
+      "changelogPreset": "angular-all-2",
       "message": "chore(release): publish packages",
       "npmClient": "yarn"
     }

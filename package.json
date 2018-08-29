@@ -54,7 +54,7 @@
     "babel-plugin-transform-regexp-constructors": "0.5.0-alpha.3cc09dcf",
     "babel-plugin-transform-remove-undefined": "0.5.0-alpha.3cc09dcf",
     "babel-plugin-transform-undefined-to-void": "6.10.0-alpha.3cc09dcf",
-    "conventional-changelog-angular-all": "~1.6.1",
+    "conventional-changelog-angular-all-2": "~5.0.1",
     "cross-env": "~5.2.0",
     "documentation": "~8.1.0",
     "eslint": "~5.4.0",
