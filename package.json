@@ -24,7 +24,7 @@
     "lint": "eslint .",
     "test": "yarn test:coverage && yarn lint && yarn docs && yarn build",
     "test:coverage": "jest --coverage",
-    "release": "yarn release:test && yarn release:commit && yarn release:lerna",
+    "release": "yarn updated && yarn release:test && yarn release:commit && yarn release:lerna",
     "release:test": "jest && yarn lint && yarn docs:release && yarn build",
     "release:commit": "git commit -am \"chore(release): update documentation\"",
     "release:lerna": "lerna publish",
