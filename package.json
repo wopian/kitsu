@@ -12,6 +12,9 @@
     "packages/*"
   ],
   "scripts": {
+    "diff": "lerna diff",
+    "updated": "lerna updated -l --sort --loglevel=silent",
+    "updated:json": "yarn updated --json",
     "bootstrap": "lerna bootstrap",
     "build": "lerna exec yarn build && lerna exec size-limit",
     "docs": "lerna exec --parallel yarn docs:lint",
@@ -25,15 +28,13 @@
     "release:test": "jest && yarn lint && yarn docs:release && yarn build",
     "release:commit": "git commit -am \"chore(release): update documentation\"",
     "release:lerna": "lerna publish",
-    "browserlist": "npx browserslist \"last 2 years, not < 0.05%\"",
-    "diff": "lerna diff",
-    "updated": "lerna updated"
+    "browserlist": "npx browserslist \"last 2 years, not < 0.05%\""
   },
   "devDependencies": {
-    "@babel/cli": "~7.0.0-rc.1",
-    "@babel/core": "~7.0.0-rc.1",
-    "@babel/plugin-transform-runtime": "~7.0.0-rc.1",
-    "@babel/preset-env": "~7.0.0-rc.1",
+    "@babel/cli": "~7.0.0",
+    "@babel/core": "~7.0.0",
+    "@babel/plugin-transform-runtime": "~7.0.0",
+    "@babel/preset-env": "~7.0.0",
     "axios": "~0.18.0",
     "axios-mock-adapter": "~1.15.0",
     "babel-core": "7.0.0-bridge.0",
@@ -53,6 +54,7 @@
     "babel-plugin-transform-regexp-constructors": "0.5.0-alpha.3cc09dcf",
     "babel-plugin-transform-remove-undefined": "0.5.0-alpha.3cc09dcf",
     "babel-plugin-transform-undefined-to-void": "6.10.0-alpha.3cc09dcf",
+    "conventional-changelog-angular-all": "~1.6.1",
     "cross-env": "~5.2.0",
     "documentation": "~8.1.0",
     "eslint": "~5.4.0",

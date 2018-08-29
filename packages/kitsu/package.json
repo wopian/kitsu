@@ -45,7 +45,7 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "@babel/runtime": "^7.0.0-rc.1",
+    "@babel/runtime": "^7.0.0",
     "axios": "^0.18.0",
     "kitsu-core": "^6.2.3",
     "pluralize": "^7.0.0"
