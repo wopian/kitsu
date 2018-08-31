@@ -4,6 +4,7 @@
  * @param {string} value Right-hand side of the query
  * @param {string} key Left-hand side of the query
  * @returns {string} URL query string
+ * @private
  */
 function queryFormat (value, key) {
   if (value !== null && typeof value === 'object') return query(value, key)

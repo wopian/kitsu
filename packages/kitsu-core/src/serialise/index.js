@@ -7,6 +7,7 @@ const requiresID = (method, key) => `${method} requires an ID for the ${key} rel
  *
  * @param {Object} obj The data
  * @param {string} method Request type
+ * @private
  */
 async function isValid (obj, method, type) {
   // Check if obj is not an object or empty
@@ -19,6 +20,16 @@ async function isValid (obj, method, type) {
   }
 }
 
+/**
+ * Serialises an object to JSON:API format
+ *
+ * @param {Object} node Resource object
+ * @param {string} nodeType Resource type of the object
+ * @param {String} key The resource object's key value
+ * @param {Object} data Root JSON:API data object
+ * @param {String} method HTTP method
+ * @private
+ */
 async function serialiseObject (node, nodeType, key, data, method) {
   if (typeof node.id !== 'string') throw new Error(requiresID(method, key))
   if (!data.relationships) data.relationships = {}
@@ -30,6 +41,16 @@ async function serialiseObject (node, nodeType, key, data, method) {
   return data
 }
 
+/**
+ * Serialises an array to JSON:API format
+ *
+ * @param {Object} node Resource object
+ * @param {string} nodeType Resource type of the object
+ * @param {String} key The resource object's key value
+ * @param {Object} data Root JSON:API data object
+ * @param {String} method HTTP method
+ * @private
+ */
 async function serialiseArray (node, nodeType, key, data, method) {
   if (!data.relationships) data.relationships = {}
   data.relationships[key] = {
@@ -44,6 +65,14 @@ async function serialiseArray (node, nodeType, key, data, method) {
   return data
 }
 
+/**
+ * Serialises attributes to JSON:API format
+ *
+ * @param {Object} node Attribute value
+ * @param {String} key Attribute key
+ * @param {Object} data Root JSON:API data object
+ * @private
+ */
 async function serialiseAttr (node, key, data) {
   if (!data.attributes) data.attributes = {}
   data.attributes[key] = node
