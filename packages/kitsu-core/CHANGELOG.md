@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.1](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/kitsu-core@6.3.0...kitsu-core@6.3.1) (2018-08-31)
+
+
+### Chores
+
+* **release:** update documentation ([4fd20c5](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/4fd20c5))
+
+
+### Documentation Changes
+
+* **kitsu-core:** mark internal functions as private ([7d8cff1](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/7d8cff1))
+
+
+
+
+
 <a name="6.3.0"></a>
 # 6.3.0 (2018-08-29)
 
