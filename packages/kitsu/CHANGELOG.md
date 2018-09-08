@@ -3,12 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [6.3.1](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/kitsu@6.3.0...kitsu@6.3.1) (2018-08-31)
+# [6.4.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/kitsu@6.3.1...kitsu@6.4.0) (2018-09-08)
 
 
 ### Chores
 
-* **release:** update documentation ([4fd20c5](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/4fd20c5))
+* **release:** update documentation ([12d3b6e](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/12d3b6e))
+
+
+### New Features
+
+* add generated typescript declarations ([0cac34d](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/0cac34d))
 
 
 
