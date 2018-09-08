@@ -16,7 +16,9 @@ const sharedGlobals = {
 
 /* Babel Config */
 const exclude = [ '*.json', 'node_modules/**/*' ]
+
 const runtimeHelpers = true
+
 const plugins = [
   'babel-plugin-minify-constant-folding',
   'babel-plugin-minify-dead-code-elimination',
@@ -38,6 +40,14 @@ const plugins = [
   } ]
 ]
 
+const sharedConfig = {
+  babelrc: false,
+  comments: false,
+  exclude,
+  runtimeHelpers,
+  plugins
+}
+
 const babelTest = {
   retainLines: true,
   presets: [
@@ -50,11 +60,7 @@ const babelTest = {
 }
 
 const babelMain = {
-  babelrc: false,
-  comments: false,
-  exclude,
-  runtimeHelpers,
-  plugins,
+  ...sharedConfig,
   presets: [
     [ '@babel/env', {
       targets: {
@@ -67,11 +73,7 @@ const babelMain = {
 }
 
 const babelNode = {
-  babelrc: false,
-  comments: false,
-  exclude,
-  runtimeHelpers,
-  plugins,
+  ...sharedConfig,
   presets: [
     [ '@babel/env', {
       targets: {
