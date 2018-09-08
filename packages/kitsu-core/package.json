@@ -13,6 +13,7 @@
   "license": "MIT",
   "main": "lib",
   "module": "lib",
+  "types": "index.d.ts",
   "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core#readme",
   "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core",
   "bugs": {
