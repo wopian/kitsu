@@ -1,16 +1,16 @@
-<h1 align=center>Kitsu</h1>
+<h1 align=center>Kitsu Node</h1>
 
 <p align=center>
-  <a href=https://www.npmjs.com/package/kitsu><img alt=npm src=https://flat.badgen.net/npm/v/kitsu></a>
-  <a href=https://www.npmjs.com/package/kitsu><img alt=npm src=https://flat.badgen.net/npm/dt/kitsu></a>
-  <a href="https://bundlephobia.com/result?p=kitsu"><img alt=bundlephobia src=https://flat.badgen.net/bundlephobia/minzip/kitsu></a>
-  <a href="https://david-dm.org/wopian/kitsu?path=packages/kitsu"><img alt=deps src="https://flat.badgen.net/david/dep/wopian/kitsu/packages/kitsu"></a>
+  <a href=https://www.npmjs.com/package/kitsu-node><img alt=npm src=https://flat.badgen.net/npm/v/kitsu-node></a>
+  <a href=https://www.npmjs.com/package/kitsu-node><img alt=npm src=https://flat.badgen.net/npm/dt/kitsu-node></a>
+  <a href="https://bundlephobia.com/result?p=kitsu-node"><img alt=bundlephobia src=https://flat.badgen.net/bundlephobia/minzip/kitsu-node></a>
+  <a href="https://david-dm.org/wopian/kitsu?path=packages/kitsu-node"><img alt=deps src="https://flat.badgen.net/david/dep/wopian/kitsu/packages/kitsu-node"></a>
 </p>
 
 <p align=center>
   <a href=https://travis-ci.org/wopian/kitsu><img alt=travis src=https://flat.badgen.net/travis/wopian/kitsu></a>
   <a href=https://ci.appveyor.com/project/wopian/kitsu><img alt=appveyor src=https://flat.badgen.net/appveyor/ci/wopian/kitsu></a>
-  <a href="https://packagephobia.now.sh/result?p=kitsu"><img alt=packagephobia src=https://flat.badgen.net/packagephobia/install/kitsu></a>
+  <a href="https://packagephobia.now.sh/result?p=kitsu-node"><img alt=packagephobia src=https://flat.badgen.net/packagephobia/install/kitsu-node></a>
   <a href=https://github.com/wopian/kitsu/graphs/contributors><img alt=contributors src=https://flat.badgen.net/github/contributors/wopian/kitsu></a>
 </p>
 
@@ -35,18 +35,8 @@
 
 -   JSON-API 1.0 compliant
 -   Automatically links relationships to data
--   Works in Node and on the web
 -   Uses the [Promise] API
 -   Configurable timeout handling
-
-## Node / Browser Support
-
-|      Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
-| -----------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-|      `kitsu` |      ≤ 12.1 kb     |  6+  |   54+  |   51+   |   10+  |  15+ |     |
-| `kitsu/node` |      ≤ 8.8 kb      |  6+  |        |         |        |      |     |
-
-\* Including all dependencies, minified & gzipped
 
 ## Response Comparison
 
@@ -109,20 +99,19 @@
 ### Yarn / NPM
 
 ```bash
-yarn add kitsu
-npm install kitsu
+yarn add kitsu-node
+npm install kitsu-node
 ```
 
 ```js
-import Kitsu from 'kitsu'      // ES Modules and Babel
-import Kitsu from 'kitsu/node' // Lighter node-only package
-const Kitsu = require('kitsu') // CommonJS and Browserify
+import Kitsu from 'kitsu-node'      // ES Modules and Babel
+const Kitsu = require('kitsu-node') // CommonJS and Browserify
 ```
 
 ### Packd CDN
 
 ```html
-<script src='https://bundle.run/kitsu@6?name=Kitsu'></script>
+<script src='https://bundle.run/kitsu-node@7?name=Kitsu'></script>
 ```
 
 ## Quick Start

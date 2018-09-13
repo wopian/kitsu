@@ -1,5 +1,11 @@
 # Migration Guides
 
+## Migrating to `7.0.0`
+
+Dropped Node 6 support. Lowest supported version is now Node 8.
+
+`kitsu/node` now exists as a standalone package called `kitsu-node`. This has no dependency on Babel Runtime, as it's required only by the browser version of `kitsu`.
+
 ## Migrating to `6.0.0`
 
 ### Babel 7
