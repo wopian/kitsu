@@ -1,6 +1,6 @@
 {
   "version": "6.4.0",
-  "name": "kitsu-core",
+  "name": "kitsu-core-node",
   "description": "Core serialisation and deserialsation functions for the kitsu JSON:API client",
   "author": "James Harris <wopian@wopian.me>",
   "contributors": [
@@ -14,8 +14,8 @@
   "main": "lib",
   "module": "lib",
   "types": "index.d.ts",
-  "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core#readme",
-  "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core",
+  "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core-node#readme",
+  "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core-node",
   "bugs": {
     "url": "https://github.com/wopian/kitsu/issues"
   },
@@ -30,31 +30,21 @@
     "deserialize"
   ],
   "scripts": {
-    "docs:lint": "documentation lint src/index.js",
-    "docs:build": "documentation readme src/index.js --section=API -g true --sort-order source",
-    "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production && cpx node/** ../kitsu-core-node/lib/ && cpx index.d.ts ../kitsu-core-node",
-    "build": "yarn rollup"
+    "docs:lint": "cd .",
+    "docs:build": "documentation readme ../kitsu-core/src/index.js --section=API -g true --sort-order source",
+    "build": "cd ."
   },
   "sideEffects": false,
   "dependencies": {
-    "@babel/runtime": "^7.0.0"
   },
   "size-limit": [
     {
       "path": "./lib/index.js",
-      "limit": "4.56 kb"
+      "limit": "1.21 kb"
     },
     {
       "path": "./lib/index.mjs",
-      "limit": "4.58 kb"
-    },
-    {
-      "path": "./node/index.js",
-      "limit": "1.75 kb"
-    },
-    {
-      "path": "./node/index.mjs",
-      "limit": "1.76 kb"
+      "limit": "1.24 kb"
     }
   ]
 }
