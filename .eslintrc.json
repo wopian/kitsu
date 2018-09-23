@@ -1,0 +1,33 @@
+{
+  "extends": "standard",
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "ecmaFeatures": {
+      "modules": true
+    }
+  },
+  "plugins": [
+  ],
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "curly": [ "error", "multi-line" ],
+    "array-bracket-spacing": [ "error", "always" ],
+    "object-curly-spacing": [ "error", "always" ],
+    "jest/consistent-test-it": [ "error", { "fn": "it" } ],
+    "jest/lowercase-name": "error",
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/no-test-prefixes": "error",
+    "jest/prefer-to-have-length": "error",
+    "jest/prefer-to-be-null": "error",
+    "jest/prefer-to-be-undefined": "error",
+    "jest/prefer-expect-assertions": "warn",
+    "jest/valid-describe": "error",
+    "jest/valid-expect": "error",
+    "jest/valid-expect-in-promise": "error"
+  }
+}

@@ -1,52 +1,71 @@
-import pluralize from 'pluralize'
-import Kitsu from 'kitsu'
+const tap = require('tap')
+// import pluralize from 'pluralize'
+const Kitsu = require('../node')
 
-describe('kitsu', () => {
-  describe('method aliases', () => {
+tap.test('> kitsu', t => {
+  t.test('> method aliases', t => {
     const api = new Kitsu()
 
-    it('aliases fetch to get', () => {
-      expect.assertions(1)
-      expect(api.fetch).toEqual(api.get)
+    t.test('> aliases fetch to get', t => {
+      const expection = api.fetch === api.get
+      t.ok(expection)
+      t.matchSnapshot(expection, '> matches snapshot')
+      t.end()
     })
 
-    it('aliases update to patch', () => {
-      expect.assertions(1)
-      expect(api.update).toEqual(api.patch)
+    t.test('> aliases update to patch', t => {
+      const expection = api.update === api.patch
+      t.ok(expection)
+      t.matchSnapshot(expection, '> matches snapshot')
+      t.end()
     })
 
-    it('aliases create to post', () => {
-      expect.assertions(1)
-      expect(api.create).toEqual(api.post)
+    t.test('> aliases create to post', t => {
+      const expection = api.create === api.post
+      t.ok(expection)
+      t.matchSnapshot(expection, '> matches snapshot')
+      t.end()
     })
+
+    t.end()
   })
 
-  describe('class constructor', () => {
-    it('sets the required JSON:API headers', () => {
-      expect.assertions(2)
+  t.test('> class constructor', t => {
+    t.test('> sets the required JSON:API headers', t => {
       const api = new Kitsu()
       const header = 'application/vnd.api+json'
-      expect(api.headers['Accept']).toBe(header)
-      expect(api.headers['Content-Type']).toBe(header)
+      t.ok(api.headers['Accept'] === header)
+      t.matchSnapshot(api.headers['Accept'] === header, '> matches snapshot')
+
+      t.ok(api.headers['Content-Type'] === header)
+      t.matchSnapshot(api.headers['Content-Type'] === header, '> matches snapshot')
+      t.end()
     })
 
-    it('sets provided headers in constructor', () => {
-      expect.assertions(1)
-      const api = new Kitsu({
-        headers: {
-          'Key': 'value'
-        }
-      })
-      expect(api.headers['Key']).toBe('value')
+    t.test('> sets provided headers in constructor', t => {
+      const api = new Kitsu({ headers: { 'Key': 'value' } })
+      t.ok(api.headers['Key'] === 'value')
+      t.matchSnapshot(api.headers['Key'] === 'value', '> matches snapshot')
+      t.end()
     })
 
-    it('sets additional headers', () => {
-      expect.assertions(1)
+    t.test('> sets additional headers', t => {
       const api = new Kitsu()
       api.headers['Key'] = 'value'
-      expect(api.headers['Key']).toBe('value')
+      t.ok(api.headers['Key'] === 'value')
+      t.matchSnapshot(api.headers['Key'] === 'value', '> matches snapshot')
+      t.end()
     })
 
+    t.end()
+  })
+
+  t.end()
+})
+
+/*
+describe('kitsu', () => {
+  describe('class constructor', () => {
     it('returns all headers', () => {
       expect.assertions(1)
       const api = new Kitsu()
@@ -129,3 +148,4 @@ describe('kitsu', () => {
     })
   })
 })
+*/
