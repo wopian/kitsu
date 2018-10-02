@@ -32,7 +32,7 @@
   "scripts": {
     "docs:lint": "documentation lint src/index.js",
     "docs:build": "documentation readme src/index.js --section=API -g true --sort-order source",
-    "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production && cpx node/** ../kitsu-core-node/lib/ && cpx index.d.ts ../kitsu-core-node",
+    "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "build": "yarn rollup"
   },
   "sideEffects": false,

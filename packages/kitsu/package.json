@@ -40,8 +40,8 @@
   "scripts": {
     "docs:lint": "documentation lint src/index.js",
     "docs:build": "documentation readme src/index.js --section=API -g true --sort-order source",
-    "replace": "replace-in-file kitsu-core kitsu-core/node node/*.*js && replace-in-file kitsu-core kitsu-core-node ../kitsu-node/lib/*.*js",
-    "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production && cpx node/** ../kitsu-node/lib/ && cpx index.d.ts ../kitsu-node",
+    "replace": "replace-in-file kitsu-core kitsu-core/node node/*.*js",
+    "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "build": "yarn rollup && yarn replace"
   },
   "sideEffects": false,
