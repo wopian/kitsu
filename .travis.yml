@@ -4,6 +4,7 @@ os:
 language: node_js
 node_js:
 - node
+- 10 # EOL Apr 21
 - 8 # EOL Dec 19
 cache:
   yarn: true
