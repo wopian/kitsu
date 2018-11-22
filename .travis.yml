@@ -1,6 +1,8 @@
 os:
 - linux
-#- osx
+- osx
+- windows
+dist: xenial
 language: node_js
 node_js:
 - node
