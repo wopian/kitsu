@@ -13,6 +13,9 @@ cache:
 sudo: false
 matrix:
   fast_finish: true
+env:
+  global:
+    - YARN_GPG=no # https://travis-ci.community/t/build-doesnt-finish-after-completing-tests/288
 after_install: yarn bootstrap
 script: yarn test
 after_success:
