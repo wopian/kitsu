@@ -1,7 +1,7 @@
 os:
 - linux
 - osx
-- windows
+#- windows # Await proper release - randomly fails while setting up container
 dist: xenial
 language: node_js
 node_js:
