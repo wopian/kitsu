@@ -5,7 +5,8 @@
   "command": {
     "publish": {
       "allowBranch": [
-        "master"
+        "master",
+        "6.4.1"
       ],
       "conventionalCommits": true,
       "changelogPreset": "angular-all-2",
