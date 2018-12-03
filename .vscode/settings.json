@@ -1,7 +1,7 @@
 {
   "files.exclude": {
-    "**/{legacy,lib,node}/": true,
-    "**/node_modules/": true,
+    "**/{legacy,lib,node}/": false,
+    "**/node_modules/": false,
     "coverage/**/*.{info,json,xml,css,js,png}": true
   }
 }
