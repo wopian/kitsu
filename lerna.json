@@ -4,10 +4,6 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
-      "allowBranch": [
-        "master",
-        "6.4.1"
-      ],
       "conventionalCommits": true,
       "changelogPreset": "angular-all-2",
       "message": "chore(release): publish packages",
