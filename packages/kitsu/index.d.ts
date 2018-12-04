@@ -1,4 +1,4 @@
-export = Kitsu;
+export default Kitsu;
 
 declare class Kitsu {
     constructor(...args: any[]);
