@@ -1,5 +1,5 @@
 {
-  "version": "6.5.0",
+  "version": "6.5.1",
   "name": "kitsu",
   "description": "Simple & lightweight JSON-API client for Kitsu and other compliant APIs",
   "author": "James Harris <wopian@wopian.me>",

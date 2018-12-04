@@ -3,39 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [6.5.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v6.2.3...v6.5.0) (2018-12-03)
+## [6.5.1](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v6.5.0...v6.5.1) (2018-12-04)
 
 
 ### Bug Fixes
 
-* **kitsu:** typescript declaration file ([#236](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/236)) ([a37d31c](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/a37d31c))
-
-
-### Build System / Dependencies
-
-* update dependency babel to ^7.0.0 ([81f6be2](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/81f6be2))
+* **kitsu:** CommonJS style require imports ([#238](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/238)) ([6f7a6ba](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/6f7a6ba))
 
 
 ### Chores
 
-* **release:** publish packages ([4ef5cd2](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/4ef5cd2))
-* **release:** publish packages ([52c4b5d](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/52c4b5d))
-* **release:** publish packages ([3c84631](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/3c84631))
-* **release:** update documentation ([286c921](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/286c921))
-* **release:** update documentation ([63053e9](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/63053e9))
-* **release:** update documentation ([12d3b6e](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/12d3b6e))
-* **release:** update documentation ([4fd20c5](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/4fd20c5))
-* **release:** update documentation ([c59db70](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/c59db70))
-
-
-### Documentation Changes
-
-* switch david-dm badges to badgen ([8172616](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/8172616))
-
-
-### New Features
-
-* add generated typescript declarations ([0cac34d](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/0cac34d))
+* **release:** update documentation ([a5e051c](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/a5e051c))
+* **release:** update documentation ([fcb8a41](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/fcb8a41))
+* **release:** update documentation ([20e92bf](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/20e92bf))
 
 
 

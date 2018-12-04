@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.1](https://github.com/wopian/kitsu/compare/v6.5.0...v6.5.1) (2018-12-04)
+
+
+### Bug Fixes
+
+* **kitsu:** CommonJS style require imports ([#238](https://github.com/wopian/kitsu/issues/238)) ([6f7a6ba](https://github.com/wopian/kitsu/commit/6f7a6ba))
+
+
+### Chores
+
+* **release:** update documentation ([a5e051c](https://github.com/wopian/kitsu/commit/a5e051c))
+* **release:** update documentation ([fcb8a41](https://github.com/wopian/kitsu/commit/fcb8a41))
+* **release:** update documentation ([20e92bf](https://github.com/wopian/kitsu/commit/20e92bf))
+
+
+
+
+
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 # [6.5.0](https://github.com/wopian/kitsu/compare/v6.2.3...v6.5.0) (2018-12-03)
 
 
