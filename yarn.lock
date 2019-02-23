@@ -3979,10 +3979,10 @@ doctrine@^2.1.0:
   dependencies:
     esutils "^2.0.2"
 
-documentation@~9.1.0:
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/documentation/-/documentation-9.1.1.tgz#20da422be82a04a2d356d720d55d4cad25bb235b"
-  integrity sha512-oSTBZXBlrJpRMXCzXdd1j8CQ+miJHTIZeEZ3oCU/NgIImKTBG3nHIPPSZRPA35cJGWN9L3uQK7eF6vS82QJlgg==
+documentation@~9.2.0:
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/documentation/-/documentation-9.2.0.tgz#e4e92e68018dab363f8f8d8b995b5fa417e41c06"
+  integrity sha512-5xCqzC3QGSbf3DBufbJtZA3xEfqfyRnoPo65r4z7i5XUlqRN6H5XjUjdK+K4XuZMgdL3z++p7zB07C+SsuFAXg==
   dependencies:
     "@babel/core" "^7.1.2"
     "@babel/generator" "^7.1.3"
