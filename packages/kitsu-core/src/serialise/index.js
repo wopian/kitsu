@@ -105,7 +105,7 @@ export async function serialise (model, obj = {}, method = 'POST') {
     for (let key in obj) {
       const node = obj[key]
       const nodeType = this.plural(this.camel(key))
-      if (node !== null & node.constructor === Object) {
+      if (node !== null && node.constructor === Object) {
         data = await serialiseObject(node, nodeType, key, data, method)
       } else if (node !== null && Array.isArray(node)) {
         data = await serialiseArray(node, nodeType, key, data, method)
