@@ -29,7 +29,7 @@
 
 <p align=center><em>Check out the <a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration Guide</a> for breaking changes in <code>6.x</code></em></p>
 
-#
+# 
 
 ## Features
 
@@ -43,7 +43,7 @@
 
 |      Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
 | -----------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-|      `kitsu` |      ≤ 11.9 kb     |  8+  |   57+  |   52+   | 10.1+  |  16+ |     |
+|      `kitsu` |      ≤ 11.9 kb     |  8+  |   57+  |   52+   |  10.1+ |  16+ |     |
 | `kitsu/node` |      ≤ 8.2 kb      |  8+  |        |         |        |      |     |
 
 \* Including all dependencies, minified & gzipped
@@ -199,7 +199,7 @@ If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lis
 
 ### Kitsu
 
-[packages/kitsu/src/index.js:29-289](https://github.com/wopian/kitsu/blob/0cac34dd976c3f875666adcd7d88800d5ef6b4ad/packages/kitsu/src/index.js#L29-L289 "Source code on GitHub")
+[packages/kitsu/src/index.js:29-289](https://github.com/wopian/kitsu/blob/07d2acab9cf767063713d2d30061a96e2c16db55/packages/kitsu/src/index.js#L29-L289 "Source code on GitHub")
 
 Creates a new `kitsu` instance
 
@@ -215,13 +215,15 @@ Creates a new `kitsu` instance
 
 #### Examples
 
-_Using with Kitsu.io's API_
+Using with Kitsu.io's API
+
 
 ```javascript
 const api = new Kitsu()
 ```
 
-_Using another API server_
+Using another API server
+
 
 ```javascript
 const api = new Kitsu({
@@ -229,7 +231,8 @@ const api = new Kitsu({
 })
 ```
 
-_Setting headers_
+Setting headers
+
 
 ```javascript
 const api = new Kitsu({
@@ -242,7 +245,7 @@ const api = new Kitsu({
 
 #### plural
 
-[packages/kitsu/src/index.js:51-52](https://github.com/wopian/kitsu/blob/0cac34dd976c3f875666adcd7d88800d5ef6b4ad/packages/kitsu/src/index.js#L51-L52 "Source code on GitHub")
+[packages/kitsu/src/index.js:51-52](https://github.com/wopian/kitsu/blob/07d2acab9cf767063713d2d30061a96e2c16db55/packages/kitsu/src/index.js#L51-L52 "Source code on GitHub")
 
 -   **See: <https://www.npmjs.com/package/pluralize> for documentation**
 -   **See: Kitsu constructor options for disabling pluralization**
@@ -251,7 +254,8 @@ If pluralization is enabled (default, see Kitsu constructor docs) then pluraliza
 
 ##### Examples
 
-_Adding an uncountable pluralization rule_
+Adding an uncountable pluralization rule
+
 
 ```javascript
 api.plural.plural('paper') //=> 'papers'
@@ -261,25 +265,28 @@ api.plural.plural('paper') //=> 'paper'
 
 #### headers
 
-[packages/kitsu/src/index.js:66-66](https://github.com/wopian/kitsu/blob/0cac34dd976c3f875666adcd7d88800d5ef6b4ad/packages/kitsu/src/index.js#L66-L66 "Source code on GitHub")
+[packages/kitsu/src/index.js:66-66](https://github.com/wopian/kitsu/blob/07d2acab9cf767063713d2d30061a96e2c16db55/packages/kitsu/src/index.js#L66-L66 "Source code on GitHub")
 
 Get the current headers or add additional headers
 
 ##### Examples
 
-_Get all headers_
+Get all headers
+
 
 ```javascript
 api.headers
 ```
 
-_Get a single header's value_
+Get a single header's value
+
 
 ```javascript
 api.headers['User-Agent']
 ```
 
-_Add or update a header's value_
+Add or update a header's value
+
 
 ```javascript
 api.headers['Authorization'] = 'Bearer 1234567890'
@@ -289,7 +296,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### get
 
-[packages/kitsu/src/index.js:149-168](https://github.com/wopian/kitsu/blob/0cac34dd976c3f875666adcd7d88800d5ef6b4ad/packages/kitsu/src/index.js#L149-L168 "Source code on GitHub")
+[packages/kitsu/src/index.js:149-168](https://github.com/wopian/kitsu/blob/07d2acab9cf767063713d2d30061a96e2c16db55/packages/kitsu/src/index.js#L149-L168 "Source code on GitHub")
 
 Fetch resources (alias `fetch`)
 
@@ -308,7 +315,8 @@ Fetch resources (alias `fetch`)
 
 ##### Examples
 
-_Getting a resource with JSON:API parameters_
+Getting a resource with JSON:API parameters
+
 
 ```javascript
 api.get('users', {
@@ -321,7 +329,8 @@ api.get('users', {
 })
 ```
 
-_Getting a collection of resources with their relationships_
+Getting a collection of resources with their relationships
+
 
 ```javascript
 api.get('anime', {
@@ -329,7 +338,8 @@ api.get('anime', {
 })
 ```
 
-_Getting a single resource by ID (method one)_
+Getting a single resource by ID (method one)
+
 
 ```javascript
 api.get('anime/2', {
@@ -337,7 +347,8 @@ api.get('anime/2', {
 })
 ```
 
-_Getting a single resource by ID (method two)_
+Getting a single resource by ID (method two)
+
 
 ```javascript
 api.get('anime', {
@@ -346,13 +357,15 @@ api.get('anime', {
 })
 ```
 
-_Getting a resource's relationship data only_
+Getting a resource's relationship data only
+
 
 ```javascript
 api.get('anime/2/categories')
 ```
 
-_Handling errors (async/await)_
+Handling errors (async/await)
+
 
 ```javascript
 try {
@@ -371,7 +384,8 @@ try {
 }
 ```
 
-_Handling errors (Promises)_
+Handling errors (Promises)
+
 
 ```javascript
 api.get('anime')
@@ -394,7 +408,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### patch
 
-[packages/kitsu/src/index.js:184-198](https://github.com/wopian/kitsu/blob/0cac34dd976c3f875666adcd7d88800d5ef6b4ad/packages/kitsu/src/index.js#L184-L198 "Source code on GitHub")
+[packages/kitsu/src/index.js:184-198](https://github.com/wopian/kitsu/blob/07d2acab9cf767063713d2d30061a96e2c16db55/packages/kitsu/src/index.js#L184-L198 "Source code on GitHub")
 
 Update a resource (alias `update`)
 
@@ -406,7 +420,8 @@ Update a resource (alias `update`)
 
 ##### Examples
 
-_Update a post_
+Update a post
+
 
 ```javascript
 api.update('posts', {
@@ -419,7 +434,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### post
 
-[packages/kitsu/src/index.js:221-234](https://github.com/wopian/kitsu/blob/0cac34dd976c3f875666adcd7d88800d5ef6b4ad/packages/kitsu/src/index.js#L221-L234 "Source code on GitHub")
+[packages/kitsu/src/index.js:221-234](https://github.com/wopian/kitsu/blob/07d2acab9cf767063713d2d30061a96e2c16db55/packages/kitsu/src/index.js#L221-L234 "Source code on GitHub")
 
 Create a new resource (alias `create`)
 
@@ -431,7 +446,8 @@ Create a new resource (alias `create`)
 
 ##### Examples
 
-_Create a post on a user's profile feed_
+Create a post on a user's profile feed
+
 
 ```javascript
 api.create('posts', {
@@ -451,7 +467,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### delete
 
-[packages/kitsu/src/index.js:247-259](https://github.com/wopian/kitsu/blob/0cac34dd976c3f875666adcd7d88800d5ef6b4ad/packages/kitsu/src/index.js#L247-L259 "Source code on GitHub")
+[packages/kitsu/src/index.js:247-259](https://github.com/wopian/kitsu/blob/07d2acab9cf767063713d2d30061a96e2c16db55/packages/kitsu/src/index.js#L247-L259 "Source code on GitHub")
 
 Remove a resource (alias `remove`)
 
@@ -463,7 +479,8 @@ Remove a resource (alias `remove`)
 
 ##### Examples
 
-_Remove a user's post_
+Remove a user's post
+
 
 ```javascript
 api.delete('posts', 123)
@@ -473,7 +490,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### self
 
-[packages/kitsu/src/index.js:281-288](https://github.com/wopian/kitsu/blob/0cac34dd976c3f875666adcd7d88800d5ef6b4ad/packages/kitsu/src/index.js#L281-L288 "Source code on GitHub")
+[packages/kitsu/src/index.js:281-288](https://github.com/wopian/kitsu/blob/07d2acab9cf767063713d2d30061a96e2c16db55/packages/kitsu/src/index.js#L281-L288 "Source code on GitHub")
 
 Get the authenticated user's data
 
@@ -488,13 +505,15 @@ Get the authenticated user's data
 
 ##### Examples
 
-_Get the authenticated user's resource_
+Get the authenticated user's resource
+
 
 ```javascript
 api.self()
 ```
 
-_Using JSON:API parameters_
+Using JSON:API parameters
+
 
 ```javascript
 api.self({
