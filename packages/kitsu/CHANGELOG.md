@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v6.2.3...v7.0.0) (2019-03-02)
+
+
+### Bug Fixes
+
+* **ci:** remove node-only packages ([467e501](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/467e501))
+* **kitsu:** CommonJS style require imports ([#238](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/238)) ([bf57762](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/bf57762))
+* **kitsu:** typescript declaration file ([#236](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/236)) ([1823d53](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/1823d53))
+
+
+### Build System / Dependencies
+
+* update dependency babel to ^7.0.0 ([81f6be2](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/81f6be2))
+
+
+### Chores
+
+* **release:** update documentation ([4421b82](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/4421b82))
+* drop support for node 6 ([7e48c42](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/7e48c42))
+* **release:** publish packages ([4ef5cd2](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/4ef5cd2))
+* **release:** publish packages ([52c4b5d](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/52c4b5d))
+* **release:** publish packages ([3c84631](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/3c84631))
+* **release:** update documentation ([12d3b6e](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/12d3b6e))
+* **release:** update documentation ([4fd20c5](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/4fd20c5))
+* **release:** update documentation ([c59db70](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/c59db70))
+
+
+### Documentation Changes
+
+* switch david-dm badges to badgen ([8172616](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/8172616))
+* update package sizes ([07d2aca](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/07d2aca))
+
+
+### New Features
+
+* add generated typescript declarations ([0cac34d](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/0cac34d))
+* split kitsu/node into kitsu-node ([151f6dd](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/151f6dd))
+
+
+### BREAKING CHANGES
+
+* Brings native async/await for kitsu/node and kitsu-core/node
+
+
+
+
+
+
 # [6.4.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/kitsu@6.3.1...kitsu@6.4.0) (2018-09-08)
 
 
