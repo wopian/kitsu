@@ -29,7 +29,7 @@
 
 <p align=center><em>Check out the <a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md>Migration Guide</a> for breaking changes in <code>6.x</code></em></p>
 
-# 
+#
 
 ## Features
 
@@ -42,8 +42,8 @@
 
 |           Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |  IE |
 | ----------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: | :-: |
-|      `kitsu-core` |      ≤ 4.3 kb      |  6+  |   54+  |   51+   |   10+  |  15+ |     |
-| `kitsu-core/node` |      ≤ 1.5 kb      |  6+  |        |         |        |      |     |
+|      `kitsu-core` |      ≤ 4.3 kb      |  8+  |   57+  |   52+   | 10.1+  |  16+ |     |
+| `kitsu-core/node` |      ≤ 1.1 kb      |  8+  |        |         |        |      |     |
 
 \* Including all dependencies, minified & gzipped<br>
 
@@ -221,7 +221,7 @@ Filters includes for the specific relationship
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
