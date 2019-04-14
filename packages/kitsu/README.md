@@ -122,7 +122,7 @@ const Kitsu = require('kitsu') // CommonJS and Browserify
 ### Packd CDN
 
 ```html
-<script src='https://bundle.run/kitsu@6?name=Kitsu'></script>
+<script src='https://bundle.run/kitsu@7?name=Kitsu'></script>
 ```
 
 ## Quick Start
