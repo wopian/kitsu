@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.1](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v7.0.0...v7.0.1) (2019-04-15)
+
+
+### Chores
+
+* **release:** update documentation ([60e15f9](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/60e15f9))
+
+
+### Other Changes
+
+* updated the cdn link to version 7 (#283) ([ce132cd](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/ce132cd)), closes [#283](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/283)
+
+
+
+
+
 # [7.0.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v6.2.3...v7.0.0) (2019-03-02)
 
 

@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.1](https://github.com/wopian/kitsu/compare/v7.0.0...v7.0.1) (2019-04-15)
+
+
+### Build System / Dependencies
+
+* update babel monorepo ([#274](https://github.com/wopian/kitsu/issues/274)) ([35efd34](https://github.com/wopian/kitsu/commit/35efd34)), closes [#8203](https://github.com/wopian/kitsu/issues/8203) [#8203](https://github.com/wopian/kitsu/issues/8203) [#8203](https://github.com/wopian/kitsu/issues/8203)
+* update devdependency [@babel](https://github.com/babel)/cli to ~7.4.0 ([#282](https://github.com/wopian/kitsu/issues/282)) ([a3513e5](https://github.com/wopian/kitsu/commit/a3513e5)), closes [#8203](https://github.com/wopian/kitsu/issues/8203)
+* update devdependency eslint to ~5.15.0 ([#270](https://github.com/wopian/kitsu/issues/270)) ([1977105](https://github.com/wopian/kitsu/commit/1977105))
+* update devdependency eslint to ~5.16.0 ([#277](https://github.com/wopian/kitsu/issues/277)) ([5fde8fd](https://github.com/wopian/kitsu/commit/5fde8fd))
+* update devdependency rollup to ~1.10.0 ([#281](https://github.com/wopian/kitsu/issues/281)) ([9ccf9d2](https://github.com/wopian/kitsu/commit/9ccf9d2))
+* update devdependency rollup to ~1.6.0 ([#272](https://github.com/wopian/kitsu/issues/272)) ([f244631](https://github.com/wopian/kitsu/commit/f244631))
+* update devdependency rollup to ~1.7.0 ([#275](https://github.com/wopian/kitsu/issues/275)) ([b130d51](https://github.com/wopian/kitsu/commit/b130d51))
+* update devdependency size-limit to ~0.22.0 ([#276](https://github.com/wopian/kitsu/issues/276)) ([ba77e75](https://github.com/wopian/kitsu/commit/ba77e75))
+* update devdependency size-limit to ~1.0.0 ([#279](https://github.com/wopian/kitsu/issues/279)) ([b7a8200](https://github.com/wopian/kitsu/commit/b7a8200))
+* update jest monorepo to ~24.3.0 ([#271](https://github.com/wopian/kitsu/issues/271)) ([31a0f6e](https://github.com/wopian/kitsu/commit/31a0f6e))
+* update jest monorepo to ~24.5.0 ([#273](https://github.com/wopian/kitsu/issues/273)) ([0877e9d](https://github.com/wopian/kitsu/commit/0877e9d))
+* update jest monorepo to ~24.7.0 ([#280](https://github.com/wopian/kitsu/issues/280)) ([1e4210d](https://github.com/wopian/kitsu/commit/1e4210d))
+* **kitsu:** lock file maintenance ([#278](https://github.com/wopian/kitsu/issues/278)) ([5ad7bd5](https://github.com/wopian/kitsu/commit/5ad7bd5))
+
+
+### Chores
+
+* **release:** update documentation ([60e15f9](https://github.com/wopian/kitsu/commit/60e15f9))
+
+
+### Other Changes
+
+* updated the cdn link to version 7 (#283) ([ce132cd](https://github.com/wopian/kitsu/commit/ce132cd)), closes [#283](https://github.com/wopian/kitsu/issues/283)
+
+
+
+
+
 # [7.0.0](https://github.com/wopian/kitsu/compare/v6.2.3...v7.0.0) (2019-03-02)
 
 
