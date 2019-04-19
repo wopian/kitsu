@@ -57,7 +57,7 @@
     "conventional-changelog-angular-all-2": "~5.0.1",
     "cpx": "^1.5.0",
     "cross-env": "~5.2.0",
-    "documentation": "~9.3.0",
+    "documentation": "~10.0.0",
     "eslint": "~5.16.0",
     "eslint-config-wopian": "~1.4.0",
     "jest": "~24.7.0",
