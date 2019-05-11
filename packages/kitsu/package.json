@@ -40,9 +40,11 @@
   "scripts": {
     "docs:lint": "documentation lint src/index.js",
     "docs:build": "documentation readme src/index.js --section=API -g true --sort-order source",
-    "replace": "replace-in-file kitsu-core kitsu-core/node node/*.*js",
+    "replace:mjs": "replace-in-file kitsu-core kitsu-core/lib/index.mjs lib/index.mjs",
+    "replace:cjs-node": "replace-in-file kitsu-core kitsu-core/node node/index.js",
+    "replace:mjs-node": "replace-in-file kitsu-core kitsu-core/node/index.mjs node/index.mjs",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
-    "build": "yarn rollup && yarn replace"
+    "build": "yarn rollup && yarn replace:mjs && yarn replace:cjs-node && yarn replace:mjs-node"
   },
   "sideEffects": false,
   "dependencies": {
