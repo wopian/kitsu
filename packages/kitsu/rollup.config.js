@@ -44,13 +44,13 @@ export default [
     plugins: pluginsMain,
     output: [
       {
-        file: `${pkg.main}/index.js`,
+        file: `${pkg.main}`,
         format: 'cjs',
         sourcemap: false,
         globals
       },
       {
-        file: `${pkg.module}/index.mjs`,
+        file: `${pkg.module}`,
         format: 'es',
         sourcemap: false,
         globals
