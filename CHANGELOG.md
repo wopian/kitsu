@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.2](https://github.com/wopian/kitsu/compare/v7.0.1...v7.0.2) (2019-05-11)
+
+
+### Bug Fixes
+
+* update main/module paths to support Node 12 ESM (closes [#292](https://github.com/wopian/kitsu/issues/292)) ([b6083d6](https://github.com/wopian/kitsu/commit/b6083d6))
+* update replace scripts to handle Node 12 changes (closes [#292](https://github.com/wopian/kitsu/issues/292)) ([afa195d](https://github.com/wopian/kitsu/commit/afa195d))
+
+
+### Build System / Dependencies
+
+* update devdependency rollup to ~1.11.0 ([#290](https://github.com/wopian/kitsu/issues/290)) ([b4b2970](https://github.com/wopian/kitsu/commit/b4b2970))
+* update jest monorepo to ~24.8.0 ([#289](https://github.com/wopian/kitsu/issues/289)) ([2bd5335](https://github.com/wopian/kitsu/commit/2bd5335))
+* **kitsu:** lock file maintenance ([#288](https://github.com/wopian/kitsu/issues/288)) ([21c694e](https://github.com/wopian/kitsu/commit/21c694e))
+* update devdependency documentation to ~10.0.0 ([#284](https://github.com/wopian/kitsu/issues/284)) ([79ac107](https://github.com/wopian/kitsu/commit/79ac107))
+* update devdependency documentation to ~10.1.0 ([#287](https://github.com/wopian/kitsu/issues/287)) ([3952ef1](https://github.com/wopian/kitsu/commit/3952ef1))
+* update devdependency replace-in-file to ~4.0.0 ([#285](https://github.com/wopian/kitsu/issues/285)) ([068c398](https://github.com/wopian/kitsu/commit/068c398))
+
+
+### Chores
+
+* **release:** update documentation ([e079395](https://github.com/wopian/kitsu/commit/e079395))
+* **rollup:** remove duplicated filenames from config ([633655c](https://github.com/wopian/kitsu/commit/633655c))
+
+
+### Documentation Changes
+
+* add footnote for breaking Node 12 changes with kitsu/node and kitsu-core/node ([3d07bcb](https://github.com/wopian/kitsu/commit/3d07bcb))
+
+
+
+
+
 ## [7.0.1](https://github.com/wopian/kitsu/compare/v7.0.0...v7.0.1) (2019-04-15)
 
 

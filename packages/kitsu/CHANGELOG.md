@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.2](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v7.0.1...v7.0.2) (2019-05-11)
+
+
+### Bug Fixes
+
+* update main/module paths to support Node 12 ESM (closes [#292](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/292)) ([b6083d6](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/b6083d6))
+* update replace scripts to handle Node 12 changes (closes [#292](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/292)) ([afa195d](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/afa195d))
+
+
+### Chores
+
+* **release:** update documentation ([e079395](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/e079395))
+* **rollup:** remove duplicated filenames from config ([633655c](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/633655c))
+
+
+### Documentation Changes
+
+* add footnote for breaking Node 12 changes with kitsu/node and kitsu-core/node ([3d07bcb](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/3d07bcb))
+
+
+
+
+
 ## [7.0.1](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v7.0.0...v7.0.1) (2019-04-15)
 
 
