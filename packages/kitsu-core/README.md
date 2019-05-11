@@ -27,9 +27,7 @@
 
 <p align=center>Core <a href=http://jsonapi.org>JSON:API</a> serialisation and deserialisation components</p>
 
-<p align=center><em>Check out the <a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md>Migration Guide</a> for breaking changes in <code>6.x</code></em></p>
-
-# 
+#
 
 ## Features
 
@@ -43,9 +41,11 @@
 |           Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | ----------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
 |      `kitsu-core` |      ≤ 1.2 kb      |  8+  |   58+  |   60+   |   11+  |  16+ |
-| `kitsu-core/node` |      ≤ 1.1 kb      |  8+  |        |         |        |      |
+| `kitsu-core/node`† |      ≤ 1.1 kb      |  8+  |        |         |        |      |
 
 \* Including all dependencies, minified & gzipped<br>
+
+† [Changes in Node 12][node12esm] and newer require the full path to be used if using ES Modules: `kitsu-core/node/index.mjs`
 
 ## Install
 
@@ -225,7 +225,7 @@ Filters includes for the specific relationship
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
@@ -366,3 +366,5 @@ All code released under [MIT]
 [contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
 
 [mit]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
+
+[node12esm]: http://2ality.com/2019/04/nodejs-esm-impl.html#es-modules-on-npm

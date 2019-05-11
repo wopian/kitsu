@@ -27,9 +27,7 @@
 
 <p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client for <a href=https://kitsu.io>Kitsu.io</a> and other APIs</p>
 
-<p align=center><em>Check out the <a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration Guide</a> for breaking changes in <code>6.x</code></em></p>
-
-# 
+#
 
 ## Features
 
@@ -44,9 +42,11 @@
 |      Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | -----------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
 |      `kitsu` |      ≤ 8.6 kb      |  8+  |   58+  |   60+   |   11+  |  16+ |
-| `kitsu/node` |      ≤ 8.3 kb      |  8+  |        |         |        |      |
+| `kitsu/node`† |      ≤ 8.3 kb      |  8+  |        |         |        |      |
 
 \* Including all dependencies, minified & gzipped
+
+† [Changes in Node 12][node12esm] and newer require the full path to be used if using ES Modules: `kitsu/node/index.mjs`
 
 ## Response Comparison
 
@@ -554,3 +554,5 @@ All code released under [MIT]
 [contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
 
 [mit]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
+
+[node12esm]: http://2ality.com/2019/04/nodejs-esm-impl.html#es-modules-on-npm
