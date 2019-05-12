@@ -10,7 +10,6 @@ const {
 } = require('../../config/presets')
 
 let external = [
-  ...Object.keys(pkg.dependencies),
   ...sharedExternals
 ]
 
