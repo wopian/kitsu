@@ -37,7 +37,6 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "@babel/runtime": "^7.0.0"
   },
   "size-limit": [
     {
