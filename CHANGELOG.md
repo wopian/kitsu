@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.3](https://github.com/wopian/kitsu/compare/v7.0.2...v7.0.3) (2019-05-12)
+
+
+### Chores
+
+* **release:** update documentation ([e1d6663](https://github.com/wopian/kitsu/commit/e1d6663))
+* update package size limit warnings ([679d6b6](https://github.com/wopian/kitsu/commit/679d6b6))
+* **kitsu-core:** remove unused babel runtime dependency ([0afa678](https://github.com/wopian/kitsu/commit/0afa678))
+* **rollup:** remove old babel async polyfills ([e4b86d5](https://github.com/wopian/kitsu/commit/e4b86d5))
+
+
+
+
+
 ## [7.0.2](https://github.com/wopian/kitsu/compare/v7.0.1...v7.0.2) (2019-05-11)
 
 

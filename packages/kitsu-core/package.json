@@ -1,5 +1,5 @@
 {
-  "version": "7.0.2",
+  "version": "7.0.3",
   "name": "kitsu-core",
   "description": "Core serialisation and deserialsation functions for the kitsu JSON:API client",
   "author": "James Harris <wopian@wopian.me>",
@@ -36,8 +36,6 @@
     "build": "yarn rollup"
   },
   "sideEffects": false,
-  "dependencies": {
-  },
   "size-limit": [
     {
       "path": "./lib/index.js",
