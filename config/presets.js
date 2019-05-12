@@ -5,13 +5,9 @@ const mainBrowsers = [
 ]
 
 const sharedExternals = [
-  '@babel/runtime/regenerator',
-  '@babel/runtime/helpers/asyncToGenerator'
 ]
 
 const sharedGlobals = {
-  '@babel/runtime/regenerator': '_regeneratorRuntime',
-  '@babel/runtime/helpers/asyncToGenerator': '_asyncToGenerator'
 }
 
 /* Babel Config */
