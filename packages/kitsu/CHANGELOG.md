@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.4](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v7.0.3...v7.0.4) (2019-06-16)
+
+
+### Build System / Dependencies
+
+* **kitsu:** update dependency axios to v0.19.0 ([#305](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/305)) ([e1ec794](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/e1ec794))
+* **kitsu:** update dependency pluralize to ^8.0.0 ([#298](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/298)) ([8e98d39](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/8e98d39))
+
+
+### Chores
+
+* **release:** update documentation ([9000c94](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/9000c94))
+
+
+### Continuous Integration
+
+* **kitsu:** disable unneeded size-limit feature ([961dede](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/961dede))
+
+
+
+
+
 ## [7.0.3](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v7.0.2...v7.0.3) (2019-05-12)
 
 

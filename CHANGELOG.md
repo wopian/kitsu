@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.4](https://github.com/wopian/kitsu/compare/v7.0.3...v7.0.4) (2019-06-16)
+
+
+### Bug Fixes
+
+* **rollup:** remove dependencies lookup for kitsu-core ([e380524](https://github.com/wopian/kitsu/commit/e380524))
+
+
+### Build System / Dependencies
+
+* **kitsu:** update dependency pluralize to ^8.0.0 ([#298](https://github.com/wopian/kitsu/issues/298)) ([8e98d39](https://github.com/wopian/kitsu/commit/8e98d39))
+* update devdependency documentation to ~11.0.0 ([#291](https://github.com/wopian/kitsu/issues/291)) ([0e24cca](https://github.com/wopian/kitsu/commit/0e24cca))
+* update devdependency lerna to ~3.15.0 ([#296](https://github.com/wopian/kitsu/issues/296)) ([2e8980e](https://github.com/wopian/kitsu/commit/2e8980e))
+* update devdependency replace-in-file to ~4.1.0 ([#295](https://github.com/wopian/kitsu/issues/295)) ([693e63d](https://github.com/wopian/kitsu/commit/693e63d))
+* update devdependency rollup to ~1.12.0 ([#297](https://github.com/wopian/kitsu/issues/297)) ([7355824](https://github.com/wopian/kitsu/commit/7355824))
+* update devdependency rollup to ~1.15.0 ([#303](https://github.com/wopian/kitsu/issues/303)) ([71b22e5](https://github.com/wopian/kitsu/commit/71b22e5))
+* **kitsu:** lock file maintenance ([#301](https://github.com/wopian/kitsu/issues/301)) ([a9fef57](https://github.com/wopian/kitsu/commit/a9fef57))
+* **kitsu:** update dependency axios to v0.19.0 ([#305](https://github.com/wopian/kitsu/issues/305)) ([e1ec794](https://github.com/wopian/kitsu/commit/e1ec794))
+* update devdependency size-limit to ~1.3.0 ([#286](https://github.com/wopian/kitsu/issues/286)) ([bc21017](https://github.com/wopian/kitsu/commit/bc21017))
+
+
+### Chores
+
+* **release:** update documentation ([9000c94](https://github.com/wopian/kitsu/commit/9000c94))
+
+
+### Continuous Integration
+
+* **kitsu:** disable unneeded size-limit feature ([961dede](https://github.com/wopian/kitsu/commit/961dede))
+* **kitsu-core:** disable unneeded size-limit feature ([853d474](https://github.com/wopian/kitsu/commit/853d474))
+
+
+### Other Changes
+
+* Delete .whitesource ([02ef97e](https://github.com/wopian/kitsu/commit/02ef97e))
+* Initial WhiteSource configuration file ([590e79b](https://github.com/wopian/kitsu/commit/590e79b))
+
+
+
+
+
 ## [7.0.3](https://github.com/wopian/kitsu/compare/v7.0.2...v7.0.3) (2019-05-12)
 
 

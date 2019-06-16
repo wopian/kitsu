@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.4](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v7.0.3...v7.0.4) (2019-06-16)
+
+
+### Bug Fixes
+
+* **rollup:** remove dependencies lookup for kitsu-core ([e380524](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/e380524))
+
+
+### Chores
+
+* **release:** update documentation ([9000c94](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/9000c94))
+
+
+### Continuous Integration
+
+* **kitsu-core:** disable unneeded size-limit feature ([853d474](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/853d474))
+
+
+
+
+
 ## [7.0.3](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v7.0.2...v7.0.3) (2019-05-12)
 
 
