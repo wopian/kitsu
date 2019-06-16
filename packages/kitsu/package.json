@@ -56,19 +56,19 @@
   "size-limit": [
     {
       "path": "./lib/index.js",
-      "limit": "8.69 kb"
+      "limit": "8.6 kb"
     },
     {
       "path": "./lib/index.mjs",
-      "limit": "8.52 kb"
+      "limit": "8.5 kb"
     },
     {
       "path": "./node/index.js",
-      "limit": "8.4 kb"
+      "limit": "8.5 kb"
     },
     {
       "path": "./node/index.mjs",
-      "limit": "8.27 kb"
+      "limit": "8.4 kb"
     }
   ],
   "gitHead": "5c9778d191d17d7c9790cfc6d0f4e983b4742a53"
