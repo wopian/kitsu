@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.1.0](https://github.com/wopian/kitsu/compare/v7.0.4...v7.1.0) (2019-10-15)
+
+
+### Build System / Dependencies
+
+* update babel monorepo to ~7.5.0 ([#310](https://github.com/wopian/kitsu/issues/310)) ([629471d](https://github.com/wopian/kitsu/commit/629471d))
+* update babel monorepo to ~7.6.0 ([#328](https://github.com/wopian/kitsu/issues/328)) ([fdffcf1](https://github.com/wopian/kitsu/commit/fdffcf1))
+* update devdependency axios-mock-adapter to ~1.17.0 ([#309](https://github.com/wopian/kitsu/issues/309)) ([0309cef](https://github.com/wopian/kitsu/commit/0309cef))
+* update devdependency cross-env to ~6.0.0 ([#330](https://github.com/wopian/kitsu/issues/330)) ([a66bdb4](https://github.com/wopian/kitsu/commit/a66bdb4))
+* update devdependency documentation to ~12.0.0 ([#312](https://github.com/wopian/kitsu/issues/312)) ([c844b65](https://github.com/wopian/kitsu/commit/c844b65))
+* update devdependency documentation to ~12.1.0 ([#321](https://github.com/wopian/kitsu/issues/321)) ([316ad6c](https://github.com/wopian/kitsu/commit/316ad6c))
+* update devdependency eslint to ~6.0.0 ([#306](https://github.com/wopian/kitsu/issues/306)) ([8266599](https://github.com/wopian/kitsu/commit/8266599))
+* update devdependency eslint to ~6.1.0 ([#318](https://github.com/wopian/kitsu/issues/318)) ([52e034f](https://github.com/wopian/kitsu/commit/52e034f))
+* update devdependency lerna to ~3.16.0 ([#317](https://github.com/wopian/kitsu/issues/317)) ([d60b033](https://github.com/wopian/kitsu/commit/d60b033))
+* update devdependency lerna to ~3.17.0 ([#333](https://github.com/wopian/kitsu/issues/333)) ([bf6c384](https://github.com/wopian/kitsu/commit/bf6c384))
+* update devdependency rollup to ~1.16.0 ([#307](https://github.com/wopian/kitsu/issues/307)) ([1cc11d9](https://github.com/wopian/kitsu/commit/1cc11d9))
+* update devdependency rollup to ~1.17.0 ([#314](https://github.com/wopian/kitsu/issues/314)) ([db57044](https://github.com/wopian/kitsu/commit/db57044))
+* update devdependency rollup to ~1.18.0 ([#320](https://github.com/wopian/kitsu/issues/320)) ([2fd11f1](https://github.com/wopian/kitsu/commit/2fd11f1))
+* update devdependency rollup to ~1.19.0 ([#322](https://github.com/wopian/kitsu/issues/322)) ([ef94e42](https://github.com/wopian/kitsu/commit/ef94e42))
+* update devdependency rollup to ~1.20.0 ([#326](https://github.com/wopian/kitsu/issues/326)) ([a954932](https://github.com/wopian/kitsu/commit/a954932))
+* update devdependency rollup to ~1.21.0 ([#329](https://github.com/wopian/kitsu/issues/329)) ([f417996](https://github.com/wopian/kitsu/commit/f417996))
+* update devdependency rollup to ~1.22.0 ([#331](https://github.com/wopian/kitsu/issues/331)) ([9e29043](https://github.com/wopian/kitsu/commit/9e29043))
+* update jest monorepo to ~24.9.0 ([#324](https://github.com/wopian/kitsu/issues/324)) ([048bb07](https://github.com/wopian/kitsu/commit/048bb07))
+* **kitsu:** lock file maintenance ([#308](https://github.com/wopian/kitsu/issues/308)) ([cc4d546](https://github.com/wopian/kitsu/commit/cc4d546))
+
+
+### Chores
+
+* **release:** update documentation ([61d8407](https://github.com/wopian/kitsu/commit/61d8407))
+* disable size-limit ([a7fc8a1](https://github.com/wopian/kitsu/commit/a7fc8a1))
+* **deps:** bump eslint-utils from 1.3.1 to 1.4.2 ([#327](https://github.com/wopian/kitsu/issues/327)) ([1e9f878](https://github.com/wopian/kitsu/commit/1e9f878))
+* **deps:** bump lodash from 4.17.11 to 4.17.14 ([#313](https://github.com/wopian/kitsu/issues/313)) ([6c9c8a6](https://github.com/wopian/kitsu/commit/6c9c8a6))
+* **deps:** bump lodash.template from 4.4.0 to 4.5.0 ([#311](https://github.com/wopian/kitsu/issues/311)) ([12e4740](https://github.com/wopian/kitsu/commit/12e4740))
+
+
+### New Features
+
+* **kitsu:** added axiosOptions to Kitsu constructor ([b5fd092](https://github.com/wopian/kitsu/commit/b5fd092))
+
+
+
+
+
 ## [7.0.4](https://github.com/wopian/kitsu/compare/v7.0.3...v7.0.4) (2019-06-16)
 
 

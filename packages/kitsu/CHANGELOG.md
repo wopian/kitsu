@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.1.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v7.0.4...v7.1.0) (2019-10-15)
+
+
+### Chores
+
+* **release:** update documentation ([61d8407](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/61d8407))
+
+
+### New Features
+
+* **kitsu:** added axiosOptions to Kitsu constructor ([b5fd092](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/b5fd092))
+
+
+
+
+
 ## [7.0.4](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v7.0.3...v7.0.4) (2019-06-16)
 
 
