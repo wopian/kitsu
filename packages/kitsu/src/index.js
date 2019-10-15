@@ -12,6 +12,7 @@ import { camel, deserialise, error, kebab, query, serialise, snake } from 'kitsu
  * @param {string} options.resourceCase `kebab`, `snake` or `none`. If `kebab`, `/libraryEntries` will become `/library-entries`. If `snake`, `/libraryEntries` will become `/library_entries`, If `none`, `/libraryEntries` will be unchanged (default `kebab`)
  * @param {boolean} options.pluralize If `true`, `/user` will become `/users` in the URL request and `type` will be pluralized in post, patch and delete requests - `user` -> `users` (default `true`)
  * @param {number} options.timeout Set the request timeout in milliseconds (default `30000`)
+ * @param {Object} options.axiosOptions Additional options for the axios instance
  * @example <caption>Using with Kitsu.io's API</caption>
  * const api = new Kitsu()
  * @example <caption>Using another API server</caption>
@@ -65,10 +66,12 @@ export default class Kitsu {
      */
     this.headers = Object.assign({}, options.headers, { 'Accept': 'application/vnd.api+json', 'Content-Type': 'application/vnd.api+json' })
 
-    this.axios = axios.create({
-      baseURL: options.baseURL || 'https://kitsu.io/api/edge',
-      timeout: options.timeout || 30000
-    })
+    this.axios = axios.create(
+      Object.assign({}, {
+        baseURL: options.baseURL || 'https://kitsu.io/api/edge',
+        timeout: options.timeout || 30000
+      }, options.axiosOptions)
+    )
 
     this.fetch = this.get
     this.update = this.patch

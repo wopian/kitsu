@@ -127,5 +127,11 @@ describe('kitsu', () => {
       const api = new Kitsu({ baseURL: 'https://example.api' })
       expect(api.axios.defaults.baseURL).toBe('https://example.api')
     })
+
+    it('uses provided axios options', () => {
+      expect.assertions(1)
+      const api = new Kitsu({ axiosOptions: { withCredentials: true } })
+      expect(api.axios.defaults.withCredentials).toBe(true)
+    })
   })
 })
