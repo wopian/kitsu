@@ -199,7 +199,7 @@ If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lis
 
 ### Kitsu
 
-[packages/kitsu/src/index.js:29-289](https://github.com/wopian/kitsu/blob/853d47496c249abd9eae34ff8829559ffa4519b7/packages/kitsu/src/index.js#L29-L289 "Source code on GitHub")
+[packages/kitsu/src/index.js:30-292](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L30-L292 "Source code on GitHub")
 
 Creates a new `kitsu` instance
 
@@ -212,6 +212,7 @@ Creates a new `kitsu` instance
     -   `options.resourceCase` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** `kebab`, `snake` or `none`. If `kebab`, `/libraryEntries` will become `/library-entries`. If `snake`, `/libraryEntries` will become `/library_entries`, If `none`, `/libraryEntries` will be unchanged (default `kebab`)
     -   `options.pluralize` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If `true`, `/user` will become `/users` in the URL request and `type` will be pluralized in post, patch and delete requests - `user` -> `users` (default `true`)
     -   `options.timeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Set the request timeout in milliseconds (default `30000`)
+    -   `options.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional options for the axios instance
 
 #### Examples
 
@@ -245,7 +246,7 @@ const api = new Kitsu({
 
 #### plural
 
-[packages/kitsu/src/index.js:51-52](https://github.com/wopian/kitsu/blob/853d47496c249abd9eae34ff8829559ffa4519b7/packages/kitsu/src/index.js#L51-L52 "Source code on GitHub")
+[packages/kitsu/src/index.js:52-53](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L52-L53 "Source code on GitHub")
 
 -   **See: <https://www.npmjs.com/package/pluralize> for documentation**
 -   **See: Kitsu constructor options for disabling pluralization**
@@ -265,7 +266,7 @@ api.plural.plural('paper') //=> 'paper'
 
 #### headers
 
-[packages/kitsu/src/index.js:66-66](https://github.com/wopian/kitsu/blob/853d47496c249abd9eae34ff8829559ffa4519b7/packages/kitsu/src/index.js#L66-L66 "Source code on GitHub")
+[packages/kitsu/src/index.js:67-67](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L67-L67 "Source code on GitHub")
 
 Get the current headers or add additional headers
 
@@ -296,7 +297,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### get
 
-[packages/kitsu/src/index.js:149-168](https://github.com/wopian/kitsu/blob/853d47496c249abd9eae34ff8829559ffa4519b7/packages/kitsu/src/index.js#L149-L168 "Source code on GitHub")
+[packages/kitsu/src/index.js:152-171](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L152-L171 "Source code on GitHub")
 
 Fetch resources (alias `fetch`)
 
@@ -408,7 +409,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### patch
 
-[packages/kitsu/src/index.js:184-198](https://github.com/wopian/kitsu/blob/853d47496c249abd9eae34ff8829559ffa4519b7/packages/kitsu/src/index.js#L184-L198 "Source code on GitHub")
+[packages/kitsu/src/index.js:187-201](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L187-L201 "Source code on GitHub")
 
 Update a resource (alias `update`)
 
@@ -434,7 +435,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### post
 
-[packages/kitsu/src/index.js:221-234](https://github.com/wopian/kitsu/blob/853d47496c249abd9eae34ff8829559ffa4519b7/packages/kitsu/src/index.js#L221-L234 "Source code on GitHub")
+[packages/kitsu/src/index.js:224-237](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L224-L237 "Source code on GitHub")
 
 Create a new resource (alias `create`)
 
@@ -467,7 +468,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### delete
 
-[packages/kitsu/src/index.js:247-259](https://github.com/wopian/kitsu/blob/853d47496c249abd9eae34ff8829559ffa4519b7/packages/kitsu/src/index.js#L247-L259 "Source code on GitHub")
+[packages/kitsu/src/index.js:250-262](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L250-L262 "Source code on GitHub")
 
 Remove a resource (alias `remove`)
 
@@ -490,7 +491,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### self
 
-[packages/kitsu/src/index.js:281-288](https://github.com/wopian/kitsu/blob/853d47496c249abd9eae34ff8829559ffa4519b7/packages/kitsu/src/index.js#L281-L288 "Source code on GitHub")
+[packages/kitsu/src/index.js:284-291](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L284-L291 "Source code on GitHub")
 
 Get the authenticated user's data
 
