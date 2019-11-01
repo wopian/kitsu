@@ -1,9 +1,9 @@
 {
   "private": true,
-  "homepage": "https://github.com/wopian/kitsu#readme",
-  "repository": "https://github.com/wopian/kitsu",
+  "homepage": "https://github.com/StarOfService/kitsu#readme",
+  "repository": "https://github.com/StarOfService/kitsu",
   "bugs": {
-    "url": "https://github.com/wopian/kitsu/issues"
+    "url": "https://github.com/StarOfService/kitsu/issues"
   },
   "engines": {
     "node": ">= 8"

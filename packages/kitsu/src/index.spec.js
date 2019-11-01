@@ -1,5 +1,5 @@
 import pluralize from 'pluralize'
-import Kitsu from 'kitsu'
+import Kitsu from '@starofservice/kitsu'
 
 describe('kitsu', () => {
   describe('method aliases', () => {

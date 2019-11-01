@@ -23,6 +23,13 @@ export function query (params, prefix = null) {
 
   for (const param in params) {
     if (params.hasOwnProperty(param)) {
+      // Skip inclusion of null or undefined keys.
+      if (params[param] === null || params[param] === undefined) continue
+
+      // Remap booleans to integers.
+      if (params[param] === true) params[param] = 1
+      if (params[param] === false) params[param] = 0
+
       str.push(
         queryFormat(params[param], prefix ? `${prefix}[${param}]` : param)
       )

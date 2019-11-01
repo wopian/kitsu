@@ -1,6 +1,6 @@
 import axios from 'axios'
 import pluralise from 'pluralize'
-import { camel, deserialise, error, kebab, query, serialise, snake } from 'kitsu-core'
+import { camel, deserialise, error, kebab, query, serialise, snake } from '@starofservice/kitsu-core'
 
 /**
  * Creates a new `kitsu` instance

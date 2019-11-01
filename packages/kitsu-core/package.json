@@ -1,6 +1,6 @@
 {
   "version": "7.0.4",
-  "name": "kitsu-core",
+  "name": "@starofservice/kitsu-core",
   "description": "Core serialisation and deserialsation functions for the kitsu JSON:API client",
   "author": "James Harris <wopian@wopian.me>",
   "contributors": [
@@ -14,10 +14,10 @@
   "main": "lib/index.js",
   "module": "lib/index.mjs",
   "types": "index.d.ts",
-  "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core#readme",
-  "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core",
+  "homepage": "https://github.com/StarOfService/kitsu/tree/master/packages/kitsu-core#readme",
+  "repository": "https://github.com/StarOfService/kitsu/tree/master/packages/kitsu-core",
   "bugs": {
-    "url": "https://github.com/wopian/kitsu/issues"
+    "url": "https://github.com/StarOfService/kitsu/issues"
   },
   "engines": {
     "node": ">= 8"

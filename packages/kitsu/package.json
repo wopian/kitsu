@@ -1,6 +1,6 @@
 {
   "version": "7.1.0",
-  "name": "kitsu",
+  "name": "@starofservice/kitsu",
   "description": "Simple & lightweight JSON-API client for Kitsu and other compliant APIs",
   "author": "James Harris <wopian@wopian.me>",
   "contributors": [
@@ -14,10 +14,10 @@
   "main": "lib/index.js",
   "module": "lib/index.mjs",
   "types": "index.d.ts",
-  "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu#readme",
-  "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu",
+  "homepage": "https://github.com/StarOfService/kitsu/tree/master/packages/kitsu#readme",
+  "repository": "https://github.com/StarOfService/kitsu/tree/master/packages/kitsu",
   "bugs": {
-    "url": "https://github.com/wopian/kitsu/issues"
+    "url": "https://github.com/StarOfService/kitsu/issues"
   },
   "engines": {
     "node": ">= 8"
@@ -50,7 +50,7 @@
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "axios": "^0.19.0",
-    "kitsu-core": "^7.0.4",
+    "@starofservice/kitsu-core": "^7.0.4",
     "pluralize": "^8.0.0"
   },
   "size-limit": [

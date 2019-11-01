@@ -19,6 +19,30 @@ describe('kitsu-core', () => {
       })).toEqual('filter%5Bslug%5D=cowboy-bebop&filter%5Btitle%5D%5Bvalue%5D=foo')
     })
 
+    it('excludes null/undefined filters', () => {
+      expect.assertions(1)
+      expect(query({
+        filter: {
+          slug: 'cowboy-bebop',
+          alpha: 'yes',
+          beta: null,
+          delta: undefined
+        }
+      })).toEqual('filter%5Bslug%5D=cowboy-bebop&filter%5Balpha%5D=yes')
+    })
+
+    it('converts booleans to integer in filters', () => {
+      expect.assertions(1)
+      expect(query({
+        filter: {
+          slug: 'cowboy-bebop',
+          alpha: true,
+          beta: false,
+          delta: undefined
+        }
+      })).toEqual('filter%5Bslug%5D=cowboy-bebop&filter%5Balpha%5D=1&filter%5Bbeta%5D=0')
+    })
+
     it('builds an include query string', () => {
       expect.assertions(1)
       expect(query({
