@@ -77,6 +77,7 @@ export default class Kitsu {
     this.update = this.patch
     this.create = this.post
     this.remove = this.delete
+    this.interceptors = this.axios.interceptors
   }
 
   /**
