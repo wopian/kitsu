@@ -19,6 +19,11 @@ describe('kitsu', () => {
       expect.assertions(1)
       expect(api.create).toEqual(api.post)
     })
+
+    it('aliases interceptors to axios.interceptors', () => {
+      expect.assertions(1)
+      expect(api.interceptors).toEqual(api.axios.interceptors)
+    })
   })
 
   describe('class constructor', () => {
