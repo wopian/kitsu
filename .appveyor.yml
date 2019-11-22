@@ -1,6 +1,7 @@
 environment:
   matrix:
     - nodejs_version: ""
+    - nodejs_version: 12 # EOL Apr 22
     - nodejs_version: 10 # EOL Apr 21
     - nodejs_version: 8 # EOL Dec 19
 platform:
