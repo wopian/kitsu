@@ -77,7 +77,7 @@ export default class Kitsu {
     this.update = this.patch
     this.create = this.post
     this.remove = this.delete
-    
+
     /**
      * Axios Interceptors (alias of `axios.interceptors`)
      *
@@ -88,25 +88,25 @@ export default class Kitsu {
      * // Add a request interceptor
      * api.interceptors.request.use(config => {
      *    // Do something before request is sent
-     *    return config;
+     *    return config
      * }, error => {
      *    // Do something with request error
-     *    return Promise.reject(error);
-     * });
+     *    return Promise.reject(error)
+     * })
      * @example <caption>Response Interceptor</caption>
      * // Add a response interceptor
      * api.interceptors.response.use(response => {
      *    // Any status code that lie within the range of 2xx cause this function to trigger
      *    // Do something with response data
-     *    return response;
+     *    return response
      * }, error => {
      *    // Any status codes that falls outside the range of 2xx cause this function to trigger
      *    // Do something with response error
-     *    return Promise.reject(error);
-     * });
+     *    return Promise.reject(error)
+     * })
      * @example <caption>Removing Interceptors</caption>
-     * const myInterceptor = api.interceptors.request.use(function () {...});
-     * api.interceptors.request.eject(myInterceptor);
+     * const myInterceptor = api.interceptors.request.use(function () {...})
+     * api.interceptors.request.eject(myInterceptor)
      */
     this.interceptors = this.axios.interceptors
   }
