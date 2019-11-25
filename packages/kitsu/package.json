@@ -56,27 +56,23 @@
   "size-limit": [
     {
       "path": "./lib/index.js",
-      "limit": "8.6 kb",
-      "running": false
+      "limit": "8.6 kb"
     },
     {
       "path": "./lib/index.mjs",
-      "limit": "8.5 kb",
-      "running": false
+      "limit": "8.5 kb"
     },
     {
       "path": "./node/index.js",
-      "limit": "8.5 kb",
-      "running": false
+      "limit": "8.5 kb"
     },
     {
       "path": "./node/index.mjs",
-      "limit": "8.4 kb",
-      "running": false
+      "limit": "8.4 kb"
     }
   ],
   "gitHead": "5c9778d191d17d7c9790cfc6d0f4e983b4742a53",
   "devDependencies": {
-    "rollup-plugin-terser": "^5.1.2"
+    "@size-limit/preset-small-lib": "~2.2.1"
   }
 }

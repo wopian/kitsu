@@ -22,13 +22,14 @@
     "docs:release": "yarn docs && yarn docs:build",
     "fix": "eslint . --fix",
     "lint": "eslint .",
-    "test": "yarn test:coverage && yarn lint && yarn docs && yarn build",
+    "test": "yarn test:coverage && yarn lint && yarn docs && yarn build && yarn size",
     "test:coverage": "jest --coverage",
     "release": "yarn updated && yarn release:test && yarn release:commit && yarn release:lerna",
     "release:test": "jest && yarn lint && yarn docs:release && yarn build",
     "release:commit": "git commit -am \"chore(release): update documentation\"",
     "release:lerna": "lerna publish",
-    "browserlist": "npx browserslist \"last 2 years, not < 0.05%\""
+    "browserlist": "npx browserslist \"last 2 years, not < 0.05%\"",
+    "size": "lerna exec size-limit"
   },
   "devDependencies": {
     "@babel/cli": "~7.7.4",
@@ -52,7 +53,8 @@
     "rollup-plugin-babel": "~4.3.3",
     "rollup-plugin-local-resolve": "~1.0.7",
     "size-limit": "~2.2.1",
-    "yaspeller-ci": "~1.0.0"
+    "yaspeller-ci": "~1.0.0",
+    "rollup-plugin-terser": "~5.1.2"
   },
   "jest": {
     "testEnvironment": "node",
