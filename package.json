@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "diff": "lerna diff",
-    "updated": "lerna updated -l --sort --loglevel=silent",
+    "updated": "lerna updated -l --sort",
     "updated:json": "yarn updated --json",
     "bootstrap": "lerna bootstrap",
     "build": "lerna exec yarn build",
