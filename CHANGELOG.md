@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.2](https://github.com/wopian/kitsu/compare/v7.2.1...v7.2.2) (2019-11-25)
+
+
+### Bug Fixes
+
+* switch babel-minify to terser ([d687532](https://github.com/wopian/kitsu/commit/d687532))
+
+
+### Chores
+
+* **ci:** restore size-limit for bundle outputs ([56b9e01](https://github.com/wopian/kitsu/commit/56b9e01))
+* **release:** update documentation ([29e9743](https://github.com/wopian/kitsu/commit/29e9743))
+* remove last traces of babel-minify ([86c232f](https://github.com/wopian/kitsu/commit/86c232f))
+
+
+
+
+
 ## [7.2.1](https://github.com/wopian/kitsu/compare/v7.2.0...v7.2.1) (2019-11-25)
 
 
