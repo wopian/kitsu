@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.2.0](https://github.com/wopian/kitsu/compare/v7.1.0...v7.2.0) (2019-11-25)
+
+
+### Build System / Dependencies
+
+* update babel monorepo ([#341](https://github.com/wopian/kitsu/issues/341)) ([c0ad312](https://github.com/wopian/kitsu/commit/c0ad312))
+* update devdependency [@babel](https://github.com/babel)/plugin-transform-runtime to ~… ([#347](https://github.com/wopian/kitsu/issues/347)) ([fbee502](https://github.com/wopian/kitsu/commit/fbee502))
+* update devdependency lerna to ~3.18.0 ([#335](https://github.com/wopian/kitsu/issues/335)) ([6f6d4a6](https://github.com/wopian/kitsu/commit/6f6d4a6))
+* update devdependency lerna to ~3.19.0 ([#345](https://github.com/wopian/kitsu/issues/345)) ([552dbe7](https://github.com/wopian/kitsu/commit/552dbe7))
+* update devdependency replace-in-file to ~4.2.0 ([#338](https://github.com/wopian/kitsu/issues/338)) ([0916cee](https://github.com/wopian/kitsu/commit/0916cee))
+* update devdependency rollup to ~1.24.0 ([#332](https://github.com/wopian/kitsu/issues/332)) ([481e20d](https://github.com/wopian/kitsu/commit/481e20d))
+* update devdependency rollup to ~1.25.0 ([#337](https://github.com/wopian/kitsu/issues/337)) ([56097bd](https://github.com/wopian/kitsu/commit/56097bd))
+* update devdependency rollup to ~1.26.0 ([#339](https://github.com/wopian/kitsu/issues/339)) ([02b7ac6](https://github.com/wopian/kitsu/commit/02b7ac6))
+* update devdependency rollup to ~1.27.0 ([#342](https://github.com/wopian/kitsu/issues/342)) ([cf95143](https://github.com/wopian/kitsu/commit/cf95143))
+* update devdependency size-limit to ~2.2.0 ([#343](https://github.com/wopian/kitsu/issues/343)) ([054375d](https://github.com/wopian/kitsu/commit/054375d))
+
+
+### Chores
+
+* **release:** update documentation ([e7b4975](https://github.com/wopian/kitsu/commit/e7b4975))
+* **release:** update documentation ([e6bfd2f](https://github.com/wopian/kitsu/commit/e6bfd2f))
+* update lockfile ([7a68a96](https://github.com/wopian/kitsu/commit/7a68a96))
+
+
+### Continuous Integration
+
+* **appveyor:** add Node 12 LTS ([23a64e3](https://github.com/wopian/kitsu/commit/23a64e3))
+* **travis:** add Node 12 LTS ([46897bd](https://github.com/wopian/kitsu/commit/46897bd))
+
+
+### New Features
+
+* alias interceptors from axios to Kitsu ([#344](https://github.com/wopian/kitsu/issues/344)) ([f756e07](https://github.com/wopian/kitsu/commit/f756e07))
+
+
+
+
+
 # [7.1.0](https://github.com/wopian/kitsu/compare/v7.0.4...v7.1.0) (2019-10-15)
 
 

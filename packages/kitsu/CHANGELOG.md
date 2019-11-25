@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.2.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v7.1.0...v7.2.0) (2019-11-25)
+
+
+### Chores
+
+* **release:** update documentation ([e7b4975](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/e7b4975))
+* **release:** update documentation ([e6bfd2f](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/e6bfd2f))
+
+
+### New Features
+
+* alias interceptors from axios to Kitsu ([#344](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/344)) ([f756e07](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/f756e07))
+
+
+
+
+
 # [7.1.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v7.0.4...v7.1.0) (2019-10-15)
 
 
