@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.1](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v7.2.0...v7.2.1) (2019-11-25)
+
+
+### Chores
+
+* **release:** update documentation ([0bebf33](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/0bebf33))
+
+
+
+
+
 ## [7.0.4](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v7.0.3...v7.0.4) (2019-06-16)
 
 
