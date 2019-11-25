@@ -181,25 +181,27 @@ If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lis
         -   [Examples](#examples-1)
     -   [headers](#headers)
         -   [Examples](#examples-2)
+    -   [interceptors](#interceptors)
+        -   [Examples](#examples-3)
     -   [get](#get)
         -   [Parameters](#parameters-1)
-        -   [Examples](#examples-3)
+        -   [Examples](#examples-4)
     -   [patch](#patch)
         -   [Parameters](#parameters-2)
-        -   [Examples](#examples-4)
+        -   [Examples](#examples-5)
     -   [post](#post)
         -   [Parameters](#parameters-3)
-        -   [Examples](#examples-5)
+        -   [Examples](#examples-6)
     -   [delete](#delete)
         -   [Parameters](#parameters-4)
-        -   [Examples](#examples-6)
+        -   [Examples](#examples-7)
     -   [self](#self)
         -   [Parameters](#parameters-5)
-        -   [Examples](#examples-7)
+        -   [Examples](#examples-8)
 
 ### Kitsu
 
-[packages/kitsu/src/index.js:30-292](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L30-L292 "Source code on GitHub")
+[packages/kitsu/src/index.js:30-324](https://github.com/wopian/kitsu/blob/fbee5022ba8d8d952b1986a3328ae7e558ef8680/packages/kitsu/src/index.js#L30-L324 "Source code on GitHub")
 
 Creates a new `kitsu` instance
 
@@ -246,7 +248,7 @@ const api = new Kitsu({
 
 #### plural
 
-[packages/kitsu/src/index.js:52-53](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L52-L53 "Source code on GitHub")
+[packages/kitsu/src/index.js:52-53](https://github.com/wopian/kitsu/blob/fbee5022ba8d8d952b1986a3328ae7e558ef8680/packages/kitsu/src/index.js#L52-L53 "Source code on GitHub")
 
 -   **See: <https://www.npmjs.com/package/pluralize> for documentation**
 -   **See: Kitsu constructor options for disabling pluralization**
@@ -266,7 +268,7 @@ api.plural.plural('paper') //=> 'paper'
 
 #### headers
 
-[packages/kitsu/src/index.js:67-67](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L67-L67 "Source code on GitHub")
+[packages/kitsu/src/index.js:67-67](https://github.com/wopian/kitsu/blob/fbee5022ba8d8d952b1986a3328ae7e558ef8680/packages/kitsu/src/index.js#L67-L67 "Source code on GitHub")
 
 Get the current headers or add additional headers
 
@@ -295,9 +297,57 @@ api.headers['Authorization'] = 'Bearer 1234567890'
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** All the current headers
 
+#### interceptors
+
+[packages/kitsu/src/index.js:111-111](https://github.com/wopian/kitsu/blob/fbee5022ba8d8d952b1986a3328ae7e558ef8680/packages/kitsu/src/index.js#L111-L111 "Source code on GitHub")
+
+Axios Interceptors (alias of `axios.interceptors`)
+
+You can intercept responses before they are handled by `get`, `post`, `patch` and `delete` and before requests are sent to the API server.
+
+##### Examples
+
+Request Interceptor
+
+
+```javascript
+// Add a request interceptor
+api.interceptors.request.use(config => {
+   // Do something before request is sent
+   return config
+}, error => {
+   // Do something with request error
+   return Promise.reject(error)
+})
+```
+
+Response Interceptor
+
+
+```javascript
+// Add a response interceptor
+api.interceptors.response.use(response => {
+   // Any status code that lie within the range of 2xx cause this function to trigger
+   // Do something with response data
+   return response
+}, error => {
+   // Any status codes that falls outside the range of 2xx cause this function to trigger
+   // Do something with response error
+   return Promise.reject(error)
+})
+```
+
+Removing Interceptors
+
+
+```javascript
+const myInterceptor = api.interceptors.request.use(function () {...})
+api.interceptors.request.eject(myInterceptor)
+```
+
 #### get
 
-[packages/kitsu/src/index.js:152-171](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L152-L171 "Source code on GitHub")
+[packages/kitsu/src/index.js:184-203](https://github.com/wopian/kitsu/blob/fbee5022ba8d8d952b1986a3328ae7e558ef8680/packages/kitsu/src/index.js#L184-L203 "Source code on GitHub")
 
 Fetch resources (alias `fetch`)
 
@@ -409,7 +459,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### patch
 
-[packages/kitsu/src/index.js:187-201](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L187-L201 "Source code on GitHub")
+[packages/kitsu/src/index.js:219-233](https://github.com/wopian/kitsu/blob/fbee5022ba8d8d952b1986a3328ae7e558ef8680/packages/kitsu/src/index.js#L219-L233 "Source code on GitHub")
 
 Update a resource (alias `update`)
 
@@ -435,7 +485,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### post
 
-[packages/kitsu/src/index.js:224-237](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L224-L237 "Source code on GitHub")
+[packages/kitsu/src/index.js:256-269](https://github.com/wopian/kitsu/blob/fbee5022ba8d8d952b1986a3328ae7e558ef8680/packages/kitsu/src/index.js#L256-L269 "Source code on GitHub")
 
 Create a new resource (alias `create`)
 
@@ -468,7 +518,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### delete
 
-[packages/kitsu/src/index.js:250-262](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L250-L262 "Source code on GitHub")
+[packages/kitsu/src/index.js:282-294](https://github.com/wopian/kitsu/blob/fbee5022ba8d8d952b1986a3328ae7e558ef8680/packages/kitsu/src/index.js#L282-L294 "Source code on GitHub")
 
 Remove a resource (alias `remove`)
 
@@ -491,7 +541,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### self
 
-[packages/kitsu/src/index.js:284-291](https://github.com/wopian/kitsu/blob/b5fd092aa99591bc4d2a6277698046f45f0243bb/packages/kitsu/src/index.js#L284-L291 "Source code on GitHub")
+[packages/kitsu/src/index.js:316-323](https://github.com/wopian/kitsu/blob/fbee5022ba8d8d952b1986a3328ae7e558ef8680/packages/kitsu/src/index.js#L316-L323 "Source code on GitHub")
 
 Get the authenticated user's data
 
