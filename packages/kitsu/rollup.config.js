@@ -1,4 +1,5 @@
 import babel from 'rollup-plugin-babel'
+import { terser } from 'rollup-plugin-terser'
 import local from 'rollup-plugin-local-resolve'
 import pkg from './package.json'
 
@@ -9,30 +10,29 @@ const {
   babelNode
 } = require('../../config/presets')
 
-let external = [
+const external = [
   ...Object.keys(pkg.dependencies),
-  ...sharedExternals,
-  '@babel/runtime/helpers/slicedToArray'
+  ...sharedExternals
 ]
 
-let globals = {
+const globals = {
   ...sharedGlobals,
-  'axios': 'axios',
+  axios: 'axios',
   'kitsu-core': 'kitsuCore',
-  'pluralize': 'pluralise',
-  '@babel/runtime/helpers/slicedToArray': '_slicedToArray'
+  pluralize: 'pluralise'
 }
 
-let plugins = [
-  local()
+const plugins = [
+  local(),
+  terser()
 ]
 
-let pluginsMain = [
+const pluginsMain = [
   babel(babelMain),
   ...plugins
 ]
 
-let pluginsNode = [
+const pluginsNode = [
   babel(babelNode),
   ...plugins
 ]
