@@ -15,19 +15,12 @@ const exclude = [ '*.json', 'node_modules/**/*' ]
 
 const runtimeHelpers = true
 
-const plugins = [
-  [ '@babel/plugin-transform-runtime', {
-    regenerator: true
-  } ]
-]
-
 const sharedConfig = {
   babelrc: false,
   configFile: false,
   comments: false,
   exclude,
-  runtimeHelpers,
-  plugins
+  runtimeHelpers
 }
 
 const babelTest = {
