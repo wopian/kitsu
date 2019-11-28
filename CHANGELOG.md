@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.3.0](https://github.com/wopian/kitsu/compare/v7.2.2...v7.3.0) (2019-11-28)
+
+
+### Chores
+
+* **release:** update documentation ([30e4418](https://github.com/wopian/kitsu/commit/30e4418))
+
+
+### New Features
+
+* **kitsu:** remove unused [@babel](https://github.com/babel)/runtime dependency ([8219f20](https://github.com/wopian/kitsu/commit/8219f20))
+
+
+
+
+
 ## [7.2.2](https://github.com/wopian/kitsu/compare/v7.2.1...v7.2.2) (2019-11-25)
 
 
