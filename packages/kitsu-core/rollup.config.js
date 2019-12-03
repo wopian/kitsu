@@ -6,8 +6,7 @@ import pkg from './package.json'
 const {
   sharedExternals,
   sharedGlobals,
-  babelMain,
-  babelNode
+  babelMain
 } = require('../../config/presets')
 
 const external = [
@@ -28,23 +27,17 @@ const pluginsMain = [
   ...plugins
 ]
 
-const pluginsNode = [
-  babel(babelNode),
-  ...plugins
-]
-
 export default [
   {
     input: 'src/index.js',
-    external,
     plugins: pluginsMain,
     output: {
-      file: `${pkg.browser}`,
+      file: `${pkg.unpkg}`,
       name: 'kitsuCore',
       format: 'umd',
       sourcemap: false,
       globals
-    },
+    }
   },
   {
     input: {

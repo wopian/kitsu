@@ -46,6 +46,10 @@
     {
       "path": "./lib/index.mjs",
       "limit": "1.4 kb"
+    },
+    {
+      "path": "./lib/index.browser.js",
+      "limit": "1.4 kb"
     }
   ],
   "gitHead": "5c9778d191d17d7c9790cfc6d0f4e983b4742a53",
