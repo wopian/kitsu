@@ -13,6 +13,8 @@
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
+  "unpkg": "lib/index.browser.js",
+  "jsdelivr": "lib/index.browser.js",
   "types": "index.d.ts",
   "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu#readme",
   "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu",
@@ -41,10 +43,8 @@
     "docs:lint": "documentation lint src/index.js",
     "docs:build": "documentation readme src/index.js --section=API -g true --sort-order source",
     "replace:mjs": "replace-in-file kitsu-core kitsu-core/lib/index.mjs lib/index.mjs",
-    "replace:cjs-node": "replace-in-file kitsu-core kitsu-core/node node/index.js",
-    "replace:mjs-node": "replace-in-file kitsu-core kitsu-core/node/index.mjs node/index.mjs",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
-    "build": "yarn rollup && yarn replace:mjs && yarn replace:cjs-node && yarn replace:mjs-node"
+    "build": "yarn rollup && yarn replace:mjs"
   },
   "sideEffects": false,
   "dependencies": {
@@ -59,15 +59,11 @@
     },
     {
       "path": "./lib/index.mjs",
-      "limit": "8.5 kb"
+      "limit": "8.6 kb"
     },
     {
-      "path": "./node/index.js",
-      "limit": "8.5 kb"
-    },
-    {
-      "path": "./node/index.mjs",
-      "limit": "8.4 kb"
+      "path": "./lib/index.browser.js",
+      "limit": "8.6 kb"
     }
   ],
   "gitHead": "5c9778d191d17d7c9790cfc6d0f4e983b4742a53",

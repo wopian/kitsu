@@ -47,22 +47,9 @@ const babelMain = {
   ]
 }
 
-const babelNode = {
-  ...sharedConfig,
-  presets: [
-    [ '@babel/env', {
-      targets: {
-        node: minNode
-      },
-      modules: false
-    } ]
-  ]
-}
-
 module.exports = {
   sharedExternals,
   sharedGlobals,
   babelTest,
-  babelMain,
-  babelNode
+  babelMain
 }

@@ -27,7 +27,7 @@
 
 <p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client for <a href=https://kitsu.io>Kitsu.io</a> and other APIs</p>
 
-# 
+#
 
 ## Features
 
@@ -41,8 +41,7 @@
 
 |       Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | ------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-|       `kitsu` |      ≤ 8.4 kb      |  8+  |   63+  |   60+   |   11+  |  17+ |
-| `kitsu/node`† |      ≤ 8.3 kb      |  8+  |        |         |        |      |
+|      `kitsu`† |      ≤ 8.4 kb      |  8+  |   63+  |   60+   |   11+  |  17+ |
 
 \* Including all dependencies, minified & gzipped
 
@@ -117,12 +116,6 @@ npm install kitsu
 import Kitsu from 'kitsu'      // ES Modules and Babel
 import Kitsu from 'kitsu/node' // Lighter node-only package
 const Kitsu = require('kitsu') // CommonJS and Browserify
-```
-
-### Packd CDN
-
-```html
-<script src='https://bundle.run/kitsu@7?name=Kitsu'></script>
 ```
 
 ## Quick Start

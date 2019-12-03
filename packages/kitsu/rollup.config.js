@@ -6,8 +6,7 @@ import pkg from './package.json'
 const {
   sharedExternals,
   sharedGlobals,
-  babelMain,
-  babelNode
+  babelMain
 } = require('../../config/presets')
 
 const external = [
@@ -32,11 +31,6 @@ const pluginsMain = [
   ...plugins
 ]
 
-const pluginsNode = [
-  babel(babelNode),
-  ...plugins
-]
-
 export default [
   {
     input: 'src/index.js',
@@ -44,33 +38,21 @@ export default [
     plugins: pluginsMain,
     output: [
       {
-        file: `${pkg.main}`,
+        file: pkg.main,
         format: 'cjs',
         sourcemap: false,
         globals
       },
       {
-        file: `${pkg.module}`,
+        file: pkg.module,
         format: 'es',
-        sourcemap: false,
-        globals
-      }
-    ]
-  },
-  {
-    input: 'src/index.js',
-    external,
-    plugins: pluginsNode,
-    output: [
-      {
-        file: 'node/index.js',
-        format: 'cjs',
         sourcemap: false,
         globals
       },
       {
-        file: 'node/index.mjs',
-        format: 'es',
+        file: pkg.unpkg,
+        name: 'kitsu',
+        format: 'umd',
         sourcemap: false,
         globals
       }
