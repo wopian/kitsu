@@ -1,5 +1,12 @@
 # Migration Guides
 
+## Migrating to `8.0.0`
+
+`kitsu/node` has been removed as it is now identical to`kitsu`.
+
+- Replace `kitsu/node` imports with `kitsu`
+- Replace `kitsu/node/index.mjs` imports with `kitsu/lib/index.mjs`
+
 ## Migrating to `7.0.0`
 
 Dropped Node 6 support. Lowest supported version is now Node 8.
