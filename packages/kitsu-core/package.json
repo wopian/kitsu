@@ -13,6 +13,8 @@
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
+  "unpkg": "lib/index.browser.js",
+  "jsdelivr": "lib/index.browser.js",
   "types": "index.d.ts",
   "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core#readme",
   "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core",
@@ -39,19 +41,11 @@
   "size-limit": [
     {
       "path": "./lib/index.js",
-      "limit": "1.28 kb"
+      "limit": "1.4 kb"
     },
     {
       "path": "./lib/index.mjs",
-      "limit": "1.3 kb"
-    },
-    {
-      "path": "./node/index.js",
-      "limit": "1.22 kb"
-    },
-    {
-      "path": "./node/index.mjs",
-      "limit": "1.24 kb"
+      "limit": "1.4 kb"
     }
   ],
   "gitHead": "5c9778d191d17d7c9790cfc6d0f4e983b4742a53",

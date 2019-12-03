@@ -27,7 +27,7 @@
 
 <p align=center>Core <a href=http://jsonapi.org>JSON:API</a> serialisation and deserialisation components</p>
 
-# 
+#
 
 ## Features
 
@@ -40,8 +40,7 @@
 
 |            Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | -----------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-|       `kitsu-core` |      ≤ 1.2 kb      |  8+  |   63+  |   60+   |   11+  |  17+ |
-| `kitsu-core/node`† |      ≤ 1.1 kb      |  8+  |        |         |        |      |
+|      `kitsu-core`† |      ≤ 1.2 kb      |  8+  |   63+  |   60+   |   11+  |  17+ |
 
 \* Including all dependencies, minified & gzipped<br>
 
@@ -58,16 +57,19 @@ npm install kitsu-core
 
 ```js
 import { camel } from 'kitsu-core'      // ES Modules and Babel
-import { camel } from 'kitsu-core/node' // Lighter node-only package
 const { camel } = require('kitsu-core') // CommonJS and Browserify
 
 camel(...)
 ```
 
-### Packd CDN
+### CDNs
 
 ```html
-<script src='https://bundle.run/kitsu-core@6?name=kitsuCore'></script>
+<!-- jsDelivr -->
+<script src='https://cdn.jsdelivr.net/npm/kitsu-core'></script>
+
+<!-- unpkg -->
+<script scr='https://unpkg.com/kitsu-core'></script>
 ```
 
 ```js
@@ -225,7 +227,7 @@ Filters includes for the specific relationship
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
