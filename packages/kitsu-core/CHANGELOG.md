@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v7.3.0...v8.0.0) (2019-12-03)
+
+
+### Chores
+
+* **release:** update documentation ([ea8790a](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/ea8790a))
+* cleanup configs ([4576fd5](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/4576fd5))
+
+
+### Documentation Changes
+
+* add migration for `kitsu/node` and `kitsu-core/node`  users ([4bd2182](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/4bd2182))
+
+
+### New Features
+
+* **kitsu-core:** create browser bundle (umd) ([ca01db8](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/ca01db8))
+* **kitsu-core:** proper tree-shaking for individual components ([b2c55a0](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/b2c55a0))
+* **kitsu-core:** remove redundent node folder ([4041649](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/4041649))
+
+
+### BREAKING CHANGES
+
+* **kitsu-core:** Only for those using `kitsu-core/node` or `kitsu-core/node/index.mjs`.
+7.3.0 made both code bases identical. You can safely switch to `kitsu-core` or `kitsu-core/lib/index.mjs`
+
+
+
+
+
 ## [7.2.2](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v7.2.1...v7.2.2) (2019-11-25)
 
 

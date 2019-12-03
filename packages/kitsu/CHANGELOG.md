@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v7.3.0...v8.0.0) (2019-12-03)
+
+
+### Chores
+
+* **release:** update documentation ([ea8790a](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/ea8790a))
+* cleanup configs ([4576fd5](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/4576fd5))
+
+
+### Documentation Changes
+
+* add migration for `kitsu/node` and `kitsu-core/node`  users ([4bd2182](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/4bd2182))
+
+
+### New Features
+
+* **kitsu:** remove redundent node folder ([ec9bc8d](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/ec9bc8d))
+
+
+### BREAKING CHANGES
+
+* **kitsu:** Only for those using `kitsu/node` or `kitsu/node/index.mjs`.
+7.3.0 made both code bases identical. You can safely switch to `kitsu` or `kitsu/lib/index.mjs`
+
+
+
+
+
 # [7.3.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v7.2.2...v7.3.0) (2019-11-28)
 
 
