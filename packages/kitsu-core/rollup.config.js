@@ -38,15 +38,33 @@ export default [
     input: 'src/index.js',
     external,
     plugins: pluginsMain,
+    output: {
+      file: `${pkg.main}`,
+      format: 'cjs',
+      sourcemap: false,
+      globals
+    },
+  },
+  {
+    input: {
+      index: 'src/index.js',
+      camel: 'src/camel/index.js',
+      deattribute: 'src/deattribute/index.js',
+      deserialise: 'src/deserialise/index.js',
+      error: 'src/error/index.js',
+      filterIncludes: 'src/filterIncludes/index.js',
+      kebab: 'src/kebab/index.js',
+      linkRelationships: 'src/linkRelationships/index.js',
+      query: 'src/query/index.js',
+      serialise: 'src/serialise/index.js',
+      snake: 'src/snake/index.js'
+    },
+    external,
+    plugins: pluginsMain,
     output: [
       {
-        file: `${pkg.main}`,
-        format: 'cjs',
-        sourcemap: false,
-        globals
-      },
-      {
-        file: `${pkg.module}`,
+        dir: 'lib',
+        entryFileNames: '[name].mjs',
         format: 'es',
         sourcemap: false,
         globals
@@ -54,18 +72,32 @@ export default [
     ]
   },
   {
-    input: 'src/index.js',
+    input: {
+      index: 'src/index.js',
+      camel: 'src/camel/index.js',
+      deattribute: 'src/deattribute/index.js',
+      deserialise: 'src/deserialise/index.js',
+      error: 'src/error/index.js',
+      filterIncludes: 'src/filterIncludes/index.js',
+      kebab: 'src/kebab/index.js',
+      linkRelationships: 'src/linkRelationships/index.js',
+      query: 'src/query/index.js',
+      serialise: 'src/serialise/index.js',
+      snake: 'src/snake/index.js'
+    },
     external,
     plugins: pluginsNode,
     output: [
       {
-        file: 'node/index.js',
+        dir: 'node',
+        entryFileNames: '[name].js',
         format: 'cjs',
         sourcemap: false,
         globals
       },
       {
-        file: 'node/index.mjs',
+        dir: 'node',
+        entryFileNames: '[name].mjs',
         format: 'es',
         sourcemap: false,
         globals
