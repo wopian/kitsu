@@ -13,8 +13,6 @@
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
-  "unpkg": "lib/index.browser.js",
-  "jsdelivr": "lib/index.browser.js",
   "types": "index.d.ts",
   "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu#readme",
   "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu",
@@ -59,10 +57,6 @@
     },
     {
       "path": "./lib/index.mjs",
-      "limit": "8.6 kb"
-    },
-    {
-      "path": "./lib/index.browser.js",
       "limit": "8.6 kb"
     }
   ],

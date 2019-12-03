@@ -31,31 +31,22 @@ const pluginsMain = [
   ...plugins
 ]
 
-export default [
-  {
-    input: 'src/index.js',
-    external,
-    plugins: pluginsMain,
-    output: [
-      {
-        file: pkg.main,
-        format: 'cjs',
-        sourcemap: false,
-        globals
-      },
-      {
-        file: pkg.module,
-        format: 'es',
-        sourcemap: false,
-        globals
-      },
-      {
-        file: pkg.unpkg,
-        name: 'kitsu',
-        format: 'umd',
-        sourcemap: false,
-        globals
-      }
-    ]
-  }
-]
+export default {
+  input: 'src/index.js',
+  external,
+  plugins: pluginsMain,
+  output: [
+    {
+      file: pkg.main,
+      format: 'cjs',
+      sourcemap: false,
+      globals
+    },
+    {
+      file: pkg.module,
+      format: 'es',
+      sourcemap: false,
+      globals
+    }
+  ]
+}
