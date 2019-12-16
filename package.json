@@ -47,7 +47,7 @@
     "eslint-config-wopian": "~1.4.3",
     "jest": "~24.9.0",
     "lerna": "~3.19.0",
-    "replace-in-file": "~4.2.0",
+    "replace-in-file": "~5.0.0",
     "rollup": "~1.27.5",
     "rollup-plugin-babel": "~4.3.3",
     "rollup-plugin-local-resolve": "~1.0.7",
