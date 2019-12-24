@@ -26,9 +26,9 @@
  *
  * const output = await deattribute(data) // { id: '1', type: 'users', slug: 'wopian' }
  */
-export async function deattribute (data) {
+export function deattribute (data) {
   if (typeof data === 'object' && data !== null) {
-    if (Array.isArray(data)) await data.map(async el => deattribute(el))
+    if (Array.isArray(data)) data.map(async el => deattribute(el))
     else if (data.attributes && data.attributes.constructor === Object) {
       Object.keys(data.attributes).forEach(key => { data[key] = data.attributes[key] })
       delete data.attributes
