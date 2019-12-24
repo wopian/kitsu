@@ -9,7 +9,7 @@ import { error } from '../error'
  * @param {string} opts.type The relationship type
  * @returns {Array} The matched includes
  */
-export async function filterIncludes (included, { id, type }) {
+export function filterIncludes (included, { id, type }) {
   try {
     const filtered = included.filter(el => {
       return el.id === id && el.type === type

@@ -12,7 +12,7 @@ import { filterIncludes } from '../filterIncludes'
  * @private
  */
 async function link ({ id, type, meta }, included) {
-  const filtered = await filterIncludes(included, { id, type })
+  const filtered = filterIncludes(included, { id, type })
   if (filtered.relationships) await linkRelationships(filtered, included)
   if (meta) filtered.meta = meta
   return deattribute(filtered)
