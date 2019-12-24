@@ -2,9 +2,9 @@ import { deserialise } from './'
 
 describe('kitsu-core', () => {
   describe('deserialise', () => {
-    it('deserialises a resource without included relationships', async () => {
+    it('deserialises a resource without included relationships', () => {
       expect.assertions(1)
-      expect(await deserialise({
+      expect(deserialise({
         data: {
           id: '9',
           type: 'roles',
@@ -21,9 +21,9 @@ describe('kitsu-core', () => {
       })
     })
 
-    it('deserialises a collection without attributes and included relationships', async () => {
+    it('deserialises a collection without attributes and included relationships', () => {
       expect.assertions(1)
-      expect(await deserialise({
+      expect(deserialise({
         data: [
           {
             id: '1',
@@ -48,9 +48,9 @@ describe('kitsu-core', () => {
       })
     })
 
-    it('deserialises a collection of resources with included relationships', async () => {
+    it('deserialises a collection of resources with included relationships', () => {
       expect.assertions(1)
-      expect(await deserialise({
+      expect(deserialise({
         data: [
           {
             id: '1',
@@ -93,9 +93,9 @@ describe('kitsu-core', () => {
       })
     })
 
-    it('deserialises a single resource with included relationships', async () => {
+    it('deserialises a single resource with included relationships', () => {
       expect.assertions(1)
-      expect(await deserialise({
+      expect(deserialise({
         data: {
           id: '1',
           type: 'users',
@@ -134,9 +134,9 @@ describe('kitsu-core', () => {
       })
     })
 
-    it('deserialises with empty data arrays', async () => {
+    it('deserialises with empty data arrays', () => {
       expect.assertions(1)
-      expect(await deserialise({
+      expect(deserialise({
         data: {
           id: '1',
           type: 'users',
