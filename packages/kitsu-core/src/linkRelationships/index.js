@@ -11,9 +11,9 @@ import { filterIncludes } from '../filterIncludes'
  * @param {Object} included The response included object
  * @private
  */
-async function link ({ id, type, meta }, included) {
+function link ({ id, type, meta }, included) {
   const filtered = filterIncludes(included, { id, type })
-  if (filtered.relationships) await linkRelationships(filtered, included)
+  if (filtered.relationships) linkRelationships(filtered, included)
   if (meta) filtered.meta = meta
   return deattribute(filtered)
 }
@@ -26,10 +26,10 @@ async function link ({ id, type, meta }, included) {
  * @param {string} key Name of the relationship item
  * @private
  */
-async function linkArray (data, included, key) {
+function linkArray (data, included, key) {
   data[key] = []
-  for (let resource of await data.relationships[key].data) {
-    data[key].push(await link(resource, included))
+  for (let resource of data.relationships[key].data) {
+    data[key].push(link(resource, included))
   }
 }
 
@@ -41,8 +41,8 @@ async function linkArray (data, included, key) {
  * @param {string} key Name of the relationship item
  * @private
  */
-async function linkObject (data, included, key) {
-  data[key] = await link(data.relationships[key].data, included)
+function linkObject (data, included, key) {
+  data[key] = link(data.relationships[key].data, included)
   delete data[key].relationships
 }
 
@@ -52,18 +52,18 @@ async function linkObject (data, included, key) {
  * @param {Object} data The response data object
  * @param {Object} included The response included object
  */
-export async function linkRelationships (data, included) {
+export function linkRelationships (data, included) {
   const { relationships } = data
   let removeRelationships = false
 
-  for (let key in await relationships) {
+  for (let key in relationships) {
     // Relationship contains collection of resources
     if (relationships[key].data && Array.isArray(relationships[key].data)) {
-      await linkArray(data, included, key)
+      linkArray(data, included, key)
       removeRelationships = true
     // Relationship contains a single resource
     } else if (relationships[key].data) {
-      await linkObject(data, included, key)
+      linkObject(data, included, key)
       removeRelationships = true
     }
   }
