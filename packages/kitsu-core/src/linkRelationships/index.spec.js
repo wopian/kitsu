@@ -2,7 +2,7 @@ import { linkRelationships } from './'
 
 describe('kitsu-core', () => {
   describe('linkRelationships', () => {
-    it('links single relationship to included data', async () => {
+    it('links single relationship to included data', () => {
       expect.assertions(1)
       const data = {
         relationships: {
@@ -23,7 +23,7 @@ describe('kitsu-core', () => {
           }
         }
       ]
-      expect(await linkRelationships(data, included))
+      expect(linkRelationships(data, included))
         .toEqual({
           waifu: {
             id: '3',
@@ -33,7 +33,7 @@ describe('kitsu-core', () => {
         })
     })
 
-    it('links a relationship collection to included data', async () => {
+    it('links a relationship collection to included data', () => {
       expect.assertions(1)
       const data = {
         relationships: {
@@ -67,7 +67,7 @@ describe('kitsu-core', () => {
           }
         }
       ]
-      expect(await linkRelationships(data, included))
+      expect(linkRelationships(data, included))
         .toEqual({
           favorites: [
             {
@@ -84,7 +84,7 @@ describe('kitsu-core', () => {
         })
     })
 
-    it('does not deattribute key if theres a relationship (single) with same name (handle invalid JSON:API)', async () => {
+    it('does not deattribute key if theres a relationship (single) with same name (handle invalid JSON:API)', () => {
       expect.assertions(1)
       const data = {
         attributes: {
@@ -108,7 +108,7 @@ describe('kitsu-core', () => {
           }
         }
       ]
-      expect(await linkRelationships(data, included))
+      expect(linkRelationships(data, included))
         .toEqual({
           attributes: {
             author: 'Joe'
@@ -121,7 +121,7 @@ describe('kitsu-core', () => {
         })
     })
 
-    it('does not deattribute key if theres a relationship (array) with same name (handle invalid JSON:API)', async () => {
+    it('does not deattribute key if theres a relationship (array) with same name (handle invalid JSON:API)', () => {
       expect.assertions(1)
       const data = {
         attributes: {
@@ -158,7 +158,7 @@ describe('kitsu-core', () => {
           }
         }
       ]
-      expect(await linkRelationships(data, included))
+      expect(linkRelationships(data, included))
         .toEqual({
           attributes: {
             authors: [ 'Joe', 'Mary' ]
