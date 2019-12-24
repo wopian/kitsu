@@ -28,7 +28,7 @@ async function link ({ id, type, meta }, included) {
  */
 async function linkArray (data, included, key) {
   data[key] = []
-  for (let resource of await data.relationships[key].data) {
+  for (const resource of await data.relationships[key].data) {
     data[key].push(await link(resource, included))
   }
 }
@@ -56,7 +56,7 @@ export async function linkRelationships (data, included) {
   const { relationships } = data
   let removeRelationships = false
 
-  for (let key in await relationships) {
+  for (const key in await relationships) {
     // Relationship contains collection of resources
     if (relationships[key].data && Array.isArray(relationships[key].data)) {
       await linkArray(data, included, key)

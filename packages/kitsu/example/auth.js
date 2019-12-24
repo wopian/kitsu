@@ -13,9 +13,9 @@ const app = async () => {
     accessTokenUri: 'https://kitsu.io/api/oauth/token'
   })
 
-  let { accessToken } = await owner.getToken('username', 'password')
+  const { accessToken } = await owner.getToken('username', 'password')
 
-  api.headers['Authorization'] = `Bearer ${accessToken}`
+  api.headers.Authorization = `Bearer ${accessToken}`
 
   // Get the logged in user's ID
   const { id } = await api.self()

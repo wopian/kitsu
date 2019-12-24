@@ -23,7 +23,7 @@ describe('kitsu', () => {
       const api = new Kitsu({ headers: { init: true } })
       mock.onGet('/anime').reply(config => {
         expect(config.headers).toEqual({
-          'Accept': 'application/vnd.api+json',
+          Accept: 'application/vnd.api+json',
           'Content-Type': 'application/vnd.api+json',
           init: true,
           extra: true

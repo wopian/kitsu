@@ -15,9 +15,9 @@ describe('kitsu', () => {
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPost('/anime').reply(config => {
         expect(config.headers).toEqual({
-          'Accept': 'application/vnd.api+json',
+          Accept: 'application/vnd.api+json',
           'Content-Type': 'application/vnd.api+json',
-          'Authorization': true,
+          Authorization: true,
           extra: true
         })
         return [ 200 ]
