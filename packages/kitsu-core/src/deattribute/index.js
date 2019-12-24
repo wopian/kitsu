@@ -14,7 +14,7 @@
  *   }
  * ]
  *
- * const output = await deattribute(data) // [ { id: '1', type: 'users', slug: 'wopian' } ]
+ * const output = deattribute(data) // [ { id: '1', type: 'users', slug: 'wopian' } ]
  *
  * @example <caption>Deattribute a resource</caption>
  * // JSON:API 'data' field
@@ -24,11 +24,11 @@
  *   attributes: { slug: 'wopian' }
  * }
  *
- * const output = await deattribute(data) // { id: '1', type: 'users', slug: 'wopian' }
+ * const output = deattribute(data) // { id: '1', type: 'users', slug: 'wopian' }
  */
 export function deattribute (data) {
   if (typeof data === 'object' && data !== null) {
-    if (Array.isArray(data)) data.map(async el => deattribute(el))
+    if (Array.isArray(data)) data.map(el => deattribute(el))
     else if (data.attributes && data.attributes.constructor === Object) {
       Object.keys(data.attributes).forEach(key => { data[key] = data.attributes[key] })
       delete data.attributes

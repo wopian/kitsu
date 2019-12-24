@@ -91,7 +91,7 @@ function serialiseAttr (node, key, data) {
  * import { serialise, camel, kebab } from 'kitsu-core'
  * import plural from 'pluralize'
  *
- * const output = await serialise.apply({ camel, resCase: kebab, plural }, [ model, obj, 'PATCH' ])
+ * const output = serialise.apply({ camel, resCase: kebab, plural }, [ model, obj, 'PATCH' ])
  */
 export function serialise (model, obj = {}, method = 'POST') {
   try {

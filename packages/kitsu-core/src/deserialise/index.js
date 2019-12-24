@@ -24,7 +24,7 @@ function deserialiseArray (obj) {
  * @returns {Object} The deserialised response
  *
  * @example <caption>Deserialise with a basic data object</caption>
- * await deserialise({
+ * deserialise({
  *   data: {
  *     id: '1',
  *     attributes: { liked: true }
@@ -33,7 +33,7 @@ function deserialiseArray (obj) {
  * }) // { data: { id: '1', liked: true }, meta: { hello: 'world' } }
  *
  * @example <caption>Deserialise with relationships</caption>
- * await deserialise({
+ * deserialise({
  *   data: {
  *     id: '1',
  *     relationships: {
