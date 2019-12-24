@@ -9,7 +9,7 @@ const requiresID = (method, key) => `${method} requires an ID for the ${key} rel
  * @param {string} method Request type
  * @private
  */
-async function isValid (obj, method, type) {
+function isValid (obj, method, type) {
   // Check if obj is not an object or empty
   if (obj.constructor !== Object || Object.keys(obj).length === 0) {
     throw new Error(`${method} requires a JSON object body`)
@@ -30,7 +30,7 @@ async function isValid (obj, method, type) {
  * @param {string} method HTTP method
  * @private
  */
-async function serialiseObject (node, nodeType, key, data, method) {
+function serialiseObject (node, nodeType, key, data, method) {
   if (typeof node.id !== 'string') throw new Error(requiresID(method, key))
   if (!data.relationships) data.relationships = {}
   // Guess type if not provided
@@ -51,7 +51,7 @@ async function serialiseObject (node, nodeType, key, data, method) {
  * @param {string} method HTTP method
  * @private
  */
-async function serialiseArray (node, nodeType, key, data, method) {
+function serialiseArray (node, nodeType, key, data, method) {
   if (!data.relationships) data.relationships = {}
   data.relationships[key] = {
     data: node.map(({ id, type }) => {
@@ -73,7 +73,7 @@ async function serialiseArray (node, nodeType, key, data, method) {
  * @param {Object} data Root JSON:API data object
  * @private
  */
-async function serialiseAttr (node, key, data) {
+function serialiseAttr (node, key, data) {
   if (!data.attributes) data.attributes = {}
   data.attributes[key] = node
   return data
@@ -93,12 +93,12 @@ async function serialiseAttr (node, key, data) {
  *
  * const output = await serialise.apply({ camel, resCase: kebab, plural }, [ model, obj, 'PATCH' ])
  */
-export async function serialise (model, obj = {}, method = 'POST') {
+export function serialise (model, obj = {}, method = 'POST') {
   try {
     const type = this.plural(this.camel(model))
     let data = { type }
 
-    await isValid(obj, method, type)
+    isValid(obj, method, type)
 
     if (method !== 'POST') data.id = String(obj.id)
 
@@ -106,11 +106,11 @@ export async function serialise (model, obj = {}, method = 'POST') {
       const node = obj[key]
       const nodeType = this.plural(this.camel(key))
       if (node !== null && node.constructor === Object) {
-        data = await serialiseObject(node, nodeType, key, data, method)
+        data = serialiseObject(node, nodeType, key, data, method)
       } else if (node !== null && Array.isArray(node)) {
-        data = await serialiseArray(node, nodeType, key, data, method)
+        data = serialiseArray(node, nodeType, key, data, method)
       } else if (key !== 'id' && key !== 'type') {
-        data = await serialiseAttr(node, key, data)
+        data = serialiseAttr(node, key, data)
       }
     }
 
