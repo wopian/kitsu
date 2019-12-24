@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.1](https://github.com/wopian/kitsu/compare/v8.0.0...v8.0.1) (2019-12-24)
+
+
+### Build System / Dependencies
+
+* update devdependency replace-in-file to ~5.0.0 ([#349](https://github.com/wopian/kitsu/issues/349)) ([3cf2f80](https://github.com/wopian/kitsu/commit/3cf2f80))
+* update linters ([#346](https://github.com/wopian/kitsu/issues/346)) ([6dd5080](https://github.com/wopian/kitsu/commit/6dd5080))
+* **kitsu:** lock file maintenance ([#319](https://github.com/wopian/kitsu/issues/319)) ([dc8827f](https://github.com/wopian/kitsu/commit/dc8827f))
+
+
+### Chores
+
+* **release:** update documentation ([b8399f4](https://github.com/wopian/kitsu/commit/b8399f4))
+
+
+### Refactors
+
+* **kitsu-core:** remove unnecessary instances of async/await ([#351](https://github.com/wopian/kitsu/issues/351)) ([8a88fe4](https://github.com/wopian/kitsu/commit/8a88fe4))
+
+
+
+
+
 # [8.0.0](https://github.com/wopian/kitsu/compare/v7.3.0...v8.0.0) (2019-12-03)
 
 

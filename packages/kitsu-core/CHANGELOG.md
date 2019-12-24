@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.1](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v8.0.0...v8.0.1) (2019-12-24)
+
+
+### Build System / Dependencies
+
+* update linters ([#346](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/346)) ([6dd5080](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/6dd5080))
+
+
+### Chores
+
+* **release:** update documentation ([b8399f4](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/b8399f4))
+
+
+### Refactors
+
+* **kitsu-core:** remove unnecessary instances of async/await ([#351](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/351)) ([8a88fe4](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/8a88fe4))
+
+
+
+
+
 # [8.0.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v7.3.0...v8.0.0) (2019-12-03)
 
 
