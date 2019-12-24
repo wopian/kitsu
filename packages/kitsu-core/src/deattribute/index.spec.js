@@ -7,51 +7,51 @@ const attributesKey = {
 
 describe('kitsu-core', () => {
   describe('deattribute', () => {
-    it('deattributes an object', async () => {
+    it('deattributes an object', () => {
       expect.assertions(1)
-      expect(await deattribute(attributesKey.jsonapi))
+      expect(deattribute(attributesKey.jsonapi))
         .toEqual(attributesKey.kitsu)
     })
 
-    it('deattributes an array of objects', async () => {
+    it('deattributes an array of objects', () => {
       expect.assertions(1)
-      expect(await deattribute([ attributesKey.jsonapi, attributesKey.jsonapi ]))
+      expect(deattribute([ attributesKey.jsonapi, attributesKey.jsonapi ]))
         .toEqual([ attributesKey.kitsu, attributesKey.kitsu ])
     })
 
-    it('does nothing if no attributes supplied', async () => {
+    it('does nothing if no attributes supplied', () => {
       expect.assertions(1)
-      expect(await deattribute({ id: '1' }))
+      expect(deattribute({ id: '1' }))
         .toEqual({ id: '1' })
     })
 
-    it('strips attributes object if empty', async () => {
+    it('strips attributes object if empty', () => {
       expect.assertions(1)
-      expect(await deattribute({ id: '1', attributes: {} }))
+      expect(deattribute({ id: '1', attributes: {} }))
         .toEqual({ id: '1' })
     })
 
-    it('does nothing if data is missing', async () => {
+    it('does nothing if data is missing', () => {
       expect.assertions(1)
-      expect(await deattribute(undefined)).toBeUndefined()
+      expect(deattribute(undefined)).toBeUndefined()
     })
 
-    it('does nothing for invalid JSON:API data types', async () => {
+    it('does nothing for invalid JSON:API data types', () => {
       expect.assertions(9)
       const symbol = Symbol('foo')
       const set = new Set()
       const weakSet = new WeakSet()
       const map = new Map()
       const weakMap = new WeakMap()
-      expect(await deattribute(null)).toBeNull()
-      expect(await deattribute(true)).toEqual(true)
-      expect(await deattribute(0)).toEqual(0)
-      expect(await deattribute('string')).toEqual('string')
-      expect(await deattribute(symbol)).toEqual(symbol)
-      expect(await deattribute(set)).toEqual(set)
-      expect(await deattribute(weakSet)).toEqual(weakSet)
-      expect(await deattribute(map)).toEqual(map)
-      expect(await deattribute(weakMap)).toEqual(weakMap)
+      expect(deattribute(null)).toBeNull()
+      expect(deattribute(true)).toEqual(true)
+      expect(deattribute(0)).toEqual(0)
+      expect(deattribute('string')).toEqual('string')
+      expect(deattribute(symbol)).toEqual(symbol)
+      expect(deattribute(set)).toEqual(set)
+      expect(deattribute(weakSet)).toEqual(weakSet)
+      expect(deattribute(map)).toEqual(map)
+      expect(deattribute(weakMap)).toEqual(weakMap)
     })
   })
 })
