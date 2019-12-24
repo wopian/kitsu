@@ -1,5 +1,5 @@
 /**
- * Mutates an error and rethrows it
+ * Uniform error handling for Axios, JSON:API and internal package errors. Mutated Error object is rethrown to the caller.
  *
  * @param {Object} E The Error
  * @throws {Object} The mutated Error

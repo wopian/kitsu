@@ -27,14 +27,13 @@
 
 <p align=center>Core <a href=http://jsonapi.org>JSON:API</a> serialisation and deserialisation components</p>
 
-# 
+#
 
 ## Features
 
 -   JSON-API 1.0 compliant
 -   Automatically links relationships to data
 -   Works in Node and on the web
--   Uses the [Promise] API
 
 ## Node / Browser Support
 
@@ -227,7 +226,7 @@ Filters includes for the specific relationship
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
@@ -360,8 +359,6 @@ See [CHANGELOG]
 All code released under [MIT]
 
 [json:api]: http://jsonapi.org
-
-[promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 
 [changelog]: https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/CHANGELOG.md
 
