@@ -28,7 +28,7 @@ function link ({ id, type, meta }, included) {
  */
 function linkArray (data, included, key) {
   data[key] = []
-  for (let resource of data.relationships[key].data) {
+  for (const resource of data.relationships[key].data) {
     data[key].push(link(resource, included))
   }
 }
@@ -56,7 +56,7 @@ export function linkRelationships (data, included) {
   const { relationships } = data
   let removeRelationships = false
 
-  for (let key in relationships) {
+  for (const key in relationships) {
     // Relationship contains collection of resources
     if (relationships[key].data && Array.isArray(relationships[key].data)) {
       linkArray(data, included, key)

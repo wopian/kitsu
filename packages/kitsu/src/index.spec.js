@@ -31,7 +31,7 @@ describe('kitsu', () => {
       expect.assertions(2)
       const api = new Kitsu()
       const header = 'application/vnd.api+json'
-      expect(api.headers['Accept']).toBe(header)
+      expect(api.headers.Accept).toBe(header)
       expect(api.headers['Content-Type']).toBe(header)
     })
 
@@ -39,17 +39,17 @@ describe('kitsu', () => {
       expect.assertions(1)
       const api = new Kitsu({
         headers: {
-          'Key': 'value'
+          Key: 'value'
         }
       })
-      expect(api.headers['Key']).toBe('value')
+      expect(api.headers.Key).toBe('value')
     })
 
     it('sets additional headers', () => {
       expect.assertions(1)
       const api = new Kitsu()
-      api.headers['Key'] = 'value'
-      expect(api.headers['Key']).toBe('value')
+      api.headers.Key = 'value'
+      expect(api.headers.Key).toBe('value')
     })
 
     it('returns all headers', () => {
@@ -57,7 +57,7 @@ describe('kitsu', () => {
       const api = new Kitsu()
       const header = 'application/vnd.api+json'
       expect(api.headers).toEqual({
-        'Accept': header,
+        Accept: header,
         'Content-Type': header
       })
     })

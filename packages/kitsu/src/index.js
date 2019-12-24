@@ -64,7 +64,7 @@ export default class Kitsu {
      * @example <caption>Add or update a header's value</caption>
      * api.headers['Authorization'] = 'Bearer 1234567890'
      */
-    this.headers = Object.assign({}, options.headers, { 'Accept': 'application/vnd.api+json', 'Content-Type': 'application/vnd.api+json' })
+    this.headers = Object.assign({}, options.headers, { Accept: 'application/vnd.api+json', 'Content-Type': 'application/vnd.api+json' })
 
     this.axios = axios.create(
       Object.assign({}, {
@@ -183,7 +183,7 @@ export default class Kitsu {
    */
   async get (model, params = {}, headers = {}) {
     try {
-      let [ res, id, relationship ] = model.split('/')
+      const [ res, id, relationship ] = model.split('/')
 
       let url = this.plural(this.resCase(res))
       if (id) url += `/${id}`

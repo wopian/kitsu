@@ -102,7 +102,7 @@ export function serialise (model, obj = {}, method = 'POST') {
 
     if (method !== 'POST') data.id = String(obj.id)
 
-    for (let key in obj) {
+    for (const key in obj) {
       const node = obj[key]
       const nodeType = this.plural(this.camel(key))
       if (node !== null && node.constructor === Object) {
