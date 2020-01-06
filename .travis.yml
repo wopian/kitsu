@@ -8,7 +8,6 @@ node_js:
 - node
 - 12 # EOL Apr 22
 - 10 # EOL Apr 21
-- 8 # EOL Dec 19
 cache:
   yarn: true
 sudo: false
