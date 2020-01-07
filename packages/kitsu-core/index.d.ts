@@ -177,7 +177,7 @@ declare module 'kitsu-core/kebab' {
       *
       * @name kebab
       * @param {string} s camelCase string
-      * @returns {string} kekab-case formatted string
+      * @returns {string} kebab-case formatted string
       *
       * @example
       * kebab('helloWorld') // 'hello-world'
