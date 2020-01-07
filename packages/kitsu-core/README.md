@@ -9,7 +9,6 @@
 
 <p align=center>
   <a href=https://travis-ci.org/wopian/kitsu><img alt=travis src=https://flat.badgen.net/travis/wopian/kitsu></a>
-  <a href=https://ci.appveyor.com/project/wopian/kitsu><img alt=appveyor src=https://flat.badgen.net/appveyor/ci/wopian/kitsu></a>
   <a href="https://packagephobia.now.sh/result?p=kitsu-core"><img alt=packagephobia src=https://flat.badgen.net/packagephobia/install/kitsu-core></a>
   <a href=https://github.com/wopian/kitsu/graphs/contributors><img alt=contributors src=https://flat.badgen.net/github/contributors/wopian/kitsu></a>
 </p>
