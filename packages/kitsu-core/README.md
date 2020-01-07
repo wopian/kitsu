@@ -26,7 +26,7 @@
 
 <p align=center>Core <a href=http://jsonapi.org>JSON:API</a> serialisation and deserialisation components</p>
 
-# 
+#
 
 ## Features
 
@@ -225,7 +225,7 @@ Filters includes for the specific relationship
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
@@ -325,7 +325,7 @@ Converts camelCase into kebab-case
 kebab('helloWorld') // 'hello-world'
 ```
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** kekab-case formatted string
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** kebab-case formatted string
 
 ### snake
 
