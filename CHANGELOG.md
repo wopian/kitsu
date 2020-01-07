@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.3](https://github.com/wopian/kitsu/compare/v8.0.2...v8.0.3) (2020-01-07)
+
+
+### Build System / Dependencies
+
+* update devdependency rollup to ~1.28.0 ([#354](https://github.com/wopian/kitsu/issues/354)) ([0670af6](https://github.com/wopian/kitsu/commit/0670af6))
+* **kitsu:** lock file maintenance ([#353](https://github.com/wopian/kitsu/issues/353)) ([1c067d8](https://github.com/wopian/kitsu/commit/1c067d8))
+* update devdependency lerna to ~3.20.0 ([#352](https://github.com/wopian/kitsu/issues/352)) ([a23745d](https://github.com/wopian/kitsu/commit/a23745d))
+
+
+### Chores
+
+* **release:** update documentation ([65f0559](https://github.com/wopian/kitsu/commit/65f0559))
+* improve TypeScript declarations ([#355](https://github.com/wopian/kitsu/issues/355)) ([934c79e](https://github.com/wopian/kitsu/commit/934c79e))
+
+
+### Continuous Integration
+
+* remove appveyor [skip ci] ([7a95648](https://github.com/wopian/kitsu/commit/7a95648))
+* **appveyor:** drop support for EOL Node 8 ([5fa0266](https://github.com/wopian/kitsu/commit/5fa0266))
+* **travis:** drop support for EOL Node 8 ([43a8d8d](https://github.com/wopian/kitsu/commit/43a8d8d))
+* **travis:** re-enable windows builds ([0aa196d](https://github.com/wopian/kitsu/commit/0aa196d))
+
+
+### Documentation Changes
+
+* remove appveyor badge [skip ci] ([8063c4a](https://github.com/wopian/kitsu/commit/8063c4a))
+* remove appveyor badge [skip ci] ([b481f95](https://github.com/wopian/kitsu/commit/b481f95))
+* remove appveyor badge [skip ci] ([e32ba34](https://github.com/wopian/kitsu/commit/e32ba34))
+
+
+
+
+
 ## [8.0.2](https://github.com/wopian/kitsu/compare/v8.0.1...v8.0.2) (2019-12-24)
 
 

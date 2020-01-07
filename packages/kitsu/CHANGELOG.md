@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.3](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v8.0.2...v8.0.3) (2020-01-07)
+
+
+### Chores
+
+* **release:** update documentation ([65f0559](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/65f0559))
+* improve TypeScript declarations ([#355](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/355)) ([934c79e](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/934c79e))
+
+
+### Documentation Changes
+
+* remove appveyor badge [skip ci] ([b481f95](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/b481f95))
+
+
+
+
+
 ## [8.0.2](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v8.0.1...v8.0.2) (2019-12-24)
 
 
