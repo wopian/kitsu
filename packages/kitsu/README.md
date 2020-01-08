@@ -26,7 +26,7 @@
 
 <p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client for <a href=https://kitsu.io>Kitsu.io</a> and other APIs</p>
 
-# 
+#
 
 ## Features
 
@@ -44,7 +44,7 @@
 
 \* Including all dependencies, minified & gzipped
 
-† [Changes in Node 12][node12esm] and newer require the full path to be used if using ES Modules: `kitsu/node/index.mjs`
+† [Changes in Node 12][node12esm] and newer require the full path to be used if using ES Modules: `kitsu/index.mjs`
 
 ## Response Comparison
 
@@ -113,7 +113,6 @@ npm install kitsu
 
 ```js
 import Kitsu from 'kitsu'      // ES Modules and Babel
-import Kitsu from 'kitsu/node' // Lighter node-only package
 const Kitsu = require('kitsu') // CommonJS and Browserify
 ```
 
