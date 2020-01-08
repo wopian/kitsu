@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.4](https://github.com/wopian/kitsu/compare/v8.0.3...v8.0.4) (2020-01-08)
+
+
+### Chores
+
+* **lerna:** don't ignore README changes ([bfd2940](https://github.com/wopian/kitsu/commit/bfd2940))
+* **release:** update documentation ([b381f9a](https://github.com/wopian/kitsu/commit/b381f9a))
+
+
+### Documentation Changes
+
+* **kitsu:** remove kitsu/node import from install guide ([4df407d](https://github.com/wopian/kitsu/commit/4df407d))
+
+
+
+
+
 ## [8.0.3](https://github.com/wopian/kitsu/compare/v8.0.2...v8.0.3) (2020-01-07)
 
 
