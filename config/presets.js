@@ -28,7 +28,7 @@ const babelTest = {
   presets: [
     [ '@babel/env', {
       targets: {
-        node: 6
+        node: minNode
       }
     } ]
   ]
