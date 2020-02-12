@@ -48,6 +48,27 @@ describe('kitsu', () => {
       done()
     })
 
+    it('sends data in request with client-generated ID', async done => {
+      expect.assertions(1)
+      const api = new Kitsu()
+      mock.onPost('/anime').reply(config => {
+        expect(JSON.parse(config.data)).toEqual({
+          data: {
+            id: 123456789,
+            type: 'anime',
+            attributes: {
+              name: 'Name'
+            }
+          }
+        })
+        return [ 200 ]
+      })
+      api.post('anime', { id: 123456789, type: 'anime', name: 'Name' }).catch(err => {
+        done.fail(err)
+      })
+      done()
+    })
+
     it('throws an error if missing a JSON object body', async () => {
       expect.assertions(1)
       const api = new Kitsu()
