@@ -54,7 +54,7 @@ describe('kitsu', () => {
       mock.onPost('/anime').reply(config => {
         expect(JSON.parse(config.data)).toEqual({
           data: {
-            id: 123456789,
+            id: '123456789',
             type: 'anime',
             attributes: {
               name: 'Name'

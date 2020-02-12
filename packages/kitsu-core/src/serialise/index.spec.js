@@ -37,7 +37,6 @@ describe('kitsu-core', () => {
     it('serialises to a JSON API compliant object', () => {
       expect.assertions(1)
       const input = serial.camelKebabPlural('libraryEntries', {
-        id: '1',
         ratingTwenty: 20
       })
       expect(input).toEqual({
@@ -53,7 +52,6 @@ describe('kitsu-core', () => {
     it('serialises JSON API relationships', () => {
       expect.assertions(1)
       const input = serial.camelKebabPlural('libraryEntries', {
-        id: '1',
         user: {
           id: '2'
         }
@@ -76,7 +74,6 @@ describe('kitsu-core', () => {
     it('serialises JSON API array relationships', () => {
       expect.assertions(1)
       const input = serial.camelKebabPlural('libraryEntries', {
-        id: '1',
         user: [
           {
             id: '2',
@@ -104,6 +101,23 @@ describe('kitsu-core', () => {
             }
           },
           type: 'libraryEntries'
+        }
+      })
+    })
+
+    it('serialises JSON API with a client-generated ID', () => {
+      expect.assertions(1)
+      const input = serial.camelKebabPlural('libraryEntries', {
+        id: '123456789',
+        ratingTwenty: 20
+      })
+      expect(input).toEqual({
+        data: {
+          id: '123456789',
+          type: 'libraryEntries',
+          attributes: {
+            ratingTwenty: 20
+          }
         }
       })
     })
