@@ -26,7 +26,7 @@
 
 <p align=center>Core <a href=http://jsonapi.org>JSON:API</a> serialisation and deserialisation components</p>
 
-# 
+#
 
 ## Features
 
@@ -38,11 +38,11 @@
 
 |       Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | ------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu-core`† |      ≤ 1.2 kb      |  8+  |   63+  |   60+   |   11+  |  17+ |
+| `kitsu-core`† |      ≤ 1.2 kb      | 10+  |   65+  |   65+   |  11.1+ |  17+ |
 
 \* Including all dependencies, minified & gzipped<br>
 
-† [Changes in Node 12][node12esm] and newer require the full path to be used if using ES Modules: `kitsu-core/node/index.mjs`
+† [Changes in Node 12][node12esm] and newer require the full path to be used if using ES Modules: `kitsu-core/index.mjs`
 
 ## Install
 
@@ -225,7 +225,7 @@ Filters includes for the specific relationship
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 

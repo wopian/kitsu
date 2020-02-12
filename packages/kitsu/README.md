@@ -26,7 +26,7 @@
 
 <p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client for <a href=https://kitsu.io>Kitsu.io</a> and other APIs</p>
 
-# 
+#
 
 ## Features
 
@@ -40,7 +40,7 @@
 
 |  Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | -------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu`† |      ≤ 8.4 kb      |  8+  |   63+  |   60+   |   11+  |  17+ |
+| `kitsu`† |      ≤ 8.4 kb      | 10+  |   65+  |   65+   |  11.1+ |  17+ |
 
 \* Including all dependencies, minified & gzipped
 

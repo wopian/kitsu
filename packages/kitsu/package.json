@@ -20,7 +20,7 @@
     "url": "https://github.com/wopian/kitsu/issues"
   },
   "engines": {
-    "node": ">= 8"
+    "node": ">= 10"
   },
   "keywords": [
     "kitsu",
