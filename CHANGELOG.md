@@ -3,6 +3,51 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.5](https://github.com/wopian/kitsu/compare/v8.0.4...v8.0.5) (2020-02-12)
+
+
+### Bug Fixes
+
+* **kitsu-core:** keep ID with POST requests ([e4d84e0](https://github.com/wopian/kitsu/commit/e4d84e0))
+
+
+### Build System / Dependencies
+
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~4.0.1 ([09d3373](https://github.com/wopian/kitsu/commit/09d3373))
+* update babel monorepo to ~7.8.0 ([#361](https://github.com/wopian/kitsu/issues/361)) ([5ec4325](https://github.com/wopian/kitsu/commit/5ec4325))
+* update devdependency cross-env to ~7.0.0 ([#363](https://github.com/wopian/kitsu/issues/363)) ([8de81b2](https://github.com/wopian/kitsu/commit/8de81b2))
+* update devdependency rollup to ~1.29.0 ([#359](https://github.com/wopian/kitsu/issues/359)) ([972769e](https://github.com/wopian/kitsu/commit/972769e))
+* update devdependency rollup to ~1.30.0 ([#364](https://github.com/wopian/kitsu/issues/364)) ([ce10a42](https://github.com/wopian/kitsu/commit/ce10a42))
+* update devdependency rollup to ~1.31.0 ([#368](https://github.com/wopian/kitsu/issues/368)) ([989f0df](https://github.com/wopian/kitsu/commit/989f0df))
+* update devdependency size-limit to ~4.0.0 ([#367](https://github.com/wopian/kitsu/issues/367)) ([9062ab7](https://github.com/wopian/kitsu/commit/9062ab7))
+* **kitsu:** lock file maintenance ([#365](https://github.com/wopian/kitsu/issues/365)) ([d6e030d](https://github.com/wopian/kitsu/commit/d6e030d))
+* update devdependency rollup-plugin-terser to ~5.2.0 ([#360](https://github.com/wopian/kitsu/issues/360)) ([de9ec5c](https://github.com/wopian/kitsu/commit/de9ec5c))
+* update devdependency size-limit to ~3.0.0 ([#358](https://github.com/wopian/kitsu/issues/358)) ([8918dda](https://github.com/wopian/kitsu/commit/8918dda))
+* update jest monorepo to ~25.1.0 ([#362](https://github.com/wopian/kitsu/issues/362)) ([8a1a217](https://github.com/wopian/kitsu/commit/8a1a217))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~3.0.0 ([#357](https://github.com/wopian/kitsu/issues/357)) ([15e3226](https://github.com/wopian/kitsu/commit/15e3226))
+
+
+### Chores
+
+* **release:** update documentation ([d799bce](https://github.com/wopian/kitsu/commit/d799bce))
+* build with Node 10 as Node 8 was dropped in 43a8d8d9b8c5cbfabdc5bdaf51856fd6752ef9c4 ([75c4367](https://github.com/wopian/kitsu/commit/75c4367))
+* use Node 10 for Jest unit tests ([2e6f8db](https://github.com/wopian/kitsu/commit/2e6f8db))
+
+
+### Continuous Integration
+
+* **travis:** remove deprecated keys ([a77fa68](https://github.com/wopian/kitsu/commit/a77fa68))
+
+
+### Tests
+
+* **kitsu:** add POST with client-generated ID ([425e8fb](https://github.com/wopian/kitsu/commit/425e8fb))
+* **kitsu-core:** add serialise with client-generated ID ([4feba44](https://github.com/wopian/kitsu/commit/4feba44))
+
+
+
+
+
 ## [8.0.4](https://github.com/wopian/kitsu/compare/v8.0.3...v8.0.4) (2020-01-08)
 
 

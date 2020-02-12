@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.5](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v8.0.4...v8.0.5) (2020-02-12)
+
+
+### Bug Fixes
+
+* **kitsu-core:** keep ID with POST requests ([e4d84e0](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/e4d84e0))
+
+
+### Build System / Dependencies
+
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~3.0.0 ([#357](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/357)) ([15e3226](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/15e3226))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~4.0.1 ([09d3373](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/09d3373))
+
+
+### Chores
+
+* **release:** update documentation ([d799bce](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/d799bce))
+* build with Node 10 as Node 8 was dropped in 43a8d8d9b8c5cbfabdc5bdaf51856fd6752ef9c4 ([75c4367](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/75c4367))
+
+
+### Tests
+
+* **kitsu-core:** add serialise with client-generated ID ([4feba44](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/4feba44))
+
+
+
+
+
 ## [8.0.4](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v8.0.3...v8.0.4) (2020-01-08)
 
 
