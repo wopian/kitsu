@@ -100,7 +100,7 @@ export function serialise (model, obj = {}, method = 'POST') {
 
     isValid(obj, method, type)
 
-    if (method !== 'POST') data.id = String(obj.id)
+    if (obj.id) data.id = String(obj.id)
 
     for (const key in obj) {
       const node = obj[key]
