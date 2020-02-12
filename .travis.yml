@@ -10,13 +10,12 @@ node_js:
 - 10 # EOL Apr 21
 cache:
   yarn: true
-sudo: false
 matrix:
   fast_finish: true
 env:
   global:
     - YARN_GPG=no # https://travis-ci.community/t/build-doesnt-finish-after-completing-tests/288
-after_install: yarn bootstrap
+before_script: yarn bootstrap
 script: yarn test
 after_success:
 - test ${TRAVIS_JOB_NUMBER#*.} == 1 && test ${TRAVIS_OS_NAME} == "linux" && travis_retry yarn global add codeclimate-test-reporter
