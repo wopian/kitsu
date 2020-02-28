@@ -1,0 +1,13 @@
+dictionaries:
+  - en
+  - en_GB
+
+excluded_files:
+  - 'node_modules/**/*'
+  - 'yarn.lock'
+  - '.typo-ci.yml'
+
+excluded_words:
+  - deserialise
+  - Deserialises
+  - deserialised
