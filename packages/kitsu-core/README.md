@@ -67,7 +67,7 @@ camel(...)
 <script src='https://cdn.jsdelivr.net/npm/kitsu-core'></script>
 
 <!-- unpkg -->
-<script scr='https://unpkg.com/kitsu-core'></script>
+<script src='https://unpkg.com/kitsu-core'></script>
 ```
 
 ```js
