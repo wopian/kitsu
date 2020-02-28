@@ -11,3 +11,5 @@ excluded_words:
   - deserialise
   - Deserialises
   - deserialised
+  - devdependency
+  - monorepo
