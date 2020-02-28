@@ -78,7 +78,7 @@ describe('kitsu', () => {
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPatch(`posts/${patchSingle.jsonapi.data.id}`).reply(200, patchSingle.jsonapi)
       const request = await api.patch('posts', patchSingle.kitsu)
-      expect(request).toEqual(patchSingle.jsonapi)
+      expect(request).toEqual({ data: patchSingle.kitsu })
     })
   })
 })
