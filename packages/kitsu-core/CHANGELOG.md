@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.1.1](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v8.1.0...v8.1.1) (2020-02-28)
+
+
+### Chores
+
+* **release:** update documentation ([6201aa4](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/6201aa4))
+
+
+### Documentation Changes
+
+* **kitsu-core:** fix typo in CDN script example ([6ca6f62](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/6ca6f62))
+
+
+
+
+
 # [8.1.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v8.0.5...v8.1.0) (2020-02-28)
 
 
