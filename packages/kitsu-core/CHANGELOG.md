@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.1.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v8.0.5...v8.1.0) (2020-02-28)
+
+
+### Chores
+
+* **release:** update documentation ([8f1b075](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/8f1b075))
+
+
+### New Features
+
+* **kitsu:** deserialise POST and PATCH responses ([#371](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/371)) ([3c9c3ce](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/3c9c3ce))
+
+
+
+
+
 ## [8.0.5](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v8.0.4...v8.0.5) (2020-02-12)
 
 

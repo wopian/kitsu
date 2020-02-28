@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.1.0](https://github.com/wopian/kitsu/compare/v8.0.5...v8.1.0) (2020-02-28)
+
+
+### Chores
+
+* **release:** update documentation ([8f1b075](https://github.com/wopian/kitsu/commit/8f1b075))
+
+
+### Continuous Integration
+
+* **typo:** exclude devDependency and monorepo ([c04e7c3](https://github.com/wopian/kitsu/commit/c04e7c3))
+* add eslint github action ([f079c2e](https://github.com/wopian/kitsu/commit/f079c2e))
+* add Jest GitHub action ([8323ab4](https://github.com/wopian/kitsu/commit/8323ab4))
+* add Typo CI config file ([17a798b](https://github.com/wopian/kitsu/commit/17a798b))
+* fix action URI ([c3af40c](https://github.com/wopian/kitsu/commit/c3af40c))
+* remove broken ESLint action [skip ci] ([bb56909](https://github.com/wopian/kitsu/commit/bb56909))
+* remove broken Jest action ([bf5caeb](https://github.com/wopian/kitsu/commit/bf5caeb))
+* rename ESLint GitHub action ([a2f0cc5](https://github.com/wopian/kitsu/commit/a2f0cc5))
+* run ESLint action on push ([b3c623e](https://github.com/wopian/kitsu/commit/b3c623e))
+
+
+### New Features
+
+* **kitsu:** deserialise POST and PATCH responses ([#371](https://github.com/wopian/kitsu/issues/371)) ([3c9c3ce](https://github.com/wopian/kitsu/commit/3c9c3ce))
+
+
+### Other Changes
+
+* Update jest.yml ([98042bb](https://github.com/wopian/kitsu/commit/98042bb))
+* Delete jest_coverage.yml ([069f187](https://github.com/wopian/kitsu/commit/069f187))
+* Update jest_coverage.yml ([9a41f54](https://github.com/wopian/kitsu/commit/9a41f54))
+* Create jest_coverage.yml ([7447df0](https://github.com/wopian/kitsu/commit/7447df0))
+
+
+
+
+
 ## [8.0.5](https://github.com/wopian/kitsu/compare/v8.0.4...v8.0.5) (2020-02-12)
 
 
