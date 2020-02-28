@@ -226,7 +226,7 @@ export default class Kitsu {
         { headers: Object.assign(this.headers, headers) }
       )
 
-      return data
+      return deserialise(data)
     } catch (E) {
       throw error(E)
     }
@@ -262,7 +262,7 @@ export default class Kitsu {
         { headers: Object.assign(this.headers, headers) }
       )
 
-      return data
+      return deserialise(data)
     } catch (E) {
       throw error(E)
     }
