@@ -54,6 +54,8 @@ function deserialiseArray (obj) {
  * }) // { data: { id: '1', user: { type: 'users', id: '2', slug: 'wopian' } } }
  */
 export function deserialise (obj) {
+  if (!obj) return
+  
   // Collection of resources
   // Note: constructor is currently faster than isArray()
   // http://jsben.ch/QgYAV
