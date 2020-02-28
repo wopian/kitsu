@@ -55,7 +55,7 @@ function deserialiseArray (obj) {
  */
 export function deserialise (obj) {
   if (!obj) return
-  
+
   // Collection of resources
   // Note: constructor is currently faster than isArray()
   // http://jsben.ch/QgYAV
