@@ -13,7 +13,7 @@ const serial = {
   // camelCaseTypes: false  resourceCase: none    pluralize: false
   none: serialise.bind({ camel: skip, resCase: skip, plural: skip }),
   // camelCaseTypes: false  resourceCase: none    pluralize: true
-  nonePlural: serialise.bind({ camel: skip, resCase: skip, plural }),
+  nonePlural: serialise.bind({ camel: skip, resCase: skip, plural: skip }),
   // camelCaseTypes: false  resourceCase: snake   pluralize: false
   snake: serialise.bind({ camel: skip, resCase: snake, plural: skip }),
   // camelCaseTypes: false  resourceCase: snake   pluralize: true
@@ -176,6 +176,21 @@ describe('kitsu-core', () => {
           type: 'anime',
           attributes: {
             slug: 'Cowboy Bebop 2'
+          }
+        }
+      })
+    })
+
+    it('does not pluralise type', () => {
+      expect.assertions(1)
+      const input = serial.nonePlural('AttackOnTitan', {
+        slug: 'mikasa'
+      })
+      expect(input).toEqual({
+        data: {
+          type: 'AttackOnTitan',
+          attributes: {
+            slug: 'mikasa'
           }
         }
       })
