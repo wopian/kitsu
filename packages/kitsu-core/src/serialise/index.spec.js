@@ -1,10 +1,10 @@
-import plural from 'pluralize'
-import { camel, kebab, snake } from '../'
-import { serialise } from './'
+import plural from 'pluralize';
+import { camel, kebab, snake } from '../';
+import { serialise } from './';
 
 // Mock being run from the Kitsu Class:
 // serialise.call(this, [...args]) is used to pass constructor options
-const skip = s => s
+const skip = (s) => s;
 const serial = {
   // camelCaseTypes: false  resourceCase: kebab   pluralize: false
   kebab: serialise.bind({ camel: skip, resCase: kebab, plural: skip }),
@@ -13,7 +13,7 @@ const serial = {
   // camelCaseTypes: false  resourceCase: none    pluralize: false
   none: serialise.bind({ camel: skip, resCase: skip, plural: skip }),
   // camelCaseTypes: false  resourceCase: none    pluralize: true
-  nonePlural: serialise.bind({ camel: skip, resCase: skip, plural: skip }),
+  nonePlural: serialise.bind({ camel: skip, resCase: skip, plural }),
   // camelCaseTypes: false  resourceCase: snake   pluralize: false
   snake: serialise.bind({ camel: skip, resCase: snake, plural: skip }),
   // camelCaseTypes: false  resourceCase: snake   pluralize: true
@@ -30,15 +30,15 @@ const serial = {
   camelSnake: serialise.bind({ camel, resCase: snake, plural: skip }),
   // camelCaseTypes: true   resourceCase: snake   pluralize: true
   camelSnakePlural: serialise.bind({ camel, resCase: snake, plural })
-}
+};
 
 describe('kitsu-core', () => {
   describe('serialise', () => {
     it('serialises to a JSON API compliant object', () => {
-      expect.assertions(1)
+      expect.assertions(1);
       const input = serial.camelKebabPlural('libraryEntries', {
         ratingTwenty: 20
-      })
+      });
       expect(input).toEqual({
         data: {
           attributes: {
@@ -46,16 +46,16 @@ describe('kitsu-core', () => {
           },
           type: 'libraryEntries'
         }
-      })
-    })
+      });
+    });
 
     it('serialises JSON API relationships', () => {
-      expect.assertions(1)
+      expect.assertions(1);
       const input = serial.camelKebabPlural('libraryEntries', {
         user: {
           id: '2'
         }
-      })
+      });
       expect(input).toEqual({
         data: {
           relationships: {
@@ -68,11 +68,11 @@ describe('kitsu-core', () => {
           },
           type: 'libraryEntries'
         }
-      })
-    })
+      });
+    });
 
     it('serialises JSON API array relationships', () => {
-      expect.assertions(1)
+      expect.assertions(1);
       const input = serial.camelKebabPlural('libraryEntries', {
         user: [
           {
@@ -83,7 +83,7 @@ describe('kitsu-core', () => {
             id: '3'
           }
         ]
-      })
+      });
       expect(input).toEqual({
         data: {
           relationships: {
@@ -102,15 +102,15 @@ describe('kitsu-core', () => {
           },
           type: 'libraryEntries'
         }
-      })
-    })
+      });
+    });
 
     it('serialises JSON API with a client-generated ID', () => {
-      expect.assertions(1)
+      expect.assertions(1);
       const input = serial.camelKebabPlural('libraryEntries', {
         id: '123456789',
         ratingTwenty: 20
-      })
+      });
       expect(input).toEqual({
         data: {
           id: '123456789',
@@ -119,43 +119,44 @@ describe('kitsu-core', () => {
             ratingTwenty: 20
           }
         }
-      })
-    })
+      });
+    });
 
     it('throws an error when serialising array relationships with missing ID', () => {
-      expect.assertions(2)
+      expect.assertions(2);
       try {
         serial.camelKebabPlural('libraryEntries', {
           id: '1',
-          user: [
-            { foo: 'bar' },
-            { id: 3 }
-          ]
-        })
+          user: [ { foo: 'bar' }, { id: 3 } ]
+        });
       } catch (err) {
-        expect(err.name).toEqual('Error')
-        expect(err.message).toEqual('POST requires an ID for the user relationships')
+        expect(err.name).toEqual('Error');
+        expect(err.message).toEqual(
+          'POST requires an ID for the user relationships'
+        );
       }
-    })
+    });
 
     it('throws an error when serialising  relationships with missing ID', () => {
-      expect.assertions(2)
+      expect.assertions(2);
       try {
         serial.camelKebabPlural('libraryEntries', {
           id: '1',
           bar: { foo: 'bar' }
-        })
+        });
       } catch (err) {
-        expect(err.name).toEqual('Error')
-        expect(err.message).toEqual('POST requires an ID for the bar relationships')
+        expect(err.name).toEqual('Error');
+        expect(err.message).toEqual(
+          'POST requires an ID for the bar relationships'
+        );
       }
-    })
+    });
 
     it('pluralises type', () => {
-      expect.assertions(1)
+      expect.assertions(1);
       const input = serial.camelKebabPlural('libraryEntry', {
         rating: '1'
-      })
+      });
       expect(input).toEqual({
         data: {
           type: 'libraryEntries',
@@ -163,14 +164,14 @@ describe('kitsu-core', () => {
             rating: '1'
           }
         }
-      })
-    })
+      });
+    });
 
     it('does not pluralise mass nouns', () => {
-      expect.assertions(1)
+      expect.assertions(1);
       const input = serial.camelKebabPlural('anime', {
         slug: 'Cowboy Bebop 2'
-      })
+      });
       expect(input).toEqual({
         data: {
           type: 'anime',
@@ -178,40 +179,43 @@ describe('kitsu-core', () => {
             slug: 'Cowboy Bebop 2'
           }
         }
-      })
-    })
+      });
+    });
 
     it('does not pluralise type', () => {
-      expect.assertions(1)
-      const input = serial.nonePlural('AttackOnTitan', {
-        slug: 'mikasa'
-      })
+      expect.assertions(1);
+      const input = serial.none('libraryEntry', {
+        rating: '1'
+      });
       expect(input).toEqual({
         data: {
-          type: 'AttackOnTitan',
+          type: 'libraryEntry',
           attributes: {
-            slug: 'mikasa'
+            rating: '1'
           }
         }
-      })
-    })
+      });
+    });
 
     it('throws an error if obj is missing', () => {
-      expect.assertions(1)
-      expect(() => serial.camelKebabPlural('post'))
-        .toThrowError('POST requires a JSON object body')
-    })
+      expect.assertions(1);
+      expect(() => serial.camelKebabPlural('post')).toThrowError(
+        'POST requires a JSON object body'
+      );
+    });
 
     it('throws an error if obj is not an Object', () => {
-      expect.assertions(1)
-      expect(() => serial.camelKebabPlural('post', 'id: 1', 'DELETE'))
-        .toThrowError('DELETE requires a JSON object body')
-    })
+      expect.assertions(1);
+      expect(() =>
+        serial.camelKebabPlural('post', 'id: 1', 'DELETE')
+      ).toThrowError('DELETE requires a JSON object body');
+    });
 
     it('throws an error when missing ID', () => {
-      expect.assertions(1)
-      expect(() => serial.camelKebabPlural('user', { theme: 'dark' }, 'PATCH'))
-        .toThrowError('PATCH requires an ID for the users type')
-    })
-  })
-})
+      expect.assertions(1);
+      expect(() =>
+        serial.camelKebabPlural('user', { theme: 'dark' }, 'PATCH')
+      ).toThrowError('PATCH requires an ID for the users type');
+    });
+  });
+});
