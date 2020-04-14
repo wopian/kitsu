@@ -4,7 +4,7 @@ import { serialise } from './'
 
 // Mock being run from the Kitsu Class:
 // serialise.call(this, [...args]) is used to pass constructor options
-const skip = s => s
+const skip = (s) => s
 const serial = {
   // camelCaseTypes: false  resourceCase: kebab   pluralize: false
   kebab: serialise.bind({ camel: skip, resCase: kebab, plural: skip }),
@@ -127,14 +127,13 @@ describe('kitsu-core', () => {
       try {
         serial.camelKebabPlural('libraryEntries', {
           id: '1',
-          user: [
-            { foo: 'bar' },
-            { id: 3 }
-          ]
+          user: [ { foo: 'bar' }, { id: 3 } ]
         })
       } catch (err) {
         expect(err.name).toEqual('Error')
-        expect(err.message).toEqual('POST requires an ID for the user relationships')
+        expect(err.message).toEqual(
+          'POST requires an ID for the user relationships'
+        )
       }
     })
 
@@ -147,7 +146,9 @@ describe('kitsu-core', () => {
         })
       } catch (err) {
         expect(err.name).toEqual('Error')
-        expect(err.message).toEqual('POST requires an ID for the bar relationships')
+        expect(err.message).toEqual(
+          'POST requires an ID for the bar relationships'
+        )
       }
     })
 
@@ -181,22 +182,40 @@ describe('kitsu-core', () => {
       })
     })
 
+    it('does not pluralise type', () => {
+      expect.assertions(1)
+      const input = serial.none('libraryEntry', {
+        rating: '1'
+      })
+      expect(input).toEqual({
+        data: {
+          type: 'libraryEntry',
+          attributes: {
+            rating: '1'
+          }
+        }
+      })
+    })
+
     it('throws an error if obj is missing', () => {
       expect.assertions(1)
-      expect(() => serial.camelKebabPlural('post'))
-        .toThrowError('POST requires a JSON object body')
+      expect(() => serial.camelKebabPlural('post')).toThrowError(
+        'POST requires a JSON object body'
+      )
     })
 
     it('throws an error if obj is not an Object', () => {
       expect.assertions(1)
-      expect(() => serial.camelKebabPlural('post', 'id: 1', 'DELETE'))
-        .toThrowError('DELETE requires a JSON object body')
+      expect(() =>
+        serial.camelKebabPlural('post', 'id: 1', 'DELETE')
+      ).toThrowError('DELETE requires a JSON object body')
     })
 
     it('throws an error when missing ID', () => {
       expect.assertions(1)
-      expect(() => serial.camelKebabPlural('user', { theme: 'dark' }, 'PATCH'))
-        .toThrowError('PATCH requires an ID for the users type')
+      expect(() =>
+        serial.camelKebabPlural('user', { theme: 'dark' }, 'PATCH')
+      ).toThrowError('PATCH requires an ID for the users type')
     })
   })
 })

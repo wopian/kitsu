@@ -95,7 +95,7 @@ function serialiseAttr (node, key, data) {
  */
 export function serialise (model, obj = {}, method = 'POST') {
   try {
-    const type = this.plural(this.camel(model))
+    const type = this.plural ? this.plural(this.camel(model)) : this.camel(model)
     let data = { type }
 
     isValid(obj, method, type)
@@ -104,7 +104,7 @@ export function serialise (model, obj = {}, method = 'POST') {
 
     for (const key in obj) {
       const node = obj[key]
-      const nodeType = this.plural(this.camel(key))
+      const nodeType = this.plural ? this.plural(this.camel(key)) : this.camel(key)
       if (node !== null && node.constructor === Object) {
         data = serialiseObject(node, nodeType, key, data, method)
       } else if (node !== null && Array.isArray(node)) {
