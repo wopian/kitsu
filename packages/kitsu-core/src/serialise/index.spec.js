@@ -127,8 +127,8 @@ describe('kitsu-core', () => {
       try {
         serial.camelKebabPlural('libraryEntries', {
           id: '1',
-          user: [ 
-            { foo: 'bar' }, 
+          user: [
+            { foo: 'bar' },
             { id: 3 }
           ]
         })
