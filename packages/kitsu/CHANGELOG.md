@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.2.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v8.1.1...v8.2.0) (2020-04-26)
+
+
+### Build System / Dependencies
+
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib… ([#375](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/375)) ([d8bc45d](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/d8bc45d))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib… ([#379](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/379)) ([7efdc07](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/7efdc07))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib… ([#383](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/383)) ([d86a1e6](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/d86a1e6))
+
+
+### Chores
+
+* **release:** update documentation ([ef7efec](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/ef7efec))
+
+
+
+
+
 ## [8.1.1](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v8.1.0...v8.1.1) (2020-02-28)
 
 

@@ -3,6 +3,61 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.2.0](https://github.com/wopian/kitsu/compare/v8.1.1...v8.2.0) (2020-04-26)
+
+
+### Build System / Dependencies
+
+* update babel monorepo to ~7.9.0 ([#386](https://github.com/wopian/kitsu/issues/386)) ([2456e07](https://github.com/wopian/kitsu/commit/2456e07))
+* update devdependency axios-mock-adapter to ~1.18.0 ([#387](https://github.com/wopian/kitsu/issues/387)) ([43dc9c8](https://github.com/wopian/kitsu/commit/43dc9c8))
+* update devdependency documentation to ~12.2.0 ([#390](https://github.com/wopian/kitsu/issues/390)) ([505a33d](https://github.com/wopian/kitsu/commit/505a33d))
+* update devdependency documentation to ~12.3.0 ([#392](https://github.com/wopian/kitsu/issues/392)) ([26f2bd0](https://github.com/wopian/kitsu/commit/26f2bd0))
+* update devdependency rollup to ~1.32.0 ([#372](https://github.com/wopian/kitsu/issues/372)) ([6c9f2a1](https://github.com/wopian/kitsu/commit/6c9f2a1))
+* update devdependency rollup to ~2.0.0 ([#378](https://github.com/wopian/kitsu/issues/378)) ([b159bf4](https://github.com/wopian/kitsu/commit/b159bf4))
+* update devdependency rollup to ~2.1.0 ([#385](https://github.com/wopian/kitsu/issues/385)) ([88d248b](https://github.com/wopian/kitsu/commit/88d248b))
+* update devdependency rollup to ~2.2.0 ([#388](https://github.com/wopian/kitsu/issues/388)) ([125aacd](https://github.com/wopian/kitsu/commit/125aacd))
+* update devdependency rollup to ~2.3.0 ([#391](https://github.com/wopian/kitsu/issues/391)) ([7ec59ad](https://github.com/wopian/kitsu/commit/7ec59ad))
+* update devdependency rollup to ~2.6.0 ([#394](https://github.com/wopian/kitsu/issues/394)) ([5c4fe30](https://github.com/wopian/kitsu/commit/5c4fe30))
+* update devdependency rollup-plugin-babel to ~4.4.0 ([#377](https://github.com/wopian/kitsu/issues/377)) ([1d20b61](https://github.com/wopian/kitsu/commit/1d20b61))
+* update devdependency rollup-plugin-terser to ~5.3.0 ([#381](https://github.com/wopian/kitsu/issues/381)) ([9610db7](https://github.com/wopian/kitsu/commit/9610db7))
+* update devdependency size-limit to ~4.1.0 ([#376](https://github.com/wopian/kitsu/issues/376)) ([34eb633](https://github.com/wopian/kitsu/commit/34eb633))
+* update devdependency size-limit to ~4.3.0 ([#380](https://github.com/wopian/kitsu/issues/380)) ([7663039](https://github.com/wopian/kitsu/commit/7663039))
+* update devdependency size-limit to ~4.4.0 ([#384](https://github.com/wopian/kitsu/issues/384)) ([1e4e083](https://github.com/wopian/kitsu/commit/1e4e083))
+* update jest monorepo to ~25.2.0 ([#389](https://github.com/wopian/kitsu/issues/389)) ([ee85ddd](https://github.com/wopian/kitsu/commit/ee85ddd))
+* update jest monorepo to ~25.3.0 ([#393](https://github.com/wopian/kitsu/issues/393)) ([7b9c68c](https://github.com/wopian/kitsu/commit/7b9c68c))
+* **deps:** bump acorn from 5.7.3 to 5.7.4 ([#382](https://github.com/wopian/kitsu/issues/382)) ([f8fa47e](https://github.com/wopian/kitsu/commit/f8fa47e))
+* **kitsu:** lock file maintenance ([#373](https://github.com/wopian/kitsu/issues/373)) ([d98172e](https://github.com/wopian/kitsu/commit/d98172e))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib… ([#375](https://github.com/wopian/kitsu/issues/375)) ([d8bc45d](https://github.com/wopian/kitsu/commit/d8bc45d))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib… ([#379](https://github.com/wopian/kitsu/issues/379)) ([7efdc07](https://github.com/wopian/kitsu/commit/7efdc07))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib… ([#383](https://github.com/wopian/kitsu/issues/383)) ([d86a1e6](https://github.com/wopian/kitsu/commit/d86a1e6))
+
+
+### Chores
+
+* **release:** update documentation ([ef7efec](https://github.com/wopian/kitsu/commit/ef7efec))
+* remove trailing spaces ([16d33a7](https://github.com/wopian/kitsu/commit/16d33a7))
+* undo formatting changes in [#395](https://github.com/wopian/kitsu/issues/395) ([a4d7b23](https://github.com/wopian/kitsu/commit/a4d7b23))
+* update lockfile ([6f71f09](https://github.com/wopian/kitsu/commit/6f71f09))
+
+
+### Continuous Integration
+
+* only cache node_modules ([82b8eb4](https://github.com/wopian/kitsu/commit/82b8eb4))
+
+
+### New Features
+
+* **kitsu-core:** optional pluralisation during serialisation ([#395](https://github.com/wopian/kitsu/issues/395)) ([c2e6f02](https://github.com/wopian/kitsu/commit/c2e6f02))
+
+
+### Other Changes
+
+* Revert "build: update devdependency documentation to ~12.3.0" (#396) ([94052ba](https://github.com/wopian/kitsu/commit/94052ba)), closes [#396](https://github.com/wopian/kitsu/issues/396)
+
+
+
+
+
 ## [8.1.1](https://github.com/wopian/kitsu/compare/v8.1.0...v8.1.1) (2020-02-28)
 
 
