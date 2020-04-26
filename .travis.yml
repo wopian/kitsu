@@ -8,8 +8,6 @@ node_js:
 - node
 - 12 # EOL Apr 22
 - 10 # EOL Apr 21
-cache:
-  yarn: true
 matrix:
   fast_finish: true
 env:
