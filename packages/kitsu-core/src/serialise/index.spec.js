@@ -291,7 +291,7 @@ describe('kitsu-core', () => {
         }
       })
     })
-    
+
     it('serialises relationship clearing (to-one)', () => {
       expect.assertions(1)
       const input = serial.none('resourceModel', null)
