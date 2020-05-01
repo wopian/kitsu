@@ -213,5 +213,21 @@ describe('kitsu-core', () => {
       expect(() => serial.camelKebabPlural('user', { theme: 'dark' }, 'PATCH'))
         .toThrowError('PATCH requires an ID for the users type')
     })
+
+    it('serialises relationship clearing (to-one)', () => {
+      expect.assertions(1)
+      const input = serial.none('resourceModel', null)
+      expect(input).toEqual({
+        data: null
+      })
+    })
+
+    it('serialises relationship clearing (to-many)', () => {
+      expect.assertions(1)
+      const input = serial.none('resourceModel', [])
+      expect(input).toEqual({
+        data: []
+      })
+    })
   })
 })
