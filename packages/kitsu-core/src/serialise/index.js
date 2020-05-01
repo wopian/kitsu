@@ -83,6 +83,8 @@ function serialiseAttr (node, key, data) {
  * Checks if the object contains an id property
  *
  * @param {Object} node Attribute value
+ * @returns {boolean} Whether `id` exists in object
+ * @private
  */
 function hasID (node) {
   return Object.prototype.hasOwnProperty.call(node, 'id')
