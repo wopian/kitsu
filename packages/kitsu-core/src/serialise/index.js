@@ -1,7 +1,5 @@
 import { error } from '../error'
 
-const requiresID = (method, key) => `${method} requires an ID for the ${key} relationships`
-
 /**
  * Checks if data is valid for serialisation
  *
@@ -31,7 +29,6 @@ function isValid (obj, method, type) {
  * @private
  */
 function serialiseObject (node, nodeType, key, data, method) {
-  if (typeof node.id !== 'string') throw new Error(requiresID(method, key))
   if (!data.relationships) data.relationships = {}
   // Guess type if not provided
   if (!node.type) node.type = nodeType
@@ -55,7 +52,6 @@ function serialiseArray (node, nodeType, key, data, method) {
   if (!data.relationships) data.relationships = {}
   data.relationships[key] = {
     data: node.map(({ id, type }) => {
-      if (!id) throw new Error(requiresID(method, key))
       return {
         id,
         type: type || nodeType
