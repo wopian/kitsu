@@ -95,6 +95,9 @@ function serialiseAttr (node, key, data) {
  */
 export function serialise (model, obj = {}, method = 'POST') {
   try {
+    // Delete relationship to-one (data: null) or to-many (data: [])
+    if (obj === null || (Array.isArray(obj) && obj.length === 0)) return { data: obj }
+
     const type = this.plural ? this.plural(this.camel(model)) : this.camel(model)
     let data = { type }
 
