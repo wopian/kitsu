@@ -80,6 +80,15 @@ function serialiseAttr (node, key, data) {
 }
 
 /**
+ * Checks if the object contains a type property
+ *
+ * @param {Object} node Attribute value
+ */
+function hasID (node) {
+  return Object.prototype.hasOwnProperty.call(node, 'id')
+}
+
+/**
  * Serialises an object into a JSON-API structure
  *
  * @param {string} model Request model
@@ -105,10 +114,13 @@ export function serialise (model, obj = {}, method = 'POST') {
     for (const key in obj) {
       const node = obj[key]
       const nodeType = this.plural ? this.plural(this.camel(key)) : this.camel(key)
-      if (node !== null && node.constructor === Object) {
+      // 1. Skip null nodes, 2. Only grab objects, 3. Filter to only serialise relationable objects
+      if (node !== null && node.constructor === Object && hasID(node)) {
         data = serialiseObject(node, nodeType, key, data, method)
-      } else if (node !== null && Array.isArray(node)) {
+      // 1. Skip null nodes, 2. Only grab arrays, 3. Filter to only serialise relationable arrays
+      } else if (node !== null && Array.isArray(node) && (node.length > 0 && hasID(node[0]))) {
         data = serialiseArray(node, nodeType, key, data, method)
+      // 1. Don't place id/key inside attributes object
       } else if (key !== 'id' && key !== 'type') {
         data = serialiseAttr(node, key, data)
       }
