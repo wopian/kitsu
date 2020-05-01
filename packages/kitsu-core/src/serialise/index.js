@@ -80,7 +80,7 @@ function serialiseAttr (node, key, data) {
 }
 
 /**
- * Checks if the object contains a type property
+ * Checks if the object contains an id property
  *
  * @param {Object} node Attribute value
  */
