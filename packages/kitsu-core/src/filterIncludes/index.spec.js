@@ -13,5 +13,11 @@ describe('kitsu-core', () => {
       const response = filterIncludes([], { id: '1', type: 'comments' })
       expect(response).toEqual({ id: '1', type: 'comments' })
     })
+
+    it('returns an empty object if id is undefined', () => {
+      expect.assertions(1)
+      const response = filterIncludes([], { })
+      expect(response).toEqual({ })
+    })
   })
 })

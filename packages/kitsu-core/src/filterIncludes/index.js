@@ -11,10 +11,14 @@ import { error } from '../error'
  */
 export function filterIncludes (included, { id, type }) {
   try {
-    const filtered = included.filter(el => {
-      return el.id === id && el.type === type
-    })[0] || { id, type }
-    return Object.assign({}, filtered)
+    if (id && type) {
+      const filtered = included.filter(el => {
+        return el.id === id && el.type === type
+      })[0] || { id, type }
+      return Object.assign({}, filtered)
+    } else {
+      return {}
+    }
   } catch (E) {
     error(E)
   }
