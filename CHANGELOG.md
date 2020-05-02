@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.3.0](https://github.com/wopian/kitsu/compare/v8.2.0...v8.3.0) (2020-05-02)
+
+
+### Build System / Dependencies
+
+* **kitsu:** lock file maintenance ([#401](https://github.com/wopian/kitsu/issues/401)) ([64f2586](https://github.com/wopian/kitsu/commit/64f2586))
+* update devdependency replace-in-file to ~6.0.0 ([#400](https://github.com/wopian/kitsu/issues/400)) ([5db96f7](https://github.com/wopian/kitsu/commit/5db96f7))
+* update devdependency rollup to ~2.7.0 ([#399](https://github.com/wopian/kitsu/issues/399)) ([a169976](https://github.com/wopian/kitsu/commit/a169976))
+* update jest monorepo to ~25.4.0 ([#398](https://github.com/wopian/kitsu/issues/398)) ([d32635c](https://github.com/wopian/kitsu/commit/d32635c))
+
+
+### Chores
+
+* **release:** update documentation ([5382aad](https://github.com/wopian/kitsu/commit/5382aad))
+
+
+### New Features
+
+* **kitsu-core:** check id exists before serialising objects/arrays as relationships ([#402](https://github.com/wopian/kitsu/issues/402)) ([79287d0](https://github.com/wopian/kitsu/commit/79287d0))
+* **kitsu-core:** serialise deletion of to-one and to-many relationships ([#403](https://github.com/wopian/kitsu/issues/403)) ([5f868e7](https://github.com/wopian/kitsu/commit/5f868e7))
+
+
+
+
+
 # [8.2.0](https://github.com/wopian/kitsu/compare/v8.1.1...v8.2.0) (2020-04-26)
 
 
