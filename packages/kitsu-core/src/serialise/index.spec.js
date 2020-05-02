@@ -122,35 +122,6 @@ describe('kitsu-core', () => {
       })
     })
 
-    it('throws an error when serialising array relationships with missing ID', () => {
-      expect.assertions(2)
-      try {
-        serial.camelKebabPlural('libraryEntries', {
-          id: '1',
-          user: [
-            { foo: 'bar' },
-            { id: 3 }
-          ]
-        })
-      } catch (err) {
-        expect(err.name).toEqual('Error')
-        expect(err.message).toEqual('POST requires an ID for the user relationships')
-      }
-    })
-
-    it('throws an error when serialising  relationships with missing ID', () => {
-      expect.assertions(2)
-      try {
-        serial.camelKebabPlural('libraryEntries', {
-          id: '1',
-          bar: { foo: 'bar' }
-        })
-      } catch (err) {
-        expect(err.name).toEqual('Error')
-        expect(err.message).toEqual('POST requires an ID for the bar relationships')
-      }
-    })
-
     it('pluralises type', () => {
       expect.assertions(1)
       const input = serial.camelKebabPlural('libraryEntry', {
@@ -212,6 +183,113 @@ describe('kitsu-core', () => {
       expect.assertions(1)
       expect(() => serial.camelKebabPlural('user', { theme: 'dark' }, 'PATCH'))
         .toThrowError('PATCH requires an ID for the users type')
+    })
+
+    it('serialises strings/numbers/booleans into attributes', () => {
+      expect.assertions(1)
+      const input = serial.none('resourceModel', {
+        string: 'shark',
+        number: 1,
+        boolean: true
+      })
+      expect(input).toEqual({
+        data: {
+          type: 'resourceModel',
+          attributes: {
+            string: 'shark',
+            number: 1,
+            boolean: true
+          }
+        }
+      })
+    })
+
+    it('serialises bare objects into attributes', () => {
+      expect.assertions(1)
+      const input = serial.none('resourceModel', {
+        object: {
+          string: 'shark'
+        },
+        blank: {}
+      })
+      expect(input).toEqual({
+        data: {
+          type: 'resourceModel',
+          attributes: {
+            object: {
+              string: 'shark'
+            },
+            blank: {}
+          }
+        }
+      })
+    })
+
+    it('serialises type objects into relationships', () => {
+      expect.assertions(1)
+      const input = serial.none('resourceModel', {
+        object: {
+          id: '1',
+          type: 'relationshipModel'
+        }
+      })
+      expect(input).toEqual({
+        data: {
+          type: 'resourceModel',
+          relationships: {
+            object: {
+              data: {
+                id: '1',
+                type: 'relationshipModel'
+              }
+            }
+          }
+        }
+      })
+    })
+
+    it('serialises bare arrays into attributes', () => {
+      expect.assertions(1)
+      const input = serial.none('resourceModel', {
+        array: [ 0 ],
+        deepArray: [ [ 0 ] ],
+        arrayObject: [ { string: 'shark' } ],
+        blank: []
+      })
+      expect(input).toEqual({
+        data: {
+          type: 'resourceModel',
+          attributes: {
+            array: [ 0 ],
+            deepArray: [ [ 0 ] ],
+            arrayObject: [ { string: 'shark' } ],
+            blank: []
+          }
+        }
+      })
+    })
+
+    it('serialises type arrays into relationships', () => {
+      expect.assertions(1)
+      const input = serial.none('resourceModel', {
+        array: [ {
+          id: '1',
+          type: 'relationshipModel'
+        } ]
+      })
+      expect(input).toEqual({
+        data: {
+          type: 'resourceModel',
+          relationships: {
+            array: {
+              data: [ {
+                id: '1',
+                type: 'relationshipModel'
+              } ]
+            }
+          }
+        }
+      })
     })
 
     it('serialises relationship clearing (to-one)', () => {
