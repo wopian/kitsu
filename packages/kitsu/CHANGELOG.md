@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.3.1](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v8.3.0...v8.3.1) (2020-05-02)
+
+
+### Chores
+
+* **release:** update documentation ([0d6e89b](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/0d6e89b))
+* remove old devDependencies no longer used ([72acbe7](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/72acbe7))
+
+
+
+
+
 # [8.3.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v8.2.0...v8.3.0) (2020-05-02)
 
 

@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.3.1](https://github.com/wopian/kitsu/compare/v8.3.0...v8.3.1) (2020-05-02)
+
+
+### Bug Fixes
+
+* prevent undefined id for empty relationship data objects ([ee381a9](https://github.com/wopian/kitsu/commit/ee381a9))
+
+
+### Build System / Dependencies
+
+* update jest monorepo ([#404](https://github.com/wopian/kitsu/issues/404)) ([d26b606](https://github.com/wopian/kitsu/commit/d26b606))
+
+
+### Chores
+
+* **release:** update documentation ([0d6e89b](https://github.com/wopian/kitsu/commit/0d6e89b))
+* remove old devDependencies no longer used ([72acbe7](https://github.com/wopian/kitsu/commit/72acbe7))
+
+
+
+
+
 # [8.3.0](https://github.com/wopian/kitsu/compare/v8.2.0...v8.3.0) (2020-05-02)
 
 
