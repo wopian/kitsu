@@ -13,14 +13,12 @@ const sharedGlobals = {
 /* Babel Config */
 const exclude = [ '*.json', 'node_modules/**/*' ]
 
-const runtimeHelpers = true
-
 const sharedConfig = {
   babelrc: false,
   configFile: false,
   comments: false,
   exclude,
-  runtimeHelpers
+  babelHelpers: 'bundled'
 }
 
 const babelTest = {
