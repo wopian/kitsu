@@ -99,7 +99,6 @@ export function linkRelationships (data, included = []) {
   const { relationships } = data
 
   for (const key in relationships) {
-    // console.log(relationships)
     // Relationship contains collection of resources
     if (relationships[key].data && relationships[key].data.constructor === Array) {
       linkArray(data, included, key)
