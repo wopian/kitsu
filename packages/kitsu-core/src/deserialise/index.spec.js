@@ -82,9 +82,11 @@ describe('kitsu-core', () => {
           {
             name: 'Josh',
             waifu: {
-              name: 'Genkai',
-              id: '1',
-              type: 'characters'
+              data: {
+                name: 'Genkai',
+                id: '1',
+                type: 'characters'
+              }
             },
             id: '1',
             type: 'users'
@@ -124,9 +126,11 @@ describe('kitsu-core', () => {
         data: {
           name: 'Josh',
           waifu: {
-            name: 'Genkai',
-            id: '1',
-            type: 'characters'
+            data: {
+              name: 'Genkai',
+              id: '1',
+              type: 'characters'
+            }
           },
           id: '1',
           type: 'users'
@@ -151,6 +155,338 @@ describe('kitsu-core', () => {
           type: 'users'
         }
       })
+    })
+
+    it('deserialises relationships with links', () => {
+      expect.assertions(1)
+      expect(deserialise({
+        data: {
+          id: '1',
+          type: 'users',
+          relationships: {
+            followers: {
+              links: {
+                self: 'https://kitsu.example/users/1/relationships/followers',
+                related: 'https://kitsu.example/users/1/followers'
+              }
+            }
+          }
+        }
+      })).toEqual({
+        data: {
+          id: '1',
+          type: 'users',
+          followers: {
+            links: {
+              self: 'https://kitsu.example/users/1/relationships/followers',
+              related: 'https://kitsu.example/users/1/followers'
+            }
+          }
+        }
+      })
+    })
+
+    it('deserialises relationships with links and data (array)', () => {
+      expect.assertions(1)
+
+      const input = deserialise({
+        data: {
+          id: '1',
+          type: 'users',
+          relationships: {
+            followers: {
+              links: {
+                self: 'https://kitsu.example/users/1/relationships/followers',
+                related: 'https://kitsu.example/users/1/followers'
+              },
+              data: [ {
+                type: 'follows',
+                id: '1'
+              },
+              {
+                type: 'follows',
+                id: '2'
+              } ]
+            }
+          }
+        },
+        included: [
+          {
+            id: '1',
+            type: 'follows',
+            links: {
+              self: 'https://kitsu.example/follows/1'
+            },
+            relationships: {
+              follower: {
+                links: {
+                  self: 'https://kitsu.io/follows/1/relationships/follower',
+                  related: 'https://kitsu.io/follows/1/follower'
+                }
+              },
+              followed: {
+                links: {
+                  self: 'https://kitsu.io/follows/1/relationships/followed',
+                  related: 'https://kitsu.io/follows/1/followed'
+                }
+              }
+            }
+          },
+          {
+            id: '2',
+            type: 'follows',
+            links: {
+              self: 'https://kitsu.example/follows/2'
+            },
+            relationships: {
+              follower: {
+                links: {
+                  self: 'https://kitsu.io/follows/2/relationships/follower',
+                  related: 'https://kitsu.io/follows/2/follower'
+                }
+              },
+              followed: {
+                links: {
+                  self: 'https://kitsu.io/follows/2/relationships/followed',
+                  related: 'https://kitsu.io/follows/2/followed'
+                }
+              }
+            }
+          }
+        ]
+      })
+
+      const output = {
+        data: {
+          id: '1',
+          type: 'users',
+          followers: {
+            links: {
+              self: 'https://kitsu.example/users/1/relationships/followers',
+              related: 'https://kitsu.example/users/1/followers'
+            },
+            data: [
+              {
+                id: '1',
+                type: 'follows',
+                links: {
+                  self: 'https://kitsu.example/follows/1'
+                },
+                follower: {
+                  links: {
+                    self: 'https://kitsu.io/follows/1/relationships/follower',
+                    related: 'https://kitsu.io/follows/1/follower'
+                  }
+                },
+                followed: {
+                  links: {
+                    self: 'https://kitsu.io/follows/1/relationships/followed',
+                    related: 'https://kitsu.io/follows/1/followed'
+                  }
+                }
+              },
+              {
+                id: '2',
+                type: 'follows',
+                links: {
+                  self: 'https://kitsu.example/follows/2'
+                },
+                follower: {
+                  links: {
+                    self: 'https://kitsu.io/follows/2/relationships/follower',
+                    related: 'https://kitsu.io/follows/2/follower'
+                  }
+                },
+                followed: {
+                  links: {
+                    self: 'https://kitsu.io/follows/2/relationships/followed',
+                    related: 'https://kitsu.io/follows/2/followed'
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+
+      expect(input).toEqual(output)
+    })
+
+    it('deserialises relationships with links and data (object)', () => {
+      expect.assertions(1)
+
+      const input = deserialise({
+        data: {
+          id: '1',
+          type: 'users',
+          relationships: {
+            waifu: {
+              links: {
+                self: 'https://kitsu.example/users/1/relationships/waifu',
+                related: 'https://kitsu.example/users/1/waifu'
+              },
+              data: {
+                type: 'characters',
+                id: '1'
+              }
+            }
+          }
+        },
+        included: [
+          {
+            id: '1',
+            type: 'characters',
+            links: {
+              self: 'https://kitsu.example/characters/1'
+            },
+            relationships: {
+              primaryMedia: {
+                links: {
+                  self: 'https://kitsu.io/characters/1/relationships/primary-media',
+                  related: 'https://kitsu.io/characters/1/primary-media'
+                }
+              }
+            }
+          }
+        ]
+      })
+
+      const output = {
+        data: {
+          id: '1',
+          type: 'users',
+          waifu: {
+            links: {
+              self: 'https://kitsu.example/users/1/relationships/waifu',
+              related: 'https://kitsu.example/users/1/waifu'
+            },
+            data: {
+              id: '1',
+              type: 'characters',
+              links: {
+                self: 'https://kitsu.example/characters/1'
+              },
+              primaryMedia: {
+                links: {
+                  self: 'https://kitsu.io/characters/1/relationships/primary-media',
+                  related: 'https://kitsu.io/characters/1/primary-media'
+                }
+              }
+            }
+          }
+        }
+      }
+
+      expect(input).toEqual(output)
+    })
+
+    it('deserialises a relationship used twice or more', () => {
+      expect.assertions(1)
+
+      const input = deserialise({
+        data: [
+          {
+            id: '1',
+            type: 'anime',
+            relationships: {
+              categories: {
+                links: {
+                  self: 'https://kitsu.example/anime/1/relationships/categories',
+                  related: 'https://kitsu.example/anime/1/categories'
+                },
+                data: [
+                  {
+                    type: 'categories',
+                    id: '10'
+                  }
+                ]
+              }
+            }
+          },
+          {
+            id: '2',
+            type: 'anime',
+            relationships: {
+              categories: {
+                links: {
+                  self: 'https://kitsu.example/anime/2/relationships/categories',
+                  related: 'https://kitsu.example/anime/2/categories'
+                },
+                data: [
+                  {
+                    type: 'categories',
+                    id: '10'
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        included: [
+          {
+            id: '10',
+            type: 'categories',
+            links: {
+              self: 'https://kitsu.example/categories/10'
+            }
+          }
+        ]
+      })
+
+      const output = {
+        data: [
+          {
+            id: '1',
+            type: 'anime',
+            categories: {
+              links: {
+                self: 'https://kitsu.example/anime/1/relationships/categories',
+                related: 'https://kitsu.example/anime/1/categories'
+              },
+              data: [
+                {
+                  id: '10',
+                  type: 'categories',
+                  links: {
+                    self: 'https://kitsu.example/categories/10'
+                  }
+                }
+              ]
+            }
+          },
+          {
+            id: '2',
+            type: 'anime',
+            categories: {
+              links: {
+                self: 'https://kitsu.example/anime/2/relationships/categories',
+                related: 'https://kitsu.example/anime/2/categories'
+              },
+              data: [
+                {
+                  id: '10',
+                  type: 'categories',
+                  links: {
+                    self: 'https://kitsu.example/categories/10'
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+
+      expect(input).toEqual(output)
+    })
+
+    it('deserialises an empty object', () => {
+      expect.assertions(1)
+      expect(deserialise({})).toEqual({})
+    })
+
+    it('deserialises an empty array', () => {
+      expect.assertions(1)
+      expect(deserialise([])).toEqual([])
     })
   })
 })

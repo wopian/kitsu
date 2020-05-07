@@ -26,9 +26,11 @@ describe('kitsu-core', () => {
       expect(linkRelationships(data, included))
         .toEqual({
           waifu: {
-            id: '3',
-            name: 'Maki',
-            type: 'characters'
+            data: {
+              id: '3',
+              name: 'Maki',
+              type: 'characters'
+            }
           }
         })
     })
@@ -69,18 +71,20 @@ describe('kitsu-core', () => {
       ]
       expect(linkRelationships(data, included))
         .toEqual({
-          favorites: [
-            {
-              id: '1',
-              favRank: 1,
-              type: 'favorites'
-            },
-            {
-              id: '2',
-              favRank: 1,
-              type: 'favorites'
-            }
-          ]
+          favorites: {
+            data: [
+              {
+                id: '1',
+                favRank: 1,
+                type: 'favorites'
+              },
+              {
+                id: '2',
+                favRank: 1,
+                type: 'favorites'
+              }
+            ]
+          }
         })
     })
 
@@ -114,9 +118,11 @@ describe('kitsu-core', () => {
             author: 'Joe'
           },
           author: {
-            id: '1',
-            name: 'Joe',
-            type: 'people'
+            data: {
+              id: '1',
+              name: 'Joe',
+              type: 'people'
+            }
           }
         })
     })
@@ -163,19 +169,63 @@ describe('kitsu-core', () => {
           attributes: {
             authors: [ 'Joe', 'Mary' ]
           },
-          authors: [
-            {
-              id: '1',
-              name: 'Joe',
-              type: 'people'
-            },
-            {
-              id: '2',
-              name: 'Mary',
-              type: 'people'
-            }
-          ]
+          authors: {
+            data: [
+              {
+                id: '1',
+                name: 'Joe',
+                type: 'people'
+              },
+              {
+                id: '2',
+                name: 'Mary',
+                type: 'people'
+              }
+            ]
+          }
         })
+    })
+
+    it('accepts empty inputs', () => {
+      expect.assertions(1)
+      expect(linkRelationships({}, [])).toEqual({})
+    })
+
+    it('accepts empty inputs 2', () => {
+      expect.assertions(1)
+      expect(linkRelationships({}, undefined)).toEqual({})
+    })
+
+    it('gracefully handles broken relationship syntax', () => {
+      expect.assertions(1)
+      const data = {
+        relationships: {
+          test: {}
+        }
+      }
+      expect(linkRelationships(data, undefined)).toEqual({
+        test: {}
+      })
+    })
+
+    it('accepts link-only relationships', () => {
+      expect.assertions(1)
+      const data = {
+        relationships: {
+          test: {
+            links: {
+              self: 'https://kitsu.example'
+            }
+          }
+        }
+      }
+      expect(linkRelationships(data, undefined)).toEqual({
+        test: {
+          links: {
+            self: 'https://kitsu.example'
+          }
+        }
+      })
     })
   })
 })

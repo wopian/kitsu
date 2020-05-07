@@ -11,10 +11,11 @@ import { filterIncludes } from '../filterIncludes'
  * @param {Object} included The response included object
  * @private
  */
-function link ({ id, type, meta }, included) {
+function link ({ id, type, meta, links }, included) {
   const filtered = filterIncludes(included, { id, type })
   if (filtered.relationships) linkRelationships(filtered, included)
   if (meta) filtered.meta = meta
+
   return deattribute(filtered)
 }
 
@@ -27,10 +28,13 @@ function link ({ id, type, meta }, included) {
  * @private
  */
 function linkArray (data, included, key) {
-  data[key] = []
+  data[key] = {}
+  if (data.relationships[key].links) data[key].links = data.relationships[key].links
+  data[key].data = []
   for (const resource of data.relationships[key].data) {
-    data[key].push(link(resource, included))
+    data[key].data.push(link(resource, included))
   }
+  delete data.relationships[key]
 }
 
 /**
@@ -42,8 +46,24 @@ function linkArray (data, included, key) {
  * @private
  */
 function linkObject (data, included, key) {
-  data[key] = link(data.relationships[key].data, included)
-  delete data[key].relationships
+  data[key] = {}
+  data[key].data = link(data.relationships[key].data, included)
+  if (data.relationships[key].links) data[key].links = data.relationships[key].links
+  delete data.relationships[key]
+}
+
+/**
+ * Helper function for relationships with no data
+ *
+ * @param {Object} data The response data object
+ * @param {Object} included The response included object
+ * @param {string} key Name of the relationship item
+ * @private
+ */
+function linkAttr (data, included, key) {
+  data[key] = {}
+  if (data.relationships[key].links) data[key].links = data.relationships[key].links
+  delete data.relationships[key]
 }
 
 /**
@@ -52,23 +72,25 @@ function linkObject (data, included, key) {
  * @param {Object} data The response data object
  * @param {Object} included The response included object
  */
-export function linkRelationships (data, included) {
+export function linkRelationships (data, included = []) {
   const { relationships } = data
-  let removeRelationships = false
 
   for (const key in relationships) {
+    // console.log(relationships)
     // Relationship contains collection of resources
-    if (relationships[key].data && Array.isArray(relationships[key].data)) {
+    if (relationships[key].data && relationships[key].data.constructor === Array) {
       linkArray(data, included, key)
-      removeRelationships = true
     // Relationship contains a single resource
     } else if (relationships[key].data) {
       linkObject(data, included, key)
-      removeRelationships = true
+    } else {
+      linkAttr(data, included, key)
     }
   }
 
-  if (removeRelationships) delete data.relationships
+  if (relationships && Object.keys(relationships).length === 0 && relationships.constructor === Object) {
+    delete data.relationships
+  }
 
   return data
 }

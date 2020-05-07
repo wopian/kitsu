@@ -9,12 +9,10 @@ export default {
     object: {
       string: 'string'
     },
-    relationships: {
-      author: {
-        links: {
-          related: 'https://api.example/articles/1/author',
-          self: 'https://api.example/articles/1/relationships/author'
-        }
+    author: {
+      links: {
+        related: 'https://api.example/articles/1/author',
+        self: 'https://api.example/articles/1/relationships/author'
       }
     },
     string: 'string',

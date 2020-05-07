@@ -112,12 +112,6 @@ export default {
         nsfw: false
       },
       relationships: {
-        genres: {
-          links: {
-            self: 'https://kitsu.io/api/edge/anime/1/relationships/genres',
-            related: 'https://kitsu.io/api/edge/anime/1/genres'
-          }
-        },
         categories: {
           links: {
             self: 'https://kitsu.io/api/edge/anime/1/relationships/categories',
@@ -248,12 +242,6 @@ export default {
         nsfw: false
       },
       relationships: {
-        genres: {
-          links: {
-            self: 'https://kitsu.io/api/edge/anime/2/relationships/genres',
-            related: 'https://kitsu.io/api/edge/anime/2/genres'
-          }
-        },
         categories: {
           links: {
             self: 'https://kitsu.io/api/edge/anime/2/relationships/categories',

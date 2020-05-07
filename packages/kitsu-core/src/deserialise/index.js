@@ -11,6 +11,7 @@ import { linkRelationships } from '../linkRelationships'
 function deserialiseArray (obj) {
   for (let value of obj.data) {
     if (obj.included) value = linkRelationships(value, obj.included)
+    if (value.relationships) value = linkRelationships(value)
     if (value.attributes) value = deattribute(value)
     obj.data[obj.data.indexOf(value)] = value
   }
@@ -62,6 +63,7 @@ export function deserialise (obj) {
   if (obj.data && obj.data.constructor === Array) obj = deserialiseArray(obj)
   // Single resource with included relationships
   else if (obj.included) obj.data = linkRelationships(obj.data, obj.included)
+  else if (obj.data && obj.data.constructor === Object) obj.data = linkRelationships(obj.data)
 
   delete obj.included
 

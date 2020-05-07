@@ -109,57 +109,59 @@ export default {
       youtubeVideoId: 'qig4KOK2R2g',
       showType: 'TV',
       nsfw: false,
-      categories: [
-        {
-          childCount: 8,
-          createdAt: '2017-05-31T06:39:22.090Z',
-          id: '155',
-          image: null,
-          links: {
-            self: 'https://kitsu.io/api/edge/categories/155'
-          },
-          meta: {
-            dic1: 'def1'
-          },
-          nsfw: false,
-          relationships: {
+      categories: {
+        links: {
+          related: 'https://kitsu.io/api/edge/anime/1/categories',
+          self: 'https://kitsu.io/api/edge/anime/1/relationships/categories'
+        },
+        data: [
+          {
+            childCount: 8,
+            createdAt: '2017-05-31T06:39:22.090Z',
+            id: '155',
+            image: null,
+            links: {
+              self: 'https://kitsu.io/api/edge/categories/155'
+            },
+            meta: {
+              dic1: 'def1'
+            },
+            nsfw: false,
             parent: {
               links: {
                 related: 'https://kitsu.io/api/edge/categories/155/parent',
                 self: 'https://kitsu.io/api/edge/categories/155/relationships/parent'
               }
-            }
+            },
+            slug: 'science-fiction',
+            title: 'Science Fiction',
+            totalMediaCount: 4368,
+            type: 'categories',
+            updatedAt: '2017-05-31T09:01:35.589Z'
           },
-          slug: 'science-fiction',
-          title: 'Science Fiction',
-          totalMediaCount: 4368,
-          type: 'categories',
-          updatedAt: '2017-05-31T09:01:35.589Z'
-        },
-        {
-          childCount: 2,
-          createdAt: '2017-05-31T06:38:47.070Z',
-          id: '51',
-          image: null,
-          links: {
-            self: 'https://kitsu.io/api/edge/categories/51'
-          },
-          nsfw: false,
-          relationships: {
+          {
+            childCount: 2,
+            createdAt: '2017-05-31T06:38:47.070Z',
+            id: '51',
+            image: null,
+            links: {
+              self: 'https://kitsu.io/api/edge/categories/51'
+            },
+            nsfw: false,
             parent: {
               links: {
                 related: 'https://kitsu.io/api/edge/categories/51/parent',
                 self: 'https://kitsu.io/api/edge/categories/51/relationships/parent'
               }
-            }
-          },
-          slug: 'space',
-          title: 'Space',
-          totalMediaCount: 574,
-          type: 'categories',
-          updatedAt: '2017-05-31T09:05:33.687Z'
-        }
-      ]
+            },
+            slug: 'space',
+            title: 'Space',
+            totalMediaCount: 574,
+            type: 'categories',
+            updatedAt: '2017-05-31T09:05:33.687Z'
+          }
+        ]
+      }
     },
     {
       id: '2',
@@ -267,54 +269,50 @@ export default {
       youtubeVideoId: 'hc7IxJ93jtM',
       showType: 'movie',
       nsfw: false,
-      categories: [
-        {
-          childCount: 8,
-          createdAt: '2017-05-31T06:39:22.090Z',
-          id: '155',
-          image: null,
-          links: {
-            self: 'https://kitsu.io/api/edge/categories/155'
-          },
-          nsfw: false,
-          relationships: {
-            parent: {
-              links: {
-                related: 'https://kitsu.io/api/edge/categories/155/parent',
-                self: 'https://kitsu.io/api/edge/categories/155/relationships/parent'
-              }
-            }
-          },
-          slug: 'science-fiction',
-          title: 'Science Fiction',
-          totalMediaCount: 4368,
-          type: 'categories',
-          updatedAt: '2017-05-31T09:01:35.589Z'
+      categories: {
+        links: {
+          related: 'https://kitsu.io/api/edge/anime/2/categories',
+          self: 'https://kitsu.io/api/edge/anime/2/relationships/categories'
         },
-        {
-          childCount: 5,
-          createdAt: '2017-05-31T06:39:20.357Z',
-          id: '150',
-          image: null,
-          links: {
-            self: 'https://kitsu.io/api/edge/categories/150'
+        data: [
+          {
+            childCount: 8,
+            createdAt: '2017-05-31T06:39:22.090Z',
+            id: '155',
+            image: null,
+            links: {
+              self: 'https://kitsu.io/api/edge/categories/155'
+            },
+            nsfw: false,
+            slug: 'science-fiction',
+            title: 'Science Fiction',
+            totalMediaCount: 4368,
+            type: 'categories',
+            updatedAt: '2017-05-31T09:01:35.589Z'
           },
-          nsfw: false,
-          relationships: {
+          {
+            childCount: 5,
+            createdAt: '2017-05-31T06:39:20.357Z',
+            id: '150',
+            image: null,
+            links: {
+              self: 'https://kitsu.io/api/edge/categories/150'
+            },
+            nsfw: false,
             parent: {
               links: {
                 related: 'https://kitsu.io/api/edge/categories/150/parent',
                 self: 'https://kitsu.io/api/edge/categories/150/relationships/parent'
               }
-            }
-          },
-          slug: 'action',
-          title: 'Action',
-          totalMediaCount: 8908,
-          type: 'categories',
-          updatedAt: '2017-05-31T09:01:35.520Z'
-        }
-      ]
+            },
+            slug: 'action',
+            title: 'Action',
+            totalMediaCount: 8908,
+            type: 'categories',
+            updatedAt: '2017-05-31T09:01:35.520Z'
+          }
+        ]
+      }
     }
   ],
   meta: {
