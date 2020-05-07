@@ -19,5 +19,37 @@ describe('kitsu-core', () => {
       const response = filterIncludes([], { })
       expect(response).toEqual({ })
     })
+
+    it('filters included relationships', () => {
+      expect.assertions(1)
+      const includes = [
+        {
+          id: '1',
+          type: 'users',
+          attributes: {
+            name: 'Emma'
+          }
+        },
+        {
+          id: '2',
+          type: 'users',
+          attributes: {
+            name: 'Josh'
+          }
+        }
+      ]
+      const relationship = {
+        id: '1',
+        type: 'users'
+      }
+      const response = filterIncludes(includes, relationship)
+      expect(response).toEqual({
+        id: '1',
+        type: 'users',
+        attributes: {
+          name: 'Emma'
+        }
+      })
+    })
   })
 })
