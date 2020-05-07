@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.0.4](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.0.3...v9.0.4) (2020-05-07)
+
+
+### Chores
+
+* **release:** update documentation ([9561c63](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/9561c63))
+
+
+### Documentation Changes
+
+* **kitsu-core:** add example for query ([63c15f4](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/63c15f4))
+* **kitsu-core:** add examples for error ([cb40de1](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/cb40de1))
+* **kitsu-core:** add examples for filterIncludes ([66b5a6f](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/66b5a6f))
+* **kitsu-core:** add examples for linkRelationships ([ff05659](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/ff05659))
+
+
+
+
+
 ## [9.0.3](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.0.2...v9.0.3) (2020-05-07)
 
 
