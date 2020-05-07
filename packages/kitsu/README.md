@@ -94,9 +94,11 @@
     type: 'articles'
     title: 'JSON API paints my bikeshed'
     author: {
-      id: '42'
-      type: 'people'
-      name: 'John'
+      data: {
+        id: '42'
+        type: 'people'
+        name: 'John'
+      }
     }
   }
 }
@@ -605,7 +607,7 @@ All code released under [MIT]
 
 [promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 
-[more examples]: https://github.com/wopian/kitsu/tree/master/example
+[more examples]: https://github.com/wopian/kitsu/tree/master/packages/kitsu/example
 
 [kitsu.io api docs]: https://kitsu.docs.apiary.io
 
