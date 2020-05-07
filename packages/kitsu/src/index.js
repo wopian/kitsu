@@ -218,7 +218,10 @@ export default class Kitsu {
    */
   async patch (model, body, headers = {}) {
     try {
-      const serialData = serialise.apply(this, [ model, body, 'PATCH' ])
+      const serialData = serialise(model, body, 'PATCH', {
+        camelCaseTypes: this.camel,
+        pluralTypes: this.plural
+      })
       const url = this.plural(this.resCase(model)) + '/' + body.id
       const { data } = await this.axios.patch(
         url,
@@ -258,7 +261,10 @@ export default class Kitsu {
       const url = this.plural(this.resCase(model))
       const { data } = await this.axios.post(
         url,
-        serialise.apply(this, [ model, body ]),
+        serialise(model, body, 'POST', {
+          camelCaseTypes: this.camel,
+          pluralTypes: this.plural
+        }),
         { headers: Object.assign(this.headers, headers) }
       )
 
@@ -283,7 +289,10 @@ export default class Kitsu {
     try {
       const url = this.plural(this.resCase(model)) + '/' + id
       const { data } = await this.axios.delete(url, {
-        data: serialise.apply(this, [ model, { id }, 'DELETE' ]),
+        data: serialise(model, { id }, 'DELETE', {
+          camelCaseTypes: this.camel,
+          pluralTypes: this.plural
+        }),
         headers: Object.assign(this.headers, headers)
       })
 
