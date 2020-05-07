@@ -30,8 +30,21 @@ export function deattribute (data) {
   if (typeof data === 'object' && data !== null) {
     if (Array.isArray(data)) data.map(el => deattribute(el))
     else if (data.attributes && data.attributes.constructor === Object) {
-      Object.keys(data.attributes).forEach(key => { data[key] = data.attributes[key] })
-      delete data.attributes
+      for (const key of Object.keys(data.attributes)) {
+        // Hoist everything but attributes to parent to avoid issues with deleting
+        // as can't delete data.attributes[key] as it will belete data[key] too
+        if (!data.attributes.attributes) {
+          data[key] = data.attributes[key]
+        }
+      }
+
+      // Replace attributes with attributes variable if it exists, else delete
+      // attributes. Avoids deletion issue with object references
+      if (data.attributes.attributes) {
+        data.attributes = data.attributes.attributes
+      } else {
+        delete data.attributes
+      }
     }
   }
   return data

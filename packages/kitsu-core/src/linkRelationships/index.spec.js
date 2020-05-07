@@ -227,5 +227,38 @@ describe('kitsu-core', () => {
         }
       })
     })
+
+    it('accepts attribute.attribute in relationships', () => {
+      expect.assertions(1)
+      const data = {
+        relationships: {
+          author: {
+            data: {
+              id: '1',
+              type: 'people'
+            }
+          }
+        }
+      }
+      const included = [
+        {
+          id: '1',
+          type: 'people',
+          attributes: {
+            attributes: 'Joe'
+          }
+        }
+      ]
+      expect(linkRelationships(data, included))
+        .toEqual({
+          author: {
+            data: {
+              id: '1',
+              attributes: 'Joe',
+              type: 'people'
+            }
+          }
+        })
+    })
   })
 })

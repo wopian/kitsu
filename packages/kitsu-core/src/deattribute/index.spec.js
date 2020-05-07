@@ -53,5 +53,16 @@ describe('kitsu-core', () => {
       expect(deattribute(map)).toEqual(map)
       expect(deattribute(weakMap)).toEqual(weakMap)
     })
+
+    it('allows attributes.attributes', () => {
+      expect.assertions(1)
+      expect(deattribute({
+        attributes: {
+          attributes: 'value'
+        }
+      })).toEqual({
+        attributes: 'value'
+      })
+    })
   })
 })
