@@ -1,6 +1,120 @@
 # Migration Guides
 
+## Migrating to `9.0.0`
+
+### Link objects
+
+`kitsu-core` internals have been refactored and `link` objects from root `data` object/array and relationships are now preserved instead of being omitted.
+- Root `data` self links are avaiable as `data.links` or `data[].links`
+- Relationship objects are now `relationshipName.data.id` from `relationshipName.id`
+- Relationship arrays are now `relationshipName.data[].id` from `relationshipName[].id`
+- Relationship links are avaiable as `relationshipName.links`
+
+For the full change in behaviour, see the legacy and new outputs below.
+
+#### Legacy Behaviour
+
+JSON:API Response:
+
+```js
+data: {
+  id: '1',
+  type: 'libraryEntries'
+  links: {
+    self: 'https://kitsu.io/api/edge/library-entries/1'
+  },
+  attributes: {
+    ratingTwenty: 10
+  },
+  relationships: {
+    user: {
+      links: {
+        self: 'https://kitsu.io/api/edge/library-entries/1/relationships/user',
+        related: 'https://kitsu.io/api/edge/library-entries/1/user'
+      },
+      data: {
+        id: '2',
+        type: 'users'
+      }
+    }
+  }
+},
+included: [
+  {
+    id: '2',
+    type: 'users',
+    links: {
+      self: 'https://kitsu.io/api/edge/users/2'
+    },
+    attributes: {
+      name: 'Example'
+    }
+  }
+```
+
+Output:
+
+```js
+data: {
+  id: '1',
+  type: 'libraryEntries',
+  ratingTwenty: 10,
+  user: {
+    id: '2',
+    type: 'users',
+    name: 'Example'
+  }
+}
+```
+
+#### New Behaviour
+
+
+Output with same JSON:API response data as legacy behaviour:
+
+```js
+data: {
+  id: '1',
+  type: 'libraryEntries',
+  links: {
+    self: 'https://kitsu.io/api/edge/library-entries/1'
+  },
+  ratingTwenty: 10,
+  user: {
+    links: {
+      self: 'https://kitsu.io/api/edge/library-entries/1/relationships/user',
+      related: 'https://kitsu.io/api/edge/library-entries/1/user'
+    }
+    data: {
+      id: '2',
+      type: 'users',
+      links: {
+        self: 'https://kitsu.io/api/edge/users/2'
+      },
+      name: 'Example'
+    }
+  }
+}
+```
+
+### Non-breaking changes of significance
+
+Accessing relationship resources in requests are now better supported:
+
+```js
+import Kitsu from 'kitsu'
+
+const api = new Kitsu()
+
+api.get('posts/1/comments')
+api.patch('post/1/comments', { id: '1', body: 'An updated comment'})
+api.post('post/1/comments', { body: 'A new comment'})
+api.delete('post/1/comments', 1)
+```
+
 ## Migrating to `8.0.0`
+
+Dropped Node 8 suppsort. Lowest supported version is now Node 10.
 
 `kitsu/node` has been removed as it is now identical to`kitsu`.
 

@@ -40,7 +40,7 @@
 
 |  Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | -------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu`† |      ≤ 8.5 kb      |  10+ |   79+  |   68+   |  12.1+ |  18+ |
+| `kitsu`† |      ≤ 8.6 kb      |  10+ |   79+  |   68+   |  12.1+ |  18+ |
 
 \* Including all dependencies, minified & gzipped
 
