@@ -488,5 +488,64 @@ describe('kitsu-core', () => {
       expect.assertions(1)
       expect(deserialise([])).toEqual([])
     })
+
+    it('keeps all relationships', () => {
+      expect.assertions(1)
+      expect(deserialise({
+        data: {
+          id: '1',
+          type: 'users',
+          relationships: {
+            waifu: {
+              links: {
+                self: 'https://kitsu.example',
+                related: 'https://kitsu.example'
+              }
+            },
+            followers: {
+              links: {
+                self: 'https://kitsu.example',
+                related: 'https://kitsu.example'
+              },
+              data: [
+                {
+                  id: '1',
+                  type: 'follows'
+                }
+              ]
+            }
+          }
+        },
+        included: [
+          {
+            id: '1',
+            type: 'follows'
+          }
+        ]
+      })).toEqual({
+        data: {
+          id: '1',
+          type: 'users',
+          waifu: {
+            links: {
+              self: 'https://kitsu.example',
+              related: 'https://kitsu.example'
+            }
+          },
+          followers: {
+            links: {
+              self: 'https://kitsu.example',
+              related: 'https://kitsu.example'
+            },
+            data: [
+              {
+                id: '1',
+                type: 'follows'
+              }
+            ]
+          }
+        }
+      })
+    })
   })
 })
