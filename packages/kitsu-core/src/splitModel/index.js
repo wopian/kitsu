@@ -1,7 +1,8 @@
 
 /**
- * splitModel
+ * Split model name from the model's resource URL
  *
+ * @name splitModel
  * @param {string} url URL path for the model
  * @param {Object} options
  * @param {Function} options.resourceCase Convert libraryEntries to library-entries or library_entries (default no conversion). To use parameter, import kebab or snake from kitsu-core

@@ -26,7 +26,7 @@
 
 <p align=center>Core <a href=http://jsonapi.org>JSON:API</a> serialisation and deserialisation components</p>
 
-# 
+#
 
 ## Features
 
@@ -38,7 +38,7 @@
 
 |       Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | ------------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu-core`† |      ≤ 1.2 kb      |  10+ |   65+  |   65+   |  11.1+ |  17+ |
+| `kitsu-core`† |      ≤ 1.3 kb      |  10+ |   79+  |   68+   |  12.1+ |  18+ |
 
 \* Including all dependencies, minified & gzipped<br>
 
@@ -225,7 +225,7 @@ Filters includes for the specific relationship
 #### Parameters
 
 -   `included` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response included object
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `opts.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `opts.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
