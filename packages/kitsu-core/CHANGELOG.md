@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.0.6](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.0.5...v9.0.6) (2020-05-07)
+
+
+### Chores
+
+* **release:** update documentation ([03fc40e](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/03fc40e))
+* remove rogue console.log ([29d3ae3](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/29d3ae3))
+
+
+### Documentation Changes
+
+* **kitsu-core:** remove node 12 notice ([45f20bb](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/45f20bb))
+
+
+
+
+
 ## [9.0.5](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.0.4...v9.0.5) (2020-05-07)
 
 

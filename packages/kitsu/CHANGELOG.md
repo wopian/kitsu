@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.0.6](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.0.5...v9.0.6) (2020-05-07)
+
+
+### Chores
+
+* **release:** update documentation ([03fc40e](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/03fc40e))
+
+
+### Documentation Changes
+
+* **kitsu:** add alias for delete to Quick Start in README ([c9ba1b6](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/c9ba1b6))
+* **kitsu:** fix URL to more examples ([d3d46ce](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/d3d46ce))
+* **kitsu:** remove node 12 notice ([6540e39](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/6540e39))
+* **kitsu:** remove unused URL from README ([bafbeeb](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/bafbeeb))
+* **kitsu:** update Quick Start in README ([f49064b](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/f49064b))
+
+
+
+
+
 ## [9.0.5](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.0.4...v9.0.5) (2020-05-07)
 
 
