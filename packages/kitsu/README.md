@@ -139,8 +139,9 @@ api.get('anime')
 
 // Fetching resources (get/fetch)
 api.fetch('anime')
-api.fetch('anime/1')
+api.fetch('anime', { filter: { id: 1 } })
 api.fetch('anime/1/episodes')
+api.fetch('anime/1/relationships/episodes')
 
 // Creating resources (post/create)
 api.create('post', {
