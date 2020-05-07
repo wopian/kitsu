@@ -135,7 +135,7 @@ Dropped Node 8 support. Lowest supported version is now Node 10.
 
 Dropped Node 6 support. Lowest supported version is now Node 8.
 
-`kitsu-core/node` now exists as a standalone package called `kitsu-core-node`. This has no dependency on Babel Runtime, as it's required only by the browser version of `kitsu-core`.
+~~`kitsu/node` now exists as a standalone package called `kitsu-node`. This has no dependency on Babel Runtime, as it's required only by the browser version of `kitsu`.~~ Change reverted.
 
 ## Migrating to `6.0.0`
 
