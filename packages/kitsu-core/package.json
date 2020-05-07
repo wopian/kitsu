@@ -1,5 +1,5 @@
 {
-  "version": "9.0.4",
+  "version": "9.0.5",
   "name": "kitsu-core",
   "description": "Core serialisation and deserialsation functions for the kitsu JSON:API client",
   "author": "James Harris <wopian@wopian.me>",
