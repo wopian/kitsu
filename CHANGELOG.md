@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.0.2](https://github.com/wopian/kitsu/compare/v9.0.1...v9.0.2) (2020-05-07)
+
+
+### Bug Fixes
+
+* **kitsu-core:** correctly parse attributes.attributes (closes [#137](https://github.com/wopian/kitsu/issues/137)) ([b058e42](https://github.com/wopian/kitsu/commit/b058e42))
+
+
+### Chores
+
+* **release:** update documentation ([84d00c5](https://github.com/wopian/kitsu/commit/84d00c5))
+
+
+### Tests
+
+* **kitsu-core:** add test for ensuring all relationships exist in output ([1fc81d9](https://github.com/wopian/kitsu/commit/1fc81d9))
+
+
+
+
+
 ## [9.0.1](https://github.com/wopian/kitsu/compare/v9.0.0...v9.0.1) (2020-05-07)
 
 
