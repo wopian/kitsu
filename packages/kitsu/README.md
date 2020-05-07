@@ -616,5 +616,3 @@ All code released under [MIT]
 [contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
 
 [mit]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
-
-[node12esm]: http://2ality.com/2019/04/nodejs-esm-impl.html#es-modules-on-npm
