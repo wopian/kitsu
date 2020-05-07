@@ -1,44 +1,70 @@
 import plural from 'pluralize'
-import { camel, kebab, snake } from '../'
+import { camel } from '../'
 import { serialise } from './'
-
-// Mock being run from the Kitsu Class:
-// serialise.call(this, [...args]) is used to pass constructor options
-const skip = s => s
-const serial = {
-  // camelCaseTypes: false  resourceCase: kebab   pluralize: false
-  kebab: serialise.bind({ camel: skip, resCase: kebab, plural: skip }),
-  // camelCaseTypes: false  resourceCase: kebab   pluralize: true
-  kebabPlural: serialise.bind({ camel: skip, resCase: kebab, plural }),
-  // camelCaseTypes: false  resourceCase: none    pluralize: false
-  none: serialise.bind({ camel: skip, resCase: skip, plural: skip }),
-  // camelCaseTypes: false  resourceCase: none    pluralize: true
-  nonePlural: serialise.bind({ camel: skip, resCase: skip, plural }),
-  // camelCaseTypes: false  resourceCase: snake   pluralize: false
-  snake: serialise.bind({ camel: skip, resCase: snake, plural: skip }),
-  // camelCaseTypes: false  resourceCase: snake   pluralize: true
-  snakePlural: serialise.bind({ camel: skip, resCase: snake, plural: skip }),
-  // camelCaseTypes: true   resourceCase: kebab   pluralize: false
-  camelKebab: serialise.bind({ camel, resCase: kebab, plural: skip }),
-  // camelCaseTypes: true   resourceCase: kebab   pluralize: true     DEFAULT
-  camelKebabPlural: serialise.bind({ camel, resCase: kebab, plural }),
-  // camelCaseTypes: true   resourceCase: none    pluralize: false
-  camelNone: serialise.bind({ camel, resCase: skip, plural: skip }),
-  // camelCaseTypes: true   resourceCase: none    pluralize: true
-  camelNonePlural: serialise.bind({ camel, resCase: skip, plural }),
-  // camelCaseTypes: true   resourceCase: snake   pluralize: false
-  camelSnake: serialise.bind({ camel, resCase: snake, plural: skip }),
-  // camelCaseTypes: true   resourceCase: snake   pluralize: true
-  camelSnakePlural: serialise.bind({ camel, resCase: snake, plural })
-}
 
 describe('kitsu-core', () => {
   describe('serialise', () => {
+    it('accepts camelCaseTypes as an option (default)', () => {
+      expect.assertions(1)
+      const input = serialise('library-entries', { id: '1' }, undefined)
+      expect(input).toEqual({
+        data: {
+          id: '1',
+          type: 'library-entries'
+        }
+      })
+    })
+
+    it('accepts camelCaseTypes as an option (value set)', () => {
+      expect.assertions(1)
+      const input = serialise('library-entries', { id: '1' }, undefined, {
+        camelCaseTypes: camel
+      })
+      expect(input).toEqual({
+        data: {
+          id: '1',
+          type: 'libraryEntries'
+        }
+      })
+    })
+
+    it('accepts pluralTypes  as an option (default)', () => {
+      expect.assertions(1)
+      const input = serialise('libraryEntry', { id: '1' }, undefined)
+      expect(input).toEqual({
+        data: {
+          id: '1',
+          type: 'libraryEntry'
+        }
+      })
+    })
+
+    it('accepts pluralTypes as an option (value set)', () => {
+      expect.assertions(1)
+      const input = serialise('libraryEntry', { id: '1' }, undefined, {
+        pluralTypes: plural
+      })
+      expect(input).toEqual({
+        data: {
+          id: '1',
+          type: 'libraryEntries'
+        }
+      })
+    })
+
     it('serialises to a JSON API compliant object', () => {
       expect.assertions(1)
-      const input = serial.camelKebabPlural('libraryEntries', {
-        ratingTwenty: 20
-      })
+      const input = serialise(
+        'libraryEntries',
+        {
+          ratingTwenty: 20
+        },
+        undefined,
+        {
+          camelCaseTypes: camel,
+          pluralTypes: plural
+        }
+      )
       expect(input).toEqual({
         data: {
           attributes: {
@@ -51,11 +77,19 @@ describe('kitsu-core', () => {
 
     it('serialises JSON API relationships', () => {
       expect.assertions(1)
-      const input = serial.camelKebabPlural('libraryEntries', {
-        user: {
-          id: '2'
+      const input = serialise(
+        'libraryEntries',
+        {
+          user: {
+            id: '2'
+          }
+        },
+        undefined,
+        {
+          camelCaseTypes: camel,
+          pluralTypes: plural
         }
-      })
+      )
       expect(input).toEqual({
         data: {
           relationships: {
@@ -73,17 +107,25 @@ describe('kitsu-core', () => {
 
     it('serialises JSON API array relationships', () => {
       expect.assertions(1)
-      const input = serial.camelKebabPlural('libraryEntries', {
-        user: [
-          {
-            id: '2',
-            type: 'users'
-          },
-          {
-            id: '3'
-          }
-        ]
-      })
+      const input = serialise(
+        'libraryEntries',
+        {
+          user: [
+            {
+              id: '2',
+              type: 'users'
+            },
+            {
+              id: '3'
+            }
+          ]
+        },
+        undefined,
+        {
+          camelCaseTypes: camel,
+          pluralTypes: plural
+        }
+      )
       expect(input).toEqual({
         data: {
           relationships: {
@@ -107,10 +149,18 @@ describe('kitsu-core', () => {
 
     it('serialises JSON API with a client-generated ID', () => {
       expect.assertions(1)
-      const input = serial.camelKebabPlural('libraryEntries', {
-        id: '123456789',
-        ratingTwenty: 20
-      })
+      const input = serialise(
+        'libraryEntries',
+        {
+          id: '123456789',
+          ratingTwenty: 20
+        },
+        undefined,
+        {
+          camelCaseTypes: camel,
+          pluralTypes: plural
+        }
+      )
       expect(input).toEqual({
         data: {
           id: '123456789',
@@ -124,9 +174,17 @@ describe('kitsu-core', () => {
 
     it('pluralises type', () => {
       expect.assertions(1)
-      const input = serial.camelKebabPlural('libraryEntry', {
-        rating: '1'
-      })
+      const input = serialise(
+        'libraryEntry',
+        {
+          rating: '1'
+        },
+        undefined,
+        {
+          camelCaseTypes: camel,
+          pluralTypes: plural
+        }
+      )
       expect(input).toEqual({
         data: {
           type: 'libraryEntries',
@@ -139,9 +197,17 @@ describe('kitsu-core', () => {
 
     it('does not pluralise mass nouns', () => {
       expect.assertions(1)
-      const input = serial.camelKebabPlural('anime', {
-        slug: 'Cowboy Bebop 2'
-      })
+      const input = serialise(
+        'anime',
+        {
+          slug: 'Cowboy Bebop 2'
+        },
+        undefined,
+        {
+          camelCaseTypes: camel,
+          pluralTypes: plural
+        }
+      )
       expect(input).toEqual({
         data: {
           type: 'anime',
@@ -154,7 +220,7 @@ describe('kitsu-core', () => {
 
     it('does not pluralise type', () => {
       expect.assertions(1)
-      const input = serial.none('libraryEntry', {
+      const input = serialise('libraryEntry', {
         rating: '1'
       })
       expect(input).toEqual({
@@ -169,25 +235,25 @@ describe('kitsu-core', () => {
 
     it('throws an error if obj is missing', () => {
       expect.assertions(1)
-      expect(() => serial.camelKebabPlural('post'))
+      expect(() => serialise('post'))
         .toThrowError('POST requires a JSON object body')
     })
 
     it('throws an error if obj is not an Object', () => {
       expect.assertions(1)
-      expect(() => serial.camelKebabPlural('post', 'id: 1', 'DELETE'))
+      expect(() => serialise('post', 'id: 1', 'DELETE'))
         .toThrowError('DELETE requires a JSON object body')
     })
 
     it('throws an error when missing ID', () => {
       expect.assertions(1)
-      expect(() => serial.camelKebabPlural('user', { theme: 'dark' }, 'PATCH'))
-        .toThrowError('PATCH requires an ID for the users type')
+      expect(() => serialise('user', { theme: 'dark' }, 'PATCH'))
+        .toThrowError('PATCH requires an ID for the user type')
     })
 
     it('serialises strings/numbers/booleans into attributes', () => {
       expect.assertions(1)
-      const input = serial.none('resourceModel', {
+      const input = serialise('resourceModel', {
         string: 'shark',
         number: 1,
         boolean: true
@@ -206,7 +272,7 @@ describe('kitsu-core', () => {
 
     it('serialises bare objects into attributes', () => {
       expect.assertions(1)
-      const input = serial.none('resourceModel', {
+      const input = serialise('resourceModel', {
         object: {
           string: 'shark'
         },
@@ -227,7 +293,7 @@ describe('kitsu-core', () => {
 
     it('serialises type objects into relationships', () => {
       expect.assertions(1)
-      const input = serial.none('resourceModel', {
+      const input = serialise('resourceModel', {
         object: {
           id: '1',
           type: 'relationshipModel'
@@ -250,7 +316,7 @@ describe('kitsu-core', () => {
 
     it('serialises bare arrays into attributes', () => {
       expect.assertions(1)
-      const input = serial.none('resourceModel', {
+      const input = serialise('resourceModel', {
         array: [ 0 ],
         deepArray: [ [ 0 ] ],
         arrayObject: [ { string: 'shark' } ],
@@ -271,7 +337,7 @@ describe('kitsu-core', () => {
 
     it('serialises type arrays into relationships', () => {
       expect.assertions(1)
-      const input = serial.none('resourceModel', {
+      const input = serialise('resourceModel', {
         array: [ {
           id: '1',
           type: 'relationshipModel'
@@ -294,7 +360,7 @@ describe('kitsu-core', () => {
 
     it('serialises relationship clearing (to-one)', () => {
       expect.assertions(1)
-      const input = serial.none('resourceModel', null)
+      const input = serialise('resourceModel', null)
       expect(input).toEqual({
         data: null
       })
@@ -302,7 +368,7 @@ describe('kitsu-core', () => {
 
     it('serialises relationship clearing (to-many)', () => {
       expect.assertions(1)
-      const input = serial.none('resourceModel', [])
+      const input = serialise('resourceModel', [])
       expect(input).toEqual({
         data: []
       })

@@ -91,21 +91,39 @@ function hasID (node) {
  *
  * @param {string} model Request model
  * @param {Object} obj The data
- * @param {string} method Request type
+ * @param {string} method Request type (PATCH, POST, DELETE)
+ * @param {Object} options Optional configuration for camelCase and pluralisation handling
+ * @param {Function} options.camelCaseTypes Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core
+ * @param {Function} options.pluralTypes Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package)
  * @returns {Object} The serialised data
  *
- * @example <caption>Due to its usage in kitsu, it **MUST** be called with **this** set in 6.0.x</caption>
- * import { serialise, camel, kebab } from 'kitsu-core'
- * import plural from 'pluralize'
+ * @example <caption>Setting camelCaseTypes and pluralTypes options (example shows options used by `kitsu` by default)</caption>
+ * import { serialise, camel } from 'kitsu-core'
+ * import pluralize from 'pluralize'
  *
- * const output = serialise.apply({ camel, resCase: kebab, plural }, [ model, obj, 'PATCH' ])
+ * const model = 'anime'
+ * const obj = { id: '1', slug: 'shirobako' }
+ *
+ * // { data: { id: '1', type: 'anime', attributes: { slug: 'shirobako' } } }
+ * const output = serialise(model, obj, 'PATCH', { camelCaseTypes: camel, pluralTypes: pluralize })
+ *
+ * @example <caption>Basic usage (no case conversion or pluralisation)</caption>
+ * import { serialise } from 'kitsu-core'
+ *
+ * const model = 'anime'
+ * const obj = { id: '1', slug: 'shirobako' }
+ *
+ * // { data: { id: '1', type: 'anime', attributes: { slug: 'shirobako' } } }
+ * const output = serialise(model, obj, 'PATCH')
  */
-export function serialise (model, obj = {}, method = 'POST') {
+export function serialise (model, obj = {}, method = 'POST', options = {}) {
   try {
+    if (!options.camelCaseTypes) options.camelCaseTypes = s => s
+    if (!options.pluralTypes) options.pluralTypes = s => s
     // Delete relationship to-one (data: null) or to-many (data: [])
     if (obj === null || (Array.isArray(obj) && obj.length === 0)) return { data: obj }
 
-    const type = this.plural ? this.plural(this.camel(model)) : this.camel(model)
+    const type = options.pluralTypes(options.camelCaseTypes(model))
     let data = { type }
 
     isValid(obj, method, type)
@@ -114,7 +132,7 @@ export function serialise (model, obj = {}, method = 'POST') {
 
     for (const key in obj) {
       const node = obj[key]
-      const nodeType = this.plural ? this.plural(this.camel(key)) : this.camel(key)
+      const nodeType = options.pluralTypes(options.camelCaseTypes(key))
       // 1. Skip null nodes, 2. Only grab objects, 3. Filter to only serialise relationable objects
       if (node !== null && node.constructor === Object && hasID(node)) {
         data = serialiseObject(node, nodeType, key, data, method)
