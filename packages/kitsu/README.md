@@ -154,7 +154,7 @@ api.update('post', {
   content: 'new content'
 })
 
-// Deleting resources
+// Deleting resources (delete/remove)
 api.remove('post', 1)
 
 // JSON:API parameters
