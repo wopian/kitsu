@@ -46,6 +46,24 @@ describe('kitsu', () => {
       done()
     })
 
+    it('handles nested routes', async done => {
+      expect.assertions(1)
+      const api = new Kitsu({ headers: { Authorization: true } })
+      mock.onDelete('/posts/1/comments/1').reply(config => {
+        expect(JSON.parse(config.data)).toEqual({
+          data: {
+            id: '1',
+            type: 'comments'
+          }
+        })
+        return [ 200 ]
+      })
+      api.delete('posts/1/comments', 1).catch(err => {
+        done.fail(err)
+      })
+      done()
+    })
+
     it('throws an error if ID is missing', async () => {
       expect.assertions(1)
       const api = new Kitsu()

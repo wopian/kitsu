@@ -80,5 +80,13 @@ describe('kitsu', () => {
       const request = await api.patch('posts', patchSingle.kitsu)
       expect(request).toEqual({ data: patchSingle.kitsu })
     })
+
+    it('handes nested routes', async () => {
+      expect.assertions(1)
+      const api = new Kitsu({ headers: { Authorization: true } })
+      mock.onPatch(`something/1/relationships/posts/${patchSingle.jsonapi.data.id}`).reply(200, patchSingle.jsonapi)
+      const request = await api.patch('something/1/relationships/posts', patchSingle.kitsu)
+      expect(request).toEqual({ data: patchSingle.kitsu })
+    })
   })
 })

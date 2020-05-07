@@ -48,6 +48,26 @@ describe('kitsu', () => {
       done()
     })
 
+    it('handles nested routes', async done => {
+      expect.assertions(1)
+      const api = new Kitsu({ headers: { Authorization: true } })
+      mock.onPost('/something/1/relationships/anime').reply(config => {
+        expect(JSON.parse(config.data)).toEqual({
+          data: {
+            type: 'anime',
+            attributes: {
+              name: 'Name'
+            }
+          }
+        })
+        return [ 200 ]
+      })
+      api.post('something/1/relationships/anime', { type: 'anime', name: 'Name' }).catch(err => {
+        done.fail(err)
+      })
+      done()
+    })
+
     it('sends data in request with client-generated ID', async done => {
       expect.assertions(1)
       const api = new Kitsu()

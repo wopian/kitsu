@@ -1,6 +1,6 @@
 import axios from 'axios'
 import pluralise from 'pluralize'
-import { camel, deserialise, error, kebab, query, serialise, snake } from 'kitsu-core'
+import { camel, deserialise, error, kebab, query, serialise, snake, splitModel } from 'kitsu-core'
 
 /**
  * Creates a new `kitsu` instance
@@ -218,13 +218,16 @@ export default class Kitsu {
    */
   async patch (model, body, headers = {}) {
     try {
-      const serialData = serialise(model, body, 'PATCH', {
+      const [ resourceModel, url ] = splitModel(model, {
+        resourceCase: this.resCase,
+        pluralModel: this.plural
+      })
+      const serialData = serialise(resourceModel, body, 'PATCH', {
         camelCaseTypes: this.camel,
         pluralTypes: this.plural
       })
-      const url = this.plural(this.resCase(model)) + '/' + body.id
       const { data } = await this.axios.patch(
-        url,
+        `${url}/${body.id}`,
         serialData,
         { headers: Object.assign(this.headers, headers) }
       )
@@ -258,10 +261,13 @@ export default class Kitsu {
    */
   async post (model, body, headers = {}) {
     try {
-      const url = this.plural(this.resCase(model))
+      const [ resourceModel, url ] = splitModel(model, {
+        resourceCase: this.resCase,
+        pluralModel: this.plural
+      })
       const { data } = await this.axios.post(
         url,
-        serialise(model, body, 'POST', {
+        serialise(resourceModel, body, 'POST', {
           camelCaseTypes: this.camel,
           pluralTypes: this.plural
         }),
@@ -287,9 +293,12 @@ export default class Kitsu {
    */
   async delete (model, id, headers = {}) {
     try {
-      const url = this.plural(this.resCase(model)) + '/' + id
-      const { data } = await this.axios.delete(url, {
-        data: serialise(model, { id }, 'DELETE', {
+      const [ resourceModel, url ] = splitModel(model, {
+        resourceCase: this.resCase,
+        pluralModel: this.plural
+      })
+      const { data } = await this.axios.delete(`${url}/${id}`, {
+        data: serialise(resourceModel, { id }, 'DELETE', {
           camelCaseTypes: this.camel,
           pluralTypes: this.plural
         }),
