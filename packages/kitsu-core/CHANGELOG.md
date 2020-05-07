@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.0.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v8.3.1...v9.0.0) (2020-05-07)
+
+
+### Build System / Dependencies
+
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~4.5.0 ([#405](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/405)) ([7e0072d](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/7e0072d))
+
+
+### Chores
+
+* **release:** update documentation ([08362a8](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/08362a8))
+
+
+### Documentation Changes
+
+* **kitsu-core:** add 9.0.0 migration guide ([8576749](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/8576749))
+* update README ([6a73433](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/6a73433))
+* **kitsu-core:** use lowercase string for param type ([8254710](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/8254710))
+
+
+### New Features
+
+* **kitsu-core:** add splitModel ([782d1b6](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/782d1b6))
+* **kitsu-core:** preserve links in relationships during deserialisation ([cbf50df](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/cbf50df))
+
+
+### Refactors
+
+* **kitsu-core:** pass camelCase and pluralisation options as arguments to serialise ([34b9cae](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/34b9cae))
+
+
+### BREAKING CHANGES
+
+* **kitsu-core:** for deserialise and linkRelationships
+* **kitsu-core:** serialise.apply[{ camel, resCase, plural}, [ model, data, method ]) is no longer neccessary. New syntax is serialise(model, data, method, { camelCaseTypes: camel, pluralTypes: plural}).
+
+
+
+
+
 ## [8.3.1](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v8.3.0...v8.3.1) (2020-05-02)
 
 
