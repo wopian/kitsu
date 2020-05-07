@@ -26,7 +26,10 @@
 
 <p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client for <a href=https://kitsu.io>Kitsu.io</a> and other APIs</p>
 
-# 
+
+<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v9 and previous major releases</p>
+
+#
 
 ## Features
 
