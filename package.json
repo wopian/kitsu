@@ -41,7 +41,7 @@
     "babel-jest": "~26.0.0",
     "conventional-changelog-angular-all-2": "~5.0.1",
     "cross-env": "~7.0.0",
-    "documentation": "~12.3.0",
+    "documentation": "~13.0.0",
     "eslint": "~7.0.0",
     "eslint-config-wopian": "~1.5.0",
     "jest": "~26.0.0",
