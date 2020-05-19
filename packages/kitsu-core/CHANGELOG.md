@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.0.7](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.0.6...v9.0.7) (2020-05-19)
+
+
+### Chores
+
+* **release:** update documentation ([523553e](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/523553e))
+
+
+### Other Changes
+
+* Update MIGRATING.md ([7fbc3fa](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/7fbc3fa))
+
+
+
+
+
 ## [9.0.6](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.0.5...v9.0.6) (2020-05-07)
 
 

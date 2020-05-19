@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.0.7](https://github.com/wopian/kitsu/compare/v9.0.6...v9.0.7) (2020-05-19)
+
+
+### Build System / Dependencies
+
+* update devdependency documentation to ~13.0.0 ([#410](https://github.com/wopian/kitsu/issues/410)) ([5e08add](https://github.com/wopian/kitsu/commit/5e08add))
+* update devdependency eslint to ~7.0.0 ([#409](https://github.com/wopian/kitsu/issues/409)) ([1fafa1a](https://github.com/wopian/kitsu/commit/1fafa1a))
+* update devdependency lerna to ~3.21.0 ([#412](https://github.com/wopian/kitsu/issues/412)) ([ae3c359](https://github.com/wopian/kitsu/commit/ae3c359))
+* update devdependency rollup to ~2.10.0 ([#413](https://github.com/wopian/kitsu/issues/413)) ([f73c4dc](https://github.com/wopian/kitsu/commit/f73c4dc))
+* update devdependency rollup to ~2.8.0 ([#408](https://github.com/wopian/kitsu/issues/408)) ([f977bb5](https://github.com/wopian/kitsu/commit/f977bb5))
+* update devdependency rollup to ~2.9.0 ([#411](https://github.com/wopian/kitsu/issues/411)) ([78627b7](https://github.com/wopian/kitsu/commit/78627b7))
+
+
+### Chores
+
+* **release:** update documentation ([523553e](https://github.com/wopian/kitsu/commit/523553e))
+
+
+### Documentation Changes
+
+* **kitsu:** link to axios docs for axiosOptions and interceptors ([b678290](https://github.com/wopian/kitsu/commit/b678290))
+
+
+### Other Changes
+
+* Update MIGRATING.md ([7fbc3fa](https://github.com/wopian/kitsu/commit/7fbc3fa))
+* Update MIGRATING.md ([c2fb17e](https://github.com/wopian/kitsu/commit/c2fb17e))
+
+
+
+
+
 ## [9.0.6](https://github.com/wopian/kitsu/compare/v9.0.5...v9.0.6) (2020-05-07)
 
 
