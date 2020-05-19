@@ -10,9 +10,9 @@ import { camel, deserialise, error, kebab, query, serialise, snake, splitModel }
  * @param {Object} options.headers Additional headers to send with requests
  * @param {boolean} options.camelCaseTypes If true, the `type` value will be camelCased, e.g `library-entries` and `library_entries` become `libraryEntries`  (default `true`)
  * @param {string} options.resourceCase `kebab`, `snake` or `none`. If `kebab`, `/libraryEntries` will become `/library-entries`. If `snake`, `/libraryEntries` will become `/library_entries`, If `none`, `/libraryEntries` will be unchanged (default `kebab`)
- * @param {boolean} options.pluralize If `true`, `/user` will become `/users` in the URL request and `type` will be pluralized in post, patch and delete requests - `user` -> `users` (default `true`)
+ * @param {boolean} options.pluralize If `true`, `/user` will become `/users` in the URL request and `type` will be pluralized in POST, PATCH and DELETE requests (default `true`)
  * @param {number} options.timeout Set the request timeout in milliseconds (default `30000`)
- * @param {Object} options.axiosOptions Additional options for the axios instance
+ * @param {Object} options.axiosOptions Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
  * @example <caption>Using with Kitsu.io's API</caption>
  * const api = new Kitsu()
  * @example <caption>Using another API server</caption>
@@ -81,7 +81,7 @@ export default class Kitsu {
     /**
      * Axios Interceptors (alias of `axios.interceptors`)
      *
-     * You can intercept responses before they are handled by `get`, `post`, `patch` and `delete` and before requests are sent to the API server.
+     * You can intercept responses before they are handled by `get`, `post`, `patch` and `delete` and before requests are sent to the API server. See [axios/axios#interceptors](https://github.com/axios/axios#interceptors) for details.
      *
      * @memberof Kitsu
      * @example <caption>Request Interceptor</caption>
