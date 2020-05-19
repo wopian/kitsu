@@ -1,7 +1,7 @@
 <h1 align=center>Kitsu</h1>
 
 <p align=center>
-  <a href=https://travis-ci.org/wopian/kitsu><img alt=travis src=https://flat.badgen.net/travis/wopian/kitsu></a>
+  <a href=https://travis-ci.com/wopian/kitsu><img alt=travis src=https://flat.badgen.net/travis/wopian/kitsu></a>
   <a href="https://david-dm.org/wopian/kitsu?type=dev"><img alt=devDeps src=https://flat.badgen.net/david/dev/wopian/kitsu></a>
   <a href=https://github.com/wopian/kitsu/graphs/contributors><img alt=contributors src=https://flat.badgen.net/github/contributors/wopian/kitsu></a>
 </p>
