@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.2](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.1...v9.1.2) (2020-05-21)
+
+
+### Chores
+
+* **release:** update documentation ([20e7cc6](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/20e7cc6))
+
+
+### Documentation Changes
+
+* **kitsu:** declare optional parameters in JSDoc syntax ([95eb9c1](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/95eb9c1))
+* autogenerate typescript definitions ([6e1879f](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/6e1879f))
+* update JSDoc Array syntax for better TypeScript usability ([8f147ab](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/8f147ab))
+
+
+
+
+
 ## [9.1.1](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.0...v9.1.1) (2020-05-21)
 
 
