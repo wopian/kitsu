@@ -36,13 +36,12 @@
 -   Automatically links relationships to data
 -   Works in Node and on the web
 -   Uses the [Promise] API
--   Configurable timeout handling
 
 ## Node / Browser Support
 
 | Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | ------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu` |      ≤ 8.6 kb      |  10+ |   79+  |   68+   |  12.1+ |  18+ |
+| `kitsu` |      ≤ 8.9 kb      | 10+  | 67+    | 68+     | 12+    | 18+  |
 
 \* Including all dependencies, minified & gzipped
 
