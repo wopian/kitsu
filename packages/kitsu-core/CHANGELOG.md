@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.5](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.1.4...v9.1.5) (2020-05-21)
+
+
+### Bug Fixes
+
+* **kitsu-core:** preverve serialised relationship attributes ([ddcc17a](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/ddcc17a)), closes [#418](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/418)
+
+
+### Chores
+
+* **release:** update documentation ([912f59d](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/912f59d))
+
+
+
+
+
 ## [9.1.4](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.1.3...v9.1.4) (2020-05-21)
 
 
