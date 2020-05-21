@@ -11,7 +11,7 @@ import { filterIncludes } from '../filterIncludes'
  * @param {Object} included The response included object
  * @private
  */
-function link ({ id, type, meta, links }, included) {
+function link ({ id, type, meta }, included) {
   const filtered = filterIncludes(included, { id, type })
   if (filtered.relationships) linkRelationships(filtered, included)
   if (meta) filtered.meta = meta
@@ -56,11 +56,10 @@ function linkObject (data, included, key) {
  * Helper function for relationships with no data
  *
  * @param {Object} data The response data object
- * @param {Object} included The response included object
  * @param {string} key Name of the relationship item
  * @private
  */
-function linkAttr (data, included, key) {
+function linkAttr (data, key) {
   data[key] = {}
   if (data.relationships[key].links) data[key].links = data.relationships[key].links
   delete data.relationships[key]
@@ -100,17 +99,17 @@ export function linkRelationships (data, included = []) {
 
   for (const key in relationships) {
     // Relationship contains collection of resources
-    if (relationships[key].data && relationships[key].data.constructor === Array) {
+    if (Array.isArray(relationships[key]?.data)) {
       linkArray(data, included, key)
     // Relationship contains a single resource
     } else if (relationships[key].data) {
       linkObject(data, included, key)
     } else {
-      linkAttr(data, included, key)
+      linkAttr(data, key)
     }
   }
 
-  if (relationships && Object.keys(relationships).length === 0 && relationships.constructor === Object) {
+  if (Object.keys(relationships)?.length === 0 && relationships?.constructor === Object) {
     delete data.relationships
   }
 
