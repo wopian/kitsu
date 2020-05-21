@@ -285,7 +285,7 @@ export default class Kitsu {
    *
    * @memberof Kitsu
    * @param {string} model Model to remove data from
-   * @param {string|number} id Resource ID to remove
+   * @param {string|number|Array} id Resource ID to remove. Pass an array of IDs to delete multiple resources (Bulk Extension)
    * @param {Object} headers Additional headers to send with request
    * @returns {Object} JSON-parsed response
    * @example <caption>Remove a user's post</caption>
@@ -297,8 +297,19 @@ export default class Kitsu {
         resourceCase: this.resCase,
         pluralModel: this.plural
       })
-      const { data } = await this.axios.delete(`${url}/${id}`, {
-        data: serialise(resourceModel, { id }, 'DELETE', {
+      const isBulk = Array.isArray(id)
+      let path, payload
+
+      if (isBulk) {
+        path = url
+        payload = id.map(id => ({ id }))
+      } else {
+        path = `${url}/${id}`
+        payload = { id }
+      }
+
+      const { data } = await this.axios.delete(path, {
+        data: serialise(resourceModel, payload, 'DELETE', {
           camelCaseTypes: this.camel,
           pluralTypes: this.plural
         }),

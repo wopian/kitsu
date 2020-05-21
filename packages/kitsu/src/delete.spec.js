@@ -64,6 +64,24 @@ describe('kitsu', () => {
       done()
     })
 
+    it('deletes multiple resources (bulk extension)', async done => {
+      expect.assertions(1)
+      const api = new Kitsu({ headers: { Authorization: true } })
+      mock.onDelete('/posts').reply(config => {
+        expect(JSON.parse(config.data)).toEqual({
+          data: [
+            { id: '1', type: 'posts' },
+            { id: '2', type: 'posts' }
+          ]
+        })
+        return [ 200 ]
+      })
+      api.delete('post', [ 1, 2 ]).catch(err => {
+        done.fail(err)
+      })
+      done()
+    })
+
     it('throws an error if ID is missing', async () => {
       expect.assertions(1)
       const api = new Kitsu()
