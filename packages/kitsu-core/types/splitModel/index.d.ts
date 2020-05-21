@@ -3,9 +3,9 @@
  *
  * @name splitModel
  * @param {string} url URL path for the model
- * @param {Object} options
- * @param {Function} options.resourceCase Convert libraryEntries to library-entries or library_entries (default no conversion). To use parameter, import kebab or snake from kitsu-core
- * @param {Function} options.pluralModel Pluralise models (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package)
+ * @param {Object} [options] Optional configuration for camelCase and pluralisation handling
+ * @param {Function} [options.resourceCase=s=>s] Convert libraryEntries to library-entries or library_entries (default no conversion). To use parameter, import kebab or snake from kitsu-core
+ * @param {Function} [options.pluralModel=s=>s] Pluralise models (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package)
  * @returns {[string, string]}} Array containing the model name and the resource URL with pluralisation applied
  *
  * @example

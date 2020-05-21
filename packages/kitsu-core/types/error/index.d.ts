@@ -1,7 +1,7 @@
 /**
  * Uniform error handling for Axios, JSON:API and internal package errors. Mutated Error object is rethrown to the caller.
  *
- * @param {Object} E The Error
+ * @param {Object} Error The Error
  * @throws {Object} The mutated Error
  *
  * @example
@@ -24,4 +24,4 @@
  *   }
  * })
  */
-export function error(E: any): void;
+export function error(Error: any): void;

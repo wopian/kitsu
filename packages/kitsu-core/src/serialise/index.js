@@ -41,10 +41,9 @@ function isValid (isArray, type, payload, method) {
  * @param {string} nodeType Resource type of the object
  * @param {string} key The resource object's key value
  * @param {Object} data Root JSON:API data object
- * @param {string} method HTTP method
  * @private
  */
-function serialiseObject (node, nodeType, key, data, method) {
+function serialiseObject (node, nodeType, key, data) {
   if (!data.relationships) data.relationships = {}
   // Guess type if not provided
   if (!node.type) node.type = nodeType
@@ -61,10 +60,9 @@ function serialiseObject (node, nodeType, key, data, method) {
  * @param {string} nodeType Resource type of the object
  * @param {string} key The resource object's key value
  * @param {Object} data Root JSON:API data object
- * @param {string} method HTTP method
  * @private
  */
-function serialiseArray (node, nodeType, key, data, method) {
+function serialiseArray (node, nodeType, key, data) {
   if (!data.relationships) data.relationships = {}
   data.relationships[key] = {
     data: node.map(({ id, type }) => {
@@ -164,11 +162,11 @@ function serialiseRootObject (type, payload, method, options) {
  * Serialises an object into a JSON-API structure
  *
  * @param {string} type Resource type
- * @param {Object|Object[]} data The data
- * @param {string} method Request type (PATCH, POST, DELETE)
- * @param {Object} options Optional configuration for camelCase and pluralisation handling
- * @param {Function} options.camelCaseTypes Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core
- * @param {Function} options.pluralTypes Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package)
+ * @param {Object|Object[]} [data] The data
+ * @param {string} [method] Request type (PATCH, POST, DELETE)
+ * @param {Object} [options] Optional configuration for camelCase and pluralisation handling
+ * @param {Function} [options.camelCaseTypes=s=>s] Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core
+ * @param {Function} [options.pluralTypes=s=>s] Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package)
  * @returns {Object} The serialised data
  *
  * @example <caption>Setting camelCaseTypes and pluralTypes options (example shows options used by `kitsu` by default)</caption>

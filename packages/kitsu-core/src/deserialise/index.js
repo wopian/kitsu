@@ -4,18 +4,18 @@ import { linkRelationships } from '../linkRelationships'
 /**
  * Deserialises an array from a JSON-API structure
  *
- * @param {*} obj The response
+ * @param {Object[]} array The response
  * @returns {Object} The deserialised response
  * @private
  */
-function deserialiseArray (obj) {
-  for (let value of obj.data) {
-    if (obj.included) value = linkRelationships(value, obj.included)
+function deserialiseArray (array) {
+  for (let value of array.data) {
+    if (array.included) value = linkRelationships(value, array.included)
     if (value.relationships) value = linkRelationships(value)
     if (value.attributes) value = deattribute(value)
-    obj.data[obj.data.indexOf(value)] = value
+    array.data[array.data.indexOf(value)] = value
   }
-  return obj
+  return array
 }
 
 /**

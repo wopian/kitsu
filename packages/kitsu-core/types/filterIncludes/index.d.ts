@@ -1,7 +1,7 @@
 /**
  * Filters includes for the specific relationship requested
  *
- * @param {Object} included The response included object
+ * @param {Object[]} included The response included object
  * @param {Object} relationship
  * @param {string} relationship.id The relationship ID
  * @param {string} relationship.type The relationship type
@@ -28,7 +28,7 @@
  * //   attributes: { name: 'Emma' }
  * // }
  */
-export function filterIncludes(included: any, { id, type }: {
+export function filterIncludes(included: any[], { id, type }: {
     id: string;
     type: string;
 }): any[];

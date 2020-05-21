@@ -7,8 +7,8 @@ import { filterIncludes } from '../filterIncludes'
  * @param {Object} resource The included resource
  * @param {string} resource.id Resource ID
  * @param {string} resource.type Resource type
- * @param {Object} resource.meta Meta information
- * @param {Object} included The response included object
+ * @param {Object} [resource.meta] Meta information
+ * @param {Object[]} included The response included object
  * @private
  */
 function link ({ id, type, meta }, included) {
@@ -23,7 +23,7 @@ function link ({ id, type, meta }, included) {
  * Helper function for multiple relationships
  *
  * @param {Object} data The response data object
- * @param {Object} included The response included object
+ * @param {Object[]} included The response included object
  * @param {string} key Name of the relationship item
  * @private
  */
@@ -41,7 +41,7 @@ function linkArray (data, included, key) {
  * Helper function for single relationships
  *
  * @param {Object} data The response data object
- * @param {Object} included The response included object
+ * @param {Object[]} included The response included object
  * @param {string} key Name of the relationship item
  * @private
  */
@@ -69,7 +69,7 @@ function linkAttr (data, key) {
  * Links relationships to included data
  *
  * @param {Object} data The response data object
- * @param {Object} included The response included object
+ * @param {Object[]} [included] The response included object
  * @returns Parsed data
  *
  * @example

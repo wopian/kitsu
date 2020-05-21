@@ -2,7 +2,7 @@
  * Links relationships to included data
  *
  * @param {Object} data The response data object
- * @param {Object} included The response included object
+ * @param {Object[]} [included] The response included object
  * @returns Parsed data
  *
  * @example
@@ -27,4 +27,4 @@
  * //   }
  * // }
  */
-export function linkRelationships(data: any, included?: any): any;
+export function linkRelationships(data: any, included?: any[]): any;

@@ -14,8 +14,8 @@ function queryFormat (value, key) {
 /**
  * Constructs a URL query string for JSON:API parameters
  *
- * @param {Object} params Parameters to parse
- * @param {string} prefix Prefix for nested parameters - used internally (default `null`)
+ * @param {Object} [params] Parameters to parse
+ * @param {string} [prefix] Prefix for nested parameters - used internally
  * @returns {string} URL query string
  *
  * @example

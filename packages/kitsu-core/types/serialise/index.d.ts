@@ -2,11 +2,11 @@
  * Serialises an object into a JSON-API structure
  *
  * @param {string} type Resource type
- * @param {Object|Object[]} data The data
- * @param {string} method Request type (PATCH, POST, DELETE)
- * @param {Object} options Optional configuration for camelCase and pluralisation handling
- * @param {Function} options.camelCaseTypes Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core
- * @param {Function} options.pluralTypes Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package)
+ * @param {Object|Object[]} [data] The data
+ * @param {string} [method] Request type (PATCH, POST, DELETE)
+ * @param {Object} [options] Optional configuration for camelCase and pluralisation handling
+ * @param {Function} [options.camelCaseTypes=s=>s] Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core
+ * @param {Function} [options.pluralTypes=s=>s] Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package)
  * @returns {Object} The serialised data
  *
  * @example <caption>Setting camelCaseTypes and pluralTypes options (example shows options used by `kitsu` by default)</caption>
