@@ -212,9 +212,14 @@ export default class Kitsu {
    * @returns {Object} JSON-parsed response
    * @example <caption>Update a post</caption>
    * api.update('posts', {
-   *   id: '12345678',
+   *   id: '1',
    *   content: 'Goodbye World'
    * })
+   * @example <caption>Update multiple resources (API must support the Bulk Extension)</caption>
+   * api.update('posts', [
+   *   { id: '1', content: 'Hello World' },
+   *   { id: '2', content: 'Another post' }
+   * ])
    */
   async patch (model, body, headers = {}) {
     try {
@@ -258,6 +263,11 @@ export default class Kitsu {
    *     type: 'users'
    *   }
    * })
+   * @example <caption>Create multiple resources (API must support the Bulk Extension)</caption>
+   * api.create('posts', [
+   *   { content: 'Hello World' },
+   *   { content: 'Another post' }
+   * ])
    */
   async post (model, body, headers = {}) {
     try {
@@ -288,8 +298,10 @@ export default class Kitsu {
    * @param {string|number|Array} id Resource ID to remove. Pass an array of IDs to delete multiple resources (Bulk Extension)
    * @param {Object} headers Additional headers to send with request
    * @returns {Object} JSON-parsed response
-   * @example <caption>Remove a user's post</caption>
+   * @example <caption>Remove a single resource</caption>
    * api.delete('posts', 123)
+   * @example <caption>Remove multiple resources (API must support the Bulk Extension)</caption>
+   * api.delete('posts', [ 1, 2 ])
    */
   async delete (model, id, headers = {}) {
     try {
