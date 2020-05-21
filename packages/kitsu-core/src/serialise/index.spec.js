@@ -236,13 +236,13 @@ describe('kitsu-core', () => {
     it('throws an error if obj is missing', () => {
       expect.assertions(1)
       expect(() => serialise('post'))
-        .toThrowError('POST requires a JSON object body')
+        .toThrowError('POST requires an object or array body')
     })
 
     it('throws an error if obj is not an Object', () => {
       expect.assertions(1)
       expect(() => serialise('post', 'id: 1', 'DELETE'))
-        .toThrowError('DELETE requires a JSON object body')
+        .toThrowError('DELETE requires an object or array body')
     })
 
     it('throws an error when missing ID', () => {

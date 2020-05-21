@@ -12,6 +12,10 @@ import { error } from '../error'
 function isValid (isArray, type, payload, method) {
   const requireID = new Error(`${method} requires an ID for the ${type} type`)
 
+  if (type === undefined) {
+    throw new Error(`${method} requires a resource type`)
+  }
+
   if (isArray) {
     // A POST request is the only request to not require an ID in spec
     if (method !== 'POST' && payload.length > 0) {
@@ -21,7 +25,7 @@ function isValid (isArray, type, payload, method) {
     }
   } else {
     if (payload.constructor !== Object || Object.keys(payload).length === 0) {
-      throw new Error(`${method} requires a JSON object body`)
+      throw new Error(`${method} requires an object or array body`)
     }
     // A POST request is the only request to not require an ID in spec
     if (method !== 'POST' && !payload.id) {
@@ -133,6 +137,7 @@ function serialiseRootArray (type, payload, method, options) {
  */
 function serialiseRootObject (type, payload, method, options) {
   isValid(false, type, payload, method)
+  type = options.pluralTypes(options.camelCaseTypes(type))
   let data = { type }
 
   if (payload?.id) data.id = String(payload.id)
@@ -191,9 +196,6 @@ export function serialise (type, data = {}, method = 'POST', options = {}) {
     if (!options.pluralTypes) options.pluralTypes = s => s
     // Delete relationship to-one (data: null) or to-many (data: [])
     if (data === null || (Array.isArray(data) && data.length === 0)) return { data }
-
-    type = options.pluralTypes(options.camelCaseTypes(type))
-
     if (Array.isArray(data) && data?.length > 0) return serialiseRootArray(type, data, method, options)
     else return serialiseRootObject(type, data, method, options)
   } catch (E) {

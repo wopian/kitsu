@@ -142,9 +142,22 @@ describe('kitsu', () => {
       mock.onDelete('anime/1').reply(200, genericResponse)
       const request = await api.request({
         method: 'delete',
+        type: 'anime',
         url: 'anime/1'
       })
       expect(request).toEqual(genericRequest)
+    })
+
+    it('throws an error if body is missing', async () => {
+      expect.assertions(1)
+      const api = new Kitsu()
+      try {
+        await api.request({
+          method: 'patch'
+        })
+      } catch (err) {
+        expect(err.message).toEqual('PATCH requires a resource type')
+      }
     })
   })
 })

@@ -189,9 +189,9 @@ export default class Kitsu {
       if (id) url += `/${id}`
       if (relationship) url += `/${this.resCase(relationship)}`
 
-      // eslint-disable-next-line no-console
       const { data } = await this.axios.get(url, {
         params,
+        /* istanbul ignore next */
         paramsSerializer: p => query(p),
         headers: Object.assign(this.headers, headers)
       })
@@ -425,7 +425,6 @@ export default class Kitsu {
   async request ({ body, method, params, type, url }, headers = {}) {
     try {
       method = method?.toUpperCase() || 'GET'
-      // eslint-disable-next-line no-console
       const { data } = await this.axios.request({
         method,
         url,
@@ -434,6 +433,7 @@ export default class Kitsu {
           pluralTypes: this.plural
         }),
         params,
+        /* istanbul ignore next */
         paramsSerializer: p => query(p),
         headers: Object.assign(this.headers, headers)
       })

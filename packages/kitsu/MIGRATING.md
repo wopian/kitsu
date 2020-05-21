@@ -241,7 +241,7 @@ Unchanged from `3.x`, if there is an error thrown by `kitsu` itself, then you on
 ```js
 catch (err) {
 	err.name // 'Error'
-	err.message // 'POST requires a JSON object body'
+	err.message // 'POST requires an object or array body'
 }
 
 ## Migrating to `3.0.0`

@@ -95,7 +95,7 @@ describe('kitsu', () => {
       try {
         await api.post('posts')
       } catch (err) {
-        expect(err.message).toEqual('POST requires a JSON object body')
+        expect(err.message).toEqual('POST requires an object or array body')
       }
     })
   })

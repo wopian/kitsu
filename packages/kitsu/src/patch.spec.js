@@ -59,7 +59,7 @@ describe('kitsu', () => {
       try {
         await api.patch('posts')
       } catch (err) {
-        expect(err.message).toEqual('PATCH requires a JSON object body')
+        expect(err.message).toEqual('PATCH requires an object or array body')
       }
     })
 
