@@ -422,5 +422,13 @@ describe('kitsu-core', () => {
         data: [ resourceOutput, resourceOutput ]
       })
     })
+
+    it('does not error with an invalid JSON value (undefined)', () => {
+      expect.assertions(1)
+      const resource = { id: '1', content: undefined }
+      const resourceOutput = { id: '1', type: 'posts', attributes: { content: undefined } }
+      const input = serialise('posts', resource)
+      expect(input).toEqual({ data: resourceOutput })
+    })
   })
 })
