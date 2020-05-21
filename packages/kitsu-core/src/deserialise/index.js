@@ -21,7 +21,7 @@ function deserialiseArray (obj) {
 /**
  * Deserialises a JSON-API response
  *
- * @param {Object} obj The response
+ * @param {Object} response The raw JSON:API response object
  * @returns {Object} The deserialised response
  *
  * @example <caption>Deserialise with a basic data object</caption>
@@ -54,21 +54,19 @@ function deserialiseArray (obj) {
  *   ]
  * }) // { data: { id: '1', user: { type: 'users', id: '2', slug: 'wopian' } } }
  */
-export function deserialise (obj) {
-  if (!obj) return
+export function deserialise (response) {
+  if (!response) return
 
   // Collection of resources
-  // Note: constructor is currently faster than isArray()
-  // http://jsben.ch/QgYAV
-  if (obj.data && obj.data.constructor === Array) obj = deserialiseArray(obj)
+  if (response.data && Array.isArray(response.data)) response = deserialiseArray(response)
   // Single resource with included relationships
-  else if (obj.included) obj.data = linkRelationships(obj.data, obj.included)
-  else if (obj.data && obj.data.constructor === Object) obj.data = linkRelationships(obj.data)
+  else if (response.included) response.data = linkRelationships(response.data, response.included)
+  else if (response.data && response.data.constructor === Object) response.data = linkRelationships(response.data)
 
-  delete obj.included
+  delete response.included
 
   // Move attributes to the parent object
-  if (obj.data && obj.data.attributes) obj.data = deattribute(obj.data)
+  if (response.data && response.data.attributes) response.data = deattribute(response.data)
 
-  return obj
+  return response
 }
