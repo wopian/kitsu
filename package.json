@@ -20,7 +20,7 @@
     "docs": "lerna exec --parallel yarn docs:lint",
     "docs:build": "lerna exec --parallel yarn docs:build",
     "docs:typescript": "lerna exec --parallel yarn docs:typescript",
-    "docs:release": "yarn docs && yarn docs:build",
+    "docs:release": "yarn docs && yarn docs:build && yarn docs:typescript",
     "fix": "eslint . --fix",
     "lint": "eslint .",
     "test": "yarn test:coverage && yarn lint && yarn docs && yarn build && yarn size",
