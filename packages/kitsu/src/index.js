@@ -117,10 +117,14 @@ export default class Kitsu {
    *
    * @memberof Kitsu
    * @param {string} model Model to fetch data from
-   * @param {Object} [params] JSON-API request queries
-   * @param {Object} [params.page] [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination)
-   * @param {number} [params.page.limit] Number of resources to return in request (Max `20` for Kitsu.io except on `libraryEntries` which has a max of `500`)
-   * @param {number} [params.page.offset] Number of resources to offset the dataset by
+   * @param {Object} [params] JSON-API request queries. Any JSON:API query parameter not mentioned below is supported out of the box.
+   * @param {Object} [params.page] [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination). All pagination strategies are supported, even if they are not listed below.
+   * @param {number} [params.page.limit] Number of resources to return in request (Offset-based) - **Note:** For Kitsu.io, max is `20` except on `libraryEntries` which has a max of `500`
+   * @param {number} [params.page.offset] Number of resources to offset the dataset by (Offset-based)
+   * @param {number} [params.page.number] Page of resources to return in request (Page-based) - **Note:** Not supported on Kitsu.io
+   * @param {number} [params.page.size] Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on Kitsu.io
+   * @param {string} [params.page.before] Get the previous page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
+   * @param {string} [params.page.after] Get the next page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
    * @param {Object} [params.fields] Return a sparse fieldset with only the included attributes/relationships - [JSON:API Sparse Fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets)
    * @param {Object} [params.filter] Filter dataset by attribute values - [JSON:API Filtering](http://jsonapi.org/format/#fetching-filtering)
    * @param {string} [params.sort] Sort dataset by one or more comma separated attributes (prepend `-` for descending order) - [JSON:API Sorting](http://jsonapi.org/format/#fetching-sorting)
@@ -387,14 +391,14 @@ export default class Kitsu {
    * @param {string} config.type The resource type
    * @param {Object|Object[]} [config.body] Data to send in the request
    * @param {string} [config.method] Request method - `GET`, `PATCH`, `POST` or `DELETE` (defaults to `GET`, case-insensitive)
-   * @param {Object} [config.params] JSON-API request queries
-   * @param {Object} [config.params.page] [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination)
-   * @param {number} [config.params.page.limit] Number of resources to return in request (Max `20` for Kitsu.io except on `libraryEntries` which has a max of `500`)
-   * @param {number} [config.params.page.offset] Number of resources to offset the dataset by
-   * @param {Object} [config.params.fields] Return a sparse fieldset with only the included attributes/relationships - [JSON:API Sparse Fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets)
-   * @param {Object} [config.params.filter] Filter dataset by attribute values - [JSON:API Filtering](http://jsonapi.org/format/#fetching-filtering)
-   * @param {string} [config.params.sort] Sort dataset by one or more comma separated attributes (prepend `-` for descending order) - [JSON:API Sorting](http://jsonapi.org/format/#fetching-sorting)
-   * @param {string} [config.params.include] Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
+   * @param {Object} [config.params] JSON-API request queries. Any JSON:API query parameter not mentioned below is supported out of the box.
+   * @param {Object} [config.params.page] [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination). All pagination strategies are supported, even if they are not listed below.
+   * @param {number} [config.params.page.limit] Number of resources to return in request (Offset-based) - **Note:** For Kitsu.io, max is `20` except on `libraryEntries` which has a max of `500`
+   * @param {number} [config.params.page.offset] Number of resources to offset the dataset by (Offset-based)
+   * @param {number} [config.params.page.number] Page of resources to return in request (Page-based) - **Note:** Not supported on Kitsu.io
+   * @param {number} [config.params.page.size] Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on Kitsu.io
+   * @param {string} [config.params.page.before] Get the previous page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
+   * @param {string} [config.params.page.after] Get the next page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
    * @param {Object} [headers] Additional headers to send with the request
    * @returns {Object} JSON-parsed response
    * @example <caption>Raw GET request</caption>
