@@ -58,15 +58,15 @@ export function deserialise (response) {
   if (!response) return
 
   // Collection of resources
-  if (response.data && Array.isArray(response.data)) response = deserialiseArray(response)
+  if (Array.isArray(response.data)) response = deserialiseArray(response)
   // Single resource with included relationships
   else if (response.included) response.data = linkRelationships(response.data, response.included)
-  else if (response.data && response.data.constructor === Object) response.data = linkRelationships(response.data)
+  else if (response.data?.constructor === Object) response.data = linkRelationships(response.data)
 
   delete response.included
 
   // Move attributes to the parent object
-  if (response.data && response.data.attributes) response.data = deattribute(response.data)
+  if (response.data?.attributes) response.data = deattribute(response.data)
 
   return response
 }
