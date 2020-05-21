@@ -4,9 +4,9 @@
  * @param {Object} [options] Options
  * @param {string} [options.baseURL=https://kitsu.io/api/edge] Set the API endpoint
  * @param {Object} [options.headers] Additional headers to send with the requests
- * @param {boolean} [options.camelCaseTypes=true] If true, the `type` value will be camelCased, e.g `library-entries` and `library_entries` become `libraryEntries`
- * @param {'kebab'|'snake'|'none'} [options.resourceCase=kebab] `kebab`, `snake` or `none`. If `kebab`, `/libraryEntries` will become `/library-entries`. If `snake`, `/libraryEntries` will become `/library_entries`, If `none`, `/libraryEntries` will be unchanged
- * @param {boolean} [options.pluralize=true] If `true`, `/user` will become `/users` in the URL request and `type` will be pluralized in POST, PATCH and DELETE requests
+ * @param {boolean} [options.camelCaseTypes=true] If enabled, `type` will be converted to camelCase from kebab-casae or snake_case
+ * @param {'kebab'|'snake'|'none'} [options.resourceCase=kebab] Case to convert camelCase to. `kebab` - `/library-entries`; `snake` - /library_entries`; `none` - `/libraryEntries`
+ * @param {boolean} [options.pluralize=true] If enabled, `/user` will become `/users` in the URL request and `type` will be pluralized in POST, PATCH and DELETE requests
  * @param {number} [options.timeout=30000] Set the request timeout in milliseconds
  * @param {Object} [options.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
  * @example <caption>Using with Kitsu.io's API</caption>
