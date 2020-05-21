@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.0.7...v9.1.0) (2020-05-21)
+
+
+### Chores
+
+* **release:** update documentation ([d77384c](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/d77384c))
+* increase package warning limit ([c0136dc](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/c0136dc))
+
+
+### Documentation Changes
+
+* correct errors in types ([9ad8fc0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/9ad8fc0))
+* **kitsu:** document usage of the bulk extension ([e37b7ad](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/e37b7ad))
+
+
+### New Features
+
+* **kitsu:** support arbitrary requests ([e8aacc5](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/e8aacc5))
+* **kitsu:** support the bulk extension specification ([f793988](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/f793988)), closes [#336](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/336)
+
+
+
+
+
 ## [9.0.7](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.0.6...v9.0.7) (2020-05-19)
 
 

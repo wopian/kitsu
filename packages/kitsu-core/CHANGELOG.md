@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.0.7...v9.1.0) (2020-05-21)
+
+
+### Bug Fixes
+
+* **kitsu-core:** resolve linkedRelationships regression introduced in 568eff5 ([66095cc](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/66095cc))
+
+
+### Chores
+
+* **release:** update documentation ([d77384c](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/d77384c))
+* increase package warning limit ([c0136dc](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/c0136dc))
+
+
+### Documentation Changes
+
+* correct errors in types ([9ad8fc0](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/9ad8fc0))
+* **kitsu-core:** add internal documentation for new private functions ([0d10ba3](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/0d10ba3))
+* **kitsu-core:** update description of deserialise parameter ([94dc48a](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/94dc48a))
+
+
+### New Features
+
+* **kitsu-core:** support the bulk extension specification (serialise arrays) ([920ece3](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/920ece3)), closes [#336](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/336)
+
+
+### Refactors
+
+* **kitsu-core:** cleanup linkRelationships + use optional chaining ([568eff5](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/568eff5))
+* **kitsu-core:** use optional chaining in deserialise ([43d5d4b](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/43d5d4b))
+
+
+
+
+
 ## [9.0.7](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.0.6...v9.0.7) (2020-05-19)
 
 

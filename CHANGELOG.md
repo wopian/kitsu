@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/wopian/kitsu/compare/v9.0.7...v9.1.0) (2020-05-21)
+
+
+### Bug Fixes
+
+* **kitsu-core:** resolve linkedRelationships regression introduced in 568eff5 ([66095cc](https://github.com/wopian/kitsu/commit/66095cc))
+
+
+### Chores
+
+* **release:** update documentation ([d77384c](https://github.com/wopian/kitsu/commit/d77384c))
+* increase package warning limit ([c0136dc](https://github.com/wopian/kitsu/commit/c0136dc))
+
+
+### Documentation Changes
+
+* correct errors in types ([9ad8fc0](https://github.com/wopian/kitsu/commit/9ad8fc0))
+* **kitsu:** document usage of the bulk extension ([e37b7ad](https://github.com/wopian/kitsu/commit/e37b7ad))
+* **kitsu-core:** add internal documentation for new private functions ([0d10ba3](https://github.com/wopian/kitsu/commit/0d10ba3))
+* **kitsu-core:** update description of deserialise parameter ([94dc48a](https://github.com/wopian/kitsu/commit/94dc48a))
+
+
+### New Features
+
+* **kitsu:** support arbitrary requests ([e8aacc5](https://github.com/wopian/kitsu/commit/e8aacc5))
+* **kitsu:** support the bulk extension specification ([f793988](https://github.com/wopian/kitsu/commit/f793988)), closes [#336](https://github.com/wopian/kitsu/issues/336)
+* **kitsu-core:** support the bulk extension specification (serialise arrays) ([920ece3](https://github.com/wopian/kitsu/commit/920ece3)), closes [#336](https://github.com/wopian/kitsu/issues/336)
+
+
+### Refactors
+
+* **kitsu-core:** cleanup linkRelationships + use optional chaining ([568eff5](https://github.com/wopian/kitsu/commit/568eff5))
+* **kitsu-core:** use optional chaining in deserialise ([43d5d4b](https://github.com/wopian/kitsu/commit/43d5d4b))
+
+
+
+
+
 ## [9.0.7](https://github.com/wopian/kitsu/compare/v9.0.6...v9.0.7) (2020-05-19)
 
 
