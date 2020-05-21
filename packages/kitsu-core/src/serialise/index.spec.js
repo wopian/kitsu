@@ -113,7 +113,8 @@ describe('kitsu-core', () => {
           user: [
             {
               id: '2',
-              type: 'users'
+              type: 'users',
+              content: 'yuzu'
             },
             {
               id: '3'
@@ -133,7 +134,10 @@ describe('kitsu-core', () => {
               data: [
                 {
                   id: '2',
-                  type: 'users'
+                  type: 'users',
+                  attributes: {
+                    content: 'yuzu'
+                  }
                 },
                 {
                   id: '3',
@@ -300,19 +304,25 @@ describe('kitsu-core', () => {
     it('serialises type objects into relationships', () => {
       expect.assertions(1)
       const input = serialise('resourceModel', {
-        object: {
+        myRelationship: {
           id: '1',
-          type: 'relationshipModel'
+          type: 'relationshipModel',
+          content: 'Hello',
+          attributes: 'Keep me'
         }
       })
       expect(input).toEqual({
         data: {
           type: 'resourceModel',
           relationships: {
-            object: {
+            myRelationship: {
               data: {
                 id: '1',
-                type: 'relationshipModel'
+                type: 'relationshipModel',
+                attributes: {
+                  content: 'Hello',
+                  attributes: 'Keep me'
+                }
               }
             }
           }
@@ -323,19 +333,23 @@ describe('kitsu-core', () => {
     it('serialises type objects into relationships inside arrays', () => {
       expect.assertions(1)
       const input = serialise('resourceModel', [ {
-        object: {
+        myRelationship: {
           id: '1',
-          type: 'relationshipModel'
+          type: 'relationshipModel',
+          content: 'Hello'
         }
       } ])
       expect(input).toEqual({
         data: [ {
           type: 'resourceModel',
           relationships: {
-            object: {
+            myRelationship: {
               data: {
                 id: '1',
-                type: 'relationshipModel'
+                type: 'relationshipModel',
+                attributes: {
+                  content: 'Hello'
+                }
               }
             }
           }
@@ -366,20 +380,26 @@ describe('kitsu-core', () => {
 
     it('serialises type arrays into relationships', () => {
       expect.assertions(1)
-      const input = serialise('resourceModel', {
-        array: [ {
+      const input = serialise('resourceModels', {
+        arrayRelation: [ {
           id: '1',
-          type: 'relationshipModel'
+          type: 'arrayRelations',
+          content: 'Hey',
+          attributes: 'Keep me'
         } ]
       })
       expect(input).toEqual({
         data: {
-          type: 'resourceModel',
+          type: 'resourceModels',
           relationships: {
-            array: {
+            arrayRelation: {
               data: [ {
                 id: '1',
-                type: 'relationshipModel'
+                type: 'arrayRelations',
+                attributes: {
+                  content: 'Hey',
+                  attributes: 'Keep me'
+                }
               } ]
             }
           }
