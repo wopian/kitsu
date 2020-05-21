@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.4](https://github.com/wopian/kitsu/compare/v9.1.3...v9.1.4) (2020-05-21)
+
+
+### Chores
+
+* **release:** update documentation ([c2b9e13](https://github.com/wopian/kitsu/commit/c2b9e13))
+* **release:** update documentation ([e8b37f1](https://github.com/wopian/kitsu/commit/e8b37f1))
+
+
+### Documentation Changes
+
+* **kitsu:** document 1.0/1.1/Extensions pagination strategies ([b54ede6](https://github.com/wopian/kitsu/commit/b54ede6))
+* **kitsu:** enumerate resourceCase string values ([52c1c82](https://github.com/wopian/kitsu/commit/52c1c82))
+
+
+
+
+
 ## [9.1.3](https://github.com/wopian/kitsu/compare/v9.1.2...v9.1.3) (2020-05-21)
 
 
