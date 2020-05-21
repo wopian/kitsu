@@ -211,11 +211,23 @@ export default class Kitsu {
    * @param {Object|Object[]} body Data to send in the request
    * @param {Object} [headers] Additional headers to send with the request
    * @returns {Object|Object[]} JSON-parsed response
-   * @example <caption>Update a post</caption>
+   * @example <caption>Update a resource</caption>
    * api.update('posts', {
    *   id: '1',
    *   content: 'Goodbye World'
    * })
+   * @example <caption>Update a resource with relationships</caption>
+   * api.update('posts', {
+   *   content: 'Hello World',
+   *   uploads: {
+   *     id: '167585',
+   *     type: 'uploads'
+   *   }
+   * })
+   * @example <caption>Clear to-one relationships from a resource</caption>
+   * api.update('posts/1/relationships/uploads', null)
+   * @example <caption>Clear to-many relationships from a resource</caption>
+   * api.update('posts/1/relationships/uploads', [])
    * @example <caption>Update multiple resources (API must support the Bulk Extension)</caption>
    * api.update('posts', [
    *   { id: '1', content: 'Hello World' },
