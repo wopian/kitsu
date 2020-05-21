@@ -189,7 +189,7 @@ export default class Kitsu {
       if (id) url += `/${id}`
       if (relationship) url += `/${this.resCase(relationship)}`
 
-      /* istanbul ignore next */
+      // eslint-disable-next-line no-console
       const { data } = await this.axios.get(url, {
         params,
         paramsSerializer: p => query(p),
@@ -369,6 +369,7 @@ export default class Kitsu {
    * **Note** Planned changes to the `get`, `patch`, `post` and `delete` methods in a future major release may make this method redundent. See https://github.com/wopian/kitsu/issues/415 for details.
    *
    * @memberof Kitsu
+   * @param {Object} config Request configuration
    * @param {Object|Array} config.body Data to send in the request
    * @param {string} config.method Request method - `GET`, `PATCH`, `POST` or `DELETE` (defaults to `GET`, case-insensitive)
    * @param {Object} config.params JSON-API request queries
@@ -424,6 +425,7 @@ export default class Kitsu {
   async request ({ body, method, params, type, url }, headers = {}) {
     try {
       method = method?.toUpperCase() || 'GET'
+      // eslint-disable-next-line no-console
       const { data } = await this.axios.request({
         method,
         url,

@@ -3,7 +3,7 @@ import { error } from '../error'
 /**
  * Checks if data is valid for serialisation
  *
- * @param {Boolean} isArray If root element of the payload was an Array or Object
+ * @param {boolean} isArray If root element of the payload was an Array or Object
  * @param {string} type Resource type
  * @param {Object} payload The data
  * @param {string} method Request type - `PATCH` or `POST`
@@ -185,14 +185,14 @@ function serialiseRootObject (type, payload, method, options) {
  * // { data: { id: '1', type: 'anime', attributes: { slug: 'shirobako' } } }
  * const output = serialise(model, obj, 'PATCH')
  */
-export function serialise (model, data = {}, method = 'POST', options = {}) {
+export function serialise (type, data = {}, method = 'POST', options = {}) {
   try {
     if (!options.camelCaseTypes) options.camelCaseTypes = s => s
     if (!options.pluralTypes) options.pluralTypes = s => s
     // Delete relationship to-one (data: null) or to-many (data: [])
     if (data === null || (Array.isArray(data) && data.length === 0)) return { data }
 
-    const type = options.pluralTypes(options.camelCaseTypes(model))
+    type = options.pluralTypes(options.camelCaseTypes(type))
 
     if (Array.isArray(data) && data?.length > 0) return serialiseRootArray(type, data, method, options)
     else return serialiseRootObject(type, data, method, options)
