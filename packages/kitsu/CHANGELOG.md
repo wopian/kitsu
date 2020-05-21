@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.3](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.2...v9.1.3) (2020-05-21)
+
+
+### Chores
+
+* **release:** update documentation ([de730f2](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/de730f2))
+
+
+### Documentation Changes
+
+* **kitsu:** add clearing of to-one/to-many relationships to api.patch examples ([113e60f](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/113e60f))
+
+
+
+
+
 ## [9.1.2](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.1...v9.1.2) (2020-05-21)
 
 
