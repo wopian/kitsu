@@ -251,6 +251,12 @@ describe('kitsu-core', () => {
         .toThrowError('PATCH requires an ID for the user type')
     })
 
+    it('throws an error when missing ID in array', () => {
+      expect.assertions(1)
+      expect(() => serialise('user', [ { theme: 'dark' } ], 'PATCH'))
+        .toThrowError('PATCH requires an ID for the user type')
+    })
+
     it('serialises strings/numbers/booleans into attributes', () => {
       expect.assertions(1)
       const input = serialise('resourceModel', {
@@ -314,6 +320,29 @@ describe('kitsu-core', () => {
       })
     })
 
+    it('serialises type objects into relationships inside arrays', () => {
+      expect.assertions(1)
+      const input = serialise('resourceModel', [ {
+        object: {
+          id: '1',
+          type: 'relationshipModel'
+        }
+      } ])
+      expect(input).toEqual({
+        data: [ {
+          type: 'resourceModel',
+          relationships: {
+            object: {
+              data: {
+                id: '1',
+                type: 'relationshipModel'
+              }
+            }
+          }
+        } ]
+      })
+    })
+
     it('serialises bare arrays into attributes', () => {
       expect.assertions(1)
       const input = serialise('resourceModel', {
@@ -371,6 +400,26 @@ describe('kitsu-core', () => {
       const input = serialise('resourceModel', [])
       expect(input).toEqual({
         data: []
+      })
+    })
+
+    it('serialises a data array without ID (POST)', () => {
+      expect.assertions(1)
+      const resource = { content: 'some new content' }
+      const resourceOutput = { type: 'posts', attributes: { content: 'some new content' } }
+      const input = serialise('posts', [ resource, resource ])
+      expect(input).toEqual({
+        data: [ resourceOutput, resourceOutput ]
+      })
+    })
+
+    it('serialises a data array with ID (PATCH/DELETE)', () => {
+      expect.assertions(1)
+      const resource = { id: '1', content: 'some new content' }
+      const resourceOutput = { id: '1', type: 'posts', attributes: { content: 'some new content' } }
+      const input = serialise('posts', [ resource, resource ])
+      expect(input).toEqual({
+        data: [ resourceOutput, resourceOutput ]
       })
     })
   })

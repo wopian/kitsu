@@ -4,17 +4,27 @@ import { error } from '../error'
  * Checks if data is valid for serialisation
  *
  * @param {Object} obj The data
- * @param {string} method Request type
+ * @param {string} method Request type - `PATCH` or `POST`
  * @private
  */
-function isValid (obj, method, type) {
-  // Check if obj is not an object or empty
-  if (obj.constructor !== Object || Object.keys(obj).length === 0) {
-    throw new Error(`${method} requires a JSON object body`)
-  }
-  // A POST request is the only request to not require an ID
-  if (method !== 'POST' && !obj.id) {
-    throw new Error(`${method} requires an ID for the ${type} type`)
+function isValid (isArray, type, payload, method) {
+  const requireID = new Error(`${method} requires an ID for the ${type} type`)
+
+  if (isArray) {
+    // A POST request is the only request to not require an ID in spec
+    if (method !== 'POST' && payload.length > 0) {
+      for (const resource of payload) {
+        if (!resource.id) throw requireID
+      }
+    }
+  } else {
+    if (payload.constructor !== Object || Object.keys(payload).length === 0) {
+      throw new Error(`${method} requires a JSON object body`)
+    }
+    // A POST request is the only request to not require an ID in spec
+    if (method !== 'POST' && !payload.id) {
+      throw requireID
+    }
   }
 }
 
@@ -86,11 +96,44 @@ function hasID (node) {
   return Object.prototype.hasOwnProperty.call(node, 'id')
 }
 
+function serialiseRootArray (type, payload, method, options) {
+  isValid(true, type, payload, method)
+  const data = []
+  for (const resource of payload) {
+    data.push(serialiseRootObject(type, resource, method, options).data)
+  }
+  return { data }
+}
+
+function serialiseRootObject (type, payload, method, options) {
+  isValid(false, type, payload, method)
+  let data = { type }
+
+  if (payload?.id) data.id = String(payload.id)
+
+  for (const key in payload) {
+    const node = payload[key]
+    const nodeType = options.pluralTypes(options.camelCaseTypes(key))
+    // 1. Skip null nodes, 2. Only grab objects, 3. Filter to only serialise relationable objects
+    if (node !== null && node.constructor === Object && hasID(node)) {
+      data = serialiseObject(node, nodeType, key, data, method)
+    // 1. Skip null nodes, 2. Only grab arrays, 3. Filter to only serialise relationable arrays
+    } else if (node !== null && Array.isArray(node) && (node.length > 0 && hasID(node[0]))) {
+      data = serialiseArray(node, nodeType, key, data, method)
+    // 1. Don't place id/key inside attributes object
+    } else if (key !== 'id' && key !== 'type') {
+      data = serialiseAttr(node, key, data)
+    }
+  }
+
+  return { data }
+}
+
 /**
  * Serialises an object into a JSON-API structure
  *
  * @param {string} model Request model
- * @param {Object} obj The data
+ * @param {Object|Array} data The data
  * @param {string} method Request type (PATCH, POST, DELETE)
  * @param {Object} options Optional configuration for camelCase and pluralisation handling
  * @param {Function} options.camelCaseTypes Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core
@@ -116,36 +159,17 @@ function hasID (node) {
  * // { data: { id: '1', type: 'anime', attributes: { slug: 'shirobako' } } }
  * const output = serialise(model, obj, 'PATCH')
  */
-export function serialise (model, obj = {}, method = 'POST', options = {}) {
+export function serialise (model, data = {}, method = 'POST', options = {}) {
   try {
     if (!options.camelCaseTypes) options.camelCaseTypes = s => s
     if (!options.pluralTypes) options.pluralTypes = s => s
     // Delete relationship to-one (data: null) or to-many (data: [])
-    if (obj === null || (Array.isArray(obj) && obj.length === 0)) return { data: obj }
+    if (data === null || (Array.isArray(data) && data.length === 0)) return { data }
 
     const type = options.pluralTypes(options.camelCaseTypes(model))
-    let data = { type }
 
-    isValid(obj, method, type)
-
-    if (obj.id) data.id = String(obj.id)
-
-    for (const key in obj) {
-      const node = obj[key]
-      const nodeType = options.pluralTypes(options.camelCaseTypes(key))
-      // 1. Skip null nodes, 2. Only grab objects, 3. Filter to only serialise relationable objects
-      if (node !== null && node.constructor === Object && hasID(node)) {
-        data = serialiseObject(node, nodeType, key, data, method)
-      // 1. Skip null nodes, 2. Only grab arrays, 3. Filter to only serialise relationable arrays
-      } else if (node !== null && Array.isArray(node) && (node.length > 0 && hasID(node[0]))) {
-        data = serialiseArray(node, nodeType, key, data, method)
-      // 1. Don't place id/key inside attributes object
-      } else if (key !== 'id' && key !== 'type') {
-        data = serialiseAttr(node, key, data)
-      }
-    }
-
-    return { data }
+    if (Array.isArray(data) && data?.length > 0) return serialiseRootArray(type, data, method, options)
+    else return serialiseRootObject(type, data, method, options)
   } catch (E) {
     throw error(E)
   }
