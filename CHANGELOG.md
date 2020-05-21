@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.1](https://github.com/wopian/kitsu/compare/v9.1.0...v9.1.1) (2020-05-21)
+
+
+### Bug Fixes
+
+* **kitsu-core:** throw error if type is missing during serialisation ([570ef11](https://github.com/wopian/kitsu/commit/570ef11))
+
+
+### Chores
+
+* **release:** update documentation ([1c19a06](https://github.com/wopian/kitsu/commit/1c19a06))
+
+
+
+
+
 # [9.1.0](https://github.com/wopian/kitsu/compare/v9.0.7...v9.1.0) (2020-05-21)
 
 
