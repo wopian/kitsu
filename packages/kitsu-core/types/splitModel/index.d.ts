@@ -1,4 +1,3 @@
-
 /**
  * Split model name from the model's resource URL
  *
@@ -26,14 +25,7 @@
  * splitModel('libraryEntries', { resourceCase: snake })
  * // [ 'libraryEntries', 'library_entries' ]
  */
-export function splitModel (url, options = {}) {
-  if (!options.pluralModel) options.pluralModel = s => s
-  if (!options.resourceCase) options.resourceCase = s => s
-
-  const urlSegments = url.split('/')
-  const resourceModel = urlSegments.pop()
-  urlSegments.push(options.pluralModel(options.resourceCase(resourceModel)))
-  const newUrl = urlSegments.join('/')
-
-  return [ resourceModel, newUrl ]
-}
+export function splitModel(url: string, options?: {
+    resourceCase: Function;
+    pluralModel: Function;
+}): Array<string, string>;

@@ -19,6 +19,7 @@
     "build": "lerna exec yarn build",
     "docs": "lerna exec --parallel yarn docs:lint",
     "docs:build": "lerna exec --parallel yarn docs:build",
+    "docs:typescript": "lerna exec --parallel yarn docs:typescript",
     "docs:release": "yarn docs && yarn docs:build",
     "fix": "eslint . --fix",
     "lint": "eslint .",
@@ -50,7 +51,8 @@
     "rollup": "~2.10.0",
     "rollup-plugin-local-resolve": "~1.0.7",
     "rollup-plugin-terser": "~5.3.0",
-    "size-limit": "~4.5.0"
+    "size-limit": "~4.5.0",
+    "typescript": "~3.9.3"
   },
   "jest": {
     "testEnvironment": "node",

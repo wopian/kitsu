@@ -106,7 +106,7 @@ function hasID (node) {
  * Handles the Bulk Extension support. See `serialise` for examples.
  *
  * @param {string} type Resource type
- * @param {Array} payload The data
+ * @param {Array<Object>} payload The data
  * @param {string} method Request type (PATCH, POST, DELETE)
  * @param {Object} options Optional configuration for camelCase and pluralisation handling
  * @param {Function} options.camelCaseTypes Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core
@@ -127,7 +127,7 @@ function serialiseRootArray (type, payload, method, options) {
  * Serialises the root data object. See `serialise` for examples.
  *
  * @param {string} type Resource type
- * @param {Array} payload The data
+ * @param {Object} payload The data
  * @param {string} method Request type (PATCH, POST, DELETE)
  * @param {Object} options Optional configuration for camelCase and pluralisation handling
  * @param {Function} options.camelCaseTypes Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core
@@ -164,7 +164,7 @@ function serialiseRootObject (type, payload, method, options) {
  * Serialises an object into a JSON-API structure
  *
  * @param {string} type Resource type
- * @param {Object|Array} data The data
+ * @param {Object|Array<Object>} data The data
  * @param {string} method Request type (PATCH, POST, DELETE)
  * @param {Object} options Optional configuration for camelCase and pluralisation handling
  * @param {Function} options.camelCaseTypes Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core

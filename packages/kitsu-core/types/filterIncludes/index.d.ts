@@ -1,5 +1,3 @@
-import { error } from '../error'
-
 /**
  * Filters includes for the specific relationship requested
  *
@@ -30,17 +28,7 @@ import { error } from '../error'
  * //   attributes: { name: 'Emma' }
  * // }
  */
-export function filterIncludes (included, { id, type }) {
-  try {
-    if (id && type) {
-      const filtered = included.filter(el => {
-        return el.id === id && el.type === type
-      })[0] || { id, type }
-      return Object.assign({}, filtered)
-    } else {
-      return {}
-    }
-  } catch (E) {
-    error(E)
-  }
-}
+export function filterIncludes(included: any, { id, type }: {
+    id: string;
+    type: string;
+}): Array<any>;

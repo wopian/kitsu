@@ -15,7 +15,7 @@
   "module": "lib/index.mjs",
   "unpkg": "lib/index.browser.js",
   "jsdelivr": "lib/index.browser.js",
-  "types": "index.d.ts",
+  "types": "types/index.d.ts",
   "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core#readme",
   "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core",
   "bugs": {
@@ -34,6 +34,7 @@
   "scripts": {
     "docs:lint": "documentation lint src/index.js",
     "docs:build": "documentation readme src/index.js --section=API -g true --sort-order source",
+    "docs:typescript": "tsc src/index.js --declaration --emitDeclarationOnly --allowJs --outDir types",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "build": "yarn rollup"
   },
