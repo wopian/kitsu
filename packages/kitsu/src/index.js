@@ -7,7 +7,7 @@ import { camel, deserialise, error, kebab, query, serialise, snake, splitModel }
  *
  * @param {Object} options Options
  * @param {string} options.baseURL Set the API endpoint (default `https://kitsu.io/api/edge`)
- * @param {Object} options.headers Additional headers to send with requests
+ * @param {Object} options.headers Additional headers to send with the requests
  * @param {boolean} options.camelCaseTypes If true, the `type` value will be camelCased, e.g `library-entries` and `library_entries` become `libraryEntries`  (default `true`)
  * @param {string} options.resourceCase `kebab`, `snake` or `none`. If `kebab`, `/libraryEntries` will become `/library-entries`. If `snake`, `/libraryEntries` will become `/library_entries`, If `none`, `/libraryEntries` will be unchanged (default `kebab`)
  * @param {boolean} options.pluralize If `true`, `/user` will become `/users` in the URL request and `type` will be pluralized in POST, PATCH and DELETE requests (default `true`)
@@ -90,7 +90,7 @@ export default class Kitsu {
      *    // Do something before request is sent
      *    return config
      * }, error => {
-     *    // Do something with request error
+     *    // Do something with the request error
      *    return Promise.reject(error)
      * })
      * @example <caption>Response Interceptor</caption>
@@ -124,7 +124,7 @@ export default class Kitsu {
    * @param {Object} params.filter Filter dataset by attribute values - [JSON:API Filtering](http://jsonapi.org/format/#fetching-filtering)
    * @param {string} params.sort Sort dataset by one or more comma separated attributes (prepend `-` for descending order) - [JSON:API Sorting](http://jsonapi.org/format/#fetching-sorting)
    * @param {string} params.include Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
-   * @param {Object} headers Additional headers to send with request
+   * @param {Object} headers Additional headers to send with the request
    * @returns {Object} JSON-parsed response
    * @example <caption>Getting a resource with JSON:API parameters</caption>
    * api.get('users', {
@@ -208,7 +208,7 @@ export default class Kitsu {
    * @memberof Kitsu
    * @param {string} model Model to update data in
    * @param {Object} body Data to send in the request
-   * @param {Object} headers Additional headers to send with request
+   * @param {Object} headers Additional headers to send with the request
    * @returns {Object} JSON-parsed response
    * @example <caption>Update a post</caption>
    * api.update('posts', {
@@ -249,7 +249,7 @@ export default class Kitsu {
    * @memberof Kitsu
    * @param {string} model Model to create a resource under
    * @param {Object} body Data to send in the request
-   * @param {Object} headers Additional headers to send with request
+   * @param {Object} headers Additional headers to send with the request
    * @returns {Object} JSON-parsed response
    * @example <caption>Create a post on a user's profile feed</caption>
    * api.create('posts', {
@@ -296,7 +296,7 @@ export default class Kitsu {
    * @memberof Kitsu
    * @param {string} model Model to remove data from
    * @param {string|number|Array} id Resource ID to remove. Pass an array of IDs to delete multiple resources (Bulk Extension)
-   * @param {Object} headers Additional headers to send with request
+   * @param {Object} headers Additional headers to send with the request
    * @returns {Object} JSON-parsed response
    * @example <caption>Remove a single resource</caption>
    * api.delete('posts', 123)
@@ -343,7 +343,7 @@ export default class Kitsu {
    * @param {Object} params JSON-API request queries
    * @param {Object} params.fields Return a sparse fieldset with only the included attributes/relationships - [JSON:API Sparse Fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets)
    * @param {string} params.include Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
-   * @param {Object} headers Additional headers to send with request
+   * @param {Object} headers Additional headers to send with the request
    * @returns {Object} JSON-parsed response
    * @example <caption>Get the authenticated user's resource</caption>
    * api.self()
@@ -358,6 +358,85 @@ export default class Kitsu {
     try {
       const res = await this.get('users', Object.assign({ filter: { self: true } }, params), headers)
       return res.data[0]
+    } catch (E) {
+      throw error(E)
+    }
+  }
+
+  /**
+   * Send arbitrary requests
+   *
+   * **Note** Planned changes to the `get`, `patch`, `post` and `delete` methods in a future major release may make this method redundent. See https://github.com/wopian/kitsu/issues/415 for details.
+   *
+   * @memberof Kitsu
+   * @param {Object|Array} config.body Data to send in the request
+   * @param {string} config.method Request method - `GET`, `PATCH`, `POST` or `DELETE` (defaults to `GET`, case-insensitive)
+   * @param {Object} config.params JSON-API request queries
+   * @param {Object} config.params.page [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination)
+   * @param {number} config.params.page.limit Number of resources to return in request (Max `20` for Kitsu.io except on `libraryEntries` which has a max of `500`)
+   * @param {number} config.params.page.offset Number of resources to offset the dataset by
+   * @param {Object} config.params.fields Return a sparse fieldset with only the included attributes/relationships - [JSON:API Sparse Fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets)
+   * @param {Object} config.params.filter Filter dataset by attribute values - [JSON:API Filtering](http://jsonapi.org/format/#fetching-filtering)
+   * @param {string} config.params.sort Sort dataset by one or more comma separated attributes (prepend `-` for descending order) - [JSON:API Sorting](http://jsonapi.org/format/#fetching-sorting)
+   * @param {string} config.params.include Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
+   * @param {string} config.type The resource type
+   * @param {string} config.url The URL path of the resource
+   * @param {Object} headers Additional headers to send with the request
+   * @returns {Object} JSON-parsed response
+   * @example <caption>Raw GET request</caption>
+   * api.request({
+   *   url: 'anime/1/mappings',
+   *   type: 'mappings',
+   *   params: { filter: { externalSite: 'aozora' } }
+   * })
+   * @example <caption>Raw PATCH request</caption>
+   * api.request({
+   *   method: 'PATCH',
+   *   url: 'anime',
+   *   type: 'anime',
+   *   body: { id: '1', subtype: 'tv' }
+   * })
+   * @example <caption>Raw POST request</caption>
+   * api.request({
+   *   method: 'PATCH',
+   *   url: 'anime',
+   *   type: 'anime',
+   *   body: { subtype: 'tv' }
+   * })
+   * @example <caption>Raw DELETE request</caption>
+   * api.request({
+   *   method: 'DELETE',
+   *   url: 'anime/1',
+   *   type: 'anime',
+   *   body: { id: '1' }
+   * })
+   * @example <caption>Bulk Extension support (`PATCH`, `POST` & `DELETE`)</caption>
+   * api.request({
+   *   method: 'PATCH',
+   *   url: 'anime',
+   *   type: 'anime',
+   *   body: [
+   *     { id: '1', subtype: 'tv' }
+   *     { id: '2', subtype: 'ona' }
+   *   ]
+   * })
+   */
+  async request ({ body, method, params, type, url }, headers = {}) {
+    try {
+      method = method?.toUpperCase() || 'GET'
+      const { data } = await this.axios.request({
+        method,
+        url,
+        data: [ 'GET', 'DELETE' ].includes(method) ? undefined : serialise(type, body, method, {
+          camelCaseTypes: this.camel,
+          pluralTypes: this.plural
+        }),
+        params,
+        paramsSerializer: p => query(p),
+        headers: Object.assign(this.headers, headers)
+      })
+
+      return deserialise(data)
     } catch (E) {
       throw error(E)
     }
