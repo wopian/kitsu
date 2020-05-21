@@ -3,7 +3,9 @@ import { error } from '../error'
 /**
  * Checks if data is valid for serialisation
  *
- * @param {Object} obj The data
+ * @param {Boolean} isArray If root element of the payload was an Array or Object
+ * @param {string} type Resource type
+ * @param {Object} payload The data
  * @param {string} method Request type - `PATCH` or `POST`
  * @private
  */
@@ -96,6 +98,18 @@ function hasID (node) {
   return Object.prototype.hasOwnProperty.call(node, 'id')
 }
 
+/**
+ * Handles the Bulk Extension support. See `serialise` for examples.
+ *
+ * @param {string} type Resource type
+ * @param {Array} payload The data
+ * @param {string} method Request type (PATCH, POST, DELETE)
+ * @param {Object} options Optional configuration for camelCase and pluralisation handling
+ * @param {Function} options.camelCaseTypes Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core
+ * @param {Function} options.pluralTypes Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package)
+ * @returns {Object} The serialised data
+ * @private
+ */
 function serialiseRootArray (type, payload, method, options) {
   isValid(true, type, payload, method)
   const data = []
@@ -105,6 +119,18 @@ function serialiseRootArray (type, payload, method, options) {
   return { data }
 }
 
+/**
+ * Serialises the root data object. See `serialise` for examples.
+ *
+ * @param {string} type Resource type
+ * @param {Array} payload The data
+ * @param {string} method Request type (PATCH, POST, DELETE)
+ * @param {Object} options Optional configuration for camelCase and pluralisation handling
+ * @param {Function} options.camelCaseTypes Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core
+ * @param {Function} options.pluralTypes Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package)
+ * @returns {Object} The serialised data
+ * @private
+ */
 function serialiseRootObject (type, payload, method, options) {
   isValid(false, type, payload, method)
   let data = { type }
@@ -132,7 +158,7 @@ function serialiseRootObject (type, payload, method, options) {
 /**
  * Serialises an object into a JSON-API structure
  *
- * @param {string} model Request model
+ * @param {string} type Resource type
  * @param {Object|Array} data The data
  * @param {string} method Request type (PATCH, POST, DELETE)
  * @param {Object} options Optional configuration for camelCase and pluralisation handling
