@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.6](https://github.com/wopian/kitsu/compare/v9.1.5...v9.1.6) (2020-05-21)
+
+
+### Chores
+
+* **release:** update documentation ([dca0f14](https://github.com/wopian/kitsu/commit/dca0f14))
+
+
+### Continuous Integration
+
+* **npm:** ignore yarn log files ([297d1ef](https://github.com/wopian/kitsu/commit/297d1ef))
+
+
+
+
+
 ## [9.1.5](https://github.com/wopian/kitsu/compare/v9.1.4...v9.1.5) (2020-05-21)
 
 
