@@ -2,7 +2,7 @@
  * Serialises an object into a JSON-API structure
  *
  * @param {string} type Resource type
- * @param {Object|Array<Object>} data The data
+ * @param {Object|Object[]} data The data
  * @param {string} method Request type (PATCH, POST, DELETE)
  * @param {Object} options Optional configuration for camelCase and pluralisation handling
  * @param {Function} options.camelCaseTypes Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core
@@ -28,7 +28,7 @@
  * // { data: { id: '1', type: 'anime', attributes: { slug: 'shirobako' } } }
  * const output = serialise(model, obj, 'PATCH')
  */
-export function serialise(type: string, data?: any | Array<any>, method?: string, options?: {
+export function serialise(type: string, data?: any | any[], method?: string, options?: {
     camelCaseTypes: Function;
     pluralTypes: Function;
 }): any;

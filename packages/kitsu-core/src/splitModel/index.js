@@ -7,7 +7,7 @@
  * @param {Object} options
  * @param {Function} options.resourceCase Convert libraryEntries to library-entries or library_entries (default no conversion). To use parameter, import kebab or snake from kitsu-core
  * @param {Function} options.pluralModel Pluralise models (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package)
- * @returns {Array<string, string>} Array containing the model name and the resource URL with pluralisation applied
+ * @returns {[string, string]}} Array containing the model name and the resource URL with pluralisation applied
  *
  * @example
  * splitModel('posts/1/comments')

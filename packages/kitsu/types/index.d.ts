@@ -25,8 +25,8 @@
  */
 export default class Kitsu {
     constructor(options?: {});
-    camel: any;
-    resCase: any;
+    camel: (s: any) => any;
+    resCase: (s: any) => any;
     plural: any;
     /**
      * Get the current headers or add additional headers
@@ -54,7 +54,7 @@ export default class Kitsu {
     }, headers?: any) => any;
     update: (model: string, body: any, headers?: any) => any;
     create: (model: string, body: any, headers?: any) => any;
-    remove: (model: string, id: string | number | Array, headers?: any) => any;
+    remove: (model: string, id: string | number | number[], headers?: any) => any;
     /**
      * Axios Interceptors (alias of `axios.interceptors`)
      *
@@ -221,7 +221,7 @@ export default class Kitsu {
      *
      * @memberof Kitsu
      * @param {string} model Model to remove data from
-     * @param {string|number|Array} id Resource ID to remove. Pass an array of IDs to delete multiple resources (Bulk Extension)
+     * @param {string|number|number[]} id Resource ID to remove. Pass an array of IDs to delete multiple resources (Bulk Extension)
      * @param {Object} headers Additional headers to send with the request
      * @returns {Object} JSON-parsed response
      * @example <caption>Remove a single resource</caption>
@@ -229,7 +229,7 @@ export default class Kitsu {
      * @example <caption>Remove multiple resources (API must support the Bulk Extension)</caption>
      * api.delete('posts', [ 1, 2 ])
      */
-    delete(model: string, id: string | number | Array, headers?: any): any;
+    delete(model: string, id: string | number | number[], headers?: any): any;
     /**
      * Get the authenticated user's data
      *
@@ -261,7 +261,7 @@ export default class Kitsu {
      *
      * @memberof Kitsu
      * @param {Object} config Request configuration
-     * @param {Object|Array} config.body Data to send in the request
+     * @param {Object|Object[]} config.body Data to send in the request
      * @param {string} config.method Request method - `GET`, `PATCH`, `POST` or `DELETE` (defaults to `GET`, case-insensitive)
      * @param {Object} config.params JSON-API request queries
      * @param {Object} config.params.page [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination)
@@ -314,7 +314,7 @@ export default class Kitsu {
      * })
      */
     request({ body, method, params, type, url }: {
-        body: any | Array;
+        body: any | any[];
         method: string;
         params: {
             page: {

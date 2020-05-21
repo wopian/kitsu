@@ -1,8 +1,8 @@
 /**
  * Hoists attributes to be top-level
  *
- * @param {Object|Array} data Resource data
- * @returns {Object|Array} Deattributed resource data
+ * @param {Object|Object[]} data Resource data
+ * @returns {Object|Object[]} Deattributed resource data
  *
  * @example <caption>Deattribute an array of resources</caption>
  * // JSON:API 'data' field
@@ -26,4 +26,4 @@
  *
  * const output = deattribute(data) // { id: '1', type: 'users', slug: 'wopian' }
  */
-export function deattribute(data: any | Array): any | Array;
+export function deattribute(data: any | any[]): any | any[];

@@ -295,7 +295,7 @@ export default class Kitsu {
    *
    * @memberof Kitsu
    * @param {string} model Model to remove data from
-   * @param {string|number|Array} id Resource ID to remove. Pass an array of IDs to delete multiple resources (Bulk Extension)
+   * @param {string|number|number[]} id Resource ID to remove. Pass an array of IDs to delete multiple resources (Bulk Extension)
    * @param {Object} headers Additional headers to send with the request
    * @returns {Object} JSON-parsed response
    * @example <caption>Remove a single resource</caption>
@@ -370,7 +370,7 @@ export default class Kitsu {
    *
    * @memberof Kitsu
    * @param {Object} config Request configuration
-   * @param {Object|Array} config.body Data to send in the request
+   * @param {Object|Object[]} config.body Data to send in the request
    * @param {string} config.method Request method - `GET`, `PATCH`, `POST` or `DELETE` (defaults to `GET`, case-insensitive)
    * @param {Object} config.params JSON-API request queries
    * @param {Object} config.params.page [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination)

@@ -5,7 +5,7 @@
  * @param {Object} relationship
  * @param {string} relationship.id The relationship ID
  * @param {string} relationship.type The relationship type
- * @returns {Array<Object>} The matched includes
+ * @returns {Object[]} The matched includes
  *
  * @example
  * const includes = [
@@ -31,4 +31,4 @@
 export function filterIncludes(included: any, { id, type }: {
     id: string;
     type: string;
-}): Array<any>;
+}): any[];

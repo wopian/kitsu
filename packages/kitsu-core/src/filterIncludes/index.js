@@ -7,7 +7,7 @@ import { error } from '../error'
  * @param {Object} relationship
  * @param {string} relationship.id The relationship ID
  * @param {string} relationship.type The relationship type
- * @returns {Array<Object>} The matched includes
+ * @returns {Object[]} The matched includes
  *
  * @example
  * const includes = [
