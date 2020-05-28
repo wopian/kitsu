@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.8](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.1.7...v9.1.8) (2020-05-28)
+
+
+### Bug Fixes
+
+* add export paths with .js and .mjs for Node 13.1/14 exports field ([a8a06dd](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/a8a06dd))
+
+
+### Chores
+
+* **release:** update documentation ([fa0cdd8](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/fa0cdd8))
+* **release:** update documentation ([ce00974](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/ce00974))
+
+
+
+
+
 ## [9.1.7](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.1.6...v9.1.7) (2020-05-28)
 
 
