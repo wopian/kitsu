@@ -41,9 +41,8 @@
     "docs:lint": "documentation lint src/index.js",
     "docs:build": "documentation readme src/index.js --section=API -g true --sort-order source",
     "docs:typescript": "tsc src/index.js --declaration --emitDeclarationOnly --allowJs --outDir types",
-    "replace:mjs": "replace-in-file kitsu-core kitsu-core/lib/index.mjs lib/index.mjs",
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
-    "build": "yarn rollup && yarn replace:mjs"
+    "build": "yarn rollup"
   },
   "sideEffects": false,
   "dependencies": {
