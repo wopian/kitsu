@@ -73,6 +73,14 @@
     "./lib/index": {
       "import": "./lib/index.mjs",
       "require": "./lib/index.js"
+    },
+    "./lib/index.js": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js"
+    },
+    "./lib/index.mjs": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js"
     }
   }
 }

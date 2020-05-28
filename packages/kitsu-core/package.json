@@ -67,7 +67,23 @@
       "import": "./lib/index.mjs",
       "require": "./lib/index.js"
     },
+    "./lib/index.js": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js"
+    },
+    "./lib/index.mjs": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js"
+    },
     "./lib/camel": {
+      "import": "./lib/camel.mjs",
+      "require": "./lib/camel.js"
+    },
+    "./lib/camel.js": {
+      "import": "./lib/camel.mjs",
+      "require": "./lib/camel.js"
+    },
+    "./lib/camel.mjs": {
       "import": "./lib/camel.mjs",
       "require": "./lib/camel.js"
     },
@@ -75,7 +91,23 @@
       "import": "./lib/deattribute.mjs",
       "require": "./lib/deattribute.js"
     },
+    "./lib/deattribute.js": {
+      "import": "./lib/deattribute.mjs",
+      "require": "./lib/deattribute.js"
+    },
+    "./lib/deattribute.mjs": {
+      "import": "./lib/deattribute.mjs",
+      "require": "./lib/deattribute.js"
+    },
     "./lib/deserialise": {
+      "import": "./lib/deserialise.mjs",
+      "require": "./lib/deserialise.js"
+    },
+    "./lib/deserialise.js": {
+      "import": "./lib/deserialise.mjs",
+      "require": "./lib/deserialise.js"
+    },
+    "./lib/deserialise.mjs": {
       "import": "./lib/deserialise.mjs",
       "require": "./lib/deserialise.js"
     },
@@ -83,7 +115,23 @@
       "import": "./lib/error.mjs",
       "require": "./lib/error.js"
     },
+    "./lib/error.js": {
+      "import": "./lib/error.mjs",
+      "require": "./lib/error.js"
+    },
+    "./lib/error.mjs": {
+      "import": "./lib/error.mjs",
+      "require": "./lib/error.js"
+    },
     "./lib/filterIncludes": {
+      "import": "./lib/filterIncludes.mjs",
+      "require": "./lib/filterIncludes.js"
+    },
+    "./lib/filterIncludes.js": {
+      "import": "./lib/filterIncludes.mjs",
+      "require": "./lib/filterIncludes.js"
+    },
+    "./lib/filterIncludes.mjs": {
       "import": "./lib/filterIncludes.mjs",
       "require": "./lib/filterIncludes.js"
     },
@@ -91,7 +139,23 @@
       "import": "./lib/kebab.mjs",
       "require": "./lib/kebab.js"
     },
+    "./lib/kebab.js": {
+      "import": "./lib/kebab.mjs",
+      "require": "./lib/kebab.js"
+    },
+    "./lib/kebab.mjs": {
+      "import": "./lib/kebab.mjs",
+      "require": "./lib/kebab.js"
+    },
     "./lib/linkRelationships": {
+      "import": "./lib/linkRelationships.mjs",
+      "require": "./lib/linkRelationships.js"
+    },
+    "./lib/linkRelationships.js": {
+      "import": "./lib/linkRelationships.mjs",
+      "require": "./lib/linkRelationships.js"
+    },
+    "./lib/linkRelationships.mjs": {
       "import": "./lib/linkRelationships.mjs",
       "require": "./lib/linkRelationships.js"
     },
@@ -99,11 +163,35 @@
       "import": "./lib/query.mjs",
       "require": "./lib/query.js"
     },
+    "./lib/query.js": {
+      "import": "./lib/query.mjs",
+      "require": "./lib/query.js"
+    },
+    "./lib/query.mjs": {
+      "import": "./lib/query.mjs",
+      "require": "./lib/query.js"
+    },
     "./lib/serialise": {
       "import": "./lib/serialise.mjs",
       "require": "./lib/serialise.js"
     },
+    "./lib/serialise.js": {
+      "import": "./lib/serialise.mjs",
+      "require": "./lib/serialise.js"
+    },
+    "./lib/serialise.mjs": {
+      "import": "./lib/serialise.mjs",
+      "require": "./lib/serialise.js"
+    },
     "./lib/snake": {
+      "import": "./lib/snake.mjs",
+      "require": "./lib/snake.js"
+    },
+    "./lib/snake.js": {
+      "import": "./lib/snake.mjs",
+      "require": "./lib/snake.js"
+    },
+    "./lib/snake.mjs": {
       "import": "./lib/snake.mjs",
       "require": "./lib/snake.js"
     }
