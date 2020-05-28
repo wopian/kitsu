@@ -56,5 +56,56 @@
   "gitHead": "5c9778d191d17d7c9790cfc6d0f4e983b4742a53",
   "devDependencies": {
     "@size-limit/preset-small-lib": "~4.5.0"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js"
+    },
+    "./lib/index": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js"
+    },
+    "./lib/camel": {
+      "import": "./lib/camel.mjs",
+      "require": "./lib/camel.js"
+    },
+    "./lib/deattribute": {
+      "import": "./lib/deattribute.mjs",
+      "require": "./lib/deattribute.js"
+    },
+    "./lib/deserialise": {
+      "import": "./lib/deserialise.mjs",
+      "require": "./lib/deserialise.js"
+    },
+    "./lib/error": {
+      "import": "./lib/error.mjs",
+      "require": "./lib/error.js"
+    },
+    "./lib/filterIncludes": {
+      "import": "./lib/filterIncludes.mjs",
+      "require": "./lib/filterIncludes.js"
+    },
+    "./lib/kebab": {
+      "import": "./lib/kebab.mjs",
+      "require": "./lib/kebab.js"
+    },
+    "./lib/linkRelationships": {
+      "import": "./lib/linkRelationships.mjs",
+      "require": "./lib/linkRelationships.js"
+    },
+    "./lib/query": {
+      "import": "./lib/query.mjs",
+      "require": "./lib/query.js"
+    },
+    "./lib/serialise": {
+      "import": "./lib/serialise.mjs",
+      "require": "./lib/serialise.js"
+    },
+    "./lib/snake": {
+      "import": "./lib/snake.mjs",
+      "require": "./lib/snake.js"
+    }
   }
 }
