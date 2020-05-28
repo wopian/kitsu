@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.7](https://github.com/wopian/kitsu/compare/v9.1.6...v9.1.7) (2020-05-28)
+
+
+### Bug Fixes
+
+* use Node 13.1/14 exports field in package.json ([0a4692a](https://github.com/wopian/kitsu/commit/0a4692a))
+
+
+### Build System / Dependencies
+
+* update devdependency eslint to ~7.1.0 ([#420](https://github.com/wopian/kitsu/issues/420)) ([99d40c9](https://github.com/wopian/kitsu/commit/99d40c9))
+* update devdependency lerna to ~3.22.0 ([#422](https://github.com/wopian/kitsu/issues/422)) ([297021e](https://github.com/wopian/kitsu/commit/297021e))
+* update devdependency rollup-plugin-terser to ~6.1.0 ([#421](https://github.com/wopian/kitsu/issues/421)) ([ca85c6f](https://github.com/wopian/kitsu/commit/ca85c6f))
+
+
+### Chores
+
+* **release:** update documentation ([8424d78](https://github.com/wopian/kitsu/commit/8424d78))
+
+
+
+
+
 ## [9.1.6](https://github.com/wopian/kitsu/compare/v9.1.5...v9.1.6) (2020-05-21)
 
 

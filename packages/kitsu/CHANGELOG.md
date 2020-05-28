@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.7](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.6...v9.1.7) (2020-05-28)
+
+
+### Bug Fixes
+
+* use Node 13.1/14 exports field in package.json ([0a4692a](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/0a4692a))
+
+
+### Chores
+
+* **release:** update documentation ([8424d78](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/8424d78))
+
+
+
+
+
 ## [9.1.6](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.5...v9.1.6) (2020-05-21)
 
 
