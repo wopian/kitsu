@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.9](https://github.com/wopian/kitsu/compare/v9.1.8...v9.1.9) (2020-05-31)
+
+
+### Build System / Dependencies
+
+* update babel monorepo to ~7.10.0 ([#423](https://github.com/wopian/kitsu/issues/423)) ([46ccf95](https://github.com/wopian/kitsu/commit/46ccf95))
+* update devdependency eslint-config-wopian to ~2.0.0 ([#425](https://github.com/wopian/kitsu/issues/425)) ([60103ac](https://github.com/wopian/kitsu/commit/60103ac))
+* update devdependency rollup to ~2.11.0 ([#424](https://github.com/wopian/kitsu/issues/424)) ([5f2b10e](https://github.com/wopian/kitsu/commit/5f2b10e))
+* update lockfile ([211967e](https://github.com/wopian/kitsu/commit/211967e))
+
+
+### Chores
+
+* **release:** update documentation ([220ad78](https://github.com/wopian/kitsu/commit/220ad78))
+
+
+### Continuous Integration
+
+* fix size limit ([10fa5a1](https://github.com/wopian/kitsu/commit/10fa5a1))
+
+
+### Documentation Changes
+
+* update package descriptions ([29b8693](https://github.com/wopian/kitsu/commit/29b8693))
+
+
+
+
+
 ## [9.1.8](https://github.com/wopian/kitsu/compare/v9.1.7...v9.1.8) (2020-05-28)
 
 

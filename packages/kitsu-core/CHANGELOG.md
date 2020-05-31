@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.9](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.1.8...v9.1.9) (2020-05-31)
+
+
+### Chores
+
+* **release:** update documentation ([220ad78](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/220ad78))
+
+
+### Continuous Integration
+
+* fix size limit ([10fa5a1](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/10fa5a1))
+
+
+### Documentation Changes
+
+* update package descriptions ([29b8693](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/29b8693))
+
+
+
+
+
 ## [9.1.8](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.1.7...v9.1.8) (2020-05-28)
 
 

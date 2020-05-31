@@ -1,5 +1,5 @@
 {
-  "version": "9.1.8",
+  "version": "9.1.9",
   "name": "kitsu-core",
   "description": "Simple, lightweight & framework agnostic JSON:API (de)serialsation components",
   "author": "James Harris <wopian@wopian.me>",
