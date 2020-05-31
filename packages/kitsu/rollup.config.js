@@ -1,6 +1,7 @@
 import babel from '@rollup/plugin-babel'
 import { terser } from 'rollup-plugin-terser'
 import local from 'rollup-plugin-local-resolve'
+import del from 'rollup-plugin-delete'
 import pkg from './package.json'
 
 const {
@@ -22,6 +23,7 @@ const globals = {
 }
 
 const plugins = [
+  del({ targets: './lib/*' }),
   local(),
   terser()
 ]
@@ -37,13 +39,13 @@ export default {
   plugins: pluginsMain,
   output: [
     {
-      file: pkg.main,
+      file: `${pkg.main}.js`,
       format: 'cjs',
       sourcemap: false,
       globals
     },
     {
-      file: pkg.module,
+      file: `${pkg.module}.mjs`,
       format: 'es',
       sourcemap: false,
       globals

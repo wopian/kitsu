@@ -1,6 +1,7 @@
 import babel from '@rollup/plugin-babel'
 import { terser } from 'rollup-plugin-terser'
 import local from 'rollup-plugin-local-resolve'
+import del from 'rollup-plugin-delete'
 import pkg from './package.json'
 
 const {
@@ -30,7 +31,9 @@ const pluginsMain = [
 export default [
   {
     input: 'src/index.js',
-    plugins: pluginsMain,
+    plugins: [
+      del({ targets: './lib/*' }),
+      ...pluginsMain ],
     output: {
       file: `${pkg.unpkg}`,
       name: 'kitsuCore',

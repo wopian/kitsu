@@ -24,25 +24,26 @@
   <a href=https://paypal.me/wopian><img alt="support me on paypal.me"src=https://flat.badgen.net/badge/support%20me%20on/paypal.me/pink></a>
 </p>
 
-<p align=center>Core <a href=http://jsonapi.org>JSON:API</a> serialisation and deserialisation components</p>
+<p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> serialisation and deserialisation functions</p>
 
 <p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md>Migration guide</a> for v9 and previous major releases</p>
 
-# 
+#
 
 ## Features
 
 -   JSON-API 1.0 compliant
 -   Automatically links relationships to data
 -   Works in Node and on the web
+-   Zero dependencies
 
 ## Node / Browser Support
 
 |      Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | -----------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu-core` |      ≤ 1.5 kb      |  10+ |   67+  |   68+   |   12+  |  18+ |
+| `kitsu-core` |      ≤ 1.6 kb      |  10+ |   69+  |   68+   |   12+  |  18+ |
 
-\* Including all dependencies, minified & gzipped<br>
+\* Minified with brotli
 
 ## Install
 
@@ -256,7 +257,7 @@ Filters includes for the specific relationship requested
 #### Parameters
 
 -   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The response included object
--   `relationship` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `relationship` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `relationship.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `relationship.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 

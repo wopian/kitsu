@@ -24,11 +24,11 @@
   <a href=https://paypal.me/wopian><img alt="support me on paypal.me"src=https://flat.badgen.net/badge/support%20me%20on/paypal.me/pink></a>
 </p>
 
-<p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client for <a href=https://kitsu.io>Kitsu.io</a> and other APIs</p>
+<p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client using Axios</p>
 
 <p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v9 and previous major releases</p>
 
-# 
+#
 
 ## Features
 
@@ -41,9 +41,9 @@
 
 | Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | ------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu` |      ≤ 8.9 kb      |  10+ |   67+  |   68+   |   12+  |  18+ |
+| `kitsu` |      ≤ 8.2 kb      |  10+ |   69+  |   68+   |   12+  |  18+ |
 
-\* Including all dependencies, minified & gzipped
+\* Including all dependencies and minified with brotli
 
 ## Response Comparison
 

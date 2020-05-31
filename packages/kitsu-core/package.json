@@ -1,7 +1,7 @@
 {
   "version": "9.1.8",
   "name": "kitsu-core",
-  "description": "Core serialisation and deserialsation functions for the kitsu JSON:API client",
+  "description": "Simple, lightweight & framework agnostic JSON:API (de)serialsation functions",
   "author": "James Harris <wopian@wopian.me>",
   "contributors": [
     "Brandon Martinez <me@brandonmartinez.com>",
@@ -11,8 +11,8 @@
     "Menthol <bennetteson@gmail.com>"
   ],
   "license": "MIT",
-  "main": "lib/index.js",
-  "module": "lib/index.mjs",
+  "main": "lib/index",
+  "module": "lib/index",
   "unpkg": "lib/index.browser.js",
   "jsdelivr": "lib/index.browser.js",
   "types": "types/index.d.ts",
@@ -42,15 +42,18 @@
   "size-limit": [
     {
       "path": "./lib/index.js",
-      "limit": "2 kb"
+      "limit": "2 kb",
+      "brotli": true
     },
     {
       "path": "./lib/index.mjs",
-      "limit": "2 kb"
+      "limit": "2 kb",
+      "brotli": true
     },
     {
       "path": "./lib/index.browser.js",
-      "limit": "2 kb"
+      "limit": "2 kb",
+      "brotli": true
     }
   ],
   "gitHead": "5c9778d191d17d7c9790cfc6d0f4e983b4742a53",

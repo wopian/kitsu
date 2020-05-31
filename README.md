@@ -24,7 +24,7 @@
 This is a monorepo containing the following packages:
 
 - [kitsu]—Framework agnostic client using Axios
-- [kitsu-core]—Core (de)serialisation functions
+- [kitsu-core]—Framework agnostic (de)serialisation functions
 
 ## Features
 
@@ -36,10 +36,10 @@ This is a monorepo containing the following packages:
 
 | Package      | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | -----------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu`      | ≤ 8.9 kb           | 10+  | 67+    | 68+     | 12+    | 18+  |
-| `kitsu-core` | ≤ 1.5 kb           | 10+  | 67+    | 68+     | 12+    | 18+  |
+| `kitsu`      | ≤ 8.2 kb           | 10+  | 69+    | 68+     | 12+    | 18+  |
+| `kitsu-core` | ≤ 1.6 kb           | 10+  | 69+    | 68+     | 12+    | 18+  |
 
-\* Including all dependencies, minified & gzipped
+\* Including all dependencies and minified with brotli
 
 ## Contributing
 
