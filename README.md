@@ -17,20 +17,20 @@
   <a href=https://paypal.me/wopian><img alt="support me on paypal.me"src=https://flat.badgen.net/badge/support%20me%20on/paypal.me/pink></a>
 </p>
 
-<p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client for <a href=https://kitsu.io>Kitsu.io</a> and other APIs</p>
+<p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client for <a href=https://kitsu.io>Kitsu.io</a> & other APIs</p>
 
 #
 
 This is a monorepo containing the following packages:
 
 - [kitsu]—Framework agnostic client using Axios
-- [kitsu-core]—Framework agnostic (de)serialisation functions
+- [kitsu-core]—Framework agnostic (de)serialisation components
 
 ## Features
 
 -   JSON-API 1.0 compliant
 -   Automatically links relationships to data
--   Works in Node and on the web
+-   Works in Node & browsers
 
 ## Node / Browser Support
 
@@ -39,7 +39,7 @@ This is a monorepo containing the following packages:
 | `kitsu`      | ≤ 8.2 kb           | 10+  | 69+    | 68+     | 12+    | 18+  |
 | `kitsu-core` | ≤ 1.6 kb           | 10+  | 69+    | 68+     | 12+    | 18+  |
 
-\* Including all dependencies and minified with brotli
+\* Including all dependencies & minified with brotli
 
 ## Contributing
 

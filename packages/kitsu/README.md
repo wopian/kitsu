@@ -26,7 +26,7 @@
 
 <p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client using Axios</p>
 
-<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v9 and previous major releases</p>
+<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v9 & previous major releases</p>
 
 #
 
@@ -34,7 +34,7 @@
 
 -   JSON-API 1.0 compliant
 -   Automatically links relationships to data
--   Works in Node and on the web
+-   Works in Node & browsers
 -   Uses the [Promise] API
 
 ## Node / Browser Support
@@ -43,7 +43,7 @@
 | ------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
 | `kitsu` |      ≤ 8.2 kb      |  10+ |   69+  |   68+   |   12+  |  18+ |
 
-\* Including all dependencies and minified with brotli
+\* Including all dependencies & minified with brotli
 
 ## Response Comparison
 
@@ -113,8 +113,8 @@ npm install kitsu
 ```
 
 ```js
-import Kitsu from 'kitsu'      // ES Modules and Babel
-const Kitsu = require('kitsu') // CommonJS and Browserify
+import Kitsu from 'kitsu'      // ES Modules & Babel
+const Kitsu = require('kitsu') // CommonJS & Browserify
 ```
 
 ## Quick Start
@@ -175,7 +175,7 @@ api.get('users', {
 
 [More Examples]
 
-If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lists all available resources with their attributes and relationships
+If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lists all available resources with their attributes & relationships
 
 ## API
 

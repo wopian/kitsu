@@ -24,9 +24,9 @@
   <a href=https://paypal.me/wopian><img alt="support me on paypal.me"src=https://flat.badgen.net/badge/support%20me%20on/paypal.me/pink></a>
 </p>
 
-<p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> serialisation and deserialisation functions</p>
+<p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> (de)serialisation components</p>
 
-<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md>Migration guide</a> for v9 and previous major releases</p>
+<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md>Migration guide</a> for v9 & previous major releases</p>
 
 #
 
@@ -34,7 +34,8 @@
 
 -   JSON-API 1.0 compliant
 -   Automatically links relationships to data
--   Works in Node and on the web
+-   Works in Node & browsers
+-   Tree shakeable components
 -   Zero dependencies
 
 ## Node / Browser Support

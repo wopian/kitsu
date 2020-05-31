@@ -1,7 +1,7 @@
 {
   "version": "9.1.8",
   "name": "kitsu-core",
-  "description": "Simple, lightweight & framework agnostic JSON:API (de)serialsation functions",
+  "description": "Simple, lightweight & framework agnostic JSON:API (de)serialsation components",
   "author": "James Harris <wopian@wopian.me>",
   "contributors": [
     "Brandon Martinez <me@brandonmartinez.com>",
