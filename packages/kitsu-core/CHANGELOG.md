@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.10](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.1.9...v9.1.10) (2020-05-31)
+
+
+### Chores
+
+* **release:** update documentation ([3817edc](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/3817edc))
+
+
+### Documentation Changes
+
+* fix spacing in description ([8811add](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/8811add))
+
+
+
+
+
 ## [9.1.9](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.1.8...v9.1.9) (2020-05-31)
 
 
