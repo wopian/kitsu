@@ -1,7 +1,7 @@
 {
   "version": "9.1.9",
   "name": "kitsu",
-  "description": "Simple,lightweight & framework agnostic JSON:API client using Axios",
+  "description": "A simple, lightweight & framework agnostic JSON:API client using Axios",
   "author": "James Harris <wopian@wopian.me>",
   "contributors": [
     "Brandon Martinez <me@brandonmartinez.com>",

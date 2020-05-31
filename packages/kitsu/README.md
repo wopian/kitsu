@@ -28,7 +28,7 @@
 
 <p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v9 & previous major releases</p>
 
-# 
+#
 
 ## Features
 
