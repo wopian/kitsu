@@ -13,10 +13,6 @@
   <a href=https://codeclimate.com/github/wopian/kitsu/issues><img alt=issues src=https://flat.badgen.net/codeclimate/issues/wopian/kitsu></a>
 </p>
 
-<p align=center>
-  <a href=https://paypal.me/wopian><img alt="support me on paypal.me"src=https://flat.badgen.net/badge/support%20me%20on/paypal.me/pink></a>
-</p>
-
 <p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client for <a href=https://kitsu.io>Kitsu.io</a> & other APIs</p>
 
 #
