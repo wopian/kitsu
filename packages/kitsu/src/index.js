@@ -2,7 +2,6 @@ import { camel, deserialise, error, kebab, query, serialise, snake, splitModel }
 import axios from 'axios'
 import merge from 'merge-options'
 import pluralise from 'pluralize'
-import { camel, deserialise, error, kebab, query, serialise, snake, splitModel } from 'kitsu-core'
 
 /**
  * Creates a new `kitsu` instance
@@ -66,10 +65,10 @@ export default class Kitsu {
      * @example <caption>Add or update a header's value</caption>
      * api.headers['Authorization'] = 'Bearer 1234567890'
      */
-    this.headers = Object.assign({}, options.headers, { Accept: 'application/vnd.api+json', 'Content-Type': 'application/vnd.api+json' })
+    this.headers = merge({ Accept: 'application/vnd.api+json', 'Content-Type': 'application/vnd.api+json' }, options.headers)
 
     this.axios = axios.create(
-      Object.assign({}, {
+      merge({
         baseURL: options.baseURL || 'https://kitsu.io/api/edge',
         timeout: options.timeout || 30000
       }, options.axiosOptions)
