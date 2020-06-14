@@ -269,7 +269,9 @@ export default class Kitsu {
    * @memberof Kitsu
    * @param {string} model Model to create a resource under
    * @param {Object|Object[]} body Data to send in the request
-   * @param {Object} [headers] Additional headers to send with the request
+   * @param {Object} [config] Additional configuration
+   * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
+   * @param {Object} [config.headers] Additional headers to send with the request
    * @returns {Object|Object[]} JSON-parsed response
    * @example <caption>Create a post on a user's profile feed</caption>
    * api.create('posts', {
@@ -289,8 +291,10 @@ export default class Kitsu {
    *   { content: 'Another post' }
    * ])
    */
-  async post (model, body, headers = {}) {
+  async post (model, body, config = {}) {
     try {
+      const headers = merge(this.headers, config.headers)
+      const params = merge({}, config.params)
       const [ resourceModel, url ] = splitModel(model, {
         resourceCase: this.resCase,
         pluralModel: this.plural
@@ -301,7 +305,11 @@ export default class Kitsu {
           camelCaseTypes: this.camel,
           pluralTypes: this.plural
         }),
-        { headers: Object.assign(this.headers, headers) }
+        {
+          headers,
+          params,
+          paramsSerializer: /* istanbul ignore next */ p => query(p)
+        }
       )
 
       return deserialise(data)
