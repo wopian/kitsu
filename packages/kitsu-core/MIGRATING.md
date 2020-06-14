@@ -84,7 +84,7 @@ data: {
     links: {
       self: 'https://kitsu.io/api/edge/library-entries/1/relationships/user',
       related: 'https://kitsu.io/api/edge/library-entries/1/user'
-    }
+    },
     data: {
       id: '2',
       type: 'users',
