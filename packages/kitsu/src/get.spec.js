@@ -30,7 +30,7 @@ describe('kitsu', () => {
         })
         return [ 200, { data: [] } ]
       })
-      api.get('anime', undefined, { extra: true }).catch(err => {
+      api.get('anime', { headers: { extra: true } }).catch(err => {
         done.fail(err)
       })
       done()
@@ -80,7 +80,7 @@ describe('kitsu', () => {
       expect.assertions(1)
       const api = new Kitsu()
       mock.onGet(`anime/${getSingleWithIncludes.jsonapi.data.id}`, { include: 'author,comments' }).reply(200, getSingleWithIncludes.jsonapi)
-      const request = await api.get('anime/1', { include: 'author,comments' })
+      const request = await api.get('anime/1', { params: { include: 'author,comments' } })
       expect(request).toEqual(getSingleWithIncludes.kitsu)
     })
 
@@ -97,7 +97,7 @@ describe('kitsu', () => {
       const api = new Kitsu()
       mock.onGet('articles', { include: 'author' }).reply(400, getError.jsonapi)
       try {
-        await api.get('articles', { include: 'author' })
+        await api.get('articles', { params: { include: 'author' } })
       } catch ({ errors }) {
         expect(errors).toHaveLength(1)
         expect(errors[0].title).toBe('Invalid field')
