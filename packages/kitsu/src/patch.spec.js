@@ -54,6 +54,38 @@ describe('kitsu', () => {
     })
 
     it('sends bulk data in request', async done => {
+      expect.assertions(1)
+      const api = new Kitsu({ headers: { Authorization: true } })
+      mock.onPatch('/posts').reply(config => {
+        expect(JSON.parse(config.data)).toEqual({
+          data: [
+            {
+              id: '1',
+              type: 'posts',
+              attributes: {
+                content: 'Hello World'
+              }
+            },
+            {
+              id: '2',
+              type: 'posts',
+              attributes: {
+                content: 'Hey World'
+              }
+            }
+          ]
+        })
+        return [ 200 ]
+      })
+      api.patch('post', [
+        { id: '1', content: 'Hello World' },
+        { id: '2', content: 'Hey World' }
+      ]).catch(err => {
+        done.fail(err)
+      })
+      done()
+    })
+
     it('throws an error if missing a JSON object body', async () => {
       expect.assertions(1)
       const api = new Kitsu()
