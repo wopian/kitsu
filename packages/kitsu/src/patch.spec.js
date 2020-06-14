@@ -53,6 +53,7 @@ describe('kitsu', () => {
       done()
     })
 
+    it('sends bulk data in request', async done => {
     it('throws an error if missing a JSON object body', async () => {
       expect.assertions(1)
       const api = new Kitsu()

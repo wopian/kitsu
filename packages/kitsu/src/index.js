@@ -248,8 +248,9 @@ export default class Kitsu {
         camelCaseTypes: this.camel,
         pluralTypes: this.plural
       })
+      const fullURL = body?.id ? `${url}/${body.id}` : url
       const { data } = await this.axios.patch(
-        `${url}/${body.id}`,
+        fullURL,
         serialData,
         { headers: Object.assign(this.headers, headers) }
       )
