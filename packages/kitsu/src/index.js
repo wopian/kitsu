@@ -1,5 +1,6 @@
 import { camel, deserialise, error, kebab, query, serialise, snake, splitModel } from 'kitsu-core'
 import axios from 'axios'
+import merge from 'merge-options'
 import pluralise from 'pluralize'
 import { camel, deserialise, error, kebab, query, serialise, snake, splitModel } from 'kitsu-core'
 
@@ -444,7 +445,7 @@ export default class Kitsu {
           camelCaseTypes: this.camel,
           pluralTypes: this.plural
         }),
-        headers: Object.assign(this.headers, headers),
+        headers: merge(this.headers, headers),
         params,
         paramsSerializer: /* istanbul ignore next */ p => query(p)
       })
