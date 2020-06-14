@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.11](https://github.com/wopian/kitsu/compare/v9.1.10...v9.1.11) (2020-06-14)
+
+
+### Bug Fixes
+
+* **kitsu:** use ID-less URL for bulk extension in PATCH requests ([2c31d42](https://github.com/wopian/kitsu/commit/2c31d42))
+
+
+### Build System / Dependencies
+
+* update devdependency eslint to ~7.2.0 ([#429](https://github.com/wopian/kitsu/issues/429)) ([328985f](https://github.com/wopian/kitsu/commit/328985f))
+* update devdependency rollup to ~2.12.0 ([#426](https://github.com/wopian/kitsu/issues/426)) ([e3372ac](https://github.com/wopian/kitsu/commit/e3372ac))
+* update devdependency rollup to ~2.13.0 ([#427](https://github.com/wopian/kitsu/issues/427)) ([5066f4b](https://github.com/wopian/kitsu/commit/5066f4b))
+* update devdependency rollup to ~2.15.0 ([#431](https://github.com/wopian/kitsu/issues/431)) ([9cbe184](https://github.com/wopian/kitsu/commit/9cbe184))
+* update devdependency rollup-plugin-delete to ~2.0.0 ([#432](https://github.com/wopian/kitsu/issues/432)) ([36805cc](https://github.com/wopian/kitsu/commit/36805cc))
+* **deps:** bump websocket-extensions from 0.1.3 to 0.1.4 ([#428](https://github.com/wopian/kitsu/issues/428)) ([738fc8b](https://github.com/wopian/kitsu/commit/738fc8b))
+
+
+### Chores
+
+* **release:** update documentation ([ba00f68](https://github.com/wopian/kitsu/commit/ba00f68))
+
+
+### Other Changes
+
+* Update README.md ([b1ca4d5](https://github.com/wopian/kitsu/commit/b1ca4d5))
+* Update README.md ([522efd4](https://github.com/wopian/kitsu/commit/522efd4))
+* Update README.md ([6266c30](https://github.com/wopian/kitsu/commit/6266c30))
+* Create FUNDING.yml ([ce7689d](https://github.com/wopian/kitsu/commit/ce7689d))
+
+
+### Tests
+
+* **kitsu:** re-add bulk test ([3fcd884](https://github.com/wopian/kitsu/commit/3fcd884))
+
+
+
+
+
 ## [9.1.10](https://github.com/wopian/kitsu/compare/v9.1.9...v9.1.10) (2020-05-31)
 
 

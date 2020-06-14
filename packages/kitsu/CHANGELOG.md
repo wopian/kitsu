@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.11](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.10...v9.1.11) (2020-06-14)
+
+
+### Bug Fixes
+
+* **kitsu:** use ID-less URL for bulk extension in PATCH requests ([2c31d42](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/2c31d42))
+
+
+### Chores
+
+* **release:** update documentation ([ba00f68](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/ba00f68))
+
+
+### Other Changes
+
+* Update README.md ([6266c30](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/6266c30))
+
+
+### Tests
+
+* **kitsu:** re-add bulk test ([3fcd884](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/3fcd884))
+
+
+
+
+
 ## [9.1.10](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.9...v9.1.10) (2020-05-31)
 
 
