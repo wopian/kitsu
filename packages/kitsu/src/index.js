@@ -1,3 +1,4 @@
+import { camel, deserialise, error, kebab, query, serialise, snake, splitModel } from 'kitsu-core'
 import axios from 'axios'
 import pluralise from 'pluralize'
 import { camel, deserialise, error, kebab, query, serialise, snake, splitModel } from 'kitsu-core'
@@ -392,15 +393,8 @@ export default class Kitsu {
    * @param {string} config.type The resource type
    * @param {Object|Object[]} [config.body] Data to send in the request
    * @param {string} [config.method] Request method - `GET`, `PATCH`, `POST` or `DELETE` (defaults to `GET`, case-insensitive)
-   * @param {Object} [config.params] JSON-API request queries. Any JSON:API query parameter not mentioned below is supported out of the box.
-   * @param {Object} [config.params.page] [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination). All pagination strategies are supported, even if they are not listed below.
-   * @param {number} [config.params.page.limit] Number of resources to return in request (Offset-based) - **Note:** For Kitsu.io, max is `20` except on `libraryEntries` which has a max of `500`
-   * @param {number} [config.params.page.offset] Number of resources to offset the dataset by (Offset-based)
-   * @param {number} [config.params.page.number] Page of resources to return in request (Page-based) - **Note:** Not supported on Kitsu.io
-   * @param {number} [config.params.page.size] Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on Kitsu.io
-   * @param {string} [config.params.page.before] Get the previous page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
-   * @param {string} [config.params.page.after] Get the next page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
-   * @param {Object} [headers] Additional headers to send with the request
+   * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
+   * @param {Object} [config.headers] Additional headers to send with the request
    * @returns {Object} JSON-parsed response
    * @example <caption>Raw GET request</caption>
    * api.request({
@@ -440,7 +434,7 @@ export default class Kitsu {
    *   ]
    * })
    */
-  async request ({ body, method, params, type, url }, headers = {}) {
+  async request ({ body, method, params, type, url, headers }) {
     try {
       method = method?.toUpperCase() || 'GET'
       const { data } = await this.axios.request({
@@ -450,10 +444,9 @@ export default class Kitsu {
           camelCaseTypes: this.camel,
           pluralTypes: this.plural
         }),
+        headers: Object.assign(this.headers, headers),
         params,
-        /* istanbul ignore next */
-        paramsSerializer: p => query(p),
-        headers: Object.assign(this.headers, headers)
+        paramsSerializer: /* istanbul ignore next */ p => query(p)
       })
 
       return deserialise(data)

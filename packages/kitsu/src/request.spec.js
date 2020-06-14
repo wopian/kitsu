@@ -44,8 +44,9 @@ describe('kitsu', () => {
       api.request({
         method: 'GET',
         url: 'users',
-        model: 'users'
-      }, { extra: true }).catch(err => {
+        model: 'users',
+        headers: { extra: true }
+      }).catch(err => {
         done.fail(err)
       })
       done()
