@@ -316,15 +316,19 @@ export default class Kitsu {
    * @memberof Kitsu
    * @param {string} model Model to remove data from
    * @param {string|number|number[]} id Resource ID to remove. Pass an array of IDs to delete multiple resources (Bulk Extension)
-   * @param {Object} [headers] Additional headers to send with the request
+   * @param {Object} [config] Additional configuration
+   * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
+   * @param {Object} [config.headers] Additional headers to send with the request
    * @returns {Object|Object[]} JSON-parsed response
    * @example <caption>Remove a single resource</caption>
    * api.delete('posts', 123)
    * @example <caption>Remove multiple resources (API must support the Bulk Extension)</caption>
    * api.delete('posts', [ 1, 2 ])
    */
-  async delete (model, id, headers = {}) {
+  async delete (model, id, config = {}) {
     try {
+      const headers = merge(this.headers, config.headers)
+      const params = merge({}, config.params)
       const [ resourceModel, url ] = splitModel(model, {
         resourceCase: this.resCase,
         pluralModel: this.plural
@@ -345,7 +349,9 @@ export default class Kitsu {
           camelCaseTypes: this.camel,
           pluralTypes: this.plural
         }),
-        headers: Object.assign(this.headers, headers)
+        headers,
+        params,
+        paramsSerializer: /* istanbul ignore next */ p => query(p)
       })
 
       return data

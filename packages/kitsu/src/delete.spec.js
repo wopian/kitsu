@@ -22,7 +22,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      api.delete('anime', 1, { extra: true }).catch(err => {
+      api.delete('anime', 1, { headers: { extra: true } }).catch(err => {
         done.fail(err)
       })
       done()
