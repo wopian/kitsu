@@ -215,7 +215,9 @@ export default class Kitsu {
    * @memberof Kitsu
    * @param {string} model Model to update data in
    * @param {Object|Object[]} body Data to send in the request
-   * @param {Object} [headers] Additional headers to send with the request
+   * @param {Object} [config] Additional configuration
+   * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
+   * @param {Object} [config.headers] Additional headers to send with the request
    * @returns {Object|Object[]} JSON-parsed response
    * @example <caption>Update a resource</caption>
    * api.update('posts', {
@@ -240,8 +242,10 @@ export default class Kitsu {
    *   { id: '2', content: 'Another post' }
    * ])
    */
-  async patch (model, body, headers = {}) {
+  async patch (model, body, config = {}) {
     try {
+      const headers = merge(this.headers, config.headers)
+      const params = merge({}, config.params)
       const [ resourceModel, url ] = splitModel(model, {
         resourceCase: this.resCase,
         pluralModel: this.plural
@@ -254,7 +258,11 @@ export default class Kitsu {
       const { data } = await this.axios.patch(
         fullURL,
         serialData,
-        { headers: Object.assign(this.headers, headers) }
+        {
+          headers,
+          params,
+          paramsSerializer: /* istanbul ignore next */ p => query(p)
+        }
       )
 
       return deserialise(data)

@@ -26,7 +26,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      api.patch('anime', { id: '1', type: 'anime' }, { extra: true }).catch(err => {
+      api.patch('anime', { id: '1', type: 'anime' }, { headers: { extra: true } }).catch(err => {
         done.fail(err)
       })
       done()
