@@ -360,10 +360,9 @@ export default class Kitsu {
    * **Note** Requires the JSON:API server to support `filter[self]=true`
    *
    * @memberof Kitsu
-   * @param {Object} [params] JSON-API request queries
-   * @param {Object} [params.fields] Return a sparse fieldset with only the included attributes/relationships - [JSON:API Sparse Fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets)
-   * @param {string} [params.include] Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
-   * @param {Object} [headers] Additional headers to send with the request
+   * @param {Object} [config] Additional configuration
+   * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
+   * @param {Object} [config.headers] Additional headers to send with the request
    * @returns {Object} JSON-parsed response
    * @example <caption>Get the authenticated user's resource</caption>
    * api.self()
@@ -374,9 +373,11 @@ export default class Kitsu {
    *   }
    * })
    */
-  async self (params = {}, headers = {}) {
+  async self (config = {}) {
     try {
-      const res = await this.get('users', Object.assign({ filter: { self: true } }, params), headers)
+      const headers = merge(this.headers, config.headers)
+      const params = merge(config.params, { filter: { self: true } })
+      const res = await this.get('users', merge({ headers }, { params }))
       return res.data[0]
     } catch (E) {
       throw error(E)
