@@ -38,8 +38,7 @@ function isValid (isArray, type, payload, method) {
  * Serialises a relational data object to JSON:API format
  *
  * @param {Object} node Existing relation object
- * @param {Object} relations Relation object being built
- * @param {string} key Name of the relationship
+ * @param {Object} nodeType Resource type of the relation
  * @returns {Object} Serialised relationship
  * @private
  */
@@ -58,8 +57,7 @@ function serialiseRelationOne (node, nodeType) {
  * Serialises a relational data array to JSON:API format
  *
  * @param {Object} node Existing relation object
- * @param {Object} relations Relation object being built
- * @param {string} key Name of the relationship
+ * @param {Object} nodeType Resource type of the relation
  * @returns {Object} Serialised relationship
  * @private
  */
