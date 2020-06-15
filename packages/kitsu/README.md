@@ -24,7 +24,7 @@
 
 <p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v10 & previous major releases</p>
 
-#
+# 
 
 ## Features
 
@@ -37,7 +37,7 @@
 
 | Package | Package<br> Size\* | ESM Size† | Node | Chrome | Firefox | Safari | Edge |
 | ------: | :----------------: | :-------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu` | ≤ 8.6 kb           | ≤ 8.4 KB  |  10+ |   69+  |   68+   |   12+  |  18+ |
+| `kitsu` |      ≤ 8.6 kb      |  ≤ 8.4 KB |  10+ |   69+  |   68+   |   12+  |  18+ |
 
 \* Including all dependencies & minified with brotli
 † EcmaScript Modules package size\*
@@ -210,7 +210,7 @@ If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lis
 
 ### Kitsu
 
-[packages/kitsu/src/index.js:30-464](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu/src/index.js#L30-L464 "Source code on GitHub")
+[packages/kitsu/src/index.js:31-482](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu/src/index.js#L31-L482 "Source code on GitHub")
 
 Creates a new `kitsu` instance
 
@@ -257,7 +257,7 @@ const api = new Kitsu({
 
 #### plural
 
-[packages/kitsu/src/index.js:52-53](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu/src/index.js#L52-L53 "Source code on GitHub")
+[packages/kitsu/src/index.js:53-54](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu/src/index.js#L53-L54 "Source code on GitHub")
 
 -   **See: <https://www.npmjs.com/package/pluralize> for documentation
     **
@@ -279,7 +279,7 @@ api.plural.plural('paper') //=> 'paper'
 
 #### headers
 
-[packages/kitsu/src/index.js:67-67](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu/src/index.js#L67-L67 "Source code on GitHub")
+[packages/kitsu/src/index.js:68-68](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu/src/index.js#L68-L68 "Source code on GitHub")
 
 Get the current headers or add additional headers
 
@@ -310,7 +310,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### interceptors
 
-[packages/kitsu/src/index.js:112-112](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu/src/index.js#L112-L112 "Source code on GitHub")
+[packages/kitsu/src/index.js:113-113](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu/src/index.js#L113-L113 "Source code on GitHub")
 
 -   **See: <https://github.com/axios/axios#interceptors> for documentation
     **
@@ -361,26 +361,27 @@ api.interceptors.request.eject(myInterceptor)
 
 #### get
 
-[packages/kitsu/src/index.js:189-208](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu/src/index.js#L189-L208 "Source code on GitHub")
+[packages/kitsu/src/index.js:191-211](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu/src/index.js#L191-L211 "Source code on GitHub")
 
 Fetch resources (alias `fetch`)
 
 ##### Parameters
 
 -   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to fetch data from
--   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON-API request queries. Any JSON:API query parameter not mentioned below is supported out of the box. (optional, default `{}`)
-    -   `params.page` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination). All pagination strategies are supported, even if they are not listed below.
-        -   `params.page.limit` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to return in request (Offset-based) - **Note:** For Kitsu.io, max is `20` except on `libraryEntries` which has a max of `500`
-        -   `params.page.offset` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to offset the dataset by (Offset-based)
-        -   `params.page.number` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Page of resources to return in request (Page-based) - **Note:** Not supported on Kitsu.io
-        -   `params.page.size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on Kitsu.io
-        -   `params.page.before` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Get the previous page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
-        -   `params.page.after` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Get the next page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
-    -   `params.fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Return a sparse fieldset with only the included attributes/relationships - [JSON:API Sparse Fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets)
-    -   `params.filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Filter dataset by attribute values - [JSON:API Filtering](http://jsonapi.org/format/#fetching-filtering)
-    -   `params.sort` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Sort dataset by one or more comma separated attributes (prepend `-` for descending order) - [JSON:API Sorting](http://jsonapi.org/format/#fetching-sorting)
-    -   `params.include` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
--   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request (optional, default `{}`)
+-   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional configuration (optional, default `{}`)
+    -   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
+    -   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. JSON:API query parameters not listed are supported
+        -   `config.params.fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Return a sparse fieldset with only the included attributes/relationships - [JSON:API Sparse Fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets)
+        -   `config.params.filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Filter dataset by attribute values - [JSON:API Filtering](http://jsonapi.org/format/#fetching-filtering)
+        -   `config.params.include` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
+        -   `config.params.sort` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Sort dataset by one or more comma separated attributes (prepend `-` for descending order) - [JSON:API Sorting](http://jsonapi.org/format/#fetching-sorting)
+        -   `config.params.page` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination). All pagination strategies are supported, even if they are not listed below.
+            -   `config.params.page.limit` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to return in request (Offset-based) - **Note:** For Kitsu.io, max is `20` except on `libraryEntries` which has a max of `500`
+            -   `config.params.page.offset` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to offset the dataset by (Offset-based)
+            -   `config.params.page.number` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Page of resources to return in request (Page-based) - **Note:** Not supported on Kitsu.io
+            -   `config.params.page.size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on Kitsu.io
+            -   `config.params.page.before` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Get the previous page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
+            -   `config.params.page.after` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Get the next page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
 
 ##### Examples
 
@@ -477,7 +478,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### patch
 
-[packages/kitsu/src/index.js:241-262](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu/src/index.js#L241-L262 "Source code on GitHub")
+[packages/kitsu/src/index.js:246-273](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu/src/index.js#L246-L273 "Source code on GitHub")
 
 Update a resource (alias `update`)
 
@@ -485,7 +486,9 @@ Update a resource (alias `update`)
 
 -   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to update data in
 -   `body` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Data to send in the request
--   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request (optional, default `{}`)
+-   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional configuration (optional, default `{}`)
+    -   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. See [#get](#get) for documentation
+    -   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
 
 ##### Examples
 
@@ -540,7 +543,7 @@ Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 #### post
 
-[packages/kitsu/src/index.js:290-309](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu/src/index.js#L290-L309 "Source code on GitHub")
+[packages/kitsu/src/index.js:303-328](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu/src/index.js#L303-L328 "Source code on GitHub")
 
 Create a new resource (alias `create`)
 
@@ -548,7 +551,9 @@ Create a new resource (alias `create`)
 
 -   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to create a resource under
 -   `body` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Data to send in the request
--   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request (optional, default `{}`)
+-   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional configuration (optional, default `{}`)
+    -   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. See [#get](#get) for documentation
+    -   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
 
 ##### Examples
 
@@ -583,7 +588,7 @@ Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 #### delete
 
-[packages/kitsu/src/index.js:324-353](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu/src/index.js#L324-L353 "Source code on GitHub")
+[packages/kitsu/src/index.js:345-378](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu/src/index.js#L345-L378 "Source code on GitHub")
 
 Remove a resource (alias `remove`)
 
@@ -591,7 +596,9 @@ Remove a resource (alias `remove`)
 
 -   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to remove data from
 -   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>)** Resource ID to remove. Pass an array of IDs to delete multiple resources (Bulk Extension)
--   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request (optional, default `{}`)
+-   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional configuration (optional, default `{}`)
+    -   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. See [#get](#get) for documentation
+    -   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
 
 ##### Examples
 
@@ -613,7 +620,7 @@ Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 #### self
 
-[packages/kitsu/src/index.js:375-382](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu/src/index.js#L375-L382 "Source code on GitHub")
+[packages/kitsu/src/index.js:399-408](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu/src/index.js#L399-L408 "Source code on GitHub")
 
 Get the authenticated user's data
 
@@ -621,10 +628,9 @@ Get the authenticated user's data
 
 ##### Parameters
 
--   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON-API request queries (optional, default `{}`)
-    -   `params.fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Return a sparse fieldset with only the included attributes/relationships - [JSON:API Sparse Fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets)
-    -   `params.include` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
--   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request (optional, default `{}`)
+-   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional configuration (optional, default `{}`)
+    -   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. See [#get](#get) for documentation
+    -   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
 
 ##### Examples
 
@@ -650,7 +656,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### request
 
-[packages/kitsu/src/index.js:443-463](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu/src/index.js#L443-L463 "Source code on GitHub")
+[packages/kitsu/src/index.js:462-481](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu/src/index.js#L462-L481 "Source code on GitHub")
 
 Send arbitrary requests
 
@@ -661,17 +667,10 @@ Send arbitrary requests
 -   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Request configuration
     -   `config.body` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)?** Data to send in the request
     -   `config.method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Request method - `GET`, `PATCH`, `POST` or `DELETE` (defaults to `GET`, case-insensitive)
-    -   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON-API request queries. Any JSON:API query parameter not mentioned below is supported out of the box.
-        -   `config.params.page` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination). All pagination strategies are supported, even if they are not listed below.
-            -   `config.params.page.limit` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to return in request (Offset-based) - **Note:** For Kitsu.io, max is `20` except on `libraryEntries` which has a max of `500`
-            -   `config.params.page.offset` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to offset the dataset by (Offset-based)
-            -   `config.params.page.number` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Page of resources to return in request (Page-based) - **Note:** Not supported on Kitsu.io
-            -   `config.params.page.size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on Kitsu.io
-            -   `config.params.page.before` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Get the previous page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
-            -   `config.params.page.after` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Get the next page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
+    -   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. See [#get](#get) for documentation
     -   `config.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The resource type
     -   `config.url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The URL path of the resource
--   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request (optional, default `{}`)
+    -   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
 
 ##### Examples
 

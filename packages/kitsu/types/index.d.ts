@@ -42,23 +42,35 @@ export default class Kitsu {
      */
     headers: any;
     axios: import("axios").AxiosInstance;
-    fetch: (model: string, params?: {
-        page: {
-            limit: number;
-            offset: number;
-            number: number;
-            size: number;
-            before: string;
-            after: string;
+    fetch: (model: string, config?: {
+        headers: any;
+        params: {
+            fields: any;
+            filter: any;
+            include: string;
+            sort: string;
+            page: {
+                limit: number;
+                offset: number;
+                number: number;
+                size: number;
+                before: string;
+                after: string;
+            };
         };
-        fields: any;
-        filter: any;
-        sort: string;
-        include: string;
-    }, headers?: any) => any;
-    update: (model: string, body: any | any[], headers?: any) => any | any[];
-    create: (model: string, body: any | any[], headers?: any) => any | any[];
-    remove: (model: string, id: string | number | number[], headers?: any) => any | any[];
+    }) => any;
+    update: (model: string, body: any | any[], config?: {
+        params: any;
+        headers: any;
+    }) => any | any[];
+    create: (model: string, body: any | any[], config?: {
+        params: any;
+        headers: any;
+    }) => any | any[];
+    remove: (model: string, id: string | number | number[], config?: {
+        params: any;
+        headers: any;
+    }) => any | any[];
     /**
      * Axios Interceptors (alias of `axios.interceptors`)
      *
@@ -99,19 +111,20 @@ export default class Kitsu {
      *
      * @memberof Kitsu
      * @param {string} model Model to fetch data from
-     * @param {Object} [params] JSON-API request queries. Any JSON:API query parameter not mentioned below is supported out of the box.
-     * @param {Object} [params.page] [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination). All pagination strategies are supported, even if they are not listed below.
-     * @param {number} [params.page.limit] Number of resources to return in request (Offset-based) - **Note:** For Kitsu.io, max is `20` except on `libraryEntries` which has a max of `500`
-     * @param {number} [params.page.offset] Number of resources to offset the dataset by (Offset-based)
-     * @param {number} [params.page.number] Page of resources to return in request (Page-based) - **Note:** Not supported on Kitsu.io
-     * @param {number} [params.page.size] Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on Kitsu.io
-     * @param {string} [params.page.before] Get the previous page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
-     * @param {string} [params.page.after] Get the next page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
-     * @param {Object} [params.fields] Return a sparse fieldset with only the included attributes/relationships - [JSON:API Sparse Fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets)
-     * @param {Object} [params.filter] Filter dataset by attribute values - [JSON:API Filtering](http://jsonapi.org/format/#fetching-filtering)
-     * @param {string} [params.sort] Sort dataset by one or more comma separated attributes (prepend `-` for descending order) - [JSON:API Sorting](http://jsonapi.org/format/#fetching-sorting)
-     * @param {string} [params.include] Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
-     * @param {Object} [headers] Additional headers to send with the request
+     * @param {Object} [config] Additional configuration
+     * @param {Object} [config.headers] Additional headers to send with the request
+     * @param {Object} [config.params] JSON:API request queries. JSON:API query parameters not listed are supported
+     * @param {Object} [config.params.fields] Return a sparse fieldset with only the included attributes/relationships - [JSON:API Sparse Fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets)
+     * @param {Object} [config.params.filter] Filter dataset by attribute values - [JSON:API Filtering](http://jsonapi.org/format/#fetching-filtering)
+     * @param {string} [config.params.include] Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
+     * @param {string} [config.params.sort] Sort dataset by one or more comma separated attributes (prepend `-` for descending order) - [JSON:API Sorting](http://jsonapi.org/format/#fetching-sorting)
+     * @param {Object} [config.params.page] [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination). All pagination strategies are supported, even if they are not listed below.
+     * @param {number} [config.params.page.limit] Number of resources to return in request (Offset-based) - **Note:** For Kitsu.io, max is `20` except on `libraryEntries` which has a max of `500`
+     * @param {number} [config.params.page.offset] Number of resources to offset the dataset by (Offset-based)
+     * @param {number} [config.params.page.number] Page of resources to return in request (Page-based) - **Note:** Not supported on Kitsu.io
+     * @param {number} [config.params.page.size] Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on Kitsu.io
+     * @param {string} [config.params.page.before] Get the previous page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
+     * @param {string} [config.params.page.after] Get the next page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
      * @returns {Object} JSON-parsed response
      * @example <caption>Getting a resource with JSON:API parameters</caption>
      * api.get('users', {
@@ -168,27 +181,32 @@ export default class Kitsu {
      *     err.response
      *   })
      */
-    get(model: string, params?: {
-        page: {
-            limit: number;
-            offset: number;
-            number: number;
-            size: number;
-            before: string;
-            after: string;
+    get(model: string, config?: {
+        headers: any;
+        params: {
+            fields: any;
+            filter: any;
+            include: string;
+            sort: string;
+            page: {
+                limit: number;
+                offset: number;
+                number: number;
+                size: number;
+                before: string;
+                after: string;
+            };
         };
-        fields: any;
-        filter: any;
-        sort: string;
-        include: string;
-    }, headers?: any): any;
+    }): any;
     /**
      * Update a resource (alias `update`)
      *
      * @memberof Kitsu
      * @param {string} model Model to update data in
      * @param {Object|Object[]} body Data to send in the request
-     * @param {Object} [headers] Additional headers to send with the request
+     * @param {Object} [config] Additional configuration
+     * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
+     * @param {Object} [config.headers] Additional headers to send with the request
      * @returns {Object|Object[]} JSON-parsed response
      * @example <caption>Update a resource</caption>
      * api.update('posts', {
@@ -213,14 +231,19 @@ export default class Kitsu {
      *   { id: '2', content: 'Another post' }
      * ])
      */
-    patch(model: string, body: any | any[], headers?: any): any | any[];
+    patch(model: string, body: any | any[], config?: {
+        params: any;
+        headers: any;
+    }): any | any[];
     /**
      * Create a new resource (alias `create`)
      *
      * @memberof Kitsu
      * @param {string} model Model to create a resource under
      * @param {Object|Object[]} body Data to send in the request
-     * @param {Object} [headers] Additional headers to send with the request
+     * @param {Object} [config] Additional configuration
+     * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
+     * @param {Object} [config.headers] Additional headers to send with the request
      * @returns {Object|Object[]} JSON-parsed response
      * @example <caption>Create a post on a user's profile feed</caption>
      * api.create('posts', {
@@ -240,31 +263,38 @@ export default class Kitsu {
      *   { content: 'Another post' }
      * ])
      */
-    post(model: string, body: any | any[], headers?: any): any | any[];
+    post(model: string, body: any | any[], config?: {
+        params: any;
+        headers: any;
+    }): any | any[];
     /**
      * Remove a resource (alias `remove`)
      *
      * @memberof Kitsu
      * @param {string} model Model to remove data from
      * @param {string|number|number[]} id Resource ID to remove. Pass an array of IDs to delete multiple resources (Bulk Extension)
-     * @param {Object} [headers] Additional headers to send with the request
+     * @param {Object} [config] Additional configuration
+     * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
+     * @param {Object} [config.headers] Additional headers to send with the request
      * @returns {Object|Object[]} JSON-parsed response
      * @example <caption>Remove a single resource</caption>
      * api.delete('posts', 123)
      * @example <caption>Remove multiple resources (API must support the Bulk Extension)</caption>
      * api.delete('posts', [ 1, 2 ])
      */
-    delete(model: string, id: string | number | number[], headers?: any): any | any[];
+    delete(model: string, id: string | number | number[], config?: {
+        params: any;
+        headers: any;
+    }): any | any[];
     /**
      * Get the authenticated user's data
      *
      * **Note** Requires the JSON:API server to support `filter[self]=true`
      *
      * @memberof Kitsu
-     * @param {Object} [params] JSON-API request queries
-     * @param {Object} [params.fields] Return a sparse fieldset with only the included attributes/relationships - [JSON:API Sparse Fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets)
-     * @param {string} [params.include] Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
-     * @param {Object} [headers] Additional headers to send with the request
+     * @param {Object} [config] Additional configuration
+     * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
+     * @param {Object} [config.headers] Additional headers to send with the request
      * @returns {Object} JSON-parsed response
      * @example <caption>Get the authenticated user's resource</caption>
      * api.self()
@@ -275,10 +305,10 @@ export default class Kitsu {
      *   }
      * })
      */
-    self(params?: {
-        fields: any;
-        include: string;
-    }, headers?: any): any;
+    self(config?: {
+        params: any;
+        headers: any;
+    }): any;
     /**
      * Send arbitrary requests
      *
@@ -290,15 +320,8 @@ export default class Kitsu {
      * @param {string} config.type The resource type
      * @param {Object|Object[]} [config.body] Data to send in the request
      * @param {string} [config.method] Request method - `GET`, `PATCH`, `POST` or `DELETE` (defaults to `GET`, case-insensitive)
-     * @param {Object} [config.params] JSON-API request queries. Any JSON:API query parameter not mentioned below is supported out of the box.
-     * @param {Object} [config.params.page] [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination). All pagination strategies are supported, even if they are not listed below.
-     * @param {number} [config.params.page.limit] Number of resources to return in request (Offset-based) - **Note:** For Kitsu.io, max is `20` except on `libraryEntries` which has a max of `500`
-     * @param {number} [config.params.page.offset] Number of resources to offset the dataset by (Offset-based)
-     * @param {number} [config.params.page.number] Page of resources to return in request (Page-based) - **Note:** Not supported on Kitsu.io
-     * @param {number} [config.params.page.size] Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on Kitsu.io
-     * @param {string} [config.params.page.before] Get the previous page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
-     * @param {string} [config.params.page.after] Get the next page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
-     * @param {Object} [headers] Additional headers to send with the request
+     * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
+     * @param {Object} [config.headers] Additional headers to send with the request
      * @returns {Object} JSON-parsed response
      * @example <caption>Raw GET request</caption>
      * api.request({
@@ -338,20 +361,12 @@ export default class Kitsu {
      *   ]
      * })
      */
-    request({ body, method, params, type, url }?: {
+    request({ body, method, params, type, url, headers }?: {
         url: string;
         type: string;
         body: any | any[];
         method: string;
-        params: {
-            page: {
-                limit: number;
-                offset: number;
-                number: number;
-                size: number;
-                before: string;
-                after: string;
-            };
-        };
-    }, headers?: any): any;
+        params: any;
+        headers: any;
+    }): any;
 }

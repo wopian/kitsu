@@ -24,7 +24,7 @@
 
 <p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md>Migration guide</a> for v10 & previous major releases</p>
 
-#
+# 
 
 ## Features
 
@@ -38,7 +38,7 @@
 
 |      Package | Package<br> Size\* | ESM Size† | Node | Chrome | Firefox | Safari | Edge |
 | -----------: | :----------------: | :-------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu-core` |      ≤ 1.5 kb      | ≤ 1.3 KB  | 10+  |   69+  |   68+   |   12+  |  18+ |
+| `kitsu-core` |      ≤ 1.5 kb      |  ≤ 1.3 KB |  10+ |   69+  |   68+   |   12+  |  18+ |
 
 \* Minified with brotli
 † EcmaScript Modules package size\*
@@ -115,7 +115,7 @@ kitsuCore.camel(...)
 
 ### deattribute
 
-[packages/kitsu-core/src/deattribute/index.js:29-51](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu-core/src/deattribute/index.js#L29-L51 "Source code on GitHub")
+[packages/kitsu-core/src/deattribute/index.js:29-51](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu-core/src/deattribute/index.js#L29-L51 "Source code on GitHub")
 
 Hoists attributes to be top-level
 
@@ -159,7 +159,7 @@ Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### deserialise
 
-[packages/kitsu-core/src/deserialise/index.js:57-72](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu-core/src/deserialise/index.js#L57-L72 "Source code on GitHub")
+[packages/kitsu-core/src/deserialise/index.js:57-72](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu-core/src/deserialise/index.js#L57-L72 "Source code on GitHub")
 
 Deserialises a JSON-API response
 
@@ -211,7 +211,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### error
 
-[packages/kitsu-core/src/error/index.js:27-33](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu-core/src/error/index.js#L27-L33 "Source code on GitHub")
+[packages/kitsu-core/src/error/index.js:27-33](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu-core/src/error/index.js#L27-L33 "Source code on GitHub")
 
 Uniform error handling for Axios, JSON:API and internal package errors. Mutated Error object is rethrown to the caller.
 
@@ -248,14 +248,14 @@ error({
 
 ### filterIncludes
 
-[packages/kitsu-core/src/filterIncludes/index.js:33-46](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu-core/src/filterIncludes/index.js#L33-L46 "Source code on GitHub")
+[packages/kitsu-core/src/filterIncludes/index.js:33-46](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu-core/src/filterIncludes/index.js#L33-L46 "Source code on GitHub")
 
 Filters includes for the specific relationship requested
 
 #### Parameters
 
 -   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The response included object
--   `relationship` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+-   `relationship` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `relationship.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `relationship.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
@@ -287,7 +287,7 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 ### linkRelationships
 
-[packages/kitsu-core/src/linkRelationships/index.js:97-117](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu-core/src/linkRelationships/index.js#L97-L117 "Source code on GitHub")
+[packages/kitsu-core/src/linkRelationships/index.js:97-117](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu-core/src/linkRelationships/index.js#L97-L117 "Source code on GitHub")
 
 Links relationships to included data
 
@@ -325,7 +325,7 @@ Returns **any** Parsed data
 
 ### query
 
-[packages/kitsu-core/src/query/index.js:33-44](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu-core/src/query/index.js#L33-L44 "Source code on GitHub")
+[packages/kitsu-core/src/query/index.js:33-44](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu-core/src/query/index.js#L33-L44 "Source code on GitHub")
 
 Constructs a URL query string for JSON:API parameters
 
@@ -353,7 +353,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### serialise
 
-[packages/kitsu-core/src/serialise/index.js:249-260](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu-core/src/serialise/index.js#L249-L260 "Source code on GitHub")
+[packages/kitsu-core/src/serialise/index.js:210-221](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu-core/src/serialise/index.js#L210-L221 "Source code on GitHub")
 
 Serialises an object into a JSON-API structure
 
@@ -399,7 +399,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### splitModel
 
-[packages/kitsu-core/src/splitModel/index.js:29-39](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu-core/src/splitModel/index.js#L29-L39 "Source code on GitHub")
+[packages/kitsu-core/src/splitModel/index.js:29-39](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu-core/src/splitModel/index.js#L29-L39 "Source code on GitHub")
 
 Split model name from the model's resource URL
 
@@ -442,7 +442,7 @@ Returns **\[[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference
 
 ### camel
 
-[packages/kitsu-core/src/camel/index.js:14-14](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu-core/src/camel/index.js#L14-L14 "Source code on GitHub")
+[packages/kitsu-core/src/camel/index.js:14-14](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu-core/src/camel/index.js#L14-L14 "Source code on GitHub")
 
 Converts kebab-case and snake_case into camelCase
 
@@ -470,7 +470,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### kebab
 
-[packages/kitsu-core/src/kebab/index.js:11-11](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu-core/src/kebab/index.js#L11-L11 "Source code on GitHub")
+[packages/kitsu-core/src/kebab/index.js:11-11](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu-core/src/kebab/index.js#L11-L11 "Source code on GitHub")
 
 Converts camelCase into kebab-case
 
@@ -488,7 +488,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### snake
 
-[packages/kitsu-core/src/snake/index.js:11-11](https://github.com/wopian/kitsu/blob/3fcd88441936dfcec441faf3c5903c04c6c0c0cc/packages/kitsu-core/src/snake/index.js#L11-L11 "Source code on GitHub")
+[packages/kitsu-core/src/snake/index.js:11-11](https://github.com/wopian/kitsu/blob/fcd06d9b5338ab28637a564c3b770a96750ad00a/packages/kitsu-core/src/snake/index.js#L11-L11 "Source code on GitHub")
 
 Converts camelCase into snake_case
 
