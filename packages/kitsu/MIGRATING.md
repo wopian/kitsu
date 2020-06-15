@@ -1,5 +1,194 @@
 # Migration Guides
 
+## Migrating to `10.0.0`
+
+### Parameter Changes
+
+1. JSON:API query parameters can be set for `PATCH`, `POST` and `DELETE` requests.
+
+2. All requests have had `params` and `headers` merged under one `config` parameter.
+
+#### get
+
+`Kitsu.get(model, params?, headers?)` is now `Kitsu.get(model, config? { params?, headers? })`
+
+#### patch / post
+
+`Kitsu.patch(model, body, headers?)` is now `Kitsu.patch(model, body, config? { params?, headers? })`
+
+#### delete
+
+`Kitsu.delete(model, id, headers?)` is now `Kitsu.delete(model, id, config? { params?, headers? })`
+
+#### self
+
+`Kitsu.self(params?, headers?)` is now `Kitsu.self(config? { params?, headers? })`
+
+#### request
+
+The `headers` parameter has been merged with the existing `config` parameter
+
+`Kitsu.request(config?, headers?)` is now `Kitsu.self(config? { headers? })`
+
+### Serialisation Changes
+
+This change does not affect `Kitsu.get`.
+
+`kitsu-core` serialisation internals have been refactored to match the deserialisation behaviour introduced in v9. This was intended for the v9 release, however it slipped though the net and resulted in broken relationship serialisation in v9.
+
+Relationships in the `body` of `PATCH` and `POST` requests are now always an object containing either a `data` object or a `data` array. This allows for optional top-level relationship `links` and `meta` objects to be serialised into the JSON:API format.
+
+Exemptions:
+- `links` that are not objects or do not contain `self` or `related` will become attributes as normal
+- `meta` that are not objects will become attributes as normal
+
+#### Legacy PATCH/POST Input
+
+`body` parameter of PATCH/POST requests
+
+```js
+{
+  id: '1',
+  type: 'libraryEntries',
+  links: { self: 'library-entries/1' }
+  user: { // one-to-one relationship
+    id: '2',
+    type: 'users',
+    links: { self: 'users/2' }
+    name: 'Example'
+  },
+  unit: [ // one-to-many relationship
+    {
+      id: '3',
+      type: 'episodes',
+      links: { self: 'episodes/3' }
+      number: 12
+    }
+  ]
+}
+```
+
+##### Legacy Output
+
+JSON data sent to the API server
+
+```js
+data: {
+  id: '1',
+  type: 'libraryEntries',
+  attributes: {
+    links: { self: 'library-entries/1' }
+  },
+  relationships: {
+    user: {
+      data: {
+        id: '2',
+        type: 'users',
+        attributes: {
+          links: { self: 'users/2' }
+          name: 'Example'
+        }
+      }
+    },
+    unit: {
+      data: [
+        {
+          id: '3',
+          type: 'episodes',
+          attributes: {
+            links: { self: 'episodes/3' }
+            number: 12
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+#### New Input
+
+`body` parameter of PATCH/POST requests
+
+```js
+{
+  id: '1',
+  type: 'libraryEntries',
+  links: { self: 'library-entries/1' }
+  user: { // one-to-one relationship
+    links: {
+      self: 'library-entries/1/relationships/user'
+      related: 'libary-entries/1/user'
+    },
+    data: {
+      id: '2',
+      type: 'users',
+      links: { self: 'users/2' }
+      name: 'Example'
+    }
+  },
+  unit: { // one-to-many relationship
+    links: {
+      self: 'library-entries/1/relationships/unit',
+      related: 'library-entries/1/unit'
+    },
+    data: [
+      {
+        id: '3',
+        type: 'episodes',
+        links: { self: 'episodes/3' },
+        number: 12
+      }
+    ]
+  }
+}
+```
+
+##### New Output
+
+JSON data sent to the API server
+
+```
+data: {
+  id: '1',
+  type: 'libraryEntries',
+  links: { self: 'library-entries/1' },
+  relationships: {
+    user: {
+      links: {
+        self: 'library-entries/1/relationships/user'
+        related: 'libary-entries/1/user'
+      },
+      data: {
+        id: '2',
+        type: 'users',
+        links: { self: 'users/2' },
+        attributes: {
+          name: 'Example'
+        }
+      }
+    },
+    unit: {
+      links: {
+        self: 'library-entries/1/relationships/unit',
+        related: 'library-entries/1/unit'
+      },
+      data: [
+        {
+          id: '3',
+          type: 'episodes',
+          links: { self: 'episodes/3' },
+          attributes: {
+            number: 12
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+
 ## Migrating to `9.0.0`
 
 ### Link objects
