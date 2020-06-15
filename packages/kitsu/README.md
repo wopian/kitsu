@@ -22,9 +22,9 @@
 
 <p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client using Axios</p>
 
-<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v9 & previous major releases</p>
+<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v10 & previous major releases</p>
 
-# 
+#
 
 ## Features
 
@@ -35,11 +35,12 @@
 
 ## Node / Browser Support
 
-| Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
-| ------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu` |      ≤ 8.2 kb      |  10+ |   69+  |   68+   |   12+  |  18+ |
+| Package | Package<br> Size\* | ESM Size† | Node | Chrome | Firefox | Safari | Edge |
+| ------: | :----------------: | :-------: | :--: | :----: | :-----: | :----: | :--: |
+| `kitsu` | ≤ 8.6 kb           | ≤ 8.4 KB  |  10+ |   69+  |   68+   |   12+  |  18+ |
 
 \* Including all dependencies & minified with brotli
+† EcmaScript Modules package size\*
 
 ## Response Comparison
 
