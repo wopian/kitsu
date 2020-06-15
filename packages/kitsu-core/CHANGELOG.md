@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.1.11...v10.0.0-alpha.0) (2020-06-15)
+
+
+### Bug Fixes
+
+* **kitsu-core:** don't serialise meta object as an attribute ([dbd625c](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/dbd625c))
+* **kitsu-core:** serialise v9 relationship structures ([32c40bf](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/32c40bf))
+
+
+### Chores
+
+* **release:** update documentation ([da50d92](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/da50d92))
+
+
+### Documentation Changes
+
+* **kitsu-core:** update internal serialise JSDoc ([fcd06d9](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/fcd06d9))
+* update READMEs ([469d23a](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/469d23a))
+* **kitsu:** add missing comma to example output ([31b21da](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/31b21da))
+* **kitsu-core:** add v10 migration guide ([b9b4f6e](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/b9b4f6e))
+
+
+### Refactors
+
+* **kitsu-core:** remove redundant internal function ([22a7bc9](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/22a7bc9))
+
+
+
+
+
 ## [9.1.11](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.1.10...v9.1.11) (2020-06-14)
 
 

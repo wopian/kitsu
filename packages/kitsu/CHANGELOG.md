@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.11...v10.0.0-alpha.0) (2020-06-15)
+
+
+### Chores
+
+* **release:** update documentation ([da50d92](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/da50d92))
+
+
+### Documentation Changes
+
+* update READMEs ([469d23a](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/469d23a))
+* **kitsu:** add v10 migration guide ([eb79c78](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/eb79c78))
+
+
+### New Features
+
+* **kitsu:** delete - add param parameter ([85a192b](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/85a192b))
+* **kitsu:** patch - add params parameter ([8d8eda3](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/8d8eda3))
+* **kitsu:** post - add params parameter ([13686be](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/13686be))
+
+
+### Refactors
+
+* **kitsu:** merge params and headers parameters into a single config object ([f98eef9](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/f98eef9))
+* **kitsu:** request - move headers into config object ([85937c4](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/85937c4))
+* **kitsu:** self - move params and headers into a config object ([c55949a](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/c55949a))
+* **kitsu:** use merge-options instead of Object.assign ([8b49cc1](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/8b49cc1))
+* **kitsu:** use merge-options instead of Object.assign for class constructor options ([9a162a0](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/9a162a0))
+
+
+
+
+
 ## [9.1.11](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.10...v9.1.11) (2020-06-14)
 
 

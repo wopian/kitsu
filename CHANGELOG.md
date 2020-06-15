@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.0](https://github.com/wopian/kitsu/compare/v9.1.11...v10.0.0-alpha.0) (2020-06-15)
+
+
+### Bug Fixes
+
+* **kitsu-core:** don't serialise meta object as an attribute ([dbd625c](https://github.com/wopian/kitsu/commit/dbd625c))
+* **kitsu-core:** serialise v9 relationship structures ([32c40bf](https://github.com/wopian/kitsu/commit/32c40bf))
+
+
+### Build System / Dependencies
+
+* update devdependency rollup to ~2.16.0 ([#434](https://github.com/wopian/kitsu/issues/434)) ([aeeae09](https://github.com/wopian/kitsu/commit/aeeae09))
+
+
+### Chores
+
+* **release:** update documentation ([da50d92](https://github.com/wopian/kitsu/commit/da50d92))
+
+
+### Documentation Changes
+
+* **kitsu-core:** update internal serialise JSDoc ([fcd06d9](https://github.com/wopian/kitsu/commit/fcd06d9))
+* update READMEs ([469d23a](https://github.com/wopian/kitsu/commit/469d23a))
+* **kitsu:** add missing comma to example output ([31b21da](https://github.com/wopian/kitsu/commit/31b21da))
+* **kitsu:** add v10 migration guide ([eb79c78](https://github.com/wopian/kitsu/commit/eb79c78))
+* **kitsu-core:** add v10 migration guide ([b9b4f6e](https://github.com/wopian/kitsu/commit/b9b4f6e))
+
+
+### New Features
+
+* **kitsu:** delete - add param parameter ([85a192b](https://github.com/wopian/kitsu/commit/85a192b))
+* **kitsu:** patch - add params parameter ([8d8eda3](https://github.com/wopian/kitsu/commit/8d8eda3))
+* **kitsu:** post - add params parameter ([13686be](https://github.com/wopian/kitsu/commit/13686be))
+
+
+### Refactors
+
+* **kitsu:** merge params and headers parameters into a single config object ([f98eef9](https://github.com/wopian/kitsu/commit/f98eef9))
+* **kitsu:** request - move headers into config object ([85937c4](https://github.com/wopian/kitsu/commit/85937c4))
+* **kitsu:** self - move params and headers into a config object ([c55949a](https://github.com/wopian/kitsu/commit/c55949a))
+* **kitsu:** use merge-options instead of Object.assign ([8b49cc1](https://github.com/wopian/kitsu/commit/8b49cc1))
+* **kitsu:** use merge-options instead of Object.assign for class constructor options ([9a162a0](https://github.com/wopian/kitsu/commit/9a162a0))
+* **kitsu-core:** remove redundant internal function ([22a7bc9](https://github.com/wopian/kitsu/commit/22a7bc9))
+
+
+
+
+
 ## [9.1.11](https://github.com/wopian/kitsu/compare/v9.1.10...v9.1.11) (2020-06-14)
 
 
