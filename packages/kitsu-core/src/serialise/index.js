@@ -102,31 +102,6 @@ function serialiseRelation (node, nodeType, key, data) {
 }
 
 /**
- * Serialises an array to JSON:API format
- *
- * @param {Object} node Resource object
- * @param {string} nodeType Resource type of the object
- * @param {string} key The resource object's key value
- * @param {Object} data Root JSON:API data object
- * @private
- */
-function serialiseArray (node, nodeType, key, data) {
-  if (!data.relationships) data.relationships = {}
-
-  data.relationships[key] = {
-    data: node.data.map(({ id, type, ...attributes }) => {
-      return {
-        id,
-        type: type || nodeType,
-        attributes: Object.keys(attributes).length ? attributes : undefined
-      }
-    })
-  }
-  data.relationships = serialiseRelation(data.relationships)
-  return data
-}
-
-/**
  * Serialises attributes to JSON:API format
  *
  * @param {Object} node Attribute value
@@ -200,9 +175,7 @@ function serialiseRootObject (type, payload, method, options) {
     // 1. Skip null nodes, 2. Only grab objects, 3. Filter to only serialise relationable objects
     if (node !== null && node?.constructor === Object && hasID(node)) {
       data = serialiseRelation(node, nodeType, key, data)
-    // 1. Skip null nodes, 2. Only grab arrays, 3. Filter to only serialise relationable arrays
-    // } else if (node !== null && node?.constructor === Object && hasID(node)) {
-    //   data = serialiseArray(node, nodeType, key, data)
+
     // 1. Don't place id/key inside attributes object
     } else if (key !== 'id' && key !== 'type') {
       data = serialiseAttr(node, key, data)
