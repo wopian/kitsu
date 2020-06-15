@@ -28,7 +28,7 @@
 
 The `headers` parameter has been merged with the existing `config` parameter
 
-`Kitsu.request(config?, headers?)` is now `Kitsu.self(config? { headers? })`
+`Kitsu.request(config?, headers?)` is now `Kitsu.request(config? { headers? })`
 
 ### Serialisation Changes
 
