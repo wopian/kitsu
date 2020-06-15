@@ -46,14 +46,8 @@ function isValid (isArray, type, payload, method) {
 function serialiseRelationOne (node, nodeType) {
   let relation = {}
   for (const prop of Object.keys(node)) {
-    if (prop &&
-      // Properties not being put in data.attributes
-      ![ 'id', 'type' ].includes(prop) &&
-      // Exclude a valid JSON:API links object being put in data.attributes
-      !(prop === 'links' && (node[prop].self || node[prop].related))
-    ) {
-      relation = serialiseAttr(node[prop], prop, relation)
-    } else relation[prop] = node[prop]
+    if ([ 'id', 'type' ].includes(prop)) relation[prop] = node[prop]
+    else relation = serialiseAttr(node[prop], prop, relation)
   }
   // Guess relationship type if not provided
   if (!relation.type) relation.type = nodeType
@@ -111,7 +105,8 @@ function serialiseRelation (node, nodeType, key, data) {
  */
 function serialiseAttr (node, key, data) {
   if (!data.attributes) data.attributes = {}
-  if (key === 'links' && (node.self || node.related)) data.links = node
+  if (key === 'links' && (typeof node.self === 'string' || typeof node.related === 'string')) data.links = node
+  else if (key === 'meta' && node.constructor === Object) data.meta = node
   else data.attributes[key] = node
   return data
 }

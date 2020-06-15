@@ -463,12 +463,13 @@ describe('kitsu-core', () => {
       expect(input).toEqual({ data: resourceOutput })
     })
 
-    it('uses the new system', () => {
+    it('serialises object and array relationships', () => {
       expect.assertions(1)
       const input = {
         id: '1',
         type: 'libraryEntries',
         links: { self: 'library-entries/1' },
+        meta: { extra: true },
         ratingTwenty: 10,
         user: {
           links: {
@@ -504,6 +505,7 @@ describe('kitsu-core', () => {
           id: '1',
           type: 'libraryEntries',
           links: { self: 'library-entries/1' },
+          meta: { extra: true },
           attributes: { ratingTwenty: 10 },
           relationships: {
             user: {
@@ -533,6 +535,46 @@ describe('kitsu-core', () => {
                   links: { self: 'episodes/3' }
                 }
               ]
+            }
+          }
+        }
+      }
+      expect(serialise('libraryEntries', input)).toStrictEqual(output)
+    })
+
+    it('keeps non-JSON:API links/meta properties in attributes', () => {
+      expect.assertions(1)
+      const input = {
+        id: '1',
+        type: 'libraryEntries',
+        links: 'Not JSON:API link object',
+        meta: 'Not JSON:API meta object',
+        user: {
+          data: {
+            id: '1',
+            links: 'Not JSON:API link object',
+            meta: 'Not JSON:API meta object'
+          }
+        }
+      }
+      const output = {
+        data: {
+          id: '1',
+          type: 'libraryEntries',
+          attributes: {
+            links: 'Not JSON:API link object',
+            meta: 'Not JSON:API meta object'
+          },
+          relationships: {
+            user: {
+              data: {
+                id: '1',
+                type: 'user',
+                attributes: {
+                  links: 'Not JSON:API link object',
+                  meta: 'Not JSON:API meta object'
+                }
+              }
             }
           }
         }
