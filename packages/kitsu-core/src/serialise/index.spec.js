@@ -81,7 +81,9 @@ describe('kitsu-core', () => {
         'libraryEntries',
         {
           user: {
-            id: '2'
+            data: {
+              id: '2'
+            }
           }
         },
         undefined,
@@ -110,16 +112,18 @@ describe('kitsu-core', () => {
       const input = serialise(
         'libraryEntries',
         {
-          user: [
-            {
-              id: '2',
-              type: 'users',
-              content: 'yuzu'
-            },
-            {
-              id: '3'
-            }
-          ]
+          user: {
+            data: [
+              {
+                id: '2',
+                type: 'users',
+                content: 'yuzu'
+              },
+              {
+                id: '3'
+              }
+            ]
+          }
         },
         undefined,
         {
@@ -305,10 +309,12 @@ describe('kitsu-core', () => {
       expect.assertions(1)
       const input = serialise('resourceModel', {
         myRelationship: {
-          id: '1',
-          type: 'relationshipModel',
-          content: 'Hello',
-          attributes: 'Keep me'
+          data: {
+            id: '1',
+            type: 'relationshipModel',
+            content: 'Hello',
+            attributes: 'Keep me'
+          }
         }
       })
       expect(input).toEqual({
@@ -334,9 +340,11 @@ describe('kitsu-core', () => {
       expect.assertions(1)
       const input = serialise('resourceModel', [ {
         myRelationship: {
-          id: '1',
-          type: 'relationshipModel',
-          content: 'Hello'
+          data: {
+            id: '1',
+            type: 'relationshipModel',
+            content: 'Hello'
+          }
         }
       } ])
       expect(input).toEqual({
@@ -381,12 +389,16 @@ describe('kitsu-core', () => {
     it('serialises type arrays into relationships', () => {
       expect.assertions(1)
       const input = serialise('resourceModels', {
-        arrayRelation: [ {
-          id: '1',
-          type: 'arrayRelations',
-          content: 'Hey',
-          attributes: 'Keep me'
-        } ]
+        arrayRelation: {
+          data: [
+            {
+              id: '1',
+              type: 'arrayRelations',
+              content: 'Hey',
+              attributes: 'Keep me'
+            }
+          ]
+        }
       })
       expect(input).toEqual({
         data: {
@@ -449,6 +461,83 @@ describe('kitsu-core', () => {
       const resourceOutput = { id: '1', type: 'posts', attributes: { content: undefined } }
       const input = serialise('posts', resource)
       expect(input).toEqual({ data: resourceOutput })
+    })
+
+    it('uses the new system', () => {
+      expect.assertions(1)
+      const input = {
+        id: '1',
+        type: 'libraryEntries',
+        links: { self: 'library-entries/1' },
+        ratingTwenty: 10,
+        user: {
+          links: {
+            self: 'library-entries/1/relationships/user',
+            related: 'library-entries/1/user'
+          },
+          meta: { some: 'meta info' },
+          data: {
+            id: '2',
+            type: 'users',
+            name: 'Example',
+            links: { self: 'users/2' }
+          }
+        },
+        unit: {
+          links: {
+            self: 'library-entries/1/relationships/unit',
+            related: 'library-entries/1/unit'
+          },
+          meta: { extra: 'info' },
+          data: [
+            {
+              id: '3',
+              type: 'episodes',
+              number: 12,
+              links: { self: 'episodes/3' }
+            }
+          ]
+        }
+      }
+      const output = {
+        data: {
+          id: '1',
+          type: 'libraryEntries',
+          links: { self: 'library-entries/1' },
+          attributes: { ratingTwenty: 10 },
+          relationships: {
+            user: {
+              links: {
+                self: 'library-entries/1/relationships/user',
+                related: 'library-entries/1/user'
+              },
+              meta: { some: 'meta info' },
+              data: {
+                id: '2',
+                type: 'users',
+                attributes: { name: 'Example' },
+                links: { self: 'users/2' }
+              }
+            },
+            unit: {
+              links: {
+                self: 'library-entries/1/relationships/unit',
+                related: 'library-entries/1/unit'
+              },
+              meta: { extra: 'info' },
+              data: [
+                {
+                  id: '3',
+                  type: 'episodes',
+                  attributes: { number: 12 },
+                  links: { self: 'episodes/3' }
+                }
+              ]
+            }
+          }
+        }
+      }
+      expect(serialise('libraryEntries', input)).toStrictEqual(output)
     })
   })
 })

@@ -43,17 +43,21 @@ function isValid (isArray, type, payload, method) {
  * @returns {Object} Serialised relationship
  * @private
  */
-function serialiseRelationOne (node, relations, key) {
-  relations[key] = { data: {} }
-  for (const prop of Object.keys(node[key].data)) {
-    const propNode = node[key].data[prop]
-    let propRelations = relations[key].data
-    // Pull everything but id and type into data.attributes
-    if (prop && ![ 'id', 'type' ].includes(prop)) {
-      propRelations = serialiseAttr(propNode, prop, propRelations)
-    } else propRelations[prop] = propNode
+function serialiseRelationOne (node, nodeType) {
+  let relation = {}
+  for (const prop of Object.keys(node)) {
+    if (prop &&
+      // Properties not being put in data.attributes
+      ![ 'id', 'type' ].includes(prop) &&
+      // Exclude a valid JSON:API links object being put in data.attributes
+      !(prop === 'links' && (node[prop].self || node[prop].related))
+    ) {
+      relation = serialiseAttr(node[prop], prop, relation)
+    } else relation[prop] = node[prop]
   }
-  return relations
+  // Guess relationship type if not provided
+  if (!relation.type) relation.type = nodeType
+  return relation
 }
 
 /**
@@ -65,35 +69,19 @@ function serialiseRelationOne (node, relations, key) {
  * @returns {Object} Serialised relationship
  * @private
  */
-function serialiseRelationMany (node, relations, key) {
-  relations[key] = { data: [] }
-  for (const prop of node[key].data) {
-    relations[key].data.push(prop)
+function serialiseRelationMany (node, nodeType) {
+  const relation = []
+  for (const prop of node) {
+    const serialised = serialiseRelationOne(prop)
+    // Guess relationship type if not provided
+    if (!serialised.type) serialised.type = nodeType
+    relation.push(serialised)
   }
-  return relations
+  return relation
 }
 
 /**
  * Serialises a relational object to JSON:API format
- *
- * @param {Object} node Relation object
- * @returns {Object} Serialised relationship
- * @private
- */
-function serialiseRelation (node) {
-  // Create a new object to handle collisions with attributes.attributes
-  let relations = {}
-  for (const key in node) {
-    const isToMany = Array.isArray(node[key].data)
-    relations = isToMany
-      ? serialiseRelationMany(node, relations, key)
-      : serialiseRelationOne(node, relations, key)
-  }
-  return relations
-}
-
-/**
- * Serialises an object to JSON:API format
  *
  * @param {Object} node Resource object
  * @param {string} nodeType Resource type of the object
@@ -101,14 +89,15 @@ function serialiseRelation (node) {
  * @param {Object} data Root JSON:API data object
  * @private
  */
-function serialiseObject (node, nodeType, key, data) {
+function serialiseRelation (node, nodeType, key, data) {
   if (!data.relationships) data.relationships = {}
-  // Guess type if not provided
-  if (!node.type) node.type = nodeType
   data.relationships[key] = {
-    data: Object.assign(node)
+    data: Array.isArray(node.data)
+      ? serialiseRelationMany(node.data, nodeType)
+      : serialiseRelationOne(node.data, nodeType)
   }
-  data.relationships = serialiseRelation(data.relationships)
+  if (node?.links?.self || node?.links?.related) data.relationships[key].links = node.links
+  if (node?.meta) data.relationships[key].meta = node.meta
   return data
 }
 
@@ -123,8 +112,9 @@ function serialiseObject (node, nodeType, key, data) {
  */
 function serialiseArray (node, nodeType, key, data) {
   if (!data.relationships) data.relationships = {}
+
   data.relationships[key] = {
-    data: node.map(({ id, type, ...attributes }) => {
+    data: node.data.map(({ id, type, ...attributes }) => {
       return {
         id,
         type: type || nodeType,
@@ -146,7 +136,8 @@ function serialiseArray (node, nodeType, key, data) {
  */
 function serialiseAttr (node, key, data) {
   if (!data.attributes) data.attributes = {}
-  data.attributes[key] = node
+  if (key === 'links' && (node.self || node.related)) data.links = node
+  else data.attributes[key] = node
   return data
 }
 
@@ -158,7 +149,10 @@ function serialiseAttr (node, key, data) {
  * @private
  */
 function hasID (node) {
-  return Object.prototype.hasOwnProperty.call(node, 'id')
+  if (!node.data) return false
+  // Check if relationship is to-many
+  const nodeData = Array.isArray(node.data) ? node.data[0] : node.data
+  return Object.prototype.hasOwnProperty.call(nodeData, 'id')
 }
 
 /**
@@ -198,16 +192,17 @@ function serialiseRootObject (type, payload, method, options) {
   isValid(false, type, payload, method)
   type = options.pluralTypes(options.camelCaseTypes(type))
   let data = { type }
+  // ID not required for POST requests
   if (payload?.id) data.id = String(payload.id)
   for (const key in payload) {
     const node = payload[key]
     const nodeType = options.pluralTypes(options.camelCaseTypes(key))
     // 1. Skip null nodes, 2. Only grab objects, 3. Filter to only serialise relationable objects
     if (node !== null && node?.constructor === Object && hasID(node)) {
-      data = serialiseObject(node, nodeType, key, data)
+      data = serialiseRelation(node, nodeType, key, data)
     // 1. Skip null nodes, 2. Only grab arrays, 3. Filter to only serialise relationable arrays
-    } else if (node !== null && Array.isArray(node) && (node.length > 0 && hasID(node[0]))) {
-      data = serialiseArray(node, nodeType, key, data)
+    // } else if (node !== null && node?.constructor === Object && hasID(node)) {
+    //   data = serialiseArray(node, nodeType, key, data)
     // 1. Don't place id/key inside attributes object
     } else if (key !== 'id' && key !== 'type') {
       data = serialiseAttr(node, key, data)
