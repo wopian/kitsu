@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.1](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.0...v10.0.0-alpha.1) (2020-06-15)
+
+
+### Chores
+
+* **release:** update documentation ([1b1f6d6](https://github.com/wopian/kitsu/commit/1b1f6d6))
+* **release:** update documentation ([883512b](https://github.com/wopian/kitsu/commit/883512b))
+
+
+### Continuous Integration
+
+* **action:** add jest coverage action ([804eede](https://github.com/wopian/kitsu/commit/804eede))
+* **actions:** remove duplicate name ([0b3f4dd](https://github.com/wopian/kitsu/commit/0b3f4dd))
+* **actions:** run checkout and yarn install ([09be991](https://github.com/wopian/kitsu/commit/09be991))
+* **assign:** add github action to auto-assign issues ([356941a](https://github.com/wopian/kitsu/commit/356941a))
+* **typo:** exclude .github directory ([e890848](https://github.com/wopian/kitsu/commit/e890848))
+* **typo:** remove extra apostrophe in config ([c85307e](https://github.com/wopian/kitsu/commit/c85307e))
+
+
+### Documentation Changes
+
+* **kitsu:** fix typo in migration guide ([af5ac6b](https://github.com/wopian/kitsu/commit/af5ac6b))
+
+
+
+
+
 # [10.0.0-alpha.0](https://github.com/wopian/kitsu/compare/v9.1.11...v10.0.0-alpha.0) (2020-06-15)
 
 
