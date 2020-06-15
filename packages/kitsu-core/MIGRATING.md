@@ -1,5 +1,153 @@
 # Migration Guides
 
+## Migrating to `10.0.0`
+
+`serialise` has been refactored to match the v9 `deserialise` behaviour. This was intended for the v9 release, however it slipped though the net and resulted in broken relationship serialisation in v9.
+
+Relationships given to the `serialise` function are now always an object containing either a `data` object or a `data` array. This allows for optional top-level relationship `links` and `meta` objects to be serialised into the JSON:API format.
+
+Exemptions:
+- `links` that are not objects or do not contain `self` or `related` will become attributes as normal
+- `meta` that are not objects will become attributes as normal
+
+#### Legacy Input
+
+```js
+{
+  id: '1',
+  type: 'libraryEntries',
+  links: { self: 'library-entries/1' }
+  user: { // one-to-one relationship
+    id: '2',
+    type: 'users',
+    links: { self: 'users/2' }
+    name: 'Example'
+  },
+  unit: [ // one-to-many relationship
+    {
+      id: '3',
+      type: 'episodes',
+      links: { self: 'episodes/3' }
+      number: 12
+    }
+  ]
+}
+```
+
+##### Legacy Output
+
+```js
+data: {
+  id: '1',
+  type: 'libraryEntries',
+  attributes: {
+    links: { self: 'library-entries/1' }
+  },
+  relationships: {
+    user: {
+      data: {
+        id: '2',
+        type: 'users',
+        attributes: {
+          links: { self: 'users/2' }
+          name: 'Example'
+        }
+      }
+    },
+    unit: {
+      data: [
+        {
+          id: '3',
+          type: 'episodes',
+          attributes: {
+            links: { self: 'episodes/3' }
+            number: 12
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+#### New Input
+
+```js
+{
+  id: '1',
+  type: 'libraryEntries',
+  links: { self: 'library-entries/1' }
+  user: { // one-to-one relationship
+    links: {
+      self: 'library-entries/1/relationships/user'
+      related: 'libary-entries/1/user'
+    },
+    data: {
+      id: '2',
+      type: 'users',
+      links: { self: 'users/2' }
+      name: 'Example'
+    }
+  },
+  unit: { // one-to-many relationship
+    links: {
+      self: 'library-entries/1/relationships/unit',
+      related: 'library-entries/1/unit'
+    },
+    data: [
+      {
+        id: '3',
+        type: 'episodes',
+        links: { self: 'episodes/3' },
+        number: 12
+      }
+    ]
+  }
+}
+```
+
+##### New Output
+
+```
+data: {
+  id: '1',
+  type: 'libraryEntries',
+  links: { self: 'library-entries/1' },
+  relationships: {
+    user: {
+      links: {
+        self: 'library-entries/1/relationships/user'
+        related: 'libary-entries/1/user'
+      },
+      data: {
+        id: '2',
+        type: 'users',
+        links: { self: 'users/2' },
+        attributes: {
+          name: 'Example'
+        }
+      }
+    },
+    unit: {
+      links: {
+        self: 'library-entries/1/relationships/unit',
+        related: 'library-entries/1/unit'
+      },
+      data: [
+        {
+          id: '3',
+          type: 'episodes',
+          links: { self: 'episodes/3' },
+          attributes: {
+            number: 12
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
 ## Migrating to `9.0.0`
 
 ### Deserialising
@@ -21,7 +169,7 @@ data: {
   id: '1',
   type: 'libraryEntries'
   links: {
-    self: 'https://kitsu.io/api/edge/library-entries/1'
+    self: 'library-entries/1'
   },
   attributes: {
     ratingTwenty: 10
@@ -29,8 +177,8 @@ data: {
   relationships: {
     user: {
       links: {
-        self: 'https://kitsu.io/api/edge/library-entries/1/relationships/user',
-        related: 'https://kitsu.io/api/edge/library-entries/1/user'
+        self: 'library-entries/1/relationships/user',
+        related: 'library-entries/1/user'
       },
       data: {
         id: '2',
@@ -44,7 +192,7 @@ included: [
     id: '2',
     type: 'users',
     links: {
-      self: 'https://kitsu.io/api/edge/users/2'
+      self: 'users/2'
     },
     attributes: {
       name: 'Example'
@@ -77,19 +225,19 @@ data: {
   id: '1',
   type: 'libraryEntries',
   links: {
-    self: 'https://kitsu.io/api/edge/library-entries/1'
+    self: 'library-entries/1'
   },
   ratingTwenty: 10,
   user: {
     links: {
-      self: 'https://kitsu.io/api/edge/library-entries/1/relationships/user',
-      related: 'https://kitsu.io/api/edge/library-entries/1/user'
+      self: 'library-entries/1/relationships/user',
+      related: 'library-entries/1/user'
     },
     data: {
       id: '2',
       type: 'users',
       links: {
-        self: 'https://kitsu.io/api/edge/users/2'
+        self: 'users/2'
       },
       name: 'Example'
     }
