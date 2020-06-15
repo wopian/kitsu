@@ -7,8 +7,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - run: yarn
-    - name: Jest Coverage
-      uses: mattallty/jest-github-action@v1
+    - uses: mattallty/jest-github-action@v1
       continue-on-error: true
       with:
         changes-only: true
