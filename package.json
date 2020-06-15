@@ -28,7 +28,7 @@
     "release": "yarn updated && yarn release:test && yarn release:commit && yarn release:lerna",
     "release:test": "jest && yarn lint && yarn docs:release && yarn build",
     "release:commit": "git commit -am \"chore(release): update documentation\"",
-    "release:lerna": "lerna publish premajor",
+    "release:lerna": "lerna publish --preid=alpha",
     "browserlist": "npx browserslist \"last 2 years, not < 0.05%\"",
     "size": "lerna exec size-limit"
   },
