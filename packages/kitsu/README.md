@@ -114,6 +114,18 @@ import Kitsu from 'kitsu'      // ES Modules & Babel
 const Kitsu = require('kitsu') // CommonJS & Browserify
 ```
 
+## Contributing
+
+See [CONTRIBUTING]
+
+## Releases
+
+See [CHANGELOG]
+
+## License
+
+All code released under [MIT]
+
 ## Quick Start
 
 ```javascript
@@ -737,18 +749,6 @@ api.request({
 ```
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
-
-## Contributing
-
-See [CONTRIBUTING]
-
-## Releases
-
-See [CHANGELOG]
-
-## License
-
-All code released under [MIT]
 
 [kitsu.io]: https://kitsu.io
 
