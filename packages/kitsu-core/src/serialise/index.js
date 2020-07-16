@@ -24,7 +24,7 @@ function isValid (isArray, type, payload, method) {
       }
     }
   } else {
-    if (typeof payload !== 'object' || Object.keys(payload).length === 0) {
+    if (payload?.constructor !== Object || Object.keys(payload).length === 0) {
       throw new Error(`${method} requires an object or array body`)
     }
     // A POST request is the only request to not require an ID in spec
