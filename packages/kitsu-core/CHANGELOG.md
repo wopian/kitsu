@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.2](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v10.0.0-alpha.1...v10.0.0-alpha.2) (2020-07-16)
+
+
+### Bug Fixes
+
+* **kitsu-core:** allow longer prototype chain on serialise ([#447](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/447)) ([7826683](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/7826683))
+
+
+### Chores
+
+* **release:** update documentation ([699bb64](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/699bb64))
+
+
+### Documentation Changes
+
+* move contributing, releases and license above api documentation ([9c7d986](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/9c7d986))
+
+
+
+
+
 # [10.0.0-alpha.1](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v10.0.0-alpha.0...v10.0.0-alpha.1) (2020-06-15)
 
 

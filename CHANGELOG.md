@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.2](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.1...v10.0.0-alpha.2) (2020-07-16)
+
+
+### Bug Fixes
+
+* **kitsu-core:** allow longer prototype chain on serialise ([#447](https://github.com/wopian/kitsu/issues/447)) ([7826683](https://github.com/wopian/kitsu/commit/7826683))
+
+
+### Build System / Dependencies
+
+* **deps:** bump lodash from 4.17.15 to 4.17.19 ([#446](https://github.com/wopian/kitsu/issues/446)) ([9805f92](https://github.com/wopian/kitsu/commit/9805f92))
+* update devdependency [@rollup](https://github.com/rollup)/plugin-babel to ~5.1.0 ([#443](https://github.com/wopian/kitsu/issues/443)) ([9aaafab](https://github.com/wopian/kitsu/commit/9aaafab))
+* update devdependency eslint to ~7.3.0 ([#436](https://github.com/wopian/kitsu/issues/436)) ([d529324](https://github.com/wopian/kitsu/commit/d529324))
+* update devdependency eslint to ~7.4.0 ([#440](https://github.com/wopian/kitsu/issues/440)) ([f95d833](https://github.com/wopian/kitsu/commit/f95d833))
+* update devdependency rollup to ~2.17.0 ([#435](https://github.com/wopian/kitsu/issues/435)) ([3e3ceaa](https://github.com/wopian/kitsu/commit/3e3ceaa))
+* update devdependency rollup to ~2.18.0 ([#437](https://github.com/wopian/kitsu/issues/437)) ([e63332d](https://github.com/wopian/kitsu/commit/e63332d))
+* update devdependency rollup to ~2.19.0 ([#441](https://github.com/wopian/kitsu/issues/441)) ([da07c26](https://github.com/wopian/kitsu/commit/da07c26))
+* update devdependency rollup to ~2.21.0 ([#442](https://github.com/wopian/kitsu/issues/442)) ([511a7bc](https://github.com/wopian/kitsu/commit/511a7bc))
+* **kitsu:** lock file maintenance ([#439](https://github.com/wopian/kitsu/issues/439)) ([6d8e875](https://github.com/wopian/kitsu/commit/6d8e875))
+* update jest monorepo to ~26.1.0 ([#438](https://github.com/wopian/kitsu/issues/438)) ([7bb96ba](https://github.com/wopian/kitsu/commit/7bb96ba))
+
+
+### Chores
+
+* **release:** update documentation ([699bb64](https://github.com/wopian/kitsu/commit/699bb64))
+
+
+### Documentation Changes
+
+* move contributing, releases and license above api documentation ([b0de3ab](https://github.com/wopian/kitsu/commit/b0de3ab))
+* move contributing, releases and license above api documentation ([9c7d986](https://github.com/wopian/kitsu/commit/9c7d986))
+
+
+
+
+
 # [10.0.0-alpha.1](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.0...v10.0.0-alpha.1) (2020-06-15)
 
 
