@@ -1,0 +1,30 @@
+name: Build & Size Limit
+on: [push, pull_request]
+jobs:
+  build:
+    name: Node ${{ matrix.node_version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node_version: [10, 12, 14]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use node ${{ matrix.node_version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node_version }}
+    - name: Restore lerna cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          node_modules
+          */*/node_modules
+        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+    - name: Install yarn dependencies
+      run: yarn install
+    - run: yarn bootstrap
+    - name: Build package
+      run: yarn build
+    - name: Check built package sizes
+      run: yarn size

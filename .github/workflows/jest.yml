@@ -1,4 +1,4 @@
-name: CI
+name: Unit Tests
 on: [ push, pull_request ]
 jobs:
   jest:
@@ -7,6 +7,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - run: yarn
+    - run: yarn bootstrap
     - uses: mattallty/jest-github-action@v1
       continue-on-error: true
       with:
