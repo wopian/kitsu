@@ -1,5 +1,5 @@
 name: Unit Tests
-on: [ push, pull_request ]
+on: [push, pull_request]
 jobs:
   jest:
     name: Node ${{ matrix.node_version }} on ${{ matrix.os }}
