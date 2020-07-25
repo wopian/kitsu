@@ -34,8 +34,10 @@
     "client",
     "jsonapi",
     "json-api",
+    "json:api",
     "serialize",
-    "deserialize"
+    "deserialize",
+    "axios"
   ],
   "scripts": {
     "docs:lint": "documentation lint src/index.js",

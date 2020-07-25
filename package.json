@@ -55,20 +55,50 @@
     "typescript": "~3.9.3"
   },
   "jest": {
-    "testEnvironment": "node",
-    "collectCoverageFrom": [
-      "**/src/**/*.js"
-    ],
-    "coverageDirectory": "<rootDir>/coverage",
-    "moduleNameMapper": {
-      "^specification(.*)$": "<rootDir>/specification/$1",
-      "^kitsu-core(.*)$": "<rootDir>/packages/kitsu-core/src/$1",
-      "^kitsu(.*)$": "<rootDir>/packages/kitsu/src/$1",
-      "^pkg$": "<rootDir>/package.json"
-    },
-    "transform": {
-      "^.+\\.js$": "<rootDir>/config/jest.transform.js"
-    }
+    "projects": [
+      {
+        "displayName": "browser",
+        "testEnvironment": "jsdom",
+        "collectCoverageFrom": [
+          "<rootDir>/packages/**/src/**/*.js"
+        ],
+        "coverageDirectory": "<rootDir>/coverage",
+        "moduleNameMapper": {
+          "^specification(.*)$": "<rootDir>/specification/$1",
+          "^kitsu-core(.*)$": "<rootDir>/packages/kitsu-core/src/$1",
+          "^kitsu(.*)$": "<rootDir>/packages/kitsu/src/$1",
+          "^pkg$": "<rootDir>/package.json"
+        },
+        "testMatch": [
+          "<rootDir>/packages/**/src/**/*.spec.js",
+          "<rootDir>/packages/**/src/**/*.spec.browser.js"
+        ],
+        "transform": {
+          "^.+\\.js$": "<rootDir>/config/jest.transform.js"
+        }
+      },
+      {
+        "displayName": "node",
+        "testEnvironment": "node",
+        "collectCoverageFrom": [
+          "<rootDir>/packages/**/src/**/*.js"
+        ],
+        "coverageDirectory": "<rootDir>/coverage",
+        "moduleNameMapper": {
+          "^specification(.*)$": "<rootDir>/specification/$1",
+          "^kitsu-core(.*)$": "<rootDir>/packages/kitsu-core/src/$1",
+          "^kitsu(.*)$": "<rootDir>/packages/kitsu/src/$1",
+          "^pkg$": "<rootDir>/package.json"
+        },
+        "testMatch": [
+          "<rootDir>/packages/**/src/**/*.spec.js",
+          "<rootDir>/packages/**/src/**/*.spec.node.js"
+        ],
+        "transform": {
+          "^.+\\.js$": "<rootDir>/config/jest.transform.js"
+        }
+      }
+    ]
   },
   "renovate": {
     "extends": [
