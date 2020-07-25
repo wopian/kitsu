@@ -24,7 +24,7 @@ jobs:
     - name: Install yarn dependencies
       run: yarn install
     - name: Jest coverage
-      uses: mattallty/jest-github-action@v1
+      uses: mattallty/jest-github-action@v1.0.3
       continue-on-error: true
       with:
         changes-only: true
