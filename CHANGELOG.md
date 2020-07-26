@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.13](https://github.com/wopian/kitsu/compare/v9.1.12...v9.1.13) (2020-07-26)
+
+
+### Chores
+
+* **release:** update documentation ([237897a](https://github.com/wopian/kitsu/commit/237897a))
+
+
+### Documentation Changes
+
+* add typescript types badges ([4b9e7a9](https://github.com/wopian/kitsu/commit/4b9e7a9))
+
+
+
+
+
 ## [9.1.12](https://github.com/wopian/kitsu/compare/v9.1.11...v9.1.12) (2020-07-16)
 
 
