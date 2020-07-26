@@ -9,7 +9,7 @@
       ],
       "conventionalCommits": true,
       "changelogPreset": "angular-all-2",
-      "message": "chore(release): publish packages",
+      "message": "chore(release): publish %v",
       "npmClient": "yarn"
     }
   },
