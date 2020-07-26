@@ -1,7 +1,7 @@
 name: Size Limit
 on: [push, pull_request]
 jobs:
-  build:
+  size-limit:
     name: Node ${{ matrix.node_version }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
