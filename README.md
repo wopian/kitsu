@@ -1,16 +1,16 @@
 <h1 align=center>Kitsu</h1>
 
 <p align=center>
-  <a href=https://travis-ci.com/wopian/kitsu><img alt=travis src=https://flat.badgen.net/travis/wopian/kitsu></a>
+  <a href=https://github.com/wopian/kitsu/actions><img alt=checks src=https://flat.badgen.net/github/checks/wopian/kitsu></a>
   <a href="https://david-dm.org/wopian/kitsu?type=dev"><img alt=devDeps src=https://flat.badgen.net/david/dev/wopian/kitsu></a>
-  <a href=https://github.com/wopian/kitsu/graphs/contributors><img alt=contributors src=https://flat.badgen.net/github/contributors/wopian/kitsu></a>
+  <a href=https://codeclimate.com/github/wopian/kitsu/code?sort=test_coverage><img alt=coverage src=https://flat.badgen.net/codeclimate/coverage/wopian/kitsu></a>
+  <a href=https://codeclimate.com/github/wopian/kitsu/code?sort=maintainability><img alt=maintainability src=https://flat.badgen.net/codeclimate/maintainability/wopian/kitsu></a>
 </p>
 
 <p align=center>
-  <a href=https://codeclimate.com/github/wopian/kitsu/code?sort=test_coverage><img alt=coverage src=https://flat.badgen.net/codeclimate/coverage/wopian/kitsu></a>
-  <a href=https://codeclimate.com/github/wopian/kitsu/code?sort=maintainability><img alt=maintainability src=https://flat.badgen.net/codeclimate/maintainability/wopian/kitsu></a>
-  <a href=https://codeclimate.com/github/wopian/kitsu/trends/technical_debt><img alt="technical debt"src=https://flat.badgen.net/codeclimate/tech-debt/wopian/kitsu></a>
-  <a href=https://codeclimate.com/github/wopian/kitsu/issues><img alt=issues src=https://flat.badgen.net/codeclimate/issues/wopian/kitsu></a>
+  <a href=https://github.com/wopian/kitsu/network/dependents><img alt=repoDependants src=https://flat.badgen.net/github/dependents-repo/wopian/kitsu></a>
+  <a href=https://github.com/wopian/kitsu/graphs/contributors><img alt=contributors src=https://flat.badgen.net/github/contributors/wopian/kitsu></a>
+  <a href=https://github.com/sponsors/wopian><img alt=sponsor src='https://flat.badgen.net/badge/sponsor/%E2%9D%A4/pink?icon=github'></a>
 </p>
 
 <p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client for <a href=https://kitsu.io>Kitsu.io</a> & other APIs</p>

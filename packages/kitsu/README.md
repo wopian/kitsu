@@ -3,28 +3,28 @@
 <p align=center>
   <a href=https://www.npmjs.com/package/kitsu><img alt=npm src=https://flat.badgen.net/npm/v/kitsu></a>
   <a href=https://www.npmjs.com/package/kitsu><img alt=npm src=https://flat.badgen.net/npm/dt/kitsu></a>
-  <a href="https://bundlephobia.com/result?p=kitsu"><img alt=bundlephobia src=https://flat.badgen.net/bundlephobia/minzip/kitsu></a>
   <a href="https://david-dm.org/wopian/kitsu?path=packages/kitsu"><img alt=deps src="https://flat.badgen.net/david/dep/wopian/kitsu/packages/kitsu"></a>
+  <a href="https://bundlephobia.com/result?p=kitsu"><img alt=bundlephobia src='https://flat.badgen.net/bundlephobia/minzip/kitsu?label=library%20size'></a>
+  <img alt=types src='https://flat.badgen.net/npm/types/kitsu'>
 </p>
 
 <p align=center>
-  <a href=https://travis-ci.com/wopian/kitsu><img alt=travis src=https://flat.badgen.net/travis/wopian/kitsu></a>
-  <a href="https://packagephobia.now.sh/result?p=kitsu"><img alt=packagephobia src=https://flat.badgen.net/packagephobia/install/kitsu></a>
-  <a href=https://github.com/wopian/kitsu/graphs/contributors><img alt=contributors src=https://flat.badgen.net/github/contributors/wopian/kitsu></a>
-</p>
-
-<p align=center>
+  <a href=https://github.com/wopian/kitsu/actions><img alt=checks src=https://flat.badgen.net/github/checks/wopian/kitsu></a>
   <a href=https://codeclimate.com/github/wopian/kitsu/code?sort=test_coverage><img alt=coverage src=https://flat.badgen.net/codeclimate/coverage/wopian/kitsu></a>
   <a href=https://codeclimate.com/github/wopian/kitsu/code?sort=maintainability><img alt=maintainability src=https://flat.badgen.net/codeclimate/maintainability/wopian/kitsu></a>
-  <a href=https://codeclimate.com/github/wopian/kitsu/trends/technical_debt><img alt="technical debt"src=https://flat.badgen.net/codeclimate/tech-debt/wopian/kitsu></a>
-  <a href=https://codeclimate.com/github/wopian/kitsu/issues><img alt=issues src=https://flat.badgen.net/codeclimate/issues/wopian/kitsu></a>
+  <a href=https://github.com/wopian/kitsu/network/dependents><img alt=repoDependants src=https://flat.badgen.net/github/dependents-repo/wopian/kitsu></a>
+</p>
+
+<p align=center>
+  <a href=https://github.com/wopian/kitsu/graphs/contributors><img alt=contributors src=https://flat.badgen.net/github/contributors/wopian/kitsu></a>
+  <a href=https://github.com/sponsors/wopian><img alt=sponsor src='https://flat.badgen.net/badge/sponsor/%E2%9D%A4/pink?icon=github'></a>
 </p>
 
 <p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client using Axios</p>
 
 <p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v10 & previous major releases</p>
 
-# 
+#
 
 ## Features
 
