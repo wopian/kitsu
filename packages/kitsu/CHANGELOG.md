@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.3](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v10.0.0-alpha.2...v10.0.0-alpha.3) (2020-07-26)
+
+
+### Chores
+
+* **release:** update documentation ([f89a7cf](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/f89a7cf))
+
+
+### Documentation Changes
+
+* add typescript types badges ([3a09066](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/3a09066))
+
+
+### Tests
+
+* run tests in both node and jsdom environments ([a383794](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/a383794))
+
+
+
+
+
 # [10.0.0-alpha.2](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v10.0.0-alpha.1...v10.0.0-alpha.2) (2020-07-16)
 
 

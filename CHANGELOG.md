@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.3](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.2...v10.0.0-alpha.3) (2020-07-26)
+
+
+### Build System / Dependencies
+
+* update devdependency eslint to ~7.5.0 ([#448](https://github.com/wopian/kitsu/issues/448)) ([26d941b](https://github.com/wopian/kitsu/commit/26d941b))
+* update devdependency rollup to ~2.22.0 ([#449](https://github.com/wopian/kitsu/issues/449)) ([064214c](https://github.com/wopian/kitsu/commit/064214c))
+* update devdependency rollup to ~2.23.0 ([#450](https://github.com/wopian/kitsu/issues/450)) ([f006aff](https://github.com/wopian/kitsu/commit/f006aff))
+
+
+### Chores
+
+* **release:** update documentation ([f89a7cf](https://github.com/wopian/kitsu/commit/f89a7cf))
+
+
+### Continuous Integration
+
+* **jest:** fix node-version typo ([d9f6ea5](https://github.com/wopian/kitsu/commit/d9f6ea5))
+* **jest:** remove continue on error ([24ca838](https://github.com/wopian/kitsu/commit/24ca838))
+* **jest:** remove spacing around 'on' array ([4122e17](https://github.com/wopian/kitsu/commit/4122e17))
+* **jest:** test on all combinations ([efe6727](https://github.com/wopian/kitsu/commit/efe6727))
+* **jest:** use latest action version ([a132e0a](https://github.com/wopian/kitsu/commit/a132e0a))
+* **lerna:** include published version in commit message ([9f5740d](https://github.com/wopian/kitsu/commit/9f5740d))
+* **size-limit:** update job name to reflect changes ([18a8b39](https://github.com/wopian/kitsu/commit/18a8b39))
+* add github actions for eslint, build and size limit warnings ([5bfe451](https://github.com/wopian/kitsu/commit/5bfe451))
+* split size limit from cross-platform/node compilation ([3690715](https://github.com/wopian/kitsu/commit/3690715))
+
+
+### Documentation Changes
+
+* add typescript types badges ([3a09066](https://github.com/wopian/kitsu/commit/3a09066))
+
+
+### Tests
+
+* run tests in both node and jsdom environments ([a383794](https://github.com/wopian/kitsu/commit/a383794))
+
+
+
+
+
 # [10.0.0-alpha.2](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.1...v10.0.0-alpha.2) (2020-07-16)
 
 
