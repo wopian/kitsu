@@ -92,6 +92,15 @@ describe('kitsu', () => {
       expect(request).toEqual(getSingleWithNestedIncludes.kitsu)
     })
 
+    it('fetches a single resource with a camelCase relationship include', async () => {
+      expect.assertions(1)
+      const api = new Kitsu()
+      mock.onGet('anime/1', { params: { include: 'animeStaff' } }).reply(200, getSingleWithIncludes.jsonapi)
+      mock.onGet('*').reply(data => console.log(data))
+      const request = await api.get('anime/1', { params: { include: 'animeStaff' } })
+      expect(request).toEqual(getSingleWithIncludes.kitsu)
+    })
+
     it('returns a JSON:API error object for invalid queries', async () => {
       expect.assertions(5)
       const api = new Kitsu()
