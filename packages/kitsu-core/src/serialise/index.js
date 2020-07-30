@@ -188,7 +188,7 @@ function serialiseRootObject (type, payload, method, options) {
  * @param {Function} [options.pluralTypes=s=>s] Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package)
  * @returns {Object} The serialised data
  *
- * @example <caption>Setting camelCaseTypes and pluralTypes options (example shows options used by `kitsu` by default)</caption>
+ * @example <caption>Setting camelCaseTypes and pluralTypes options (example shows options used by the `kitsu` package by default)</caption>
  * import { serialise, camel } from 'kitsu-core'
  * import pluralize from 'pluralize'
  *
