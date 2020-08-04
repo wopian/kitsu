@@ -24,7 +24,7 @@
 
 <p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v9 & previous major releases</p>
 
-#
+# 
 
 ## Features
 
@@ -209,7 +209,7 @@ If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lis
 
 ### Kitsu
 
-[packages/kitsu/src/index.js:30-464](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L30-L464 "Source code on GitHub")
+[packages/kitsu/src/index.js:30-464](https://github.com/wopian/kitsu/blob/0f971ed3ac43c77265611d07eaadabf961baf066/packages/kitsu/src/index.js#L30-L464 "Source code on GitHub")
 
 Creates a new `kitsu` instance
 
@@ -256,7 +256,7 @@ const api = new Kitsu({
 
 #### plural
 
-[packages/kitsu/src/index.js:52-53](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L52-L53 "Source code on GitHub")
+[packages/kitsu/src/index.js:52-53](https://github.com/wopian/kitsu/blob/0f971ed3ac43c77265611d07eaadabf961baf066/packages/kitsu/src/index.js#L52-L53 "Source code on GitHub")
 
 -   **See: <https://www.npmjs.com/package/pluralize> for documentation
     **
@@ -278,7 +278,7 @@ api.plural.plural('paper') //=> 'paper'
 
 #### headers
 
-[packages/kitsu/src/index.js:67-67](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L67-L67 "Source code on GitHub")
+[packages/kitsu/src/index.js:67-67](https://github.com/wopian/kitsu/blob/0f971ed3ac43c77265611d07eaadabf961baf066/packages/kitsu/src/index.js#L67-L67 "Source code on GitHub")
 
 Get the current headers or add additional headers
 
@@ -309,7 +309,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### interceptors
 
-[packages/kitsu/src/index.js:112-112](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L112-L112 "Source code on GitHub")
+[packages/kitsu/src/index.js:112-112](https://github.com/wopian/kitsu/blob/0f971ed3ac43c77265611d07eaadabf961baf066/packages/kitsu/src/index.js#L112-L112 "Source code on GitHub")
 
 -   **See: <https://github.com/axios/axios#interceptors> for documentation
     **
@@ -360,7 +360,7 @@ api.interceptors.request.eject(myInterceptor)
 
 #### get
 
-[packages/kitsu/src/index.js:189-208](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L189-L208 "Source code on GitHub")
+[packages/kitsu/src/index.js:189-208](https://github.com/wopian/kitsu/blob/0f971ed3ac43c77265611d07eaadabf961baf066/packages/kitsu/src/index.js#L189-L208 "Source code on GitHub")
 
 Fetch resources (alias `fetch`)
 
@@ -476,7 +476,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### patch
 
-[packages/kitsu/src/index.js:241-262](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L241-L262 "Source code on GitHub")
+[packages/kitsu/src/index.js:241-262](https://github.com/wopian/kitsu/blob/0f971ed3ac43c77265611d07eaadabf961baf066/packages/kitsu/src/index.js#L241-L262 "Source code on GitHub")
 
 Update a resource (alias `update`)
 
@@ -539,7 +539,7 @@ Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 #### post
 
-[packages/kitsu/src/index.js:290-309](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L290-L309 "Source code on GitHub")
+[packages/kitsu/src/index.js:290-309](https://github.com/wopian/kitsu/blob/0f971ed3ac43c77265611d07eaadabf961baf066/packages/kitsu/src/index.js#L290-L309 "Source code on GitHub")
 
 Create a new resource (alias `create`)
 
@@ -582,7 +582,7 @@ Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 #### delete
 
-[packages/kitsu/src/index.js:324-353](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L324-L353 "Source code on GitHub")
+[packages/kitsu/src/index.js:324-353](https://github.com/wopian/kitsu/blob/0f971ed3ac43c77265611d07eaadabf961baf066/packages/kitsu/src/index.js#L324-L353 "Source code on GitHub")
 
 Remove a resource (alias `remove`)
 
@@ -612,7 +612,7 @@ Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 #### self
 
-[packages/kitsu/src/index.js:375-382](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L375-L382 "Source code on GitHub")
+[packages/kitsu/src/index.js:375-382](https://github.com/wopian/kitsu/blob/0f971ed3ac43c77265611d07eaadabf961baf066/packages/kitsu/src/index.js#L375-L382 "Source code on GitHub")
 
 Get the authenticated user's data
 
@@ -649,7 +649,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### request
 
-[packages/kitsu/src/index.js:443-463](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L443-L463 "Source code on GitHub")
+[packages/kitsu/src/index.js:443-463](https://github.com/wopian/kitsu/blob/0f971ed3ac43c77265611d07eaadabf961baf066/packages/kitsu/src/index.js#L443-L463 "Source code on GitHub")
 
 Send arbitrary requests
 
@@ -750,16 +750,16 @@ See [CHANGELOG]
 
 All code released under [MIT]
 
-[Kitsu.io]: https://kitsu.io
+[kitsu.io]: https://kitsu.io
 
-[Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+[promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 
-[More Examples]: https://github.com/wopian/kitsu/tree/master/packages/kitsu/example
+[more examples]: https://github.com/wopian/kitsu/tree/master/packages/kitsu/example
 
 [kitsu.io api docs]: https://kitsu.docs.apiary.io
 
-[CHANGELOG]: https://github.com/wopian/kitsu/blob/master/packages/kitsu/CHANGELOG.md
+[changelog]: https://github.com/wopian/kitsu/blob/master/packages/kitsu/CHANGELOG.md
 
-[CONTRIBUTING]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
+[contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
 
-[MIT]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
+[mit]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
