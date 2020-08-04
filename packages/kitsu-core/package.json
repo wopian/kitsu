@@ -21,6 +21,7 @@
   "bugs": {
     "url": "https://github.com/wopian/kitsu/issues"
   },
+  "funding": "https://github.com/sponsors/wopian",
   "engines": {
     "node": ">= 10"
   },
