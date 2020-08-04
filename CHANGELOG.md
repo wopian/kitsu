@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.4](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.3...v10.0.0-alpha.4) (2020-08-04)
+
+
+### Chores
+
+* **release:** update documentation ([56b33eb](https://github.com/wopian/kitsu/commit/56b33eb))
+* add funding to package.json ([8b00d5a](https://github.com/wopian/kitsu/commit/8b00d5a))
+
+
+### Documentation Changes
+
+* **kitsu:** document the expected structure of the model parameters ([173277e](https://github.com/wopian/kitsu/commit/173277e))
+* specify the Kitsu package default ([239cd86](https://github.com/wopian/kitsu/commit/239cd86))
+
+
+### Other Changes
+
+* Create codeql-analysis.yml ([99d11b3](https://github.com/wopian/kitsu/commit/99d11b3))
+
+
+### Tests
+
+* add test case for camelCase relationships ([818f033](https://github.com/wopian/kitsu/commit/818f033))
+
+
+
+
+
 # [10.0.0-alpha.3](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.2...v10.0.0-alpha.3) (2020-07-26)
 
 
