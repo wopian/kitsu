@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.14](https://github.com/wopian/kitsu/compare/v9.1.13...v9.1.14) (2020-08-04)
+
+
+### Chores
+
+* **release:** update documentation ([61dc405](https://github.com/wopian/kitsu/commit/61dc405))
+* **release:** update documentation ([c08f33a](https://github.com/wopian/kitsu/commit/c08f33a))
+* add funding to package.json ([2125de7](https://github.com/wopian/kitsu/commit/2125de7))
+
+
+### Documentation Changes
+
+* fix markdown links on npm ([0f971ed](https://github.com/wopian/kitsu/commit/0f971ed))
+* **kitsu:** document the expected structure of the model parameters ([b981f31](https://github.com/wopian/kitsu/commit/b981f31))
+
+
+
+
+
 ## [9.1.13](https://github.com/wopian/kitsu/compare/v9.1.12...v9.1.13) (2020-07-26)
 
 
