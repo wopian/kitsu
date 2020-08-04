@@ -209,7 +209,7 @@ If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lis
 
 ### Kitsu
 
-[packages/kitsu/src/index.js:30-464](https://github.com/wopian/kitsu/blob/4b9e7a9ad43911a4d6a89b8bdc21babfc50a9239/packages/kitsu/src/index.js#L30-L464 "Source code on GitHub")
+[packages/kitsu/src/index.js:30-464](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L30-L464 "Source code on GitHub")
 
 Creates a new `kitsu` instance
 
@@ -256,7 +256,7 @@ const api = new Kitsu({
 
 #### plural
 
-[packages/kitsu/src/index.js:52-53](https://github.com/wopian/kitsu/blob/4b9e7a9ad43911a4d6a89b8bdc21babfc50a9239/packages/kitsu/src/index.js#L52-L53 "Source code on GitHub")
+[packages/kitsu/src/index.js:52-53](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L52-L53 "Source code on GitHub")
 
 -   **See: <https://www.npmjs.com/package/pluralize> for documentation
     **
@@ -278,7 +278,7 @@ api.plural.plural('paper') //=> 'paper'
 
 #### headers
 
-[packages/kitsu/src/index.js:67-67](https://github.com/wopian/kitsu/blob/4b9e7a9ad43911a4d6a89b8bdc21babfc50a9239/packages/kitsu/src/index.js#L67-L67 "Source code on GitHub")
+[packages/kitsu/src/index.js:67-67](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L67-L67 "Source code on GitHub")
 
 Get the current headers or add additional headers
 
@@ -309,7 +309,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### interceptors
 
-[packages/kitsu/src/index.js:112-112](https://github.com/wopian/kitsu/blob/4b9e7a9ad43911a4d6a89b8bdc21babfc50a9239/packages/kitsu/src/index.js#L112-L112 "Source code on GitHub")
+[packages/kitsu/src/index.js:112-112](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L112-L112 "Source code on GitHub")
 
 -   **See: <https://github.com/axios/axios#interceptors> for documentation
     **
@@ -360,13 +360,13 @@ api.interceptors.request.eject(myInterceptor)
 
 #### get
 
-[packages/kitsu/src/index.js:189-208](https://github.com/wopian/kitsu/blob/4b9e7a9ad43911a4d6a89b8bdc21babfc50a9239/packages/kitsu/src/index.js#L189-L208 "Source code on GitHub")
+[packages/kitsu/src/index.js:189-208](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L189-L208 "Source code on GitHub")
 
 Fetch resources (alias `fetch`)
 
 ##### Parameters
 
--   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to fetch data from
+-   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource to fetch data from. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
 -   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON-API request queries. Any JSON:API query parameter not mentioned below is supported out of the box. (optional, default `{}`)
     -   `params.page` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination). All pagination strategies are supported, even if they are not listed below.
         -   `params.page.limit` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to return in request (Offset-based) - **Note:** For Kitsu.io, max is `20` except on `libraryEntries` which has a max of `500`
@@ -476,13 +476,13 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### patch
 
-[packages/kitsu/src/index.js:241-262](https://github.com/wopian/kitsu/blob/4b9e7a9ad43911a4d6a89b8bdc21babfc50a9239/packages/kitsu/src/index.js#L241-L262 "Source code on GitHub")
+[packages/kitsu/src/index.js:241-262](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L241-L262 "Source code on GitHub")
 
 Update a resource (alias `update`)
 
 ##### Parameters
 
--   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to update data in
+-   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource to update data in. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
 -   `body` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Data to send in the request
 -   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request (optional, default `{}`)
 
@@ -539,13 +539,13 @@ Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 #### post
 
-[packages/kitsu/src/index.js:290-309](https://github.com/wopian/kitsu/blob/4b9e7a9ad43911a4d6a89b8bdc21babfc50a9239/packages/kitsu/src/index.js#L290-L309 "Source code on GitHub")
+[packages/kitsu/src/index.js:290-309](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L290-L309 "Source code on GitHub")
 
 Create a new resource (alias `create`)
 
 ##### Parameters
 
--   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to create a resource under
+-   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource to create. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
 -   `body` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Data to send in the request
 -   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request (optional, default `{}`)
 
@@ -582,13 +582,13 @@ Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 #### delete
 
-[packages/kitsu/src/index.js:324-353](https://github.com/wopian/kitsu/blob/4b9e7a9ad43911a4d6a89b8bdc21babfc50a9239/packages/kitsu/src/index.js#L324-L353 "Source code on GitHub")
+[packages/kitsu/src/index.js:324-353](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L324-L353 "Source code on GitHub")
 
 Remove a resource (alias `remove`)
 
 ##### Parameters
 
--   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Model to remove data from
+-   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource to remove. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
 -   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>)** Resource ID to remove. Pass an array of IDs to delete multiple resources (Bulk Extension)
 -   `headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request (optional, default `{}`)
 
@@ -612,7 +612,7 @@ Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 #### self
 
-[packages/kitsu/src/index.js:375-382](https://github.com/wopian/kitsu/blob/4b9e7a9ad43911a4d6a89b8bdc21babfc50a9239/packages/kitsu/src/index.js#L375-L382 "Source code on GitHub")
+[packages/kitsu/src/index.js:375-382](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L375-L382 "Source code on GitHub")
 
 Get the authenticated user's data
 
@@ -649,7 +649,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 #### request
 
-[packages/kitsu/src/index.js:443-463](https://github.com/wopian/kitsu/blob/4b9e7a9ad43911a4d6a89b8bdc21babfc50a9239/packages/kitsu/src/index.js#L443-L463 "Source code on GitHub")
+[packages/kitsu/src/index.js:443-463](https://github.com/wopian/kitsu/blob/2125de7f2276b05f4f300b7ca97ee0c6eadfe819/packages/kitsu/src/index.js#L443-L463 "Source code on GitHub")
 
 Send arbitrary requests
 
