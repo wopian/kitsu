@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.5](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.4...v10.0.0-alpha.5) (2020-08-04)
+
+
+### Chores
+
+* **release:** update documentation ([2f479c2](https://github.com/wopian/kitsu/commit/2f479c2))
+
+
+### Documentation Changes
+
+* fix markdown links ([e29946a](https://github.com/wopian/kitsu/commit/e29946a))
+
+
+
+
+
 # [10.0.0-alpha.4](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.3...v10.0.0-alpha.4) (2020-08-04)
 
 
