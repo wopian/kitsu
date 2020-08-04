@@ -24,7 +24,7 @@
 
 <p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v10 & previous major releases</p>
 
-# 
+#
 
 ## Features
 
@@ -749,3 +749,17 @@ api.request({
 ```
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON-parsed response
+
+[Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+
+[More Examples]: https://github.com/wopian/kitsu/tree/master/packages/kitsu/example
+
+[Kitsu.io]: https://kitsu.io
+
+[kitsu.io api docs]: https://kitsu.docs.apiary.io
+
+[CHANGELOG]: https://github.com/wopian/kitsu/blob/master/packages/kitsu/CHANGELOG.md
+
+[CONTRIBUTING]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
+
+[MIT]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
