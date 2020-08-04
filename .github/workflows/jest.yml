@@ -23,10 +23,14 @@ jobs:
         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
     - name: Install yarn dependencies
       run: yarn install
-    - name: Jest coverage
+    - name: Jest with code coverage
+      if: matrix.node_version == 14 && matrix.os == 'ubuntu'
       uses: mattallty/jest-github-action@v1.0.3
       with:
         changes-only: true
         test-command: 'yarn test:coverage'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Jest
+      if: matrix.node_version != 14 && matrix.os != 'ubuntu'
+      run: yarn jest
