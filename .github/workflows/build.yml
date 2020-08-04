@@ -26,3 +26,6 @@ jobs:
     - run: yarn bootstrap
     - name: Build package
       run: yarn build
+    - name: Check built package sizes
+      run: yarn size
+      if: matrix.node_version == 14 && matrix.os == 'ubuntu-latest'
