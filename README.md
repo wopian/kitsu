@@ -53,8 +53,8 @@ All code released under [MIT]
 
 [kitsu-core]: https://github.com/wopian/kitsu/tree/master/packages/kitsu-core
 
-[github releases]: https://github.com/wopian/kitsu/releases
+[Github Releases]: https://github.com/wopian/kitsu/releases
 
-[contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
+[CONTRIBUTING]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
 
-[mit]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
+[MIT]: https://github.com/wopian/kitsu/blob/master/LICENSE.md

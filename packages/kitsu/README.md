@@ -24,7 +24,7 @@
 
 <p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v9 & previous major releases</p>
 
-# 
+#
 
 ## Features
 
@@ -750,20 +750,16 @@ See [CHANGELOG]
 
 All code released under [MIT]
 
-[kitsu.io]: https://kitsu.io
+[Kitsu.io]: https://kitsu.io
 
-[json:api]: http://jsonapi.org
+[Promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 
-[promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
-
-[more examples]: https://github.com/wopian/kitsu/tree/master/packages/kitsu/example
+[More Examples]: https://github.com/wopian/kitsu/tree/master/packages/kitsu/example
 
 [kitsu.io api docs]: https://kitsu.docs.apiary.io
 
-[migration guide]: https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md
+[CHANGELOG]: https://github.com/wopian/kitsu/blob/master/packages/kitsu/CHANGELOG.md
 
-[changelog]: https://github.com/wopian/kitsu/blob/master/packages/kitsu/CHANGELOG.md
+[CONTRIBUTING]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
 
-[contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
-
-[mit]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
+[MIT]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
