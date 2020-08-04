@@ -117,7 +117,7 @@ export default class Kitsu {
    * Fetch resources (alias `fetch`)
    *
    * @memberof Kitsu
-   * @param {string} model Model to fetch data from
+   * @param {string} model Resource to fetch data from. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
    * @param {Object} [config] Additional configuration
    * @param {Object} [config.headers] Additional headers to send with the request
    * @param {Object} [config.params] JSON:API request queries. JSON:API query parameters not listed are supported
@@ -214,7 +214,7 @@ export default class Kitsu {
    * Update a resource (alias `update`)
    *
    * @memberof Kitsu
-   * @param {string} model Model to update data in
+   * @param {string} model Resource to update data in. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
    * @param {Object|Object[]} body Data to send in the request
    * @param {Object} [config] Additional configuration
    * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
@@ -276,7 +276,7 @@ export default class Kitsu {
    * Create a new resource (alias `create`)
    *
    * @memberof Kitsu
-   * @param {string} model Model to create a resource under
+   * @param {string} model Resource to create. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
    * @param {Object|Object[]} body Data to send in the request
    * @param {Object} [config] Additional configuration
    * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
@@ -331,7 +331,7 @@ export default class Kitsu {
    * Remove a resource (alias `remove`)
    *
    * @memberof Kitsu
-   * @param {string} model Model to remove data from
+   * @param {string} model Resource to remove. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
    * @param {string|number|number[]} id Resource ID to remove. Pass an array of IDs to delete multiple resources (Bulk Extension)
    * @param {Object} [config] Additional configuration
    * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
