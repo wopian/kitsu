@@ -29,12 +29,7 @@ jobs:
       run: yarn bootstrap
     - name: Jest with code coverage
       if: matrix.node_version == 14 && matrix.os == 'ubuntu-latest'
-      uses: mattallty/jest-github-action@v1.0.3
-      with:
-        changes-only: true
-        test-command: 'yarn test:coverage'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: yarn test:coverage
     - name: Jest
       if: matrix.node_version != 14 || matrix.os != 'ubuntu-latest'
       run: yarn jest
