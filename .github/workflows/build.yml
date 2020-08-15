@@ -6,7 +6,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node_version: [10, 12, 14]
+        node_version: [14]
         os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
     - name: Checkout repository
@@ -31,7 +31,7 @@ jobs:
       run: yarn build
     - name: Lint source code
       run: yarn lint
-      if: matrix.node_version == 14 && matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'ubuntu-latest'
     - name: Lint package sizes
       run: yarn size
-      if: matrix.node_version == 14 && matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'ubuntu-latest'
