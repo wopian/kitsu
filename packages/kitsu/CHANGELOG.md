@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.15](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.14...v9.1.15) (2020-08-22)
+
+
+### Bug Fixes
+
+* **external:** pin axios to 0.19 to avoid breaking bug in 0.20 ([16d11c4](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/16d11c4))
+
+
+### Chores
+
+* **release:** update documentation ([44929ca](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/44929ca))
+
+
+
+
+
 ## [9.1.14](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.13...v9.1.14) (2020-08-04)
 
 
