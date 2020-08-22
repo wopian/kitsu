@@ -3,6 +3,50 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.6](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.5...v10.0.0-alpha.6) (2020-08-22)
+
+
+### Bug Fixes
+
+* **external:** pin axios to 0.19 to avoid breaking bug in 0.20 ([aa56def](https://github.com/wopian/kitsu/commit/aa56def))
+
+
+### Build System / Dependencies
+
+* update babel monorepo to ~7.11.0 ([#452](https://github.com/wopian/kitsu/issues/452)) ([bb1a4b6](https://github.com/wopian/kitsu/commit/bb1a4b6))
+* update devdependency [@rollup](https://github.com/rollup)/plugin-babel to ~5.2.0 ([#459](https://github.com/wopian/kitsu/issues/459)) ([f439c60](https://github.com/wopian/kitsu/commit/f439c60))
+* update devdependency eslint to ~7.6.0 ([#456](https://github.com/wopian/kitsu/issues/456)) ([c6a8956](https://github.com/wopian/kitsu/commit/c6a8956))
+* update devdependency eslint to ~7.7.0 ([#460](https://github.com/wopian/kitsu/issues/460)) ([415badb](https://github.com/wopian/kitsu/commit/415badb))
+* update devdependency rollup to ~2.26.0 ([#461](https://github.com/wopian/kitsu/issues/461)) ([2e32a76](https://github.com/wopian/kitsu/commit/2e32a76))
+* update devdependency rollup-plugin-terser to ~7.0.0 ([#457](https://github.com/wopian/kitsu/issues/457)) ([ee33971](https://github.com/wopian/kitsu/commit/ee33971))
+* update devdependency typescript to ~4.0.0 ([#462](https://github.com/wopian/kitsu/issues/462)) ([b98bdb2](https://github.com/wopian/kitsu/commit/b98bdb2))
+* update jest monorepo ([#458](https://github.com/wopian/kitsu/issues/458)) ([54c5486](https://github.com/wopian/kitsu/commit/54c5486))
+* update jest monorepo to ~26.2.0 ([#455](https://github.com/wopian/kitsu/issues/455)) ([4fba132](https://github.com/wopian/kitsu/commit/4fba132))
+* **kitsu:** lock file maintenance ([#454](https://github.com/wopian/kitsu/issues/454)) ([643a466](https://github.com/wopian/kitsu/commit/643a466))
+
+
+### Chores
+
+* **release:** update documentation ([e71b1dc](https://github.com/wopian/kitsu/commit/e71b1dc))
+
+
+### Continuous Integration
+
+* **build:** only build on Node 14, test on all active node versions ([cb68376](https://github.com/wopian/kitsu/commit/cb68376))
+* **jest:** remove jest annotations action ([7f00511](https://github.com/wopian/kitsu/commit/7f00511))
+* improve caching and combine eslint with build job ([49ab735](https://github.com/wopian/kitsu/commit/49ab735))
+* **jest:** only do code coverage on ubuntu with node 14 ([f20f28c](https://github.com/wopian/kitsu/commit/f20f28c))
+* **size:** merge action into build action and limit to node 14 and ubuntu ([48df239](https://github.com/wopian/kitsu/commit/48df239))
+
+
+### Other Changes
+
+* Update jest.yml ([57ea7f0](https://github.com/wopian/kitsu/commit/57ea7f0))
+
+
+
+
+
 # [10.0.0-alpha.5](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.4...v10.0.0-alpha.5) (2020-08-04)
 
 
