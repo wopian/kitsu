@@ -32,7 +32,7 @@ jobs:
         restore-keys: ${{ matrix.os }}-${{ matrix.node_version }}-yarn-
 
     - name: Install yarn dependencies
-      run: yarn Install
+      run: yarn install
 
     - name: Bootstrap lerna packages
       run: yarn bootstrap
