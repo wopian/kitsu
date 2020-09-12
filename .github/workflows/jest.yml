@@ -32,6 +32,7 @@ jobs:
         restore-keys: ${{ matrix.os }}-${{ matrix.node_version }}-yarn-
 
     - name: Install Code Climate test reporter
+      if: matrix.node_version == 14 && matrix.os == 'ubuntu-latest'
       uses: amancevice/setup-code-climate@v0
       with:
         cc_test_reporter_id: ${{ secrets.CC_TEST_REPORTER_ID }}
@@ -43,6 +44,7 @@ jobs:
       run: yarn bootstrap
 
     - name: Code Climate test reporter (before build)
+      if: matrix.node_version == 14 && matrix.os == 'ubuntu-latest'
       run: cc-test-reporter before-build
 
     - name: Jest with code coverage
@@ -55,4 +57,4 @@ jobs:
 
     - name: Code Climate test reporter (after build)
       run: cc-test-reporter after-build
-      if: ${{ github.event_name != 'pull_request' }}
+      if: ${{ github.event_name != 'pull_request' }} && matrix.node_version == 14 && matrix.os == 'ubuntu-latest'
