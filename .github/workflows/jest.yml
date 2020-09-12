@@ -1,20 +1,27 @@
 name: Unit Tests
+
 on: [push, pull_request]
+
 jobs:
   jest:
     name: Jest (${{ matrix.node_version}}-${{ matrix.os }})
+
     runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
         node_version: [10, 12, 14]
         os: [ubuntu-latest, windows-latest, macos-latest]
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+
     - name: Use node ${{ matrix.node_version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node_version }}
+
     - name: Restore cache
       uses: actions/cache@v2
       with:
@@ -23,13 +30,29 @@ jobs:
           */*/node_modules
         key: ${{ matrix.os }}-${{ matrix.node_version}}-yarn-${{ hashFiles('**/yarn.lock') }}
         restore-keys: ${{ matrix.os }}-${{ matrix.node_version }}-yarn-
+
+    - name: Install Code Climate test reporter
+      uses: amancevice/setup-code-climate@v0
+      with:
+        cc_test_reporter_id: ${{ secrets.CC_TEST_REPORTER_ID }}
+
     - name: Install yarn dependencies
       run: yarn install
+
     - name: Bootstrap lerna packages
       run: yarn bootstrap
+
+    - name: Code Climate test reporter (before build)
+      run: cc-test-reporter before-build
+
     - name: Jest with code coverage
       if: matrix.node_version == 14 && matrix.os == 'ubuntu-latest'
       run: yarn test:coverage
+
     - name: Jest
       if: matrix.node_version != 14 || matrix.os != 'ubuntu-latest'
       run: yarn jest
+
+    - name: Code Climate test reporter (after build)
+      run: cc-test-reporter after-build
+      if: ${{ github.event_name != 'pull_request' }}
