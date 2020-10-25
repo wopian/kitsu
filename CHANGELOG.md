@@ -3,6 +3,50 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.7](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.6...v10.0.0-alpha.7) (2020-10-25)
+
+
+### Build System / Dependencies
+
+* **kitsu:** update dependency axios to ~0.21.0 ([#463](https://github.com/wopian/kitsu/issues/463)) ([3f9f996](https://github.com/wopian/kitsu/commit/3f9f996))
+* update babel monorepo ([#480](https://github.com/wopian/kitsu/issues/480)) ([722507b](https://github.com/wopian/kitsu/commit/722507b))
+* update devdependency [@babel](https://github.com/babel)/cli to ~7.11.0 ([#467](https://github.com/wopian/kitsu/issues/467)) ([44c1d55](https://github.com/wopian/kitsu/commit/44c1d55))
+* update devdependency eslint to ~7.10.0 ([#475](https://github.com/wopian/kitsu/issues/475)) ([fb043de](https://github.com/wopian/kitsu/commit/fb043de))
+* update devdependency eslint to ~7.11.0 ([#478](https://github.com/wopian/kitsu/issues/478)) ([f2799a8](https://github.com/wopian/kitsu/commit/f2799a8))
+* update devdependency eslint to ~7.12.0 ([#483](https://github.com/wopian/kitsu/issues/483)) ([a6ba8ff](https://github.com/wopian/kitsu/commit/a6ba8ff))
+* update devdependency eslint to ~7.8.0 ([#468](https://github.com/wopian/kitsu/issues/468)) ([6215bd6](https://github.com/wopian/kitsu/commit/6215bd6))
+* update devdependency eslint to ~7.9.0 ([#472](https://github.com/wopian/kitsu/issues/472)) ([9d1036d](https://github.com/wopian/kitsu/commit/9d1036d))
+* update devdependency rollup to ~2.27.0 ([#473](https://github.com/wopian/kitsu/issues/473)) ([17ea24b](https://github.com/wopian/kitsu/commit/17ea24b))
+* update devdependency rollup to ~2.28.0 ([#474](https://github.com/wopian/kitsu/issues/474)) ([60ad68e](https://github.com/wopian/kitsu/commit/60ad68e))
+* update devdependency rollup to ~2.29.0 ([#477](https://github.com/wopian/kitsu/issues/477)) ([6173f3f](https://github.com/wopian/kitsu/commit/6173f3f))
+* update devdependency rollup to ~2.30.0 ([#479](https://github.com/wopian/kitsu/issues/479)) ([76cf8cf](https://github.com/wopian/kitsu/commit/76cf8cf))
+* update devdependency rollup to ~2.32.0 ([#481](https://github.com/wopian/kitsu/issues/481)) ([9f190a6](https://github.com/wopian/kitsu/commit/9f190a6))
+* update devdependency size-limit to ~4.6.0 ([#470](https://github.com/wopian/kitsu/issues/470)) ([5a0e89b](https://github.com/wopian/kitsu/commit/5a0e89b))
+* update jest monorepo to ~26.5.0 ([#476](https://github.com/wopian/kitsu/issues/476)) ([fcb85ea](https://github.com/wopian/kitsu/commit/fcb85ea))
+* update jest monorepo to ~26.6.0 ([#482](https://github.com/wopian/kitsu/issues/482)) ([04dd279](https://github.com/wopian/kitsu/commit/04dd279))
+* **deps:** bump node-fetch from 2.6.0 to 2.6.1 ([#471](https://github.com/wopian/kitsu/issues/471)) ([d4e09c9](https://github.com/wopian/kitsu/commit/d4e09c9))
+* **kitsu:** lock file maintenance ([#466](https://github.com/wopian/kitsu/issues/466)) ([fe6e5ec](https://github.com/wopian/kitsu/commit/fe6e5ec))
+* **kitsu:** update dependency merge-options to ^3.0.0 ([#464](https://github.com/wopian/kitsu/issues/464)) ([b8d174e](https://github.com/wopian/kitsu/commit/b8d174e))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~4.6.0 ([#469](https://github.com/wopian/kitsu/issues/469)) ([e9d2feb](https://github.com/wopian/kitsu/commit/e9d2feb))
+
+
+### Chores
+
+* **release:** update documentation ([6d025ca](https://github.com/wopian/kitsu/commit/6d025ca))
+
+
+### Continuous Integration
+
+* **codeclimate:** only gather coverage on ubuntu & node 14 ([c67d4f5](https://github.com/wopian/kitsu/commit/c67d4f5))
+* **codeclimate:** re-order if expression ([d05532e](https://github.com/wopian/kitsu/commit/d05532e))
+* fix typo ([7dc5c0f](https://github.com/wopian/kitsu/commit/7dc5c0f))
+* make action configs more readable ([591a7b0](https://github.com/wopian/kitsu/commit/591a7b0))
+* **codeclimate:** add codeclimate reporting back ([0e6cf2f](https://github.com/wopian/kitsu/commit/0e6cf2f))
+
+
+
+
+
 # [10.0.0-alpha.6](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.5...v10.0.0-alpha.6) (2020-08-22)
 
 

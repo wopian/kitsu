@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.7](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v10.0.0-alpha.6...v10.0.0-alpha.7) (2020-10-25)
+
+
+### Build System / Dependencies
+
+* **kitsu:** update dependency axios to ~0.21.0 ([#463](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/463)) ([3f9f996](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/3f9f996))
+* **kitsu:** update dependency merge-options to ^3.0.0 ([#464](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/464)) ([b8d174e](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/b8d174e))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~4.6.0 ([#469](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/469)) ([e9d2feb](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/e9d2feb))
+
+
+### Chores
+
+* **release:** update documentation ([6d025ca](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/6d025ca))
+
+
+
+
+
 # [10.0.0-alpha.6](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v10.0.0-alpha.5...v10.0.0-alpha.6) (2020-08-22)
 
 
