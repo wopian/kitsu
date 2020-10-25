@@ -32,8 +32,8 @@ This is a monorepo containing the following packages:
 
 | Package      | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | -----------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu`      | ≤ 8.2 kb           | 10+  | 69+    | 68+     | 12+    | 18+  |
-| `kitsu-core` | ≤ 1.6 kb           | 10+  | 69+    | 68+     | 12+    | 18+  |
+| `kitsu`      | ≤ 8.2 kb           | 12+  | 69+    | 68+     | 12+    | 18+  |
+| `kitsu-core` | ≤ 1.6 kb           | 12+  | 69+    | 68+     | 12+    | 18+  |
 
 \* Including all dependencies & minified with brotli
 
