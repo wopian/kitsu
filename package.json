@@ -6,7 +6,7 @@
     "url": "https://github.com/wopian/kitsu/issues"
   },
   "engines": {
-    "node": ">= 10"
+    "node": ">= 12"
   },
   "workspaces": [
     "packages/*"
