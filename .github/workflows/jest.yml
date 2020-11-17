@@ -33,7 +33,7 @@ jobs:
 
     - name: Install Code Climate test reporter
       if: matrix.node_version == 14 && matrix.os == 'ubuntu-latest'
-      uses: amancevice/setup-code-climate@v0
+      uses: amancevice/setup-code-climate@v1
       with:
         cc_test_reporter_id: ${{ secrets.CC_TEST_REPORTER_ID }}
 
