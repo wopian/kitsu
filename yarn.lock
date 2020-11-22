@@ -2231,31 +2231,31 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@size-limit/file@4.8.0":
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/@size-limit/file/-/file-4.8.0.tgz#6e53f3fa2a7a0476d90d40350b0ded97b25b0dc7"
-  integrity sha512-f/Zxbdyqh2zn+QSj6e0CoLTUffk7dcKywQCzPVALb+C7e6/+nmha1twilwtSLGfJS85gogvglabXXfpTaDGotA==
+"@size-limit/file@4.9.0":
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/@size-limit/file/-/file-4.9.0.tgz#4b2a1d76808afa440118b79e2f6763ccf410016e"
+  integrity sha512-MPvM/kK/U7mWQ8x0iuUpqurxV8esnYNRGJLW0Xx1B843cn2UKuqrWEtH0YZpiTh5IwsNYYhymAULNaKgSZ5aCw==
   dependencies:
     semver "7.3.2"
 
-"@size-limit/preset-small-lib@~4.8.0":
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/@size-limit/preset-small-lib/-/preset-small-lib-4.8.0.tgz#395198ba9c69b8f882ba0fb3cb4255baeeb48c02"
-  integrity sha512-VV+ASU9H4qb55EdVGEsH2Apdx4zcgjSUxlhEaxHKRoNg7a9pMLU3uYo0adtftpVwltTzUTUFW5HCIJ6l79eT8w==
+"@size-limit/preset-small-lib@~4.9.0":
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/@size-limit/preset-small-lib/-/preset-small-lib-4.9.0.tgz#8b54a55a2a4686b5f6b65fe17f7e0649ac5d21b9"
+  integrity sha512-dHTtPLqkL4irqeDwqLz3/tTXef2UhaAu8DN9vqitTHR5ZJPyx3HvbQ1xJmKG9LPRZotOfAf2jm6vBCSzKHOBGA==
   dependencies:
-    "@size-limit/file" "4.8.0"
-    "@size-limit/webpack" "4.8.0"
+    "@size-limit/file" "4.9.0"
+    "@size-limit/webpack" "4.9.0"
 
-"@size-limit/webpack@4.8.0":
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/@size-limit/webpack/-/webpack-4.8.0.tgz#420ba664b9925ab04d5a0ca642422b110ed61f6c"
-  integrity sha512-tj1bi9DV3mGke8oCqyt5zIys6hlLo2VGDo6Ug/GrYfARCS8514nZJYHAI6YUsFZrH7PcR0nd+QMJXpg19lC6jw==
+"@size-limit/webpack@4.9.0":
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/@size-limit/webpack/-/webpack-4.9.0.tgz#1c6231c2fd832fb8731f89ca88159b1d0abe875b"
+  integrity sha512-LqJ7TW1+Bo7FMRlRVG5mpOVXdJKR4HHx+aBQEdgxDUqHVeD+RbFprLB34XVhf/eMKRDp9bWSam7tnkui2y0Crw==
   dependencies:
     css-loader "^5.0.1"
     escape-string-regexp "^4.0.0"
     file-loader "^6.2.0"
     mkdirp "^1.0.4"
-    nanoid "^3.1.16"
+    nanoid "^3.1.18"
     optimize-css-assets-webpack-plugin "^5.0.4"
     pnp-webpack-plugin "^1.6.4"
     rimraf "^3.0.2"
@@ -8429,6 +8429,11 @@ nanoid@^3.1.16:
   version "3.1.16"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.16.tgz#b21f0a7d031196faf75314d7c65d36352beeef64"
   integrity sha512-+AK8MN0WHji40lj8AEuwLOvLSbWYApQpre/aFJZD71r43wVRLrOYS4FmJOPQYon1TqB462RzrrxlfA74XRES8w==
+
+nanoid@^3.1.18:
+  version "3.1.18"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.18.tgz#0680db22ab01c372e89209f5d18283d98de3e96d"
+  integrity sha512-rndlDjbbHbcV3xi+R2fpJ+PbGMdfBxz5v1fATIQFq0DP64FsicQdwnKLy47K4kZHdRpmQXtz24eGsxQqamzYTA==
 
 nanomatch@^1.2.9:
   version "1.2.13"
