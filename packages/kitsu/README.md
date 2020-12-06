@@ -170,10 +170,10 @@ api.get('users', {
   include: 'followers,waifu.character',
   fields: {
     users: 'slug,followers,waifu'
-  }
+  },
   filter: {
     slug: 'wopian'
-  }
+  },
   sort: '-id',
   page: {
     limit: 5,
