@@ -137,6 +137,15 @@ export default class Kitsu {
      * })
      * @example <caption>Getting a resource's relationship data only</caption>
      * api.get('anime/2/categories')
+     * @example <caption>Getting a resource with nested JSON:API filters (not supported by Kitsu.io's API)</caption>
+     * // resource?filter[x][y]=value
+     * api.get('resource', {
+     *   filter: {
+     *     x: {
+     *       y: 'value'
+     *     }
+     *   }
+     * }
      * @example <caption>Handling errors (async/await)</caption>
      * try {
      *   const { data } = await api.get('anime')
