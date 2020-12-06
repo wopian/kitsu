@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.17](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.16...v9.1.17) (2020-12-06)
+
+
+### Chores
+
+* **release:** update documentation ([89746a8](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/89746a8))
+
+
+### Documentation Changes
+
+* **kitsu:** add missing commas to quick start ([5c02d2b](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/5c02d2b))
+* **kitsu:** example for JSON:API 1.1 nested filters ([d733c63](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/d733c63))
+
+
+
+
+
+
 ## [9.1.16](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.15...v9.1.16) (2020-10-25)
 
 
