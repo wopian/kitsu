@@ -128,28 +128,47 @@ export default class Kitsu {
      * @returns {Object} JSON-parsed response
      * @example <caption>Getting a resource with JSON:API parameters</caption>
      * api.get('users', {
-     *   fields: {
-     *     users: 'name,birthday'
-     *   },
-     *   filter: {
-     *     name: 'wopian'
+     *   params: {
+     *     fields: {
+     *       users: 'name,birthday'
+     *     },
+     *     filter: {
+     *       name: 'wopian'
+     *     }
      *   }
      * })
      * @example <caption>Getting a collection of resources with their relationships</caption>
      * api.get('anime', {
-     *   include: 'categories'
+     *   params: {
+     *     include: 'categories'
+     *   }
      * })
      * @example <caption>Getting a single resource by ID (method one)</caption>
      * api.get('anime/2', {
-     *   include: 'categories'
+     *   params: {
+     *     include: 'categories'
+     *   }
      * })
      * @example <caption>Getting a single resource by ID (method two)</caption>
      * api.get('anime', {
-     *   include: 'categories',
-     *   filter: { id: '2' }
+     *   params: {
+     *     include: 'categories',
+     *     filter: { id: '2' }
+     *  }
      * })
      * @example <caption>Getting a resource's relationship data only</caption>
      * api.get('anime/2/categories')
+     * @example <caption>Getting a resource with nested JSON:API filters (not supported by Kitsu.io's API)</caption>
+     * // resource?filter[x][y]=value
+     * api.get('resource', {
+     *   params: {
+     *     filter: {
+     *       x: {
+     *         y: 'value'
+     *       }
+     *     }
+     *   }
+     * }
      * @example <caption>Handling errors (async/await)</caption>
      * try {
      *   const { data } = await api.get('anime')
@@ -300,8 +319,10 @@ export default class Kitsu {
      * api.self()
      * @example <caption>Using JSON:API parameters</caption>
      * api.self({
-     *   fields: {
-     *     users: 'name,birthday'
+     *   params: {
+     *     fields: {
+     *       users: 'name,birthday'
+     *     }
      *   }
      * })
      */
