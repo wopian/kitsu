@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.8](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v10.0.0-alpha.7...v10.0.0-alpha.8) (2020-12-06)
+
+
+### Build System / Dependencies
+
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~4.7.0 ([#487](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/487)) ([e82cafa](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/e82cafa))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~4.8.0 ([#493](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/493)) ([50cfe59](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/50cfe59))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~4.9.0 ([#498](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/498)) ([68170d2](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/68170d2))
+* drop node 10 support ([#484](https://github.com/wopian/kitsu/tree/master/packages/kitsu/issues/484)) ([e34fcec](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/e34fcec))
+
+
+### Chores
+
+* **release:** update documentation ([fe39500](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/fe39500))
+
+
+### Documentation Changes
+
+* **kitsu:** add missing commas to quick start ([32ab682](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/32ab682))
+* **kitsu:** update examples to 10.x ([0154200](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/0154200))
+* **kitsu:** update quick start to 10.x ([e1b988c](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/e1b988c))
+* fix markdown links again ([44689d1](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/44689d1))
+
+
+
+
+
+
 # [10.0.0-alpha.7](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v10.0.0-alpha.6...v10.0.0-alpha.7) (2020-10-25)
 
 

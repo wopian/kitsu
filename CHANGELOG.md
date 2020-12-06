@@ -3,6 +3,62 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.8](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.7...v10.0.0-alpha.8) (2020-12-06)
+
+
+### Build System / Dependencies
+
+* update devdependency eslint to ~7.15.0 ([#502](https://github.com/wopian/kitsu/issues/502)) ([c7a7824](https://github.com/wopian/kitsu/commit/c7a7824))
+* **kitsu:** lock file maintenance ([#501](https://github.com/wopian/kitsu/issues/501)) ([fa1a43c](https://github.com/wopian/kitsu/commit/fa1a43c))
+* drop node 10 support ([#484](https://github.com/wopian/kitsu/issues/484)) ([e34fcec](https://github.com/wopian/kitsu/commit/e34fcec))
+* update devdependency axios-mock-adapter to ~1.19.0 ([#486](https://github.com/wopian/kitsu/issues/486)) ([84efbb7](https://github.com/wopian/kitsu/commit/84efbb7))
+* update devdependency documentation to ~13.1.0 ([#485](https://github.com/wopian/kitsu/issues/485)) ([ae9cb9b](https://github.com/wopian/kitsu/commit/ae9cb9b))
+* update devdependency eslint to ~7.14.0 ([#497](https://github.com/wopian/kitsu/issues/497)) ([07e0797](https://github.com/wopian/kitsu/commit/07e0797))
+* update devdependency rollup to ~2.34.0 ([#500](https://github.com/wopian/kitsu/issues/500)) ([0f9ecbf](https://github.com/wopian/kitsu/commit/0f9ecbf))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~4.8.0 ([#493](https://github.com/wopian/kitsu/issues/493)) ([50cfe59](https://github.com/wopian/kitsu/commit/50cfe59))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~4.9.0 ([#498](https://github.com/wopian/kitsu/issues/498)) ([68170d2](https://github.com/wopian/kitsu/commit/68170d2))
+* update amancevice/setup-code-climate action to v1 ([#492](https://github.com/wopian/kitsu/issues/492)) ([394abab](https://github.com/wopian/kitsu/commit/394abab))
+* update devdependency eslint to ~7.13.0 ([#491](https://github.com/wopian/kitsu/issues/491)) ([0f95292](https://github.com/wopian/kitsu/commit/0f95292))
+* update devdependency rollup to ~2.33.0 ([#490](https://github.com/wopian/kitsu/issues/490)) ([65097f1](https://github.com/wopian/kitsu/commit/65097f1))
+* update devdependency size-limit to ~4.7.0 ([#488](https://github.com/wopian/kitsu/issues/488)) ([7b2726d](https://github.com/wopian/kitsu/commit/7b2726d))
+* update devdependency size-limit to ~4.8.0 ([#495](https://github.com/wopian/kitsu/issues/495)) ([2824802](https://github.com/wopian/kitsu/commit/2824802))
+* update devdependency size-limit to ~4.9.0 ([#499](https://github.com/wopian/kitsu/issues/499)) ([9ed31c1](https://github.com/wopian/kitsu/commit/9ed31c1))
+* update devdependency typescript to ~4.1.0 ([#496](https://github.com/wopian/kitsu/issues/496)) ([0ca46eb](https://github.com/wopian/kitsu/commit/0ca46eb))
+* **kitsu:** lock file maintenance ([#489](https://github.com/wopian/kitsu/issues/489)) ([cd963f2](https://github.com/wopian/kitsu/commit/cd963f2))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~4.7.0 ([#487](https://github.com/wopian/kitsu/issues/487)) ([e82cafa](https://github.com/wopian/kitsu/commit/e82cafa))
+
+
+### Chores
+
+* **release:** update documentation ([fe39500](https://github.com/wopian/kitsu/commit/fe39500))
+
+
+### Continuous Integration
+
+* **jest:** add node 15 to test matrix ([b24f350](https://github.com/wopian/kitsu/commit/b24f350))
+* **jest:** drop node 10 from test matrix ([ff6bdd3](https://github.com/wopian/kitsu/commit/ff6bdd3))
+* **travis:** delete config ([75291f2](https://github.com/wopian/kitsu/commit/75291f2))
+
+
+### Documentation Changes
+
+* **kitsu:** add missing commas to quick start ([32ab682](https://github.com/wopian/kitsu/commit/32ab682))
+* **kitsu:** update examples to 10.x ([0154200](https://github.com/wopian/kitsu/commit/0154200))
+* **kitsu:** update quick start to 10.x ([e1b988c](https://github.com/wopian/kitsu/commit/e1b988c))
+* fix markdown links again ([44689d1](https://github.com/wopian/kitsu/commit/44689d1))
+
+
+### Other Changes
+
+* Update jest.yml ([51f942b](https://github.com/wopian/kitsu/commit/51f942b))
+* Update build.yml ([61c066f](https://github.com/wopian/kitsu/commit/61c066f))
+* Revert "build: update amancevice/setup-code-climate action to v1 (#492)" (#494) ([a474efd](https://github.com/wopian/kitsu/commit/a474efd)), closes [#492](https://github.com/wopian/kitsu/issues/492) [#494](https://github.com/wopian/kitsu/issues/494)
+
+
+
+
+
+
 # [10.0.0-alpha.7](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.6...v10.0.0-alpha.7) (2020-10-25)
 
 

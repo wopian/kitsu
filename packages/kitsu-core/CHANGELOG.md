@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.8](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v10.0.0-alpha.7...v10.0.0-alpha.8) (2020-12-06)
+
+
+### Build System / Dependencies
+
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~4.7.0 ([#487](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/487)) ([e82cafa](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/e82cafa))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~4.8.0 ([#493](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/493)) ([50cfe59](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/50cfe59))
+* **kitsu:** update devdependency [@size-limit](https://github.com/size-limit)/preset-small-lib to ~4.9.0 ([#498](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/498)) ([68170d2](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/68170d2))
+* drop node 10 support ([#484](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/484)) ([e34fcec](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/e34fcec))
+
+
+### Chores
+
+* **release:** update documentation ([fe39500](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/fe39500))
+
+
+
+
+
+
 # [10.0.0-alpha.7](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v10.0.0-alpha.6...v10.0.0-alpha.7) (2020-10-25)
 
 
