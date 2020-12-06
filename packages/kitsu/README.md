@@ -147,7 +147,7 @@ api.get('anime')
 
 // Fetching resources (get/fetch)
 api.fetch('anime')
-api.fetch('anime', { filter: { id: 1 } })
+api.fetch('anime', { params: { filter: { id: 1 } } })
 api.fetch('anime/1/episodes')
 api.fetch('anime/1/relationships/episodes')
 
@@ -167,17 +167,19 @@ api.remove('post', 1)
 
 // JSON:API parameters
 api.get('users', {
-  include: 'followers,waifu.character',
-  fields: {
-    users: 'slug,followers,waifu'
-  },
-  filter: {
-    slug: 'wopian'
-  },
-  sort: '-id',
-  page: {
-    limit: 5,
-    offset: 0
+  params: {
+    include: 'followers,waifu.character',
+    fields: {
+      users: 'slug,followers,waifu'
+    },
+    filter: {
+      slug: 'wopian'
+    },
+    sort: '-id',
+    page: {
+      limit: 5,
+      offset: 0
+    }
   }
 })
 ```
