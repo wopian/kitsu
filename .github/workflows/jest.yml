@@ -1,11 +1,6 @@
 name: Tests
 
-on:
-  push:
-  pull_request:
-    branches-ignore:
-      - "renovate/**"
-      - "dependabot/**"
+on: [push, pull_request]
 
 jobs:
   jest:
