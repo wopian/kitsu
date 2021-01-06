@@ -54,7 +54,8 @@ export default [
       linkRelationships: 'src/linkRelationships/index.js',
       query: 'src/query/index.js',
       serialise: 'src/serialise/index.js',
-      snake: 'src/snake/index.js'
+      snake: 'src/snake/index.js',
+      splitModel: 'src/splitModel/index.js'
     },
     external,
     plugins: pluginsMain,

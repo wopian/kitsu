@@ -1,4 +1,4 @@
-import camel from './'
+import { camel } from './'
 
 describe('kitsu-core', () => {
   describe('camel', () => {

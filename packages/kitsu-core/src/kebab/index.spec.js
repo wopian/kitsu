@@ -1,4 +1,4 @@
-import kebab from './'
+import { kebab } from './'
 
 describe('kitsu-core', () => {
   describe('kebab', () => {
