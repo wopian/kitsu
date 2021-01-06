@@ -24,7 +24,7 @@
 
 <p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md>Migration guide</a> for v9 & previous major releases</p>
 
-# 
+#
 
 ## Features
 
@@ -38,7 +38,7 @@
 
 |      Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | -----------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu-core` |      ≤ 1.6 kb      |  10+ |   69+  |   68+   |   12+  |  18+ |
+| `kitsu-core` |      ≤ 1.5 kb      |  10+ |   72+  |   78+   | 12.1+  |  86+ |
 
 \* Minified with brotli
 
@@ -254,7 +254,7 @@ Filters includes for the specific relationship requested
 #### Parameters
 
 -   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The response included object
--   `relationship` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `relationship` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `relationship.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
     -   `relationship.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 

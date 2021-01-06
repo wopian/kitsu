@@ -24,7 +24,7 @@
 
 <p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v9 & previous major releases</p>
 
-# 
+#
 
 ## Features
 
@@ -37,7 +37,7 @@
 
 | Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | ------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu` |      ≤ 8.2 kb      |  10+ |   69+  |   68+   |   12+  |  18+ |
+| `kitsu` |      ≤ 8.2 kb      |  10+ |   72+  |   78+   | 12.1+  |  86+ |
 
 \* Including all dependencies & minified with brotli
 
