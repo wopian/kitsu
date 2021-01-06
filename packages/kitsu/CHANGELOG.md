@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.18](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.17...v9.1.18) (2021-01-06)
+
+
+### Build System / Dependencies
+
+* ignore 10.x dist output in 9.x releases ([56e455a](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/56e455a))
+* update dependency axios to ^0.21.1 ([fcef128](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/fcef128))
+
+
+### Chores
+
+* **release:** update documentation ([24985f1](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/24985f1))
+
+
+### Documentation Changes
+
+* update minimum browser support for compiled outputs ([7cb4513](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/7cb4513))
+
+
+
+
+
+
 ## [9.1.17](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v9.1.16...v9.1.17) (2020-12-06)
 
 
