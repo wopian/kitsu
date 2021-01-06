@@ -1,2 +1,1 @@
-declare function _default(input: string): string;
-export default _default;
+export function kebab(input: string): string;
