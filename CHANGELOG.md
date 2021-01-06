@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.9](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.8...v10.0.0-alpha.9) (2021-01-06)
+
+
+### Build System / Dependencies
+
+* update actions/setup-node action to v2 ([#504](https://github.com/wopian/kitsu/issues/504)) ([14222c3](https://github.com/wopian/kitsu/commit/14222c3))
+* update dependency axios to ^0.21.1 ([b34d854](https://github.com/wopian/kitsu/commit/b34d854))
+* update devdependency eslint to ~7.17.0 ([#509](https://github.com/wopian/kitsu/issues/509)) ([c8dde16](https://github.com/wopian/kitsu/commit/c8dde16))
+* **deps:** bump ini from 1.3.5 to 1.3.7 ([#503](https://github.com/wopian/kitsu/issues/503)) ([7943bd4](https://github.com/wopian/kitsu/commit/7943bd4))
+* **kitsu:** lock file maintenance ([#508](https://github.com/wopian/kitsu/issues/508)) ([ef78904](https://github.com/wopian/kitsu/commit/ef78904))
+* update devdependency eslint to ~7.16.0 ([#507](https://github.com/wopian/kitsu/issues/507)) ([5705616](https://github.com/wopian/kitsu/commit/5705616))
+* **deps:** bump node-notifier from 8.0.0 to 8.0.1 ([#506](https://github.com/wopian/kitsu/issues/506)) ([0ab39c2](https://github.com/wopian/kitsu/commit/0ab39c2))
+* update devdependency rollup to ~2.35.0 ([#505](https://github.com/wopian/kitsu/issues/505)) ([18c9d98](https://github.com/wopian/kitsu/commit/18c9d98))
+
+
+### Chores
+
+* **release:** update documentation ([840d383](https://github.com/wopian/kitsu/commit/840d383))
+
+
+### Documentation Changes
+
+* update minimum browser support for compiled outputs ([1bd4f77](https://github.com/wopian/kitsu/commit/1bd4f77))
+
+
+### Other Changes
+
+* Update jest.yml ([f033105](https://github.com/wopian/kitsu/commit/f033105))
+* Update build.yml ([7f448d8](https://github.com/wopian/kitsu/commit/7f448d8))
+* Update build.yml ([7bf46c0](https://github.com/wopian/kitsu/commit/7bf46c0))
+* Update jest.yml ([bcb6024](https://github.com/wopian/kitsu/commit/bcb6024))
+* Update jest.yml ([4c3d68b](https://github.com/wopian/kitsu/commit/4c3d68b))
+* Update build.yml ([97c69b2](https://github.com/wopian/kitsu/commit/97c69b2))
+
+
+### Refactors
+
+* **kitsu:** change output directory to `dist` ([ac249b7](https://github.com/wopian/kitsu/commit/ac249b7))
+* **kitsu-core:** change camel, kebab and snake to named exports ([1accdbb](https://github.com/wopian/kitsu/commit/1accdbb))
+* **kitsu-core:** change output directory to `dist` ([ddcbe09](https://github.com/wopian/kitsu/commit/ddcbe09)), closes [#510](https://github.com/wopian/kitsu/issues/510)
+
+
+
+
+
+
 # [10.0.0-alpha.8](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.7...v10.0.0-alpha.8) (2020-12-06)
 
 

@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.9](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v10.0.0-alpha.8...v10.0.0-alpha.9) (2021-01-06)
+
+
+### Build System / Dependencies
+
+* update dependency axios to ^0.21.1 ([b34d854](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/b34d854))
+
+
+### Chores
+
+* **release:** update documentation ([840d383](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/840d383))
+
+
+### Documentation Changes
+
+* update minimum browser support for compiled outputs ([1bd4f77](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/1bd4f77))
+
+
+### Refactors
+
+* **kitsu:** change output directory to `dist` ([ac249b7](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/ac249b7))
+
+
+
+
+
+
 # [10.0.0-alpha.8](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v10.0.0-alpha.7...v10.0.0-alpha.8) (2020-12-06)
 
 

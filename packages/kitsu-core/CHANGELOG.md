@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.9](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v10.0.0-alpha.8...v10.0.0-alpha.9) (2021-01-06)
+
+
+### Chores
+
+* **release:** update documentation ([840d383](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/840d383))
+
+
+### Documentation Changes
+
+* update minimum browser support for compiled outputs ([1bd4f77](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/1bd4f77))
+
+
+### Refactors
+
+* **kitsu-core:** change camel, kebab and snake to named exports ([1accdbb](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/1accdbb))
+* **kitsu-core:** change output directory to `dist` ([ddcbe09](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/ddcbe09)), closes [#510](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/510)
+
+
+
+
+
+
 # [10.0.0-alpha.8](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v10.0.0-alpha.7...v10.0.0-alpha.8) (2020-12-06)
 
 
