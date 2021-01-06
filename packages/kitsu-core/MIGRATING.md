@@ -19,7 +19,7 @@ import { serialise } from 'kitsu-core/serialise' // Node 12+
 import { serialise } from 'kitsu-core/dist/serialise'
 ```
 
-### `camel`, `kebab`` and `snake`
+### `camel`, `kebab` and `snake`
 
 These exports are now named exports instead of default exports.
 
