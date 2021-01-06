@@ -32,7 +32,7 @@ export default [
   {
     input: 'src/index.js',
     plugins: [
-      del({ targets: './lib/*' }),
+      del({ targets: './dist/*' }),
       ...pluginsMain ],
     output: {
       file: `${pkg.unpkg}`,
@@ -60,14 +60,14 @@ export default [
     plugins: pluginsMain,
     output: [
       {
-        dir: 'lib',
+        dir: 'dist',
         entryFileNames: '[name].js',
         format: 'cjs',
         sourcemap: false,
         globals
       },
       {
-        dir: 'lib',
+        dir: 'dist',
         entryFileNames: '[name].mjs',
         format: 'es',
         sourcemap: false,

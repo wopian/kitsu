@@ -2,6 +2,8 @@
 
 ## Migrating to `10.0.0`
 
+### Serialising
+
 `serialise` has been refactored to match the v9 `deserialise` behaviour. This was intended for the v9 release, however it slipped though the net and resulted in broken relationship serialisation in v9.
 
 Relationships given to the `serialise` function are now always an object containing either a `data` object or a `data` array. This allows for optional top-level relationship `links` and `meta` objects to be serialised into the JSON:API format.
@@ -9,6 +11,23 @@ Relationships given to the `serialise` function are now always an object contain
 Exemptions:
 - `links` that are not objects or do not contain `self` or `related` will become attributes as normal
 - `meta` that are not objects will become attributes as normal
+
+### Exports
+
+The compiled output of `kitsu-core` has been changed from `lib` to `dist`.
+
+```js
+// Legacy behaviour, any of:
+import kitsu from 'kitsu-core'
+import { serialise } from 'kitsu-core'
+import { serialise } from 'kitsu-core/lib/serialise'
+
+// New behaviour, any of:
+import kitsu from 'kitsu-core'
+import { serialise } from 'kitsu-core'
+import { serialise } from 'kitsu-core/serialise' // Node 12+
+import { serialise } from 'kitsu-core/dist/serialise'
+```
 
 #### Legacy Input
 
