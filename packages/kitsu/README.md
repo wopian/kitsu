@@ -24,7 +24,7 @@
 
 <p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v10 & previous major releases</p>
 
-# 
+#
 
 ## Features
 
@@ -37,7 +37,7 @@
 
 | Package | Package<br> Size\* | ESM Size† | Node | Chrome | Firefox | Safari | Edge |
 | ------: | :----------------: | :-------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu` |      ≤ 8.6 kb      |  ≤ 8.4 KB |  12+ |   69+  |   68+   |   12+  |  18+ |
+| `kitsu` |      ≤ 8.7 kb      |  ≤ 8.6 KB |  12+ |   72+  |   78+   | 12.1+  |  86+ |
 
 \* Including all dependencies & minified with brotli
 † EcmaScript Modules package size\*

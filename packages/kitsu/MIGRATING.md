@@ -2,6 +2,21 @@
 
 ## Migrating to `10.0.0`
 
+### Exports
+
+The compiled output of `kitsu` has been changed from `lib` to `dist`.
+
+```js
+// Legacy behaviour, any of:
+import Kitsu from 'kitsu'
+import Kitsu from 'kitsu/lib/index'
+
+// New behaviour, any of:
+import Kitsu from 'kitsu'
+import Kitsu from 'kitsu/index' // Node 12+
+import Kitsu from 'kitsu/dist/index'
+```
+
 ### Parameter Changes
 
 1. JSON:API query parameters can be set for `PATCH`, `POST` and `DELETE` requests.
@@ -189,20 +204,6 @@ data: {
 ```
 
 
-### Exports
-
-The compiled output of `kitsu` has been changed from `lib` to `dist`.
-
-```js
-// Legacy behaviour, any of:
-import Kitsu from 'kitsu'
-import Kitsu from 'kitsu/lib/index'
-
-// New behaviour, any of:
-import Kitsu from 'kitsu'
-import Kitsu from 'kitsu/index' // Node 12+
-import Kitsu from 'kitsu/dist/index'
-```
 ## Migrating to `9.0.0`
 
 ### Link objects
