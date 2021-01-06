@@ -11,8 +11,8 @@
     "Menthol <bennetteson@gmail.com>"
   ],
   "license": "MIT",
-  "main": "lib/index",
-  "module": "lib/index",
+  "main": "dist/index",
+  "module": "dist/index",
   "types": "types/index.d.ts",
   "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu#readme",
   "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu",
@@ -56,12 +56,12 @@
   },
   "size-limit": [
     {
-      "path": "./lib/index.js",
+      "path": "./dist/index.js",
       "limit": "10 kb",
       "brotli": true
     },
     {
-      "path": "./lib/index.mjs",
+      "path": "./dist/index.mjs",
       "limit": "10 kb",
       "brotli": true
     }
@@ -73,20 +73,32 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "import": "./lib/index.mjs",
-      "require": "./lib/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     },
-    "./lib/index": {
-      "import": "./lib/index.mjs",
-      "require": "./lib/index.js"
+    "./index": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     },
-    "./lib/index.js": {
-      "import": "./lib/index.mjs",
-      "require": "./lib/index.js"
+    "./index.js": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     },
-    "./lib/index.mjs": {
-      "import": "./lib/index.mjs",
-      "require": "./lib/index.js"
+    "./index.mjs": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/index": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/index.js": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/index.mjs": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   }
 }

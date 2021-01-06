@@ -1,4 +1,4 @@
-const Kitsu = require('../lib')
+const Kitsu = require('../dist')
 
 const printError = error => {
   console.log(`${error.title}: ${error.detail}`)

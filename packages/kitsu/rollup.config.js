@@ -23,7 +23,7 @@ const globals = {
 }
 
 const plugins = [
-  del({ targets: './lib/*' }),
+  del({ targets: './dist/*' }),
   local(),
   terser()
 ]
