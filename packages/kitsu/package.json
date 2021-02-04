@@ -15,7 +15,7 @@
   "module": "dist/index",
   "types": "types/index.d.ts",
   "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu#readme",
-  "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu",
+  "repository": "https://github.com/wopian/kitsu",
   "bugs": {
     "url": "https://github.com/wopian/kitsu/issues"
   },

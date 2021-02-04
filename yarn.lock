@@ -3881,14 +3881,6 @@ commondir@^1.0.1:
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
   integrity sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=
 
-compare-func@^1.3.1:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/compare-func/-/compare-func-1.3.4.tgz#6b07c4c5e8341119baf44578085bda0f4a823516"
-  integrity sha512-sq2sWtrqKPkEXAC8tEJA1+BqAH9GbFkGBtUOqrUX57VSfwp8xyktctk+uLoRy5eccTdxzDcVIztlYDpKs3Jv1Q==
-  dependencies:
-    array-ify "^1.0.0"
-    dot-prop "^3.0.0"
-
 compare-func@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/compare-func/-/compare-func-2.0.0.tgz#fb65e75edbddfd2e568554e8b5b05fff7a51fcb3"
@@ -3969,15 +3961,7 @@ continuable-cache@^0.3.1:
   resolved "https://registry.yarnpkg.com/continuable-cache/-/continuable-cache-0.3.1.tgz#bd727a7faed77e71ff3985ac93351a912733ad0f"
   integrity sha1-vXJ6f67XfnH/OYWskzUakSczrQ8=
 
-conventional-changelog-angular-all-2@~5.0.1:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-angular-all-2/-/conventional-changelog-angular-all-2-5.0.3.tgz#2fa73a6d8d1e512cf57eec77b1afb155a659ac33"
-  integrity sha512-d+p4Ivv5yRTMFnXy9TARtWTl2zMjSzaqNbJ4nW4IoGuhhAnW3U3Icni80qNQ9nluYsNPhDPvZ51ymfWO0lSu0g==
-  dependencies:
-    compare-func "^1.3.1"
-    q "^1.5.1"
-
-conventional-changelog-angular@^5.0.12, conventional-changelog-angular@^5.0.3:
+conventional-changelog-angular@^5.0.12, conventional-changelog-angular@^5.0.3, conventional-changelog-angular@~5.0.12:
   version "5.0.12"
   resolved "https://registry.yarnpkg.com/conventional-changelog-angular/-/conventional-changelog-angular-5.0.12.tgz#c979b8b921cbfe26402eb3da5bbfda02d865a2b9"
   integrity sha512-5GLsbnkR/7A89RyHLvvoExbiGbd9xKdKqDTrArnPbOqBqG/2wIosu0fHwpeIRI8Tl94MhVNBXcLJZl92ZQ5USw==
@@ -4864,13 +4848,6 @@ domutils@^1.7.0:
   dependencies:
     dom-serializer "0"
     domelementtype "1"
-
-dot-prop@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-3.0.0.tgz#1b708af094a49c9a0e7dbcad790aba539dac1177"
-  integrity sha1-G3CK8JSknJoOfbyteQq6U52sEXc=
-  dependencies:
-    is-obj "^1.0.0"
 
 dot-prop@^4.2.0:
   version "4.2.1"

@@ -17,7 +17,7 @@
   "jsdelivr": "dist/index.browser.js",
   "types": "types/index.d.ts",
   "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core#readme",
-  "repository": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core",
+  "repository": "https://github.com/wopian/kitsu",
   "bugs": {
     "url": "https://github.com/wopian/kitsu/issues"
   },
