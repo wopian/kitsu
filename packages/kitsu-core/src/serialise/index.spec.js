@@ -581,5 +581,51 @@ describe('kitsu-core', () => {
       }
       expect(serialise('libraryEntries', input)).toStrictEqual(output)
     })
+
+    it('deletes a to-one relationship', () => {
+      expect.assertions(1)
+      const input = {
+        id: '1',
+        type: 'libraryEntries',
+        user: {
+          data: null
+        }
+      }
+      const output = {
+        data: {
+          id: '1',
+          type: 'libraryEntries',
+          relationships: {
+            user: {
+              data: null
+            }
+          }
+        }
+      }
+      expect(serialise('libraryEntries', input)).toStrictEqual(output)
+    })
+
+    it('deletes a to-many relationship', () => {
+      expect.assertions(1)
+      const input = {
+        id: '1',
+        type: 'libraryEntries',
+        user: {
+          data: []
+        }
+      }
+      const output = {
+        data: {
+          id: '1',
+          type: 'libraryEntries',
+          relationships: {
+            user: {
+              data: []
+            }
+          }
+        }
+      }
+      expect(serialise('libraryEntries', input)).toStrictEqual(output)
+    })
   })
 })
