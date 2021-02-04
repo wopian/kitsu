@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.10](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v10.0.0-alpha.9...v10.0.0-alpha.10) (2021-02-04)
+
+
+### Bug Fixes
+
+* **kitsu-core:** prevent empty relationships from being stripped during serialisation ([8a7d453](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/8a7d453)), closes [#517](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/517)
+
+
+### Chores
+
+* **release:** update documentation ([92d4246](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/92d4246))
+
+
+### Documentation Changes
+
+* **kitsu-core:** fix typo in MIGRATING.md ([9a51336](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/9a51336))
+
+
+### Tests
+
+* add test for empty to-one/to-many relationship serialisation ([0dda0fe](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/0dda0fe))
+
+
+
+
+
 # [10.0.0-alpha.9](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v10.0.0-alpha.8...v10.0.0-alpha.9) (2021-01-06)
 
 

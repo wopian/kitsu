@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.10](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.9...v10.0.0-alpha.10) (2021-02-04)
+
+
+### Bug Fixes
+
+* **kitsu-core:** prevent empty relationships from being stripped during serialisation ([8a7d453](https://github.com/wopian/kitsu/commit/8a7d453)), closes [#517](https://github.com/wopian/kitsu/issues/517)
+
+
+### Build System / Dependencies
+
+* **kitsu:** lock file maintenance ([#515](https://github.com/wopian/kitsu/issues/515)) ([7ad3dfc](https://github.com/wopian/kitsu/commit/7ad3dfc))
+* update devdependency browserslist to ~4.16.0 ([#511](https://github.com/wopian/kitsu/issues/511)) ([1d5851e](https://github.com/wopian/kitsu/commit/1d5851e))
+* update devdependency eslint to ~7.18.0 ([#513](https://github.com/wopian/kitsu/issues/513)) ([3b721a4](https://github.com/wopian/kitsu/commit/3b721a4))
+* update devdependency rollup to ~2.38.0 ([#512](https://github.com/wopian/kitsu/issues/512)) ([e7da69d](https://github.com/wopian/kitsu/commit/e7da69d))
+
+
+### Chores
+
+* **release:** update documentation ([92d4246](https://github.com/wopian/kitsu/commit/92d4246))
+
+
+### Documentation Changes
+
+* **kitsu-core:** fix typo in MIGRATING.md ([9a51336](https://github.com/wopian/kitsu/commit/9a51336))
+
+
+### Tests
+
+* add test for empty to-one/to-many relationship serialisation ([0dda0fe](https://github.com/wopian/kitsu/commit/0dda0fe))
+
+
+
+
+
 # [10.0.0-alpha.9](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.8...v10.0.0-alpha.9) (2021-01-06)
 
 

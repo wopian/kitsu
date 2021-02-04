@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.10](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v10.0.0-alpha.9...v10.0.0-alpha.10) (2021-02-04)
+
+
+### Chores
+
+* **release:** update documentation ([92d4246](https://github.com/wopian/kitsu/tree/master/packages/kitsu/commit/92d4246))
+
+
+
+
+
 # [10.0.0-alpha.9](https://github.com/wopian/kitsu/tree/master/packages/kitsu/compare/v10.0.0-alpha.8...v10.0.0-alpha.9) (2021-01-06)
 
 
