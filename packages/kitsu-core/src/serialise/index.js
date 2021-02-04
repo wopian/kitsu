@@ -43,6 +43,8 @@ function isValid (isArray, type, payload, method) {
  * @private
  */
 function serialiseRelationOne (node, nodeType) {
+  // Handle empty to-one relationship
+  if (node === null) return node
   let relation = {}
   for (const prop of Object.keys(node)) {
     if ([ 'id', 'type' ].includes(prop)) relation[prop] = node[prop]
@@ -117,6 +119,8 @@ function serialiseAttr (node, key, data) {
  * @private
  */
 function hasID (node) {
+  // Handle empty to-one and to-many relationships
+  if (node?.data === null || (Array.isArray(node?.data) && node?.data?.length === 0)) return true
   if (!node.data) return false
   // Check if relationship is to-many
   const nodeData = Array.isArray(node.data) ? node.data[0] : node.data
@@ -168,7 +172,6 @@ function serialiseRootObject (type, payload, method, options) {
     // 1. Skip null nodes, 2. Only grab objects, 3. Filter to only serialise relationable objects
     if (node !== null && node?.constructor === Object && hasID(node)) {
       data = serialiseRelation(node, nodeType, key, data)
-
     // 1. Don't place id/key inside attributes object
     } else if (key !== 'id' && key !== 'type') {
       data = serialiseAttr(node, key, data)
