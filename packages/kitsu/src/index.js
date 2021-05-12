@@ -486,10 +486,12 @@ export default class Kitsu {
       const { data } = await this.axios.request({
         method,
         url,
-        data: [ 'GET', 'DELETE' ].includes(method) ? undefined : serialise(type, body, method, {
-          camelCaseTypes: this.camel,
-          pluralTypes: this.plural
-        }),
+        data: [ 'GET', 'DELETE' ].includes(method)
+          ? undefined
+          : serialise(type, body, method, {
+            camelCaseTypes: this.camel,
+            pluralTypes: this.plural
+          }),
         headers: merge(this.headers, headers),
         params,
         paramsSerializer: /* istanbul ignore next */ p => query(p)
