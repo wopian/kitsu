@@ -52,7 +52,7 @@
     "rollup-plugin-delete": "~2.0.0",
     "rollup-plugin-local-resolve": "~1.0.7",
     "rollup-plugin-terser": "~7.0.0",
-    "size-limit": "~4.10.0",
+    "size-limit": "~4.11.0",
     "typescript": "~4.2.0"
   },
   "jest": {
