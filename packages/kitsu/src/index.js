@@ -117,7 +117,8 @@ export default class Kitsu {
    * Fetch resources (alias `fetch`)
    *
    * @memberof Kitsu
-   * @param {string} model Resource to fetch data from. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
+   * @param {string} model Resource to fetch data from. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:
+   ship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
    * @param {Object} [config] Additional configuration
    * @param {Object} [config.headers] Additional headers to send with the request
    * @param {Object} [config.params] JSON:API request queries. JSON:API query parameters not listed are supported
@@ -211,11 +212,12 @@ export default class Kitsu {
     try {
       const headers = merge(this.headers, config.headers)
       const params = merge({}, config.params)
-      const [ res, id, relationship ] = model.split('/')
+      const [ res, id, relationship, subRelationship ] = model.split('/')
 
       let url = this.plural(this.resCase(res))
       if (id) url += `/${id}`
       if (relationship) url += `/${this.resCase(relationship)}`
+      if (subRelationship) url += `/${this.resCase(subRelationship)}`
 
       const { data } = await this.axios.get(url, {
         headers,
