@@ -10,8 +10,8 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('post', () => {
-    it('sends headers', async done => {
-      expect.assertions(1)
+    it('sends headers', async () => {
+      expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPost('/anime').reply(config => {
         expect(config.headers).toEqual({
@@ -22,14 +22,11 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      api.post('anime', { id: '1', type: 'anime' }, { headers: { extra: true } }).catch(err => {
-        done.fail(err)
-      })
-      done()
+      await expect(await api.post('anime', { id: '1', type: 'anime' }, { headers: { extra: true } })).toBeUndefined()
     })
 
-    it('sends data in request', async done => {
-      expect.assertions(1)
+    it('sends data in request', async () => {
+      expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPost('/anime').reply(config => {
         expect(JSON.parse(config.data)).toEqual({
@@ -42,14 +39,11 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      api.post('anime', { type: 'anime', name: 'Name' }).catch(err => {
-        done.fail(err)
-      })
-      done()
+      await expect(await api.post('anime', { type: 'anime', name: 'Name' })).toBeUndefined()
     })
 
-    it('handles nested routes', async done => {
-      expect.assertions(1)
+    it('handles nested routes', async () => {
+      expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPost('/something/1/relationships/anime').reply(config => {
         expect(JSON.parse(config.data)).toEqual({
@@ -62,14 +56,11 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      api.post('something/1/relationships/anime', { type: 'anime', name: 'Name' }).catch(err => {
-        done.fail(err)
-      })
-      done()
+      await expect(await api.post('something/1/relationships/anime', { type: 'anime', name: 'Name' })).toBeUndefined()
     })
 
-    it('sends data in request with client-generated ID', async done => {
-      expect.assertions(1)
+    it('sends data in request with client-generated ID', async () => {
+      expect.assertions(2)
       const api = new Kitsu()
       mock.onPost('/anime').reply(config => {
         expect(JSON.parse(config.data)).toEqual({
@@ -83,10 +74,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      api.post('anime', { id: 123456789, type: 'anime', name: 'Name' }).catch(err => {
-        done.fail(err)
-      })
-      done()
+      await expect(await api.post('anime', { id: 123456789, type: 'anime', name: 'Name' })).toBeUndefined()
     })
 
     it('throws an error if missing a JSON object body', async () => {
