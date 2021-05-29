@@ -28,8 +28,8 @@ describe('kitsu', () => {
       done()
     })
 
-    it('sends data in request', async done => {
-      expect.assertions(1)
+    it('sends data in request', async () => {
+      expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onDelete('/posts/1').reply(config => {
         expect(JSON.parse(config.data)).toEqual({
@@ -40,14 +40,11 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      api.delete('post', 1).catch(err => {
-        done.fail(err)
-      })
-      done()
+      await expect(await api.delete('post', 1)).toBeUndefined()
     })
 
-    it('handles nested routes', async done => {
-      expect.assertions(1)
+    it('handles nested routes', async () => {
+      expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onDelete('/posts/1/comments/1').reply(config => {
         expect(JSON.parse(config.data)).toEqual({
@@ -58,14 +55,11 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      api.delete('posts/1/comments', 1).catch(err => {
-        done.fail(err)
-      })
-      done()
+      await expect(await api.delete('posts/1/comments', 1)).toBeUndefined()
     })
 
-    it('deletes multiple resources (bulk extension)', async done => {
-      expect.assertions(1)
+    it('deletes multiple resources (bulk extension)', async () => {
+      expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onDelete('/posts').reply(config => {
         expect(JSON.parse(config.data)).toEqual({
@@ -76,10 +70,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      api.delete('post', [ 1, 2 ]).catch(err => {
-        done.fail(err)
-      })
-      done()
+      await expect(await api.delete('post', [ 1, 2 ])).toBeUndefined()
     })
 
     it('throws an error if ID is missing', async () => {

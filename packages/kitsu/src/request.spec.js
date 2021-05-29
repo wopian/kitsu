@@ -29,8 +29,8 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('request', () => {
-    it('sends headers', async done => {
-      expect.assertions(1)
+    it('sends headers', async () => {
+      expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onGet('/users').reply(config => {
         expect(config.headers).toEqual({
@@ -41,15 +41,12 @@ describe('kitsu', () => {
         })
         return [ 200, { data: [] } ]
       })
-      api.request({
+      await expect(await api.request({
         method: 'GET',
         url: 'users',
         model: 'users',
         headers: { extra: true }
-      }).catch(err => {
-        done.fail(err)
-      })
-      done()
+      })).toEqual({ data: [] })
     })
 
     it('sends parameters', async () => {
