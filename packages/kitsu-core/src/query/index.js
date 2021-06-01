@@ -34,11 +34,9 @@ export function query (params, prefix = null) {
   const str = []
 
   for (const param in params) {
-    if (Object.prototype.hasOwnProperty.call(params, param)) {
-      str.push(
-        queryFormat(params[param], prefix ? `${prefix}[${param}]` : param)
-      )
-    }
+    str.push(
+      queryFormat(params[param], prefix ? `${prefix}[${param}]` : param)
+    )
   }
   return str.join('&')
 }
