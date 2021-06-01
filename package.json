@@ -56,12 +56,25 @@
     "typescript": "~4.3.0"
   },
   "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 0
+      }
+    },
     "projects": [
       {
         "displayName": "browser",
         "testEnvironment": "jsdom",
+        "bail": true,
         "collectCoverageFrom": [
           "<rootDir>/packages/**/src/**/*.js"
+        ],
+        "coveragePathIgnorePatterns": [
+          "/node_modules/",
+          "/specification/"
         ],
         "coverageDirectory": "<rootDir>/coverage",
         "moduleNameMapper": {
@@ -69,20 +82,25 @@
           "^kitsu-core(.*)$": "<rootDir>/packages/kitsu-core/src/$1",
           "^kitsu(.*)$": "<rootDir>/packages/kitsu/src/$1",
           "^pkg$": "<rootDir>/package.json"
+        },
+        "transform": {
+          "^.+\\.js$": "<rootDir>/config/jest.transform.js"
         },
         "testMatch": [
           "<rootDir>/packages/**/src/**/*.spec.js",
           "<rootDir>/packages/**/src/**/*.spec.browser.js"
-        ],
-        "transform": {
-          "^.+\\.js$": "<rootDir>/config/jest.transform.js"
-        }
+        ]
       },
       {
         "displayName": "node",
         "testEnvironment": "node",
+        "bail": true,
         "collectCoverageFrom": [
           "<rootDir>/packages/**/src/**/*.js"
+        ],
+        "coveragePathIgnorePatterns": [
+          "/node_modules/",
+          "/specification/"
         ],
         "coverageDirectory": "<rootDir>/coverage",
         "moduleNameMapper": {
@@ -91,13 +109,13 @@
           "^kitsu(.*)$": "<rootDir>/packages/kitsu/src/$1",
           "^pkg$": "<rootDir>/package.json"
         },
+        "transform": {
+          "^.+\\.js$": "<rootDir>/config/jest.transform.js"
+        },
         "testMatch": [
           "<rootDir>/packages/**/src/**/*.spec.js",
           "<rootDir>/packages/**/src/**/*.spec.node.js"
-        ],
-        "transform": {
-          "^.+\\.js$": "<rootDir>/config/jest.transform.js"
-        }
+        ]
       }
     ]
   },
