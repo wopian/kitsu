@@ -1,0 +1,101 @@
+name: CI
+
+on: [push, pull_request]
+
+env:
+  FORCE_COLOR: true
+
+jobs:
+  test:
+    name: Test (${{ matrix.node_version}}-${{ matrix.os }})
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node_version: [12, 14, 16]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Use node ${{ matrix.node_version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node_version }}
+
+    - name: Restore cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          node_modules
+          */*/node_modules
+        key: ${{ matrix.os }}-${{ matrix.node_version}}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: ${{ matrix.os }}-${{ matrix.node_version }}-yarn-
+
+    - name: Install yarn dependencies
+      run: yarn install
+
+    - name: Bootstrap lerna packages
+      run: yarn bootstrap
+
+    - name: Lint source code
+      run: yarn lint
+      if: matrix.os == 'ubuntu-latest'
+
+    - name: Jest with code coverage
+      if: matrix.node_version == 16 && matrix.os == 'ubuntu-latest'
+      run: yarn test:coverage
+
+    - name: Jest
+      if: matrix.node_version != 16 || matrix.os != 'ubuntu-latest'
+      run: yarn jest
+
+    - name: Upload test coverage to Code Climate
+      if: matrix.node_version == 16 && matrix.os == 'ubuntu-latest'
+      uses: paambaati/codeclimate-action@v2.7.5
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+
+  build:
+    name: Build (${{ matrix.node_version}}-${{ matrix.os }})
+    needs: test
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node_version: [16]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Use node ${{ matrix.node_version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node_version }}
+
+    - name: Restore cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          node_modules
+          */*/node_modules
+        key: ${{ matrix.os }}-${{ matrix.node_version}}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: ${{ matrix.os }}-${{ matrix.node_version }}-yarn-
+
+    - name: Install yarn dependencies
+      run: yarn install
+
+    - name: Bootstrap lerna packages
+      run: yarn bootstrap
+
+    - name: Build lerna packages
+      run: yarn build
+
+    - name: Lint package sizes
+      run: yarn size
+      if: matrix.os == 'ubuntu-latest'

@@ -39,29 +39,42 @@
     "@rollup/plugin-babel": "~5.3.0",
     "axios": "~0.21.1",
     "axios-mock-adapter": "~1.19.0",
-    "babel-jest": "~26.6.0",
+    "babel-jest": "~27.0.0",
     "browserslist": "~4.16.0",
     "conventional-changelog-angular": "~5.0.12",
     "cross-env": "~7.0.0",
     "documentation": "~13.2.0",
     "eslint": "~7.27.0",
     "eslint-config-wopian": "~2.1.0",
-    "jest": "~26.6.0",
+    "jest": "~27.0.0",
     "lerna": "~4.0.0",
     "rollup": "~2.48.0",
     "rollup-plugin-delete": "~2.0.0",
     "rollup-plugin-local-resolve": "~1.0.7",
     "rollup-plugin-terser": "~7.0.0",
     "size-limit": "~4.11.0",
-    "typescript": "~4.2.0"
+    "typescript": "~4.3.0"
   },
   "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 0
+      }
+    },
     "projects": [
       {
         "displayName": "browser",
         "testEnvironment": "jsdom",
+        "bail": true,
         "collectCoverageFrom": [
           "<rootDir>/packages/**/src/**/*.js"
+        ],
+        "coveragePathIgnorePatterns": [
+          "/node_modules/",
+          "/specification/"
         ],
         "coverageDirectory": "<rootDir>/coverage",
         "moduleNameMapper": {
@@ -69,20 +82,25 @@
           "^kitsu-core(.*)$": "<rootDir>/packages/kitsu-core/src/$1",
           "^kitsu(.*)$": "<rootDir>/packages/kitsu/src/$1",
           "^pkg$": "<rootDir>/package.json"
+        },
+        "transform": {
+          "^.+\\.js$": "<rootDir>/config/jest.transform.js"
         },
         "testMatch": [
           "<rootDir>/packages/**/src/**/*.spec.js",
           "<rootDir>/packages/**/src/**/*.spec.browser.js"
-        ],
-        "transform": {
-          "^.+\\.js$": "<rootDir>/config/jest.transform.js"
-        }
+        ]
       },
       {
         "displayName": "node",
         "testEnvironment": "node",
+        "bail": true,
         "collectCoverageFrom": [
           "<rootDir>/packages/**/src/**/*.js"
+        ],
+        "coveragePathIgnorePatterns": [
+          "/node_modules/",
+          "/specification/"
         ],
         "coverageDirectory": "<rootDir>/coverage",
         "moduleNameMapper": {
@@ -91,13 +109,13 @@
           "^kitsu(.*)$": "<rootDir>/packages/kitsu/src/$1",
           "^pkg$": "<rootDir>/package.json"
         },
+        "transform": {
+          "^.+\\.js$": "<rootDir>/config/jest.transform.js"
+        },
         "testMatch": [
           "<rootDir>/packages/**/src/**/*.spec.js",
           "<rootDir>/packages/**/src/**/*.spec.node.js"
-        ],
-        "transform": {
-          "^.+\\.js$": "<rootDir>/config/jest.transform.js"
-        }
+        ]
       }
     ]
   },

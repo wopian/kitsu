@@ -18,8 +18,8 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('get', () => {
-    it('sends headers', async done => {
-      expect.assertions(1)
+    it('sends headers', async () => {
+      expect.assertions(2)
       const api = new Kitsu({ headers: { init: true } })
       mock.onGet('/anime').reply(config => {
         expect(config.headers).toEqual({
@@ -30,10 +30,9 @@ describe('kitsu', () => {
         })
         return [ 200, { data: [] } ]
       })
-      api.get('anime', { headers: { extra: true } }).catch(err => {
-        done.fail(err)
+      await expect(await api.get('anime', { headers: { extra: true } })).toEqual({
+        data: []
       })
-      done()
     })
 
     it('fetches a collection of resources', async () => {
