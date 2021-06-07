@@ -162,7 +162,6 @@ describe('kitsu', () => {
       expect.assertions(1)
       const api = new Kitsu()
       mock.onGet('anime/1', { params: { include: 'animeStaff' } }).reply(200, getSingleWithIncludes.jsonapi)
-      mock.onGet('*').reply(data => console.log(data))
       const request = await api.request({
         url: 'anime/1',
         params: { include: 'animeStaff' }
