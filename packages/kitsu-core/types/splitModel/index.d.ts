@@ -26,6 +26,6 @@
  * // [ 'libraryEntries', 'library_entries' ]
  */
 export function splitModel(url: string, options?: {
-    resourceCase: Function;
-    pluralModel: Function;
+    resourceCase?: Function;
+    pluralModel?: Function;
 }): [string, string];

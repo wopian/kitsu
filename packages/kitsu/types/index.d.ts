@@ -43,33 +43,33 @@ export default class Kitsu {
     headers: any;
     axios: import("axios").AxiosInstance;
     fetch: (model: string, config?: {
-        headers: any;
-        params: {
-            fields: any;
-            filter: any;
-            include: string;
-            sort: string;
-            page: {
-                limit: number;
-                offset: number;
-                number: number;
-                size: number;
-                before: string;
-                after: string;
+        headers?: any;
+        params?: {
+            fields?: any;
+            filter?: any;
+            include?: string;
+            sort?: string;
+            page?: {
+                limit?: number;
+                offset?: number;
+                number?: number;
+                size?: number;
+                before?: string;
+                after?: string;
             };
         };
     }) => any;
     update: (model: string, body: any | any[], config?: {
-        params: any;
-        headers: any;
+        params?: any;
+        headers?: any;
     }) => any | any[];
     create: (model: string, body: any | any[], config?: {
-        params: any;
-        headers: any;
+        params?: any;
+        headers?: any;
     }) => any | any[];
     remove: (model: string, id: string | number | number[], config?: {
-        params: any;
-        headers: any;
+        params?: any;
+        headers?: any;
     }) => any | any[];
     /**
      * Axios Interceptors (alias of `axios.interceptors`)
@@ -201,19 +201,19 @@ export default class Kitsu {
      *   })
      */
     get(model: string, config?: {
-        headers: any;
-        params: {
-            fields: any;
-            filter: any;
-            include: string;
-            sort: string;
-            page: {
-                limit: number;
-                offset: number;
-                number: number;
-                size: number;
-                before: string;
-                after: string;
+        headers?: any;
+        params?: {
+            fields?: any;
+            filter?: any;
+            include?: string;
+            sort?: string;
+            page?: {
+                limit?: number;
+                offset?: number;
+                number?: number;
+                size?: number;
+                before?: string;
+                after?: string;
             };
         };
     }): any;
@@ -251,8 +251,8 @@ export default class Kitsu {
      * ])
      */
     patch(model: string, body: any | any[], config?: {
-        params: any;
-        headers: any;
+        params?: any;
+        headers?: any;
     }): any | any[];
     /**
      * Create a new resource (alias `create`)
@@ -283,8 +283,8 @@ export default class Kitsu {
      * ])
      */
     post(model: string, body: any | any[], config?: {
-        params: any;
-        headers: any;
+        params?: any;
+        headers?: any;
     }): any | any[];
     /**
      * Remove a resource (alias `remove`)
@@ -302,8 +302,8 @@ export default class Kitsu {
      * api.delete('posts', [ 1, 2 ])
      */
     delete(model: string, id: string | number | number[], config?: {
-        params: any;
-        headers: any;
+        params?: any;
+        headers?: any;
     }): any | any[];
     /**
      * Get the authenticated user's data
@@ -327,8 +327,8 @@ export default class Kitsu {
      * })
      */
     self(config?: {
-        params: any;
-        headers: any;
+        params?: any;
+        headers?: any;
     }): any;
     /**
      * Send arbitrary requests
@@ -385,9 +385,9 @@ export default class Kitsu {
     request({ body, method, params, type, url, headers }?: {
         url: string;
         type: string;
-        body: any | any[];
-        method: string;
-        params: any;
-        headers: any;
+        body?: any | any[];
+        method?: string;
+        params?: any;
+        headers?: any;
     }): any;
 }
