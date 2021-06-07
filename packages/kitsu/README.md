@@ -31,7 +31,7 @@
 *   JSON-API 1.0 compliant
 *   Automatically links relationships to data
 *   Works in Node & browsers
-*   Uses the \[Promise] API
+*   Uses the [Promise] API
 
 ## Node / Browser Support
 
@@ -114,18 +114,6 @@ import Kitsu from 'kitsu'      // ES Modules & Babel
 const Kitsu = require('kitsu') // CommonJS & Browserify
 ```
 
-## Contributing
-
-See \[CONTRIBUTING]
-
-## Releases
-
-See \[CHANGELOG]
-
-## License
-
-All code released under \[MIT]
-
 ## Quick Start
 
 ```javascript
@@ -184,9 +172,39 @@ api.get('users', {
 })
 ```
 
-\[More Examples]
+[More Examples]
 
-If you're working with \[Kitsu.io]'s API, their \[API docs]\[kitsu.io api docs] lists all available resources with their attributes & relationships
+If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lists all available resources with their attributes & relationships
+
+## Contributing
+
+See [CONTRIBUTING]
+
+## Releases
+
+See [CHANGELOG]
+
+## License
+
+All code released under [MIT]
+
+[kitsu.io]: https://kitsu.io
+
+[json:api]: http://jsonapi.org
+
+[promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+
+[more examples]: https://github.com/wopian/kitsu/tree/master/packages/kitsu/example
+
+[kitsu.io api docs]: https://kitsu.docs.apiary.io
+
+[migration guide]: https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md
+
+[changelog]: https://github.com/wopian/kitsu/blob/master/packages/kitsu/CHANGELOG.md
+
+[contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
+
+[mit]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
 
 ## API
 
