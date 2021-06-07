@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.13](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.12...v10.0.0-alpha.13) (2021-06-07)
+
+
+### Bug Fixes
+
+* **kitsu:** apply resCase setting to ID-less resource relationships ([a165983](https://github.com/wopian/kitsu/commit/a165983257fe8f0277e66792adc2f0f08e4fc4ba))
+
+
+
+
+
 # [10.0.0-alpha.12](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.11...v10.0.0-alpha.12) (2021-06-07)
 
 **Note:** Version bump only for package kitsu
