@@ -5,12 +5,12 @@
   "command": {
     "publish": {
       "allowBranch": [
-        "master",
         "9.x"
       ],
       "conventionalCommits": true,
-      "changelogPreset": "angular-all-2",
-      "message": "chore(release): publish packages",
+      "changelogPreset": "angular",
+      "createRelease": "github",
+      "message": "chore(release): publish %v",
       "npmClient": "yarn"
     }
   },
