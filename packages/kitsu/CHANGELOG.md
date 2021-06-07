@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.11](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.10...v10.0.0-alpha.11) (2021-06-07)
+
+
+### Bug Fixes
+
+* re-add support for resource object-linkage for relationships ([#552](https://github.com/wopian/kitsu/issues/552)) ([f66d077](https://github.com/wopian/kitsu/commit/f66d077c8872a0f4c34ed46a48086ec32cdaf64e))
+
+
+
+
+
+
 # [10.0.0-alpha.10](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.9...v10.0.0-alpha.10) (2021-02-04)
 
 
