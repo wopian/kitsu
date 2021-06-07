@@ -113,7 +113,7 @@ describe('kitsu', () => {
       }
       const api = new Kitsu()
       mock.onGet('media-relationships/1/relationships/destination').reply(200, response)
-      const request = await api.get('media-relationships/1/relationships/destination')
+      const request = await api.get('mediaRelationships/1/relationships/destination')
       expect(request).toEqual(response)
     })
 
@@ -126,8 +126,8 @@ describe('kitsu', () => {
         }
       }
       const api = new Kitsu({ pluralize: false })
-      mock.onGet('profile/accounts/me').reply(200, response)
-      const request = await api.get('profile/accounts/me')
+      mock.onGet('profile/user-accounts/me').reply(200, response)
+      const request = await api.get('profile/userAccounts/me')
       expect(request).toEqual(response)
     })
 
