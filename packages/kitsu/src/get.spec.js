@@ -99,7 +99,7 @@ describe('kitsu', () => {
       expect(request).toEqual(getSingleWithIncludes.kitsu)
     })
 
-    it('fetches relationships of a resource', async () => {
+    it('fetches :resource/:id/relationships/:relationship', async () => {
       expect.assertions(1)
       const response = {
         links: {
@@ -114,6 +114,20 @@ describe('kitsu', () => {
       const api = new Kitsu()
       mock.onGet('media-relationships/1/relationships/destination').reply(200, response)
       const request = await api.get('media-relationships/1/relationships/destination')
+      expect(request).toEqual(response)
+    })
+
+    it('fetches :resource/:relationship/:subRelationship', async () => {
+      expect.assertions(1)
+      const response = {
+        data: {
+          type: 'profile',
+          id: '1'
+        }
+      }
+      const api = new Kitsu({ pluralize: false })
+      mock.onGet('profile/accounts/me').reply(200, response)
+      const request = await api.get('profile/accounts/me')
       expect(request).toEqual(response)
     })
 

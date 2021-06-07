@@ -213,9 +213,16 @@ export default class Kitsu {
       const params = merge({}, config.params)
       const [ res, id, relationship, subRelationship ] = model.split('/')
 
+      // :resource
       let url = this.plural(this.resCase(res))
-      if (id) url += `/${id}`
+      // :resource/:id
+      // :resource/:relationship
+      if (id) url += `/${this.resCase(id)}`
+      // :resource/:id/:relationship
+      // :resource/:relationship/:subRelationship
       if (relationship) url += `/${this.resCase(relationship)}`
+      // :resource/:id/relationships/:relationship
+      // :resource/:id/:relationship/:subRelationship
       if (subRelationship) url += `/${this.resCase(subRelationship)}`
 
       const { data } = await this.axios.get(url, {
