@@ -9,6 +9,7 @@
       ],
       "conventionalCommits": true,
       "changelogPreset": "angular",
+      "createRelease": "github",
       "message": "chore(release): publish %v",
       "npmClient": "yarn"
     }
