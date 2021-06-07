@@ -211,11 +211,12 @@ export default class Kitsu {
     try {
       const headers = merge(this.headers, config.headers)
       const params = merge({}, config.params)
-      const [ res, id, relationship ] = model.split('/')
+      const [ res, id, relationship, subRelationship ] = model.split('/')
 
       let url = this.plural(this.resCase(res))
       if (id) url += `/${id}`
       if (relationship) url += `/${this.resCase(relationship)}`
+      if (subRelationship) url += `/${this.resCase(subRelationship)}`
 
       const { data } = await this.axios.get(url, {
         headers,
