@@ -92,6 +92,24 @@ describe('kitsu', () => {
       expect(request).toEqual(getSingleWithNestedIncludes.kitsu)
     })
 
+    it('fetches relationships of a resource', async () => {
+      expect.assertions(1)
+      const response = {
+        links: {
+          self: 'https://api.example/media-relationships/1/relationships/destination',
+          related: 'https://api.example/media-relationships/1/destination'
+        },
+        data: {
+          type: 'anime',
+          id: '1'
+        }
+      }
+      const api = new Kitsu()
+      mock.onGet('media-relationships/1/relationships/destination').reply(200, response)
+      const request = await api.get('media-relationships/1/relationships/destination')
+      expect(request).toEqual(response)
+    })
+
     it('returns a JSON:API error object for invalid queries', async () => {
       expect.assertions(5)
       const api = new Kitsu()
