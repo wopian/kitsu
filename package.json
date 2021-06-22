@@ -44,7 +44,7 @@
     "conventional-changelog-angular": "~5.0.12",
     "cross-env": "~7.0.0",
     "documentation": "~13.2.0",
-    "eslint": "~7.28.0",
+    "eslint": "~7.29.0",
     "eslint-config-wopian": "~2.1.0",
     "jest": "~27.0.0",
     "lerna": "~4.0.0",
