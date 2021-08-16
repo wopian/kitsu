@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.14](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.13...v10.0.0-alpha.14) (2021-08-16)
+
+
+### Features
+
+* return header object when present ([b3e2624](https://github.com/wopian/kitsu/commit/b3e2624a1e5969e606fc50daa68fdd44ff90abb2))
+
+
+
+
+
 # [10.0.0-alpha.13](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.12...v10.0.0-alpha.13) (2021-06-07)
 
 
