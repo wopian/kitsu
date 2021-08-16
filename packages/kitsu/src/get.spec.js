@@ -35,7 +35,6 @@ describe('kitsu', () => {
         } ]
       })
       const response = await api.get('anime', { headers: { extra: true } })
-      console.log(response)
       await expect(await response).toEqual({
         data: [],
         headers: {
