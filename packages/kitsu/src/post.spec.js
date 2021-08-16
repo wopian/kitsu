@@ -10,7 +10,7 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('post', () => {
-    it('sends headers', async () => {
+    it('sends and recieves headers', async () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPost('/anime').reply(config => {
@@ -20,9 +20,15 @@ describe('kitsu', () => {
           Authorization: true,
           extra: true
         })
-        return [ 200 ]
+        return [ 200, undefined, {
+          Accept: 'application/vnd.api+json'
+        } ]
       })
-      await expect(await api.post('anime', { id: '1', type: 'anime' }, { headers: { extra: true } })).toBeUndefined()
+      await expect(await api.post('anime', { id: '1', type: 'anime' }, { headers: { extra: true } })).toEqual({
+        headers: {
+          Accept: 'application/vnd.api+json'
+        }
+      })
     })
 
     it('sends data in request', async () => {

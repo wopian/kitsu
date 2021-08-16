@@ -45,6 +45,16 @@ The `headers` parameter has been merged with the existing `config` parameter
 
 `Kitsu.request(config?, headers?)` is now `Kitsu.request(config? { headers? })`
 
+### Response Changes
+
+1. The header object is now returned in requests when headers are returned by the API. You can now do the following for all requests:
+
+    `const { data, headers } = await api.get('products')`
+
+2. `api.self` now returns data within a `data` object to support the header object without conflicting with attribute names:
+
+    `await api.self()` now returns `{ data: { name: 'wopian' }, headers?: {} }` instead of `{ name: 'wopian' }`
+
 ### Serialisation Changes
 
 This change does not affect `Kitsu.get`.

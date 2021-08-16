@@ -13,7 +13,7 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('self', () => {
-    it('sends headers', async () => {
+    it('sends and recieves headers', async () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onGet('/users', { filter: { self: true } }).reply(config => {
@@ -23,9 +23,11 @@ describe('kitsu', () => {
           Authorization: true,
           extra: true
         })
-        return [ 200, { data: [] } ]
+        return [ 200, { data: [] }, { Accept: 'application/vnd.api+json' } ]
       })
-      await expect(await api.self({ headers: { extra: true } })).toBeUndefined()
+      await expect(await api.self({ headers: { extra: true } })).toEqual({
+        headers: { Accept: 'application/vnd.api+json' }
+      })
     })
 
     it('fetches the authenticated user', async () => {
@@ -41,9 +43,11 @@ describe('kitsu', () => {
         ]
       })
       expect(await api.self()).toEqual({
-        id: '1',
-        type: 'users',
-        name: 'John'
+        data: {
+          id: '1',
+          type: 'users',
+          name: 'John'
+        }
       })
     })
 

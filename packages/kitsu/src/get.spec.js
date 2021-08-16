@@ -18,7 +18,7 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('get', () => {
-    it('sends headers', async () => {
+    it('sends and recieves headers', async () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { init: true } })
       mock.onGet('/anime').reply(config => {
@@ -28,10 +28,21 @@ describe('kitsu', () => {
           init: true,
           extra: true
         })
-        return [ 200, { data: [] } ]
+        return [ 200, { data: [] }, {
+          Accept: 'application/vnd.api+json',
+          'Content-Type': 'application/vnd.api+json',
+          extra: true
+        } ]
       })
-      await expect(await api.get('anime', { headers: { extra: true } })).toEqual({
-        data: []
+      const response = await api.get('anime', { headers: { extra: true } })
+      console.log(response)
+      await expect(await response).toEqual({
+        data: [],
+        headers: {
+          Accept: 'application/vnd.api+json',
+          'Content-Type': 'application/vnd.api+json',
+          extra: true
+        }
       })
     })
 

@@ -10,8 +10,8 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('delete', () => {
-    it('sends headers', done => {
-      expect.assertions(1)
+    it('sends and recieves headers', async () => {
+      expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onDelete('/anime/1').reply(config => {
         expect(config.headers).toEqual({
@@ -20,12 +20,15 @@ describe('kitsu', () => {
           Authorization: true,
           extra: true
         })
-        return [ 200 ]
+        return [ 200, undefined, {
+          Accept: 'application/vnd.api+json'
+        } ]
       })
-      api.delete('anime', 1, { headers: { extra: true } }).catch(err => {
-        done.fail(err)
+      expect(await api.delete('anime', 1, { headers: { extra: true } })).toEqual({
+        headers: {
+          Accept: 'application/vnd.api+json'
+        }
       })
-      done()
     })
 
     it('sends data in request', async () => {
