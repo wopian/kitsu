@@ -40,7 +40,7 @@
     "axios": "~0.21.1",
     "axios-mock-adapter": "~1.20.0",
     "babel-jest": "~27.1.0",
-    "browserslist": "~4.16.0",
+    "browserslist": "~4.17.0",
     "conventional-changelog-angular": "~5.0.12",
     "cross-env": "~7.0.0",
     "documentation": "~13.2.0",
