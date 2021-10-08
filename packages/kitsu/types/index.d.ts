@@ -103,8 +103,8 @@ export default class Kitsu {
      * api.interceptors.request.eject(myInterceptor)
      */
     interceptors: {
-        request: import("axios").AxiosInterceptorManager<import("axios").AxiosRequestConfig>;
-        response: import("axios").AxiosInterceptorManager<import("axios").AxiosResponse<any>>;
+        request: import("axios").AxiosInterceptorManager<import("axios").AxiosRequestConfig<any>>;
+        response: import("axios").AxiosInterceptorManager<import("axios").AxiosResponse<never>>;
     };
     /**
      * Fetch resources (alias `fetch`)
