@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.20](https://github.com/wopian/kitsu/compare/v9.1.19...v9.1.20) (2021-10-08)
+
+**Note:** Version bump only for package kitsujs
+
+
+
+
+
 ## [9.1.19](https://github.com/wopian/kitsu/compare/v9.1.18...v9.1.19) (2021-06-07)
 
 
