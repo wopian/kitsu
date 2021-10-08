@@ -47,7 +47,7 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.22.0",
     "kitsu-core": "^9.1.19",
     "pluralize": "^8.0.0"
   },
