@@ -9,11 +9,12 @@ import { filterIncludes } from '../filterIncludes'
  * @param {string} resource.type Resource type
  * @param {Object} [resource.meta] Meta information
  * @param {Object[]} included The response included object
+ * @param {Object} [previouslyLinked] A mapping of already visited resources
  * @private
  */
 function link ({ id, type, meta }, included, previouslyLinked = {}) {
   const filtered = filterIncludes(included, { id, type })
-  previouslyLinked[`${type}#${id}`] = filtered;
+  previouslyLinked[`${type}#${id}`] = filtered
 
   if (filtered.relationships) {
     linkRelationships(filtered, included, previouslyLinked)
@@ -29,6 +30,7 @@ function link ({ id, type, meta }, included, previouslyLinked = {}) {
  * @param {Object} data The response data object
  * @param {Object[]} included The response included object
  * @param {string} key Name of the relationship item
+ * @param {Object} previouslyLinked A mapping of already visited resources
  * @private
  */
 function linkArray (data, included, key, previouslyLinked) {
@@ -36,7 +38,7 @@ function linkArray (data, included, key, previouslyLinked) {
   if (data.relationships[key].links) data[key].links = data.relationships[key].links
   data[key].data = []
   for (const resource of data.relationships[key].data) {
-    const cache = previouslyLinked[`${resource.type}#${resource.id}`];
+    const cache = previouslyLinked[`${resource.type}#${resource.id}`]
     data[key].data.push(cache || link(resource, included, previouslyLinked))
   }
   delete data.relationships[key]
@@ -48,13 +50,14 @@ function linkArray (data, included, key, previouslyLinked) {
  * @param {Object} data The response data object
  * @param {Object[]} included The response included object
  * @param {string} key Name of the relationship item
+ * @param {Object} previouslyLinked A mapping of already visited resources
  * @private
  */
 function linkObject (data, included, key, previouslyLinked) {
   data[key] = {}
-  const resource = data.relationships[key].data;
-  const cache = previouslyLinked[`${resource.type}#${resource.id}`];
-  data[key].data = cache || link(resource, included, previouslyLinked);
+  const resource = data.relationships[key].data
+  const cache = previouslyLinked[`${resource.type}#${resource.id}`]
+  data[key].data = cache || link(resource, included, previouslyLinked)
   if (data.relationships[key].links) data[key].links = data.relationships[key].links
   delete data.relationships[key]
 }
@@ -77,6 +80,7 @@ function linkAttr (data, key) {
  *
  * @param {Object} data The response data object
  * @param {Object[]} [included] The response included object
+ * @param {Object} [previouslyLinked] A mapping of already visited resources
  * @returns Parsed data
  *
  * @example
