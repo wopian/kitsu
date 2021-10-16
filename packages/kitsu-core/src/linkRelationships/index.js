@@ -11,9 +11,13 @@ import { filterIncludes } from '../filterIncludes'
  * @param {Object[]} included The response included object
  * @private
  */
-function link ({ id, type, meta }, included) {
+function link ({ id, type, meta }, included, previouslyLinked = {}) {
   const filtered = filterIncludes(included, { id, type })
-  if (filtered.relationships) linkRelationships(filtered, included)
+  previouslyLinked[`${type}#${id}`] = filtered;
+
+  if (filtered.relationships) {
+    linkRelationships(filtered, included, previouslyLinked)
+  }
   if (meta) filtered.meta = meta
 
   return deattribute(filtered)
@@ -27,12 +31,13 @@ function link ({ id, type, meta }, included) {
  * @param {string} key Name of the relationship item
  * @private
  */
-function linkArray (data, included, key) {
+function linkArray (data, included, key, previouslyLinked) {
   data[key] = {}
   if (data.relationships[key].links) data[key].links = data.relationships[key].links
   data[key].data = []
   for (const resource of data.relationships[key].data) {
-    data[key].data.push(link(resource, included))
+    const cache = previouslyLinked[`${resource.type}#${resource.id}`];
+    data[key].data.push(cache || link(resource, included, previouslyLinked))
   }
   delete data.relationships[key]
 }
@@ -45,9 +50,11 @@ function linkArray (data, included, key) {
  * @param {string} key Name of the relationship item
  * @private
  */
-function linkObject (data, included, key) {
+function linkObject (data, included, key, previouslyLinked) {
   data[key] = {}
-  data[key].data = link(data.relationships[key].data, included)
+  const resource = data.relationships[key].data;
+  const cache = previouslyLinked[`${resource.type}#${resource.id}`];
+  data[key].data = cache || link(resource, included, previouslyLinked);
   if (data.relationships[key].links) data[key].links = data.relationships[key].links
   delete data.relationships[key]
 }
@@ -94,16 +101,16 @@ function linkAttr (data, key) {
  * //   }
  * // }
  */
-export function linkRelationships (data, included = []) {
+export function linkRelationships (data, included = [], previouslyLinked = {}) {
   const { relationships } = data
 
   for (const key in relationships) {
     // Relationship contains collection of resources
     if (Array.isArray(relationships[key]?.data)) {
-      linkArray(data, included, key)
+      linkArray(data, included, key, previouslyLinked)
     // Relationship contains a single resource
     } else if (relationships[key].data) {
-      linkObject(data, included, key)
+      linkObject(data, included, key, previouslyLinked)
     } else {
       linkAttr(data, key)
     }

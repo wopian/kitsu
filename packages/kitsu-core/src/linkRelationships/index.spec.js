@@ -88,6 +88,88 @@ describe('kitsu-core', () => {
         })
     })
 
+    it('caches relationships that were previously linked', () => {
+      expect.assertions(1)
+
+      const data = {
+        id: "1",
+        type: "user",
+        attributes: {
+          name: "A user"
+        },
+        relationships: {
+          current_song: {
+            data: {
+              id: "1",
+              type: "song"
+            }
+          }
+        }
+      };
+
+      const included = [
+        {
+          id: "1",
+          type: "album",
+          attributes: {
+            name: "Mezmerize"
+          },
+          relationships: {
+            songs: {
+              data: [
+                {
+                  id: "1",
+                  type: "song"
+                }
+              ]
+            }
+          }
+        },
+        {
+          id: "1",
+          type: "song",
+          attributes: {
+            title: "Revenga"
+          },
+          relationships: {
+            album: {
+              data: {
+                id: "1",
+                type: "album"
+              }
+            }
+          }
+        }
+      ]
+
+      const result = linkRelationships(data, included);
+
+      delete result.current_song.data.album.data.songs.data;
+      expect(result).toEqual({
+          id: '1',
+          type: 'user',
+          attributes: {
+            name: 'A user'
+          },
+          current_song: {
+            data: {
+              id: '1',
+              type: 'song',
+              album: {
+                data: {
+                  id: '1',
+                  name: 'Mezmerize',
+                  type: 'album',
+                  songs: {}
+                }
+              },
+              title: 'Revenga'
+            }
+          }
+        }
+      )
+    })
+
     it('does not deattribute key if theres a relationship (single) with same name (handle invalid JSON:API)', () => {
       expect.assertions(1)
       const data = {
