@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.16](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.15...v10.0.0-alpha.16) (2021-10-18)
+
+**Note:** Version bump only for package kitsu
+
+
+
+
+
 # [10.0.0-alpha.15](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.14...v10.0.0-alpha.15) (2021-10-08)
 
 **Note:** Version bump only for package kitsu
