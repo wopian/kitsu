@@ -59,7 +59,7 @@
   ],
   "gitHead": "5c9778d191d17d7c9790cfc6d0f4e983b4742a53",
   "devDependencies": {
-    "@size-limit/preset-small-lib": "~5.0.0"
+    "@size-limit/preset-small-lib": "~6.0.0"
   },
   "exports": {
     "./package.json": "./package.json",
