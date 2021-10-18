@@ -12,7 +12,7 @@ import { filterIncludes } from '../filterIncludes'
  * @param {Object} [previouslyLinked] A mapping of already visited resources
  * @private
  */
-function link ({ id, type, meta }, included, previouslyLinked = {}) {
+function link ({ id, type, meta }, included, previouslyLinked) {
   const filtered = filterIncludes(included, { id, type })
   previouslyLinked[`${type}#${id}`] = filtered
 
