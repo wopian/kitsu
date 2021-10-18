@@ -104,7 +104,7 @@ export default class Kitsu {
      */
     interceptors: {
         request: import("axios").AxiosInterceptorManager<import("axios").AxiosRequestConfig<any>>;
-        response: import("axios").AxiosInterceptorManager<import("axios").AxiosResponse<never>>;
+        response: import("axios").AxiosInterceptorManager<import("axios").AxiosResponse<unknown, any>>;
     };
     /**
      * Fetch resources (alias `fetch`)
