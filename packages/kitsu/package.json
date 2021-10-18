@@ -49,7 +49,7 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "axios": "^0.22.0",
+    "axios": "^0.23.0",
     "kitsu-core": "^10.0.0-alpha.15",
     "merge-options": "^3.0.0",
     "pluralize": "^8.0.0"
