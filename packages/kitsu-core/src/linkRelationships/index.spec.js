@@ -1,3 +1,4 @@
+import stringify from 'json-stringify-safe'
 import { linkRelationships } from './'
 
 describe('kitsu-core', () => {
@@ -142,9 +143,9 @@ describe('kitsu-core', () => {
         }
       ]
 
-      const result = linkRelationships(data, included)
+      const circularResult = linkRelationships(data, included)
+      const result = JSON.parse(stringify(circularResult))
 
-      delete result.current_song.data.album.data.songs.data
       expect(result).toEqual({
         id: '1',
         type: 'user',
@@ -160,14 +161,17 @@ describe('kitsu-core', () => {
                 id: '1',
                 name: 'Mezmerize',
                 type: 'album',
-                songs: {}
+                songs: {
+                  data: [
+                    '[Circular ~.current_song.data]'
+                  ]
+                }
               }
             },
             title: 'Revenga'
           }
         }
-      }
-      )
+      })
     })
 
     it('does not deattribute key if theres a relationship (single) with same name (handle invalid JSON:API)', () => {
