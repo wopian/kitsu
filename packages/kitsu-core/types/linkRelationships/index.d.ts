@@ -3,6 +3,7 @@
  *
  * @param {Object} data The response data object
  * @param {Object[]} [included] The response included object
+ * @param {Object} [previouslyLinked] A mapping of already visited resources (internal use only)
  * @returns Parsed data
  *
  * @example
@@ -27,4 +28,4 @@
  * //   }
  * // }
  */
-export function linkRelationships(data: any, included?: any[]): any;
+export function linkRelationships(data: any, included?: any[], previouslyLinked?: any): any;
