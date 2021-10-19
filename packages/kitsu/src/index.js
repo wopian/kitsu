@@ -1,6 +1,5 @@
 import { camel, deserialise, error, kebab, query, serialise, snake, splitModel } from 'kitsu-core'
 import axios from 'axios'
-import merge from 'merge-options'
 import pluralise from 'pluralize'
 
 /**
@@ -65,14 +64,15 @@ export default class Kitsu {
      * @example <caption>Add or update a header's value</caption>
      * api.headers['Authorization'] = 'Bearer 1234567890'
      */
-    this.headers = merge({ Accept: 'application/vnd.api+json', 'Content-Type': 'application/vnd.api+json' }, options.headers)
+    this.headers = { ...{ Accept: 'application/vnd.api+json', 'Content-Type': 'application/vnd.api+json' }, ...options.headers }
 
-    this.axios = axios.create(
-      merge({
+    this.axios = axios.create({
+      ...{
         baseURL: options.baseURL || 'https://kitsu.io/api/edge',
         timeout: options.timeout || 30000
-      }, options.axiosOptions)
-    )
+      },
+      ...options.axiosOptions
+    })
 
     this.fetch = this.get
     this.update = this.patch
@@ -209,8 +209,8 @@ export default class Kitsu {
    */
   async get (model, config = {}) {
     try {
-      const headers = merge(this.headers, config.headers)
-      const params = merge({}, config.params)
+      const headers = { ...this.headers, ...config.headers }
+      const params = { ...{}, ...config.params }
       const [ res, id, relationship, subRelationship ] = model.split('/')
 
       // :resource
@@ -231,7 +231,7 @@ export default class Kitsu {
         paramsSerializer: /* istanbul ignore next */ p => query(p)
       })
 
-      return responseHeaders ? merge(deserialise(data), { headers: responseHeaders }) : deserialise(data)
+      return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
     } catch (E) {
       throw error(E)
     }
@@ -272,8 +272,8 @@ export default class Kitsu {
    */
   async patch (model, body, config = {}) {
     try {
-      const headers = merge(this.headers, config.headers)
-      const params = merge({}, config.params)
+      const headers = { ...this.headers, ...config.headers }
+      const params = { ...{}, ...config.params }
       const [ resourceModel, url ] = splitModel(model, {
         resourceCase: this.resCase,
         pluralModel: this.plural
@@ -293,7 +293,7 @@ export default class Kitsu {
         }
       )
 
-      return responseHeaders ? merge(deserialise(data), { headers: responseHeaders }) : deserialise(data)
+      return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
     } catch (E) {
       throw error(E)
     }
@@ -329,8 +329,8 @@ export default class Kitsu {
    */
   async post (model, body, config = {}) {
     try {
-      const headers = merge(this.headers, config.headers)
-      const params = merge({}, config.params)
+      const headers = { ...this.headers, ...config.headers }
+      const params = { ...{}, ...config.params }
       const [ resourceModel, url ] = splitModel(model, {
         resourceCase: this.resCase,
         pluralModel: this.plural
@@ -348,7 +348,7 @@ export default class Kitsu {
         }
       )
 
-      return responseHeaders ? merge(deserialise(data), { headers: responseHeaders }) : deserialise(data)
+      return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
     } catch (E) {
       throw error(E)
     }
@@ -371,8 +371,8 @@ export default class Kitsu {
    */
   async delete (model, id, config = {}) {
     try {
-      const headers = merge(this.headers, config.headers)
-      const params = merge({}, config.params)
+      const headers = { ...this.headers, ...config.headers }
+      const params = { ...{}, ...config.params }
       const [ resourceModel, url ] = splitModel(model, {
         resourceCase: this.resCase,
         pluralModel: this.plural
@@ -398,7 +398,7 @@ export default class Kitsu {
         paramsSerializer: /* istanbul ignore next */ p => query(p)
       })
 
-      return responseHeaders ? merge(deserialise(data), { headers: responseHeaders }) : deserialise(data)
+      return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
     } catch (E) {
       throw error(E)
     }
@@ -427,10 +427,10 @@ export default class Kitsu {
    */
   async self (config = {}) {
     try {
-      const headers = merge(this.headers, config.headers)
-      const params = merge(config.params, { filter: { self: true } })
-      const res = await this.get('users', merge({ headers }, { params }))
-      return res.headers ? merge({ data: res.data[0] }, { headers: res.headers }) : { data: res.data[0] }
+      const headers = { ...this.headers, ...config.headers }
+      const params = { ...config.params, ...{ filter: { self: true } } }
+      const res = await this.get('users', { ...{ headers }, ...{ params } })
+      return res.headers ? { ...{ data: res.data[0] }, ...{ headers: res.headers } } : { data: res.data[0] }
     } catch (E) {
       throw error(E)
     }
@@ -500,12 +500,12 @@ export default class Kitsu {
             camelCaseTypes: this.camel,
             pluralTypes: this.plural
           }),
-        headers: merge(this.headers, headers),
+        headers: { ...this.headers, ...headers },
         params,
         paramsSerializer: /* istanbul ignore next */ p => query(p)
       })
 
-      return responseHeaders ? merge(deserialise(data), { headers: responseHeaders }) : deserialise(data)
+      return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
     } catch (E) {
       throw error(E)
     }
