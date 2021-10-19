@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.17](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.16...v10.0.0-alpha.17) (2021-10-19)
+
+
+### Bug Fixes
+
+* **kitsu-core:** Deserialize and link nested relations ([#601](https://github.com/wopian/kitsu/issues/601)) ([5bb705a](https://github.com/wopian/kitsu/commit/5bb705af57d2b0dc59c53550d1c220aa2cfed0c4))
+
+
+
+
+
 # [10.0.0-alpha.16](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.15...v10.0.0-alpha.16) (2021-10-18)
 
 **Note:** Version bump only for package kitsu
