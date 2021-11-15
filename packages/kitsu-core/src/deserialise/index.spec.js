@@ -547,5 +547,123 @@ describe('kitsu-core', () => {
         }
       })
     })
+
+    // TODO: https://github.com/wopian/kitsu/issues/579
+    it.skip('deserialises nested relationships of same name', () => {
+      expect.assertions(1)
+      expect(deserialise({
+        data: [
+          {
+            id: '1',
+            type: 'episodes',
+            attributes: {
+              name: 'Episode 1'
+            },
+            relationships: {
+              teams: {
+                data: [
+                  {
+                    type: 'teams',
+                    id: '1'
+                  }
+                ]
+              }
+            }
+          },
+          {
+            id: '2',
+            type: 'episodes',
+            attributes: {
+              name: 'Episode 2'
+            },
+            relationships: {
+              teams: {
+                data: [
+                  {
+                    type: 'teams',
+                    id: '1'
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        included: [
+          {
+            id: '1',
+            type: 'teams',
+            attributes: {
+              name: 'Team 1'
+            },
+            relationships: {
+              artists: {
+                data: [
+                  {
+                    type: 'artists',
+                    id: '1'
+                  }
+                ]
+              }
+            }
+          },
+          {
+            id: '1',
+            type: 'artists',
+            attributes: {
+              name: 'Artist 1'
+            }
+          }
+        ]
+      })).toEqual({
+        data: [
+          {
+            id: '1',
+            type: 'episodes',
+            name: 'Episode 1',
+            teams: {
+              data: [
+                {
+                  id: '1',
+                  type: 'teams',
+                  name: 'Team 1',
+                  artists: {
+                    data: [
+                      {
+                        id: '1',
+                        type: 'artists',
+                        name: 'Artist 1'
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            id: '2',
+            type: 'episodes',
+            name: 'Episode 2',
+            teams: {
+              data: [
+                {
+                  id: '1',
+                  type: 'teams',
+                  name: 'Team 1',
+                  artists: {
+                    data: [
+                      {
+                        id: '1',
+                        type: 'artists',
+                        name: 'Artist 1'
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      })
+    })
   })
 })
