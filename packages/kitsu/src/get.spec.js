@@ -1,5 +1,6 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
+import stringify from 'json-stringify-safe'
 import Kitsu from 'kitsu'
 import {
   getCollection,
@@ -154,6 +155,117 @@ describe('kitsu', () => {
         expect(errors[0].code).toBeDefined()
         expect(errors[0].status).toBe('400')
       }
+    })
+
+
+    it('fetches infinitely nested relationship resource', async () => {
+      expect.assertions(1)
+      const api = new Kitsu()
+      mock.onGet('printers', { params: { include: 'paper,labels' } }).reply(200, {
+        data: [
+          {
+            type: 'printer',
+            id: '1',
+            attributes: {
+              name: 'Printer 1'
+            },
+            relationships: {
+              paper: {
+                data: {
+                  type: 'paper',
+                  id: '1'
+                }
+              },
+              labels: {
+                data: [
+                  {
+                    type: 'label',
+                    id: '1'
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        included: [
+          {
+            type: 'paper',
+            id: '1',
+            attributes: {
+              name: 'Paper 1'
+            },
+            relationships: {
+              labels: {
+                data: {
+                  type: 'label',
+                  id: '1'
+                }
+              }
+            }
+          },
+          {
+            type: 'label',
+            id: '1',
+            attributes: {
+              name: 'Label 1'
+            },
+            relationships: {
+              paper: {
+                data: {
+                  type: 'paper',
+                  id: '1'
+                }
+              }
+            }
+          }
+        ]
+      })
+      const request = await api.get('printers', { params: { include: 'paper,labels' } })
+      expect(JSON.parse(stringify(request))).toEqual({
+        data: [
+          {
+            type: 'printer',
+            id: '1',
+            name: 'Printer 1',
+            labels: {
+              data: [
+                {
+                  id: '1',
+                  type: 'label',
+                  name: 'Label 1',
+                  paper: {
+                    data: {
+                      id: '1',
+                      type: 'paper',
+                      name: 'Paper 1',
+                      labels: {
+                        data: '[Circular ~.data.0.labels.data.0]'
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            paper: {
+              data: {
+                id: '1',
+                type: 'paper',
+                name: 'Paper 1',
+                labels: {
+                  data: {
+                    id: '1',
+                    type: 'label',
+                    name: 'Label 1',
+                    paper: {
+                      data: '[Circular ~.data.0.paper.data]'
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      })
     })
   })
 })
