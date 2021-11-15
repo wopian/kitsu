@@ -157,7 +157,6 @@ describe('kitsu', () => {
       }
     })
 
-
     it('fetches infinitely nested relationship resource', async () => {
       expect.assertions(1)
       const api = new Kitsu()
