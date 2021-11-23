@@ -39,7 +39,6 @@
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "build": "yarn rollup"
   },
-  "sideEffects": false,
   "size-limit": [
     {
       "path": "./dist/index.js",
