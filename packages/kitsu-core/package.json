@@ -39,27 +39,26 @@
     "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
     "build": "yarn rollup"
   },
-  "sideEffects": false,
   "size-limit": [
     {
       "path": "./dist/index.js",
-      "limit": "2 kb",
+      "limit": "2.5 kb",
       "brotli": true
     },
     {
       "path": "./dist/index.mjs",
-      "limit": "2 kb",
+      "limit": "2.5 kb",
       "brotli": true
     },
     {
       "path": "./dist/index.browser.js",
-      "limit": "2 kb",
+      "limit": "2.5 kb",
       "brotli": true
     }
   ],
   "gitHead": "5c9778d191d17d7c9790cfc6d0f4e983b4742a53",
   "devDependencies": {
-    "@size-limit/preset-small-lib": "~6.0.0"
+    "@size-limit/preset-small-lib": "~7.0.0"
   },
   "exports": {
     "./package.json": "./package.json",
