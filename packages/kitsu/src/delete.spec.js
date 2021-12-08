@@ -10,6 +10,14 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('delete', () => {
+    it('uses provided axios options', async () => {
+      expect.assertions(1)
+      const api = new Kitsu()
+      api.axios = { delete: jest.fn().mockReturnValue({ data: '' }) }
+      await api.delete('anime', 1, { axiosOptions: { withCredentials: true } })
+      expect(api.axios.delete).toHaveBeenCalledWith('anime/1', expect.objectContaining({ withCredentials: true }))
+    })
+
     it('sends and recieves headers', async () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })

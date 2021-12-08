@@ -29,6 +29,14 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('request', () => {
+    it('uses provided axios options', async () => {
+      expect.assertions(1)
+      const api = new Kitsu()
+      api.axios = { request: jest.fn().mockReturnValue({ data: '' }) }
+      await api.request({ axiosOptions: { withCredentials: true } })
+      expect(api.axios.request).toHaveBeenCalledWith(expect.objectContaining({ withCredentials: true }))
+    })
+
     it('sends and receives headers', async () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })

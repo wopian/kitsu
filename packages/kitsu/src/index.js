@@ -132,6 +132,7 @@ export default class Kitsu {
    * @param {number} [config.params.page.size] Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on Kitsu.io
    * @param {string} [config.params.page.before] Get the previous page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
    * @param {string} [config.params.page.after] Get the next page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
+   * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
    * @returns {Object} JSON-parsed response
    * @example <caption>Getting a resource with JSON:API parameters</caption>
    * api.get('users', {
@@ -228,7 +229,8 @@ export default class Kitsu {
       const { data, headers: responseHeaders } = await this.axios.get(url, {
         headers,
         params,
-        paramsSerializer: /* istanbul ignore next */ p => query(p)
+        paramsSerializer: /* istanbul ignore next */ p => query(p),
+        ...config.axiosOptions
       })
 
       return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
@@ -246,6 +248,7 @@ export default class Kitsu {
    * @param {Object} [config] Additional configuration
    * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
    * @param {Object} [config.headers] Additional headers to send with the request
+   * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
    * @returns {Object|Object[]} JSON-parsed response
    * @example <caption>Update a resource</caption>
    * api.update('posts', {
@@ -289,7 +292,8 @@ export default class Kitsu {
         {
           headers,
           params,
-          paramsSerializer: /* istanbul ignore next */ p => query(p)
+          paramsSerializer: /* istanbul ignore next */ p => query(p),
+          ...config.axiosOptions
         }
       )
 
@@ -344,7 +348,8 @@ export default class Kitsu {
         {
           headers,
           params,
-          paramsSerializer: /* istanbul ignore next */ p => query(p)
+          paramsSerializer: /* istanbul ignore next */ p => query(p),
+          ...config.axiosOptions
         }
       )
 
@@ -363,6 +368,7 @@ export default class Kitsu {
    * @param {Object} [config] Additional configuration
    * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
    * @param {Object} [config.headers] Additional headers to send with the request
+   * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
    * @returns {Object|Object[]} JSON-parsed response
    * @example <caption>Remove a single resource</caption>
    * api.delete('posts', 123)
@@ -395,7 +401,8 @@ export default class Kitsu {
         }),
         headers,
         params,
-        paramsSerializer: /* istanbul ignore next */ p => query(p)
+        paramsSerializer: /* istanbul ignore next */ p => query(p),
+        ...config.axiosOptions
       })
 
       return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
@@ -413,6 +420,7 @@ export default class Kitsu {
    * @param {Object} [config] Additional configuration
    * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
    * @param {Object} [config.headers] Additional headers to send with the request
+   * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
    * @returns {Object} JSON-parsed response
    * @example <caption>Get the authenticated user's resource</caption>
    * api.self()
@@ -429,7 +437,7 @@ export default class Kitsu {
     try {
       const headers = { ...this.headers, ...config.headers }
       const params = { ...config.params, ...{ filter: { self: true } } }
-      const res = await this.get('users', { ...{ headers }, ...{ params } })
+      const res = await this.get('users', { ...{ headers }, ...{ params }, ...config.axiosOptions })
       return res.headers ? { ...{ data: res.data[0] }, ...{ headers: res.headers } } : { data: res.data[0] }
     } catch (E) {
       throw error(E)
@@ -449,6 +457,7 @@ export default class Kitsu {
    * @param {string} [config.method] Request method - `GET`, `PATCH`, `POST` or `DELETE` (defaults to `GET`, case-insensitive)
    * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
    * @param {Object} [config.headers] Additional headers to send with the request
+   * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
    * @returns {Object} JSON-parsed response
    * @example <caption>Raw GET request</caption>
    * api.request({
@@ -488,7 +497,7 @@ export default class Kitsu {
    *   ]
    * })
    */
-  async request ({ body, method, params, type, url, headers }) {
+  async request ({ body, method, params, type, url, headers, axiosOptions }) {
     try {
       method = method?.toUpperCase() || 'GET'
       const { data, headers: responseHeaders } = await this.axios.request({
@@ -502,7 +511,8 @@ export default class Kitsu {
           }),
         headers: { ...this.headers, ...headers },
         params,
-        paramsSerializer: /* istanbul ignore next */ p => query(p)
+        paramsSerializer: /* istanbul ignore next */ p => query(p),
+        ...axiosOptions
       })
 
       return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
