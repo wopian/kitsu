@@ -13,6 +13,14 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('self', () => {
+    it('uses provided axios options', async () => {
+      expect.assertions(1)
+      const api = new Kitsu()
+      api.get = jest.fn().mockReturnValue({ data: '', headers: '' })
+      await api.self({ axiosOptions: { withCredentials: true } })
+      expect(api.get).toHaveBeenCalledWith('users', expect.objectContaining({ withCredentials: true }))
+    })
+
     it('sends and recieves headers', async () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })

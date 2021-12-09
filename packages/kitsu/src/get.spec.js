@@ -19,6 +19,14 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('get', () => {
+    it('uses provided axios options', async () => {
+      expect.assertions(1)
+      const api = new Kitsu()
+      api.axios = { get: jest.fn().mockReturnValue({ data: '' }) }
+      await api.get('anime', { axiosOptions: { withCredentials: true } })
+      expect(api.axios.get).toHaveBeenCalledWith('anime', expect.objectContaining({ withCredentials: true }))
+    })
+
     it('sends and recieves headers', async () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { init: true } })
