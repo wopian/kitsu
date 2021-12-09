@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.19](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.18...v10.0.0-alpha.19) (2021-12-09)
+
+
+### Features
+
+* **kitsu:** add axios options for all operations ([#623](https://github.com/wopian/kitsu/issues/623)) ([2e4dc9e](https://github.com/wopian/kitsu/commit/2e4dc9e70ea5ec183c72193ccc79bf1eabb8e37e))
+
+
+
+
+
 # [10.0.0-alpha.18](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.17...v10.0.0-alpha.18) (2021-11-02)
 
 **Note:** Version bump only for package kitsu
