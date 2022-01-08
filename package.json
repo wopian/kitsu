@@ -49,7 +49,7 @@
     "jest": "~27.4.0",
     "json-stringify-safe": "~5.0.1",
     "lerna": "^3.0.0",
-    "rollup": "~2.62.0",
+    "rollup": "~2.63.0",
     "rollup-plugin-delete": "~2.0.0",
     "rollup-plugin-local-resolve": "~1.0.7",
     "size-limit": "~7.0.0",
