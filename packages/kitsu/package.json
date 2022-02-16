@@ -48,7 +48,7 @@
     "build": "yarn rollup"
   },
   "dependencies": {
-    "axios": "^0.25.0",
+    "axios": "^0.26.0",
     "kitsu-core": "^10.0.0-alpha.20",
     "pluralize": "^8.0.0"
   },
