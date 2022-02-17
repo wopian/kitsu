@@ -28,17 +28,17 @@
 
 ## Features
 
-*   JSON-API 1.0 compliant
-*   Automatically links relationships to data
-*   Works in Node & browsers
-*   Tree shakeable components
-*   Zero dependencies
+- JSON-API 1.0 compliant
+- Automatically links relationships to data
+- Works in Node & browsers
+- Tree shakeable components
+- Zero dependencies
 
 ## Node / Browser Support
 
 |      Package | Package<br> Size\* | ESM Size† | Node | Chrome | Firefox | Safari | Edge |
 | -----------: | :----------------: | :-------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu-core` |      ≤ 1.5 kb      |  ≤ 1.4 KB |  12+ |   72+  |   78+   |  12.1+ |  86+ |
+| `kitsu-core` |      ≤ 1.5 kb      | ≤ 1.4 KB  | 12+  |  83+   |   78+   | 13.1+  | 95+  |
 
 \* Minified with brotli
 † EcmaScript Modules package size\*
@@ -63,10 +63,10 @@ camel(...)
 
 ```html
 <!-- jsDelivr -->
-<script src='https://cdn.jsdelivr.net/npm/kitsu-core'></script>
+<script src="https://cdn.jsdelivr.net/npm/kitsu-core"></script>
 
 <!-- unpkg -->
-<script src='https://unpkg.com/kitsu-core'></script>
+<script src="https://unpkg.com/kitsu-core"></script>
 ```
 
 ```js
@@ -86,11 +86,8 @@ See [CHANGELOG]
 All code released under [MIT]
 
 [json:api]: http://jsonapi.org
-
 [changelog]: https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/CHANGELOG.md
-
 [contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
-
 [mit]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
 
 ## API
@@ -99,39 +96,39 @@ All code released under [MIT]
 
 #### Table of Contents
 
-*   [camel](#camel)
-    *   [Parameters](#parameters)
-    *   [Examples](#examples)
-*   [deattribute](#deattribute)
-    *   [Parameters](#parameters-1)
-    *   [Examples](#examples-1)
-*   [deserialise](#deserialise)
-    *   [Parameters](#parameters-2)
-    *   [Examples](#examples-2)
-*   [error](#error)
-    *   [Parameters](#parameters-3)
-    *   [Examples](#examples-3)
-*   [filterIncludes](#filterincludes)
-    *   [Parameters](#parameters-4)
-    *   [Examples](#examples-4)
-*   [kebab](#kebab)
-    *   [Parameters](#parameters-5)
-    *   [Examples](#examples-5)
-*   [linkRelationships](#linkrelationships)
-    *   [Parameters](#parameters-6)
-    *   [Examples](#examples-6)
-*   [query](#query)
-    *   [Parameters](#parameters-7)
-    *   [Examples](#examples-7)
-*   [serialise](#serialise)
-    *   [Parameters](#parameters-8)
-    *   [Examples](#examples-8)
-*   [snake](#snake)
-    *   [Parameters](#parameters-9)
-    *   [Examples](#examples-9)
-*   [splitModel](#splitmodel)
-    *   [Parameters](#parameters-10)
-    *   [Examples](#examples-10)
+- [camel](#camel)
+  - [Parameters](#parameters)
+  - [Examples](#examples)
+- [deattribute](#deattribute)
+  - [Parameters](#parameters-1)
+  - [Examples](#examples-1)
+- [deserialise](#deserialise)
+  - [Parameters](#parameters-2)
+  - [Examples](#examples-2)
+- [error](#error)
+  - [Parameters](#parameters-3)
+  - [Examples](#examples-3)
+- [filterIncludes](#filterincludes)
+  - [Parameters](#parameters-4)
+  - [Examples](#examples-4)
+- [kebab](#kebab)
+  - [Parameters](#parameters-5)
+  - [Examples](#examples-5)
+- [linkRelationships](#linkrelationships)
+  - [Parameters](#parameters-6)
+  - [Examples](#examples-6)
+- [query](#query)
+  - [Parameters](#parameters-7)
+  - [Examples](#examples-7)
+- [serialise](#serialise)
+  - [Parameters](#parameters-8)
+  - [Examples](#examples-8)
+- [snake](#snake)
+  - [Parameters](#parameters-9)
+  - [Examples](#examples-9)
+- [splitModel](#splitmodel)
+  - [Parameters](#parameters-10)
+  - [Examples](#examples-10)
 
 ### camel
 
@@ -141,20 +138,20 @@ Converts kebab-case and snake_case into camelCase
 
 #### Parameters
 
-*   `input` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** String to convert
+- `input` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** String to convert
 
 #### Examples
 
 Convert kebab-case
 
 ```javascript
-camel('hello-world') // 'helloWorld'
+camel("hello-world"); // 'helloWorld'
 ```
 
 Convert snake_case
 
 ```javascript
-camel('hello_world') // 'helloWorld'
+camel("hello_world"); // 'helloWorld'
 ```
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase formatted string
@@ -167,7 +164,7 @@ Hoists attributes to be top-level
 
 #### Parameters
 
-*   `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Resource data
+- `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Resource data
 
 #### Examples
 
@@ -177,13 +174,13 @@ Deattribute an array of resources
 // JSON:API 'data' field
 const data = [
   {
-    id: '1',
-    type: 'users',
-    attributes: { slug: 'wopian' }
-  }
-]
+    id: "1",
+    type: "users",
+    attributes: { slug: "wopian" },
+  },
+];
 
-const output = deattribute(data) // [ { id: '1', type: 'users', slug: 'wopian' } ]
+const output = deattribute(data); // [ { id: '1', type: 'users', slug: 'wopian' } ]
 ```
 
 Deattribute a resource
@@ -191,12 +188,12 @@ Deattribute a resource
 ```javascript
 // JSON:API 'data' field
 const data = {
-  id: '1',
-  type: 'users',
-  attributes: { slug: 'wopian' }
-}
+  id: "1",
+  type: "users",
+  attributes: { slug: "wopian" },
+};
 
-const output = deattribute(data) // { id: '1', type: 'users', slug: 'wopian' }
+const output = deattribute(data); // { id: '1', type: 'users', slug: 'wopian' }
 ```
 
 Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Deattributed resource data
@@ -209,7 +206,7 @@ Deserialises a JSON-API response
 
 #### Parameters
 
-*   `response` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The raw JSON:API response object
+- `response` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The raw JSON:API response object
 
 #### Examples
 
@@ -218,11 +215,11 @@ Deserialise with a basic data object
 ```javascript
 deserialise({
   data: {
-    id: '1',
-    attributes: { liked: true }
+    id: "1",
+    attributes: { liked: true },
   },
-  meta: { hello: 'world' }
-}) // { data: { id: '1', liked: true }, meta: { hello: 'world' } }
+  meta: { hello: "world" },
+}); // { data: { id: '1', liked: true }, meta: { hello: 'world' } }
 ```
 
 Deserialise with relationships
@@ -230,23 +227,24 @@ Deserialise with relationships
 ```javascript
 deserialise({
   data: {
-    id: '1',
+    id: "1",
     relationships: {
       user: {
         data: {
-          type: 'users',
-          id: '2' }
-      }
-    }
+          type: "users",
+          id: "2",
+        },
+      },
+    },
   },
   included: [
     {
-      type: 'users',
-      id: '2',
-      attributes: { slug: 'wopian' }
-    }
-  ]
-}) // { data: { id: '1', user: { type: 'users', id: '2', slug: 'wopian' } } }
+      type: "users",
+      id: "2",
+      attributes: { slug: "wopian" },
+    },
+  ],
+}); // { data: { id: '1', user: { type: 'users', id: '2', slug: 'wopian' } } }
 ```
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The deserialised response
@@ -259,34 +257,36 @@ Uniform error handling for Axios, JSON:API and internal package errors. Mutated 
 
 #### Parameters
 
-*   `Error` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The Error
+- `Error` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The Error
 
 #### Examples
 
 ```javascript
-error('Hello')
+error("Hello");
 ```
 
 ```javascript
-error({errors: [ { code: 400 } ]})
+error({ errors: [{ code: 400 }] });
 ```
 
 ```javascript
 error({
   response: {
     data: {
-      errors: [ {
-        title: 'Filter is not allowed',
-        detail: 'x is not allowed',
-        code: '102',
-        status: '400'
-      } ]
-    }
-  }
-})
+      errors: [
+        {
+          title: "Filter is not allowed",
+          detail: "x is not allowed",
+          code: "102",
+          status: "400",
+        },
+      ],
+    },
+  },
+});
 ```
 
-*   Throws **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The mutated Error
+- Throws **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The mutated Error
 
 ### filterIncludes
 
@@ -296,29 +296,29 @@ Filters includes for the specific relationship requested
 
 #### Parameters
 
-*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The response included object
-*   `relationship` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+- `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The response included object
+- `relationship` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
-    *   `relationship.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
-    *   `relationship.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
+  - `relationship.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
+  - `relationship.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
 
 #### Examples
 
 ```javascript
 const includes = [
   {
-    id: '1',
-    type: 'users',
-    attributes: { name: 'Emma' }
+    id: "1",
+    type: "users",
+    attributes: { name: "Emma" },
   },
   {
-    id: '2',
-    type: 'users',
-    attributes: { name: 'Josh' }
-  }
-]
-const relationship = { id: '1', type: 'users' }
-const response = filterIncludes(includes, relationship)
+    id: "2",
+    type: "users",
+    attributes: { name: "Josh" },
+  },
+];
+const relationship = { id: "1", type: "users" };
+const response = filterIncludes(includes, relationship);
 // {
 //   id: '1',
 //   type: 'users',
@@ -336,12 +336,12 @@ Converts camelCase into kebab-case
 
 #### Parameters
 
-*   `input` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase string
+- `input` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase string
 
 #### Examples
 
 ```javascript
-kebab('helloWorld') // 'hello-world'
+kebab("helloWorld"); // 'hello-world'
 ```
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** kebab-case formatted string
@@ -354,27 +354,29 @@ Links relationships to included data
 
 #### Parameters
 
-*   `data` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response data object
-*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>?** The response included object (optional, default `[]`)
-*   `previouslyLinked` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** A mapping of already visited resources (internal use only) (optional, default `{}`)
+- `data` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response data object
+- `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>?** The response included object (optional, default `[]`)
+- `previouslyLinked` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** A mapping of already visited resources (internal use only) (optional, default `{}`)
 
 #### Examples
 
 ```javascript
 const data = {
-  attributes: { author: 'Joe' },
+  attributes: { author: "Joe" },
   relationships: {
     author: {
-      data: { id: '1', type: 'people' }
-    }
-  }
-}
-const included = [ {
-  id: '1',
-  type: 'people',
-  attributes: { name: 'Joe' }
-} ]
-const output = linkRelationships(data, included)
+      data: { id: "1", type: "people" },
+    },
+  },
+};
+const included = [
+  {
+    id: "1",
+    type: "people",
+    attributes: { name: "Joe" },
+  },
+];
+const output = linkRelationships(data, included);
 // {
 //   attributes: { author: 'Joe' },
 //   author: {
@@ -393,8 +395,8 @@ Constructs a URL query string for JSON:API parameters
 
 #### Parameters
 
-*   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Parameters to parse
-*   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Prefix for nested parameters - used internally (optional, default `null`)
+- `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Parameters to parse
+- `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Prefix for nested parameters - used internally (optional, default `null`)
 
 #### Examples
 
@@ -421,39 +423,42 @@ Serialises an object into a JSON-API structure
 
 #### Parameters
 
-*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource type
-*   `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)?** The data (optional, default `{}`)
-*   `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Request type (PATCH, POST, DELETE) (optional, default `'POST'`)
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional configuration for camelCase and pluralisation handling (optional, default `{}`)
+- `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource type
+- `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)?** The data (optional, default `{}`)
+- `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Request type (PATCH, POST, DELETE) (optional, default `'POST'`)
+- `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional configuration for camelCase and pluralisation handling (optional, default `{}`)
 
-    *   `options.camelCaseTypes` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core (optional, default `s=>s`)
-    *   `options.pluralTypes` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package) (optional, default `s=>s`)
+  - `options.camelCaseTypes` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core (optional, default `s=>s`)
+  - `options.pluralTypes` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package) (optional, default `s=>s`)
 
 #### Examples
 
 Setting camelCaseTypes and pluralTypes options (example shows options used by the `kitsu` package by default)
 
 ```javascript
-import { serialise, camel } from 'kitsu-core'
-import pluralize from 'pluralize'
+import { serialise, camel } from "kitsu-core";
+import pluralize from "pluralize";
 
-const model = 'anime'
-const obj = { id: '1', slug: 'shirobako' }
+const model = "anime";
+const obj = { id: "1", slug: "shirobako" };
 
 // { data: { id: '1', type: 'anime', attributes: { slug: 'shirobako' } } }
-const output = serialise(model, obj, 'PATCH', { camelCaseTypes: camel, pluralTypes: pluralize })
+const output = serialise(model, obj, "PATCH", {
+  camelCaseTypes: camel,
+  pluralTypes: pluralize,
+});
 ```
 
 Basic usage (no case conversion or pluralisation)
 
 ```javascript
-import { serialise } from 'kitsu-core'
+import { serialise } from "kitsu-core";
 
-const model = 'anime'
-const obj = { id: '1', slug: 'shirobako' }
+const model = "anime";
+const obj = { id: "1", slug: "shirobako" };
 
 // { data: { id: '1', type: 'anime', attributes: { slug: 'shirobako' } } }
-const output = serialise(model, obj, 'PATCH')
+const output = serialise(model, obj, "PATCH");
 ```
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The serialised data
@@ -466,12 +471,12 @@ Converts camelCase into snake_case
 
 #### Parameters
 
-*   `input` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase string
+- `input` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** camelCase string
 
 #### Examples
 
 ```javascript
-snake('helloWorld') // 'hello_world'
+snake("helloWorld"); // 'hello_world'
 ```
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** snake_case formatted string
@@ -484,35 +489,35 @@ Split model name from the model's resource URL
 
 #### Parameters
 
-*   `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** URL path for the model
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional configuration for camelCase and pluralisation handling
+- `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** URL path for the model
+- `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional configuration for camelCase and pluralisation handling
 
-    *   `options.resourceCase` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Convert libraryEntries to library-entries or library_entries (default no conversion). To use parameter, import kebab or snake from kitsu-core (optional, default `s=>s`)
-    *   `options.pluralModel` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Pluralise models (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package) (optional, default `s=>s`)
+  - `options.resourceCase` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Convert libraryEntries to library-entries or library_entries (default no conversion). To use parameter, import kebab or snake from kitsu-core (optional, default `s=>s`)
+  - `options.pluralModel` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Pluralise models (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package) (optional, default `s=>s`)
 
 #### Examples
 
 ```javascript
-splitModel('posts/1/comments')
+splitModel("posts/1/comments");
 // [ 'comments', 'posts/1/comments' ]
 ```
 
 With pluralModel option
 
 ```javascript
-import plural from 'pluralize'
-splitModel('posts/1/comment', { pluralModel: plural })
+import plural from "pluralize";
+splitModel("posts/1/comment", { pluralModel: plural });
 // [ 'comment', 'posts/1/comments' ]
 ```
 
 With resourceCase option
 
 ```javascript
-import { kebab, snake } from 'kitsu-core'
-splitModel('libraryEntries', { resourceCase: kebab })
+import { kebab, snake } from "kitsu-core";
+splitModel("libraryEntries", { resourceCase: kebab });
 // [ 'libraryEntries', 'library-entries' ]
 
-splitModel('libraryEntries', { resourceCase: snake })
+splitModel("libraryEntries", { resourceCase: snake });
 // [ 'libraryEntries', 'library_entries' ]
 ```
 
