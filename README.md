@@ -24,16 +24,16 @@ This is a monorepo containing the following packages:
 
 ## Features
 
--   JSON-API 1.0 compliant
--   Automatically links relationships to data
--   Works in Node & browsers
+- JSON-API 1.0 compliant
+- Automatically links relationships to data
+- Works in Node & browsers
 
 ## Node / Browser Support
 
-| Package      | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
+|      Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
 | -----------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu`      | ≤ 8.2 kb           | 10+  | 69+    | 68+     | 12+    | 18+  |
-| `kitsu-core` | ≤ 1.6 kb           | 10+  | 69+    | 68+     | 12+    | 18+  |
+|      `kitsu` |      ≤ 8.2 kb      | 10+  |  83+   |   78+   | 13.1+  | 95+  |
+| `kitsu-core` |      ≤ 1.6 kb      | 10+  |  83+   |   78+   | 13.1+  | 95+  |
 
 \* Including all dependencies & minified with brotli
 
@@ -50,11 +50,7 @@ See [Github Releases]
 All code released under [MIT]
 
 [kitsu]: https://github.com/wopian/kitsu/tree/master/packages/kitsu
-
 [kitsu-core]: https://github.com/wopian/kitsu/tree/master/packages/kitsu-core
-
-[Github Releases]: https://github.com/wopian/kitsu/releases
-
-[CONTRIBUTING]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
-
-[MIT]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
+[github releases]: https://github.com/wopian/kitsu/releases
+[contributing]: https://github.com/wopian/kitsu/blob/master/CONTRIBUTING.md
+[mit]: https://github.com/wopian/kitsu/blob/master/LICENSE.md
