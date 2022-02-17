@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.24](https://github.com/wopian/kitsu/compare/v9.1.23...v9.1.24) (2022-02-17)
+
+
+### Reverts
+
+* only update axios dependency ([4eea3f2](https://github.com/wopian/kitsu/commit/4eea3f202d1d958245708117796fa6e7da7f1281))
+
+
+
+
+
 ## [9.1.23](https://github.com/wopian/kitsu/compare/v9.1.22...v9.1.23) (2022-01-23)
 
 **Note:** Version bump only for package kitsu
