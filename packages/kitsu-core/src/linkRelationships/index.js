@@ -109,7 +109,7 @@ export function linkRelationships (data, included = []) {
     }
   }
 
-  if (Object.keys(relationships || []).length === 0 && relationships?.constructor === Object) {
+  if (Object.keys(relationships || []).length === 0 && typeof relationships === 'object' && !Array.isArray(relationships) && relationships !== null) {
     delete data.relationships
   }
 

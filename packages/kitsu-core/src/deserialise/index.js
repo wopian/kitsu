@@ -61,7 +61,7 @@ export function deserialise (response) {
   if (Array.isArray(response.data)) response = deserialiseArray(response)
   // Single resource with included relationships
   else if (response.included) response.data = linkRelationships(response.data, response.included)
-  else if (response.data?.constructor === Object) response.data = linkRelationships(response.data)
+  else if (typeof response.data === 'object' && response.data !== null) response.data = linkRelationships(response.data)
 
   delete response.included
 

@@ -489,6 +489,11 @@ describe('kitsu-core', () => {
       expect(deserialise([])).toEqual([])
     })
 
+    it('deserialises data correctly if null', () => {
+      expect.assertions(1)
+      expect(deserialise({ data: null })).toStrictEqual({ data: null })
+    })
+
     it('keeps all relationships', () => {
       expect.assertions(1)
       expect(deserialise({
