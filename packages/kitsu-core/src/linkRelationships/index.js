@@ -120,7 +120,7 @@ export function linkRelationships (data, included = [], previouslyLinked = {}) {
     }
   }
 
-  if (Object.keys(relationships || []).length === 0 && typeof relationships === 'object') {
+  if (Object.keys(relationships || []).length === 0 && typeof relationships === 'object' && relationships !== null) {
     delete data.relationships
   }
 
