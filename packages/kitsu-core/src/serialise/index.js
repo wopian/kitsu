@@ -202,12 +202,12 @@ function serialiseRootObject (type, payload, method, options) {
   for (const key in payload) {
     const node = payload[key]
     const nodeType = options.pluralTypes(options.camelCaseTypes(key))
-    // 1. Skip null nodes, 2. Only grab objects, 3. Filter to only serialise relationable objects
-    if (node !== null && typeof node === 'object' && hasID(node)) {
-      data = serialiseObject(node, nodeType, key, data)
     // 1. Skip null nodes, 2. Only grab arrays, 3. Filter to only serialise relationable arrays
-    } else if (node !== null && Array.isArray(node) && (node.length > 0 && hasID(node[0]))) {
+    if (node !== null && Array.isArray(node) && (node.length > 0 && hasID(node[0]))) {
       data = serialiseArray(node, nodeType, key, data)
+    // 1. Skip null nodes, 2. Only grab objects, 3. Filter to only serialise relationable objects
+    } else if (node !== null && typeof node === 'object' && hasID(node)) {
+      data = serialiseObject(node, nodeType, key, data)
     // 1. Don't place id/key inside attributes object
     } else if (key !== 'id' && key !== 'type') {
       data = serialiseAttr(node, key, data)
