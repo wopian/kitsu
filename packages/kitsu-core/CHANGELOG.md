@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.22](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.21...v10.0.0-alpha.22) (2022-03-04)
+
+
+### Bug Fixes
+
+* **kitsu-core:** use typeof instead of constructor comparison for checking if Object ([#654](https://github.com/wopian/kitsu/issues/654)) ([af9d893](https://github.com/wopian/kitsu/commit/af9d8937117abcd678ec45e10815b6e8256a03da))
+
+
+
+
+
 # [10.0.0-alpha.21](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.20...v10.0.0-alpha.21) (2022-02-17)
 
 **Note:** Version bump only for package kitsu-core
