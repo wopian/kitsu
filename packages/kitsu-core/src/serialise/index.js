@@ -106,7 +106,7 @@ function serialiseRelation (node, nodeType, key, data) {
 function serialiseAttr (node, key, data) {
   if (!data.attributes) data.attributes = {}
   if (key === 'links' && (typeof node.self === 'string' || typeof node.related === 'string')) data.links = node
-  else if (key === 'meta' && node.constructor === Object) data.meta = node
+  else if (key === 'meta' && typeof node === 'object') data.meta = node
   else data.attributes[key] = node
   return data
 }
@@ -170,7 +170,7 @@ function serialiseRootObject (type, payload, method, options) {
     const node = payload[key]
     const nodeType = options.pluralTypes(options.camelCaseTypes(key))
     // 1. Skip null nodes, 2. Only grab objects, 3. Filter to only serialise relationable objects
-    if (node !== null && node?.constructor === Object && hasID(node)) {
+    if (node !== null && typeof node === 'object' && hasID(node)) {
       data = serialiseRelation(node, nodeType, key, data)
     // 1. Don't place id/key inside attributes object
     } else if (key !== 'id' && key !== 'type') {
