@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.25](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.1.24...v9.1.25) (2022-03-04)
+
+
+### Bug Fixes
+
+* **kitsu-core:** use typeof instead of constructor comparison for checking if Object ([#655](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/issues/655)) ([4b56ec3](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/commit/4b56ec348001e80ae4b33479fa728805729511f6))
+
+
+
+
+
 ## [9.1.24](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.1.23...v9.1.24) (2022-02-17)
 
 **Note:** Version bump only for package kitsu-core
