@@ -29,7 +29,7 @@
 export function deattribute (data) {
   if (typeof data === 'object' && data !== null) {
     if (Array.isArray(data)) data.map(el => deattribute(el))
-    else if (typeof data.attributes === 'object') {
+    else if (typeof data.attributes === 'object' && data.attributes !== null) {
       for (const key of Object.keys(data.attributes)) {
         // Hoist everything but attributes to parent to avoid issues with deleting
         // as can't delete data.attributes[key] as it will belete data[key] too
