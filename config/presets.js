@@ -1,4 +1,4 @@
-const minNode = 12
+const minNode = 14
 const mainBrowsers = [
   'last 2 years',
   'not < 0.05%'
