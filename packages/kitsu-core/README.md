@@ -38,7 +38,7 @@
 
 |      Package | Package<br> Size\* | ESM Size† | Node | Chrome | Firefox | Safari | Edge |
 | -----------: | :----------------: | :-------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu-core` |      ≤ 1.5 kb      | ≤ 1.4 KB  | 12+  |  83+   |   78+   | 13.1+  | 95+  |
+| `kitsu-core` |      ≤ 1.5 kb      | ≤ 1.4 KB  | 14+  |  83+   |   78+   | 13.1+  | 95+  |
 
 \* Minified with brotli
 † EcmaScript Modules package size\*
