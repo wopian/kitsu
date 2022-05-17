@@ -1,0 +1,20 @@
+name: Yarn
+on: [pull_request]
+jobs:
+  yarn_lock_changes:
+    name: Lock File Changes
+    runs-on: ubuntu-latest
+    # Permission overwrite is required for Dependabot PRs
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Digest Lock File
+        uses: Simek/yarn-lock-changes@b6e17ea
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          collapsibleThreshold: 25
+          failOnDowngrade: false
+          path: yarn.lock
+          updateComment: true
