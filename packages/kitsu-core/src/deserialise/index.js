@@ -10,8 +10,7 @@ import { linkRelationships } from '../linkRelationships'
  */
 function deserialiseArray (array) {
   for (let value of array.data) {
-    if (array.included) value = linkRelationships(value, array.included)
-    if (value.relationships) value = linkRelationships(value)
+    value = linkRelationships(value, [ ...array.data, ...(array.included || []) ])
     if (value.attributes) value = deattribute(value)
     array.data[array.data.indexOf(value)] = value
   }
