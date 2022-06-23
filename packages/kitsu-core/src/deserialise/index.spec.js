@@ -670,5 +670,122 @@ describe('kitsu-core', () => {
         ]
       })
     })
+
+    it('deserialises a relationship from the data key', () => {
+      expect.assertions(1)
+
+      const input = deserialise({
+        data: [
+          {
+            id: '1',
+            type: 'anime',
+            attributes: { name: 'A' },
+            relationships: {
+              prequel: {
+                data: {
+                  type: 'anime',
+                  id: '42'
+                }
+              }
+            }
+          },
+          {
+            id: '2',
+            type: 'anime',
+            attributes: { name: 'B' },
+            relationships: {
+              prequel: {
+                data: {
+                  type: 'anime',
+                  id: '1'
+                }
+              }
+            }
+          },
+          {
+            id: '3',
+            type: 'anime',
+            attributes: { name: 'C' },
+            relationships: {
+              prequel: {
+                data: {
+                  type: 'anime',
+                  id: '4'
+                }
+              }
+            }
+          }
+        ],
+        included: [
+          {
+            id: '4',
+            type: 'anime',
+            attributes: { name: 'D' },
+            relationships: {
+              prequel: {
+                data: {
+                  type: 'anime',
+                  id: '42'
+                }
+              }
+            }
+          }
+        ]
+      })
+
+      const output = {
+        data: [
+          {
+            id: '1',
+            type: 'anime',
+            name: 'A',
+            prequel: {
+              data: {
+                id: '42',
+                type: 'anime'
+              }
+            }
+          },
+          {
+            id: '2',
+            type: 'anime',
+            name: 'B',
+            prequel: {
+              data: {
+                id: '1',
+                type: 'anime',
+                name: 'A',
+                prequel: {
+                  data: {
+                    id: '42',
+                    type: 'anime'
+                  }
+                }
+              }
+            }
+          },
+          {
+            id: '3',
+            type: 'anime',
+            name: 'C',
+            prequel: {
+              data: {
+                id: '4',
+                type: 'anime',
+                name: 'D',
+                prequel: {
+                  data: {
+                    id: '42',
+                    type: 'anime'
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+
+      expect(input).toEqual(output)
+    })
   })
 })
