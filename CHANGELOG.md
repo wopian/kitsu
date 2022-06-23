@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.24](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.23...v10.0.0-alpha.24) (2022-06-23)
+
+
+### Bug Fixes
+
+* **kitsu-core:** fix deserialisation of relationships from primary data ([#683](https://github.com/wopian/kitsu/issues/683)) ([42b871e](https://github.com/wopian/kitsu/commit/42b871ebdd37600432613cefef247503413d890b))
+
+
+
+
+
+
 # [10.0.0-alpha.23](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.22...v10.0.0-alpha.23) (2022-05-03)
 
 **Note:** Version bump only for package kitsujs
