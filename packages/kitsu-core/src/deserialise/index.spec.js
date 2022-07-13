@@ -553,8 +553,7 @@ describe('kitsu-core', () => {
       })
     })
 
-    // TODO: https://github.com/wopian/kitsu/issues/579
-    it.skip('deserialises nested relationships of same name', () => {
+    it('deserialises nested relationships of same name', () => {
       expect.assertions(1)
       expect(deserialise({
         data: [

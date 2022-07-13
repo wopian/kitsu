@@ -35,12 +35,18 @@ function link ({ id, type, meta }, included, previouslyLinked) {
  */
 function linkArray (data, included, key, previouslyLinked) {
   data[key] = {}
+
   if (data.relationships[key].links) data[key].links = data.relationships[key].links
+
   data[key].data = []
+
   for (const resource of data.relationships[key].data) {
     const cache = previouslyLinked[`${resource.type}#${resource.id}`]
-    data[key].data.push(cache || link(resource, included, previouslyLinked))
+    let relationship = cache || link(resource, included, previouslyLinked)
+    if (resource.meta !== relationship.meta) relationship = { ...relationship, meta: resource.meta }
+    data[key].data.push(relationship)
   }
+
   delete data.relationships[key]
 }
 

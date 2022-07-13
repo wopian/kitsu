@@ -284,6 +284,12 @@ export default {
               self: 'https://kitsu.io/api/edge/categories/155'
             },
             nsfw: false,
+            parent: {
+              links: {
+                related: 'https://kitsu.io/api/edge/categories/155/parent',
+                self: 'https://kitsu.io/api/edge/categories/155/relationships/parent'
+              }
+            },
             slug: 'science-fiction',
             title: 'Science Fiction',
             totalMediaCount: 4368,
