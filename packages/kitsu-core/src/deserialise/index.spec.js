@@ -1,4 +1,5 @@
 import { deserialise } from './'
+import stringify from 'json-stringify-safe'
 
 describe('kitsu-core', () => {
   describe('deserialise', () => {
@@ -776,6 +777,156 @@ describe('kitsu-core', () => {
                   data: {
                     id: '42',
                     type: 'anime'
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+
+      expect(input).toEqual(output)
+    })
+
+    it('Deserializes nested single circular resource', () => {
+      expect.assertions(1)
+
+      const input = JSON.parse(stringify(deserialise({
+        data: [
+          {
+            id: '1',
+            type: 'anime',
+            attributes: { name: 'A' },
+            relationships: {
+              user: {
+                data: {
+                  id: '1',
+                  type: 'users'
+                },
+                links: {
+                  self: 'https://kitsu.example/user',
+                  related: 'https://kitsu.example/user'
+                },
+                meta: {
+                  hello: 'world'
+                }
+              }
+            }
+          },
+          {
+            id: '2',
+            type: 'anime',
+            attributes: { name: 'B' },
+            relationships: {
+              user: {
+                data: {
+                  id: '1',
+                  type: 'users'
+                }
+              }
+            }
+          }
+        ],
+        included: [
+          {
+            id: '1',
+            type: 'users',
+            attributes: { name: 'B' },
+            relationships: {
+              favorite_anime: {
+                data: {
+                  id: '1',
+                  type: 'anime'
+                },
+                links: {
+                  self: 'https://kitsu.example/favorite_anime',
+                  related: 'https://kitsu.example/favorite_anime'
+                },
+                meta: {
+                  test: '123123'
+                }
+              }
+            }
+          }
+        ]
+      })))
+
+      const output = {
+        data: [
+          {
+            id: '1',
+            type: 'anime',
+            name: 'A',
+            user: {
+              links: {
+                self: 'https://kitsu.example/user',
+                related: 'https://kitsu.example/user'
+              },
+              meta: {
+                hello: 'world'
+              },
+              data: {
+                id: '1',
+                type: 'users',
+                name: 'B',
+                favorite_anime: {
+                  meta: {
+                    test: '123123'
+                  },
+                  links: {
+                    self: 'https://kitsu.example/favorite_anime',
+                    related: 'https://kitsu.example/favorite_anime'
+                  },
+                  data: {
+                    id: '1',
+                    type: 'anime',
+                    name: 'A',
+                    user: {
+                      meta: {
+                        hello: 'world'
+                      },
+                      data: '[Circular ~.data.0.user.data]',
+                      links: {
+                        self: 'https://kitsu.example/user',
+                        related: 'https://kitsu.example/user'
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            id: '2',
+            type: 'anime',
+            name: 'B',
+            user: {
+              data: {
+                id: '1',
+                type: 'users',
+                name: 'B',
+                favorite_anime: {
+                  meta: {
+                    test: '123123'
+                  },
+                  links: {
+                    self: 'https://kitsu.example/favorite_anime',
+                    related: 'https://kitsu.example/favorite_anime'
+                  },
+                  data: {
+                    id: '1',
+                    type: 'anime',
+                    name: 'A',
+                    user: {
+                      meta: {
+                        hello: 'world'
+                      },
+                      data: '[Circular ~.data.1.user.data]',
+                      links: {
+                        self: 'https://kitsu.example/user',
+                        related: 'https://kitsu.example/user'
+                      }
+                    }
                   }
                 }
               }
