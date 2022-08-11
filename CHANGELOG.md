@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.28](https://github.com/wopian/kitsu/compare/v9.1.27...v9.1.28) (2022-08-11)
+
+
+### Reverts
+
+* restore minNode version to 10 ([0c21e0a](https://github.com/wopian/kitsu/commit/0c21e0ad25763cd4b6f7e79c1f0364b512fd3754))
+
+
+
+
+
+
 ## [9.1.27](https://github.com/wopian/kitsu/compare/v9.1.26...v9.1.27) (2022-08-11)
 
 **Note:** Version bump only for package kitsujs
