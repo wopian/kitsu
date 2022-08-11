@@ -68,8 +68,9 @@ function linkObject (data, included, key, previouslyLinked, relationshipCache) {
   const cache = previouslyLinked[`${resource.type}#${resource.id}`]
   data[key].data = cache || link(resource, included, previouslyLinked, relationshipCache)
 
-  const relationships = relationshipCache[`${data.type}#${data.id}#${key}`] || data.relationships[key]
-  if (!relationshipCache[`${data.type}#${data.id}#${key}`]) relationshipCache[`${data.type}#${data.id}#${key}`] = relationships
+  const cacheKey = `${data.type}#${data.id}#${key}`
+  const relationships = relationshipCache[cacheKey] || data.relationships[key]
+  if (!relationshipCache[cacheKey]) relationshipCache[cacheKey] = relationships
 
   if (relationships && relationships.links) data[key].links = relationships.links
   if (relationships && relationships.meta) data[key].meta = relationships.meta
