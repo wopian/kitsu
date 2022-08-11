@@ -39,6 +39,7 @@ function linkArray (data, included, key, previouslyLinked, relationshipCache) {
   data[key] = {}
 
   if (data.relationships[key].links) data[key].links = data.relationships[key].links
+  if (data.relationships[key].meta) data[key].meta = data.relationships[key].meta
 
   data[key].data = []
 
