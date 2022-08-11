@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-alpha.26](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.25...v10.0.0-alpha.26) (2022-08-11)
+
+
+### Bug Fixes
+
+* **kitsu-core:** fix inability to link relationship links on circular resources ([#699](https://github.com/wopian/kitsu/issues/699)) ([95d3453](https://github.com/wopian/kitsu/commit/95d3453e61ac9883c6dcb30b15402ddae3587019))
+
+
+
+
+
+
 # [10.0.0-alpha.25](https://github.com/wopian/kitsu/compare/v10.0.0-alpha.24...v10.0.0-alpha.25) (2022-07-13)
 
 **Note:** Version bump only for package kitsu-core
