@@ -12,7 +12,11 @@ function deserialiseArray (array) {
   const previouslyLinked = {}
   const relationshipCache = {}
   for (let value of array.data) {
-    value = linkRelationships(value, [ ...array.data, ...(array.included || []) ], previouslyLinked, relationshipCache)
+    const included = [
+      ...array.data.map(item => ({ ...item, relationships: { ...item.relationships } })),
+      ...(array.included || [])
+    ]
+    value = linkRelationships(value, included, previouslyLinked, relationshipCache)
     if (value.attributes) value = deattribute(value)
     array.data[array.data.indexOf(value)] = value
   }
