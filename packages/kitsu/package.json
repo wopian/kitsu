@@ -8,7 +8,8 @@
     "Daniel Skogly <daniel.skogly@protonmail.com>",
     "Lukas Erlacher <erlacher@in.tum.de>",
     "Matthew Dias <matthewdias@me.com>",
-    "Menthol <bennetteson@gmail.com>"
+    "Menthol <bennetteson@gmail.com>",
+    "pedep <pedep@users.noreply.github.com>"
   ],
   "license": "MIT",
   "main": "dist/index",
