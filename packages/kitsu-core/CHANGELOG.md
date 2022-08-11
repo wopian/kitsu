@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.27](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.1.26...v9.1.27) (2022-08-11)
+
+**Note:** Version bump only for package kitsu-core
+
+
+
+
+
+
 ## [9.1.26](https://github.com/wopian/kitsu/tree/master/packages/kitsu-core/compare/v9.1.25...v9.1.26) (2022-08-11)
 
 **Note:** Version bump only for package kitsu-core
