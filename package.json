@@ -50,7 +50,7 @@
     "rollup": "~2.15.0",
     "rollup-plugin-delete": "~2.0.0",
     "rollup-plugin-local-resolve": "~1.0.7",
-    "size-limit": "~4.5.0",
+    "size-limit": "~8.0.0",
     "typescript": "~3.9.3"
   },
   "jest": {
@@ -75,6 +75,9 @@
       ":pathSemanticCommitType(packages/kitsu/**,build(kitsu))",
       ":pathSemanticCommitType(packages/kitsu-core/**,build(kitsu-core))"
     ],
-    "baseBranches": ["master", "9.x"]
+    "baseBranches": [
+      "master",
+      "9.x"
+    ]
   }
 }

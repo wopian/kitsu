@@ -54,18 +54,18 @@
   "size-limit": [
     {
       "path": "./lib/index.js",
-      "limit": "10 kb",
+      "limit": "11 kb",
       "brotli": true
     },
     {
       "path": "./lib/index.mjs",
-      "limit": "10 kb",
+      "limit": "11 kb",
       "brotli": true
     }
   ],
   "gitHead": "5c9778d191d17d7c9790cfc6d0f4e983b4742a53",
   "devDependencies": {
-    "@size-limit/preset-small-lib": "~4.5.0"
+    "@size-limit/preset-small-lib": "~8.0.0"
   },
   "exports": {
     "./package.json": "./package.json",
