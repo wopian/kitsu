@@ -43,18 +43,18 @@ export default class Kitsu {
     headers: any;
     axios: import("axios").AxiosInstance;
     fetch: (model: string, params?: {
-        page: {
-            limit: number;
-            offset: number;
-            number: number;
-            size: number;
-            before: string;
-            after: string;
+        page?: {
+            limit?: number;
+            offset?: number;
+            number?: number;
+            size?: number;
+            before?: string;
+            after?: string;
         };
-        fields: any;
-        filter: any;
-        sort: string;
-        include: string;
+        fields?: any;
+        filter?: any;
+        sort?: string;
+        include?: string;
     }, headers?: any) => any;
     update: (model: string, body: any | any[], headers?: any) => any | any[];
     create: (model: string, body: any | any[], headers?: any) => any | any[];
@@ -178,18 +178,18 @@ export default class Kitsu {
      *   })
      */
     get(model: string, params?: {
-        page: {
-            limit: number;
-            offset: number;
-            number: number;
-            size: number;
-            before: string;
-            after: string;
+        page?: {
+            limit?: number;
+            offset?: number;
+            number?: number;
+            size?: number;
+            before?: string;
+            after?: string;
         };
-        fields: any;
-        filter: any;
-        sort: string;
-        include: string;
+        fields?: any;
+        filter?: any;
+        sort?: string;
+        include?: string;
     }, headers?: any): any;
     /**
      * Update a resource (alias `update`)
@@ -285,8 +285,8 @@ export default class Kitsu {
      * })
      */
     self(params?: {
-        fields: any;
-        include: string;
+        fields?: any;
+        include?: string;
     }, headers?: any): any;
     /**
      * Send arbitrary requests
@@ -350,16 +350,16 @@ export default class Kitsu {
     request({ body, method, params, type, url }?: {
         url: string;
         type: string;
-        body: any | any[];
-        method: string;
-        params: {
-            page: {
-                limit: number;
-                offset: number;
-                number: number;
-                size: number;
-                before: string;
-                after: string;
+        body?: any | any[];
+        method?: string;
+        params?: {
+            page?: {
+                limit?: number;
+                offset?: number;
+                number?: number;
+                size?: number;
+                before?: string;
+                after?: string;
             };
         };
     }, headers?: any): any;

@@ -29,6 +29,6 @@
  * const output = serialise(model, obj, 'PATCH')
  */
 export function serialise(type: string, data?: any | any[], method?: string, options?: {
-    camelCaseTypes: Function;
-    pluralTypes: Function;
+    camelCaseTypes?: Function;
+    pluralTypes?: Function;
 }): any;
