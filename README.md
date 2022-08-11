@@ -2,7 +2,6 @@
 
 <p align=center>
   <a href=https://github.com/wopian/kitsu/actions><img alt=checks src=https://flat.badgen.net/github/checks/wopian/kitsu></a>
-  <a href="https://david-dm.org/wopian/kitsu?type=dev"><img alt=devDeps src=https://flat.badgen.net/david/dev/wopian/kitsu></a>
   <a href=https://codeclimate.com/github/wopian/kitsu/code?sort=test_coverage><img alt=coverage src=https://flat.badgen.net/codeclimate/coverage/wopian/kitsu></a>
   <a href=https://codeclimate.com/github/wopian/kitsu/code?sort=maintainability><img alt=maintainability src=https://flat.badgen.net/codeclimate/maintainability/wopian/kitsu></a>
 </p>
