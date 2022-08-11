@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         node_version: [14, 16, 18]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest]
 
     steps:
     - name: Checkout repository
@@ -45,12 +45,7 @@ jobs:
       if: ${{ matrix.os == 'ubuntu-latest' }}
 
     - name: Jest with code coverage
-      if: ${{ matrix.node_version == 16 && matrix.os == 'ubuntu-latest' }}
       run: yarn test:coverage
-
-    - name: Jest
-      if: ${{ matrix.node_version != 16 || matrix.os != 'ubuntu-latest' }}
-      run: yarn jest
 
     - name: Upload test coverage to Code Climate
       if: ${{ matrix.node_version == 16 && matrix.os == 'ubuntu-latest' }}
@@ -67,7 +62,7 @@ jobs:
     strategy:
       matrix:
         node_version: [18]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest]
 
     steps:
     - name: Checkout repository
@@ -98,4 +93,3 @@ jobs:
 
     - name: Lint package sizes
       run: yarn size
-      if: ${{ matrix.os == 'ubuntu-latest' }}
