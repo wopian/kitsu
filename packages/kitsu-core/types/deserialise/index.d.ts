@@ -32,6 +32,6 @@
  *       attributes: { slug: 'wopian' }
  *     }
  *   ]
- * }) // { data: { id: '1', user: { type: 'users', id: '2', slug: 'wopian' } } }
+ * }) // { data: { id: '1', user: { data: { type: 'users', id: '2', slug: 'wopian' } } } }
  */
 export function deserialise(response: any): any;
