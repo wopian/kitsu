@@ -14,8 +14,8 @@ afterEach(() => {
 
 describe('kitsu', () => {
   describe('patch', () => {
-    it('sends headers', async done => {
-      expect.assertions(1)
+    it('sends headers', async () => {
+      expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPatch('/anime/1').reply(config => {
         expect(config.headers).toEqual({
@@ -26,14 +26,11 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      api.patch('anime', { id: '1', type: 'anime' }, { extra: true }).catch(err => {
-        done.fail(err)
-      })
-      done()
+      await expect(await api.patch('anime', { id: '1', type: 'anime' }, { extra: true })).toBeUndefined()
     })
 
-    it('sends data in request', async done => {
-      expect.assertions(1)
+    it('sends data in request', async () => {
+      expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPatch('/posts/1').reply(config => {
         expect(JSON.parse(config.data)).toEqual({
@@ -47,14 +44,11 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      api.patch('post', { id: '1', content: 'Hello World' }).catch(err => {
-        done.fail(err)
-      })
-      done()
+      await expect(await api.patch('post', { id: '1', content: 'Hello World' })).toBeUndefined()
     })
 
-    it('sends bulk data in request', async done => {
-      expect.assertions(1)
+    it('sends bulk data in request', async () => {
+      expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPatch('/posts').reply(config => {
         expect(JSON.parse(config.data)).toEqual({
@@ -77,13 +71,10 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      api.patch('post', [
+      await expect(await api.patch('post', [
         { id: '1', content: 'Hello World' },
         { id: '2', content: 'Hey World' }
-      ]).catch(err => {
-        done.fail(err)
-      })
-      done()
+      ])).toBeUndefined()
     })
 
     it('throws an error if missing a JSON object body', async () => {
