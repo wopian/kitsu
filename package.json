@@ -28,7 +28,8 @@
     "release": "yarn updated && yarn release:test && yarn release:commit && yarn release:lerna",
     "release:test": "jest && yarn lint && yarn docs:release && yarn build",
     "release:commit": "git commit -am \"chore(release): update documentation\"",
-    "release:lerna": "lerna publish --preid=alpha",
+    "release:lerna": "lerna publish",
+    "release:lerna-alpha": "lerna publish --preid=alpha",
     "browserslist": "browserslist \"last 2 years, not < 0.05%\"",
     "size": "lerna exec size-limit"
   },
@@ -126,6 +127,9 @@
       ":pathSemanticCommitType(packages/kitsu/**,build(kitsu))",
       ":pathSemanticCommitType(packages/kitsu-core/**,build(kitsu-core))"
     ],
-    "baseBranches": ["master", "9.x"]
+    "baseBranches": [
+      "master",
+      "9.x"
+    ]
   }
 }
