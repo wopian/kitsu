@@ -3,7 +3,6 @@
 <p align=center>
   <a href=https://www.npmjs.com/package/kitsu><img alt=npm src=https://flat.badgen.net/npm/v/kitsu></a>
   <a href=https://www.npmjs.com/package/kitsu><img alt=npm src=https://flat.badgen.net/npm/dt/kitsu></a>
-  <a href="https://david-dm.org/wopian/kitsu?path=packages/kitsu"><img alt=deps src="https://flat.badgen.net/david/dep/wopian/kitsu/packages/kitsu"></a>
   <a href="https://bundlephobia.com/result?p=kitsu"><img alt=bundlephobia src='https://flat.badgen.net/bundlephobia/minzip/kitsu?label=library%20size'></a>
   <img alt=types src='https://flat.badgen.net/npm/types/kitsu'>
 </p>
