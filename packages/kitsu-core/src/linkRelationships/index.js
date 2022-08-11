@@ -72,8 +72,8 @@ function linkObject (data, included, key, previouslyLinked, relationshipCache) {
   const relationships = relationshipCache[cacheKey] || data.relationships[key]
   if (!relationshipCache[cacheKey]) relationshipCache[cacheKey] = relationships
 
-  if (relationships && relationships.links) data[key].links = relationships.links
-  if (relationships && relationships.meta) data[key].meta = relationships.meta
+  if (relationships?.links) data[key].links = relationships.links
+  if (relationships?.meta) data[key].meta = relationships.meta
 
   delete data.relationships[key]
 }
