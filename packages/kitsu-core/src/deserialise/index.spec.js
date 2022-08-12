@@ -1102,4 +1102,149 @@ describe('kitsu-core', () => {
       expect(input).toEqual(output)
     })
   })
+
+  it('Deserializes first level resources after being serialized as a relationship', () => {
+    expect.assertions(1)
+
+    const input = JSON.parse(stringify(deserialise({
+      data: [
+        {
+          id: '5',
+          type: 'articles',
+          attributes: { title: 'asd0' },
+          relationships: {
+            author: {
+              data: {
+                id: '11',
+                type: 'authors'
+              },
+              links: { self: 'http://kitsu.example.com/authors' },
+              meta: { authors: 'articles#5' }
+            }
+          }
+        },
+        {
+          id: '6',
+          type: 'articles',
+          attributes: { title: 'asd1' },
+          relationships: {
+            author: {
+              data: {
+                id: '11',
+                type: 'authors'
+              },
+              links: { self: 'http://kitsu.example.com/authors' },
+              meta: { authors: 'articles#6' }
+            }
+          }
+        }
+      ],
+      included: [
+        {
+          id: '11',
+          type: 'authors',
+          attributes: { first_name: 'Egon', last_name: 'Egonsen' },
+          relationships: {
+            articles: {
+              data: [
+                {
+                  id: '5',
+                  type: 'articles'
+                },
+                {
+                  id: '6',
+                  type: 'articles'
+                }
+              ]
+            }
+          }
+        }
+      ]
+    })))
+
+    const output = {
+      data: [
+        {
+          id: '5',
+          type: 'articles',
+          title: 'asd0',
+          author: {
+            links: { self: 'http://kitsu.example.com/authors' },
+            meta: { authors: 'articles#5' },
+            data: {
+              id: '11',
+              type: 'authors',
+              first_name: 'Egon',
+              last_name: 'Egonsen',
+              articles: {
+                data: [
+                  {
+                    id: '5',
+                    type: 'articles',
+                    title: 'asd0',
+                    author: {
+                      data: '[Circular ~.data.0.author.data]',
+                      links: { self: 'http://kitsu.example.com/authors' },
+                      meta: { authors: 'articles#5' }
+                    }
+                  },
+                  {
+                    id: '6',
+                    type: 'articles',
+                    title: 'asd1',
+                    author: {
+                      data: '[Circular ~.data.0.author.data]',
+                      links: { self: 'http://kitsu.example.com/authors' },
+                      meta: { authors: 'articles#6' }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          id: '6',
+          type: 'articles',
+          title: 'asd1',
+          author: {
+            links: { self: 'http://kitsu.example.com/authors' },
+            meta: { authors: 'articles#6' },
+            data: {
+              id: '11',
+              type: 'authors',
+              first_name: 'Egon',
+              last_name: 'Egonsen',
+              articles: {
+                data: [
+                  {
+                    id: '5',
+                    type: 'articles',
+                    title: 'asd0',
+                    author: {
+                      data: '[Circular ~.data.1.author.data]',
+                      links: { self: 'http://kitsu.example.com/authors' },
+                      meta: { authors: 'articles#5' }
+                    }
+                  },
+                  {
+                    id: '6',
+                    type: 'articles',
+                    title: 'asd1',
+                    author: {
+                      data: '[Circular ~.data.1.author.data]',
+                      links: { self: 'http://kitsu.example.com/authors' },
+                      meta: { authors: 'articles#6' }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+
+    expect(input).toEqual(output)
+  })
 })
