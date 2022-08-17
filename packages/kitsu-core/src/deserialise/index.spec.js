@@ -186,6 +186,33 @@ describe('kitsu-core', () => {
       })
     })
 
+    it('deserialises relationships with meta', () => {
+      expect.assertions(1)
+      expect(deserialise({
+        data: {
+          id: '1',
+          type: 'users',
+          relationships: {
+            followers: {
+              meta: {
+                follower_count: 200
+              }
+            }
+          }
+        }
+      })).toEqual({
+        data: {
+          id: '1',
+          type: 'users',
+          followers: {
+            meta: {
+              follower_count: 200
+            }
+          }
+        }
+      })
+    })
+
     it('deserialises relationships with links and data (array)', () => {
       expect.assertions(1)
 
