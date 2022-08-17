@@ -62,6 +62,7 @@ function linkObject (data, included, key) {
 function linkAttr (data, key) {
   data[key] = {}
   if (data.relationships[key].links) data[key].links = data.relationships[key].links
+  if (data.relationships[key].meta) data[key].meta = data.relationships[key].meta
   delete data.relationships[key]
 }
 
