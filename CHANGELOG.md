@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.29](https://github.com/wopian/kitsu/compare/v9.1.28...v9.1.29) (2022-08-17)
+
+
+### Bug Fixes
+
+* **kitsu-core:** deserialize meta only relationships ([#728](https://github.com/wopian/kitsu/issues/728)) ([01935b0](https://github.com/wopian/kitsu/commit/01935b009984501d80976a66d5228ab2393ac71a)), closes [#727](https://github.com/wopian/kitsu/issues/727)
+
+
+
+
+
+
 ## [9.1.28](https://github.com/wopian/kitsu/compare/v9.1.27...v9.1.28) (2022-08-11)
 
 
