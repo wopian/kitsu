@@ -46,7 +46,7 @@
     "eslint": "~8.23.0",
     "eslint-config-wopian": "~3.0.0",
     "jest": "~28.1.0",
-    "lerna": "~3.22.0",
+    "lerna": "~5.5.0",
     "rollup": "~2.79.0",
     "rollup-plugin-delete": "~2.0.0",
     "rollup-plugin-local-resolve": "~1.0.7",
