@@ -128,8 +128,7 @@
       ":pathSemanticCommitType(packages/kitsu-core/**,build(kitsu-core))"
     ],
     "baseBranches": [
-      "master",
-      "9.x"
+      "master"
     ]
   }
 }
