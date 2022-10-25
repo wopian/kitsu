@@ -7,7 +7,8 @@
  * @private
  */
 function queryFormat (value, key) {
-  if (value !== null && typeof value === 'object') return query(value, key)
+  if (value !== null && Array.isArray(value)) return value.map(v => queryFormat(v, `${key}[]`)).join('&')
+  else if (value !== null && typeof value === 'object') return query(value, key)
   else return encodeURIComponent(key) + '=' + encodeURIComponent(value)
 }
 
