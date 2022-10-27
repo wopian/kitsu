@@ -23,12 +23,16 @@ try {
   api.create('posts', {
     content: 'Hello World',
     targetUser: {
-      id: 42603,
-      type: 'users'
+      data: {
+        id: 42603,
+        type: 'users'
+      }
     },
     user: {
-      id: 77404,
-      type: 'users'
+      data: {
+        id: 77404,
+        type: 'users'
+      }
     }
   })
     .then(response => console.log(response))
