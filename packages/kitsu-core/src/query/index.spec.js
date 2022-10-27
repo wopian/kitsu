@@ -65,7 +65,7 @@ describe('kitsu-core', () => {
         filter: {
           id_in: [ 1, 2, 3 ]
         }
-      })).toEqual('filter%5Bid_in%5D%5B%5D=1&filter%5Bid_in%5D%5B%5D=2&filter%5Bid_in%5D%5B%5D=3')
+      })).toEqual('filter%5Bid_in%5D=1&filter%5Bid_in%5D=2&filter%5Bid_in%5D=3')
     })
 
     it('builds nested list parameters', () => {
@@ -74,7 +74,7 @@ describe('kitsu-core', () => {
         filter: {
           users: [ { id: 1, type: 'users' }, { id: 2, type: 'users' } ]
         }
-      })).toEqual('filter%5Busers%5D%5B%5D%5Bid%5D=1&filter%5Busers%5D%5B%5D%5Btype%5D=users&filter%5Busers%5D%5B%5D%5Bid%5D=2&filter%5Busers%5D%5B%5D%5Btype%5D=users')
+      })).toEqual('filter%5Busers%5D%5Bid%5D=1&filter%5Busers%5D%5Btype%5D=users&filter%5Busers%5D%5Bid%5D=2&filter%5Busers%5D%5Btype%5D=users')
     })
   })
 })
