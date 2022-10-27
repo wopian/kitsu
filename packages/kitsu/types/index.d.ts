@@ -275,12 +275,16 @@ export default class Kitsu {
      * api.create('posts', {
      *   content: 'Hello World',
      *   targetUser: {
-     *     id: '42603',
-     *     type: 'users'
+     *     data: {
+     *       id: '42603',
+     *       type: 'users'
+     *     }
      *   },
      *   user: {
-     *     id: '42603',
-     *     type: 'users'
+     *     data: {
+     *       id: '42603',
+     *       type: 'users'
+     *     }
      *   }
      * })
      * @example <caption>Create multiple resources (API must support the Bulk Extension)</caption>

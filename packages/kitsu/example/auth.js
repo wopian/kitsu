@@ -23,12 +23,16 @@ const app = async () => {
   await api.create('posts', {
     content: 'Hello world',
     targetUser: {
-      id,
-      type: 'users'
+      data: {
+        id,
+        type: 'users'
+      }
     },
     user: {
-      id,
-      type: 'users'
+      data: {
+        id,
+        type: 'users'
+      }
     }
   })
 }

@@ -600,12 +600,16 @@ Create a post on a user's profile feed
 api.create('posts', {
   content: 'Hello World',
   targetUser: {
-    id: '42603',
-    type: 'users'
+    data: {
+      id: '42603',
+      type: 'users'
+    }
   },
   user: {
-    id: '42603',
-    type: 'users'
+    data: {
+      id: '42603',
+      type: 'users'
+    }
   }
 })
 ```
