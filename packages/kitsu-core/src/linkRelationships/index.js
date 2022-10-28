@@ -1,5 +1,6 @@
 import { deattribute } from '../deattribute'
 import { filterIncludes } from '../filterIncludes'
+import { isDeepEqual } from '../deepEqual'
 
 /**
  * Core function to link relationships to included data
