@@ -1,9 +1,9 @@
 /**
  * Compare two objects equality
  *
- * @param {object} firstObject First Object
- * @param {object} secondObject Second Object to compare with the first one
- * @returns {boolean} A boolean that indicates if objects are equal
+ * @param {Object} left Object to compare against the right object
+ * @param {Object} right Object to compare against the left object
+ * @returns {boolean} Whether the objects are equal
  * @example <caption>Deep equality check</caption>
  * isDeepEqual({
  *   firstName: 'John',
@@ -15,24 +15,24 @@
  *   age: 35
  * }) // true
  */
-export const isDeepEqual = (object1, object2) => {
-  if (!object1 || !object2) {
-    return object1 === object2
+export const isDeepEqual = (left, right) => {
+  if (!left || !right) {
+    return left === right
   }
 
-  const objKeys1 = Object.keys(object1)
-  const objKeys2 = Object.keys(object2)
+  const leftKeys = Object.keys(left)
+  const rightKeys = Object.keys(right)
 
-  if (objKeys1.length !== objKeys2.length) return false
+  if (leftKeys.length !== rightKeys.length) return false
 
-  for (const key of objKeys1) {
-    const value1 = object1[key]
-    const value2 = object2[key]
+  for (const key of leftKeys) {
+    const leftValue = left[key]
+    const rightValue = right[key]
 
-    const isObjects = isObject(value1) && isObject(value2)
+    const isObjects = isObject(leftValue) && isObject(rightValue)
 
-    if ((isObjects && !isDeepEqual(value1, value2)) ||
-      (!isObjects && value1 !== value2)
+    if ((isObjects && !isDeepEqual(leftValue, rightValue)) ||
+      (!isObjects && leftValue !== rightValue)
     ) {
       return false
     }
@@ -44,8 +44,8 @@ export const isDeepEqual = (object1, object2) => {
 /**
  * Check for Object
  *
- * @param {object} object Check if passed param is an object
- * @returns {boolean} A boolean that indicates if passed param is an object
+ * @param {Object} object Value to check if it is an object
+ * @returns {boolean} Whether the value is an object
  * @private
  * @example <caption>Check for object</caption>
  * isObject({
