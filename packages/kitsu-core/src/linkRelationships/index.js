@@ -1,5 +1,6 @@
 import { deattribute } from '../deattribute'
 import { filterIncludes } from '../filterIncludes'
+import { isDeepEqual } from '../deepEqual'
 
 /**
  * Core function to link relationships to included data
@@ -67,7 +68,23 @@ function linkObject (data, included, key, previouslyLinked, relationshipCache) {
   data[key] = {}
   const resource = data.relationships[key].data
   const cache = previouslyLinked[`${resource.type}#${resource.id}`]
-  data[key].data = cache || link(resource, included, previouslyLinked, relationshipCache)
+
+  if (cache) {
+    let resourceCache = null
+    // Comparing for cache entity meta and resource entity meta object.
+    if (!isDeepEqual(cache.meta, resource.meta)) {
+      resourceCache = {
+        ...cache,
+        meta: resource.meta
+      }
+    } else {
+      resourceCache = cache
+    }
+
+    data[key].data = resourceCache
+  } else {
+    data[key].data = link(resource, included, previouslyLinked, relationshipCache)
+  }
 
   const cacheKey = `${data.type}#${data.id}#${key}`
   const relationships = relationshipCache[cacheKey] || data.relationships[key]
