@@ -374,6 +374,8 @@ export default class Kitsu {
    * @param {Object} [config.headers] Additional headers to send with the request
    * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
    * @returns {Object|Object[]} JSON-parsed response
+   * @example <caption>Remove one or more relationships from a resource</caption>
+   * api.delete('posts/1/relationships/uploads', [456, 789])
    * @example <caption>Remove a single resource</caption>
    * api.delete('posts', 123)
    * @example <caption>Remove multiple resources (API must support the Bulk Extension)</caption>
