@@ -70,7 +70,7 @@ function linkObject (data, included, key, previouslyLinked, relationshipCache) {
   const cache = previouslyLinked[`${resource.type}#${resource.id}`]
 
   if (cache) {
-    let resourceCache = null;
+    let resourceCache = null
     // Comparing for cache entity meta and resource entity meta object.
     if (!isDeepEqual(cache.meta, resource.meta)) {
       resourceCache = {
@@ -78,12 +78,12 @@ function linkObject (data, included, key, previouslyLinked, relationshipCache) {
         meta: resource.meta
       }
     } else {
-      resourceCache = cache;
+      resourceCache = cache
     }
 
-    data[key].data = resourceCache;
+    data[key].data = resourceCache
   } else {
-    data[key].data = link(resource, included, previouslyLinked, relationshipCache);
+    data[key].data = link(resource, included, previouslyLinked, relationshipCache)
   }
 
   const cacheKey = `${data.type}#${data.id}#${key}`

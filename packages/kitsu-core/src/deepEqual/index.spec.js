@@ -3,22 +3,22 @@ import { isDeepEqual } from './'
 describe('kitsu-core', () => {
   describe('IsDeepEqual', () => {
     const person1 = {
-      "firstName": "John",
-      "lastName": "Doe",
-      "age": 35 
-    };
-  
+      firstName: 'John',
+      lastName: 'Doe',
+      age: 35
+    }
+
     const person2 = {
-      "firstName": "John",
-      "lastName": "Doe",
-      "age": 35,
-    };
+      firstName: 'John',
+      lastName: 'Doe',
+      age: 35
+    }
 
     const person3 = {
-      "firstName": "Akash",
-      "lastName": "Thakur",
-      "age": 35,
-    };
+      firstName: 'Akash',
+      lastName: 'Thakur',
+      age: 35
+    }
 
     it('Equality check for two same collections', () => {
       expect.assertions(1)
