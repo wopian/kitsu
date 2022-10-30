@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.3](https://github.com/wopian/kitsu/compare/v10.0.2...v10.0.3) (2022-10-30)
+
+
+### Bug Fixes
+
+* **kitsu-core:** build list queryparams ([#781](https://github.com/wopian/kitsu/issues/781)) ([d34e871](https://github.com/wopian/kitsu/commit/d34e8712d9dfd117eb5fa9d6cf50fbb1b09a58d1))
+* **kitsu-core:** ensure linkedRelationships does not overwrite meta object references ([#783](https://github.com/wopian/kitsu/issues/783)) ([97ba151](https://github.com/wopian/kitsu/commit/97ba151c9704286e47414eb6361d291f78c5aee0))
+
+
+
+
+
 ## [10.0.2](https://github.com/wopian/kitsu/compare/v10.0.1...v10.0.2) (2022-08-17)
 
 
