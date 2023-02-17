@@ -38,7 +38,7 @@ jobs:
 
   test:
     needs: [setup]
-    name: Test Packages (${{ matrix.node_version}}
+    name: Test Packages (${{ matrix.node_version}})
     runs-on: ubuntu-latest
 
     strategy:
