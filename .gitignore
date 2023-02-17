@@ -114,3 +114,6 @@ packages/**/dist/
 .yarn/*.gz
 .pnp.cjs
 .pnp.loader.mjs
+
+packages_old/
+specification/
