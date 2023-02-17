@@ -27,8 +27,7 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: yarn-${{ hashFiles('**/yarn.lock', '.yarnrc.yml') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          restore-keys: yarn-
 
       - name: Install Dependencies
         run: yarn install --immutable
@@ -61,8 +60,8 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: yarn-${{ hashFiles('**/yarn.lock', '.yarnrc.yml') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          restore-keys: yarn-
+
       - name: Install Dependencies
         run: yarn install --immutable
 
@@ -90,8 +89,8 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: yarn-${{ hashFiles('**/yarn.lock', '.yarnrc.yml') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          restore-keys: yarn-
+
       - name: Install Dependencies
         run: yarn install --immutable
 
@@ -119,8 +118,8 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: yarn-${{ hashFiles('**/yarn.lock', '.yarnrc.yml') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          restore-keys: yarn-
+
       - name: Install Dependencies
         run: yarn install --immutable
 
