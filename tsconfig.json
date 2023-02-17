@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "node16",
+    "moduleResolution": "node16",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "importHelpers": true,
+    "typeRoots": ["./node_modules/@types"],
+    "sourceMap": false,
+    "baseUrl": ".",
+    "declaration": true
+  },
+  "ts-node": {
+    "esm": true
+  },
+  "exclude": ["node_modules", "dist", "packages/**/dist", "packages/**/node_modules", "packages/**/src/**/*.spec.ts"]
+}

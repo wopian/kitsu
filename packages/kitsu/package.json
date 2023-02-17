@@ -12,6 +12,7 @@
     "pedep <pedep@users.noreply.github.com>"
   ],
   "license": "MIT",
+  "type": "module",
   "main": "dist/index",
   "module": "dist/index",
   "types": "types/index.d.ts",
@@ -22,7 +23,11 @@
   },
   "funding": "https://github.com/sponsors/wopian",
   "engines": {
-    "node": ">= 14"
+    "node": ">= 16"
+  },
+  "scripts": {
+    "build": "yarn clean && tsc",
+    "clean": "rimraf dist/ coverage/"
   },
   "keywords": [
     "kitsu",
@@ -41,63 +46,7 @@
     "deserialize",
     "axios"
   ],
-  "scripts": {
-    "docs:lint": "documentation lint src/index.js",
-    "docs:build": "documentation readme src/index.js --section=API -g true --sort-order source",
-    "docs:typescript": "tsc src/index.js --declaration --emitDeclarationOnly --allowJs --outDir types",
-    "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
-    "build": "yarn rollup"
-  },
   "dependencies": {
-    "axios": "^0.27.0",
-    "kitsu-core": "^10.0.4",
-    "pluralize": "^8.0.0"
-  },
-  "size-limit": [
-    {
-      "path": "./dist/index.js",
-      "limit": "13 kb",
-      "brotli": true
-    },
-    {
-      "path": "./dist/index.mjs",
-      "limit": "13 kb",
-      "brotli": true
-    }
-  ],
-  "gitHead": "5c9778d191d17d7c9790cfc6d0f4e983b4742a53",
-  "devDependencies": {
-    "@size-limit/preset-small-lib": "~8.2.0"
-  },
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./index": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./index.js": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./index.mjs": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./dist/index": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./dist/index.js": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./dist/index.mjs": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    }
+    "kitsu-core": "workspace:*"
   }
 }

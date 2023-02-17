@@ -1,0 +1,336 @@
+{
+  "version": "10.0.4",
+  "name": "kitsu-core",
+  "description": "Simple, lightweight & framework agnostic JSON:API (de)serialsation components",
+  "author": "James Harris <wopian@wopian.me>",
+  "contributors": [
+    "Brandon Martinez <me@brandonmartinez.com>",
+    "Daniel Skogly <daniel.skogly@protonmail.com>",
+    "Lukas Erlacher <erlacher@in.tum.de>",
+    "Matthew Dias <matthewdias@me.com>",
+    "Menthol <bennetteson@gmail.com>",
+    "pedep <pedep@users.noreply.github.com>"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index",
+  "module": "dist/index",
+  "unpkg": "dist/index.browser.js",
+  "jsdelivr": "dist/index.browser.js",
+  "types": "types/index.d.ts",
+  "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core#readme",
+  "repository": "https://github.com/wopian/kitsu",
+  "bugs": {
+    "url": "https://github.com/wopian/kitsu/issues"
+  },
+  "funding": "https://github.com/sponsors/wopian",
+  "engines": {
+    "node": ">= 14"
+  },
+  "keywords": [
+    "kitsu",
+    "jsonapi",
+    "json-api",
+    "serialize",
+    "deserialize"
+  ],
+  "scripts": {
+    "docs:lint": "documentation lint src/index.js",
+    "docs:build": "documentation readme src/index.js --section=API -g true --sort-order source",
+    "docs:typescript": "tsc src/index.js --declaration --emitDeclarationOnly --allowJs --outDir types",
+    "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
+    "build": "yarn rollup"
+  },
+  "size-limit": [
+    {
+      "path": "./dist/index.js",
+      "limit": "2.5 kb",
+      "brotli": true
+    },
+    {
+      "path": "./dist/index.mjs",
+      "limit": "2.5 kb",
+      "brotli": true
+    },
+    {
+      "path": "./dist/index.browser.js",
+      "limit": "2.5 kb",
+      "brotli": true
+    }
+  ],
+  "gitHead": "5c9778d191d17d7c9790cfc6d0f4e983b4742a53",
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "~8.2.0"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./index": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./index.js": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./index.mjs": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./camel": {
+      "import": "./dist/camel.mjs",
+      "require": "./dist/camel.js"
+    },
+    "./camel.js": {
+      "import": "./dist/camel.mjs",
+      "require": "./dist/camel.js"
+    },
+    "./camel.mjs": {
+      "import": "./dist/camel.mjs",
+      "require": "./dist/camel.js"
+    },
+    "./deattribute": {
+      "import": "./dist/deattribute.mjs",
+      "require": "./dist/deattribute.js"
+    },
+    "./deattribute.js": {
+      "import": "./dist/deattribute.mjs",
+      "require": "./dist/deattribute.js"
+    },
+    "./deattribute.mjs": {
+      "import": "./dist/deattribute.mjs",
+      "require": "./dist/deattribute.js"
+    },
+    "./deserialise": {
+      "import": "./dist/deserialise.mjs",
+      "require": "./dist/deserialise.js"
+    },
+    "./deserialise.js": {
+      "import": "./dist/deserialise.mjs",
+      "require": "./dist/deserialise.js"
+    },
+    "./deserialise.mjs": {
+      "import": "./dist/deserialise.mjs",
+      "require": "./dist/deserialise.js"
+    },
+    "./error": {
+      "import": "./dist/error.mjs",
+      "require": "./dist/error.js"
+    },
+    "./error.js": {
+      "import": "./dist/error.mjs",
+      "require": "./dist/error.js"
+    },
+    "./error.mjs": {
+      "import": "./dist/error.mjs",
+      "require": "./dist/error.js"
+    },
+    "./filterIncludes": {
+      "import": "./dist/filterIncludes.mjs",
+      "require": "./dist/filterIncludes.js"
+    },
+    "./filterIncludes.js": {
+      "import": "./dist/filterIncludes.mjs",
+      "require": "./dist/filterIncludes.js"
+    },
+    "./filterIncludes.mjs": {
+      "import": "./dist/filterIncludes.mjs",
+      "require": "./dist/filterIncludes.js"
+    },
+    "./kebab": {
+      "import": "./dist/kebab.mjs",
+      "require": "./dist/kebab.js"
+    },
+    "./kebab.js": {
+      "import": "./dist/kebab.mjs",
+      "require": "./dist/kebab.js"
+    },
+    "./kebab.mjs": {
+      "import": "./dist/kebab.mjs",
+      "require": "./dist/kebab.js"
+    },
+    "./linkRelationships": {
+      "import": "./dist/linkRelationships.mjs",
+      "require": "./dist/linkRelationships.js"
+    },
+    "./linkRelationships.js": {
+      "import": "./dist/linkRelationships.mjs",
+      "require": "./dist/linkRelationships.js"
+    },
+    "./linkRelationships.mjs": {
+      "import": "./dist/linkRelationships.mjs",
+      "require": "./dist/linkRelationships.js"
+    },
+    "./query": {
+      "import": "./dist/query.mjs",
+      "require": "./dist/query.js"
+    },
+    "./query.js": {
+      "import": "./dist/query.mjs",
+      "require": "./dist/query.js"
+    },
+    "./query.mjs": {
+      "import": "./dist/query.mjs",
+      "require": "./dist/query.js"
+    },
+    "./serialise": {
+      "import": "./dist/serialise.mjs",
+      "require": "./dist/serialise.js"
+    },
+    "./serialise.js": {
+      "import": "./dist/serialise.mjs",
+      "require": "./dist/serialise.js"
+    },
+    "./serialise.mjs": {
+      "import": "./dist/serialise.mjs",
+      "require": "./dist/serialise.js"
+    },
+    "./snake": {
+      "import": "./dist/snake.mjs",
+      "require": "./dist/snake.js"
+    },
+    "./snake.js": {
+      "import": "./dist/snake.mjs",
+      "require": "./dist/snake.js"
+    },
+    "./snake.mjs": {
+      "import": "./dist/snake.mjs",
+      "require": "./dist/snake.js"
+    },
+    "./dist/index": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/index.js": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/index.mjs": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/camel": {
+      "import": "./dist/camel.mjs",
+      "require": "./dist/camel.js"
+    },
+    "./dist/camel.js": {
+      "import": "./dist/camel.mjs",
+      "require": "./dist/camel.js"
+    },
+    "./dist/camel.mjs": {
+      "import": "./dist/camel.mjs",
+      "require": "./dist/camel.js"
+    },
+    "./dist/deattribute": {
+      "import": "./dist/deattribute.mjs",
+      "require": "./dist/deattribute.js"
+    },
+    "./dist/deattribute.js": {
+      "import": "./dist/deattribute.mjs",
+      "require": "./dist/deattribute.js"
+    },
+    "./dist/deattribute.mjs": {
+      "import": "./dist/deattribute.mjs",
+      "require": "./dist/deattribute.js"
+    },
+    "./dist/deserialise": {
+      "import": "./dist/deserialise.mjs",
+      "require": "./dist/deserialise.js"
+    },
+    "./dist/deserialise.js": {
+      "import": "./dist/deserialise.mjs",
+      "require": "./dist/deserialise.js"
+    },
+    "./dist/deserialise.mjs": {
+      "import": "./dist/deserialise.mjs",
+      "require": "./dist/deserialise.js"
+    },
+    "./dist/error": {
+      "import": "./dist/error.mjs",
+      "require": "./dist/error.js"
+    },
+    "./dist/error.js": {
+      "import": "./dist/error.mjs",
+      "require": "./dist/error.js"
+    },
+    "./dist/error.mjs": {
+      "import": "./dist/error.mjs",
+      "require": "./dist/error.js"
+    },
+    "./dist/filterIncludes": {
+      "import": "./dist/filterIncludes.mjs",
+      "require": "./dist/filterIncludes.js"
+    },
+    "./dist/filterIncludes.js": {
+      "import": "./dist/filterIncludes.mjs",
+      "require": "./dist/filterIncludes.js"
+    },
+    "./dist/filterIncludes.mjs": {
+      "import": "./dist/filterIncludes.mjs",
+      "require": "./dist/filterIncludes.js"
+    },
+    "./dist/kebab": {
+      "import": "./dist/kebab.mjs",
+      "require": "./dist/kebab.js"
+    },
+    "./dist/kebab.js": {
+      "import": "./dist/kebab.mjs",
+      "require": "./dist/kebab.js"
+    },
+    "./dist/kebab.mjs": {
+      "import": "./dist/kebab.mjs",
+      "require": "./dist/kebab.js"
+    },
+    "./dist/linkRelationships": {
+      "import": "./dist/linkRelationships.mjs",
+      "require": "./dist/linkRelationships.js"
+    },
+    "./dist/linkRelationships.js": {
+      "import": "./dist/linkRelationships.mjs",
+      "require": "./dist/linkRelationships.js"
+    },
+    "./dist/linkRelationships.mjs": {
+      "import": "./dist/linkRelationships.mjs",
+      "require": "./dist/linkRelationships.js"
+    },
+    "./dist/query": {
+      "import": "./dist/query.mjs",
+      "require": "./dist/query.js"
+    },
+    "./dist/query.js": {
+      "import": "./dist/query.mjs",
+      "require": "./dist/query.js"
+    },
+    "./dist/query.mjs": {
+      "import": "./dist/query.mjs",
+      "require": "./dist/query.js"
+    },
+    "./dist/serialise": {
+      "import": "./dist/serialise.mjs",
+      "require": "./dist/serialise.js"
+    },
+    "./dist/serialise.js": {
+      "import": "./dist/serialise.mjs",
+      "require": "./dist/serialise.js"
+    },
+    "./dist/serialise.mjs": {
+      "import": "./dist/serialise.mjs",
+      "require": "./dist/serialise.js"
+    },
+    "./dist/snake": {
+      "import": "./dist/snake.mjs",
+      "require": "./dist/snake.js"
+    },
+    "./dist/snake.js": {
+      "import": "./dist/snake.mjs",
+      "require": "./dist/snake.js"
+    },
+    "./dist/snake.mjs": {
+      "import": "./dist/snake.mjs",
+      "require": "./dist/snake.js"
+    }
+  }
+}

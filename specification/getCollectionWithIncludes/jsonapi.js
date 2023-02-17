@@ -20,32 +20,30 @@ export default {
           ja_jp: 'カウボーイビバップ'
         },
         canonicalTitle: 'Cowboy Bebop',
-        abbreviatedTitles: [
-          'COWBOY BEBOP'
-        ],
+        abbreviatedTitles: ['COWBOY BEBOP'],
         averageRating: '88.54',
         ratingFrequencies: {
-          '2': '83',
-          '3': '0',
-          '4': '297',
-          '5': '0',
-          '6': '68',
-          '7': '2',
-          '8': '205',
-          '9': '1',
-          '10': '271',
-          '11': '3',
-          '12': '1416',
-          '13': '11',
-          '14': '1724',
-          '15': '35',
-          '16': '3935',
-          '17': '56',
-          '18': '4651',
-          '19': '69',
-          '20': '14315'
+          2: '83',
+          3: '0',
+          4: '297',
+          5: '0',
+          6: '68',
+          7: '2',
+          8: '205',
+          9: '1',
+          10: '271',
+          11: '3',
+          12: '1416',
+          13: '11',
+          14: '1724',
+          15: '35',
+          16: '3935',
+          17: '56',
+          18: '4651',
+          19: '69',
+          20: '14315'
         },
-        userCount: 43560,
+        userCount: 43_560,
         favoritesCount: 3490,
         startDate: '1998-04-03',
         endDate: '1999-04-24',
@@ -58,10 +56,14 @@ export default {
         tba: '',
         posterImage: {
           tiny: 'https://media.kitsu.io/anime/poster_images/1/tiny.jpg?1431697256',
-          small: 'https://media.kitsu.io/anime/poster_images/1/small.jpg?1431697256',
-          medium: 'https://media.kitsu.io/anime/poster_images/1/medium.jpg?1431697256',
-          large: 'https://media.kitsu.io/anime/poster_images/1/large.jpg?1431697256',
-          original: 'https://media.kitsu.io/anime/poster_images/1/original.jpg?1431697256',
+          small:
+            'https://media.kitsu.io/anime/poster_images/1/small.jpg?1431697256',
+          medium:
+            'https://media.kitsu.io/anime/poster_images/1/medium.jpg?1431697256',
+          large:
+            'https://media.kitsu.io/anime/poster_images/1/large.jpg?1431697256',
+          original:
+            'https://media.kitsu.io/anime/poster_images/1/original.jpg?1431697256',
           meta: {
             dimensions: {
               tiny: {
@@ -85,9 +87,12 @@ export default {
         },
         coverImage: {
           tiny: 'https://media.kitsu.io/anime/cover_images/1/tiny.jpg?1416336000',
-          small: 'https://media.kitsu.io/anime/cover_images/1/small.jpg?1416336000',
-          large: 'https://media.kitsu.io/anime/cover_images/1/large.jpg?1416336000',
-          original: 'https://media.kitsu.io/anime/cover_images/1/original.jpg?1416336000',
+          small:
+            'https://media.kitsu.io/anime/cover_images/1/small.jpg?1416336000',
+          large:
+            'https://media.kitsu.io/anime/cover_images/1/large.jpg?1416336000',
+          original:
+            'https://media.kitsu.io/anime/cover_images/1/original.jpg?1416336000',
           meta: {
             dimensions: {
               tiny: {
@@ -143,39 +148,40 @@ export default {
         createdAt: '2013-02-20T16:00:16.085Z',
         updatedAt: '2017-12-30T00:00:21.154Z',
         slug: 'cowboy-bebop-tengoku-no-tobira',
-        synopsis: 'Another day, another bounty—such is the life of the often unlucky crew of the Bebop. However, this routine is interrupted when Faye, who is chasing a fairly worthless target on Mars, witnesses an oil tanker suddenly explode, causing mass hysteria. As casualties mount due to a strange disease spreading through the smoke from the blast, a whopping three hundred million woolong price is placed on the head of the supposed perpetrator.\r\nWith lives at stake and a solution to their money problems in sight, the Bebop crew springs into action. Spike, Jet, Faye, and Edward, followed closely by Ein, split up to pursue different leads across Alba City. Through their individual investigations, they discover a cover-up scheme involving a pharmaceutical company, revealing a plot that reaches much further than the ragtag team of bounty hunters could have realized.\r\n[Written by MAL Rewrite]',
+        synopsis:
+          'Another day, another bounty—such is the life of the often unlucky crew of the Bebop. However, this routine is interrupted when Faye, who is chasing a fairly worthless target on Mars, witnesses an oil tanker suddenly explode, causing mass hysteria. As casualties mount due to a strange disease spreading through the smoke from the blast, a whopping three hundred million woolong price is placed on the head of the supposed perpetrator.\r\nWith lives at stake and a solution to their money problems in sight, the Bebop crew springs into action. Spike, Jet, Faye, and Edward, followed closely by Ein, split up to pursue different leads across Alba City. Through their individual investigations, they discover a cover-up scheme involving a pharmaceutical company, revealing a plot that reaches much further than the ragtag team of bounty hunters could have realized.\r\n[Written by MAL Rewrite]',
         coverImageTopOffset: 220,
         titles: {
           en: 'Cowboy Bebop: The Movie',
           en_jp: 'Cowboy Bebop: Tengoku no Tobira',
-          en_us: 'Cowboy Bebop: Knockin\' on Heaven\'s Door',
+          en_us: "Cowboy Bebop: Knockin' on Heaven's Door",
           ja_jp: 'カウボーイビバップ天国の扉'
         },
-        canonicalTitle: 'Cowboy Bebop: Knockin\' on Heaven\'s Door',
+        canonicalTitle: "Cowboy Bebop: Knockin' on Heaven's Door",
         abbreviatedTitles: [],
         averageRating: '85.32',
         ratingFrequencies: {
-          '2': '9',
-          '3': '0',
-          '4': '28',
-          '5': '1',
-          '6': '9',
-          '7': '0',
-          '8': '44',
-          '9': '0',
-          '10': '78',
-          '11': '1',
-          '12': '440',
-          '13': '9',
-          '14': '851',
-          '15': '8',
-          '16': '2188',
-          '17': '27',
-          '18': '1667',
-          '19': '11',
-          '20': '2642'
+          2: '9',
+          3: '0',
+          4: '28',
+          5: '1',
+          6: '9',
+          7: '0',
+          8: '44',
+          9: '0',
+          10: '78',
+          11: '1',
+          12: '440',
+          13: '9',
+          14: '851',
+          15: '8',
+          16: '2188',
+          17: '27',
+          18: '1667',
+          19: '11',
+          20: '2642'
         },
-        userCount: 13751,
+        userCount: 13_751,
         favoritesCount: 276,
         startDate: '2001-09-01',
         endDate: '2001-09-01',
@@ -188,10 +194,14 @@ export default {
         tba: '',
         posterImage: {
           tiny: 'https://media.kitsu.io/anime/poster_images/2/tiny.jpg?1435249715',
-          small: 'https://media.kitsu.io/anime/poster_images/2/small.jpg?1435249715',
-          medium: 'https://media.kitsu.io/anime/poster_images/2/medium.jpg?1435249715',
-          large: 'https://media.kitsu.io/anime/poster_images/2/large.jpg?1435249715',
-          original: 'https://media.kitsu.io/anime/poster_images/2/original.jpg?1435249715',
+          small:
+            'https://media.kitsu.io/anime/poster_images/2/small.jpg?1435249715',
+          medium:
+            'https://media.kitsu.io/anime/poster_images/2/medium.jpg?1435249715',
+          large:
+            'https://media.kitsu.io/anime/poster_images/2/large.jpg?1435249715',
+          original:
+            'https://media.kitsu.io/anime/poster_images/2/original.jpg?1435249715',
           meta: {
             dimensions: {
               tiny: {
@@ -215,9 +225,12 @@ export default {
         },
         coverImage: {
           tiny: 'https://media.kitsu.io/anime/cover_images/2/tiny.jpg?1469656732',
-          small: 'https://media.kitsu.io/anime/cover_images/2/small.jpg?1469656732',
-          large: 'https://media.kitsu.io/anime/cover_images/2/large.jpg?1469656732',
-          original: 'https://media.kitsu.io/anime/cover_images/2/original.png?1469656732',
+          small:
+            'https://media.kitsu.io/anime/cover_images/2/small.jpg?1469656732',
+          large:
+            'https://media.kitsu.io/anime/cover_images/2/large.jpg?1469656732',
+          original:
+            'https://media.kitsu.io/anime/cover_images/2/original.png?1469656732',
           meta: {
             dimensions: {
               tiny: {
@@ -339,10 +352,11 @@ export default {
     }
   ],
   meta: {
-    count: 12654
+    count: 12_654
   },
   links: {
-    first: 'https://kitsu.io/api/edge/anime?include=categories&page%5Blimit%5D=2&page%5Boffset%5D=0',
+    first:
+      'https://kitsu.io/api/edge/anime?include=categories&page%5Blimit%5D=2&page%5Boffset%5D=0',
     next: 'https://kitsu.io/api/edge/anime?include=categories&page%5Blimit%5D=2&page%5Boffset%5D=2',
     last: 'https://kitsu.io/api/edge/anime?include=categories&page%5Blimit%5D=2&page%5Boffset%5D=12652'
   }

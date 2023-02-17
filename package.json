@@ -1,124 +1,46 @@
 {
+  "name": "kitsu-monorepo",
   "private": true,
+  "type": "module",
   "homepage": "https://github.com/wopian/kitsu#readme",
   "repository": "https://github.com/wopian/kitsu",
   "bugs": {
     "url": "https://github.com/wopian/kitsu/issues"
   },
   "engines": {
-    "node": ">= 14"
+    "node": ">= 16"
   },
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "diff": "lerna diff",
-    "updated": "lerna updated -l --sort",
-    "updated:json": "yarn updated --json",
-    "bootstrap": "lerna bootstrap",
-    "build": "lerna exec yarn build",
-    "docs": "lerna exec --parallel yarn docs:lint",
-    "docs:build": "lerna exec --parallel yarn docs:build",
-    "docs:typescript": "lerna exec --parallel yarn docs:typescript",
-    "docs:release": "yarn docs && yarn docs:build && yarn docs:typescript",
-    "fix": "eslint . --fix",
-    "lint": "eslint .",
-    "test": "yarn test:coverage && yarn lint && yarn docs && yarn build && yarn size",
-    "test:coverage": "jest --coverage",
-    "release": "yarn updated && yarn release:test && yarn release:commit && yarn release:lerna",
-    "release:test": "jest && yarn lint && yarn docs:release && yarn build",
-    "release:commit": "git commit -am \"chore(release): update documentation\"",
-    "release:lerna": "lerna publish",
-    "release:lerna-alpha": "lerna publish --preid=alpha",
-    "browserslist": "browserslist \"last 2 years, not < 0.05%\"",
-    "size": "lerna exec size-limit"
+    "build": "yarn workspaces foreach -pt run build",
+    "lint": "eslint . --ext .js,.cjs,.mjs,.ts,.cts,.mts --fix --ignore-path .gitignore",
+    "lint:ci": "eslint . --ext .js,.cjs,.mjs,.ts,.cts,.mts --ignore-path .gitignore",
+    "test": "ava",
+    "coverage": "c8 ava",
+    "document": "typedoc src/index.ts --name preferred-locale --includeVersion --hideGenerator --searchInComments --plugin @mxssfd/typedoc-theme --theme my-theme --entryPointStrategy expand"
   },
-  "devDependencies": {
-    "@babel/cli": "~7.20.0",
-    "@babel/core": "~7.20.0",
-    "@babel/preset-env": "~7.20.0",
-    "@rollup/plugin-babel": "~6.0.0",
-    "axios": "~0.27.0",
-    "axios-mock-adapter": "~1.21.0",
-    "babel-jest": "~29.4.0",
-    "browserslist": "~4.21.0",
-    "conventional-changelog-angular": "~5.0.12",
-    "cross-env": "~7.0.0",
-    "documentation": "~14.0.0",
-    "eslint": "~8.34.0",
-    "eslint-config-wopian": "~3.0.0",
-    "jest": "~29.4.0",
-    "jest-environment-jsdom": "^29.0.0",
-    "json-stringify-safe": "~5.0.1",
-    "lerna": "^3.0.0",
-    "rollup": "~2.79.0",
-    "rollup-plugin-delete": "~2.0.0",
-    "rollup-plugin-local-resolve": "~1.0.7",
-    "size-limit": "~8.2.0",
-    "typescript": "~4.9.0"
-  },
-  "jest": {
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 0
-      }
+  "ava": {
+    "utilizeParallelBuilds": true,
+    "extensions": {
+      "ts": "module"
     },
-    "projects": [
-      {
-        "displayName": "browser",
-        "testEnvironment": "jsdom",
-        "bail": true,
-        "collectCoverageFrom": [
-          "<rootDir>/packages/**/src/**/*.js"
-        ],
-        "coveragePathIgnorePatterns": [
-          "/node_modules/",
-          "/specification/"
-        ],
-        "coverageDirectory": "<rootDir>/coverage",
-        "moduleNameMapper": {
-          "^specification(.*)$": "<rootDir>/specification/$1",
-          "^kitsu-core(.*)$": "<rootDir>/packages/kitsu-core/src/$1",
-          "^kitsu(.*)$": "<rootDir>/packages/kitsu/src/$1",
-          "^pkg$": "<rootDir>/package.json"
-        },
-        "transform": {
-          "^.+\\.js$": "<rootDir>/config/jest.transform.js"
-        },
-        "testMatch": [
-          "<rootDir>/packages/**/src/**/*.spec.js",
-          "<rootDir>/packages/**/src/**/*.spec.browser.js"
-        ]
-      },
-      {
-        "displayName": "node",
-        "testEnvironment": "node",
-        "bail": true,
-        "collectCoverageFrom": [
-          "<rootDir>/packages/**/src/**/*.js"
-        ],
-        "coveragePathIgnorePatterns": [
-          "/node_modules/",
-          "/specification/"
-        ],
-        "coverageDirectory": "<rootDir>/coverage",
-        "moduleNameMapper": {
-          "^specification(.*)$": "<rootDir>/specification/$1",
-          "^kitsu-core(.*)$": "<rootDir>/packages/kitsu-core/src/$1",
-          "^kitsu(.*)$": "<rootDir>/packages/kitsu/src/$1",
-          "^pkg$": "<rootDir>/package.json"
-        },
-        "transform": {
-          "^.+\\.js$": "<rootDir>/config/jest.transform.js"
-        },
-        "testMatch": [
-          "<rootDir>/packages/**/src/**/*.spec.js",
-          "<rootDir>/packages/**/src/**/*.spec.node.js"
-        ]
-      }
+    "nodeArguments": [
+      "--loader",
+      "tsx"
+    ]
+  },
+  "c8": {
+    "all": true,
+    "skipFull": true,
+    "src": [
+      "dist"
+    ],
+    "reporter": [
+      "lcov",
+      "text",
+      "text-summary"
     ]
   },
   "renovate": {
@@ -126,9 +48,37 @@
       "github>wopian/renovate-config",
       ":pathSemanticCommitType(packages/kitsu/**,build(kitsu))",
       ":pathSemanticCommitType(packages/kitsu-core/**,build(kitsu-core))"
-    ],
-    "baseBranches": [
-      "master"
     ]
+  },
+  "packageManager": "yarn@3.3.1",
+  "devDependencies": {
+    "@ava/typescript": "~3.0.1",
+    "@mxssfd/typedoc-theme": "~1.0.3",
+    "@rushstack/eslint-patch": "~1.2.0",
+    "@semantic-release/changelog": "~6.0.2",
+    "@semantic-release/commit-analyzer": "~9.0.2",
+    "@semantic-release/github": "~8.0.7",
+    "@semantic-release/npm": "~9.0.2",
+    "@semantic-release/release-notes-generator": "~10.0.3",
+    "@typescript-eslint/eslint-plugin": "~5.52.0",
+    "@typescript-eslint/parser": "~5.52.0",
+    "ava": "~5.2.0",
+    "c8": "~7.13.0",
+    "eslint": "~8.34.0",
+    "eslint-config-prettier": "~8.6.0",
+    "eslint-plugin-import": "~2.27.5",
+    "eslint-plugin-prettier": "~4.2.1",
+    "eslint-plugin-simple-import-sort": "~10.0.0",
+    "eslint-plugin-unicorn": "~45.0.2",
+    "prettier": "~2.8.4",
+    "semantic-release": "~20.1.0",
+    "tsx": "~3.12.3",
+    "typedoc": "~0.23.25",
+    "typescript": "~4.9.5"
+  },
+  "dependenciesMeta": {
+    "esbuild": {
+      "built": true
+    }
   }
 }

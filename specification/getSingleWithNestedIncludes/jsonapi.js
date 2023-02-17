@@ -39,7 +39,7 @@ export default {
     },
     {
       attributes: {
-        'boolean': true
+        boolean: true
       },
       id: '2',
       relationships: {

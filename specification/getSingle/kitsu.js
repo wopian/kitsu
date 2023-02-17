@@ -2,9 +2,7 @@
 
 export default {
   data: {
-    array: [
-      'string'
-    ],
+    array: ['string'],
     id: '1',
     object: {
       string: 'string'
