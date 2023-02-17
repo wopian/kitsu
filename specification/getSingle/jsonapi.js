@@ -3,9 +3,7 @@
 export default {
   data: {
     attributes: {
-      array: [
-        'string'
-      ],
+      array: ['string'],
       object: {
         string: 'string'
       },

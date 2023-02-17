@@ -2,9 +2,7 @@
 
 export default {
   data: {
-    array: [
-      'string'
-    ],
+    array: ['string'],
     author: {
       links: {
         related: 'https://api.example/articles/1/author',
@@ -28,7 +26,7 @@ export default {
           type: 'comments'
         },
         {
-          'boolean': true,
+          boolean: true,
           id: '2',
           author: {
             links: {

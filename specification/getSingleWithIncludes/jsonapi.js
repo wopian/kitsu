@@ -3,9 +3,7 @@
 export default {
   data: {
     attributes: {
-      array: [
-        'string'
-      ],
+      array: ['string'],
       object: {
         string: 'string'
       },
@@ -59,7 +57,7 @@ export default {
     },
     {
       attributes: {
-        'boolean': true
+        boolean: true
       },
       id: '2',
       relationships: {

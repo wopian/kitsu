@@ -1,0 +1,103 @@
+{
+  "version": "10.0.4",
+  "name": "kitsu",
+  "description": "A simple, lightweight & framework agnostic JSON:API client using Axios",
+  "author": "James Harris <wopian@wopian.me>",
+  "contributors": [
+    "Brandon Martinez <me@brandonmartinez.com>",
+    "Daniel Skogly <daniel.skogly@protonmail.com>",
+    "Lukas Erlacher <erlacher@in.tum.de>",
+    "Matthew Dias <matthewdias@me.com>",
+    "Menthol <bennetteson@gmail.com>",
+    "pedep <pedep@users.noreply.github.com>"
+  ],
+  "license": "MIT",
+  "main": "dist/index",
+  "module": "dist/index",
+  "types": "types/index.d.ts",
+  "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu#readme",
+  "repository": "https://github.com/wopian/kitsu",
+  "bugs": {
+    "url": "https://github.com/wopian/kitsu/issues"
+  },
+  "funding": "https://github.com/sponsors/wopian",
+  "engines": {
+    "node": ">= 14"
+  },
+  "keywords": [
+    "kitsu",
+    "kitsu.io",
+    "anime",
+    "manga",
+    "drama",
+    "json",
+    "api",
+    "wrapper",
+    "client",
+    "jsonapi",
+    "json-api",
+    "json:api",
+    "serialize",
+    "deserialize",
+    "axios"
+  ],
+  "scripts": {
+    "docs:lint": "documentation lint src/index.js",
+    "docs:build": "documentation readme src/index.js --section=API -g true --sort-order source",
+    "docs:typescript": "tsc src/index.js --declaration --emitDeclarationOnly --allowJs --outDir types",
+    "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
+    "build": "yarn rollup"
+  },
+  "dependencies": {
+    "axios": "^0.27.0",
+    "kitsu-core": "^10.0.4",
+    "pluralize": "^8.0.0"
+  },
+  "size-limit": [
+    {
+      "path": "./dist/index.js",
+      "limit": "13 kb",
+      "brotli": true
+    },
+    {
+      "path": "./dist/index.mjs",
+      "limit": "13 kb",
+      "brotli": true
+    }
+  ],
+  "gitHead": "5c9778d191d17d7c9790cfc6d0f4e983b4742a53",
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "~8.2.0"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./index": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./index.js": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./index.mjs": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/index": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/index.js": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/index.mjs": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  }
+}

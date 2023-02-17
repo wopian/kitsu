@@ -1,0 +1,3 @@
+dist/tsconfig.tsbuildinfo
+dist/**/*.spec.d.ts
+dist/**/*.spec.js
