@@ -133,6 +133,28 @@ describe('kitsu', () => {
       expect(api.axios.defaults.baseURL).toBe('https://example.api')
     })
 
+    it('uses the query serializer provided in constructor', () => {
+      expect.assertions(1)
+      const stringsOnlyQuery = obj => Object.keys(obj).reduce((acc, key) =>
+        typeof obj[key] === 'string' ? [ ...acc, `${key}=${obj[key]}` ] : acc, []
+      ).join('&')
+
+      const api = new Kitsu({ query: stringsOnlyQuery })
+      expect(api.query({ a: 1, b: 'str', c: 3, d: 'ing' })).toBe('b=str&d=ing')
+    })
+
+    it('uses the traditional query serializer by default', () => {
+      expect.assertions(1)
+      const api = new Kitsu({})
+      expect(api.query({ id_in: [ 1, 2, 3 ] })).toBe('id_in=1&id_in=2&id_in=3')
+    })
+
+    it('uses the modern query serializer if query option is "modern"', () => {
+      expect.assertions(1)
+      const api = new Kitsu({ query: 'modern' })
+      expect(api.query({ id_in: [ 1, 2, 3 ] })).toBe('id_in%5B%5D=1&id_in%5B%5D=2&id_in%5B%5D=3')
+    })
+
     it('uses provided axios options', () => {
       expect.assertions(1)
       const api = new Kitsu({ axiosOptions: { withCredentials: true } })
