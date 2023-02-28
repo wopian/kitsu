@@ -8,6 +8,7 @@ import pluralise from 'pluralize'
  * @param {Object} [options] Options
  * @param {string} [options.baseURL=https://kitsu.io/api/edge] Set the API endpoint
  * @param {Object} [options.headers] Additional headers to send with the requests
+ * @param {'traditional'|'modern'|Function} [options.query=traditional] Query serializer function to use. This will impact the say keys are serialized when passing arrays as query parameters. 'modern' is recommended for new projects.
  * @param {boolean} [options.camelCaseTypes=true] If enabled, `type` will be converted to camelCase from kebab-casae or snake_case
  * @param {'kebab'|'snake'|'none'} [options.resourceCase=kebab] Case to convert camelCase to. `kebab` - `/library-entries`; `snake` - /library_entries`; `none` - `/libraryEntries`
  * @param {boolean} [options.pluralize=true] If enabled, `/user` will become `/users` in the URL request and `type` will be pluralized in POST, PATCH and DELETE requests
@@ -29,6 +30,11 @@ import pluralise from 'pluralize'
  */
 export default class Kitsu {
   constructor (options = {}) {
+    const traditional = typeof options.query === 'string' ? options.query === 'traditional' : true
+    this.query = typeof options.query === 'function'
+      ? options.query
+      : obj => query(obj, null, traditional)
+
     if (options.camelCaseTypes === false) this.camel = s => s
     else this.camel = camel
 
@@ -229,7 +235,7 @@ export default class Kitsu {
       const { data, headers: responseHeaders } = await this.axios.get(url, {
         headers,
         params,
-        paramsSerializer: /* istanbul ignore next */ p => query(p),
+        paramsSerializer: /* istanbul ignore next */ p => this.query(p),
         ...config.axiosOptions
       })
 
@@ -292,7 +298,7 @@ export default class Kitsu {
         {
           headers,
           params,
-          paramsSerializer: /* istanbul ignore next */ p => query(p),
+          paramsSerializer: /* istanbul ignore next */ p => this.query(p),
           ...config.axiosOptions
         }
       )
@@ -352,7 +358,7 @@ export default class Kitsu {
         {
           headers,
           params,
-          paramsSerializer: /* istanbul ignore next */ p => query(p),
+          paramsSerializer: /* istanbul ignore next */ p => this.query(p),
           ...config.axiosOptions
         }
       )
@@ -407,7 +413,7 @@ export default class Kitsu {
         }),
         headers,
         params,
-        paramsSerializer: /* istanbul ignore next */ p => query(p),
+        paramsSerializer: /* istanbul ignore next */ p => this.query(p),
         ...config.axiosOptions
       })
 
@@ -517,7 +523,7 @@ export default class Kitsu {
           }),
         headers: { ...this.headers, ...headers },
         params,
-        paramsSerializer: /* istanbul ignore next */ p => query(p),
+        paramsSerializer: /* istanbul ignore next */ p => this.query(p),
         ...axiosOptions
       })
 
