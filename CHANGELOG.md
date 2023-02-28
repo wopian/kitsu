@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.1.0](https://github.com/wopian/kitsu/compare/v10.0.5...v10.1.0) (2023-02-28)
+
+
+### Features
+
+* **kitsu:** Configurable modern query serializer ([ef94ae0](https://github.com/wopian/kitsu/commit/ef94ae0483bbe051f86faf47069168772b6cd5ac))
+
+
+
+
+
 ## [10.0.5](https://github.com/wopian/kitsu/compare/v10.0.4...v10.0.5) (2023-02-28)
 
 
