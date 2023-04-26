@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.1](https://github.com/wopian/kitsu/compare/v10.1.0...v10.1.1) (2023-04-26)
+
+
+### Bug Fixes
+
+* **kitsu-core:** Merge meta keys to preserve data ([#853](https://github.com/wopian/kitsu/issues/853)) ([474d91b](https://github.com/wopian/kitsu/commit/474d91bfbe1671855ff026cba5e9e71d5a6b1e62))
+
+
+
+
+
 # [10.1.0](https://github.com/wopian/kitsu/compare/v10.0.5...v10.1.0) (2023-02-28)
 
 
