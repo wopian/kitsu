@@ -21,7 +21,6 @@ function link ({ id, type, meta }, included, previouslyLinked, relationshipCache
   if (filtered.relationships) {
     linkRelationships(filtered, included, previouslyLinked, relationshipCache)
   }
-  if (meta) filtered.meta = meta
 
   return deattribute(filtered)
 }
@@ -47,7 +46,7 @@ function linkArray (data, included, key, previouslyLinked, relationshipCache) {
   for (const resource of data.relationships[key].data) {
     const cache = previouslyLinked[`${resource.type}#${resource.id}`]
     let relationship = cache || link(resource, included, previouslyLinked, relationshipCache)
-    if (resource.meta !== relationship.meta) relationship = { ...relationship, meta: resource.meta }
+    if (resource.meta || relationship.meta) { relationship = { ...relationship, meta: { ...relationship.meta, ...resource.meta } } }
     data[key].data.push(relationship)
   }
 
@@ -75,7 +74,7 @@ function linkObject (data, included, key, previouslyLinked, relationshipCache) {
     if (!isDeepEqual(cache.meta, resource.meta)) {
       resourceCache = {
         ...cache,
-        meta: resource.meta
+        meta: { ...cache.meta, ...resource.meta }
       }
     } else {
       resourceCache = cache
@@ -85,6 +84,8 @@ function linkObject (data, included, key, previouslyLinked, relationshipCache) {
   } else {
     data[key].data = link(resource, included, previouslyLinked, relationshipCache)
   }
+
+  if (resource.meta || data[key].data.meta) { data[key].data = { ...data[key].data, meta: { ...data[key].data.meta, ...resource.meta } } }
 
   const cacheKey = `${data.type}#${data.id}#${key}`
   const relationships = relationshipCache[cacheKey] || data.relationships[key]

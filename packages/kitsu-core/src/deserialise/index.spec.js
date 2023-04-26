@@ -815,6 +815,271 @@ describe('kitsu-core', () => {
       expect(input).toEqual(output)
     })
 
+    it('merges meta from relationship object and resource object', () => {
+      expect.assertions(1)
+
+      const input = JSON.parse(stringify(deserialise({
+        data: [
+          {
+            id: 1,
+            type: 'anime',
+            relationships: {
+              primary_category: {
+                meta: { qux: true },
+                data: { id: 1, type: 'category', meta: { foo: true } }
+              },
+              categories: {
+                meta: { qux: true },
+                data: [ { id: 1, type: 'category', meta: { foo: true } } ]
+              }
+            }
+          },
+          {
+            id: 2,
+            type: 'anime',
+            relationships: {
+              primary_category: {
+                meta: { quux: true },
+                data: { id: 1, type: 'category', meta: { bar: true } }
+              },
+              categories: {
+                meta: { quux: true },
+                data: [ { id: 1, type: 'category', meta: { bar: true } } ]
+              }
+            }
+          },
+          {
+            id: 3,
+            type: 'anime',
+            relationships: {
+              primary_category: {
+                meta: { corge: true },
+                data: { id: 1, type: 'category' }
+              },
+              categories: {
+                meta: { corge: true },
+                data: [ { id: 1, type: 'category' } ]
+              }
+            }
+          },
+          {
+            id: 4,
+            type: 'anime',
+            relationships: {
+              primary_category: {
+                meta: { grault: true },
+                data: { id: 1, type: 'category', meta: { baz: false } }
+              },
+              categories: {
+                meta: { grault: true },
+                data: [ { id: 1, type: 'category', meta: { baz: false } } ]
+              }
+            }
+          }
+        ],
+        included: [ { id: 1, type: 'category', attributes: { title: 'foobar' }, meta: { baz: true } } ]
+      })))
+
+      const output = {
+        data: [
+          {
+            primary_category: {
+              meta: { qux: true },
+              data: {
+                id: 1,
+                type: 'category',
+                title: 'foobar',
+                meta: {
+                  baz: true,
+                  foo: true
+                }
+              }
+            },
+            categories: {
+              meta: { qux: true },
+              data: [
+                {
+                  id: 1,
+                  meta: {
+                    baz: true,
+                    foo: true
+                  },
+                  title: 'foobar',
+                  type: 'category'
+                }
+              ]
+            },
+            id: 1,
+            type: 'anime'
+          },
+          {
+            primary_category: {
+              meta: { quux: true },
+              data: {
+                id: 1,
+                type: 'category',
+                title: 'foobar',
+                meta: {
+                  baz: true,
+                  bar: true
+                }
+              }
+            },
+            categories: {
+              meta: { quux: true },
+              data: [
+                {
+                  id: 1,
+                  meta: {
+                    baz: true,
+                    bar: true
+                  },
+                  title: 'foobar',
+                  type: 'category'
+                }
+              ]
+            },
+            id: 2,
+            type: 'anime'
+          },
+          {
+            primary_category: {
+              meta: { corge: true },
+              data: {
+                id: 1,
+                type: 'category',
+                title: 'foobar',
+                meta: {
+                  baz: true
+                }
+              }
+            },
+            categories: {
+              meta: { corge: true },
+              data: [
+                {
+                  id: 1,
+                  title: 'foobar',
+                  type: 'category',
+                  meta: {
+                    baz: true
+                  }
+                }
+              ]
+            },
+            id: 3,
+            type: 'anime'
+          },
+          {
+            primary_category: {
+              meta: { grault: true },
+              data: {
+                id: 1,
+                type: 'category',
+                title: 'foobar',
+                meta: {
+                  baz: false
+                }
+              }
+            },
+            categories: {
+              meta: { grault: true },
+              data: [
+                {
+                  id: 1,
+                  title: 'foobar',
+                  type: 'category',
+                  meta: {
+                    baz: false
+                  }
+                }
+              ]
+            },
+            id: 4,
+            type: 'anime'
+          }
+        ]
+      }
+
+      expect(input).toEqual(output)
+    })
+
+    it('preserves meta from included resource object', () => {
+      expect.assertions(1)
+
+      const input = JSON.parse(stringify(deserialise({
+        data: {
+          id: '1',
+          type: 'users',
+          relationships: {
+            followers: {
+              links: {
+                self: 'https://kitsu.example/users/1/relationships/followers',
+                related: 'https://kitsu.example/users/1/followers'
+              },
+              data: [ {
+                type: 'follows',
+                id: '1'
+              } ]
+            }
+          }
+        },
+        included: [
+          {
+            id: '1',
+            type: 'follows',
+            attributes: { a: 123 },
+            links: {
+              self: 'https://kitsu.example/follows/1'
+            },
+            meta: { value: 1 },
+            relationships: {
+              follower: {
+                links: {
+                  self: 'https://kitsu.io/follows/1/relationships/follower',
+                  related: 'https://kitsu.io/follows/1/follower'
+                }
+              }
+            }
+          }
+        ]
+      })))
+
+      const output = {
+        data: {
+          id: '1',
+          type: 'users',
+          followers: {
+            links: {
+              self: 'https://kitsu.example/users/1/relationships/followers',
+              related: 'https://kitsu.example/users/1/followers'
+            },
+            data: [
+              {
+                id: '1',
+                type: 'follows',
+                a: 123,
+                links: {
+                  self: 'https://kitsu.example/follows/1'
+                },
+                meta: {
+                  value: 1
+                },
+                follower: {
+                  links: {
+                    self: 'https://kitsu.io/follows/1/relationships/follower',
+                    related: 'https://kitsu.io/follows/1/follower'
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+
+      expect(input).toEqual(output)
+    })
+
     it('Deserializes nested single circular resource', () => {
       expect.assertions(1)
 
