@@ -4,6 +4,7 @@
  * @param {Object} [options] Options
  * @param {string} [options.baseURL=https://kitsu.io/api/edge] Set the API endpoint
  * @param {Object} [options.headers] Additional headers to send with the requests
+ * @param {'traditional'|'modern'|Function} [options.query=traditional] Query serializer function to use. This will impact the way keys are serialized when passing arrays as query parameters. 'modern' is recommended for new projects.
  * @param {boolean} [options.camelCaseTypes=true] If enabled, `type` will be converted to camelCase from kebab-casae or snake_case
  * @param {'kebab'|'snake'|'none'} [options.resourceCase=kebab] Case to convert camelCase to. `kebab` - `/library-entries`; `snake` - /library_entries`; `none` - `/libraryEntries`
  * @param {boolean} [options.pluralize=true] If enabled, `/user` will become `/users` in the URL request and `type` will be pluralized in POST, PATCH and DELETE requests
@@ -25,6 +26,7 @@
  */
 export default class Kitsu {
     constructor(options?: {});
+    query: any;
     camel: (s: any) => any;
     resCase: (s: any) => any;
     plural: any;

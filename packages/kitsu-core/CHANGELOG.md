@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.1.0](https://github.com/wopian/kitsu/compare/v10.0.5...v10.1.0) (2023-02-28)
+
+
+### Features
+
+* **kitsu:** Configurable modern query serializer ([ef94ae0](https://github.com/wopian/kitsu/commit/ef94ae0483bbe051f86faf47069168772b6cd5ac))
+
+
+
+
+
+## [10.0.5](https://github.com/wopian/kitsu/compare/v10.0.4...v10.0.5) (2023-02-28)
+
+
+### Bug Fixes
+
+* **kitsu-core:** Allow empty POST body ([16cd20d](https://github.com/wopian/kitsu/commit/16cd20d74bf028deaed7a219c590f24a85adc752))
+
+
+
+
+
 ## [10.0.4](https://github.com/wopian/kitsu/compare/v10.0.3...v10.0.4) (2022-10-30)
 
 **Note:** Version bump only for package kitsu-core

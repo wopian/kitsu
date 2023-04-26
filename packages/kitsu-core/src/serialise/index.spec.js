@@ -241,10 +241,20 @@ describe('kitsu-core', () => {
       })
     })
 
-    it('throws an error if obj is missing', () => {
+    it('does not throws an error if obj is missing when method is POST', () => {
       expect.assertions(1)
-      expect(() => serialise('post'))
-        .toThrowError('POST requires an object or array body')
+      const input = serialise('anime', { }, 'POST')
+      expect(input).toEqual({
+        data: {
+          type: 'anime'
+        }
+      })
+    })
+
+    it('throws an error if obj is missing when method is not POST', () => {
+      expect.assertions(1)
+      expect(() => serialise('post', {}, 'PATCH'))
+        .toThrowError('PATCH requires an object or array body')
     })
 
     it('throws an error if obj is not an Object', () => {

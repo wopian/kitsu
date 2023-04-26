@@ -91,14 +91,45 @@ describe('kitsu', () => {
       await expect(await api.post('anime', { id: 123456789, type: 'anime', name: 'Name' })).toBeUndefined()
     })
 
-    it('throws an error if missing a JSON object body', async () => {
-      expect.assertions(1)
+    it('throws an error if missing a valid JSON object body', async () => {
+      expect.assertions(2)
       const api = new Kitsu()
       try {
-        await api.post('posts')
+        await api.post('posts', 123)
       } catch (err) {
         expect(err.message).toEqual('POST requires an object or array body')
       }
+
+      try {
+        await api.post('posts', 'invalid body')
+      } catch (err) {
+        expect(err.message).toEqual('POST requires an object or array body')
+      }
+    })
+
+    it('sends data in request if missing a JSON object body', async () => {
+      expect.assertions(4)
+      const api = new Kitsu()
+      mock.onPost('/anime').reply(config => {
+        expect(JSON.parse(config.data)).toEqual({
+          data: { type: 'anime' }
+        })
+        return [ 200 ]
+      })
+      await expect(await api.post('anime')).toBeUndefined()
+      await expect(await api.post('anime', {})).toBeUndefined()
+    })
+
+    it('sends data in request if given empty JSON object in array body', async () => {
+      expect.assertions(2)
+      const api = new Kitsu()
+      mock.onPost('/anime').reply(config => {
+        expect(JSON.parse(config.data)).toEqual({
+          data: [ { type: 'anime' } ]
+        })
+        return [ 200 ]
+      })
+      await expect(await api.post('anime', [ {} ])).toBeUndefined()
     })
   })
 })

@@ -59,7 +59,7 @@ describe('kitsu-core', () => {
       })).toEqual('fields%5Babc%5D%5Bdef%5D%5Bghi%5D%5Bjkl%5D=mno')
     })
 
-    it('builds list parameters', () => {
+    it('builds list parameters in traditional mode', () => {
       expect.assertions(1)
       expect(query({
         filter: {
@@ -68,13 +68,50 @@ describe('kitsu-core', () => {
       })).toEqual('filter%5Bid_in%5D=1&filter%5Bid_in%5D=2&filter%5Bid_in%5D=3')
     })
 
-    it('builds nested list parameters', () => {
+    it('builds nested list parameters in traditional mode', () => {
       expect.assertions(1)
       expect(query({
         filter: {
           users: [ { id: 1, type: 'users' }, { id: 2, type: 'users' } ]
         }
       })).toEqual('filter%5Busers%5D%5Bid%5D=1&filter%5Busers%5D%5Btype%5D=users&filter%5Busers%5D%5Bid%5D=2&filter%5Busers%5D%5Btype%5D=users')
+    })
+
+    it('builds list parameters in modern mode', () => {
+      expect.assertions(1)
+      expect(query({
+        filter: {
+          id_in: [ 1, 2, 3 ]
+        }
+      }, null, false)).toEqual('filter%5Bid_in%5D%5B%5D=1&filter%5Bid_in%5D%5B%5D=2&filter%5Bid_in%5D%5B%5D=3')
+    })
+
+    it('builds nested list parameters in modern mode', () => {
+      expect.assertions(1)
+      expect(query({
+        filter: {
+          users: [ { id: 1, type: 'users' }, { id: 2, type: 'users' } ]
+        }
+      }, null, false)).toEqual('filter%5Busers%5D%5B%5D%5Bid%5D=1&filter%5Busers%5D%5B%5D%5Btype%5D=users&filter%5Busers%5D%5B%5D%5Bid%5D=2&filter%5Busers%5D%5B%5D%5Btype%5D=users')
+    })
+
+    it('parses list-style keys', () => {
+      expect.assertions(1)
+      expect(query({
+        filter: {
+          'id_in[]': [ 1, 2 ],
+          'parent_id_in][': [ 3, 4 ]
+        }
+      })).toEqual('filter%5Bid_in%5D%5B%5D=1&filter%5Bid_in%5D%5B%5D=2&filter%5Bparent_id_in%5D%5B%5D=3&filter%5Bparent_id_in%5D%5B%5D=4')
+    })
+
+    it('preserves square-brackets in key names in modern mode', () => {
+      expect.assertions(1)
+      expect(query({
+        filter: {
+          'id_in[]': [ 1, 2 ]
+        }
+      }, null, false)).toEqual('filter%5Bid_in%5D%5B%5D%5B%5D=1&filter%5Bid_in%5D%5B%5D%5B%5D=2')
     })
   })
 })
