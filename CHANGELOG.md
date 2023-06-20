@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.2](https://github.com/wopian/kitsu/compare/v10.1.1...v10.1.2) (2023-06-20)
+
+
+### Bug Fixes
+
+* correct the typing for config on post ([#873](https://github.com/wopian/kitsu/issues/873)) ([c741e0a](https://github.com/wopian/kitsu/commit/c741e0ac26d4c215c11dbbeefd55e28ba34a9498))
+
+
+
+
+
 ## [10.1.1](https://github.com/wopian/kitsu/compare/v10.1.0...v10.1.1) (2023-04-26)
 
 
