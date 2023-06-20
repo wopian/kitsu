@@ -318,6 +318,7 @@ export default class Kitsu {
    * @param {Object} [config] Additional configuration
    * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
    * @param {Object} [config.headers] Additional headers to send with the request
+   * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
    * @returns {Object|Object[]} JSON-parsed response
    * @example <caption>Create a post on a user's profile feed</caption>
    * api.create('posts', {
