@@ -51,7 +51,7 @@
     "jest-environment-jsdom": "^29.0.0",
     "json-stringify-safe": "~5.0.1",
     "lerna": "^3.0.0",
-    "rollup": "~2.79.0",
+    "rollup": "~3.29.0",
     "rollup-plugin-delete": "~2.0.0",
     "rollup-plugin-local-resolve": "~1.0.7",
     "size-limit": "~8.2.0",
