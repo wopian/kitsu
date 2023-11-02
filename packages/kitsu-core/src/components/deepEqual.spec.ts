@@ -25,25 +25,25 @@ const people = {
   five: {
     address: {
       street: '123 Main St',
-      inhabitants: ['Chuck', 'Howard', {name: "Jimmy", age: 35}]
+      inhabitants: ['Chuck', 'Howard', { name: 'Jimmy', age: 35 }]
     }
   },
   six: {
     address: {
       street: '123 Main St',
-      inhabitants: ['Chuck', 'Howard', {name: "Jimmy", age: 35}]
+      inhabitants: ['Chuck', 'Howard', { name: 'Jimmy', age: 35 }]
     }
   },
   seven: {
     address: {
       street: '456 Main St',
-      inhabitants: ['Chuck', 'Howard', {name: "Jimmy", age: 35}]
+      inhabitants: ['Chuck', 'Howard', { name: 'Jimmy', age: 35 }]
     }
   },
   eight: {
     address: {
       street: '123 Main St',
-      inhabitants: ['Howard', {name: "Jimmy", age: 35}, 'Chuck']
+      inhabitants: ['Howard', { name: 'Jimmy', age: 35 }, 'Chuck']
     }
   }
 }

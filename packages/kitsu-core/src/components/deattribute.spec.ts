@@ -1,8 +1,9 @@
 import test from 'ava'
 
 import { deattribute } from '../index.js'
+import { ResourceObject } from '../resources/resourceObject.js'
 
-test('deattribute', t => {
+test('deattributes a valid ResourceObject', t => {
   t.deepEqual(
     deattribute({
       id: '1',
@@ -35,7 +36,7 @@ test('deattribute', t => {
   )
 })
 
-test('deattribute with attributes.attributes', t => {
+test('deattributes a ResourceObject when attributes has the key "attributes"', t => {
   t.deepEqual(
     deattribute({
       id: '2',
@@ -60,7 +61,7 @@ test('deattribute with attributes.attributes', t => {
   )
 })
 
-test('deattribute array', t => {
+test('deattributes arrays of ResourceObject', t => {
   t.deepEqual(
     deattribute([
       {
@@ -86,5 +87,22 @@ test('deattribute array', t => {
         }
       }
     ]
+  )
+})
+
+// subject to change
+const fun = () => 'im a function'
+test('performs no operation on a ResourceObject with invalid attributes', t => {
+  t.deepEqual(
+    deattribute({
+      id: '1',
+      type: 'test',
+      attributes: fun
+    } as ResourceObject),
+    {
+      id: '1',
+      type: 'test',
+      attributes: fun
+    }
   )
 })

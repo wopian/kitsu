@@ -6,13 +6,15 @@
 // > The value of the lid member MUST be identical for every representation of the resource in the document, including resource identifier objects.
 
 export interface LocalResourceIdentifier {
-  lid: string;
-  type: string;
+  lid: string
+  type: string
 }
 
 export interface RemoteResourceIdentifier {
-  id: string;
-  type: string;
+  id: string
+  type: string
 }
 
-export type ResourceIdentifier = LocalResourceIdentifier | RemoteResourceIdentifier;
+export type ResourceIdentifier =
+  | LocalResourceIdentifier
+  | RemoteResourceIdentifier

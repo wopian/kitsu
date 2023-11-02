@@ -6,16 +6,25 @@
 
 // Valid JSON values
 // https://datatracker.ietf.org/doc/html/rfc8259#section-3
-export type JsonValues = object | number | string | false | null | true | Array<JsonValues>;
+export type JsonValues =
+  | object
+  | number
+  | string
+  | false
+  | null
+  | true
+  | Array<JsonValues>
 
 // https://datatracker.ietf.org/doc/html/rfc8259#section-4
 // "A name is a string"
 export interface Attributes {
-  [name: string]: JsonValues;
+  [name: string]: JsonValues
 }
 
-export function isAttributes(attrs: any): attrs is Attributes {
-  return typeof attrs.attributes === 'object' &&
-    attrs.attributes !== null &&
-    !Array.isArray(attrs.attributes)
+export function isAttributes(attributes: unknown): attributes is Attributes {
+  return (
+    typeof attributes === 'object' &&
+    attributes !== null &&
+    !Array.isArray(attributes)
+  )
 }
