@@ -14,11 +14,11 @@ export function isDeepEqual(left: Comparable, right: Comparable): boolean {
     const leftValue = left[key]
     const rightValue = right[key]
 
-    const isObjects = isObject(leftValue) && isObject(rightValue)
+    const goDeeper = isDeep(leftValue) && isDeep(rightValue)
 
     if (
-      (isObjects && !isDeepEqual(leftValue, rightValue)) ||
-      (!isObjects && leftValue !== rightValue)
+      (goDeeper && !isDeepEqual(leftValue, rightValue)) ||
+      (!goDeeper && leftValue !== rightValue)
     ) {
       return false
     }
@@ -27,6 +27,6 @@ export function isDeepEqual(left: Comparable, right: Comparable): boolean {
   return true
 }
 
-function isObject(object: unknown): object is object {
-  return object != undefined && typeof object === 'object'
+function isDeep(object: unknown): boolean {
+  return typeof object === 'object' && object !== null
 }
