@@ -21,6 +21,8 @@ function _deattribute(data: ResourceObject): DeattributedResourceObject {
   // FIXME: what is the best behaviour when given an invalid attributes key?
   // 1. (Current) the same invalid object is returned.
   //   a. This results in deattribute returning potentially invalid DeattributedResourceObjects
+  //   b. Change the return type to include this scenario. Doing this will possibly cause issues
+  //      down the road in kitsu and kitsu-core
   // 2. the object is modified, and has the invalid key removed
   //   a. This would guarantee valid returns, but will also change the current default behaviour.
   // 3. the object is not touched, and an error is thrown
