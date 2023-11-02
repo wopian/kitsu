@@ -48,6 +48,17 @@ const people = {
   }
 }
 
+test('checks if both objects are truthy', t => {
+  t.false(isDeepEqual(people.one, false))
+  t.notDeepEqual(people.one, false)
+
+  t.false(isDeepEqual(false, people.one))
+  t.notDeepEqual(false, people.one)
+
+  t.false(isDeepEqual(false, 0))
+  t.notDeepEqual(false, 0)
+})
+
 test('checks identical objects are equal', t => {
   t.true(isDeepEqual(people.one, people.two))
   t.deepEqual(people.one, people.two)
