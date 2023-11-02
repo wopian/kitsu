@@ -1,5 +1,5 @@
 import { Attributes } from './attributes.js'
-import { ResourceIdentifier } from './resource-identifier.js'
+import { ResourceIdentifier } from './resourceIdentifier.js'
 
 type Relationships = void
 type Links = void
