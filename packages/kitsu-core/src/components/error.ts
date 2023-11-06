@@ -1,11 +1,12 @@
-import { AxiosError as BaseAxiosError } from 'axios'
-
 import { isObject } from '../isObject.js'
 import { hasOwnProperty } from '../utilities/hasOwnProperty.js'
 
-// Extend AxiosError to facilitate 'error' function legacy behaviour
-interface AxiosError<T> extends BaseAxiosError<T> {
-  errors?: unknown
+interface AxiosError<T> {
+  errors?: T
+
+  response?: {
+    data: T
+  }
 }
 
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#unknown-on-catch-clause-bindings

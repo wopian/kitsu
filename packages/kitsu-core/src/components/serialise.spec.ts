@@ -507,7 +507,7 @@ test('serialises object and array relationships', t => {
     meta: { extra: true },
     ratingTwenty: 10,
     genres: {
-      "metrix:count": 12
+      'metrix:count': 12
     },
     tags: {
       links: {
@@ -552,7 +552,7 @@ test('serialises object and array relationships', t => {
       attributes: { ratingTwenty: 10 },
       relationships: {
         genres: {
-          "metrix:count": 12
+          'metrix:count': 12
         },
         tags: {
           links: {

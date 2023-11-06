@@ -40,8 +40,5 @@
   ],
   "dependencies": {
     "case-anything": "^2.1.10"
-  },
-  "devDependencies": {
-    "@types/axios": "~0.14.0"
   }
 }

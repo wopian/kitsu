@@ -1,4 +1,3 @@
-import { isObject } from '../isObject.js'
 import { JsonKey, JsonValue } from '../resources/json.js'
 import {
   isRelationshipObject,
@@ -13,7 +12,7 @@ import { hasOwnProperty } from '../utilities/hasOwnProperty.js'
 import { error } from './error.js'
 
 // TODO: rename nodes to something more JSON:API like ResourceObject
-type Node = any
+type Node = any // eslint-disable-line @typescript-eslint/no-explicit-any
 type NodeType = ResourceIdentifier['type']
 type Method = 'POST' | 'PATCH' | 'DELETE'
 
@@ -123,7 +122,7 @@ function serialiseRelation(
   if (node?.meta) data.relationships[key].meta = node.meta
 
   for (const k of Object.keys(node)) {
-    if (k.includes(":")) data.relationships[key][k] = node[k]
+    if (k.includes(':')) data.relationships[key][k] = node[k]
   }
 
   return data
