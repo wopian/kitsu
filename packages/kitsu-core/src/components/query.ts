@@ -1,4 +1,4 @@
-import { isObject } from './isObject.js'
+import { isObject } from '../isObject.js'
 
 // https://github.com/microsoft/TypeScript/blob/73bc0eba5fd35c3a31cc9a4e6d28d3e89564ce6f/src/lib/es5.d.ts#L66
 type EncodableValue = string | number | boolean

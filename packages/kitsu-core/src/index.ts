@@ -1,3 +1,5 @@
 export * from './components/deattribute.js'
 export * from './components/deepEqual.js'
+export * from './components/error.js'
 export * from './components/query.js'
+export * from './components/serialise.js'

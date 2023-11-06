@@ -5,8 +5,10 @@
 // > If id is omitted due to this exception, a lid member MAY be included to uniquely identify the resource by type locally within the document.
 // > The value of the lid member MUST be identical for every representation of the resource in the document, including resource identifier objects.
 
+import { hasOwnProperty } from '../utilities/hasOwnProperty.js'
+
 export interface LocalResourceIdentifier {
-  lid: string
+  lid?: string
   type: string
 }
 
@@ -18,3 +20,15 @@ export interface RemoteResourceIdentifier {
 export type ResourceIdentifier =
   | LocalResourceIdentifier
   | RemoteResourceIdentifier
+
+export function isLocalResource<T extends object>(
+  object: T
+): object is T & LocalResourceIdentifier {
+  return !hasOwnProperty(object, 'id') || hasOwnProperty(object, 'lid')
+}
+
+export function isRemoteResource<T extends object>(
+  object: T
+): object is T & RemoteResourceIdentifier {
+  return hasOwnProperty(object, 'id') && !hasOwnProperty(object, 'lid')
+}
