@@ -1,6 +1,9 @@
 import { isObject } from '../isObject.js'
 import { JsonKey, JsonValue } from '../resources/json.js'
-import { RelationshipObject } from '../resources/relationships.js'
+import {
+  isRelationshipObject,
+  RelationshipObject
+} from '../resources/relationships.js'
 import {
   isRemoteResource,
   ResourceIdentifier
@@ -51,11 +54,10 @@ function validateArrayPayload(
   }
 
   // A POST request is the only request to not require an ID in spec
-  if (method !== 'POST' && payload.length > 0) {
+  if (method !== 'POST' && payload.length > 0)
     for (const resource of payload) {
       if (!hasOwnProperty(resource, 'id')) throw requireID
     }
-  }
 }
 
 function validateObjectPayload(
@@ -109,14 +111,21 @@ function serialiseRelation(
   data: Partial<ResourceObject>
 ) {
   if (!data.relationships) data.relationships = {}
-  data.relationships[key] = {
-    data: Array.isArray(node.data)
+
+  data.relationships[key] = {} as RelationshipObject // TODO: investigate impact of pre-initializing
+
+  if (node.data !== undefined)
+    data.relationships[key].data = Array.isArray(node.data)
       ? serialiseRelationMany(node.data, nodeType)
       : serialiseRelationOne(node.data, nodeType)
-  }
   if (node?.links?.self || node?.links?.related)
     data.relationships[key].links = node.links
   if (node?.meta) data.relationships[key].meta = node.meta
+
+  for (const k of Object.keys(node)) {
+    if (k.includes(":")) data.relationships[key][k] = node[k]
+  }
+
   return data
 }
 
@@ -149,7 +158,7 @@ function hasID(node: Node) {
     (Array.isArray(node?.data) && node?.data?.length === 0)
   )
     return true
-  if (!node.data) return false
+  if (!node?.data) return false
   // Check if relationship is to-many
   const nodeData = Array.isArray(node.data) ? node.data[0] : node.data
   return Object.prototype.hasOwnProperty.call(nodeData, 'id')
@@ -188,7 +197,7 @@ function serialiseRootObject(
     const node = payload[key]
     const nodeType = options.typeTransform(key)
     // 1. Only grab objects, 2. Filter to only serialise relationable objects
-    if (isObject(node) && hasID(node)) {
+    if (hasID(node) || isRelationshipObject(node)) {
       data = serialiseRelation(node, nodeType, key, data)
       // 1. Don't place id/key inside attributes object
     } else if (key !== 'id' && key !== 'type') {

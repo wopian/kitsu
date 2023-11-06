@@ -35,3 +35,21 @@ export type RelationshipObject = {
 }[RelationshipKeys] & {
   [extensionKey: string]: JsonValue
 }
+
+// https://jsonapi.org/format/#document-resource-object-relationships
+// A “relationship object” MUST contain at least one of the following: 'links', 'data', 'meta', a member defined by an applied extension.
+export function isRelationshipObject(
+  object: unknown
+): object is RelationshipObject {
+  if (object === null || typeof object !== 'object') return false
+
+  const keys = Object.keys(object)
+  for (const key of keys) {
+    if (['links', 'data', 'meta'].includes(key)) return true
+    // https://jsonapi.org/format/#extension-members
+    // The name of every new member introduced by an extension MUST be prefixed with the extension’s namespace followed by a colon (:).
+    if (key.includes(':')) return true
+  }
+
+  return false
+}

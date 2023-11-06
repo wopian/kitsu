@@ -285,6 +285,16 @@ test('throws an error when missing ID in array', t => {
   })
 })
 
+test('throws an error if type is missing', t => {
+  t.throws(() => serialise(undefined, { id: 2 }), {
+    message: 'POST requires a resource type'
+  })
+
+  t.throws(() => serialise(undefined, [{ id: 2 }]), {
+    message: 'POST requires a resource type'
+  })
+})
+
 test('serialises strings/numbers/booleans into attributes', t => {
   const input = serialise('resourceModel', {
     string: 'shark',
@@ -496,6 +506,14 @@ test('serialises object and array relationships', t => {
     links: { self: 'library-entries/1' },
     meta: { extra: true },
     ratingTwenty: 10,
+    genres: {
+      "metrix:count": 12
+    },
+    tags: {
+      links: {
+        related: 'library-entries/1/tags'
+      }
+    },
     user: {
       links: {
         self: 'library-entries/1/relationships/user',
@@ -533,6 +551,14 @@ test('serialises object and array relationships', t => {
       meta: { extra: true },
       attributes: { ratingTwenty: 10 },
       relationships: {
+        genres: {
+          "metrix:count": 12
+        },
+        tags: {
+          links: {
+            related: 'library-entries/1/tags'
+          }
+        },
         user: {
           links: {
             self: 'library-entries/1/relationships/user',

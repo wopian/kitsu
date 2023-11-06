@@ -8,8 +8,8 @@ test('handles axios response errors', t => {
   const object = { response: {} }
   try {
     error(object)
-  } catch(err: unknown) {
-    t.deepEqual(err, {response: {}})
+  } catch (error_: unknown) {
+    t.deepEqual(error_, { response: {} })
   }
 })
 
@@ -17,9 +17,9 @@ test('throws all other errors', t => {
   t.plan(2)
 
   try {
-      error('Hello')
-  } catch(err: unknown) {
-    t.is(err, 'Hello')
+    error('Hello')
+  } catch (error_: unknown) {
+    t.is(error_, 'Hello')
   }
 
   t.throws(
