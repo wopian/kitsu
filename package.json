@@ -8,7 +8,7 @@
     "url": "https://github.com/wopian/kitsu/issues"
   },
   "engines": {
-    "node": ">= 16"
+    "node": ">= 18"
   },
   "workspaces": [
     "packages/*"
@@ -17,19 +17,15 @@
     "build": "yarn workspaces foreach -pt run build",
     "lint": "eslint . --ext .js,.cjs,.mjs,.ts,.cts,.mts --fix --ignore-path .gitignore",
     "lint:ci": "eslint . --ext .js,.cjs,.mjs,.ts,.cts,.mts --ignore-path .gitignore",
-    "test": "ava",
-    "coverage": "c8 ava",
+    "test": "NODE_OPTIONS='--loader=tsx --no-warnings' ava",
+    "coverage": "NODE_OPTIONS='--loader=tsx --no-warnings' c8 ava",
     "document": "typedoc src/index.ts --name preferred-locale --includeVersion --hideGenerator --searchInComments --plugin @mxssfd/typedoc-theme --theme my-theme --entryPointStrategy expand"
   },
   "ava": {
     "utilizeParallelBuilds": true,
     "extensions": {
       "ts": "module"
-    },
-    "nodeArguments": [
-      "--loader",
-      "tsx"
-    ]
+    }
   },
   "c8": {
     "all": true,
