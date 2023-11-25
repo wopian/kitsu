@@ -55,7 +55,7 @@
     "rollup-plugin-delete": "~2.0.0",
     "rollup-plugin-local-resolve": "~1.0.7",
     "size-limit": "~8.2.0",
-    "typescript": "~5.2.0"
+    "typescript": "~5.3.0"
   },
   "jest": {
     "coverageThreshold": {
