@@ -79,12 +79,11 @@ export default class Kitsu {
       },
       ...options.axiosOptions
     })
-
     this.fetch = this.get
     this.update = this.patch
     this.create = this.post
     this.remove = this.delete
-
+    this.paramsSerializer = { serialize: /* istanbul ignore next */ p => this.query(p), encode: val => encodeURI(val) }
     /**
      * Axios Interceptors (alias of `axios.interceptors`)
      *
@@ -235,7 +234,7 @@ export default class Kitsu {
       const { data, headers: responseHeaders } = await this.axios.get(url, {
         headers,
         params,
-        paramsSerializer: /* istanbul ignore next */ p => this.query(p),
+        paramsSerializer: this.paramsSerializer,
         ...config.axiosOptions
       })
 
@@ -296,13 +295,9 @@ export default class Kitsu {
         fullURL,
         serialData,
         {
-          headers,
-          params,
-          paramsSerializer: /* istanbul ignore next */ p => this.query(p),
-          ...config.axiosOptions
+          headers, params, paramsSerializer: this.paramsSerializer, ...config.axiosOptions
         }
       )
-
       return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
     } catch (E) {
       throw error(E)
@@ -359,7 +354,7 @@ export default class Kitsu {
         {
           headers,
           params,
-          paramsSerializer: /* istanbul ignore next */ p => this.query(p),
+          paramsSerializer: this.paramsSerializer,
           ...config.axiosOptions
         }
       )
@@ -414,7 +409,7 @@ export default class Kitsu {
         }),
         headers,
         params,
-        paramsSerializer: /* istanbul ignore next */ p => this.query(p),
+        paramsSerializer: this.paramsSerializer,
         ...config.axiosOptions
       })
 
@@ -524,7 +519,7 @@ export default class Kitsu {
           }),
         headers: { ...this.headers, ...headers },
         params,
-        paramsSerializer: /* istanbul ignore next */ p => this.query(p),
+        paramsSerializer: this.paramsSerializer,
         ...axiosOptions
       })
 

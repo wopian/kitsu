@@ -37,6 +37,24 @@ describe('kitsu', () => {
       expect(api.axios.request).toHaveBeenCalledWith(expect.objectContaining({ withCredentials: true }))
     })
 
+    it('sets encode and serialize', async () => {
+      expect.assertions(4)
+      const api = new Kitsu({ headers: { init: true } })
+      mock.onGet('/anime/1').reply(config => {
+        expect(config.paramsSerializer.encode).toBeDefined()
+        expect(config.paramsSerializer.serialize).toBeDefined()
+        expect(config.paramsSerializer.encode('[]')).toBe('%5B%5D')
+        return [ 200, { data: [] } ]
+      })
+      const response = await api.request({
+        method: 'GET',
+        url: 'anime/1'
+      })
+      await expect(await response).toEqual({
+        data: []
+      })
+    })
+
     it('sends and receives headers', async () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })

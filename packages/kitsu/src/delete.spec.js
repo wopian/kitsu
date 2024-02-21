@@ -18,6 +18,21 @@ describe('kitsu', () => {
       expect(api.axios.delete).toHaveBeenCalledWith('anime/1', expect.objectContaining({ withCredentials: true }))
     })
 
+    it('sets encode and serialize', async () => {
+      expect.assertions(4)
+      const api = new Kitsu({ headers: { init: true } })
+      mock.onDelete('/anime/1').reply(config => {
+        expect(config.paramsSerializer.encode).toBeDefined()
+        expect(config.paramsSerializer.serialize).toBeDefined()
+        expect(config.paramsSerializer.encode('[]')).toBe('%5B%5D')
+        return [ 200, { data: [] } ]
+      })
+      const response = await api.delete('anime', 1)
+      await expect(await response).toEqual({
+        data: []
+      })
+    })
+
     it('sends and recieves headers', async () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
