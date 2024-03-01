@@ -72,30 +72,37 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./index": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./index.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./index.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./dist/index": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./dist/index.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./dist/index.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     }
