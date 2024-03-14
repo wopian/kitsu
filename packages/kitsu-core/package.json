@@ -64,270 +64,337 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./index": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./index.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./index.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./camel": {
+      "types": "./types/index.d.ts",
       "import": "./dist/camel.mjs",
       "require": "./dist/camel.js"
     },
     "./camel.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/camel.mjs",
       "require": "./dist/camel.js"
     },
     "./camel.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/camel.mjs",
       "require": "./dist/camel.js"
     },
     "./deattribute": {
+      "types": "./types/index.d.ts",
       "import": "./dist/deattribute.mjs",
       "require": "./dist/deattribute.js"
     },
     "./deattribute.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/deattribute.mjs",
       "require": "./dist/deattribute.js"
     },
     "./deattribute.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/deattribute.mjs",
       "require": "./dist/deattribute.js"
     },
     "./deserialise": {
+      "types": "./types/index.d.ts",
       "import": "./dist/deserialise.mjs",
       "require": "./dist/deserialise.js"
     },
     "./deserialise.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/deserialise.mjs",
       "require": "./dist/deserialise.js"
     },
     "./deserialise.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/deserialise.mjs",
       "require": "./dist/deserialise.js"
     },
     "./error": {
+      "types": "./types/index.d.ts",
       "import": "./dist/error.mjs",
       "require": "./dist/error.js"
     },
     "./error.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/error.mjs",
       "require": "./dist/error.js"
     },
     "./error.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/error.mjs",
       "require": "./dist/error.js"
     },
     "./filterIncludes": {
+      "types": "./types/index.d.ts",
       "import": "./dist/filterIncludes.mjs",
       "require": "./dist/filterIncludes.js"
     },
     "./filterIncludes.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/filterIncludes.mjs",
       "require": "./dist/filterIncludes.js"
     },
     "./filterIncludes.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/filterIncludes.mjs",
       "require": "./dist/filterIncludes.js"
     },
     "./kebab": {
+      "types": "./types/index.d.ts",
       "import": "./dist/kebab.mjs",
       "require": "./dist/kebab.js"
     },
     "./kebab.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/kebab.mjs",
       "require": "./dist/kebab.js"
     },
     "./kebab.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/kebab.mjs",
       "require": "./dist/kebab.js"
     },
     "./linkRelationships": {
+      "types": "./types/index.d.ts",
       "import": "./dist/linkRelationships.mjs",
       "require": "./dist/linkRelationships.js"
     },
     "./linkRelationships.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/linkRelationships.mjs",
       "require": "./dist/linkRelationships.js"
     },
     "./linkRelationships.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/linkRelationships.mjs",
       "require": "./dist/linkRelationships.js"
     },
     "./query": {
+      "types": "./types/index.d.ts",
       "import": "./dist/query.mjs",
       "require": "./dist/query.js"
     },
     "./query.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/query.mjs",
       "require": "./dist/query.js"
     },
     "./query.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/query.mjs",
       "require": "./dist/query.js"
     },
     "./serialise": {
+      "types": "./types/index.d.ts",
       "import": "./dist/serialise.mjs",
       "require": "./dist/serialise.js"
     },
     "./serialise.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/serialise.mjs",
       "require": "./dist/serialise.js"
     },
     "./serialise.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/serialise.mjs",
       "require": "./dist/serialise.js"
     },
     "./snake": {
+      "types": "./types/index.d.ts",
       "import": "./dist/snake.mjs",
       "require": "./dist/snake.js"
     },
     "./snake.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/snake.mjs",
       "require": "./dist/snake.js"
     },
     "./snake.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/snake.mjs",
       "require": "./dist/snake.js"
     },
     "./dist/index": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./dist/index.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./dist/index.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./dist/camel": {
+      "types": "./types/index.d.ts",
       "import": "./dist/camel.mjs",
       "require": "./dist/camel.js"
     },
     "./dist/camel.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/camel.mjs",
       "require": "./dist/camel.js"
     },
     "./dist/camel.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/camel.mjs",
       "require": "./dist/camel.js"
     },
     "./dist/deattribute": {
+      "types": "./types/index.d.ts",
       "import": "./dist/deattribute.mjs",
       "require": "./dist/deattribute.js"
     },
     "./dist/deattribute.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/deattribute.mjs",
       "require": "./dist/deattribute.js"
     },
     "./dist/deattribute.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/deattribute.mjs",
       "require": "./dist/deattribute.js"
     },
     "./dist/deserialise": {
+      "types": "./types/index.d.ts",
       "import": "./dist/deserialise.mjs",
       "require": "./dist/deserialise.js"
     },
     "./dist/deserialise.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/deserialise.mjs",
       "require": "./dist/deserialise.js"
     },
     "./dist/deserialise.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/deserialise.mjs",
       "require": "./dist/deserialise.js"
     },
     "./dist/error": {
+      "types": "./types/index.d.ts",
       "import": "./dist/error.mjs",
       "require": "./dist/error.js"
     },
     "./dist/error.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/error.mjs",
       "require": "./dist/error.js"
     },
     "./dist/error.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/error.mjs",
       "require": "./dist/error.js"
     },
     "./dist/filterIncludes": {
+      "types": "./types/index.d.ts",
       "import": "./dist/filterIncludes.mjs",
       "require": "./dist/filterIncludes.js"
     },
     "./dist/filterIncludes.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/filterIncludes.mjs",
       "require": "./dist/filterIncludes.js"
     },
     "./dist/filterIncludes.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/filterIncludes.mjs",
       "require": "./dist/filterIncludes.js"
     },
     "./dist/kebab": {
+      "types": "./types/index.d.ts",
       "import": "./dist/kebab.mjs",
       "require": "./dist/kebab.js"
     },
     "./dist/kebab.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/kebab.mjs",
       "require": "./dist/kebab.js"
     },
     "./dist/kebab.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/kebab.mjs",
       "require": "./dist/kebab.js"
     },
     "./dist/linkRelationships": {
+      "types": "./types/index.d.ts",
       "import": "./dist/linkRelationships.mjs",
       "require": "./dist/linkRelationships.js"
     },
     "./dist/linkRelationships.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/linkRelationships.mjs",
       "require": "./dist/linkRelationships.js"
     },
     "./dist/linkRelationships.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/linkRelationships.mjs",
       "require": "./dist/linkRelationships.js"
     },
     "./dist/query": {
+      "types": "./types/index.d.ts",
       "import": "./dist/query.mjs",
       "require": "./dist/query.js"
     },
     "./dist/query.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/query.mjs",
       "require": "./dist/query.js"
     },
     "./dist/query.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/query.mjs",
       "require": "./dist/query.js"
     },
     "./dist/serialise": {
+      "types": "./types/index.d.ts",
       "import": "./dist/serialise.mjs",
       "require": "./dist/serialise.js"
     },
     "./dist/serialise.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/serialise.mjs",
       "require": "./dist/serialise.js"
     },
     "./dist/serialise.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/serialise.mjs",
       "require": "./dist/serialise.js"
     },
     "./dist/snake": {
+      "types": "./types/index.d.ts",
       "import": "./dist/snake.mjs",
       "require": "./dist/snake.js"
     },
     "./dist/snake.js": {
+      "types": "./types/index.d.ts",
       "import": "./dist/snake.mjs",
       "require": "./dist/snake.js"
     },
     "./dist/snake.mjs": {
+      "types": "./types/index.d.ts",
       "import": "./dist/snake.mjs",
       "require": "./dist/snake.js"
     }
