@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.4](https://github.com/wopian/kitsu/compare/v10.1.2...v10.1.4) (2024-03-14)
+
+
+### Bug Fixes
+
+* **kitsu-core:** export types in fine-grained exports ([b1f15bf](https://github.com/wopian/kitsu/commit/b1f15bfb16d62669a319e7bdea40df272917ebae))
+
+
+
+
+
 ## [10.1.3](https://github.com/wopian/kitsu/compare/v10.1.2...v10.1.3) (2024-03-14)
 
 
