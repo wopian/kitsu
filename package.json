@@ -34,7 +34,7 @@
     "size": "lerna exec size-limit"
   },
   "devDependencies": {
-    "@babel/cli": "~7.23.0",
+    "@babel/cli": "~7.24.0",
     "@babel/core": "~7.24.0",
     "@babel/preset-env": "~7.24.0",
     "@rollup/plugin-babel": "~6.0.0",
