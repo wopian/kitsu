@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.5](https://github.com/wopian/kitsu/compare/v10.1.4...v10.1.5) (2024-03-30)
+
+
+### Bug Fixes
+
+* **kitsu:** update dependency axios to v0.28.1 to address CVE-2023-45857 ([#964](https://github.com/wopian/kitsu/issues/964)) ([ac23118](https://github.com/wopian/kitsu/commit/ac2311858c29afa9c31f9fe6a68474a6edf853c7))
+
+
+
+
+
 ## [10.1.4](https://github.com/wopian/kitsu/compare/v10.1.2...v10.1.4) (2024-03-14)
 
 
