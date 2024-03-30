@@ -77,6 +77,7 @@ export default class Kitsu {
         baseURL: options.baseURL || 'https://kitsu.io/api/edge',
         timeout: options.timeout || 30000
       },
+      paramsSerializer: { serialize: /* istanbul ignore next */ p => this.query(p) },
       ...options.axiosOptions
     })
 
@@ -235,7 +236,6 @@ export default class Kitsu {
       const { data, headers: responseHeaders } = await this.axios.get(url, {
         headers,
         params,
-        paramsSerializer: /* istanbul ignore next */ p => this.query(p),
         ...config.axiosOptions
       })
 
@@ -298,7 +298,6 @@ export default class Kitsu {
         {
           headers,
           params,
-          paramsSerializer: /* istanbul ignore next */ p => this.query(p),
           ...config.axiosOptions
         }
       )
@@ -359,7 +358,6 @@ export default class Kitsu {
         {
           headers,
           params,
-          paramsSerializer: /* istanbul ignore next */ p => this.query(p),
           ...config.axiosOptions
         }
       )
@@ -414,7 +412,6 @@ export default class Kitsu {
         }),
         headers,
         params,
-        paramsSerializer: /* istanbul ignore next */ p => this.query(p),
         ...config.axiosOptions
       })
 
@@ -524,7 +521,6 @@ export default class Kitsu {
           }),
         headers: { ...this.headers, ...headers },
         params,
-        paramsSerializer: /* istanbul ignore next */ p => this.query(p),
         ...axiosOptions
       })
 
