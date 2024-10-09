@@ -513,7 +513,7 @@ export default class Kitsu {
       const { data, headers: responseHeaders } = await this.axios.request({
         method,
         url,
-        data: [ 'GET', 'DELETE' ].includes(method)
+        data: method === 'GET'
           ? undefined
           : serialise(type, body, method, {
             camelCaseTypes: this.camel,
