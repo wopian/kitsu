@@ -35,7 +35,8 @@ describe('kitsu', () => {
       expect(await api.delete('anime', 1, { headers: { extra: true } })).toEqual({
         headers: {
           Accept: 'application/vnd.api+json'
-        }
+        },
+        statusCode: 200
       })
     })
 
@@ -51,7 +52,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.delete('post', 1)).toBeUndefined()
+      await expect(await api.delete('post', 1)).toEqual({ statusCode: 200 })
     })
 
     it('handles nested routes', async () => {
@@ -66,7 +67,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.delete('posts/1/comments', 1)).toBeUndefined()
+      await expect(await api.delete('posts/1/comments', 1)).toEqual({ statusCode: 200 })
     })
 
     it('deletes multiple resources (bulk extension)', async () => {
@@ -81,7 +82,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.delete('post', [ 1, 2 ])).toBeUndefined()
+      await expect(await api.delete('post', [ 1, 2 ])).toEqual({ statusCode: 200 })
     })
 
     it('throws an error if ID is missing', async () => {

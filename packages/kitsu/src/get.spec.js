@@ -50,7 +50,8 @@ describe('kitsu', () => {
           Accept: 'application/vnd.api+json',
           'Content-Type': 'application/vnd.api+json',
           extra: true
-        }
+        },
+        statusCode: 200
       })
     })
 
@@ -59,7 +60,7 @@ describe('kitsu', () => {
       const api = new Kitsu()
       mock.onGet('/anime').reply(200, getCollection.jsonapi)
       const request = await api.get('anime')
-      expect(request).toEqual(getCollection.kitsu)
+      expect(request).toEqual({ ...getCollection.kitsu, statusCode: 200 })
     })
 
     it('fetches a single resource', async () => {
@@ -67,7 +68,7 @@ describe('kitsu', () => {
       const api = new Kitsu()
       mock.onGet(`anime/${getSingle.jsonapi.data.id}`).reply(200, getSingle.jsonapi)
       const request = await api.get('anime/1')
-      expect(request).toEqual(getSingle.kitsu)
+      expect(request).toEqual({ ...getSingle.kitsu, statusCode: 200 })
     })
 
     it('fetches a relationship collection of resources', async () => {
@@ -75,7 +76,7 @@ describe('kitsu', () => {
       const api = new Kitsu()
       mock.onGet('authors/1/anime').reply(200, getCollection.jsonapi)
       const request = await api.get('author/1/anime')
-      expect(request).toEqual(getCollection.kitsu)
+      expect(request).toEqual({ ...getCollection.kitsu, statusCode: 200 })
     })
 
     it('fetches a relationshop single resource', async () => {
@@ -83,7 +84,7 @@ describe('kitsu', () => {
       const api = new Kitsu()
       mock.onGet('comments/1/anime').reply(200, getSingle.jsonapi)
       const request = await api.get('comment/1/anime')
-      expect(request).toEqual(getSingle.kitsu)
+      expect(request).toEqual({ ...getSingle.kitsu, statusCode: 200 })
     })
 
     it('fetches a collection of resources with includes', async () => {
@@ -91,7 +92,7 @@ describe('kitsu', () => {
       const api = new Kitsu()
       mock.onGet('anime').reply(200, getCollectionWithIncludes.jsonapi)
       const request = await api.get('anime')
-      expect(request).toEqual(getCollectionWithIncludes.kitsu)
+      expect(request).toEqual({ ...getCollectionWithIncludes.kitsu, statusCode: 200 })
     })
 
     it('fetches a single resource with includes', async () => {
@@ -99,7 +100,7 @@ describe('kitsu', () => {
       const api = new Kitsu()
       mock.onGet(`anime/${getSingleWithIncludes.jsonapi.data.id}`, { include: 'author,comments' }).reply(200, getSingleWithIncludes.jsonapi)
       const request = await api.get('anime/1', { params: { include: 'author,comments' } })
-      expect(request).toEqual(getSingleWithIncludes.kitsu)
+      expect(request).toEqual({ ...getSingleWithIncludes.kitsu, statusCode: 200 })
     })
 
     it('fetches a single resource with nested includes', async () => {
@@ -107,7 +108,7 @@ describe('kitsu', () => {
       const api = new Kitsu()
       mock.onGet('anime/1').reply(200, getSingleWithNestedIncludes.jsonapi)
       const request = await api.get('anime/1')
-      expect(request).toEqual(getSingleWithNestedIncludes.kitsu)
+      expect(request).toEqual({ ...getSingleWithNestedIncludes.kitsu, statusCode: 200 })
     })
 
     it('fetches a single resource with a camelCase relationship include', async () => {
@@ -115,7 +116,7 @@ describe('kitsu', () => {
       const api = new Kitsu()
       mock.onGet('anime/1', { params: { include: 'animeStaff' } }).reply(200, getSingleWithIncludes.jsonapi)
       const request = await api.get('anime/1', { params: { include: 'animeStaff' } })
-      expect(request).toEqual(getSingleWithIncludes.kitsu)
+      expect(request).toEqual({ ...getSingleWithIncludes.kitsu, statusCode: 200 })
     })
 
     it('fetches :resource/:id/relationships/:relationship', async () => {
@@ -133,7 +134,7 @@ describe('kitsu', () => {
       const api = new Kitsu()
       mock.onGet('media-relationships/1/relationships/destination').reply(200, response)
       const request = await api.get('mediaRelationships/1/relationships/destination')
-      expect(request).toEqual(response)
+      expect(request).toEqual({ ...response, statusCode: 200 })
     })
 
     it('fetches :resource/:relationship/:subRelationship', async () => {
@@ -147,7 +148,7 @@ describe('kitsu', () => {
       const api = new Kitsu({ pluralize: false })
       mock.onGet('profile/user-accounts/me').reply(200, response)
       const request = await api.get('profile/userAccounts/me')
-      expect(request).toEqual(response)
+      expect(request).toEqual({ ...response, statusCode: 200 })
     })
 
     it('returns a JSON:API error object for invalid queries', async () => {
@@ -271,7 +272,8 @@ describe('kitsu', () => {
               }
             }
           }
-        ]
+        ],
+        statusCode: 200
       })
     })
   })

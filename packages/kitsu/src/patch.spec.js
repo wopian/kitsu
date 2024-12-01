@@ -39,7 +39,8 @@ describe('kitsu', () => {
       await expect(await api.patch('anime', { id: '1', type: 'anime' }, { headers: { extra: true } })).toEqual({
         headers: {
           Accept: 'application/vnd.api+json'
-        }
+        },
+        statusCode: 200
       })
     })
 
@@ -58,7 +59,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.patch('post', { id: '1', content: 'Hello World' })).toBeUndefined()
+      await expect(await api.patch('post', { id: '1', content: 'Hello World' })).toEqual({ statusCode: 200 })
     })
 
     it('sends bulk data in request', async () => {
@@ -88,7 +89,7 @@ describe('kitsu', () => {
       await expect(await api.patch('post', [
         { id: '1', content: 'Hello World' },
         { id: '2', content: 'Hey World' }
-      ])).toBeUndefined()
+      ])).toEqual({ statusCode: 200 })
     })
 
     it('throws an error if missing a JSON object body', async () => {
@@ -116,7 +117,7 @@ describe('kitsu', () => {
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPatch(`posts/${patchSingle.jsonapi.data.id}`).reply(200, patchSingle.jsonapi)
       const request = await api.patch('posts', patchSingle.kitsu)
-      expect(request).toEqual({ data: patchSingle.kitsu })
+      expect(request).toEqual({ data: patchSingle.kitsu, statusCode: 200 })
     })
 
     it('handes nested routes', async () => {
@@ -124,7 +125,7 @@ describe('kitsu', () => {
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onPatch(`something/1/relationships/posts/${patchSingle.jsonapi.data.id}`).reply(200, patchSingle.jsonapi)
       const request = await api.patch('something/1/relationships/posts', patchSingle.kitsu)
-      expect(request).toEqual({ data: patchSingle.kitsu })
+      expect(request).toEqual({ data: patchSingle.kitsu, statusCode: 200 })
     })
   })
 })
