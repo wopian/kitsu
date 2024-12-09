@@ -510,7 +510,7 @@ export default class Kitsu {
   async request ({ body, method, params, type, url, headers, axiosOptions }) {
     try {
       method = method?.toUpperCase() || 'GET'
-      const { data, headers: responseHeaders } = await this.axios.request({
+      const { data, headers: responseHeaders, status: responseStatusCode } = await this.axios.request({
         method,
         url,
         data: [ 'GET', 'DELETE' ].includes(method)
@@ -524,7 +524,7 @@ export default class Kitsu {
         ...axiosOptions
       })
 
-      return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
+      return { ...deserialise(data), responseStatusCode, ...(responseHeaders ? { headers: responseHeaders } : {}) }
     } catch (E) {
       throw error(E)
     }
