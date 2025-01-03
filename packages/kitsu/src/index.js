@@ -74,7 +74,7 @@ export default class Kitsu {
 
     this.axios = axios.create({
       ...{
-        baseURL: options.baseURL || 'https://kitsu.io/api/edge',
+        baseURL: options.baseURL || 'https://kitsu.app/api/edge',
         timeout: options.timeout || 30000
       },
       paramsSerializer: { serialize: /* istanbul ignore next */ p => this.query(p) },
