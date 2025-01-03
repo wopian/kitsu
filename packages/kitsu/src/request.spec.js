@@ -54,7 +54,7 @@ describe('kitsu', () => {
         url: 'users',
         model: 'users',
         headers: { extra: true }
-      })).toEqual({ data: [], headers: { Accept: 'application/vnd.api+json' }, statusCode: 200 })
+      })).toEqual({ data: [], headers: { Accept: 'application/vnd.api+json' }, status: 200 })
     })
 
     it('sends parameters', async () => {
@@ -66,7 +66,7 @@ describe('kitsu', () => {
         url: 'anime/1',
         params: { include: 'author,comments' }
       })
-      expect(request).toEqual({ ...getSingleWithIncludes.kitsu, statusCode: 200 })
+      expect(request).toEqual({ ...getSingleWithIncludes.kitsu, status: 200 })
     })
 
     it('defaults to a GET request', async () => {
@@ -76,7 +76,7 @@ describe('kitsu', () => {
       const request = await api.request({
         url: 'anime/1'
       })
-      expect(request).toEqual({ ...genericRequest, statusCode: 200 })
+      expect(request).toEqual({ ...genericRequest, status: 200 })
     })
 
     it('handles method case differences', async () => {
@@ -87,7 +87,7 @@ describe('kitsu', () => {
         method: 'gEt',
         url: 'anime/1'
       })
-      expect(request).toEqual({ ...genericRequest, statusCode: 200 })
+      expect(request).toEqual({ ...genericRequest, status: 200 })
     })
 
     it('makes PATCH requests', async () => {
@@ -100,7 +100,7 @@ describe('kitsu', () => {
         type: 'anime',
         body: genericResponse.data
       })
-      expect(request).toEqual({ ...genericRequest, statusCode: 200 })
+      expect(request).toEqual({ ...genericRequest, status: 200 })
     })
 
     it('makes PATCH requests (array)', async () => {
@@ -126,7 +126,7 @@ describe('kitsu', () => {
           genericRequest.data,
           genericRequest.data
         ],
-        statusCode: 200
+        status: 200
       })
     })
 
@@ -140,7 +140,7 @@ describe('kitsu', () => {
         type: 'anime',
         body: genericResponse.data
       })
-      expect(request).toEqual({ ...genericRequest, statusCode: 200 })
+      expect(request).toEqual({ ...genericRequest, status: 200 })
     })
 
     it('makes DELETE requests', async () => {
@@ -152,7 +152,7 @@ describe('kitsu', () => {
         type: 'anime',
         url: 'anime/1'
       })
-      expect(request).toEqual({ ...genericRequest, statusCode: 200 })
+      expect(request).toEqual({ ...genericRequest, status: 200 })
     })
 
     it('throws an error if body is missing', async () => {
@@ -175,7 +175,7 @@ describe('kitsu', () => {
         url: 'anime/1',
         params: { include: 'animeStaff' }
       })
-      expect(request).toEqual({ ...getSingleWithIncludes.kitsu, statusCode: 200 })
+      expect(request).toEqual({ ...getSingleWithIncludes.kitsu, status: 200 })
     })
   })
 })

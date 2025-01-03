@@ -36,7 +36,7 @@ describe('kitsu', () => {
         headers: {
           Accept: 'application/vnd.api+json'
         },
-        statusCode: 200
+        status: 200
       })
     })
 
@@ -54,7 +54,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.post('anime', { type: 'anime', name: 'Name' })).toEqual({ statusCode: 200 })
+      await expect(await api.post('anime', { type: 'anime', name: 'Name' })).toEqual({ status: 200 })
     })
 
     it('handles nested routes', async () => {
@@ -71,7 +71,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.post('something/1/relationships/anime', { type: 'anime', name: 'Name' })).toEqual({ statusCode: 200 })
+      await expect(await api.post('something/1/relationships/anime', { type: 'anime', name: 'Name' })).toEqual({ status: 200 })
     })
 
     it('sends data in request with client-generated ID', async () => {
@@ -89,7 +89,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.post('anime', { id: 123456789, type: 'anime', name: 'Name' })).toEqual({ statusCode: 200 })
+      await expect(await api.post('anime', { id: 123456789, type: 'anime', name: 'Name' })).toEqual({ status: 200 })
     })
 
     it('throws an error if missing a valid JSON object body', async () => {
@@ -117,8 +117,8 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.post('anime')).toEqual({ statusCode: 200 })
-      await expect(await api.post('anime', {})).toEqual({ statusCode: 200 })
+      await expect(await api.post('anime')).toEqual({ status: 200 })
+      await expect(await api.post('anime', {})).toEqual({ status: 200 })
     })
 
     it('sends data in request if given empty JSON object in array body', async () => {
@@ -130,7 +130,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.post('anime', [ {} ])).toEqual({ statusCode: 200 })
+      await expect(await api.post('anime', [ {} ])).toEqual({ status: 200 })
     })
   })
 })
