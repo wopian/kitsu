@@ -248,14 +248,14 @@ describe('kitsu-core', () => {
             relationships: {
               follower: {
                 links: {
-                  self: 'https://kitsu.io/follows/1/relationships/follower',
-                  related: 'https://kitsu.io/follows/1/follower'
+                  self: 'https://kitsu.app/follows/1/relationships/follower',
+                  related: 'https://kitsu.app/follows/1/follower'
                 }
               },
               followed: {
                 links: {
-                  self: 'https://kitsu.io/follows/1/relationships/followed',
-                  related: 'https://kitsu.io/follows/1/followed'
+                  self: 'https://kitsu.app/follows/1/relationships/followed',
+                  related: 'https://kitsu.app/follows/1/followed'
                 }
               }
             }
@@ -269,14 +269,14 @@ describe('kitsu-core', () => {
             relationships: {
               follower: {
                 links: {
-                  self: 'https://kitsu.io/follows/2/relationships/follower',
-                  related: 'https://kitsu.io/follows/2/follower'
+                  self: 'https://kitsu.app/follows/2/relationships/follower',
+                  related: 'https://kitsu.app/follows/2/follower'
                 }
               },
               followed: {
                 links: {
-                  self: 'https://kitsu.io/follows/2/relationships/followed',
-                  related: 'https://kitsu.io/follows/2/followed'
+                  self: 'https://kitsu.app/follows/2/relationships/followed',
+                  related: 'https://kitsu.app/follows/2/followed'
                 }
               }
             }
@@ -302,14 +302,14 @@ describe('kitsu-core', () => {
                 },
                 follower: {
                   links: {
-                    self: 'https://kitsu.io/follows/1/relationships/follower',
-                    related: 'https://kitsu.io/follows/1/follower'
+                    self: 'https://kitsu.app/follows/1/relationships/follower',
+                    related: 'https://kitsu.app/follows/1/follower'
                   }
                 },
                 followed: {
                   links: {
-                    self: 'https://kitsu.io/follows/1/relationships/followed',
-                    related: 'https://kitsu.io/follows/1/followed'
+                    self: 'https://kitsu.app/follows/1/relationships/followed',
+                    related: 'https://kitsu.app/follows/1/followed'
                   }
                 }
               },
@@ -321,14 +321,14 @@ describe('kitsu-core', () => {
                 },
                 follower: {
                   links: {
-                    self: 'https://kitsu.io/follows/2/relationships/follower',
-                    related: 'https://kitsu.io/follows/2/follower'
+                    self: 'https://kitsu.app/follows/2/relationships/follower',
+                    related: 'https://kitsu.app/follows/2/follower'
                   }
                 },
                 followed: {
                   links: {
-                    self: 'https://kitsu.io/follows/2/relationships/followed',
-                    related: 'https://kitsu.io/follows/2/followed'
+                    self: 'https://kitsu.app/follows/2/relationships/followed',
+                    related: 'https://kitsu.app/follows/2/followed'
                   }
                 }
               }
@@ -370,8 +370,8 @@ describe('kitsu-core', () => {
             relationships: {
               primaryMedia: {
                 links: {
-                  self: 'https://kitsu.io/characters/1/relationships/primary-media',
-                  related: 'https://kitsu.io/characters/1/primary-media'
+                  self: 'https://kitsu.app/characters/1/relationships/primary-media',
+                  related: 'https://kitsu.app/characters/1/primary-media'
                 }
               }
             }
@@ -396,8 +396,8 @@ describe('kitsu-core', () => {
               },
               primaryMedia: {
                 links: {
-                  self: 'https://kitsu.io/characters/1/relationships/primary-media',
-                  related: 'https://kitsu.io/characters/1/primary-media'
+                  self: 'https://kitsu.app/characters/1/relationships/primary-media',
+                  related: 'https://kitsu.app/characters/1/primary-media'
                 }
               }
             }
@@ -1036,8 +1036,8 @@ describe('kitsu-core', () => {
             relationships: {
               follower: {
                 links: {
-                  self: 'https://kitsu.io/follows/1/relationships/follower',
-                  related: 'https://kitsu.io/follows/1/follower'
+                  self: 'https://kitsu.app/follows/1/relationships/follower',
+                  related: 'https://kitsu.app/follows/1/follower'
                 }
               }
             }
@@ -1067,8 +1067,8 @@ describe('kitsu-core', () => {
                 },
                 follower: {
                   links: {
-                    self: 'https://kitsu.io/follows/1/relationships/follower',
-                    related: 'https://kitsu.io/follows/1/follower'
+                    self: 'https://kitsu.app/follows/1/relationships/follower',
+                    related: 'https://kitsu.app/follows/1/follower'
                   }
                 }
               }

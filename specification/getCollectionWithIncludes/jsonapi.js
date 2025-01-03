@@ -6,7 +6,7 @@ export default {
       id: '1',
       type: 'anime',
       links: {
-        self: 'https://kitsu.io/api/edge/anime/1'
+        self: 'https://kitsu.app/api/edge/anime/1'
       },
       attributes: {
         createdAt: '2013-02-20T16:00:13.609Z',
@@ -57,11 +57,11 @@ export default {
         status: 'finished',
         tba: '',
         posterImage: {
-          tiny: 'https://media.kitsu.io/anime/poster_images/1/tiny.jpg?1431697256',
-          small: 'https://media.kitsu.io/anime/poster_images/1/small.jpg?1431697256',
-          medium: 'https://media.kitsu.io/anime/poster_images/1/medium.jpg?1431697256',
-          large: 'https://media.kitsu.io/anime/poster_images/1/large.jpg?1431697256',
-          original: 'https://media.kitsu.io/anime/poster_images/1/original.jpg?1431697256',
+          tiny: 'https://media.kitsu.app/anime/poster_images/1/tiny.jpg?1431697256',
+          small: 'https://media.kitsu.app/anime/poster_images/1/small.jpg?1431697256',
+          medium: 'https://media.kitsu.app/anime/poster_images/1/medium.jpg?1431697256',
+          large: 'https://media.kitsu.app/anime/poster_images/1/large.jpg?1431697256',
+          original: 'https://media.kitsu.app/anime/poster_images/1/original.jpg?1431697256',
           meta: {
             dimensions: {
               tiny: {
@@ -84,10 +84,10 @@ export default {
           }
         },
         coverImage: {
-          tiny: 'https://media.kitsu.io/anime/cover_images/1/tiny.jpg?1416336000',
-          small: 'https://media.kitsu.io/anime/cover_images/1/small.jpg?1416336000',
-          large: 'https://media.kitsu.io/anime/cover_images/1/large.jpg?1416336000',
-          original: 'https://media.kitsu.io/anime/cover_images/1/original.jpg?1416336000',
+          tiny: 'https://media.kitsu.app/anime/cover_images/1/tiny.jpg?1416336000',
+          small: 'https://media.kitsu.app/anime/cover_images/1/small.jpg?1416336000',
+          large: 'https://media.kitsu.app/anime/cover_images/1/large.jpg?1416336000',
+          original: 'https://media.kitsu.app/anime/cover_images/1/original.jpg?1416336000',
           meta: {
             dimensions: {
               tiny: {
@@ -114,8 +114,8 @@ export default {
       relationships: {
         categories: {
           links: {
-            self: 'https://kitsu.io/api/edge/anime/1/relationships/categories',
-            related: 'https://kitsu.io/api/edge/anime/1/categories'
+            self: 'https://kitsu.app/api/edge/anime/1/relationships/categories',
+            related: 'https://kitsu.app/api/edge/anime/1/categories'
           },
           data: [
             {
@@ -137,7 +137,7 @@ export default {
       id: '2',
       type: 'anime',
       links: {
-        self: 'https://kitsu.io/api/edge/anime/2'
+        self: 'https://kitsu.app/api/edge/anime/2'
       },
       attributes: {
         createdAt: '2013-02-20T16:00:16.085Z',
@@ -187,11 +187,11 @@ export default {
         status: 'finished',
         tba: '',
         posterImage: {
-          tiny: 'https://media.kitsu.io/anime/poster_images/2/tiny.jpg?1435249715',
-          small: 'https://media.kitsu.io/anime/poster_images/2/small.jpg?1435249715',
-          medium: 'https://media.kitsu.io/anime/poster_images/2/medium.jpg?1435249715',
-          large: 'https://media.kitsu.io/anime/poster_images/2/large.jpg?1435249715',
-          original: 'https://media.kitsu.io/anime/poster_images/2/original.jpg?1435249715',
+          tiny: 'https://media.kitsu.app/anime/poster_images/2/tiny.jpg?1435249715',
+          small: 'https://media.kitsu.app/anime/poster_images/2/small.jpg?1435249715',
+          medium: 'https://media.kitsu.app/anime/poster_images/2/medium.jpg?1435249715',
+          large: 'https://media.kitsu.app/anime/poster_images/2/large.jpg?1435249715',
+          original: 'https://media.kitsu.app/anime/poster_images/2/original.jpg?1435249715',
           meta: {
             dimensions: {
               tiny: {
@@ -214,10 +214,10 @@ export default {
           }
         },
         coverImage: {
-          tiny: 'https://media.kitsu.io/anime/cover_images/2/tiny.jpg?1469656732',
-          small: 'https://media.kitsu.io/anime/cover_images/2/small.jpg?1469656732',
-          large: 'https://media.kitsu.io/anime/cover_images/2/large.jpg?1469656732',
-          original: 'https://media.kitsu.io/anime/cover_images/2/original.png?1469656732',
+          tiny: 'https://media.kitsu.app/anime/cover_images/2/tiny.jpg?1469656732',
+          small: 'https://media.kitsu.app/anime/cover_images/2/small.jpg?1469656732',
+          large: 'https://media.kitsu.app/anime/cover_images/2/large.jpg?1469656732',
+          original: 'https://media.kitsu.app/anime/cover_images/2/original.png?1469656732',
           meta: {
             dimensions: {
               tiny: {
@@ -244,8 +244,8 @@ export default {
       relationships: {
         categories: {
           links: {
-            self: 'https://kitsu.io/api/edge/anime/2/relationships/categories',
-            related: 'https://kitsu.io/api/edge/anime/2/categories'
+            self: 'https://kitsu.app/api/edge/anime/2/relationships/categories',
+            related: 'https://kitsu.app/api/edge/anime/2/categories'
           },
           data: [
             {
@@ -266,7 +266,7 @@ export default {
       id: '155',
       type: 'categories',
       links: {
-        self: 'https://kitsu.io/api/edge/categories/155'
+        self: 'https://kitsu.app/api/edge/categories/155'
       },
       attributes: {
         createdAt: '2017-05-31T06:39:22.090Z',
@@ -281,8 +281,8 @@ export default {
       relationships: {
         parent: {
           links: {
-            self: 'https://kitsu.io/api/edge/categories/155/relationships/parent',
-            related: 'https://kitsu.io/api/edge/categories/155/parent'
+            self: 'https://kitsu.app/api/edge/categories/155/relationships/parent',
+            related: 'https://kitsu.app/api/edge/categories/155/parent'
           }
         }
       }
@@ -291,7 +291,7 @@ export default {
       id: '51',
       type: 'categories',
       links: {
-        self: 'https://kitsu.io/api/edge/categories/51'
+        self: 'https://kitsu.app/api/edge/categories/51'
       },
       attributes: {
         createdAt: '2017-05-31T06:38:47.070Z',
@@ -306,8 +306,8 @@ export default {
       relationships: {
         parent: {
           links: {
-            self: 'https://kitsu.io/api/edge/categories/51/relationships/parent',
-            related: 'https://kitsu.io/api/edge/categories/51/parent'
+            self: 'https://kitsu.app/api/edge/categories/51/relationships/parent',
+            related: 'https://kitsu.app/api/edge/categories/51/parent'
           }
         }
       }
@@ -316,7 +316,7 @@ export default {
       id: '150',
       type: 'categories',
       links: {
-        self: 'https://kitsu.io/api/edge/categories/150'
+        self: 'https://kitsu.app/api/edge/categories/150'
       },
       attributes: {
         createdAt: '2017-05-31T06:39:20.357Z',
@@ -331,8 +331,8 @@ export default {
       relationships: {
         parent: {
           links: {
-            self: 'https://kitsu.io/api/edge/categories/150/relationships/parent',
-            related: 'https://kitsu.io/api/edge/categories/150/parent'
+            self: 'https://kitsu.app/api/edge/categories/150/relationships/parent',
+            related: 'https://kitsu.app/api/edge/categories/150/parent'
           }
         }
       }
@@ -342,8 +342,8 @@ export default {
     count: 12654
   },
   links: {
-    first: 'https://kitsu.io/api/edge/anime?include=categories&page%5Blimit%5D=2&page%5Boffset%5D=0',
-    next: 'https://kitsu.io/api/edge/anime?include=categories&page%5Blimit%5D=2&page%5Boffset%5D=2',
-    last: 'https://kitsu.io/api/edge/anime?include=categories&page%5Blimit%5D=2&page%5Boffset%5D=12652'
+    first: 'https://kitsu.app/api/edge/anime?include=categories&page%5Blimit%5D=2&page%5Boffset%5D=0',
+    next: 'https://kitsu.app/api/edge/anime?include=categories&page%5Blimit%5D=2&page%5Boffset%5D=2',
+    last: 'https://kitsu.app/api/edge/anime?include=categories&page%5Blimit%5D=2&page%5Boffset%5D=12652'
   }
 }

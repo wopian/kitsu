@@ -121,10 +121,10 @@ describe('kitsu', () => {
       expect(api.plural('apple')).toBe('apple')
     })
 
-    it('uses Kitsu.io\'s API by default', () => {
+    it('uses kitsu.app\'s API by default', () => {
       expect.assertions(1)
       const api = new Kitsu()
-      expect(api.axios.defaults.baseURL).toBe('https://kitsu.io/api/edge')
+      expect(api.axios.defaults.baseURL).toBe('https://kitsu.app/api/edge')
     })
 
     it('uses the API provided in constructor', () => {
