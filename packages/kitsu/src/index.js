@@ -6,7 +6,7 @@ import pluralise from 'pluralize'
  * Creates a new `kitsu` instance
  *
  * @param {Object} [options] Options
- * @param {string} [options.baseURL=https://kitsu.io/api/edge] Set the API endpoint
+ * @param {string} [options.baseURL=https://kitsu.app/api/edge] Set the API endpoint
  * @param {Object} [options.headers] Additional headers to send with the requests
  * @param {'traditional'|'modern'|Function} [options.query=traditional] Query serializer function to use. This will impact the way keys are serialized when passing arrays as query parameters. 'modern' is recommended for new projects.
  * @param {boolean} [options.camelCaseTypes=true] If enabled, `type` will be converted to camelCase from kebab-casae or snake_case
@@ -14,7 +14,7 @@ import pluralise from 'pluralize'
  * @param {boolean} [options.pluralize=true] If enabled, `/user` will become `/users` in the URL request and `type` will be pluralized in POST, PATCH and DELETE requests
  * @param {number} [options.timeout=30000] Set the request timeout in milliseconds
  * @param {Object} [options.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
- * @example <caption>Using with Kitsu.io's API</caption>
+ * @example <caption>Using with kitsu.app's API</caption>
  * const api = new Kitsu()
  * @example <caption>Using another API server</caption>
  * const api = new Kitsu({
@@ -133,12 +133,12 @@ export default class Kitsu {
    * @param {string} [config.params.include] Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
    * @param {string} [config.params.sort] Sort dataset by one or more comma separated attributes (prepend `-` for descending order) - [JSON:API Sorting](http://jsonapi.org/format/#fetching-sorting)
    * @param {Object} [config.params.page] [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination). All pagination strategies are supported, even if they are not listed below.
-   * @param {number} [config.params.page.limit] Number of resources to return in request (Offset-based) - **Note:** For Kitsu.io, max is `20` except on `libraryEntries` which has a max of `500`
+   * @param {number} [config.params.page.limit] Number of resources to return in request (Offset-based) - **Note:** For kitsu.app, max is `20` except on `libraryEntries` which has a max of `500`
    * @param {number} [config.params.page.offset] Number of resources to offset the dataset by (Offset-based)
-   * @param {number} [config.params.page.number] Page of resources to return in request (Page-based) - **Note:** Not supported on Kitsu.io
-   * @param {number} [config.params.page.size] Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on Kitsu.io
-   * @param {string} [config.params.page.before] Get the previous page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
-   * @param {string} [config.params.page.after] Get the next page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
+   * @param {number} [config.params.page.number] Page of resources to return in request (Page-based) - **Note:** Not supported on kitsu.app
+   * @param {number} [config.params.page.size] Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on kitsu.app
+   * @param {string} [config.params.page.before] Get the previous page of resources (Cursor-based) - **Note:** Not Supported on kitsu.app
+   * @param {string} [config.params.page.after] Get the next page of resources (Cursor-based) - **Note:** Not Supported on kitsu.app
    * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
    * @returns {Object} JSON-parsed response
    * @example <caption>Getting a resource with JSON:API parameters</caption>
@@ -173,7 +173,7 @@ export default class Kitsu {
    * })
    * @example <caption>Getting a resource's relationship data only</caption>
    * api.get('anime/2/categories')
-   * @example <caption>Getting a resource with nested JSON:API filters (not supported by Kitsu.io's API)</caption>
+   * @example <caption>Getting a resource with nested JSON:API filters (not supported by kitsu.app's API)</caption>
    * // resource?filter[x][y]=value
    * api.get('resource', {
    *   params: {

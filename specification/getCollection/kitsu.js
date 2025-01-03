@@ -5,77 +5,77 @@ export default {
     {
       id: '1',
       type: 'anime',
-      links: { self: 'https://kitsu.io/api/edge/anime/1' },
+      links: { self: 'https://kitsu.app/api/edge/anime/1' },
       genres: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/1/relationships/genres',
-          related: 'https://kitsu.io/api/edge/anime/1/genres'
+          self: 'https://kitsu.app/api/edge/anime/1/relationships/genres',
+          related: 'https://kitsu.app/api/edge/anime/1/genres'
         }
       },
       categories: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/1/relationships/categories',
-          related: 'https://kitsu.io/api/edge/anime/1/categories'
+          self: 'https://kitsu.app/api/edge/anime/1/relationships/categories',
+          related: 'https://kitsu.app/api/edge/anime/1/categories'
         }
       },
       castings: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/1/relationships/castings',
-          related: 'https://kitsu.io/api/edge/anime/1/castings'
+          self: 'https://kitsu.app/api/edge/anime/1/relationships/castings',
+          related: 'https://kitsu.app/api/edge/anime/1/castings'
         }
       },
       installments: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/1/relationships/installments',
-          related: 'https://kitsu.io/api/edge/anime/1/installments'
+          self: 'https://kitsu.app/api/edge/anime/1/relationships/installments',
+          related: 'https://kitsu.app/api/edge/anime/1/installments'
         }
       },
       mappings: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/1/relationships/mappings',
-          related: 'https://kitsu.io/api/edge/anime/1/mappings'
+          self: 'https://kitsu.app/api/edge/anime/1/relationships/mappings',
+          related: 'https://kitsu.app/api/edge/anime/1/mappings'
         }
       },
       reviews: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/1/relationships/reviews',
-          related: 'https://kitsu.io/api/edge/anime/1/reviews'
+          self: 'https://kitsu.app/api/edge/anime/1/relationships/reviews',
+          related: 'https://kitsu.app/api/edge/anime/1/reviews'
         }
       },
       mediaRelationships: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/1/relationships/media-relationships',
-          related: 'https://kitsu.io/api/edge/anime/1/media-relationships'
+          self: 'https://kitsu.app/api/edge/anime/1/relationships/media-relationships',
+          related: 'https://kitsu.app/api/edge/anime/1/media-relationships'
         }
       },
       episodes: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/1/relationships/episodes',
-          related: 'https://kitsu.io/api/edge/anime/1/episodes'
+          self: 'https://kitsu.app/api/edge/anime/1/relationships/episodes',
+          related: 'https://kitsu.app/api/edge/anime/1/episodes'
         }
       },
       streamingLinks: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/1/relationships/streaming-links',
-          related: 'https://kitsu.io/api/edge/anime/1/streaming-links'
+          self: 'https://kitsu.app/api/edge/anime/1/relationships/streaming-links',
+          related: 'https://kitsu.app/api/edge/anime/1/streaming-links'
         }
       },
       animeProductions: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/1/relationships/anime-productions',
-          related: 'https://kitsu.io/api/edge/anime/1/anime-productions'
+          self: 'https://kitsu.app/api/edge/anime/1/relationships/anime-productions',
+          related: 'https://kitsu.app/api/edge/anime/1/anime-productions'
         }
       },
       animeCharacters: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/1/relationships/anime-characters',
-          related: 'https://kitsu.io/api/edge/anime/1/anime-characters'
+          self: 'https://kitsu.app/api/edge/anime/1/relationships/anime-characters',
+          related: 'https://kitsu.app/api/edge/anime/1/anime-characters'
         }
       },
       animeStaff: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/1/relationships/anime-staff',
-          related: 'https://kitsu.io/api/edge/anime/1/anime-staff'
+          self: 'https://kitsu.app/api/edge/anime/1/relationships/anime-staff',
+          related: 'https://kitsu.app/api/edge/anime/1/anime-staff'
         }
       },
       createdAt: '2013-02-20T16:00:13.609Z',
@@ -120,11 +120,11 @@ export default {
       status: 'finished',
       tba: '',
       posterImage: {
-        tiny: 'https://media.kitsu.io/anime/poster_images/1/tiny.jpg?1431697256',
-        small: 'https://media.kitsu.io/anime/poster_images/1/small.jpg?1431697256',
-        medium: 'https://media.kitsu.io/anime/poster_images/1/medium.jpg?1431697256',
-        large: 'https://media.kitsu.io/anime/poster_images/1/large.jpg?1431697256',
-        original: 'https://media.kitsu.io/anime/poster_images/1/original.jpg?1431697256',
+        tiny: 'https://media.kitsu.app/anime/poster_images/1/tiny.jpg?1431697256',
+        small: 'https://media.kitsu.app/anime/poster_images/1/small.jpg?1431697256',
+        medium: 'https://media.kitsu.app/anime/poster_images/1/medium.jpg?1431697256',
+        large: 'https://media.kitsu.app/anime/poster_images/1/large.jpg?1431697256',
+        original: 'https://media.kitsu.app/anime/poster_images/1/original.jpg?1431697256',
         meta: {
           dimensions: {
             tiny: { width: null, height: null },
@@ -135,10 +135,10 @@ export default {
         }
       },
       coverImage: {
-        tiny: 'https://media.kitsu.io/anime/cover_images/1/tiny.jpg?1416336000',
-        small: 'https://media.kitsu.io/anime/cover_images/1/small.jpg?1416336000',
-        large: 'https://media.kitsu.io/anime/cover_images/1/large.jpg?1416336000',
-        original: 'https://media.kitsu.io/anime/cover_images/1/original.jpg?1416336000',
+        tiny: 'https://media.kitsu.app/anime/cover_images/1/tiny.jpg?1416336000',
+        small: 'https://media.kitsu.app/anime/cover_images/1/small.jpg?1416336000',
+        large: 'https://media.kitsu.app/anime/cover_images/1/large.jpg?1416336000',
+        original: 'https://media.kitsu.app/anime/cover_images/1/original.jpg?1416336000',
         meta: {
           dimensions: {
             tiny: { width: null, height: null },
@@ -156,7 +156,7 @@ export default {
     {
       id: '2',
       type: 'anime',
-      links: { self: 'https://kitsu.io/api/edge/anime/2' },
+      links: { self: 'https://kitsu.app/api/edge/anime/2' },
       createdAt: '2013-02-20T16:00:16.085Z',
       updatedAt: '2017-12-30T00:00:21.154Z',
       slug: 'cowboy-bebop-tengoku-no-tobira',
@@ -206,11 +206,11 @@ export default {
       status: 'finished',
       tba: '',
       posterImage: {
-        tiny: 'https://media.kitsu.io/anime/poster_images/2/tiny.jpg?1435249715',
-        small: 'https://media.kitsu.io/anime/poster_images/2/small.jpg?1435249715',
-        medium: 'https://media.kitsu.io/anime/poster_images/2/medium.jpg?1435249715',
-        large: 'https://media.kitsu.io/anime/poster_images/2/large.jpg?1435249715',
-        original: 'https://media.kitsu.io/anime/poster_images/2/original.jpg?1435249715',
+        tiny: 'https://media.kitsu.app/anime/poster_images/2/tiny.jpg?1435249715',
+        small: 'https://media.kitsu.app/anime/poster_images/2/small.jpg?1435249715',
+        medium: 'https://media.kitsu.app/anime/poster_images/2/medium.jpg?1435249715',
+        large: 'https://media.kitsu.app/anime/poster_images/2/large.jpg?1435249715',
+        original: 'https://media.kitsu.app/anime/poster_images/2/original.jpg?1435249715',
         meta: {
           dimensions: {
             tiny: { width: null, height: null },
@@ -221,10 +221,10 @@ export default {
         }
       },
       coverImage: {
-        tiny: 'https://media.kitsu.io/anime/cover_images/2/tiny.jpg?1469656732',
-        small: 'https://media.kitsu.io/anime/cover_images/2/small.jpg?1469656732',
-        large: 'https://media.kitsu.io/anime/cover_images/2/large.jpg?1469656732',
-        original: 'https://media.kitsu.io/anime/cover_images/2/original.png?1469656732',
+        tiny: 'https://media.kitsu.app/anime/cover_images/2/tiny.jpg?1469656732',
+        small: 'https://media.kitsu.app/anime/cover_images/2/small.jpg?1469656732',
+        large: 'https://media.kitsu.app/anime/cover_images/2/large.jpg?1469656732',
+        original: 'https://media.kitsu.app/anime/cover_images/2/original.png?1469656732',
         meta: {
           dimensions: {
             tiny: { width: null, height: null },
@@ -240,82 +240,82 @@ export default {
       nsfw: false,
       genres: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/2/relationships/genres',
-          related: 'https://kitsu.io/api/edge/anime/2/genres'
+          self: 'https://kitsu.app/api/edge/anime/2/relationships/genres',
+          related: 'https://kitsu.app/api/edge/anime/2/genres'
         }
       },
       categories: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/2/relationships/categories',
-          related: 'https://kitsu.io/api/edge/anime/2/categories'
+          self: 'https://kitsu.app/api/edge/anime/2/relationships/categories',
+          related: 'https://kitsu.app/api/edge/anime/2/categories'
         }
       },
       castings: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/2/relationships/castings',
-          related: 'https://kitsu.io/api/edge/anime/2/castings'
+          self: 'https://kitsu.app/api/edge/anime/2/relationships/castings',
+          related: 'https://kitsu.app/api/edge/anime/2/castings'
         }
       },
       installments: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/2/relationships/installments',
-          related: 'https://kitsu.io/api/edge/anime/2/installments'
+          self: 'https://kitsu.app/api/edge/anime/2/relationships/installments',
+          related: 'https://kitsu.app/api/edge/anime/2/installments'
         }
       },
       mappings: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/2/relationships/mappings',
-          related: 'https://kitsu.io/api/edge/anime/2/mappings'
+          self: 'https://kitsu.app/api/edge/anime/2/relationships/mappings',
+          related: 'https://kitsu.app/api/edge/anime/2/mappings'
         }
       },
       reviews: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/2/relationships/reviews',
-          related: 'https://kitsu.io/api/edge/anime/2/reviews'
+          self: 'https://kitsu.app/api/edge/anime/2/relationships/reviews',
+          related: 'https://kitsu.app/api/edge/anime/2/reviews'
         }
       },
       mediaRelationships: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/2/relationships/media-relationships',
-          related: 'https://kitsu.io/api/edge/anime/2/media-relationships'
+          self: 'https://kitsu.app/api/edge/anime/2/relationships/media-relationships',
+          related: 'https://kitsu.app/api/edge/anime/2/media-relationships'
         }
       },
       episodes: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/2/relationships/episodes',
-          related: 'https://kitsu.io/api/edge/anime/2/episodes'
+          self: 'https://kitsu.app/api/edge/anime/2/relationships/episodes',
+          related: 'https://kitsu.app/api/edge/anime/2/episodes'
         }
       },
       streamingLinks: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/2/relationships/streaming-links',
-          related: 'https://kitsu.io/api/edge/anime/2/streaming-links'
+          self: 'https://kitsu.app/api/edge/anime/2/relationships/streaming-links',
+          related: 'https://kitsu.app/api/edge/anime/2/streaming-links'
         }
       },
       animeProductions: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/2/relationships/anime-productions',
-          related: 'https://kitsu.io/api/edge/anime/2/anime-productions'
+          self: 'https://kitsu.app/api/edge/anime/2/relationships/anime-productions',
+          related: 'https://kitsu.app/api/edge/anime/2/anime-productions'
         }
       },
       animeCharacters: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/2/relationships/anime-characters',
-          related: 'https://kitsu.io/api/edge/anime/2/anime-characters'
+          self: 'https://kitsu.app/api/edge/anime/2/relationships/anime-characters',
+          related: 'https://kitsu.app/api/edge/anime/2/anime-characters'
         }
       },
       animeStaff: {
         links: {
-          self: 'https://kitsu.io/api/edge/anime/2/relationships/anime-staff',
-          related: 'https://kitsu.io/api/edge/anime/2/anime-staff'
+          self: 'https://kitsu.app/api/edge/anime/2/relationships/anime-staff',
+          related: 'https://kitsu.app/api/edge/anime/2/anime-staff'
         }
       }
     }
   ],
   meta: { count: 12654 },
   links: {
-    first: 'https://kitsu.io/api/edge/anime?page%5Blimit%5D=2&page%5Boffset%5D=0',
-    next: 'https://kitsu.io/api/edge/anime?page%5Blimit%5D=2&page%5Boffset%5D=2',
-    last: 'https://kitsu.io/api/edge/anime?page%5Blimit%5D=2&page%5Boffset%5D=12652'
+    first: 'https://kitsu.app/api/edge/anime?page%5Blimit%5D=2&page%5Boffset%5D=0',
+    next: 'https://kitsu.app/api/edge/anime?page%5Blimit%5D=2&page%5Boffset%5D=2',
+    last: 'https://kitsu.app/api/edge/anime?page%5Blimit%5D=2&page%5Boffset%5D=12652'
   }
 }
