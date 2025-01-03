@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.2.0](https://github.com/wopian/kitsu/compare/v10.1.5...v10.2.0) (2025-01-03)
+
+
+### Features
+
+* add http status code to kitsu responses ([#1041](https://github.com/wopian/kitsu/issues/1041)) ([9244269](https://github.com/wopian/kitsu/commit/9244269d408214c142bbc6840300b84e3b4ee987))
+
+
+
+
+
 ## [10.1.5](https://github.com/wopian/kitsu/compare/v10.1.4...v10.1.5) (2024-03-30)
 
 
