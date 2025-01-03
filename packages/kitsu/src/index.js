@@ -233,13 +233,13 @@ export default class Kitsu {
       // :resource/:id/:relationship/:subRelationship
       if (subRelationship) url += `/${this.resCase(subRelationship)}`
 
-      const { data, headers: responseHeaders } = await this.axios.get(url, {
+      const { data, headers: responseHeaders, status } = await this.axios.get(url, {
         headers,
         params,
         ...config.axiosOptions
       })
 
-      return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
+      return { ...deserialise(data), status, ...(responseHeaders ? { headers: responseHeaders } : {}) }
     } catch (E) {
       throw error(E)
     }
@@ -292,7 +292,7 @@ export default class Kitsu {
         pluralTypes: this.plural
       })
       const fullURL = body?.id ? `${url}/${body.id}` : url
-      const { data, headers: responseHeaders } = await this.axios.patch(
+      const { data, headers: responseHeaders, status } = await this.axios.patch(
         fullURL,
         serialData,
         {
@@ -302,7 +302,7 @@ export default class Kitsu {
         }
       )
 
-      return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
+      return { ...deserialise(data), status, ...(responseHeaders ? { headers: responseHeaders } : {}) }
     } catch (E) {
       throw error(E)
     }
@@ -349,7 +349,7 @@ export default class Kitsu {
         resourceCase: this.resCase,
         pluralModel: this.plural
       })
-      const { data, headers: responseHeaders } = await this.axios.post(
+      const { data, headers: responseHeaders, status } = await this.axios.post(
         url,
         serialise(resourceModel, body, 'POST', {
           camelCaseTypes: this.camel,
@@ -362,7 +362,7 @@ export default class Kitsu {
         }
       )
 
-      return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
+      return { ...deserialise(data), status, ...(responseHeaders ? { headers: responseHeaders } : {}) }
     } catch (E) {
       throw error(E)
     }
@@ -405,7 +405,7 @@ export default class Kitsu {
         payload = { id }
       }
 
-      const { data, headers: responseHeaders } = await this.axios.delete(path, {
+      const { data, headers: responseHeaders, status } = await this.axios.delete(path, {
         data: serialise(resourceModel, payload, 'DELETE', {
           camelCaseTypes: this.camel,
           pluralTypes: this.plural
@@ -415,7 +415,7 @@ export default class Kitsu {
         ...config.axiosOptions
       })
 
-      return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
+      return { ...deserialise(data), status, ...(responseHeaders ? { headers: responseHeaders } : {}) }
     } catch (E) {
       throw error(E)
     }
@@ -510,7 +510,7 @@ export default class Kitsu {
   async request ({ body, method, params, type, url, headers, axiosOptions }) {
     try {
       method = method?.toUpperCase() || 'GET'
-      const { data, headers: responseHeaders } = await this.axios.request({
+      const { data, headers: responseHeaders, status } = await this.axios.request({
         method,
         url,
         data: [ 'GET', 'DELETE' ].includes(method)
@@ -524,7 +524,7 @@ export default class Kitsu {
         ...axiosOptions
       })
 
-      return responseHeaders ? { ...deserialise(data), ...{ headers: responseHeaders } } : deserialise(data)
+      return { ...deserialise(data), status, ...(responseHeaders ? { headers: responseHeaders } : {}) }
     } catch (E) {
       throw error(E)
     }
