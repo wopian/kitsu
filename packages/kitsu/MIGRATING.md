@@ -235,7 +235,7 @@ data: {
   id: '1',
   type: 'libraryEntries'
   links: {
-    self: 'https://kitsu.io/api/edge/library-entries/1'
+    self: 'https://kitsu.app/api/edge/library-entries/1'
   },
   attributes: {
     ratingTwenty: 10
@@ -243,8 +243,8 @@ data: {
   relationships: {
     user: {
       links: {
-        self: 'https://kitsu.io/api/edge/library-entries/1/relationships/user',
-        related: 'https://kitsu.io/api/edge/library-entries/1/user'
+        self: 'https://kitsu.app/api/edge/library-entries/1/relationships/user',
+        related: 'https://kitsu.app/api/edge/library-entries/1/user'
       },
       data: {
         id: '2',
@@ -258,7 +258,7 @@ included: [
     id: '2',
     type: 'users',
     links: {
-      self: 'https://kitsu.io/api/edge/users/2'
+      self: 'https://kitsu.app/api/edge/users/2'
     },
     attributes: {
       name: 'Example'
@@ -291,19 +291,19 @@ data: {
   id: '1',
   type: 'libraryEntries',
   links: {
-    self: 'https://kitsu.io/api/edge/library-entries/1'
+    self: 'https://kitsu.app/api/edge/library-entries/1'
   },
   ratingTwenty: 10,
   user: {
     links: {
-      self: 'https://kitsu.io/api/edge/library-entries/1/relationships/user',
-      related: 'https://kitsu.io/api/edge/library-entries/1/user'
+      self: 'https://kitsu.app/api/edge/library-entries/1/relationships/user',
+      related: 'https://kitsu.app/api/edge/library-entries/1/user'
     }
     data: {
       id: '2',
       type: 'users',
       links: {
-        self: 'https://kitsu.io/api/edge/users/2'
+        self: 'https://kitsu.app/api/edge/users/2'
       },
       name: 'Example'
     }

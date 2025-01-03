@@ -116,7 +116,7 @@ const Kitsu = require("kitsu"); // CommonJS & Browserify
 ## Quick Start
 
 ```javascript
-// Kitsu.io's API
+// kitsu.app's API
 const api = new Kitsu()
 
 // Other JSON:API servers
@@ -173,7 +173,7 @@ api.get('users', {
 
 [More Examples]
 
-If you're working with [Kitsu.io]'s API, their [API docs][kitsu.io api docs] lists all available resources with their attributes & relationships
+If you're working with [kitsu.app]'s API, their [API docs][kitsu.app api docs] lists all available resources with their attributes & relationships
 
 ## Contributing
 
@@ -187,7 +187,7 @@ See [CHANGELOG]
 
 All code released under [MIT]
 
-[kitsu.io]: https://kitsu.io
+[kitsu.app]: https://kitsu.app
 
 [json:api]: http://jsonapi.org
 
@@ -195,7 +195,7 @@ All code released under [MIT]
 
 [more examples]: https://github.com/wopian/kitsu/tree/master/packages/kitsu/example
 
-[kitsu.io api docs]: https://kitsu.docs.apiary.io
+[kitsu.app api docs]: https://kitsu.docs.apiary.io
 
 [migration guide]: https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md
 
@@ -249,7 +249,7 @@ Creates a new `kitsu` instance
 
 *   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Options (optional, default `{}`)
 
-    *   `options.baseURL` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Set the API endpoint (optional, default `https://kitsu.io/api/edge`)
+    *   `options.baseURL` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Set the API endpoint (optional, default `https://kitsu.app/api/edge`)
     *   `options.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the requests
     *   `options.query` **(`"traditional"` | `"modern"` | [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function))** Query serializer function to use. This will impact the way keys are serialized when passing arrays as query parameters. 'modern' is recommended for new projects. (optional, default `traditional`)
     *   `options.camelCaseTypes` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If enabled, `type` will be converted to camelCase from kebab-casae or snake\_case (optional, default `true`)
@@ -260,7 +260,7 @@ Creates a new `kitsu` instance
 
 #### Examples
 
-Using with Kitsu.io's API
+Using with kitsu.app's API
 
 ```javascript
 const api = new Kitsu()
@@ -399,12 +399,12 @@ Fetch resources (alias `fetch`)
         *   `config.params.sort` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Sort dataset by one or more comma separated attributes (prepend `-` for descending order) - [JSON:API Sorting](http://jsonapi.org/format/#fetching-sorting)
         *   `config.params.page` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination). All pagination strategies are supported, even if they are not listed below.
 
-            *   `config.params.page.limit` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to return in request (Offset-based) - **Note:** For Kitsu.io, max is `20` except on `libraryEntries` which has a max of `500`
+            *   `config.params.page.limit` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to return in request (Offset-based) - **Note:** For kitsu.app, max is `20` except on `libraryEntries` which has a max of `500`
             *   `config.params.page.offset` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to offset the dataset by (Offset-based)
-            *   `config.params.page.number` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Page of resources to return in request (Page-based) - **Note:** Not supported on Kitsu.io
-            *   `config.params.page.size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on Kitsu.io
-            *   `config.params.page.before` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Get the previous page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
-            *   `config.params.page.after` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Get the next page of resources (Cursor-based) - **Note:** Not Supported on Kitsu.io
+            *   `config.params.page.number` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Page of resources to return in request (Page-based) - **Note:** Not supported on kitsu.app
+            *   `config.params.page.size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on kitsu.app
+            *   `config.params.page.before` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Get the previous page of resources (Cursor-based) - **Note:** Not Supported on kitsu.app
+            *   `config.params.page.after` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Get the next page of resources (Cursor-based) - **Note:** Not Supported on kitsu.app
     *   `config.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
 
 ##### Examples
@@ -461,7 +461,7 @@ Getting a resource's relationship data only
 api.get('anime/2/categories')
 ```
 
-Getting a resource with nested JSON:API filters (not supported by Kitsu.io's API)
+Getting a resource with nested JSON:API filters (not supported by kitsu.app's API)
 
 ```javascript
 // resource?filter[x][y]=value

@@ -10,7 +10,7 @@ const app = async () => {
   const { owner } = new OAuth2({
     clientId: '',
     clientSecret: '',
-    accessTokenUri: 'https://kitsu.io/api/oauth/token'
+    accessTokenUri: 'https://kitsu.app/api/oauth/token'
   })
 
   const { accessToken } = await owner.getToken('username', 'password')
