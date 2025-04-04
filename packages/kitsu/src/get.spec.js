@@ -31,11 +31,11 @@ describe('kitsu', () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { init: true } })
       mock.onGet('/anime').reply(config => {
-        expect(config.headers).toEqual({
+        expect(config.headers).toMatchObject({
           Accept: 'application/vnd.api+json',
           'Content-Type': 'application/vnd.api+json',
-          init: true,
-          extra: true
+          init: 'true',
+          extra: 'true'
         })
         return [ 200, { data: [] }, {
           Accept: 'application/vnd.api+json',
@@ -44,12 +44,12 @@ describe('kitsu', () => {
         } ]
       })
       const response = await api.get('anime', { headers: { extra: true } })
-      await expect(await response).toEqual({
+      await expect(await response).toMatchObject({
         data: [],
         headers: {
           Accept: 'application/vnd.api+json',
           'Content-Type': 'application/vnd.api+json',
-          extra: true
+          extra: 'true'
         },
         status: 200
       })

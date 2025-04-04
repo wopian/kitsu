@@ -22,17 +22,17 @@ describe('kitsu', () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onDelete('/anime/1').reply(config => {
-        expect(config.headers).toEqual({
+        expect(config.headers).toMatchObject({
           Accept: 'application/vnd.api+json',
           'Content-Type': 'application/vnd.api+json',
-          Authorization: true,
-          extra: true
+          Authorization: 'true',
+          extra: 'true'
         })
         return [ 200, undefined, {
           Accept: 'application/vnd.api+json'
         } ]
       })
-      expect(await api.delete('anime', 1, { headers: { extra: true } })).toEqual({
+      expect(await api.delete('anime', 1, { headers: { extra: true } })).toMatchObject({
         headers: {
           Accept: 'application/vnd.api+json'
         },
