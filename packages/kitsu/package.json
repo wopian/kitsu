@@ -49,19 +49,19 @@
     "build": "yarn rollup"
   },
   "dependencies": {
-    "axios": "^0.29.0",
+    "axios": "^1.8.4",
     "kitsu-core": "^10.2.0",
     "pluralize": "^8.0.0"
   },
   "size-limit": [
     {
       "path": "./dist/index.js",
-      "limit": "14 kb",
+      "limit": "18 kb",
       "brotli": true
     },
     {
       "path": "./dist/index.mjs",
-      "limit": "14 kb",
+      "limit": "18 kb",
       "brotli": true
     }
   ],
