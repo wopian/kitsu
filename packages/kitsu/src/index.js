@@ -239,7 +239,13 @@ export default class Kitsu {
         ...config.axiosOptions
       })
 
-      return { ...deserialise(data), status, ...(responseHeaders && Object.keys(responseHeaders).length > 0 ? { headers: responseHeaders } : {}) }
+      return {
+        ...deserialise(data),
+        status,
+        ...(responseHeaders && Object.keys(responseHeaders).length > 0
+          ? { headers: responseHeaders }
+          : {})
+      }
     } catch (E) {
       throw error(E)
     }
