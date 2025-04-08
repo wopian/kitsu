@@ -4,23 +4,23 @@ import { linkRelationships } from '../linkRelationships'
 /**
  * Deserialises an array from a JSON-API structure
  *
- * @param {Object[]} array The response
+ * @param {Object} response The response
  * @returns {Object} The deserialised response
  * @private
  */
-function deserialiseArray (array) {
+function deserialiseArray (response) {
   const previouslyLinked = {}
   const relationshipCache = {}
-  for (let value of array.data) {
+  for (let value of response.data) {
     const included = [
-      ...array.data.map(item => ({ ...item, relationships: { ...item.relationships } })),
-      ...(array.included || [])
+      ...response.data.map(item => ({ ...item, relationships: { ...item.relationships } })),
+      ...(response.included || [])
     ]
     value = linkRelationships(value, included, previouslyLinked, relationshipCache)
     if (value.attributes) value = deattribute(value)
-    array.data[array.data.indexOf(value)] = value
+    response.data[response.data.indexOf(value)] = value
   }
-  return array
+  return response
 }
 
 /**
