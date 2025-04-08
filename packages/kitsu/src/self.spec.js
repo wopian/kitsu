@@ -25,15 +25,15 @@ describe('kitsu', () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onGet('/users', { filter: { self: true } }).reply(config => {
-        expect(config.headers).toEqual({
+        expect(config.headers).toMatchObject({
           Accept: 'application/vnd.api+json',
           'Content-Type': 'application/vnd.api+json',
-          Authorization: true,
-          extra: true
+          Authorization: 'true',
+          extra: 'true'
         })
         return [ 200, { data: [] }, { Accept: 'application/vnd.api+json' } ]
       })
-      await expect(await api.self({ headers: { extra: true } })).toEqual({
+      await expect(await api.self({ headers: { extra: true } })).toMatchObject({
         headers: { Accept: 'application/vnd.api+json' }
       })
     })

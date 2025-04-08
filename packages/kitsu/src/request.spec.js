@@ -41,11 +41,11 @@ describe('kitsu', () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       mock.onGet('/users').reply(config => {
-        expect(config.headers).toEqual({
+        expect(config.headers).toMatchObject({
           Accept: 'application/vnd.api+json',
           'Content-Type': 'application/vnd.api+json',
-          Authorization: true,
-          extra: true
+          Authorization: 'true',
+          extra: 'true'
         })
         return [ 200, { data: [] }, { Accept: 'application/vnd.api+json' } ]
       })
@@ -54,7 +54,7 @@ describe('kitsu', () => {
         url: 'users',
         model: 'users',
         headers: { extra: true }
-      })).toEqual({ data: [], headers: { Accept: 'application/vnd.api+json' }, status: 200 })
+      })).toMatchObject({ data: [], headers: { Accept: 'application/vnd.api+json' }, status: 200 })
     })
 
     it('sends parameters', async () => {

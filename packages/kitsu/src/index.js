@@ -239,7 +239,14 @@ export default class Kitsu {
         ...config.axiosOptions
       })
 
-      return { ...deserialise(data), status, ...(responseHeaders ? { headers: responseHeaders } : {}) }
+      return {
+        ...deserialise(data),
+        status,
+        ...(responseHeaders && Object.keys(responseHeaders).length
+          ? { headers: responseHeaders }
+          : {}
+        )
+      }
     } catch (E) {
       throw error(E)
     }
@@ -302,7 +309,14 @@ export default class Kitsu {
         }
       )
 
-      return { ...deserialise(data), status, ...(responseHeaders ? { headers: responseHeaders } : {}) }
+      return {
+        ...deserialise(data),
+        status,
+        ...(responseHeaders && Object.keys(responseHeaders).length
+          ? { headers: responseHeaders }
+          : {}
+        )
+      }
     } catch (E) {
       throw error(E)
     }
@@ -362,7 +376,14 @@ export default class Kitsu {
         }
       )
 
-      return { ...deserialise(data), status, ...(responseHeaders ? { headers: responseHeaders } : {}) }
+      return {
+        ...deserialise(data),
+        status,
+        ...(responseHeaders && Object.keys(responseHeaders).length
+          ? { headers: responseHeaders }
+          : {}
+        )
+      }
     } catch (E) {
       throw error(E)
     }
@@ -415,7 +436,14 @@ export default class Kitsu {
         ...config.axiosOptions
       })
 
-      return { ...deserialise(data), status, ...(responseHeaders ? { headers: responseHeaders } : {}) }
+      return {
+        ...deserialise(data),
+        status,
+        ...(responseHeaders && Object.keys(responseHeaders).length
+          ? { headers: responseHeaders }
+          : {}
+        )
+      }
     } catch (E) {
       throw error(E)
     }
@@ -448,7 +476,7 @@ export default class Kitsu {
       const headers = { ...this.headers, ...config.headers }
       const params = { ...config.params, ...{ filter: { self: true } } }
       const res = await this.get('users', { ...{ headers }, ...{ params }, ...config.axiosOptions })
-      return res.headers ? { ...{ data: res.data[0] }, ...{ headers: res.headers } } : { data: res.data[0] }
+      return { ...(res.headers && { headers: res.headers }), ...(res.data?.[0] && { data: res.data[0] }) }
     } catch (E) {
       throw error(E)
     }
@@ -524,7 +552,14 @@ export default class Kitsu {
         ...axiosOptions
       })
 
-      return { ...deserialise(data), status, ...(responseHeaders ? { headers: responseHeaders } : {}) }
+      return {
+        ...deserialise(data),
+        status,
+        ...(responseHeaders && Object.keys(responseHeaders).length
+          ? { headers: responseHeaders }
+          : {}
+        )
+      }
     } catch (E) {
       throw error(E)
     }
