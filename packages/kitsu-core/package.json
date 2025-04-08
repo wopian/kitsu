@@ -24,7 +24,7 @@
   },
   "funding": "https://github.com/sponsors/wopian",
   "engines": {
-    "node": ">= 14"
+    "node": "18 || 20 || >= 22"
   },
   "keywords": [
     "kitsu",
