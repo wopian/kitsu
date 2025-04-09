@@ -71,7 +71,6 @@
       {
         "displayName": "browser",
         "testEnvironment": "jsdom",
-        "bail": true,
         "collectCoverageFrom": [
           "<rootDir>/packages/**/src/**/*.js"
         ],
@@ -97,7 +96,6 @@
       {
         "displayName": "node",
         "testEnvironment": "node",
-        "bail": true,
         "collectCoverageFrom": [
           "<rootDir>/packages/**/src/**/*.js"
         ],
