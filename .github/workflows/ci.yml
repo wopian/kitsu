@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node_version: [14, 16, 18]
+        node_version: [18, 20, 22]
         os: [ubuntu-latest]
 
     steps:
@@ -42,18 +42,18 @@ jobs:
 
     - name: Lint source code
       run: yarn lint
-      if: ${{ matrix.node_version == 18 }}
+      if: ${{ matrix.node_version == 22 }}
 
     - name: Jest with code coverage
-      if: ${{ matrix.node_version == 18 }}
+      if: ${{ matrix.node_version == 22 }}
       run: yarn test:coverage
 
     - name: Jest
-      if: ${{ matrix.node_version != 18 }}
+      if: ${{ matrix.node_version != 22 }}
       run: yarn jest
 
     - name: Upload test coverage to Code Climate
-      if: ${{ matrix.node_version == 18 }}
+      if: ${{ matrix.node_version == 22 }}
       uses: paambaati/codeclimate-action@v9.0.0
       env:
         CC_TEST_REPORTER_ID: 7a4b78747587abb295ccb41439d7d067b9de2d885a766e7e88d5e8409599d2ea
@@ -66,7 +66,7 @@ jobs:
 
     strategy:
       matrix:
-        node_version: [18]
+        node_version: [22]
         os: [ubuntu-latest]
 
     steps:
