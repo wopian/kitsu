@@ -61,5 +61,11 @@ describe('kitsu-core', () => {
       }))
         .toStrictEqual([ 'libraryEntry', 'library_entry' ])
     })
+
+    it('(empty) -> (empty)', () => {
+      expect.assertions(1)
+      expect(splitModel(''))
+        .toStrictEqual([ '', '' ])
+    })
   })
 })

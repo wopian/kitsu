@@ -31,7 +31,7 @@ export function splitModel (url, options = {}) {
   if (!options.resourceCase) options.resourceCase = s => s
 
   const urlSegments = url.split('/')
-  const resourceModel = urlSegments.pop()
+  const resourceModel = urlSegments.pop() || ''
   urlSegments.push(options.pluralModel(options.resourceCase(resourceModel)))
   const newUrl = urlSegments.join('/')
 
