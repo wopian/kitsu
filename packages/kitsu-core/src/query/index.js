@@ -24,6 +24,8 @@ function queryFormat (value, key, traditional) {
  * @private
  */
 export function paramKeyName (param) {
+  if (param === null || param === undefined) return ''
+
   if ([ '[]', '][' ].includes(param.slice(-2))) {
     return `[${param.slice(0, -2)}][]`
   }
@@ -52,7 +54,7 @@ export function paramKeyName (param) {
  * // filter%5Bslug%5D=cowboy-bebop&filter%5Btitle%5D%5Bvalue%5D=foo&sort=-id
  */
 
-export function query (params, prefix = null, traditional = true) {
+export function query (params, prefix = undefined, traditional = true) {
   const str = []
 
   for (const param in params) {
