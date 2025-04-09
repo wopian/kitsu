@@ -2,7 +2,7 @@
  * Creates a new `kitsu` instance
  *
  * @param {Object} [options] Options
- * @param {string} [options.baseURL=https://kitsu.app/api/edge] Set the API endpoint
+ * @param {string} [options.baseURL='https://kitsu.app/api/edge'] Set the API endpoint
  * @param {Object} [options.headers] Additional headers to send with the requests
  * @param {'traditional'|'modern'|Function} [options.query=traditional] Query serializer function to use. This will impact the way keys are serialized when passing arrays as query parameters. 'modern' is recommended for new projects.
  * @param {boolean} [options.camelCaseTypes=true] If enabled, `type` will be converted to camelCase from kebab-casae or snake_case
@@ -61,22 +61,22 @@ export default class Kitsu {
             };
         };
         axiosOptions?: any;
-    }) => any;
+    }) => Promise<any>;
     update: (model: string, body: any | any[], config?: {
         params?: any;
         headers?: any;
         axiosOptions?: any;
-    }) => any | any[];
+    }) => Promise<any | any[]>;
     create: (model: string, body: any | any[], config?: {
         params?: any;
         headers?: any;
         axiosOptions?: any;
-    }) => any | any[];
+    }) => Promise<any | any[]>;
     remove: (model: string, id: string | number | number[], config?: {
         params?: any;
         headers?: any;
         axiosOptions?: any;
-    }) => any | any[];
+    }) => Promise<any | any[]>;
     /**
      * Axios Interceptors (alias of `axios.interceptors`)
      *
@@ -109,7 +109,7 @@ export default class Kitsu {
      * api.interceptors.request.eject(myInterceptor)
      */
     interceptors: {
-        request: import("axios").AxiosInterceptorManager<import("axios").AxiosRequestConfig>;
+        request: import("axios").AxiosInterceptorManager<import("axios").InternalAxiosRequestConfig>;
         response: import("axios").AxiosInterceptorManager<import("axios").AxiosResponse>;
     };
     /**
@@ -132,7 +132,7 @@ export default class Kitsu {
      * @param {string} [config.params.page.before] Get the previous page of resources (Cursor-based) - **Note:** Not Supported on kitsu.app
      * @param {string} [config.params.page.after] Get the next page of resources (Cursor-based) - **Note:** Not Supported on kitsu.app
      * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
-     * @returns {Object} JSON-parsed response
+     * @returns {Promise<Object>} JSON-parsed response
      * @example <caption>Getting a resource with JSON:API parameters</caption>
      * api.get('users', {
      *   params: {
@@ -175,7 +175,7 @@ export default class Kitsu {
      *       }
      *     }
      *   }
-     * }
+     * })
      * @example <caption>Handling errors (async/await)</caption>
      * try {
      *   const { data } = await api.get('anime')
@@ -224,7 +224,7 @@ export default class Kitsu {
             };
         };
         axiosOptions?: any;
-    }): any;
+    }): Promise<any>;
     /**
      * Update a resource (alias `update`)
      *
@@ -235,7 +235,7 @@ export default class Kitsu {
      * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
      * @param {Object} [config.headers] Additional headers to send with the request
      * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
-     * @returns {Object|Object[]} JSON-parsed response
+     * @returns {Promise<Object|Object[]>} JSON-parsed response
      * @example <caption>Update a resource</caption>
      * api.update('posts', {
      *   id: '1',
@@ -263,7 +263,7 @@ export default class Kitsu {
         params?: any;
         headers?: any;
         axiosOptions?: any;
-    }): any | any[];
+    }): Promise<any | any[]>;
     /**
      * Create a new resource (alias `create`)
      *
@@ -274,7 +274,7 @@ export default class Kitsu {
      * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
      * @param {Object} [config.headers] Additional headers to send with the request
      * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
-     * @returns {Object|Object[]} JSON-parsed response
+     * @returns {Promise<Object|Object[]>} JSON-parsed response
      * @example <caption>Create a post on a user's profile feed</caption>
      * api.create('posts', {
      *   content: 'Hello World',
@@ -301,7 +301,7 @@ export default class Kitsu {
         params?: any;
         headers?: any;
         axiosOptions?: any;
-    }): any | any[];
+    }): Promise<any | any[]>;
     /**
      * Remove a resource (alias `remove`)
      *
@@ -312,7 +312,7 @@ export default class Kitsu {
      * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
      * @param {Object} [config.headers] Additional headers to send with the request
      * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
-     * @returns {Object|Object[]} JSON-parsed response
+     * @returns {Promise<Object|Object[]>} JSON-parsed response
      * @example <caption>Remove one or more relationships from a resource</caption>
      * api.delete('posts/1/relationships/uploads', [456, 789])
      * @example <caption>Remove a single resource</caption>
@@ -324,7 +324,7 @@ export default class Kitsu {
         params?: any;
         headers?: any;
         axiosOptions?: any;
-    }): any | any[];
+    }): Promise<any | any[]>;
     /**
      * Get the authenticated user's data
      *
@@ -335,7 +335,7 @@ export default class Kitsu {
      * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
      * @param {Object} [config.headers] Additional headers to send with the request
      * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
-     * @returns {Object} JSON-parsed response
+     * @returns {Promise<Object>} JSON-parsed response
      * @example <caption>Get the authenticated user's resource</caption>
      * api.self()
      * @example <caption>Using JSON:API parameters</caption>
@@ -351,14 +351,14 @@ export default class Kitsu {
         params?: any;
         headers?: any;
         axiosOptions?: any;
-    }): any;
+    }): Promise<any>;
     /**
      * Send arbitrary requests
      *
      * **Note** Planned changes to the `get`, `patch`, `post` and `delete` methods in a future major release may make this method redundent. See https://github.com/wopian/kitsu/issues/415 for details.
      *
      * @memberof Kitsu
-     * @param {Object} [config] Request configuration
+     * @param {Object} config Request configuration
      * @param {string} config.url The URL path of the resource
      * @param {string} config.type The resource type
      * @param {Object|Object[]} [config.body] Data to send in the request
@@ -366,7 +366,7 @@ export default class Kitsu {
      * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
      * @param {Object} [config.headers] Additional headers to send with the request
      * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
-     * @returns {Object} JSON-parsed response
+     * @returns {Promise<Object>} JSON-parsed response
      * @example <caption>Raw GET request</caption>
      * api.request({
      *   url: 'anime/1/mappings',
@@ -405,7 +405,7 @@ export default class Kitsu {
      *   ]
      * })
      */
-    request({ body, method, params, type, url, headers, axiosOptions }?: {
+    request({ body, method, params, type, url, headers, axiosOptions }: {
         url: string;
         type: string;
         body?: any | any[];
@@ -413,5 +413,5 @@ export default class Kitsu {
         params?: any;
         headers?: any;
         axiosOptions?: any;
-    }): any;
+    }): Promise<any>;
 }
