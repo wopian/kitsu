@@ -19,6 +19,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **kitsu-core:** return an empty string if paramKeyName is passed an undefined value ([6112780](https://github.com/wopian/kitsu/commit/61127801b1063ae40a6054c183fc78fe21627b6d))
 
 
+### BREAKING CHANGES
+
+* **kitsu-core:** drop support for node 14 and 16. minimum supported node is now 18 ([5d715c2](https://github.com/wopian/kitsu/commit/5d715c2dc3e6be598f611cd9a6eac86253dd5c2b))
+
+
 
 
 

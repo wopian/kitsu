@@ -5,12 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [11.0.0](https://github.com/wopian/kitsu/compare/v10.2.1...v11.0.0) (2025-04-09)
 
-
 ### Bug Fixes
 
 * **kitsu:** correct jsdoc type definitions of return types ([33f1bc2](https://github.com/wopian/kitsu/commit/33f1bc2bb88ba57b5da25842dae15aa01d74e7b8))
 
+### BREAKING CHANGES
 
+* **kitsu:** drop support for node 14 and 16. minimum supported node is now 18 ([f193e1e](https://github.com/wopian/kitsu/commit/f193e1e53adabd3929a4236992d4a2a1eacb96e5))
+* **kitsu:** upgrade axios to v1 ([#1075](https://github.com/wopian/kitsu/pull/1075)) ([a973b00](https://github.com/wopian/kitsu/commit/a973b00ab97ade92b410e70cf155b4e0b91ff049))
 
 
 
