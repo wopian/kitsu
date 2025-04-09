@@ -8,13 +8,12 @@ import { isDeepEqual } from '../deepEqual'
  * @param {Object} resource The included resource
  * @param {string} resource.id Resource ID
  * @param {string} resource.type Resource type
- * @param {Object} [resource.meta] Meta information
  * @param {Object[]} included The response included object
  * @param {Object} previouslyLinked A mapping of already visited resources
  * @param {Object} relationshipCache A cache object for relationship meta and links
  * @private
  */
-function link ({ id, type, meta }, included, previouslyLinked, relationshipCache) {
+function link ({ id, type }, included, previouslyLinked, relationshipCache) {
   const filtered = filterIncludes(included, { id, type })
   previouslyLinked[`${type}#${id}`] = filtered
 
