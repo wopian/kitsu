@@ -1,13 +1,9 @@
 import babel from '@rollup/plugin-babel'
 import local from 'rollup-plugin-local-resolve'
 import del from 'rollup-plugin-delete'
-import pkg from './package.json'
 
-const {
-  sharedExternals,
-  sharedGlobals,
-  babelMain
-} = require('../../config/presets')
+import pkg from './package.json' with { type: 'json' }
+import { sharedExternals, sharedGlobals, babelMain } from '../../config/presets.js'
 
 const external = [
   ...Object.keys(pkg.dependencies),

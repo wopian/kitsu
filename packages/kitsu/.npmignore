@@ -2,6 +2,6 @@ example
 lib
 src
 MIGRATING.md
-rollup.config.js
+rollup.config.mjs
 *.tgz
 *.log
