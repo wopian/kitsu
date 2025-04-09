@@ -552,6 +552,82 @@ describe('kitsu-core', () => {
       expect(serialise('libraryEntries', input)).toStrictEqual(output)
     })
 
+    it('serialises object and array relationships by guessing the types', () => {
+      expect.assertions(1)
+      const input = {
+        id: '1',
+        links: { self: 'library-entries/1' },
+        meta: { extra: true },
+        ratingTwenty: 10,
+        user: {
+          links: {
+            self: 'library-entries/1/relationships/user',
+            related: 'library-entries/1/user'
+          },
+          meta: { some: 'meta info' },
+          data: {
+            id: '2',
+            name: 'Example',
+            links: { self: 'users/2' }
+          }
+        },
+        unit: {
+          links: {
+            self: 'library-entries/1/relationships/unit',
+            related: 'library-entries/1/unit'
+          },
+          meta: { extra: 'info' },
+          data: [
+            {
+              id: '3',
+              number: 12,
+              links: { self: 'episodes/3' }
+            }
+          ]
+        }
+      }
+      const output = {
+        data: {
+          id: '1',
+          type: 'libraryEntries',
+          links: { self: 'library-entries/1' },
+          meta: { extra: true },
+          attributes: { ratingTwenty: 10 },
+          relationships: {
+            user: {
+              links: {
+                self: 'library-entries/1/relationships/user',
+                related: 'library-entries/1/user'
+              },
+              meta: { some: 'meta info' },
+              data: {
+                id: '2',
+                type: 'user',
+                attributes: { name: 'Example' },
+                links: { self: 'users/2' }
+              }
+            },
+            unit: {
+              links: {
+                self: 'library-entries/1/relationships/unit',
+                related: 'library-entries/1/unit'
+              },
+              meta: { extra: 'info' },
+              data: [
+                {
+                  id: '3',
+                  type: 'unit',
+                  attributes: { number: 12 },
+                  links: { self: 'episodes/3' }
+                }
+              ]
+            }
+          }
+        }
+      }
+      expect(serialise('libraryEntries', input)).toStrictEqual(output)
+    })
+
     it('keeps non-JSON:API links/meta properties in attributes', () => {
       expect.assertions(1)
       const input = {
