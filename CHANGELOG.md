@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.0.0](https://github.com/wopian/kitsu/compare/v10.2.1...v11.0.0) (2025-04-09)
+
+
+### Bug Fixes
+
+* **kitsu:** correct jsdoc type definitions of return types ([33f1bc2](https://github.com/wopian/kitsu/commit/33f1bc2bb88ba57b5da25842dae15aa01d74e7b8))
+* **kitsu-core:** correct jsdoc syntax for deserialiseArray ([9096868](https://github.com/wopian/kitsu/commit/90968684c651724148ab0954a2350b184f97b7f8))
+* **kitsu-core:** correct jsdoc syntax for filterIncludes ([bb74de9](https://github.com/wopian/kitsu/commit/bb74de9788382e293cb5931d9d0d9e78947ae8ac))
+* **kitsu-core:** remove unused meta jsdoc ([ead2add](https://github.com/wopian/kitsu/commit/ead2adda729e31ed980291f0f200ef46d94922c2))
+* **kitsu-core:** return an empty string if splitModel is passed an empty url ([5ef65dd](https://github.com/wopian/kitsu/commit/5ef65dde28b51b0974783fef0610fcb5731d8d5c))
+
+
+### Features
+
+* **kitsu-core:** return an empty string if paramKeyName is passed an undefined value ([6112780](https://github.com/wopian/kitsu/commit/61127801b1063ae40a6054c183fc78fe21627b6d))
+
+
+
+
+
 ## [10.2.1](https://github.com/wopian/kitsu/compare/v10.2.0...v10.2.1) (2025-04-05)
 
 **Note:** Version bump only for package kitsujs
