@@ -66,10 +66,7 @@ function serialiseRelationOne (node, nodeType) {
 function serialiseRelationMany (node, nodeType) {
   const relation = []
   for (const prop of node) {
-    const serialised = serialiseRelationOne(prop)
-    // Guess relationship type if not provided
-    if (!serialised.type) serialised.type = nodeType
-    relation.push(serialised)
+    relation.push(serialiseRelationOne(prop, nodeType))
   }
   return relation
 }
