@@ -38,7 +38,7 @@
     "@babel/core": "~7.27.0",
     "@babel/preset-env": "~7.27.0",
     "@rollup/plugin-babel": "~6.0.0",
-    "@types/jest": "^29.5.14",
+    "@types/jest": "^30.0.0",
     "axios": "^1.8.4",
     "axios-mock-adapter": "~1.22.0",
     "babel-jest": "~29.7.0",
