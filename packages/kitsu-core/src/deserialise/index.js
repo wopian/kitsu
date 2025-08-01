@@ -11,11 +11,12 @@ import { linkRelationships } from '../linkRelationships'
 function deserialiseArray (response) {
   const previouslyLinked = {}
   const relationshipCache = {}
+  const included = [
+    ...response.data.map(item => ({ ...item, relationships: { ...item.relationships } })),
+    ...(response.included || [])
+  ]
+
   for (let value of response.data) {
-    const included = [
-      ...response.data.map(item => ({ ...item, relationships: { ...item.relationships } })),
-      ...(response.included || [])
-    ]
     value = linkRelationships(value, included, previouslyLinked, relationshipCache)
     if (value.attributes) value = deattribute(value)
     response.data[response.data.indexOf(value)] = value
