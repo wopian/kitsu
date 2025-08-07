@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [11.0.2](https://github.com/wopian/kitsu/compare/v11.0.1...v11.0.2) (2025-08-07)
+
+**Note:** Version bump only for package kitsu-core
+
+
+
+
+
 ## [11.0.1](https://github.com/wopian/kitsu/compare/v11.0.0...v11.0.1) (2025-04-09)
 
 **Note:** Version bump only for package kitsu-core
