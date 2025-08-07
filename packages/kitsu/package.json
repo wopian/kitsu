@@ -1,5 +1,5 @@
 {
-  "version": "11.0.2",
+  "version": "11.0.3",
   "name": "kitsu",
   "description": "A simple, lightweight & framework agnostic JSON:API client using Axios",
   "author": "James Harris <wopian@wopian.me>",
@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "axios": "^1.8.4",
-    "kitsu-core": "^11.0.2",
+    "kitsu-core": "^11.0.3",
     "pluralize": "^8.0.0"
   },
   "size-limit": [
