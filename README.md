@@ -44,12 +44,13 @@ This is a monorepo containing the following packages:
 
 ## Node / Browser Support
 
-|      Package | Package<br> Size\* | Node | Chrome | Firefox | Safari | Edge |
-| -----------: | :----------------: | :--: | :----: | :-----: | :----: | :--: |
-|      `kitsu` |      ≤ 8.2 kb      | 18+  |  83+   |   78+   | 13.1+  | 95+  |
-| `kitsu-core` |      ≤ 1.6 kb      | 18+  |  83+   |   78+   | 13.1+  | 95+  |
+| Package      | Package<br> Size\* | ESM Size   | Node† | Chrome† | Firefox† | Safari† | Edge† |
+| -----------: | :-----------------: | :--------: | :---: | :------: | :------: | :-----: | :----: |
+| `kitsu`      |      ≤ 17.72 kb     | ≤ 17.46 KB | 18+   | 116+     | 118+     | 17.1+   | 134+   |
+| `kitsu-core` |      ≤ 2.16 kb      | ≤ 1.75 KB  | 18+   | 116+     | 118+     | 17.1+   | 134+   |
 
-\* Including all dependencies & minified with brotli
+\* Minified with brotli
+† Guaranteed supported versions. Older versions may still work or might require polyfills
 
 ## Contributing
 
