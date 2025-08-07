@@ -29,13 +29,12 @@
 
 ## Node / Browser Support
 
-| Package | Package<br> Size\* | ESM Size†  | Node‡ | Chrome‡ | Firefox‡ | Safari‡ | Edge‡ |
+| Package | Package<br> Size\* | ESM Size   | Node† | Chrome† | Firefox† | Safari† | Edge† |
 | ------: | :-----------------: | :--------: | :---: | :------: | :------: | :-----: | :----: |
 | `kitsu` |      ≤ 17.72 kb     | ≤ 17.46 KB | 18+   | 116+     | 118+     | 17.1+   | 134+   |
 
 \* Including all dependencies & minified with brotli
-† EcmaScript Modules package size\*
-‡ Guaranteed supported versions. Older versions may still work or might require polyfills
+† Guaranteed supported versions. Older versions may still work or might require polyfills
 
 ## Response Comparison
 
