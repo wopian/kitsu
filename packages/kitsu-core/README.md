@@ -16,7 +16,7 @@
 
 <p align=center>Simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> (de)serialisation components</p>
 
-<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md>Migration guide</a> for v10 & previous major releases</p>
+<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md>Migration guide</a> for v11 & previous major releases</p>
 
 #
 
@@ -29,13 +29,12 @@
 *   Zero dependencies
 
 ## Node / Browser Support
-
-|      Package | Package<br> Size\* | ESM Size† | Node | Chrome | Firefox | Safari | Edge |
-| -----------: | :----------------: | :-------: | :--: | :----: | :-----: | :----: | :--: |
-| `kitsu-core` |      ≤ 1.5 kb      | ≤ 1.4 KB  | 14+  |  83+   |   78+   | 13.1+  | 95+  |
+| Package      | Package<br> Size\* | ESM Size   | Node‡ | Chrome‡ | Firefox‡ | Safari‡ | Edge‡ |
+| -----------: | :-----------------: | :--------: | :---: | :------: | :------: | :-----: | :----: |
+| `kitsu-core` |      ≤ 2.16 kb      | ≤ 1.75 KB  | 18+   | 116+     | 118+     | 17.1+   | 134+   |
 
 \* Minified with brotli
-† EcmaScript Modules package size\*
+† Guaranteed supported versions. Older versions may still work or might require polyfills
 
 ## Install
 
