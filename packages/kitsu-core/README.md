@@ -29,7 +29,7 @@
 *   Zero dependencies
 
 ## Node / Browser Support
-| Package      | Package<br> Size\* | ESM Size   | Node‡ | Chrome‡ | Firefox‡ | Safari‡ | Edge‡ |
+| Package      | Package<br> Size\* | ESM Size   | Node† | Chrome† | Firefox† | Safari† | Edge† |
 | -----------: | :-----------------: | :--------: | :---: | :------: | :------: | :-----: | :----: |
 | `kitsu-core` |      ≤ 2.16 kb      | ≤ 1.75 KB  | 18+   | 116+     | 118+     | 17.1+   | 134+   |
 
