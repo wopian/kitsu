@@ -2,19 +2,14 @@
 
 <p align=center>
   <a href=https://www.npmjs.com/package/kitsu-core><img alt=npm src=https://flat.badgen.net/npm/v/kitsu-core></a>
-  <a href=https://www.npmjs.com/package/kitsu-core><img alt=npm src=https://flat.badgen.net/npm/dt/kitsu-core></a>
+  <a href=https://www.npmjs.com/package/kitsu-core><img alt=npm src=https://flat.badgen.net/npm/dy/kitsu-core></a>
   <a href="https://bundlephobia.com/result?p=kitsu-core"><img alt=bundlephobia src='https://flat.badgen.net/bundlephobia/minzip/kitsu-core?label=library%20size'></a>
   <img alt=types src='https://flat.badgen.net/npm/types/kitsu-core'>
 </p>
 
 <p align=center>
-  <a href=https://github.com/wopian/kitsu/actions><img alt=checks src=https://flat.badgen.net/github/checks/wopian/kitsu></a>
-  <a href=https://codeclimate.com/github/wopian/kitsu/code?sort=test_coverage><img alt=coverage src=https://flat.badgen.net/codeclimate/coverage/wopian/kitsu></a>
-  <a href=https://codeclimate.com/github/wopian/kitsu/code?sort=maintainability><img alt=maintainability src=https://flat.badgen.net/codeclimate/maintainability/wopian/kitsu></a>
+  <a href=https://github.com/wopian/kitsu/actions><img alt=checks src=https://flat.badgen.net/github/checks/wopian/kitsu/master></a>
   <a href=https://github.com/wopian/kitsu/network/dependents><img alt=repoDependants src=https://flat.badgen.net/github/dependents-repo/wopian/kitsu></a>
-</p>
-
-<p align=center>
   <a href=https://github.com/wopian/kitsu/graphs/contributors><img alt=contributors src=https://flat.badgen.net/github/contributors/wopian/kitsu></a>
   <a href=https://github.com/sponsors/wopian><img alt=sponsor src='https://flat.badgen.net/badge/sponsor/%E2%9D%A4/pink?icon=github'></a>
 </p>
