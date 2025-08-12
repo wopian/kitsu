@@ -9,7 +9,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Digest Lock File
         uses: Simek/yarn-lock-changes@875697ea31fe8cd00b706af8984db1c61b50b6ee
         with:
