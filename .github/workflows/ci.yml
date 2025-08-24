@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node_version: [18, 20, 22]
+        node_version: [20, 22, 24]
         os: [ubuntu-latest]
 
     steps:
@@ -42,14 +42,14 @@ jobs:
 
     - name: Lint source code
       run: yarn lint
-      if: ${{ matrix.node_version == 22 }}
+      if: ${{ matrix.node_version == 24 }}
 
     - name: Jest with code coverage
-      if: ${{ matrix.node_version == 22 }}
+      if: ${{ matrix.node_version == 24 }}
       run: yarn test:coverage
 
     - name: Jest
-      if: ${{ matrix.node_version != 22 }}
+      if: ${{ matrix.node_version != 24 }}
       run: yarn jest
 
   build:
@@ -60,7 +60,7 @@ jobs:
 
     strategy:
       matrix:
-        node_version: [22]
+        node_version: [24]
         os: [ubuntu-latest]
 
     steps:
