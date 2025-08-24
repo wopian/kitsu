@@ -54,8 +54,8 @@ describe('kitsu-core', () => {
 
     it('throws all other errors', () => {
       expect.assertions(2)
-      expect(() => { error('Hello') }).toThrowError('Hello')
-      expect(() => { error(new Error('Hello')) }).toThrowError('Hello')
+      expect(() => { error('Hello') }).toThrow('Hello')
+      expect(() => { error(new Error('Hello')) }).toThrow('Hello')
     })
   })
 })

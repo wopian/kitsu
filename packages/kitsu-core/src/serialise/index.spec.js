@@ -254,25 +254,25 @@ describe('kitsu-core', () => {
     it('throws an error if obj is missing when method is not POST', () => {
       expect.assertions(1)
       expect(() => serialise('post', {}, 'PATCH'))
-        .toThrowError('PATCH requires an object or array body')
+        .toThrow('PATCH requires an object or array body')
     })
 
     it('throws an error if obj is not an Object', () => {
       expect.assertions(1)
       expect(() => serialise('post', 'id: 1', 'DELETE'))
-        .toThrowError('DELETE requires an object or array body')
+        .toThrow('DELETE requires an object or array body')
     })
 
     it('throws an error when missing ID', () => {
       expect.assertions(1)
       expect(() => serialise('user', { theme: 'dark' }, 'PATCH'))
-        .toThrowError('PATCH requires an ID for the user type')
+        .toThrow('PATCH requires an ID for the user type')
     })
 
     it('throws an error when missing ID in array', () => {
       expect.assertions(1)
       expect(() => serialise('user', [ { theme: 'dark' } ], 'PATCH'))
-        .toThrowError('PATCH requires an ID for the user type')
+        .toThrow('PATCH requires an ID for the user type')
     })
 
     it('serialises strings/numbers/booleans into attributes', () => {
