@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.1.0](https://github.com/wopian/kitsu/compare/v11.0.3...v11.1.0) (2025-08-25)
+
+
+### Features
+
+* **kitsu-core:** implement opt-in data hoisting when deserialising response ([72dc2be](https://github.com/wopian/kitsu/commit/72dc2bec2dc51b41c15ce9b09680770efbb79ab1))
+
+
+
+
+
 ## [11.0.3](https://github.com/wopian/kitsu/compare/v11.0.2...v11.0.3) (2025-08-07)
 
 
