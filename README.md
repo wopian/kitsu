@@ -34,7 +34,7 @@
 This is a monorepo containing the following packages:
 
 - [kitsu]—Framework agnostic client using Axios
-- [kitsu-core]—Framework agnostic (de)serialisation components
+- [kitsu-core]—Framework agnostic (de)serialisation components. Works with all HTTP libraries.
 
 ## Features
 
