@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter'
 import Kitsu from 'kitsu'
 import {
   getSingleWithIncludes
-} from 'specification'
+} from '../../../specification'
 
 const mock = new MockAdapter(axios)
 
@@ -32,7 +32,9 @@ describe('kitsu', () => {
     it('uses provided axios options', async () => {
       expect.assertions(1)
       const api = new Kitsu()
+      // @ts-ignore - testing axios options passthrough
       api.axios = { request: jest.fn().mockReturnValue({ data: '' }) }
+      // @ts-ignore - testing axios options passthrough
       await api.request({ axiosOptions: { withCredentials: true } })
       expect(api.axios.request).toHaveBeenCalledWith(expect.objectContaining({ withCredentials: true }))
     })
@@ -52,7 +54,7 @@ describe('kitsu', () => {
       await expect(await api.request({
         method: 'GET',
         url: 'users',
-        model: 'users',
+        type: 'users',
         headers: { extra: true }
       })).toMatchObject({ data: [], headers: { Accept: 'application/vnd.api+json' }, status: 200 })
     })
@@ -64,6 +66,7 @@ describe('kitsu', () => {
       const request = await api.request({
         method: 'GET',
         url: 'anime/1',
+        type: 'anime',
         params: { include: 'author,comments' }
       })
       expect(request).toEqual({ ...getSingleWithIncludes.kitsu, status: 200 })
@@ -74,7 +77,8 @@ describe('kitsu', () => {
       const api = new Kitsu()
       mock.onGet('anime/1').reply(200, genericResponse)
       const request = await api.request({
-        url: 'anime/1'
+        url: 'anime/1',
+        type: 'anime'
       })
       expect(request).toEqual({ ...genericRequest, status: 200 })
     })
@@ -85,7 +89,8 @@ describe('kitsu', () => {
       mock.onGet('anime/1').reply(200, genericResponse)
       const request = await api.request({
         method: 'gEt',
-        url: 'anime/1'
+        url: 'anime/1',
+        type: 'anime'
       })
       expect(request).toEqual({ ...genericRequest, status: 200 })
     })
@@ -159,6 +164,7 @@ describe('kitsu', () => {
       expect.assertions(1)
       const api = new Kitsu()
       try {
+        // @ts-ignore - testing error throw
         await api.request({
           method: 'patch'
         })
@@ -173,6 +179,7 @@ describe('kitsu', () => {
       mock.onGet('anime/1', { params: { include: 'animeStaff' } }).reply(200, getSingleWithIncludes.jsonapi)
       const request = await api.request({
         url: 'anime/1',
+        type: 'anime',
         params: { include: 'animeStaff' }
       })
       expect(request).toEqual({ ...getSingleWithIncludes.kitsu, status: 200 })

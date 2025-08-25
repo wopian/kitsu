@@ -4,7 +4,7 @@ import Kitsu from 'kitsu'
 import {
   patchSingle,
   patchSingleMissingID
-} from 'specification'
+} from '../../../specification'
 
 const mock = new MockAdapter(axios)
 
@@ -17,6 +17,7 @@ describe('kitsu', () => {
     it('uses provided axios options', async () => {
       expect.assertions(1)
       const api = new Kitsu()
+      // @ts-ignore - testing axios options passthrough
       api.axios = { patch: jest.fn().mockReturnValue({ data: '' }) }
       await api.patch('anime', { id: '1', type: 'anime' }, { axiosOptions: { withCredentials: true } })
       expect(api.axios.patch).toHaveBeenCalledWith('anime/1', { data: { id: '1', type: 'anime' } }, expect.objectContaining({ withCredentials: true }))
@@ -36,7 +37,7 @@ describe('kitsu', () => {
           Accept: 'application/vnd.api+json'
         } ]
       })
-      await expect(await api.patch('anime', { id: '1', type: 'anime' }, { headers: { extra: true } })).toMatchObject({
+      expect(await api.patch('anime', { id: '1', type: 'anime' }, { headers: { extra: true } })).toMatchObject({
         headers: {
           Accept: 'application/vnd.api+json'
         },
@@ -59,7 +60,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.patch('post', { id: '1', content: 'Hello World' })).toEqual({ status: 200 })
+      expect(await api.patch('post', { id: '1', content: 'Hello World' })).toEqual({ status: 200 })
     })
 
     it('sends bulk data in request', async () => {
@@ -86,7 +87,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.patch('post', [
+      expect(await api.patch('post', [
         { id: '1', content: 'Hello World' },
         { id: '2', content: 'Hey World' }
       ])).toEqual({ status: 200 })
@@ -96,6 +97,7 @@ describe('kitsu', () => {
       expect.assertions(1)
       const api = new Kitsu()
       try {
+        // @ts-ignore - testing invalid input
         await api.patch('posts')
       } catch (err) {
         expect(err.message).toEqual('PATCH requires an object or array body')

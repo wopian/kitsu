@@ -13,6 +13,7 @@ describe('kitsu', () => {
     it('uses provided axios options', async () => {
       expect.assertions(1)
       const api = new Kitsu()
+      // @ts-ignore - testing axios options passthrough
       api.axios = { post: jest.fn().mockReturnValue({ data: '' }) }
       await api.post('anime', { id: '1', type: 'anime' }, { axiosOptions: { withCredentials: true } })
       expect(api.axios.post).toHaveBeenCalledWith('anime', { data: { id: '1', type: 'anime' } }, expect.objectContaining({ withCredentials: true }))
@@ -32,7 +33,7 @@ describe('kitsu', () => {
           Accept: 'application/vnd.api+json'
         } ]
       })
-      await expect(await api.post('anime', { id: '1', type: 'anime' }, { headers: { extra: true } })).toMatchObject({
+      expect(await api.post('anime', { id: '1', type: 'anime' }, { headers: { extra: true } })).toMatchObject({
         headers: {
           Accept: 'application/vnd.api+json'
         },
@@ -54,7 +55,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.post('anime', { type: 'anime', name: 'Name' })).toEqual({ status: 200 })
+      expect(await api.post('anime', { type: 'anime', name: 'Name' })).toEqual({ status: 200 })
     })
 
     it('handles nested routes', async () => {
@@ -71,7 +72,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.post('something/1/relationships/anime', { type: 'anime', name: 'Name' })).toEqual({ status: 200 })
+      expect(await api.post('something/1/relationships/anime', { type: 'anime', name: 'Name' })).toEqual({ status: 200 })
     })
 
     it('sends data in request with client-generated ID', async () => {
@@ -89,7 +90,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.post('anime', { id: 123456789, type: 'anime', name: 'Name' })).toEqual({ status: 200 })
+      expect(await api.post('anime', { id: 123456789, type: 'anime', name: 'Name' })).toEqual({ status: 200 })
     })
 
     it('throws an error if missing a valid JSON object body', async () => {
@@ -117,8 +118,9 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.post('anime')).toEqual({ status: 200 })
-      await expect(await api.post('anime', {})).toEqual({ status: 200 })
+      // @ts-ignore - testing invalid input
+      expect(await api.post('anime')).toEqual({ status: 200 })
+      expect(await api.post('anime', {})).toEqual({ status: 200 })
     })
 
     it('sends data in request if given empty JSON object in array body', async () => {
@@ -130,7 +132,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.post('anime', [ {} ])).toEqual({ status: 200 })
+      expect(await api.post('anime', [ {} ])).toEqual({ status: 200 })
     })
   })
 })

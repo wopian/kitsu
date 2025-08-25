@@ -14,6 +14,14 @@ import pluralise from 'pluralize'
  * @param {boolean} [options.pluralize=true] If enabled, `/user` will become `/users` in the URL request and `type` will be pluralized in POST, PATCH and DELETE requests
  * @param {number} [options.timeout=30000] Set the request timeout in milliseconds
  * @param {Object} [options.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
+ * @param {boolean} [options.hoistData=false] If enabled, the contents of the `data` property will be hoisted to the parent. This provides a flatter response object, but removes access to `links` and `meta` properties. It will transform:
+ * ```js
+ * { data: { id: '1', type: 'people', coworkers: data: [ { id: '2', type: 'people' } ] } }
+ * ```
+ * into the following:
+ * ```js
+ * { id: '1', type: 'people', coworkers: [ { id: '2', type: 'people' } ] }
+ * ```
  * @example <caption>Using with kitsu.app's API</caption>
  * const api = new Kitsu()
  * @example <caption>Using another API server</caption>
@@ -80,6 +88,8 @@ export default class Kitsu {
       paramsSerializer: { serialize: /* istanbul ignore next */ p => this.query(p) },
       ...options.axiosOptions
     })
+
+    this.hoistData = options.hoistData || false
 
     this.fetch = this.get
     this.update = this.patch
@@ -240,7 +250,7 @@ export default class Kitsu {
       })
 
       return {
-        ...deserialise(data),
+        ...deserialise(data, { hoistData: this.hoistData }),
         status,
         ...(responseHeaders && Object.keys(responseHeaders).length
           ? { headers: responseHeaders }
@@ -310,7 +320,7 @@ export default class Kitsu {
       )
 
       return {
-        ...deserialise(data),
+        ...deserialise(data, { hoistData: this.hoistData }),
         status,
         ...(responseHeaders && Object.keys(responseHeaders).length
           ? { headers: responseHeaders }
@@ -377,7 +387,7 @@ export default class Kitsu {
       )
 
       return {
-        ...deserialise(data),
+        ...deserialise(data, { hoistData: this.hoistData }),
         status,
         ...(responseHeaders && Object.keys(responseHeaders).length
           ? { headers: responseHeaders }
@@ -437,7 +447,7 @@ export default class Kitsu {
       })
 
       return {
-        ...deserialise(data),
+        ...deserialise(data, { hoistData: this.hoistData }),
         status,
         ...(responseHeaders && Object.keys(responseHeaders).length
           ? { headers: responseHeaders }
@@ -553,7 +563,7 @@ export default class Kitsu {
       })
 
       return {
-        ...deserialise(data),
+        ...deserialise(data, { hoistData: this.hoistData }),
         status,
         ...(responseHeaders && Object.keys(responseHeaders).length
           ? { headers: responseHeaders }

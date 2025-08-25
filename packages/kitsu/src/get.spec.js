@@ -9,7 +9,7 @@ import {
   getSingle,
   getSingleWithIncludes,
   getSingleWithNestedIncludes
-} from 'specification'
+} from '../../../specification'
 
 const mock = new MockAdapter(axios)
 
@@ -22,6 +22,7 @@ describe('kitsu', () => {
     it('uses provided axios options', async () => {
       expect.assertions(1)
       const api = new Kitsu()
+      // @ts-ignore - testing axios options passthrough
       api.axios = { get: jest.fn().mockReturnValue({ data: '' }) }
       await api.get('anime', { axiosOptions: { withCredentials: true } })
       expect(api.axios.get).toHaveBeenCalledWith('anime', expect.objectContaining({ withCredentials: true }))
@@ -44,7 +45,7 @@ describe('kitsu', () => {
         } ]
       })
       const response = await api.get('anime', { headers: { extra: true } })
-      await expect(await response).toMatchObject({
+      expect(await response).toMatchObject({
         data: [],
         headers: {
           Accept: 'application/vnd.api+json',

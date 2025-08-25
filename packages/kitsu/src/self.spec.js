@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter'
 import Kitsu from 'kitsu'
 import {
   getError
-} from 'specification'
+} from '../../../specification'
 
 const mock = new MockAdapter(axios)
 
@@ -33,7 +33,7 @@ describe('kitsu', () => {
         })
         return [ 200, { data: [] }, { Accept: 'application/vnd.api+json' } ]
       })
-      await expect(await api.self({ headers: { extra: true } })).toMatchObject({
+      expect(await api.self({ headers: { extra: true } })).toMatchObject({
         headers: { Accept: 'application/vnd.api+json' }
       })
     })

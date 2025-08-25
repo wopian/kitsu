@@ -13,6 +13,7 @@ describe('kitsu', () => {
     it('uses provided axios options', async () => {
       expect.assertions(1)
       const api = new Kitsu()
+      // @ts-ignore - testing axios options passthrough
       api.axios = { delete: jest.fn().mockReturnValue({ data: '' }) }
       await api.delete('anime', 1, { axiosOptions: { withCredentials: true } })
       expect(api.axios.delete).toHaveBeenCalledWith('anime/1', expect.objectContaining({ withCredentials: true }))
@@ -52,7 +53,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.delete('post', 1)).toEqual({ status: 200 })
+      expect(await api.delete('post', 1)).toEqual({ status: 200 })
     })
 
     it('handles nested routes', async () => {
@@ -67,7 +68,7 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.delete('posts/1/comments', 1)).toEqual({ status: 200 })
+      expect(await api.delete('posts/1/comments', 1)).toEqual({ status: 200 })
     })
 
     it('deletes multiple resources (bulk extension)', async () => {
@@ -82,13 +83,14 @@ describe('kitsu', () => {
         })
         return [ 200 ]
       })
-      await expect(await api.delete('post', [ 1, 2 ])).toEqual({ status: 200 })
+      expect(await api.delete('post', [ 1, 2 ])).toEqual({ status: 200 })
     })
 
     it('throws an error if ID is missing', async () => {
       expect.assertions(1)
       const api = new Kitsu()
       try {
+        // @ts-ignore - testing error throw
         await api.delete('posts')
       } catch (err) {
         expect(err.message).toEqual('DELETE requires an ID for the posts type')
