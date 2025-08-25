@@ -20,6 +20,7 @@ function hoistData (response) {
    *
    * @param {any} object The input to hoist (object or array)
    * @returns {any} The hoisted object or array
+   * @private
    */
   function hoist (object) {
     if (object && typeof object === 'object') {
