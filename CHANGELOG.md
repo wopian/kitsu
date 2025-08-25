@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [11.1.1](https://github.com/wopian/kitsu/compare/v11.1.0...v11.1.1) (2025-08-25)
+
+
+### Bug Fixes
+
+* **kitsu-core:** flag internal function as private to hide from docs ([1b2f9b9](https://github.com/wopian/kitsu/commit/1b2f9b9802de16f893ae439023e5a5be1307a8d0))
+
+
+
+
+
 # [11.1.0](https://github.com/wopian/kitsu/compare/v11.0.3...v11.1.0) (2025-08-25)
 
 
