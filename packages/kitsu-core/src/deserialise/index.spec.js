@@ -1753,6 +1753,50 @@ describe('kitsu-core', () => {
     expect(input[0].staff[1].works_on[0].staff[0].id).toBe('5')
   })
 
+  it('covers hasOwn property checks in hoistData', () => {
+    expect.assertions(1)
+
+    // @ts-ignore - intentionally modifying Object.prototype for this test
+    // eslint-disable-next-line no-extend-native
+    Object.prototype.inheritedProp = 'should not be copied'
+
+    const input = {
+      data: {
+        id: '1',
+        type: 'test',
+        attributes: { name: 'Test' }
+      }
+    }
+
+    const result = deserialise(input, { hoistData: true })
+
+    expect(Object.prototype.hasOwnProperty.call(result, 'inheritedProp')).toBe(false)
+
+    // @ts-ignore - intentionally modifying Object.prototype for this test
+    delete Object.prototype.inheritedProp
+  })
+
+  it('covers non-enumerable property checks in hoistData', () => {
+    expect.assertions(1)
+
+    const input = {
+      data: {
+        id: '1',
+        type: 'test',
+        attributes: { name: 'Test' }
+      }
+    }
+
+    Object.defineProperty(input, 'hidden', {
+      value: 'secret',
+      enumerable: false
+    })
+
+    const result = deserialise(input, { hoistData: true })
+
+    expect(result).not.toHaveProperty('hidden')
+  })
+
   /*
   describe.only('benchmark hoistData performance impact', () => {
     const inputData = {
