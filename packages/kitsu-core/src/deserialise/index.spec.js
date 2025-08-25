@@ -1797,6 +1797,58 @@ describe('kitsu-core', () => {
     expect(result).not.toHaveProperty('hidden')
   })
 
+  it('keeps meta and links when hoistData is enabled', () => {
+    expect.assertions(1)
+
+    const input = {
+      data: {
+        id: '1',
+        type: 'test',
+        attributes: { name: 'Test' },
+        links: { self: 'https://kitsu.example/test/1' },
+        meta: { total: 1 }
+      }
+    }
+
+    const result = deserialise(input, { hoistData: true })
+
+    expect(result).toEqual({
+      id: '1',
+      type: 'test',
+      name: 'Test',
+      links: { self: 'https://kitsu.example/test/1' },
+      meta: { total: 1 }
+    })
+  })
+
+  it('prioritises attributes named meta or links when hoistData is enabled', () => {
+    expect.assertions(1)
+
+    const input = {
+      data: {
+        id: '1',
+        type: 'test',
+        attributes: {
+          name: 'Test',
+          links: 'https://should.be.attribute',
+          meta: 'should also be attribute'
+        },
+        links: { self: 'https://kitsu.example/test/1' },
+        meta: { total: 1 }
+      }
+    }
+
+    const result = deserialise(input, { hoistData: true })
+
+    expect(result).toEqual({
+      id: '1',
+      type: 'test',
+      name: 'Test',
+      links: 'https://should.be.attribute',
+      meta: 'should also be attribute'
+    })
+  })
+
   /*
   describe.only('benchmark hoistData performance impact', () => {
     const inputData = {
