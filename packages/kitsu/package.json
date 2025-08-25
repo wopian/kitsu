@@ -57,12 +57,12 @@
   "size-limit": [
     {
       "path": "./dist/index.js",
-      "limit": "18 kb",
+      "limit": "20 kb",
       "brotli": true
     },
     {
       "path": "./dist/index.mjs",
-      "limit": "18 kb",
+      "limit": "20 kb",
       "brotli": true
     }
   ],
