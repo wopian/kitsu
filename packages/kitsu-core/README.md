@@ -132,7 +132,7 @@ All code released under [MIT]
 
 ### camel
 
-[packages/kitsu-core/src/camel/index.js:14-14](https://github.com/wopian/kitsu/blob/1b2f9b9802de16f893ae439023e5a5be1307a8d0/packages/kitsu-core/src/camel/index.js#L14-L14 "Source code on GitHub")
+[packages/kitsu-core/src/camel/index.js:14-14](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu-core/src/camel/index.js#L14-L14 "Source code on GitHub")
 
 Converts kebab-case and snake\_case into camelCase
 
@@ -158,7 +158,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### deattribute
 
-[packages/kitsu-core/src/deattribute/index.js:29-51](https://github.com/wopian/kitsu/blob/1b2f9b9802de16f893ae439023e5a5be1307a8d0/packages/kitsu-core/src/deattribute/index.js#L29-L51 "Source code on GitHub")
+[packages/kitsu-core/src/deattribute/index.js:29-51](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu-core/src/deattribute/index.js#L29-L51 "Source code on GitHub")
 
 Hoists attributes to be top-level
 
@@ -200,7 +200,7 @@ Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### deserialise
 
-[packages/kitsu-core/src/deserialise/index.js:151-171](https://github.com/wopian/kitsu/blob/1b2f9b9802de16f893ae439023e5a5be1307a8d0/packages/kitsu-core/src/deserialise/index.js#L151-L171 "Source code on GitHub")
+[packages/kitsu-core/src/deserialise/index.js:160-180](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu-core/src/deserialise/index.js#L160-L180 "Source code on GitHub")
 
 Deserialises a JSON-API response
 
@@ -209,11 +209,7 @@ Deserialises a JSON-API response
 *   `response` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The raw JSON:API response object
 *   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Deserialisation options (optional, default `{}`)
 
-    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If enabled, the contents of the `data` property will be hoisted to the parent. This provides a flatter response object, but removes access to `links` and `meta` properties. It will transform:```js
-        { data: { id: '1', type: 'people', coworkers: data: [ { id: '2', type: 'people' } ] } }
-        ```into the following:```js
-        { id: '1', type: 'people', coworkers: [ { id: '2', type: 'people' } ] }
-        ``` (optional, default `false`)
+    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If enabled, the contents of the `data` property will be hoisted to the parent. This provides a flatter response object, see examples below for transformation examples. Links and Meta properties will be merged into the parent object if they exist. If attributes named `links` or `meta` exist, they will overwrite the JSON:API `links` and `meta` properties. (optional, default `false`)
 
 #### Examples
 
@@ -253,11 +249,30 @@ deserialise({
 }) // { data: { id: '1', user: { data: { type: 'users', id: '2', slug: 'wopian' } } } }
 ```
 
+Deserialise with hoisted data
+
+```javascript
+deserialise({
+  data: {
+    id: '1',
+    type: 'people',
+    relationships: {
+      coworkers: {
+        data: [
+          { id: '2', type: 'people' }
+        ]
+      }
+    }
+  },
+  included: []
+}, { hoistData: true }) // { id: '1', type: 'people', coworkers: [ { id: '2', type: 'people' } ] }
+```
+
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The deserialised response
 
 ### error
 
-[packages/kitsu-core/src/error/index.js:27-33](https://github.com/wopian/kitsu/blob/1b2f9b9802de16f893ae439023e5a5be1307a8d0/packages/kitsu-core/src/error/index.js#L27-L33 "Source code on GitHub")
+[packages/kitsu-core/src/error/index.js:27-33](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu-core/src/error/index.js#L27-L33 "Source code on GitHub")
 
 Uniform error handling for Axios, JSON:API and internal package errors. Mutated Error object is rethrown to the caller.
 
@@ -294,7 +309,7 @@ error({
 
 ### filterIncludes
 
-[packages/kitsu-core/src/filterIncludes/index.js:33-46](https://github.com/wopian/kitsu/blob/1b2f9b9802de16f893ae439023e5a5be1307a8d0/packages/kitsu-core/src/filterIncludes/index.js#L33-L46 "Source code on GitHub")
+[packages/kitsu-core/src/filterIncludes/index.js:33-46](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu-core/src/filterIncludes/index.js#L33-L46 "Source code on GitHub")
 
 Filters includes for the specific relationship requested
 
@@ -334,7 +349,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### kebab
 
-[packages/kitsu-core/src/kebab/index.js:11-11](https://github.com/wopian/kitsu/blob/1b2f9b9802de16f893ae439023e5a5be1307a8d0/packages/kitsu-core/src/kebab/index.js#L11-L11 "Source code on GitHub")
+[packages/kitsu-core/src/kebab/index.js:11-11](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu-core/src/kebab/index.js#L11-L11 "Source code on GitHub")
 
 Converts camelCase into kebab-case
 
@@ -352,7 +367,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### linkRelationships
 
-[packages/kitsu-core/src/linkRelationships/index.js:144-164](https://github.com/wopian/kitsu/blob/1b2f9b9802de16f893ae439023e5a5be1307a8d0/packages/kitsu-core/src/linkRelationships/index.js#L144-L164 "Source code on GitHub")
+[packages/kitsu-core/src/linkRelationships/index.js:144-164](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu-core/src/linkRelationships/index.js#L144-L164 "Source code on GitHub")
 
 Links relationships to included data
 
@@ -392,7 +407,7 @@ Returns **any** Parsed data
 
 ### isDeepEqual
 
-[packages/kitsu-core/src/deepEqual/index.js:18-42](https://github.com/wopian/kitsu/blob/1b2f9b9802de16f893ae439023e5a5be1307a8d0/packages/kitsu-core/src/deepEqual/index.js#L18-L42 "Source code on GitHub")
+[packages/kitsu-core/src/deepEqual/index.js:18-42](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu-core/src/deepEqual/index.js#L18-L42 "Source code on GitHub")
 
 Compare two objects equality
 
@@ -421,7 +436,7 @@ Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### query
 
-[packages/kitsu-core/src/query/index.js:57-66](https://github.com/wopian/kitsu/blob/1b2f9b9802de16f893ae439023e5a5be1307a8d0/packages/kitsu-core/src/query/index.js#L57-L66 "Source code on GitHub")
+[packages/kitsu-core/src/query/index.js:57-66](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu-core/src/query/index.js#L57-L66 "Source code on GitHub")
 
 Constructs a URL query string for JSON:API parameters
 
@@ -450,7 +465,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### serialise
 
-[packages/kitsu-core/src/serialise/index.js:210-221](https://github.com/wopian/kitsu/blob/1b2f9b9802de16f893ae439023e5a5be1307a8d0/packages/kitsu-core/src/serialise/index.js#L210-L221 "Source code on GitHub")
+[packages/kitsu-core/src/serialise/index.js:210-221](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu-core/src/serialise/index.js#L210-L221 "Source code on GitHub")
 
 Serialises an object into a JSON-API structure
 
@@ -495,7 +510,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### snake
 
-[packages/kitsu-core/src/snake/index.js:11-11](https://github.com/wopian/kitsu/blob/1b2f9b9802de16f893ae439023e5a5be1307a8d0/packages/kitsu-core/src/snake/index.js#L11-L11 "Source code on GitHub")
+[packages/kitsu-core/src/snake/index.js:11-11](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu-core/src/snake/index.js#L11-L11 "Source code on GitHub")
 
 Converts camelCase into snake\_case
 
@@ -513,7 +528,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### splitModel
 
-[packages/kitsu-core/src/splitModel/index.js:29-39](https://github.com/wopian/kitsu/blob/1b2f9b9802de16f893ae439023e5a5be1307a8d0/packages/kitsu-core/src/splitModel/index.js#L29-L39 "Source code on GitHub")
+[packages/kitsu-core/src/splitModel/index.js:29-39](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu-core/src/splitModel/index.js#L29-L39 "Source code on GitHub")
 
 Split model name from the model's resource URL
 
