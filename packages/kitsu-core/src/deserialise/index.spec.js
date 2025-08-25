@@ -1539,4 +1539,331 @@ describe('kitsu-core', () => {
 
     expect(input).toEqual(output)
   })
+
+  it('Deserialises with flattened response (hoistData)', () => {
+    expect.assertions(2)
+
+    const inputData = {
+      data: [
+        {
+          id: '1',
+          type: 'anime',
+          attributes: { name: 'A' },
+          relationships: {
+            prequel: {
+              data: {
+                type: 'anime',
+                id: '42'
+              }
+            },
+            staff: {
+              data: [
+                { type: 'staff', id: '5' },
+                { type: 'staff', id: '6' }
+              ]
+            }
+          }
+        },
+        {
+          id: '2',
+          type: 'anime',
+          attributes: { name: 'B' },
+          relationships: {
+            prequel: {
+              data: {
+                type: 'anime',
+                id: '1'
+              }
+            }
+          }
+        },
+        {
+          id: '3',
+          type: 'anime',
+          attributes: { name: 'C' },
+          relationships: {
+            prequel: {
+              data: {
+                type: 'anime',
+                id: '4'
+              }
+            }
+          }
+        }
+      ],
+      included: [
+        {
+          id: '4',
+          type: 'anime',
+          attributes: { name: 'D' },
+          relationships: {
+            prequel: {
+              data: {
+                type: 'anime',
+                id: '42'
+              }
+            }
+          }
+        },
+        {
+          id: '5',
+          type: 'staff',
+          attributes: { name: 'Staff 1' }
+        },
+        {
+          id: '6',
+          type: 'staff',
+          attributes: { name: 'Staff 2' },
+          relationships: {
+            works_on: {
+              data: [
+                { type: 'anime', id: '1' },
+                { type: 'anime', id: '2' }
+              ]
+            }
+          }
+        },
+        {
+          id: '7',
+          type: 'staff',
+          attributes: { name: 'Staff 3' }
+        }
+      ]
+    }
+
+    const input = JSON.parse(stringify(deserialise(inputData, { hoistData: true })))
+
+    const output = [
+      {
+        id: '1',
+        type: 'anime',
+        name: 'A',
+        prequel: {
+          id: '42',
+          type: 'anime'
+        },
+        staff: [
+          {
+            id: '5',
+            type: 'staff',
+            name: 'Staff 1'
+          },
+          {
+            id: '6',
+            type: 'staff',
+            name: 'Staff 2',
+            works_on: [
+              {
+                id: '1',
+                type: 'anime',
+                name: 'A',
+                prequel: {
+                  id: '42',
+                  type: 'anime'
+                },
+                staff: [
+                  {
+                    id: '5',
+                    type: 'staff',
+                    name: 'Staff 1'
+                  },
+                  '[Circular ~.0.staff.1]'
+                ]
+              },
+              {
+                id: '2',
+                type: 'anime',
+                name: 'B',
+                prequel: {
+                  id: '1',
+                  type: 'anime',
+                  name: 'A',
+                  prequel: {
+                    id: '42',
+                    type: 'anime'
+                  },
+                  staff: [
+                    {
+                      id: '5',
+                      type: 'staff',
+                      name: 'Staff 1'
+                    },
+                    '[Circular ~.0.staff.1]'
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: '2',
+        type: 'anime',
+        name: 'B',
+        prequel: {
+          id: '1',
+          type: 'anime',
+          name: 'A',
+          prequel: {
+            id: '42',
+            type: 'anime'
+          },
+          staff: [
+            {
+              id: '5',
+              type: 'staff',
+              name: 'Staff 1'
+            },
+            {
+              id: '6',
+              type: 'staff',
+              name: 'Staff 2',
+              works_on: [
+                '[Circular ~.1.prequel]',
+                {
+                  id: '2',
+                  type: 'anime',
+                  name: 'B',
+                  prequel: '[Circular ~.1.prequel]'
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        id: '3',
+        type: 'anime',
+        name: 'C',
+        prequel: {
+          id: '4',
+          type: 'anime',
+          name: 'D',
+          prequel: {
+            id: '42',
+            type: 'anime'
+          }
+        }
+      }
+    ]
+
+    expect(input).toEqual(output)
+
+    // sanity check to ensure sircular references are valid
+    expect(input[0].staff[1].works_on[0].staff[0].id).toBe('5')
+  })
+
+  /*
+  describe.only('benchmark hoistData performance impact', () => {
+    const inputData = {
+      data: [
+        {
+          id: '1',
+          type: 'anime',
+          attributes: { name: 'A' },
+          relationships: {
+            prequel: {
+              data: {
+                type: 'anime',
+                id: '42'
+              }
+            },
+            staff: {
+              data: [
+                { type: 'staff', id: '5' },
+                { type: 'staff', id: '6' }
+              ]
+            }
+          }
+        },
+        {
+          id: '2',
+          type: 'anime',
+          attributes: { name: 'B' },
+          relationships: {
+            prequel: {
+              data: {
+                type: 'anime',
+                id: '1'
+              }
+            }
+          }
+        },
+        {
+          id: '3',
+          type: 'anime',
+          attributes: { name: 'C' },
+          relationships: {
+            prequel: {
+              data: {
+                type: 'anime',
+                id: '4'
+              }
+            }
+          }
+        }
+      ],
+      included: [
+        {
+          id: '4',
+          type: 'anime',
+          attributes: { name: 'D' },
+          relationships: {
+            prequel: {
+              data: {
+                type: 'anime',
+                id: '42'
+              }
+            }
+          }
+        },
+        {
+          id: '5',
+          type: 'staff',
+          attributes: { name: 'Staff 1' }
+        },
+        {
+          id: '6',
+          type: 'staff',
+          attributes: { name: 'Staff 2' },
+          relationships: {
+            works_on: {
+              data: [
+                { type: 'anime', id: '1' },
+                { type: 'anime', id: '2' }
+              ]
+            }
+          }
+        },
+        {
+          id: '7',
+          type: 'staff',
+          attributes: { name: 'Staff 3' }
+        }
+      ]
+    }
+
+    it('hoistData: true', () => {
+      expect.assertions(1)
+      const start = performance.now()
+      for (let i = 0; i < 1000; i++) {
+        deserialise(inputData, { hoistData: true })
+      }
+      const end = performance.now()
+      console.log(`hoistData: true took ${end - start} ms`)
+      expect(end - start).toBeLessThan(500)
+    })
+
+    it('hoistData: false', () => {
+      expect.assertions(1)
+      const start = performance.now()
+      for (let i = 0; i < 1000; i++) {
+        deserialise(inputData, { hoistData: false })
+      }
+      const end = performance.now()
+      console.log(`hoistData: false took ${end - start} ms`)
+      expect(end - start).toBeLessThan(500)
+    })
+  })
+  */
 })

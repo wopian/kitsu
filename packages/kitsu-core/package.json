@@ -17,6 +17,7 @@
   "unpkg": "dist/index.browser.js",
   "jsdelivr": "dist/index.browser.js",
   "types": "types/index.d.ts",
+  "type": "module",
   "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-core#readme",
   "repository": "https://github.com/wopian/kitsu",
   "bugs": {
