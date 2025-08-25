@@ -59,7 +59,7 @@
     "typescript": "^5.9.0"
   },
   "resolutions": {
-    "@types/minimatch": "5.1.2"
+    "@types/minimatch": "6.0.0"
   },
   "jest": {
     "coverageThreshold": {
