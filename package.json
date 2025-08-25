@@ -40,7 +40,7 @@
     "@rollup/plugin-babel": "^6.0.0",
     "@types/jest": "^30.0.0",
     "axios": "^1.8.4",
-    "axios-mock-adapter": "^1.22.0",
+    "axios-mock-adapter": "^2.0.0",
     "babel-jest": "^30.0.0",
     "browserslist": "^4.25.0",
     "conventional-changelog-angular": "^6.0.0",
