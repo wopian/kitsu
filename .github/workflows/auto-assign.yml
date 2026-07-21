@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: 'Auto Assign Issues'
-      uses: pozil/auto-assign-issue@v3.0.0
+      uses: pozil/auto-assign-issue@v4.0.1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         assignees: wopian
