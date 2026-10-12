@@ -34,9 +34,9 @@
     "size": "lerna exec size-limit"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.0",
-    "@babel/core": "^7.28.0",
-    "@babel/preset-env": "^7.28.0",
+    "@babel/cli": "^8.0.0",
+    "@babel/core": "^8.0.0",
+    "@babel/preset-env": "^8.0.0",
     "@rollup/plugin-babel": "^7.0.0",
     "@types/jest": "^30.0.0",
     "axios": "^1.8.4",
