@@ -6,132 +6,58 @@
     "url": "https://github.com/wopian/kitsu/issues"
   },
   "engines": {
-    "node": "18 || 20 || >= 22"
+    "node": "18 || 20 || >= 22",
+    "bun": "1.4.3"
   },
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "diff": "lerna diff",
-    "updated": "lerna updated -l --sort",
-    "updated:json": "yarn updated --json",
-    "bootstrap": "lerna bootstrap",
-    "build": "lerna exec yarn build",
-    "docs": "lerna exec --parallel yarn docs:lint",
-    "docs:build": "lerna exec --parallel yarn docs:build",
-    "docs:typescript": "lerna exec --parallel yarn docs:typescript",
-    "docs:release": "yarn docs && yarn docs:build && yarn docs:typescript",
-    "fix": "eslint . --fix",
-    "lint": "eslint .",
-    "test": "yarn test:coverage && yarn lint && yarn docs && yarn build && yarn size",
-    "test:coverage": "jest --coverage",
-    "release": "yarn updated && yarn release:test && yarn release:commit && yarn release:lerna",
-    "release:test": "jest && yarn lint && yarn docs:release && yarn build",
-    "release:commit": "git commit -am \"chore(release): update documentation\"",
-    "release:lerna": "lerna publish",
-    "release:lerna-alpha": "lerna publish --preid=alpha",
-    "browserslist": "browserslist \"last 2 years, not < 0.05%\"",
-    "size": "lerna exec size-limit"
+    "typecheck": "bun check",
+    "build": "bun run scripts/build.ts",
+    "docs": "bun --filter '*' docs:lint",
+    "docs:build": "bun --filter '*' docs:build",
+    "docs:typescript": "bun run build:types",
+    "build:types": "tsc -p packages/kitsu-core/tsconfig.build.json && tsc -p packages/kitsu/tsconfig.build.json",
+    "lint": "biome check .",
+    "fix": "biome check --write .",
+    "format": "biome format .",
+    "format:fix": "biome format --write .",
+    "test": "bun test --check",
+    "test:coverage": "bun test --check --coverage",
+    "test:packages": "bun run scripts/check-packages.ts",
+    "test:compatibility": "bun run scripts/compatibility.ts",
+    "size": "bun --filter '*' size",
+    "validate": "bun run typecheck && bun run lint && bun run format && bun run test:coverage && bun run docs && bun run build && bun run size && bun run test:packages",
+    "release:plan": "node --experimental-strip-types scripts/release/plan.ts",
+    "release": "node --experimental-strip-types scripts/release/publish.ts"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.0",
-    "@babel/core": "^7.28.0",
-    "@babel/preset-env": "^7.28.0",
-    "@rollup/plugin-babel": "^7.0.0",
-    "@types/jest": "^30.0.0",
+    "@biomejs/biome": "~2.5.7",
+    "@semantic-release/commit-analyzer": "~13.0.1",
+    "@semantic-release/release-notes-generator": "~14.1.1",
+    "@semantic-release/github": "~12.0.9",
+    "@types/bun": "~1.4.0",
+    "@types/pluralize": "^0.0.33",
+    "@types/json-stringify-safe": "^5.0.3",
     "axios": "^1.8.4",
     "axios-mock-adapter": "^1.22.0",
-    "babel-jest": "^30.0.0",
-    "browserslist": "^4.25.0",
-    "conventional-changelog-angular": "^6.0.0",
-    "cross-env": "^7.0.0",
-    "documentation": "^14.0.0",
-    "eslint": "^8.57.0",
-    "eslint-config-wopian": "^3.0.0",
-    "jest": "^30.0.0",
-    "jest-environment-jsdom": "^30.0.0",
     "json-stringify-safe": "^5.0.1",
-    "lerna": "^3.0.0",
-    "rollup": "^4.46.0",
-    "rollup-plugin-delete": "^3.0.1",
-    "rollup-plugin-local-resolve": "^1.0.7",
+    "conventional-changelog-conventionalcommits": "~8.0.0",
+    "documentation": "^14.0.0",
     "size-limit": "^12.0.0",
+    "semantic-release": "~25.0.8",
     "typescript": "^6.0.0"
-  },
-  "resolutions": {
-    "@types/minimatch": "6.0.0"
-  },
-  "jest": {
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 0
-      }
-    },
-    "projects": [
-      {
-        "displayName": "browser",
-        "testEnvironment": "jsdom",
-        "collectCoverageFrom": [
-          "<rootDir>/packages/**/src/**/*.js"
-        ],
-        "coveragePathIgnorePatterns": [
-          "/node_modules/",
-          "/specification/"
-        ],
-        "coverageDirectory": "<rootDir>/coverage",
-        "moduleNameMapper": {
-          "^specification(.*)$": "<rootDir>/specification/$1",
-          "^kitsu-core(.*)$": "<rootDir>/packages/kitsu-core/src/$1",
-          "^kitsu(.*)$": "<rootDir>/packages/kitsu/src/$1",
-          "^pkg$": "<rootDir>/package.json"
-        },
-        "transform": {
-          "^.+\\.js$": "<rootDir>/config/jest.transform.js"
-        },
-        "testMatch": [
-          "<rootDir>/packages/**/src/**/*.spec.js",
-          "<rootDir>/packages/**/src/**/*.spec.browser.js"
-        ]
-      },
-      {
-        "displayName": "node",
-        "testEnvironment": "node",
-        "collectCoverageFrom": [
-          "<rootDir>/packages/**/src/**/*.js"
-        ],
-        "coveragePathIgnorePatterns": [
-          "/node_modules/",
-          "/specification/"
-        ],
-        "coverageDirectory": "<rootDir>/coverage",
-        "moduleNameMapper": {
-          "^specification(.*)$": "<rootDir>/specification/$1",
-          "^kitsu-core(.*)$": "<rootDir>/packages/kitsu-core/src/$1",
-          "^kitsu(.*)$": "<rootDir>/packages/kitsu/src/$1",
-          "^pkg$": "<rootDir>/package.json"
-        },
-        "transform": {
-          "^.+\\.js$": "<rootDir>/config/jest.transform.js"
-        },
-        "testMatch": [
-          "<rootDir>/packages/**/src/**/*.spec.js",
-          "<rootDir>/packages/**/src/**/*.spec.node.js"
-        ]
-      }
-    ]
   },
   "renovate": {
     "extends": [
-      "github>wopian/renovate-config",
-      ":pathSemanticCommitType(packages/kitsu/**,build(kitsu))",
-      ":pathSemanticCommitType(packages/kitsu-core/**,build(kitsu-core))"
+      "github>wopian/renovate-config"
     ],
     "baseBranches": [
       "master"
-    ]
+    ],
+    "minimumReleaseAge": "3 days"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "bun@1.4.3",
+  "type": "module"
 }

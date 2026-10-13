@@ -1,94 +1,88 @@
 name: CI
-
-on: [push, pull_request]
-
-env:
-  FORCE_COLOR: true
-
+on:
+  push:
+  pull_request:
+  merge_group:
+  workflow_call:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
-  test:
-    name: Test (${{ matrix.node_version}}-${{ matrix.os }})
-
-    runs-on: ${{ matrix.os }}
-
+  quality:
     strategy:
+      fail-fast: false
       matrix:
-        node_version: [20, 22, 24]
         os: [ubuntu-latest]
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v6
-
-    - name: Use node ${{ matrix.node_version }}
-      uses: actions/setup-node@v6
-      with:
-        node-version: ${{ matrix.node_version }}
-
-    - name: Restore cache
-      uses: actions/cache@v5
-      with:
-        path: |
-          node_modules
-          */*/node_modules
-        key: ${{ matrix.os }}-${{ matrix.node_version}}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: ${{ matrix.os }}-${{ matrix.node_version }}-yarn-
-
-    - name: Install yarn dependencies
-      run: yarn install
-
-    - name: Bootstrap lerna packages
-      run: yarn bootstrap
-
-    - name: Lint source code
-      run: yarn lint
-      if: ${{ matrix.node_version == 24 }}
-
-    - name: Jest with code coverage
-      if: ${{ matrix.node_version == 24 }}
-      run: yarn test:coverage
-
-    - name: Jest
-      if: ${{ matrix.node_version != 24 }}
-      run: yarn jest
-
-  build:
-    name: Build (${{ matrix.node_version}}-${{ matrix.os }})
-    needs: test
-
     runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        node_version: [24]
-        os: [ubuntu-latest]
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v6
-
-    - name: Use node ${{ matrix.node_version }}
-      uses: actions/setup-node@v6
-      with:
-        node-version: ${{ matrix.node_version }}
-
-    - name: Restore cache
-      uses: actions/cache@v5
-      with:
-        path: |
-          node_modules
-          */*/node_modules
-        key: ${{ matrix.os }}-${{ matrix.node_version}}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: ${{ matrix.os }}-${{ matrix.node_version }}-yarn-
-
-    - name: Install yarn dependencies
-      run: yarn install
-
-    - name: Bootstrap lerna packages
-      run: yarn bootstrap
-
-    - name: Build lerna packages
-      run: yarn build
-
-    - name: Lint package sizes
-      run: yarn size
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.3
+      - run: bun install --frozen-lockfile
+      - run: bun dedupe --check
+      - run: bun run typecheck
+      - run: bun run lint
+      - run: bun run format
+      - run: bun test --check --coverage --reporter=junit --reporter-outfile=coverage/junit.xml
+      - run: bun run test:compatibility
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: coverage-${{ runner.os }}
+          path: coverage/
+          if-no-files-found: error
+  packages:
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.3
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '26'
+          package-manager-cache: false
+      - run: bun install --frozen-lockfile
+      - run: bun run docs
+      - run: bun run build
+      - run: bun run size
+      - run: bun run test:packages
+      - uses: actions/upload-artifact@v7
+        with:
+          name: esm-packages
+          path: .cache/package-smoke/*.tgz
+          include-hidden-files: true
+          if-no-files-found: error
+  compatibility:
+    needs: packages
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['18', '20', '22', '24', '26']
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.3
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '26'
+          package-manager-cache: false
+      - run: bun install --frozen-lockfile
+      - uses: actions/download-artifact@v8
+        with:
+          name: esm-packages
+          path: .cache/esm-packages
+      - run: bun run test:packages .cache/esm-packages
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          package-manager-cache: false
+      - run: node .cache/package-smoke/consumer/smoke.mjs

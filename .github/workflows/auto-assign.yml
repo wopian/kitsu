@@ -1,16 +1,16 @@
 name: Auto Assign
-
 on:
   issues:
     types: [opened]
-
+permissions:
+  contents: read
 jobs:
   auto-assign:
     runs-on: ubuntu-latest
-
+    permissions:
+      issues: write
     steps:
-    - name: 'Auto Assign Issues'
-      uses: pozil/auto-assign-issue@v3.0.0
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        assignees: wopian
+      - uses: pozil/auto-assign-issue@v4
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          assignees: wopian

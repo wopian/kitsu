@@ -1,43 +1,23 @@
 {
-  // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
-    // File Layout
-    "rootDir": "./packages",
-    "outDir": "./dist",
-
-    // Environment Settings
-    // See also https://aka.ms/tsconfig/module
-    "allowJs": true,
-    "module": "nodenext",
-    "target": "esnext",
-    "types": [],
-
-    // Other Outputs
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-
-    // Stricter Typechecking Options
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-
-    // Style Options
-    // "noImplicitReturns": true,
-    // "noImplicitOverride": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noFallthroughCasesInSwitch": true,
-    // "noPropertyAccessFromIndexSignature": true,
-
-    // Recommended Options
+    "target": "ES2022",
+    "module": "Preserve",
+    "moduleResolution": "Bundler",
     "strict": true,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
+    "types": ["bun"],
+    "paths": {
+      "kitsu": ["./packages/kitsu/src/index.ts"],
+      "kitsu-core": ["./packages/kitsu-core/src/index.ts"]
+    }
   },
-  "include": ["packages/**/src/**/*"],
-  "exclude": ["**/*.spec.js", "node_modules"]
+  "include": [
+    "packages/**/src/**/*.ts",
+    "specification/**/*.ts",
+    "scripts/**/*.ts",
+    "release.config.ts"
+  ],
+  "exclude": ["node_modules", ".cache", "**/dist", "**/types"]
 }

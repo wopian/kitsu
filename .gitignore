@@ -5,3 +5,8 @@ coverage
 **/env.js
 *.log*
 .idea
+
+.cache/
+coverage/
+packages/*/types/
+release-artifacts/

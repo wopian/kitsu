@@ -1,87 +1,48 @@
 # Contributing
 
-## Code Style
-
-This project follows [JavaScript Standard Style] with a couple of [tweaks]. ESLint will report any style violations when tests are run or with `yarn lint`
-
-Some style violations can automatically be fixed by running `yarn fix`
-
-## Commit Messages
-
-Semantic commit messages are used:
-
-```
-feat(category): added feature x
-```
-
-| Category   | Usage
-| ---------: | -----
-| `empty`    | Changes to monorepo, no change to packages (alternatively, the filename - e.g `readme`)
-| kitsu      | Changes to the `kitsu` package
-| kitsu-core | Changes to the `kitsu-core` package
-
-| Type     | Usage
-| -------: | -----
-| ci       | Continuous Integration changes
-| chore    | Build scripts, no production code change
-| feat     | New feature/enhancement
-| fix      | Fix a bug for users - not build related issues
-| refactor | Refactoring production code, optimisations
-| style    | Formatting changes, no code change
-| test     | Adding, refactoring or fixing tests
-
 ## Requirements
 
-- [git](https://git-scm.com/) 2.0.0 or newer
-- [node.js](https://nodejs.org) 7.0.0 or newer
-- [yarn](https://https://yarnpkg.com) 1.0.0 or newer (optional)
+Use Git and Bun 1.4.3. Node 26 runs documentation and release tooling. Published libraries support Node 18, 20, or 22+.
 
-## Setup
+## Development
 
-1. Fork this repo
+Run these commands from repository root:
 
-1. Clone your fork:
+```sh
+bun install --frozen-lockfile
+bun run typecheck
+bun run test:coverage
+bun run lint
+bun run format
+bun run docs
+bun run build
+bun run size
+bun run test:packages
+bun run test:compatibility
+```
 
-    ```bash
-    git clone https://github.com/your-username/kitsu.git
-    cd kitsu
-    ```
+Use `bun run fix` and `bun run format:fix` for Biome corrections. Preserve runtime behavior when changing types or formatting. `bun run test:compatibility` checks runtime structure against v11.1.1.
 
-1. Create a feature branch:
+Use `bun run docs:build` to regenerate README API sections. Declarations regenerate during builds.
 
-    ```bash
-    git checkout -b your-feature-name
-    ```
+Dependency updates follow three-day minimum age.
 
-1. Install dependencies:
+## Tests
 
-    ```bash
-    yarn
-    # or
-    npm install
-    ```
+Bun tests use explicit `bun:test` imports. Coverage requires 100% library lines and functions and writes text plus LCOV reports. Restore mocks after tests and preserve existing assertions.
 
-1. Test changes
+## Commit messages
 
-    ```
-    yarn test
-    # or
-    npm test
-    ```
+Use Conventional Commits. Breaking changes (`feat!:` etc) release major versions; `feat` releases minor; `fix`, `perf`, and `chore(deps)` release patch versions. Relevant nonconventional commits and lockfile changes fall back to patch releases. Documentation, examples and tests do not independently trigger releases.
 
-1. Commit changes:
+Commit example:
 
-    ```bash
-    git commit -am 'feat: add feature name'
-    ```
+```text
+feat!: publish ESM-only packages
 
-1. Push changes:
+BREAKING CHANGE: remove CommonJS entrypoints and UMD bundles.
+```
 
-    ```bash
-    git push origin your-feature-name
-    ```
+## Releases
 
-1. Open a pull request
-
-[javascript standard style]: https://standardjs.com
-[tweaks]: https://github.com/wopian/eslint-config-wopian/tree/master/packages/eslint-config-wopian
+Both packages share versions and `v*` tags. Releases run from master with semantic-release analysis and a frozen plan tied to commit SHA. See [release setup](RELEASING.md).

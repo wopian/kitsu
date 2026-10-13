@@ -1,5 +1,5 @@
-import Kitsu from '../src'
 import OAuth2 from 'client-oauth2'
+import Kitsu from '../src'
 
 const api = new Kitsu()
 
@@ -10,7 +10,7 @@ const app = async () => {
   const { owner } = new OAuth2({
     clientId: '',
     clientSecret: '',
-    accessTokenUri: 'https://kitsu.app/api/oauth/token'
+    accessTokenUri: 'https://kitsu.app/api/oauth/token',
   })
 
   const { accessToken } = await owner.getToken('username', 'password')
@@ -25,15 +25,15 @@ const app = async () => {
     targetUser: {
       data: {
         id,
-        type: 'users'
-      }
+        type: 'users',
+      },
     },
     user: {
       data: {
         id,
-        type: 'users'
-      }
-    }
+        type: 'users',
+      },
+    },
   })
 }
 

@@ -19,10 +19,10 @@ const showPopular = async () => {
   try {
     const { data } = await api.get('anime', {
       page: { limit: 5 },
-      sort: 'popularityRank'
+      sort: 'popularityRank',
     })
     console.log('\nTop 5 popular anime:')
-    data.forEach(anime => {
+    data.forEach((anime) => {
       console.log(`- ${anime.canonicalTitle}`)
     })
   } catch (err) {

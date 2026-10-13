@@ -16,7 +16,7 @@
 
 <p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client using Axios</p>
 
-<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v11 & previous major releases</p>
+<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v12 & previous major releases</p>
 
 #
 
@@ -27,14 +27,6 @@
 *   Works in Node & browsers
 *   Uses the [Promise] API
 
-## Node / Browser Support
-
-| Package | Package<br> Size\* | ESM Size   | Node† | Chrome† | Firefox† | Safari† | Edge† |
-| ------: | :-----------------: | :--------: | :---: | :------: | :------: | :-----: | :----: |
-| `kitsu` |      ≤ 17.72 kb     | ≤ 17.46 KB | 18+   | 116+     | 118+     | 17.1+   | 134+   |
-
-\* Including all dependencies & minified with brotli
-† Guaranteed supported versions. Older versions may still work or might require polyfills
 
 ## Response Comparison
 
@@ -96,16 +88,16 @@
 
 ## Install
 
-### Yarn / NPM
+### Bun / npm / Yarn
 
 ```bash
-yarn add kitsu
+bun add kitsu
 npm install kitsu
+yarn add kitsu
 ```
 
 ```js
-import Kitsu from "kitsu"; // ES Modules & Babel
-const Kitsu = require("kitsu"); // CommonJS & Browserify
+import Kitsu from "kitsu";
 ```
 
 ## Quick Start
@@ -236,8 +228,6 @@ All code released under [MIT]
 
 ### Kitsu
 
-[packages/kitsu/src/index.js:39-577](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu/src/index.js#L39-L577 "Source code on GitHub")
-
 Creates a new `kitsu` instance
 
 #### Parameters
@@ -292,8 +282,6 @@ const { data } = await api.get('library-entries')
 
 #### plural
 
-[packages/kitsu/src/index.js:66-67](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu/src/index.js#L66-L67 "Source code on GitHub")
-
 *   **See**: <https://www.npmjs.com/package/pluralize> for documentation
 *   **See**: [Kitsu](#kitsu) constructor options for disabling pluralization
 
@@ -310,8 +298,6 @@ api.plural.plural('paper') //=> 'paper'
 ```
 
 #### headers
-
-[packages/kitsu/src/index.js:81-81](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu/src/index.js#L81-L81 "Source code on GitHub")
 
 Get the current headers or add additional headers
 
@@ -338,8 +324,6 @@ api.headers['Authorization'] = 'Bearer 1234567890'
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** All the current headers
 
 #### interceptors
-
-[packages/kitsu/src/index.js:130-130](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu/src/index.js#L130-L130 "Source code on GitHub")
 
 *   **See**: <https://github.com/axios/axios#interceptors> for documentation
 
@@ -385,8 +369,6 @@ api.interceptors.request.eject(myInterceptor)
 ```
 
 #### get
-
-[packages/kitsu/src/index.js:228-263](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu/src/index.js#L228-L263 "Source code on GitHub")
 
 Fetch resources (alias `fetch`)
 
@@ -523,8 +505,6 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 #### patch
 
-[packages/kitsu/src/index.js:299-333](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu/src/index.js#L299-L333 "Source code on GitHub")
-
 Update a resource (alias `update`)
 
 ##### Parameters
@@ -585,8 +565,6 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 #### post
 
-[packages/kitsu/src/index.js:368-400](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu/src/index.js#L368-L400 "Source code on GitHub")
-
 Create a new resource (alias `create`)
 
 ##### Parameters
@@ -634,8 +612,6 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 #### delete
 
-[packages/kitsu/src/index.js:420-460](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu/src/index.js#L420-L460 "Source code on GitHub")
-
 Remove a resource (alias `remove`)
 
 ##### Parameters
@@ -672,8 +648,6 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 #### self
 
-[packages/kitsu/src/index.js:484-493](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu/src/index.js#L484-L493 "Source code on GitHub")
-
 Get the authenticated user's data
 
 **Note** Requires the JSON:API server to support `filter[self]=true`
@@ -709,8 +683,6 @@ api.self({
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** JSON-parsed response
 
 #### request
-
-[packages/kitsu/src/index.js:548-576](https://github.com/wopian/kitsu/blob/73e2f6e51d107591bef75cddf10c9e41b61ef6af/packages/kitsu/src/index.js#L548-L576 "Source code on GitHub")
 
 Send arbitrary requests
 

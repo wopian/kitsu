@@ -1,5 +1,9 @@
 # Migration Guides
 
+## Migrating to `12.0.0`
+
+Both packages now publish ESM only. Replace `require()` with `import`, and enable ESM in your application with `"type": "module"` or an `.mjs` file. CommonJS exports and UMD bundles, including the `kitsuCore` global, are removed.
+
 ## Migrating to `10.0.0`
 
 ### Exports

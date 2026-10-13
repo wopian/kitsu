@@ -1,0 +1,196 @@
+import { deattribute } from './deattribute.js'
+import { isDeepEqual } from './deepEqual.js'
+import { filterIncludes } from './filterIncludes.js'
+import type { JsonObject, ResourceIdentifier } from './types.js'
+
+/**
+ * Core function to link relationships to included data
+ *
+ * @param {Object} resource The included resource
+ * @param {string} resource.id Resource ID
+ * @param {string} resource.type Resource type
+ * @param {Object[]} included The response included object
+ * @param {Object} previouslyLinked A mapping of already visited resources
+ * @param {Object} relationshipCache A cache object for relationship meta and links
+ * @private
+ */
+function link(
+  { id, type }: ResourceIdentifier,
+  included: JsonObject[],
+  previouslyLinked: JsonObject,
+  relationshipCache: JsonObject,
+): JsonObject {
+  const filtered = filterIncludes(included, { id, type })
+  previouslyLinked[`${type}#${id}`] = filtered
+
+  if (filtered.relationships) {
+    linkRelationships(filtered, included, previouslyLinked, relationshipCache)
+  }
+
+  return deattribute(filtered)
+}
+
+/**
+ * Helper function for multiple relationships
+ *
+ * @param {Object} data The response data object
+ * @param {Object[]} included The response included object
+ * @param {string} key Name of the relationship item
+ * @param {Object} previouslyLinked A mapping of already visited resources
+ * @param {Object} relationshipCache A cache object for relationship meta and links
+ * @private
+ */
+function linkArray(
+  data: JsonObject,
+  included: JsonObject[],
+  key: string,
+  previouslyLinked: JsonObject,
+  relationshipCache: JsonObject,
+): void {
+  data[key] = {}
+
+  if (data.relationships[key].links) data[key].links = data.relationships[key].links
+  if (data.relationships[key].meta) data[key].meta = data.relationships[key].meta
+
+  data[key].data = []
+
+  for (const resource of data.relationships[key].data) {
+    const cache = previouslyLinked[`${resource.type}#${resource.id}`]
+    let relationship = cache || link(resource, included, previouslyLinked, relationshipCache)
+    if (resource.meta || relationship.meta) {
+      relationship = { ...relationship, meta: { ...relationship.meta, ...resource.meta } }
+    }
+    data[key].data.push(relationship)
+  }
+
+  delete data.relationships[key]
+}
+
+/**
+ * Helper function for single relationships
+ *
+ * @param {Object} data The response data object
+ * @param {Object[]} included The response included object
+ * @param {string} key Name of the relationship item
+ * @param {Object} previouslyLinked A mapping of already visited resources
+ * @param {Object} relationshipCache A cache object for relationship meta and links
+ * @private
+ */
+function linkObject(
+  data: JsonObject,
+  included: JsonObject[],
+  key: string,
+  previouslyLinked: JsonObject,
+  relationshipCache: JsonObject,
+): void {
+  data[key] = {}
+  const resource = data.relationships[key].data
+  const cache = previouslyLinked[`${resource.type}#${resource.id}`]
+
+  if (cache) {
+    let resourceCache: JsonObject | null = null
+    // Comparing for cache entity meta and resource entity meta object.
+    if (!isDeepEqual(cache.meta, resource.meta)) {
+      resourceCache = {
+        ...cache,
+        meta: { ...cache.meta, ...resource.meta },
+      }
+    } else {
+      resourceCache = cache
+    }
+
+    data[key].data = resourceCache
+  } else {
+    data[key].data = link(resource, included, previouslyLinked, relationshipCache)
+  }
+
+  if (resource.meta || data[key].data.meta) {
+    data[key].data = { ...data[key].data, meta: { ...data[key].data.meta, ...resource.meta } }
+  }
+
+  const cacheKey = `${data.type}#${data.id}#${key}`
+  const relationships = relationshipCache[cacheKey] || data.relationships[key]
+  if (!relationshipCache[cacheKey]) relationshipCache[cacheKey] = relationships
+
+  if (relationships?.links) data[key].links = relationships.links
+  if (relationships?.meta) data[key].meta = relationships.meta
+
+  delete data.relationships[key]
+}
+
+/**
+ * Helper function for relationships with no data
+ *
+ * @param {Object} data The response data object
+ * @param {string} key Name of the relationship item
+ * @private
+ */
+function linkAttr(data: JsonObject, key: string): void {
+  data[key] = {}
+  if (data.relationships[key].links) data[key].links = data.relationships[key].links
+  if (data.relationships[key].meta) data[key].meta = data.relationships[key].meta
+  delete data.relationships[key]
+}
+
+/**
+ * Links relationships to included data
+ *
+ * @param {Object} data The response data object
+ * @param {Object[]} [included] The response included object
+ * @param {Object} [previouslyLinked] A mapping of already visited resources (internal use only)
+ * @param {Object} [relationshipCache] A cache object for relationship meta and links
+ * @returns Parsed data
+ *
+ * @example
+ * const data = {
+ *   attributes: { author: 'Joe' },
+ *   relationships: {
+ *     author: {
+ *       data: { id: '1', type: 'people' }
+ *     }
+ *   }
+ * }
+ * const included = [ {
+ *   id: '1',
+ *   type: 'people',
+ *   attributes: { name: 'Joe' }
+ * } ]
+ * const output = linkRelationships(data, included)
+ * // {
+ * //   attributes: { author: 'Joe' },
+ * //   author: {
+ * //     data: { id: '1', name: 'Joe', type: 'people' }
+ * //   }
+ * // }
+ */
+export function linkRelationships(
+  data: JsonObject,
+  included: JsonObject[] = [],
+  previouslyLinked: JsonObject = {},
+  relationshipCache: JsonObject = {},
+): JsonObject {
+  const { relationships } = data
+
+  for (const key in relationships) {
+    // Relationship contains collection of resources
+    if (Array.isArray(relationships[key]?.data)) {
+      linkArray(data, included, key, previouslyLinked, relationshipCache)
+      // Relationship contains a single resource
+    } else if (relationships[key].data) {
+      linkObject(data, included, key, previouslyLinked, relationshipCache)
+    } else {
+      linkAttr(data, key)
+    }
+  }
+
+  if (
+    Object.keys(relationships || []).length === 0 &&
+    typeof relationships === 'object' &&
+    !Array.isArray(relationships) &&
+    relationships !== null
+  ) {
+    delete data.relationships
+  }
+
+  return data
+}

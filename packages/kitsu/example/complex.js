@@ -18,21 +18,23 @@ const get = async ({ userId, kind }) => {
     // Get the user's library entries sorted by highest rated first
     // Ignoring pagination as they're highly unlikely to have more
     // than 500 20/20 of that media
-    const { data } = await api.get('libraryEntries', {
-      page: { limit: 500 },
-      sort: '-rating',
-      fields: {
-        libraryEntries: `ratingTwenty,${kind}`,
-        [kind]: 'canonicalTitle,startDate'
-      },
-      filter: {
-        userId,
-        kind
-      },
-      include: kind
-    }).catch(e => {
-      console.log(e.errors)
-    })
+    const { data } = await api
+      .get('libraryEntries', {
+        page: { limit: 500 },
+        sort: '-rating',
+        fields: {
+          libraryEntries: `ratingTwenty,${kind}`,
+          [kind]: 'canonicalTitle,startDate',
+        },
+        filter: {
+          userId,
+          kind,
+        },
+        include: kind,
+      })
+      .catch((e) => {
+        console.log(e.errors)
+      })
 
     return data
   } catch (e) {
@@ -44,7 +46,7 @@ const filter = async ({ userId, kind }) => {
   const data = await get({ userId, kind })
   const years = {}
 
-  data.forEach(entry => {
+  data.forEach((entry) => {
     if (entry.ratingTwenty === 20) {
       let year = entry[kind].startDate
 
@@ -66,18 +68,19 @@ const display = async ({ userId, kind }) => {
 
   console.log(`\nYour 10-star ${kind}:`)
 
-  Object.keys(years)
-    .forEach(year => {
-      console.log(`\n  ${year}\n`)
+  Object.keys(years).forEach((year) => {
+    console.log(`\n  ${year}\n`)
 
-      years[year]
-        .sort((a, b) => a[kind].canonicalTitle.localeCompare(b[kind].canonicalTitle, {
-          numeric: true
-        }))
-        .forEach(entry => {
-          console.log('-', entry[kind].canonicalTitle)
-        })
-    })
+    years[year]
+      .sort((a, b) =>
+        a[kind].canonicalTitle.localeCompare(b[kind].canonicalTitle, {
+          numeric: true,
+        }),
+      )
+      .forEach((entry) => {
+        console.log('-', entry[kind].canonicalTitle)
+      })
+  })
 }
 
 display({ userId: 42603, kind: 'anime' })

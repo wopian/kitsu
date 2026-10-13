@@ -1,0 +1,104 @@
+name: Release
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      recovery_run_id:
+        description: Previous release workflow run ID; reuse its immutable tarballs and plan
+        required: false
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: npm-release
+  cancel-in-progress: false
+jobs:
+  validate:
+    if: github.repository == 'wopian/kitsu' && github.ref == 'refs/heads/master'
+    uses: ./.github/workflows/ci.yml
+  release:
+    needs: validate
+    if: github.repository == 'wopian/kitsu' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '26'
+          package-manager-cache: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.3
+      - name: Restore frozen plan for recovery
+        id: recovery
+        if: github.run_attempt != '1' || inputs.recovery_run_id != ''
+        uses: actions/download-artifact@v8
+        continue-on-error: true
+        with:
+          name: release-plan
+          path: release-artifacts
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ inputs.recovery_run_id || github.run_id }}
+      - name: Require requested recovery artifact
+        if: inputs.recovery_run_id != '' && steps.recovery.outcome != 'success'
+        run: exit 1
+      - name: Read frozen SHA
+        id: frozen
+        if: steps.recovery.outcome == 'success'
+        run: |
+          node --input-type=module <<'JS'
+          import { readFileSync, appendFileSync } from 'node:fs';
+          const plan = JSON.parse(readFileSync('release-artifacts/release-plan.json', 'utf8'));
+          if (!/^[a-f0-9]{40}$/.test(plan.sha)) throw new Error('Invalid frozen SHA');
+          appendFileSync(process.env.GITHUB_OUTPUT, `sha=${plan.sha}\n`);
+          JS
+      - uses: actions/checkout@v7
+        if: steps.recovery.outcome == 'success'
+        with:
+          ref: ${{ steps.frozen.outputs.sha }}
+          fetch-depth: 0
+          clean: false
+      - run: bun install --frozen-lockfile
+      - run: bun dedupe --check
+      - run: bun run typecheck
+      - run: bun run lint
+      - run: bun run format
+      - run: bun run test:coverage
+      - run: bun run test:compatibility
+      - run: bun run docs
+      - run: bun run build
+      - run: bun run size
+      - run: bun run test:packages
+      - name: Plan semantic release
+        id: plan
+        if: steps.recovery.outcome != 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bun run release:plan
+      - name: Save frozen plan and tarballs
+        if: steps.recovery.outcome == 'success' || steps.plan.outputs.release == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-plan
+          path: |
+            release-artifacts/release-plan.json
+            release-artifacts/*.tgz
+          if-no-files-found: error
+          overwrite: true
+      - name: Publish through npm trusted publishing
+        if: steps.recovery.outcome == 'success' || steps.plan.outputs.release == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
+          bun run release

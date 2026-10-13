@@ -1,5 +1,5 @@
 {
-  "version": "11.1.1",
+  "version": "12.0.0",
   "name": "kitsu",
   "description": "A simple, lightweight & framework agnostic JSON:API client using Axios",
   "author": "James Harris <wopian@wopian.me>",
@@ -12,12 +12,16 @@
     "pedep <pedep@users.noreply.github.com>"
   ],
   "license": "MIT",
-  "main": "dist/index",
-  "module": "dist/index",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
   "types": "types/index.d.ts",
   "type": "module",
   "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu#readme",
-  "repository": "https://github.com/wopian/kitsu",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wopian/kitsu.git",
+    "directory": "packages/kitsu"
+  },
   "bugs": {
     "url": "https://github.com/wopian/kitsu/issues"
   },
@@ -43,69 +47,66 @@
     "axios"
   ],
   "scripts": {
-    "docs:lint": "documentation lint src/index.js",
-    "docs:build": "documentation readme src/index.js --section=API -g true --sort-order source",
-    "docs:typescript": "tsc src/index.js --declaration --emitDeclarationOnly --allowJs --outDir types",
-    "rollup": "cross-env NODE_ENV=production rollup -c --environment BUILD:production",
-    "build": "yarn rollup"
+    "build": "bun ../../scripts/build.ts kitsu",
+    "docs:lint": "bun ../../scripts/docs.ts lint kitsu",
+    "docs:build": "bun ../../scripts/docs.ts build kitsu",
+    "size": "size-limit"
   },
   "dependencies": {
     "axios": "^1.8.4",
-    "kitsu-core": "^11.1.1",
+    "kitsu-core": "workspace:^",
     "pluralize": "^8.0.0"
   },
   "size-limit": [
-    {
-      "path": "./dist/index.js",
-      "limit": "20 kb",
-      "brotli": true
-    },
     {
       "path": "./dist/index.mjs",
       "limit": "20 kb",
       "brotli": true
     }
   ],
-  "gitHead": "5c9778d191d17d7c9790cfc6d0f4e983b4742a53",
   "devDependencies": {
-    "@size-limit/preset-small-lib": "~8.2.0"
+    "@size-limit/preset-small-lib": "^12.0.0"
   },
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./types/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.mjs"
     },
     "./index": {
       "types": "./types/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.mjs"
     },
     "./index.js": {
       "types": "./types/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.mjs"
     },
     "./index.mjs": {
       "types": "./types/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.mjs"
     },
     "./dist/index": {
       "types": "./types/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.mjs"
     },
     "./dist/index.js": {
       "types": "./types/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.mjs"
     },
     "./dist/index.mjs": {
       "types": "./types/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.mjs"
     }
+  },
+  "files": [
+    "dist",
+    "types",
+    "README.md",
+    "MIGRATING.md",
+    "CHANGELOG.md",
+    "LICENSE.md"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }
