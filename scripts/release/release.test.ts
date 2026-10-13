@@ -7,7 +7,9 @@ import { type Publisher, publishPlan, validatePlan } from './publish.ts'
 import { integrity } from './stage.ts'
 import type { ImpactContext, ReleasePlan } from './types.ts'
 
-const root = await mkdtemp(join(import.meta.dir, '../../.cache/release-test-'))
+const cacheDirectory = join(import.meta.dir, '../../.cache')
+await mkdir(cacheDirectory, { recursive: true })
+const root = await mkdtemp(join(cacheDirectory, 'release-test-'))
 afterAll(() => rm(root, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }))
 const bytes = Buffer.from('immutable package fixture')
 const plan: ReleasePlan = {
