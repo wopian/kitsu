@@ -37,6 +37,12 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.4.3
+      - name: Preserve current publisher for recovery
+        id: publisher
+        run: |
+          directory=$(mktemp -d "$RUNNER_TEMP/kitsu-publisher.XXXXXX")
+          cp scripts/release/{publish,stage,types}.ts "$directory/"
+          echo "path=$directory" >> "$GITHUB_OUTPUT"
       - name: Restore frozen plan for recovery
         id: recovery
         if: github.run_attempt != '1' || inputs.recovery_run_id != ''
@@ -101,4 +107,4 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
-          bun run release
+          node --experimental-strip-types "${{ steps.publisher.outputs.path }}/publish.ts"

@@ -57,6 +57,47 @@ describe('release recovery', () => {
     await publishPlan(plan, root, driver)
     expect(calls).toEqual(['kitsu', 'tag', 'release'])
   })
+  test('waits for registry visibility without republishing', async () => {
+    const { driver, calls } = publisher()
+    const read = driver.registryIntegrity
+    let missing = 2
+    driver.registryIntegrity = async (name, version) => {
+      if (calls.includes(name) && name === 'kitsu-core' && missing-- > 0) return null
+      return read(name, version)
+    }
+    const delays: number[] = []
+    await publishPlan(plan, root, driver, async (milliseconds) => {
+      delays.push(milliseconds)
+    })
+    expect(delays).toEqual([2000, 4000])
+    expect(calls).toEqual(['kitsu-core', 'kitsu', 'tag', 'release'])
+  })
+  test('stops after bounded registry visibility retries', async () => {
+    const { driver, calls } = publisher()
+    driver.registryIntegrity = async () => null
+    const delays: number[] = []
+    await expect(
+      publishPlan(plan, root, driver, async (milliseconds) => {
+        delays.push(milliseconds)
+      }),
+    ).rejects.toThrow('Publication verification failed: kitsu-core')
+    expect(delays).toEqual([2000, 4000, 8000, 10000, 10000, 10000])
+    expect(calls).toEqual(['kitsu-core'])
+  })
+  test('rejects conflicting publication without retrying or publishing client', async () => {
+    const { driver, calls } = publisher()
+    const read = driver.registryIntegrity
+    driver.registryIntegrity = async (name, version) =>
+      calls.includes(name) ? integrity(Buffer.from('different')) : read(name, version)
+    const delays: number[] = []
+    await expect(
+      publishPlan(plan, root, driver, async (milliseconds) => {
+        delays.push(milliseconds)
+      }),
+    ).rejects.toThrow('Published integrity mismatch: kitsu-core')
+    expect(delays).toEqual([])
+    expect(calls).toEqual(['kitsu-core'])
+  })
   test('recovers tag/release failure without republishing either package', async () => {
     const { driver, calls } = publisher(
       Object.fromEntries(plan.packages.map((p) => [p.name, p.integrity])),

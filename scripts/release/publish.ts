@@ -1,6 +1,7 @@
 import { execFileSync, spawnSync } from 'node:child_process'
 import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
+import { setTimeout } from 'node:timers/promises'
 import { fileURLToPath } from 'node:url'
 import { integrity } from './stage.ts'
 import { packageNames, type ReleasePlan } from './types.ts'
@@ -40,6 +41,7 @@ export async function publishPlan(
   value: unknown,
   directory: string,
   publisher: Publisher,
+  wait: (milliseconds: number) => Promise<void> = setTimeout,
 ): Promise<void> {
   validatePlan(value)
   const plan = value
@@ -59,8 +61,12 @@ export async function publishPlan(
   }
   for (const entry of plan.packages) {
     if (!published.has(entry.name)) await publisher.publish(resolve(directory, entry.filename))
-    if ((await publisher.registryIntegrity(entry.name, plan.version)) !== entry.integrity) {
-      throw new Error(`Publication verification failed: ${entry.name}`)
+    for (let attempt = 0; ; attempt++) {
+      const found = await publisher.registryIntegrity(entry.name, plan.version)
+      if (found === entry.integrity) break
+      if (found !== null) throw new Error(`Published integrity mismatch: ${entry.name}`)
+      if (attempt === 6) throw new Error(`Publication verification failed: ${entry.name}`)
+      await wait(Math.min(2000 * 2 ** attempt, 10000))
     }
   }
   publisher.publishTag(plan.tag, plan.sha)
@@ -80,6 +86,7 @@ function livePublisher(root: string): Publisher {
         `${name}@${version}`,
         'dist.integrity',
         '--json',
+        '--prefer-online',
         '--registry=https://registry.npmjs.org',
       ])
       if (result.status !== 0) {
