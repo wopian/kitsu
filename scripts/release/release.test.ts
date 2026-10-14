@@ -81,8 +81,27 @@ describe('release recovery', () => {
         delays.push(milliseconds)
       }),
     ).rejects.toThrow('Publication verification failed: kitsu-core')
-    expect(delays).toEqual([2000, 4000, 8000, 10000, 10000, 10000])
+    expect(delays.slice(0, 6)).toEqual([2000, 4000, 8000, 10000, 10000, 10000])
+    expect(delays.length).toBe(122)
+    expect(delays.at(-1)).toBe(6000)
+    expect(delays.reduce((total, delay) => total + delay, 0)).toBe(20 * 60 * 1000)
     expect(calls).toEqual(['kitsu-core'])
+  })
+  test('waits beyond old timeout for client scanning before publishing tag and release', async () => {
+    const { driver, calls } = publisher()
+    const read = driver.registryIntegrity
+    let missing = 12
+    driver.registryIntegrity = async (name, version) => {
+      if (calls.includes(name) && name === 'kitsu' && missing-- > 0) return null
+      return read(name, version)
+    }
+    const delays: number[] = []
+    await publishPlan(plan, root, driver, async (milliseconds) => {
+      expect(calls).toEqual(['kitsu-core', 'kitsu'])
+      delays.push(milliseconds)
+    })
+    expect(delays.reduce((total, delay) => total + delay, 0)).toBe(104000)
+    expect(calls).toEqual(['kitsu-core', 'kitsu', 'tag', 'release'])
   })
   test('rejects conflicting publication without retrying or publishing client', async () => {
     const { driver, calls } = publisher()

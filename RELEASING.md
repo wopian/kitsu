@@ -18,7 +18,9 @@ Workflow validates source, builds ESM, checks packed packages and asks semantic-
 
 Plan records SHA, version, tag, notes, filenames and SHA-512 integrity of both tarballs. Staging rewrites workspace dependency to matching caret range and excludes source, tests, scripts and development dependencies. Immutable plan and tarballs upload before publication.
 
-Publisher checks both local and existing registry integrities before writes. It publishes kitsu-core first, then kitsu, verifies published integrities and finally publishes shared tag and GitHub release. Registry reads use `--prefer-online` to refresh cached metadata. Missing versions retry for up to 44 seconds after publication; conflicting integrity fails immediately. Existing matching publications are skipped during recovery. Mismatched SHA, tag or integrity fails without overwriting existing releases.
+Publisher checks both local and existing registry integrities before writes. It publishes kitsu-core first, then kitsu, verifies published integrities and finally publishes shared tag and GitHub release. Registry reads use `--prefer-online` to refresh cached metadata. Missing versions retry with up to 20 minutes of waits per package after publication; registry request time is additional. Conflicting integrity fails immediately. Existing matching publications are skipped during recovery. Mismatched SHA, tag or integrity fails without overwriting existing releases.
+
+[npm scans packages before making them available](https://github.blog/changelog/2026-07-28-npm-publish-time-malware-scanning-and-dual-use-metadata/). Scanning typically takes around five minutes and can take 15 minutes or more. A successful `npm publish` does not guarantee immediate registry visibility. If verification times out, recover with the saved plan after scanning completes; do not regenerate or republish accepted tarballs.
 
 ## Recovery
 

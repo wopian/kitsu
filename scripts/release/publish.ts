@@ -6,6 +6,9 @@ import { fileURLToPath } from 'node:url'
 import { integrity } from './stage.ts'
 import { packageNames, type ReleasePlan } from './types.ts'
 
+// npm scans accepted publications before making versions visible in the registry.
+const registryVisibilityWait = 20 * 60 * 1000
+
 export function validatePlan(value: unknown): asserts value is ReleasePlan {
   const plan = value as ReleasePlan
   if (
@@ -61,12 +64,15 @@ export async function publishPlan(
   }
   for (const entry of plan.packages) {
     if (!published.has(entry.name)) await publisher.publish(resolve(directory, entry.filename))
+    let remainingWait = registryVisibilityWait
     for (let attempt = 0; ; attempt++) {
       const found = await publisher.registryIntegrity(entry.name, plan.version)
       if (found === entry.integrity) break
       if (found !== null) throw new Error(`Published integrity mismatch: ${entry.name}`)
-      if (attempt === 6) throw new Error(`Publication verification failed: ${entry.name}`)
-      await wait(Math.min(2000 * 2 ** attempt, 10000))
+      if (remainingWait === 0) throw new Error(`Publication verification failed: ${entry.name}`)
+      const delay = Math.min(2000 * 2 ** attempt, 10000, remainingWait)
+      await wait(delay)
+      remainingWait -= delay
     }
   }
   publisher.publishTag(plan.tag, plan.sha)
