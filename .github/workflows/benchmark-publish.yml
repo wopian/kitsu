@@ -1,0 +1,44 @@
+name: Publish benchmarks
+on:
+  workflow_run:
+    workflows: [Benchmark]
+    types: [completed]
+permissions:
+  contents: read
+concurrency:
+  group: benchmark-publish-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.repository == 'wopian/kitsu' && github.event.workflow_run.repository.full_name == github.repository
+    continue-on-error: true
+    timeout-minutes: 5
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: read
+      contents: write
+      pull-requests: write
+    steps:
+      # Only trusted default-branch source runs with write permissions.
+      - uses: actions/checkout@v7
+        with:
+          ref: master
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '26'
+          package-manager-cache: false
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: benchmark-results-*
+          path: .cache/benchmark-publish
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish README or PR comment
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BENCHMARK_RUN_ID: ${{ github.event.workflow_run.id }}
+        run: node --experimental-strip-types scripts/benchmark-publish.ts
+      - name: Publishing summary
+        if: failure()
+        run: echo 'Benchmark publication unavailable; existing results preserved. Inspect advisory job logs.' >> "$GITHUB_STEP_SUMMARY"

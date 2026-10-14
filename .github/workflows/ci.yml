@@ -25,6 +25,10 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.4.3
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '26'
+          package-manager-cache: false
       - run: bun install --frozen-lockfile
       - run: bun dedupe --check
       - run: bun run typecheck

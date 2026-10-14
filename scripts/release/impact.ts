@@ -1,11 +1,12 @@
 import { execFileSync } from 'node:child_process'
+import { benchmarkOnlyChange } from './benchmark-impact.ts'
 import type { ImpactContext } from './types.ts'
 
 export function affects(path: string): boolean {
   return (
     /^(packages\/(kitsu|kitsu-core)\/|package\.json$|bun\.lock$|scripts\/(build|docs)\.ts$|scripts\/release\/|release\.config\.ts$|\.github\/workflows\/release\.yml$)/.test(
       path,
-    ) && !/(\.spec\.ts$|\/example\/|\.md$)/.test(path)
+    ) && !/(\.(spec|test)\.ts$|\/example\/|\.md$)/.test(path)
   )
 }
 export function changedPaths(hash: string, cwd: string): string[] {
@@ -20,7 +21,14 @@ export function changedPaths(hash: string, cwd: string): string[] {
 }
 function relevantCommits(context: ImpactContext) {
   return context.commits.filter((commit) =>
-    changedPaths(commit.hash, context.cwd ?? process.cwd()).some(affects),
+    changedPaths(commit.hash, context.cwd ?? process.cwd()).some(
+      (path) =>
+        affects(path) &&
+        !(
+          (path === 'package.json' || path === 'bun.lock') &&
+          benchmarkOnlyChange(commit.hash, path, context.cwd ?? process.cwd())
+        ),
+    ),
   )
 }
 export async function analyzeCommits(_config: unknown, context: ImpactContext) {

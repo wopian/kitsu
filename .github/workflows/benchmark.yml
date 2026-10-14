@@ -1,0 +1,70 @@
+name: Benchmark
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: benchmark-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  benchmark:
+    continue-on-error: true
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        runtime: [node, bun]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.3
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '26'
+          package-manager-cache: false
+      - run: bun install --frozen-lockfile --ignore-scripts
+      - run: bun run build
+      - uses: actions/checkout@v7
+        if: github.event_name == 'pull_request'
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: .cache/benchmark-base
+          persist-credentials: false
+      - name: Build PR base
+        if: github.event_name == 'pull_request'
+        working-directory: .cache/benchmark-base
+        run: |
+          bun install --frozen-lockfile --ignore-scripts
+          bun run build
+      - name: Measure master
+        if: github.event_name != 'pull_request'
+        run: bun run benchmark --runtime '${{ matrix.runtime }}'
+      - name: Measure paired PR and base
+        if: github.event_name == 'pull_request'
+        run: bun run benchmark --runtime '${{ matrix.runtime }}' --base-root .cache/benchmark-base
+      - name: Save benchmark results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: benchmark-results-${{ matrix.runtime }}
+          path: |
+            .cache/benchmark/results-${{ matrix.runtime }}.json
+            .cache/benchmark/report.md
+          include-hidden-files: true
+          if-no-files-found: warn
+      - name: Job summary
+        if: always()
+        run: |
+          if [ -f .cache/benchmark/report.md ]; then
+            cat .cache/benchmark/report.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Benchmark unavailable; inspect advisory job logs.' >> "$GITHUB_STEP_SUMMARY"
+          fi

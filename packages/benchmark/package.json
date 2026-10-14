@@ -1,0 +1,19 @@
+{
+  "name": "kitsu-benchmark",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "benchmark": "bun ../../scripts/benchmark.ts",
+    "benchmark:smoke": "bun ../../scripts/benchmark.ts --smoke"
+  },
+  "devDependencies": {
+    "deserialize-json-api": "2.0.0",
+    "devour-client": "3.2.0",
+    "fetchja": "3.2.0",
+    "jsona": "1.14.0",
+    "kitsu": "workspace:*",
+    "kitsu-core": "workspace:*",
+    "spraypaint": "0.11.1",
+    "yayson": "4.4.0"
+  }
+}

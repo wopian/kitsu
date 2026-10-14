@@ -13,6 +13,9 @@
     "packages/*"
   ],
   "scripts": {
+    "benchmark": "bun scripts/benchmark.ts",
+    "benchmark:smoke": "bun scripts/benchmark.ts --smoke",
+    "benchmark:report": "node --experimental-strip-types scripts/benchmark-report.ts",
     "typecheck": "bun check",
     "build": "bun run scripts/build.ts",
     "docs": "bun --filter '*' docs:lint",
