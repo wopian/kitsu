@@ -1,14 +1,14 @@
 {
-	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["config:recommended"],
-	"dependencyDashboard": true,
-	"minimumReleaseAge": "3 days",
-	"prCreation": "not-pending",
-	"internalChecksFilter": "strict",
-	"prConcurrentLimit": 10,
-	"prHourlyLimit": 10,
-	"timezone": "Europe/London",
-	"lockFileMaintenance": {
-		"enabled": true
-	}
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "dependencyDashboard": true,
+  "minimumReleaseAge": "3 days",
+  "prCreation": "not-pending",
+  "internalChecksFilter": "strict",
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 10,
+  "timezone": "Europe/London",
+  "lockFileMaintenance": {
+    "enabled": true
+  }
 }
