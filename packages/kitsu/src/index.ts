@@ -17,7 +17,7 @@ import type { ArbitraryRequest, KitsuOptions, KitsuResponse, RequestConfig } fro
  * @param {boolean} [options.pluralize=true] If enabled, `/user` will become `/users` in the URL request and `type` will be pluralized in POST, PATCH and DELETE requests
  * @param {number} [options.timeout=30000] Set the request timeout in milliseconds
  * @param {Object} [options.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
- * @param {boolean} [options.hoistData=false] If enabled, the contents of the `data` property will be hoisted to the parent. This provides a flatter response object, see examples below for transformation examples. Links and Meta properties will be merged into the parent object if they exist. If attributes named `links` or `meta` exist, they will overwrite the JSON:API `links` and `meta` properties.
+ * @param {boolean} [options.hoistData=false] Unwrap resource documents containing only data. Arrays and null stay under data in HTTP responses; document metadata keeps the wrapper.
  * @example <caption>Using with kitsu.app's API</caption>
  * const api = new Kitsu()
  * @example <caption>Using another API server</caption>
@@ -36,7 +36,7 @@ import type { ArbitraryRequest, KitsuOptions, KitsuResponse, RequestConfig } fro
  * @example <caption>Flatter responses without data properties</caption>
  * const api = new Kitsu({ hoistData: true })
  * const { data } = await api.get('library-entries')
- * // instead of: { data: { id: '1', type: 'people', coworkers: data: [ { id: '2', type: 'people' } ] } }
+ * // instead of: { data: { id: '1', type: 'people', coworkers: [ { id: '2', type: 'people' } ] } }
  * // you get: { id: '1', type: 'people', coworkers: [ { id: '2', type: 'people' } ] }
  */
 export default class Kitsu {
@@ -149,6 +149,15 @@ export default class Kitsu {
     this.interceptors = this.axios.interceptors
   }
 
+  private result(data: any, status: number, headers: JsonObject): any {
+    const decoded = deserialise(data, { hoistData: this.hoistData })
+    return {
+      ...(decoded === null || Array.isArray(decoded) ? { data: decoded } : decoded),
+      status,
+      ...(headers && Object.keys(headers).length ? { headers } : {}),
+    }
+  }
+
   /**
    * Fetch resources (alias `fetch`)
    *
@@ -168,6 +177,7 @@ export default class Kitsu {
    * @param {number} [config.params.page.size] Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on kitsu.app
    * @param {string} [config.params.page.before] Get the previous page of resources (Cursor-based) - **Note:** Not Supported on kitsu.app
    * @param {string} [config.params.page.after] Get the next page of resources (Cursor-based) - **Note:** Not Supported on kitsu.app
+   * @param {Object} [config.document] Top-level JSON:API members accompanying writes
    * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
    * @returns {Promise<Object>} JSON-parsed response
    * @example <caption>Getting a resource with JSON:API parameters</caption>
@@ -254,7 +264,7 @@ export default class Kitsu {
       let url = this.plural(this.resCase(res))
       // :resource/:id
       // :resource/:relationship
-      if (id) url += `/${this.resCase(id)}`
+      if (id) url += `/${id}`
       // :resource/:id/:relationship
       // :resource/:relationship/:subRelationship
       if (relationship) url += `/${this.resCase(relationship)}`
@@ -272,13 +282,7 @@ export default class Kitsu {
         ...config.axiosOptions,
       })
 
-      return {
-        ...deserialise(data, { hoistData: this.hoistData }),
-        status,
-        ...(responseHeaders && Object.keys(responseHeaders).length
-          ? { headers: responseHeaders }
-          : {}),
-      }
+      return this.result(data, status, responseHeaders)
     } catch (E) {
       throw error(E)
     }
@@ -289,10 +293,11 @@ export default class Kitsu {
    *
    * @memberof Kitsu
    * @param {string} model Resource to update data in. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
-   * @param {Object|Object[]} body Data to send in the request
+   * @param {Object|Object[]|null} body Data to send in the request
    * @param {Object} [config] Additional configuration
    * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
    * @param {Object} [config.headers] Additional headers to send with the request
+   * @param {Object} [config.document] Top-level JSON:API members accompanying writes
    * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
    * @returns {Promise<Object|Object[]>} JSON-parsed response
    * @example <caption>Update a resource</caption>
@@ -302,6 +307,7 @@ export default class Kitsu {
    * })
    * @example <caption>Update a resource with relationships</caption>
    * api.update('posts', {
+   *   id: '1',
    *   content: 'Hello World',
    *   uploads: {
    *     id: '167585',
@@ -320,21 +326,31 @@ export default class Kitsu {
    */
   async patch<T = any>(
     model: string,
-    body: JsonObject | JsonObject[],
+    body: JsonObject | JsonObject[] | null,
     config: RequestConfig = {},
   ): Promise<KitsuResponse<T>> {
     try {
       const headers = { ...this.headers, ...config.headers }
       const params = { ...{}, ...config.params }
-      const [resourceModel, url] = splitModel(model, {
-        resourceCase: this.resCase,
-        pluralModel: this.plural,
-      })
-      const serialData = serialise(resourceModel, body, 'PATCH', {
+      const [resourceModel, url] = model.includes('/')
+        ? splitModel(model)
+        : splitModel(model, {
+            resourceCase: this.resCase,
+            pluralModel: this.plural,
+          })
+      const resourceType =
+        (body as JsonObject)?.type ||
+        (model.split('/').length === 2 ? model.split('/')[0] : resourceModel)
+      const serialData = serialise(resourceType, body, 'PATCH', {
         camelCaseTypes: this.camel,
         pluralTypes: this.plural,
+        document: config.document,
+        relationship: model.includes('/relationships/'),
       })
-      const fullURL = (body as JsonObject)?.id ? `${url}/${(body as JsonObject).id}` : url
+      const fullURL =
+        !model.includes('/') && (body as JsonObject)?.id !== undefined
+          ? `${url}/${encodeURIComponent(String((body as JsonObject).id))}`
+          : url
       const {
         data,
         headers: responseHeaders,
@@ -345,13 +361,7 @@ export default class Kitsu {
         ...config.axiosOptions,
       })
 
-      return {
-        ...deserialise(data, { hoistData: this.hoistData }),
-        status,
-        ...(responseHeaders && Object.keys(responseHeaders).length
-          ? { headers: responseHeaders }
-          : {}),
-      }
+      return this.result(data, status, responseHeaders)
     } catch (E) {
       throw error(E)
     }
@@ -362,27 +372,18 @@ export default class Kitsu {
    *
    * @memberof Kitsu
    * @param {string} model Resource to create. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
-   * @param {Object|Object[]} body Data to send in the request
+   * @param {Object|Object[]|null} body Data to send in the request
    * @param {Object} [config] Additional configuration
    * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
    * @param {Object} [config.headers] Additional headers to send with the request
+   * @param {Object} [config.document] Top-level JSON:API members accompanying writes
    * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
    * @returns {Promise<Object|Object[]>} JSON-parsed response
    * @example <caption>Create a post on a user's profile feed</caption>
    * api.create('posts', {
    *   content: 'Hello World',
-   *   targetUser: {
-   *     data: {
-   *       id: '42603',
-   *       type: 'users'
-   *     }
-   *   },
-   *   user: {
-   *     data: {
-   *       id: '42603',
-   *       type: 'users'
-   *     }
-   *   }
+   *   targetUser: { id: '42603', type: 'users' },
+   *   user: { id: '42603', type: 'users' }
    * })
    * @example <caption>Create multiple resources (API must support the Bulk Extension)</caption>
    * api.create('posts', [
@@ -398,10 +399,12 @@ export default class Kitsu {
     try {
       const headers = { ...this.headers, ...config.headers }
       const params = { ...{}, ...config.params }
-      const [resourceModel, url] = splitModel(model, {
-        resourceCase: this.resCase,
-        pluralModel: this.plural,
-      })
+      const [resourceModel, url] = model.includes('/')
+        ? splitModel(model)
+        : splitModel(model, {
+            resourceCase: this.resCase,
+            pluralModel: this.plural,
+          })
       const {
         data,
         headers: responseHeaders,
@@ -411,6 +414,8 @@ export default class Kitsu {
         serialise(resourceModel, body, 'POST', {
           camelCaseTypes: this.camel,
           pluralTypes: this.plural,
+          document: config.document,
+          relationship: model.includes('/relationships/'),
         }),
         {
           headers,
@@ -419,13 +424,7 @@ export default class Kitsu {
         },
       )
 
-      return {
-        ...deserialise(data, { hoistData: this.hoistData }),
-        status,
-        ...(responseHeaders && Object.keys(responseHeaders).length
-          ? { headers: responseHeaders }
-          : {}),
-      }
+      return this.result(data, status, responseHeaders)
     } catch (E) {
       throw error(E)
     }
@@ -440,6 +439,7 @@ export default class Kitsu {
    * @param {Object} [config] Additional configuration
    * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
    * @param {Object} [config.headers] Additional headers to send with the request
+   * @param {Object} [config.document] Top-level JSON:API members accompanying writes
    * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
    * @returns {Promise<Object|Object[]>} JSON-parsed response
    * @example <caption>Remove one or more relationships from a resource</caption>
@@ -457,18 +457,23 @@ export default class Kitsu {
     try {
       const headers = { ...this.headers, ...config.headers }
       const params = { ...{}, ...config.params }
-      const [resourceModel, url] = splitModel(model, {
-        resourceCase: this.resCase,
-        pluralModel: this.plural,
-      })
+      const [resourceModel, url] = model.includes('/')
+        ? splitModel(model)
+        : splitModel(model, {
+            resourceCase: this.resCase,
+            pluralModel: this.plural,
+          })
       const isBulk = Array.isArray(id)
+      const relationship = model.includes('/relationships/')
+      if (id === undefined || id === null)
+        throw new Error(`DELETE requires an ID for the ${resourceModel} type`)
       let path: string, payload: JsonObject | JsonObject[]
 
-      if (isBulk) {
+      if (isBulk || relationship) {
         path = url
-        payload = id.map((id) => ({ id }))
+        payload = (isBulk ? id : [id]).map((id) => ({ id }))
       } else {
-        path = `${url}/${id}`
+        path = `${url}/${encodeURIComponent(String(id))}`
         payload = { id }
       }
 
@@ -477,22 +482,21 @@ export default class Kitsu {
         headers: responseHeaders,
         status,
       } = await this.axios.delete(path, {
-        data: serialise(resourceModel, payload, 'DELETE', {
-          camelCaseTypes: this.camel,
-          pluralTypes: this.plural,
-        }),
+        data:
+          isBulk || relationship
+            ? serialise(resourceModel, payload, 'DELETE', {
+                camelCaseTypes: this.camel,
+                pluralTypes: this.plural,
+                document: config.document,
+                relationship,
+              })
+            : undefined,
         headers,
         params,
         ...config.axiosOptions,
       })
 
-      return {
-        ...deserialise(data, { hoistData: this.hoistData }),
-        status,
-        ...(responseHeaders && Object.keys(responseHeaders).length
-          ? { headers: responseHeaders }
-          : {}),
-      }
+      return this.result(data, status, responseHeaders)
     } catch (E) {
       throw error(E)
     }
@@ -507,6 +511,7 @@ export default class Kitsu {
    * @param {Object} [config] Additional configuration
    * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
    * @param {Object} [config.headers] Additional headers to send with the request
+   * @param {Object} [config.document] Top-level JSON:API members accompanying writes
    * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
    * @returns {Promise<Object>} JSON-parsed response
    * @example <caption>Get the authenticated user's resource</caption>
@@ -543,10 +548,12 @@ export default class Kitsu {
    * @param {Object} config Request configuration
    * @param {string} config.url The URL path of the resource
    * @param {string} config.type The resource type
+   * @param {boolean} [config.relationship] Treat custom URL as a relationship endpoint
    * @param {Object|Object[]} [config.body] Data to send in the request
    * @param {string} [config.method] Request method - `GET`, `PATCH`, `POST` or `DELETE` (defaults to `GET`, case-insensitive)
    * @param {Object} [config.params] JSON:API request queries. See [#get](#get) for documentation
    * @param {Object} [config.headers] Additional headers to send with the request
+   * @param {Object} [config.document] Top-level JSON:API members accompanying writes
    * @param {Object} [config.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
    * @returns {Promise<Object>} JSON-parsed response
    * @example <caption>Raw GET request</caption>
@@ -595,6 +602,8 @@ export default class Kitsu {
     url,
     headers,
     axiosOptions,
+    document,
+    relationship = url?.includes('/relationships/') ?? false,
   }: ArbitraryRequest): Promise<KitsuResponse<T>> {
     try {
       method = method?.toUpperCase() || 'GET'
@@ -605,24 +614,21 @@ export default class Kitsu {
       } = await this.axios.request({
         method,
         url,
-        data: ['GET', 'DELETE'].includes(method)
-          ? undefined
-          : serialise(type, body, method, {
-              camelCaseTypes: this.camel,
-              pluralTypes: this.plural,
-            }),
+        data:
+          method === 'GET' || (method === 'DELETE' && !relationship)
+            ? undefined
+            : serialise(type, body, method, {
+                camelCaseTypes: this.camel,
+                pluralTypes: this.plural,
+                document,
+                relationship,
+              }),
         headers: { ...this.headers, ...headers },
         params,
         ...axiosOptions,
       })
 
-      return {
-        ...deserialise(data, { hoistData: this.hoistData }),
-        status,
-        ...(responseHeaders && Object.keys(responseHeaders).length
-          ? { headers: responseHeaders }
-          : {}),
-      }
+      return this.result(data, status, responseHeaders)
     } catch (E) {
       throw error(E)
     }

@@ -1,48 +1,81 @@
-/* eslint-disable quote-props */
-
 export default {
   data: {
     array: ['string'],
+    object: {
+      string: 'string',
+    },
+    string: 'string',
+    type: 'articles',
+    id: '1',
     author: {
-      links: {
-        related: 'https://api.example/articles/1/author',
-        self: 'https://api.example/articles/1/relationships/author',
-      },
-      data: {
+      number: 0,
+      type: 'people',
+      id: '1',
+    },
+    comments: [
+      {
+        nullable: null,
+        type: 'comments',
         id: '1',
-        number: 0,
-        type: 'people',
+      },
+      {
+        boolean: true,
+        type: 'comments',
+        id: '2',
+        $: {
+          relationships: {
+            author: {
+              links: {
+                related: 'https://api.example/articles/1/author',
+                self: 'https://api.example/articles/1/relationships/author',
+              },
+            },
+          },
+        },
+      },
+    ],
+    $: {
+      relationships: {
+        author: {
+          links: {
+            related: 'https://api.example/articles/1/author',
+            self: 'https://api.example/articles/1/relationships/author',
+          },
+        },
+        comments: {
+          links: {
+            related: 'https://api.example/articles/1/comments',
+            self: 'https://api.example/articles/1/relationships/comments',
+          },
+        },
       },
     },
-    comments: {
-      links: {
-        related: 'https://api.example/articles/1/comments',
-        self: 'https://api.example/articles/1/relationships/comments',
-      },
-      data: [
-        {
-          id: '1',
-          nullable: null,
-          type: 'comments',
-        },
-        {
-          boolean: true,
-          id: '2',
+  },
+  included: [
+    {
+      number: 0,
+      type: 'people',
+      id: '1',
+    },
+    {
+      nullable: null,
+      type: 'comments',
+      id: '1',
+    },
+    {
+      boolean: true,
+      type: 'comments',
+      id: '2',
+      $: {
+        relationships: {
           author: {
             links: {
               related: 'https://api.example/articles/1/author',
               self: 'https://api.example/articles/1/relationships/author',
             },
           },
-          type: 'comments',
         },
-      ],
+      },
     },
-    id: '1',
-    object: {
-      string: 'string',
-    },
-    string: 'string',
-    type: 'articles',
-  },
+  ],
 }

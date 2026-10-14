@@ -20,9 +20,13 @@
 
 #
 
+## JSON:API 1.1
+
+Relationships are direct resources, arrays, or null. Resource metadata lives under `$`; document metadata stays at document level. See [migration guidance](MIGRATING.md) and [compliance boundaries](../../specification/compliance/README.md).
+
 ## Features
 
-*   JSON-API 1.0 compliant
+*   JSON:API 1.1 client document support
 *   Automatically links relationships to data
 *   Works in Node & browsers
 *   Tree shakeable components
@@ -84,28 +88,24 @@ All code released under [MIT]
     *   [Examples](#examples-3)
 *   [filterIncludes](#filterincludes)
     *   [Parameters](#parameters-4)
-    *   [Examples](#examples-4)
 *   [kebab](#kebab)
     *   [Parameters](#parameters-5)
-    *   [Examples](#examples-5)
+    *   [Examples](#examples-4)
 *   [linkRelationships](#linkrelationships)
     *   [Parameters](#parameters-6)
-    *   [Examples](#examples-6)
-*   [isDeepEqual](#isdeepequal)
-    *   [Parameters](#parameters-7)
-    *   [Examples](#examples-7)
+    *   [Examples](#examples-5)
 *   [query](#query)
-    *   [Parameters](#parameters-8)
-    *   [Examples](#examples-8)
+    *   [Parameters](#parameters-7)
+    *   [Examples](#examples-6)
 *   [serialise](#serialise)
-    *   [Parameters](#parameters-9)
-    *   [Examples](#examples-9)
+    *   [Parameters](#parameters-8)
+    *   [Examples](#examples-7)
 *   [snake](#snake)
-    *   [Parameters](#parameters-10)
-    *   [Examples](#examples-10)
+    *   [Parameters](#parameters-9)
+    *   [Examples](#examples-8)
 *   [splitModel](#splitmodel)
-    *   [Parameters](#parameters-11)
-    *   [Examples](#examples-11)
+    *   [Parameters](#parameters-10)
+    *   [Examples](#examples-9)
 
 ### camel
 
@@ -133,7 +133,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### deattribute
 
-Hoists attributes to be top-level
+Flattens resource attributes and moves resource metadata under `$` without mutation.
 
 #### Parameters
 
@@ -141,105 +141,33 @@ Hoists attributes to be top-level
 
 #### Examples
 
-Deattribute an array of resources
-
 ```javascript
-// JSON:API 'data' field
-const data = [
-  {
-    id: '1',
-    type: 'users',
-    attributes: { slug: 'wopian' }
-  }
-]
-
-const output = deattribute(data) // [ { id: '1', type: 'users', slug: 'wopian' } ]
+deattribute({ type: 'people', id: '1', attributes: { name: 'Ada' }, meta: { active: true } })
+// { type: 'people', id: '1', name: 'Ada', $: { meta: { active: true } } }
 ```
 
-Deattribute a resource
-
-```javascript
-// JSON:API 'data' field
-const data = {
-  id: '1',
-  type: 'users',
-  attributes: { slug: 'wopian' }
-}
-
-const output = deattribute(data) // { id: '1', type: 'users', slug: 'wopian' }
-```
-
-Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Deattributed resource data
+Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Flat resource data
 
 ### deserialise
 
-Deserialises a JSON-API response
+Deserialises JSON:API documents into flat resources and direct relationships.
+Resource metadata lives under `$`; document metadata remains at document level.
 
 #### Parameters
 
-*   `response` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The raw JSON:API response object
+*   `response` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON:API response document
 *   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Deserialisation options (optional, default `{}`)
 
-    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If enabled, the contents of the `data` property will be hoisted to the parent. This provides a flatter response object, see examples below for transformation examples. Links and Meta properties will be merged into the parent object if they exist. If attributes named `links` or `meta` exist, they will overwrite the JSON:API `links` and `meta` properties. (optional, default `false`)
+    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Unwrap documents containing only `data` (optional, default `false`)
 
 #### Examples
 
-Deserialise with a basic data object
-
 ```javascript
-deserialise({
-  data: {
-    id: '1',
-    attributes: { liked: true }
-  },
-  meta: { hello: 'world' }
-}) // { data: { id: '1', liked: true }, meta: { hello: 'world' } }
+deserialise({ data: { type: 'people', id: '1', attributes: { name: 'Ada' } } })
+// { data: { type: 'people', id: '1', name: 'Ada' } }
 ```
 
-Deserialise with relationships
-
-```javascript
-deserialise({
-  data: {
-    id: '1',
-    relationships: {
-      user: {
-        data: {
-          type: 'users',
-          id: '2' }
-      }
-    }
-  },
-  included: [
-    {
-      type: 'users',
-      id: '2',
-      attributes: { slug: 'wopian' }
-    }
-  ]
-}) // { data: { id: '1', user: { data: { type: 'users', id: '2', slug: 'wopian' } } } }
-```
-
-Deserialise with hoisted data
-
-```javascript
-deserialise({
-  data: {
-    id: '1',
-    type: 'people',
-    relationships: {
-      coworkers: {
-        data: [
-          { id: '2', type: 'people' }
-        ]
-      }
-    }
-  },
-  included: []
-}, { hoistData: true }) // { id: '1', type: 'people', coworkers: [ { id: '2', type: 'people' } ] }
-```
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The deserialised response
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Deserialised document without mutating input
 
 ### error
 
@@ -278,41 +206,14 @@ error({
 
 ### filterIncludes
 
-Filters includes for the specific relationship requested
+Finds included resources by type and id, or type and lid.
 
 #### Parameters
 
-*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The response included object
-*   `relationship` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
+*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** Included resources
+*   `relationship` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Resource identifier
 
-    *   `relationship.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
-    *   `relationship.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
-
-#### Examples
-
-```javascript
-const includes = [
-  {
-    id: '1',
-    type: 'users',
-    attributes: { name: 'Emma' }
-  },
-  {
-    id: '2',
-    type: 'users',
-    attributes: { name: 'Josh' }
-  }
-]
-const relationship = { id: '1', type: 'users' }
-const response = filterIncludes(includes, relationship)
-// {
-//   id: '1',
-//   type: 'users',
-//   attributes: { name: 'Emma' }
-// }
-```
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The matched includes
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Independent resource copy, or unresolved identifier
 
 ### kebab
 
@@ -332,68 +233,21 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### linkRelationships
 
-Links relationships to included data
+Resolves relationships into direct resources using document-local identity.
 
 #### Parameters
 
-*   `data` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response data object
-*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>?** The response included object (optional, default `[]`)
-*   `previouslyLinked` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** A mapping of already visited resources (internal use only) (optional, default `{}`)
-*   `relationshipCache` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** A cache object for relationship meta and links (optional, default `{}`)
+*   `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Primary resource data
+*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** Included resources (optional, default `[]`)
 
 #### Examples
 
 ```javascript
-const data = {
-  attributes: { author: 'Joe' },
-  relationships: {
-    author: {
-      data: { id: '1', type: 'people' }
-    }
-  }
-}
-const included = [ {
-  id: '1',
-  type: 'people',
-  attributes: { name: 'Joe' }
-} ]
-const output = linkRelationships(data, included)
-// {
-//   attributes: { author: 'Joe' },
-//   author: {
-//     data: { id: '1', name: 'Joe', type: 'people' }
-//   }
-// }
+linkRelationships({ type: 'articles', id: '1', relationships: { author: { data: null } } })
+// { type: 'articles', id: '1', author: null }
 ```
 
-Returns **any** Parsed data
-
-### isDeepEqual
-
-Compare two objects equality
-
-#### Parameters
-
-*   `left` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Object to compare against the right object
-*   `right` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Object to compare against the left object
-
-#### Examples
-
-Deep equality check
-
-```javascript
-isDeepEqual({
-  firstName: 'John',
-  lastName: 'Doe',
-  age: 35
-},{
-  firstName: 'John',
-  lastName: 'Doe',
-  age: 35
-}) // true
-```
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether the objects are equal
+Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Flat resource graph without mutating input
 
 ### query
 
@@ -424,46 +278,29 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### serialise
 
-Serialises an object into a JSON-API structure
+Serialises flat resources and direct relationships into a JSON:API document.
+Put resource metadata under `$` and explicit attribute overrides under `$.attributes`.
 
 #### Parameters
 
 *   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource type
-*   `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)?** The data (optional, default `{}`)
-*   `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Request type (PATCH, POST, DELETE) (optional, default `'POST'`)
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional configuration for camelCase and pluralisation handling (optional, default `{}`)
+*   `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Flat primary data (optional, default `{}`)
+*   `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Request method (optional, default `POST`)
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Serialization options (optional, default `{}`)
 
-    *   `options.camelCaseTypes` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Convert library-entries and library\_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core (optional, default `s=>s`)
-    *   `options.pluralTypes` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package) (optional, default `s=>s`)
+    *   `options.camelCaseTypes` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Transform inferred resource types
+    *   `options.pluralTypes` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Pluralize inferred resource types
+    *   `options.document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional top-level document members
+    *   `options.relationship` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Serialize primary data as identifiers (optional, default `false`)
 
 #### Examples
 
-Setting camelCaseTypes and pluralTypes options (example shows options used by the `kitsu` package by default)
-
 ```javascript
-import { serialise, camel } from 'kitsu-core'
-import pluralize from 'pluralize'
-
-const model = 'anime'
-const obj = { id: '1', slug: 'shirobako' }
-
-// { data: { id: '1', type: 'anime', attributes: { slug: 'shirobako' } } }
-const output = serialise(model, obj, 'PATCH', { camelCaseTypes: camel, pluralTypes: pluralize })
+serialise('articles', { title: 'Hello', author: { type: 'people', id: '9' } })
+// { data: { type: 'articles', attributes: { title: 'Hello' }, relationships: { author: { data: { type: 'people', id: '9' } } } } }
 ```
 
-Basic usage (no case conversion or pluralisation)
-
-```javascript
-import { serialise } from 'kitsu-core'
-
-const model = 'anime'
-const obj = { id: '1', slug: 'shirobako' }
-
-// { data: { id: '1', type: 'anime', attributes: { slug: 'shirobako' } } }
-const output = serialise(model, obj, 'PATCH')
-```
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The serialised data
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON:API document with deduplicated included resources
 
 ### snake
 

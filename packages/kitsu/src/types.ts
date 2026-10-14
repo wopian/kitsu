@@ -1,7 +1,8 @@
 import type { AxiosRequestConfig } from 'axios'
-import type { JsonObject } from 'kitsu-core'
+import type { JsonApiDocument, JsonObject } from 'kitsu-core'
 
 export interface RequestConfig {
+  document?: Omit<JsonApiDocument, 'data'>
   headers?: JsonObject
   params?: JsonObject
   axiosOptions?: AxiosRequestConfig
@@ -16,6 +17,7 @@ export interface KitsuOptions extends RequestConfig {
   hoistData?: boolean
 }
 export interface ArbitraryRequest extends RequestConfig {
+  relationship?: boolean
   url: string
   type?: string
   body?: JsonObject | JsonObject[] | null

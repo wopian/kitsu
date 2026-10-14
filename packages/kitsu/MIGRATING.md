@@ -1,5 +1,81 @@
 # Migration Guides
 
+## JSON:API 1.1 behavior changes
+
+Relationships now return direct resources, arrays, or null. Replace
+`resource.author.data.name` with `resource.author.name`. Resources share identity
+within each document, including cycles and `lid` aliases. Decoding never mutates
+input. Supplied `included` remains available, including resources whose linkage
+is absent because of sparse fieldsets.
+
+Resource metadata moves under `$`:
+
+```js
+resource.$.meta
+resource.$.links.self
+resource.$.lid
+resource.$.relationships.author.meta
+resource.$.relationships.author.links.related
+resource.$.relationships.author.data.meta // identifier metadata, separate from resource metadata
+```
+
+Attributes named `meta`, `links`, `lid`, or `attributes` remain ordinary attributes.
+Resources with no metadata have no `$`. Unknown resource/document members are
+ignored; namespaced and @-members remain opaque.
+
+Writes accept direct relationships only. Existing `{ data: ... }` wrappers are
+ordinary JSON attributes; migrate to direct identifiers:
+
+```js
+const input = {
+  title: 'Hello',
+  author: { type: 'people', id: '9' },
+  tags: [], // empty to-many relationship
+  $: {
+    lid: 'draft-1',
+    meta: { draft: true },
+    attributes: { values: [], payload: { type: 'plain JSON', id: 1 } },
+    relationships: {
+      author: { meta: { role: 'primary' } },
+      editor: { data: null } // clear to-one relationship
+    }
+  }
+}
+```
+
+Plain null is an attribute. Empty arrays and objects carrying an identifier imply
+relationships. Use `$.attributes` to force ambiguous JSON attributes. Explicit
+attributes override inference. Related objects with fields enter `included`;
+linkage contains only identifiers. Conflicting full representations of one identity
+throw. Numeric input IDs, including 0, become strings on the wire.
+
+Pass top-level members through `SerialiseOptions.document` or kitsu request
+`config.document`. Generated primary data cannot be overridden. To serialize
+relationship primary linkage with core, pass `relationship: true`.
+
+Relationship metadata merges with generated linkage. A supplied direct relationship
+controls its current linkage. Saved identifier metadata applies only to matching
+identities; it never overwrites shared resource metadata.
+
+`hoistData` unwraps only documents containing solely `data`, including null and
+arrays. Document metadata keeps the document wrapper. HTTP responses keep arrays
+and null under `data` so status and headers cannot replace their values. Nested attribute objects
+containing `data` are never unwrapped.
+
+Query encoding follows form serialization: spaces become `+`; literal plus signs
+become `%2B`. Traditional and modern implementation-specific array modes remain.
+
+Extensions and profiles use existing headers. Supply quoted URI lists in
+`Content-Type` and optional `Accept` parameters. `jsonapi.ext/profile` is document
+metadata, not negotiation. Atomic Operations is outside this support.
+
+
+Relationship PATCH/POST/DELETE requests use the relationship URL without adding
+target IDs. Resource DELETE sends no body. `request()` preserves relationship
+DELETE bodies; set `relationship: true` for a custom relationship endpoint.
+PATCH accepts null for clearing to-one relationships. Explicit resource URLs do
+not receive a duplicate ID suffix. Resource IDs keep their case.
+
 ## Migrating to `12.0.0`
 
 Both packages now publish ESM only. Replace `require()` with `import` and enable ESM in your application with `"type": "module"` or an `.mjs` file. CommonJS exports and UMD bundles, including the `kitsuCore` global, are removed.

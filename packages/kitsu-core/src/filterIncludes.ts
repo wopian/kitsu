@@ -1,50 +1,22 @@
-import { error } from './error.js'
 import type { JsonObject, ResourceIdentifier } from './types.js'
 
 /**
- * Filters includes for the specific relationship requested
+ * Finds included resources by type and id, or type and lid.
  *
- * @param {Object[]} included The response included object
- * @param {Object} relationship
- * @param {string} relationship.id The relationship ID
- * @param {string} relationship.type The relationship type
- * @returns {Object} The matched includes
- *
- * @example
- * const includes = [
- *   {
- *     id: '1',
- *     type: 'users',
- *     attributes: { name: 'Emma' }
- *   },
- *   {
- *     id: '2',
- *     type: 'users',
- *     attributes: { name: 'Josh' }
- *   }
- * ]
- * const relationship = { id: '1', type: 'users' }
- * const response = filterIncludes(includes, relationship)
- * // {
- * //   id: '1',
- * //   type: 'users',
- * //   attributes: { name: 'Emma' }
- * // }
+ * @param {Object[]} included Included resources
+ * @param {Object} relationship Resource identifier
+ * @returns {Object} Independent resource copy, or unresolved identifier
  */
 export function filterIncludes(
   included: JsonObject[],
-  { id, type }: ResourceIdentifier,
+  relationship: Partial<ResourceIdentifier>,
 ): JsonObject {
-  try {
-    if (id && type) {
-      const filtered = included.filter((el) => {
-        return el.id === id && el.type === type
-      })[0] || { id, type }
-      return Object.assign({}, filtered)
-    } else {
-      return {}
-    }
-  } catch (E) {
-    error(E)
-  }
+  const { type, id, lid } = relationship
+  if (type === undefined || (id === undefined && lid === undefined)) return {}
+  const resource = included.find(
+    (item) =>
+      item.type === type &&
+      ((id !== undefined && item.id === id) || (lid !== undefined && item.lid === lid)),
+  )
+  return structuredClone(resource || relationship)
 }

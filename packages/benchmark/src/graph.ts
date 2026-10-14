@@ -171,12 +171,31 @@ export function validateEncoded(document: any, fixture: Fixture): void {
 }
 
 /** Preparation only: convert canonical request resources into a library's native input shape. */
-export function plainNative(resources: any, wrappers = false, names = false): any {
+export function plainNative(
+  resources: any,
+  wrappers = false,
+  names = false,
+  envelope = false,
+): any {
   const mapped = list<any>(resources).map((resource) => {
     const output: any = { ...resource.attributes, type: resource.type, id: resource.id }
+    if (envelope) output.$ = { attributes: { ...resource.attributes }, relationships: {} }
     const relationshipNames: string[] = []
     for (const [name, relationship] of Object.entries<any>(resource.relationships ?? {})) {
-      output[name] = wrappers ? { data: relationship.data } : relationship.data
+      if (envelope && relationship.data === null) {
+        output.$ ??= { relationships: {} }
+        output.$.relationships[name] = { data: null }
+      } else if (envelope) {
+        const nativeIdentifier = (identifier: any) => ({
+          type: identifier.type,
+          id: identifier.id,
+          ...(identifier.lid !== undefined ? { $: { lid: identifier.lid } } : {}),
+        })
+        output[name] = Array.isArray(relationship.data)
+          ? relationship.data.map(nativeIdentifier)
+          : nativeIdentifier(relationship.data)
+        output.$.relationships[name] = { data: relationship.data }
+      } else output[name] = wrappers ? { data: relationship.data } : relationship.data
       relationshipNames.push(name)
     }
     if (names && relationshipNames.length) output.relationshipNames = relationshipNames

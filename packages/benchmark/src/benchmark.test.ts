@@ -62,6 +62,7 @@ describe('JSON:API fixtures and correctness', () => {
     for (const entry of full) expect(() => validateDocument(entry.document)).not.toThrow()
   })
   test('rejects conflicting fields, duplicate identities and unreachable includes', () => {
+    // @ts-expect-error Wire identifiers must be strings.
     expect(() => fixture('invalid', { data: { type: 'people', id: 1 } })).toThrow('strings')
     expect(() =>
       fixture('invalid', { data: { type: 'people', id: '1', attributes: { id: '2' } } }),

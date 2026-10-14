@@ -1,0 +1,2056 @@
+{
+  "version": "1.1",
+  "source": "https://jsonapi.org/format/1.1/",
+  "clauses": [
+    {
+      "id": "J11-001",
+      "source": "https://jsonapi.org/format/1.1/#conventions",
+      "block": 1,
+      "sourceHash": "b59a297dabc7bed012eaf4dfd1d60e10b4bdb13502ebf0033c64e1371828e608",
+      "strength": ["MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY"],
+      "disposition": "informational",
+      "tests": [],
+      "rationale": "Normative keyword interpretation defines specification terminology, not runtime behavior."
+    },
+    {
+      "id": "J11-002",
+      "source": "https://jsonapi.org/format/1.1/#media-type-parameter-rules",
+      "block": 1,
+      "sourceHash": "9f74817b062e88a44032b08ed2261b9885d3011d6453c90ff092346cb62d7e60",
+      "strength": ["MUST NOT"],
+      "disposition": "tested",
+      "tests": ["H01"],
+      "rationale": "Caller-specified headers carry quoted extension/profile URI lists."
+    },
+    {
+      "id": "J11-003",
+      "source": "https://jsonapi.org/format/1.1/#media-type-parameter-rules",
+      "block": 2,
+      "sourceHash": "2be9c311ea5101eccf712b56f82b6dcd1dc1568484710a5a357ba089b49d379a",
+      "strength": ["SHOULD", "MUST"],
+      "disposition": "caller",
+      "tests": [],
+      "rationale": "Callers and servers define URI targets, relation/language values, error references and presentation policy; codecs preserve supplied values."
+    },
+    {
+      "id": "J11-004",
+      "source": "https://jsonapi.org/format/1.1/#extension-rules",
+      "block": 1,
+      "sourceHash": "58461ada9446b2f3cd3298f06a132b3033751a5d837b7fc11b818fd2259e1122",
+      "strength": ["MAY"],
+      "disposition": "extension-author",
+      "tests": [],
+      "rationale": "Defines extension/profile author semantics; arbitrary extension implementation is outside this client suite."
+    },
+    {
+      "id": "J11-005",
+      "source": "https://jsonapi.org/format/1.1/#extension-rules",
+      "block": 2,
+      "sourceHash": "de1ed8a3d5860e1c6660c955f80f67766a87ee24a1752a3480690ffda706035f",
+      "strength": ["MUST NOT"],
+      "disposition": "extension-author",
+      "tests": [],
+      "rationale": "Defines extension/profile author semantics; arbitrary extension implementation is outside this client suite."
+    },
+    {
+      "id": "J11-006",
+      "source": "https://jsonapi.org/format/1.1/#extension-rules",
+      "block": 3,
+      "sourceHash": "455fe63e5b9d77fee213926be53e876a766a2a1674e8f800e5872b54236f2f21",
+      "strength": ["MAY"],
+      "disposition": "extension-author",
+      "tests": [],
+      "rationale": "Defines extension/profile author semantics; arbitrary extension implementation is outside this client suite."
+    },
+    {
+      "id": "J11-007",
+      "source": "https://jsonapi.org/format/1.1/#extension-rules",
+      "block": 4,
+      "sourceHash": "8687e44d10b6f3f465cb4b9dcef88c7f4a9f7f50ac7b9c52137d5d9306acc0a9",
+      "strength": ["MAY"],
+      "disposition": "extension-author",
+      "tests": [],
+      "rationale": "Defines extension/profile author semantics; arbitrary extension implementation is outside this client suite."
+    },
+    {
+      "id": "J11-008",
+      "source": "https://jsonapi.org/format/1.1/#extension-rules",
+      "block": 5,
+      "sourceHash": "e44ae47d3e1899e2119d361d74ac1d8fca153d040036f14c1757f96bd622d275",
+      "strength": ["MUST"],
+      "disposition": "extension-author",
+      "tests": [],
+      "rationale": "Defines extension/profile author semantics; arbitrary extension implementation is outside this client suite."
+    },
+    {
+      "id": "J11-009",
+      "source": "https://jsonapi.org/format/1.1/#extension-rules",
+      "block": 6,
+      "sourceHash": "b43eccaf4207adf4d0feda39b42f65b9693af6d39bde4e7252327341c95a2f07",
+      "strength": ["MUST"],
+      "disposition": "extension-author",
+      "tests": [],
+      "rationale": "Defines extension/profile author semantics; arbitrary extension implementation is outside this client suite."
+    },
+    {
+      "id": "J11-010",
+      "source": "https://jsonapi.org/format/1.1/#extension-rules",
+      "block": 7,
+      "sourceHash": "51f508238c119f5335495057927a1ae21b6c1fbd3c211aeda017551182f96978",
+      "strength": ["MUST"],
+      "disposition": "extension-author",
+      "tests": [],
+      "rationale": "Defines extension/profile author semantics; arbitrary extension implementation is outside this client suite."
+    },
+    {
+      "id": "J11-011",
+      "source": "https://jsonapi.org/format/1.1/#extension-rules",
+      "block": 8,
+      "sourceHash": "69a8a5fb8b98dbdbb752d1b695f2bc79f5c93d75282ec09a8d6cf7b765fcebde",
+      "strength": ["MUST NOT", "MUST"],
+      "disposition": "extension-author",
+      "tests": [],
+      "rationale": "Defines extension/profile author semantics; arbitrary extension implementation is outside this client suite."
+    },
+    {
+      "id": "J11-012",
+      "source": "https://jsonapi.org/format/1.1/#profile-rules",
+      "block": 1,
+      "sourceHash": "32be656b6233e0ff88eff913551901b23b31d81497622fbc01dddcbca1360261",
+      "strength": ["MAY"],
+      "disposition": "extension-author",
+      "tests": [],
+      "rationale": "Defines extension/profile author semantics; arbitrary extension implementation is outside this client suite."
+    },
+    {
+      "id": "J11-013",
+      "source": "https://jsonapi.org/format/1.1/#profile-rules",
+      "block": 2,
+      "sourceHash": "6abd3ee6f09a415aa367d03634fd571d6456b8b1c0bc472a46db89e529178704",
+      "strength": ["MUST NOT"],
+      "disposition": "extension-author",
+      "tests": [],
+      "rationale": "Defines extension/profile author semantics; arbitrary extension implementation is outside this client suite."
+    },
+    {
+      "id": "J11-014",
+      "source": "https://jsonapi.org/format/1.1/#profile-rules",
+      "block": 3,
+      "sourceHash": "c85c368320d37d65c2ef4de57906582ad64514f971013163da638da229d3b80e",
+      "strength": ["MUST NOT", "MAY"],
+      "disposition": "extension-author",
+      "tests": [],
+      "rationale": "Defines extension/profile author semantics; arbitrary extension implementation is outside this client suite."
+    },
+    {
+      "id": "J11-015",
+      "source": "https://jsonapi.org/format/1.1/#content-negotiation-all",
+      "block": 1,
+      "sourceHash": "57013a7980ba44cc15721641d5fa6faf7806bf6fc3bd67a8f2614ba2523c293a",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-016",
+      "source": "https://jsonapi.org/format/1.1/#content-negotiation-all",
+      "block": 2,
+      "sourceHash": "428d55008223b244a540ea7172ce61765a4dbb3c06983f440c9d99ff41d99557",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-017",
+      "source": "https://jsonapi.org/format/1.1/#content-negotiation-all",
+      "block": 3,
+      "sourceHash": "6c20668ef645fd692b81ca6cb03970d17f2262942cd0c19867e0dfe31dfb42da",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-018",
+      "source": "https://jsonapi.org/format/1.1/#content-negotiation-clients",
+      "block": 1,
+      "sourceHash": "d46125bd6fbf055a88aad9ea36faccc4e995239172b0cb36c76f1165743350ae",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-019",
+      "source": "https://jsonapi.org/format/1.1/#content-negotiation-clients",
+      "block": 2,
+      "sourceHash": "83727a7133e4a5f33d3c884237c190caec181499e7ca22e98ddda34f2e191d62",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-020",
+      "source": "https://jsonapi.org/format/1.1/#content-negotiation-clients",
+      "block": 3,
+      "sourceHash": "0a9bbe1521f66d46526bf88ba771eccc9c57ac201ac4b15e56ef0c97da902f43",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-021",
+      "source": "https://jsonapi.org/format/1.1/#content-negotiation-servers",
+      "block": 1,
+      "sourceHash": "8ff04fbf8cf58f4a5a928945c1ba5cb9a9a79bf4491c327d965783669749387c",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-022",
+      "source": "https://jsonapi.org/format/1.1/#content-negotiation-servers",
+      "block": 2,
+      "sourceHash": "d1cd33c7819acdb14f3626d5c4305e90060ee7612de6f573c9649872dd29a835",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-023",
+      "source": "https://jsonapi.org/format/1.1/#content-negotiation-servers",
+      "block": 3,
+      "sourceHash": "16d45ece287d4a4f99f73075c61d67a24635ef637ca10ad494179ebe5c5ab604",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-024",
+      "source": "https://jsonapi.org/format/1.1/#content-negotiation-servers",
+      "block": 4,
+      "sourceHash": "10e51074eb6a42f7f9c808942573c256563266929a6bdd6e13f96be8a3315804",
+      "strength": ["SHOULD", "MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-025",
+      "source": "https://jsonapi.org/format/1.1/#content-negotiation-servers",
+      "block": 5,
+      "sourceHash": "9794b7911d75dd02fd5430fdc5149da1f07e022a914cfe3345d69e62772fa028",
+      "strength": ["SHOULD"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-026",
+      "source": "https://jsonapi.org/format/1.1/#document-structure",
+      "block": 1,
+      "sourceHash": "04a8bc2f58c0250efdbe2220a96508e3e57244ed8f67265d86743e15d039ec7e",
+      "strength": ["MAY", "MUST"],
+      "disposition": "extension-author",
+      "tests": [],
+      "rationale": "Defines extension/profile author semantics; arbitrary extension implementation is outside this client suite."
+    },
+    {
+      "id": "J11-027",
+      "source": "https://jsonapi.org/format/1.1/#document-structure",
+      "block": 2,
+      "sourceHash": "2bff9df7fa9de22b07d03ef1154bb9550a6a406e1a191cb65c463d9baf7b8226",
+      "strength": ["MUST NOT", "MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-028",
+      "source": "https://jsonapi.org/format/1.1/#document-top-level",
+      "block": 1,
+      "sourceHash": "88e1fca30ad9bf28c28dc6ae581392787e0ebd72ce320edb49724a8a1e45df4c",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D01", "D02", "D05", "S06"],
+      "rationale": "Read supported document shapes and generate primary data with separate document metadata."
+    },
+    {
+      "id": "J11-029",
+      "source": "https://jsonapi.org/format/1.1/#document-top-level",
+      "block": 2,
+      "sourceHash": "a7071aef88d0def04b3d6a7e5ac418e32b0af8cf652f3f16db166d42a67df920",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D01", "D02", "D05", "S06"],
+      "rationale": "Read supported document shapes and generate primary data with separate document metadata."
+    },
+    {
+      "id": "J11-030",
+      "source": "https://jsonapi.org/format/1.1/#document-top-level",
+      "block": 3,
+      "sourceHash": "cbc6b0b8a7e2a517bdafe4bdf491e9f059c88977eee35699e59a007bd0e2ae6d",
+      "strength": ["MUST NOT"],
+      "disposition": "tested",
+      "tests": ["D01", "D02", "D05", "S06"],
+      "rationale": "Read supported document shapes and generate primary data with separate document metadata."
+    },
+    {
+      "id": "J11-031",
+      "source": "https://jsonapi.org/format/1.1/#document-top-level",
+      "block": 4,
+      "sourceHash": "cf523353aa04f7fcab7a3ef84914742f6955753e64251172ee8030d55f31e73b",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["D01", "D02", "D05", "S06"],
+      "rationale": "Read supported document shapes and generate primary data with separate document metadata."
+    },
+    {
+      "id": "J11-032",
+      "source": "https://jsonapi.org/format/1.1/#document-top-level",
+      "block": 5,
+      "sourceHash": "1830deab96bb4bfd69f6b1368aebb04669e95954d3c3956ee2dfa72223fe4afb",
+      "strength": ["MUST NOT"],
+      "disposition": "tested",
+      "tests": ["D01", "D02", "D05", "S06"],
+      "rationale": "Read supported document shapes and generate primary data with separate document metadata."
+    },
+    {
+      "id": "J11-033",
+      "source": "https://jsonapi.org/format/1.1/#document-top-level",
+      "block": 6,
+      "sourceHash": "55f1d0804e192f3049f4b2754468160a36e3b0a900388c6ea4272350055fd6d3",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["D01", "D02", "D05", "S06"],
+      "rationale": "Read supported document shapes and generate primary data with separate document metadata."
+    },
+    {
+      "id": "J11-034",
+      "source": "https://jsonapi.org/format/1.1/#document-top-level",
+      "block": 7,
+      "sourceHash": "c9f1437b61825b83342625396bac3853b47d05f33cec2d6c38d29bedee29d268",
+      "strength": ["SHOULD"],
+      "disposition": "tested",
+      "tests": ["D01", "D02", "D05", "S06"],
+      "rationale": "Read supported document shapes and generate primary data with separate document metadata."
+    },
+    {
+      "id": "J11-035",
+      "source": "https://jsonapi.org/format/1.1/#document-top-level",
+      "block": 8,
+      "sourceHash": "94c131f77ce0011dd74863137da17beda5d64e4748bda1cafe1c3653e30cea5f",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D01", "D02", "D05", "S06"],
+      "rationale": "Read supported document shapes and generate primary data with separate document metadata."
+    },
+    {
+      "id": "J11-036",
+      "source": "https://jsonapi.org/format/1.1/#document-top-level",
+      "block": 9,
+      "sourceHash": "3e061062952524680472304335d9f16dcb4735d8209a564c4ac1380877e18fc9",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D01", "D02", "D05", "S06"],
+      "rationale": "Read supported document shapes and generate primary data with separate document metadata."
+    },
+    {
+      "id": "J11-037",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-objects",
+      "block": 1,
+      "sourceHash": "bf98e5f30b48ef74cc3817eedc5259fff51fdfaa78f760f8552346c95fa3a70b",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "S01", "S02"],
+      "rationale": "Resources carry structural identity and optional members separated from attributes."
+    },
+    {
+      "id": "J11-038",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-objects",
+      "block": 2,
+      "sourceHash": "fa6aa4b24dd29861de0ff8f312784b215e396935b7a2d91709f9c019c765ef1b",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-039",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-objects",
+      "block": 3,
+      "sourceHash": "614ce786301a75cd11334e71d992393006647e63b1a83149d77fb7e629e9e864",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["D02", "S01", "S02"],
+      "rationale": "Resources carry structural identity and optional members separated from attributes."
+    },
+    {
+      "id": "J11-040",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-identification",
+      "block": 1,
+      "sourceHash": "8ad7052c6813e1fc4c61c9b6d3aec5d5b7551fe9ec5e32c2a917fef6acf8a4ad",
+      "strength": ["MUST", "MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-041",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-identification",
+      "block": 2,
+      "sourceHash": "af5f4fee36c680f81ee98c26f69e4406efaa91285ef95cca1c5343590238459a",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["L01", "L02", "S01", "S08", "S13"],
+      "rationale": "Identity resolves by type/id or type/lid; generated identifier values are strings."
+    },
+    {
+      "id": "J11-042",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-identification",
+      "block": 3,
+      "sourceHash": "fa09614e9b4dc3c1988b681db8c6ca38d755aecaaedf98be4628b04a7555dc82",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-043",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-identification",
+      "block": 4,
+      "sourceHash": "88a6dd5f4b046f366cf950227c8ba56916ffebda4d159a0c7a140a00ff3b37c1",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["L01", "L02", "S01", "S08", "S13"],
+      "rationale": "Identity resolves by type/id or type/lid; generated identifier values are strings."
+    },
+    {
+      "id": "J11-044",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-fields",
+      "block": 1,
+      "sourceHash": "1cab0903a134d45e516ce99a7d1d45c1f924ed933b55283b68a0910a4d9219e4",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["S02", "S08"],
+      "rationale": "Attributes and relationships occupy one field namespace; reserved fields cannot be explicit attributes."
+    },
+    {
+      "id": "J11-045",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-attributes",
+      "block": 1,
+      "sourceHash": "f373e056ae8599f393fa45ffced4673e98ba702dca8eff1e26487571eee447dc",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D05", "S02"],
+      "rationale": "Arbitrary JSON attributes remain objects and preserve their values."
+    },
+    {
+      "id": "J11-046",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-attributes",
+      "block": 2,
+      "sourceHash": "38b5aa3daea0e1cdc2dc3dea1d2926a05d3eebc1b652873208d0a62cabc768cb",
+      "strength": ["SHOULD NOT", "SHOULD"],
+      "disposition": "tested",
+      "tests": ["D05", "S02"],
+      "rationale": "Arbitrary JSON attributes remain objects and preserve their values."
+    },
+    {
+      "id": "J11-047",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-relationships",
+      "block": 1,
+      "sourceHash": "d62c159c22e42e6db298f0dbc5a72144de80e6038724a15366fc2dfb041a8a60",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "S02", "S07", "S08"],
+      "rationale": "Relationships support data, links, metadata and empty/nonempty linkage."
+    },
+    {
+      "id": "J11-048",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-relationships",
+      "block": 2,
+      "sourceHash": "0224a95b555ef7c23e3bfe81b76291de2287b0d5766c96fec44c1d1bbc84c072",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "S02", "S07", "S08"],
+      "rationale": "Relationships support data, links, metadata and empty/nonempty linkage."
+    },
+    {
+      "id": "J11-049",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-relationships",
+      "block": 3,
+      "sourceHash": "2a82b8007bc8d7459b1d8a0cdd305f0330de18b739ee725517b7bdf54ae374a6",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "S02", "S07", "S08"],
+      "rationale": "Relationships support data, links, metadata and empty/nonempty linkage."
+    },
+    {
+      "id": "J11-050",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-relationships",
+      "block": 4,
+      "sourceHash": "f8a8d8f73660040a8348a69de6f6a1a50f6f904ebd9f1a1f6b47948e43ecdfd1",
+      "strength": ["MAY", "MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "S02", "S07", "S08"],
+      "rationale": "Relationships support data, links, metadata and empty/nonempty linkage."
+    },
+    {
+      "id": "J11-051",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-related-resource-links",
+      "block": 1,
+      "sourceHash": "b7c88ca4440860caa413ef3ecd037bae902170601117239ee9862d58456a96ab",
+      "strength": ["MUST", "MUST NOT"],
+      "disposition": "tested",
+      "tests": ["D02"],
+      "rationale": "Preserve supplied related links independently from linkage; client does not invent relationship URLs."
+    },
+    {
+      "id": "J11-052",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-linkage",
+      "block": 1,
+      "sourceHash": "bf4da5509f2b3035bf79c3a75dcfd2e582995e97da986518381cc56e73133ac4",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D01", "L01", "S07"],
+      "rationale": "Single, collection and empty linkage preserve cardinality."
+    },
+    {
+      "id": "J11-053",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-links",
+      "block": 1,
+      "sourceHash": "bb32bd0cf4fa2d66694dd7f0c632ba02a33b68a6fcbcd651458333c89ea144ec",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["D02", "D05"],
+      "rationale": "Resource links retain rich objects, URI references and null values."
+    },
+    {
+      "id": "J11-054",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-object-links",
+      "block": 2,
+      "sourceHash": "79abd899c595b0cc54c54be6e3fa012ab662d82f58d424db8ed490b162065094",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-055",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-identifier-objects",
+      "block": 1,
+      "sourceHash": "a96971b9eb4df25bb0ab8038089b07876ea05b3c1e0cb79af7c3cc52fb89f37f",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-056",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-identifier-objects",
+      "block": 2,
+      "sourceHash": "af5f4fee36c680f81ee98c26f69e4406efaa91285ef95cca1c5343590238459a",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["L02", "S01", "S05", "S08", "S13"],
+      "rationale": "Identifier projection emits type/id or type/lid and keeps edge metadata separate."
+    },
+    {
+      "id": "J11-057",
+      "source": "https://jsonapi.org/format/1.1/#document-resource-identifier-objects",
+      "block": 3,
+      "sourceHash": "0d2becaac60a3fe6cd89603c14727e7ab22c25667ee7f7ac082f9a44830c0abe",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["L02", "S01", "S05", "S08", "S13"],
+      "rationale": "Identifier projection emits type/id or type/lid and keeps edge metadata separate."
+    },
+    {
+      "id": "J11-058",
+      "source": "https://jsonapi.org/format/1.1/#document-compound-documents",
+      "block": 1,
+      "sourceHash": "c249556ef953e1d00e5e1119be1527559cb6e82820a1bde7bc8ba5e5ba6526af",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-059",
+      "source": "https://jsonapi.org/format/1.1/#document-compound-documents",
+      "block": 2,
+      "sourceHash": "755c25c68b6accbf7c000e2791c7593cf52df7f67dd91a79472d1de8c5ed2da7",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["L01", "L03", "S03", "S04", "S13", "S10", "S12"],
+      "rationale": "Resolve full-linkage graphs; retain sparse-fieldset includes and deduplicate generated resources."
+    },
+    {
+      "id": "J11-060",
+      "source": "https://jsonapi.org/format/1.1/#document-compound-documents",
+      "block": 3,
+      "sourceHash": "7c7dc4c50e21d471e31301a1f9d0bbd19d717512da948ecf5e5eda1f8314f57d",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["L01", "L03", "S03", "S04", "S13", "S10", "S12"],
+      "rationale": "Resolve full-linkage graphs; retain sparse-fieldset includes and deduplicate generated resources."
+    },
+    {
+      "id": "J11-061",
+      "source": "https://jsonapi.org/format/1.1/#document-compound-documents",
+      "block": 4,
+      "sourceHash": "1ecb280d4695673faa429cad96137d6def21413dd5f00dd854ac76110fd2fe9e",
+      "strength": ["MUST NOT"],
+      "disposition": "tested",
+      "tests": ["L01", "L03", "S03", "S04", "S13", "S10", "S12"],
+      "rationale": "Resolve full-linkage graphs; retain sparse-fieldset includes and deduplicate generated resources."
+    },
+    {
+      "id": "J11-062",
+      "source": "https://jsonapi.org/format/1.1/#document-meta",
+      "block": 1,
+      "sourceHash": "2ea65bedc631a580adf2af4347b51fa837b9cd48db2c0eb4abea2f6dda3ae3cd",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "S02"],
+      "rationale": "Metadata remains opaque at its own document, resource, relationship or identifier level."
+    },
+    {
+      "id": "J11-063",
+      "source": "https://jsonapi.org/format/1.1/#document-meta",
+      "block": 2,
+      "sourceHash": "8faa61992bf15f0c5070af2c471d209fcc36d4d29badbf81d9663700f984aa05",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["D02", "S02"],
+      "rationale": "Metadata remains opaque at its own document, resource, relationship or identifier level."
+    },
+    {
+      "id": "J11-064",
+      "source": "https://jsonapi.org/format/1.1/#document-links",
+      "block": 1,
+      "sourceHash": "68988130a5547360ab25bc16b348dbfa392f370237b653e337bc620d6e78e497",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "D05"],
+      "rationale": "Preserve rich link attributes, null and relative links without fetching or interpreting targets."
+    },
+    {
+      "id": "J11-065",
+      "source": "https://jsonapi.org/format/1.1/#document-links",
+      "block": 2,
+      "sourceHash": "54ce9c2572d737b2e791c5558c266234ca2d3d43009a4e5ce58c30a5fcedb6da",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "D05"],
+      "rationale": "Preserve rich link attributes, null and relative links without fetching or interpreting targets."
+    },
+    {
+      "id": "J11-066",
+      "source": "https://jsonapi.org/format/1.1/#document-links",
+      "block": 3,
+      "sourceHash": "fb7b64b09c09183dfbcbeac0e6bee7b07c8d9eb2a1bf4a1275a469d7d3604589",
+      "strength": ["SHOULD"],
+      "disposition": "caller",
+      "tests": [],
+      "rationale": "Callers and servers define URI targets, relation/language values, error references and presentation policy; codecs preserve supplied values."
+    },
+    {
+      "id": "J11-067",
+      "source": "https://jsonapi.org/format/1.1/#document-links",
+      "block": 4,
+      "sourceHash": "3954b950060d357f4161badea92f659fa48f91cd792e2b59d9fa111fede9c1a1",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "D05"],
+      "rationale": "Preserve rich link attributes, null and relative links without fetching or interpreting targets."
+    },
+    {
+      "id": "J11-068",
+      "source": "https://jsonapi.org/format/1.1/#document-links",
+      "block": 5,
+      "sourceHash": "ec2c824ee75e1fed73800a00534487b1e2c12e0b606e26ecacf5e8ba22519ded",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["D02", "D05"],
+      "rationale": "Preserve rich link attributes, null and relative links without fetching or interpreting targets."
+    },
+    {
+      "id": "J11-069",
+      "source": "https://jsonapi.org/format/1.1/#document-links",
+      "block": 6,
+      "sourceHash": "b8b7cc247554195271833d6bf21f9e70628c7bfc7e560d44438a22a0798d58c6",
+      "strength": ["MUST"],
+      "disposition": "caller",
+      "tests": [],
+      "rationale": "Callers and servers define URI targets, relation/language values, error references and presentation policy; codecs preserve supplied values."
+    },
+    {
+      "id": "J11-070",
+      "source": "https://jsonapi.org/format/1.1/#document-links",
+      "block": 7,
+      "sourceHash": "cd587d3cd11e7831d0b022416966258f7a9eb3c6dc413c01a75f5ee55f9b1c3c",
+      "strength": ["MUST"],
+      "disposition": "caller",
+      "tests": [],
+      "rationale": "Callers and servers define URI targets, relation/language values, error references and presentation policy; codecs preserve supplied values."
+    },
+    {
+      "id": "J11-071",
+      "source": "https://jsonapi.org/format/1.1/#document-jsonapi-object",
+      "block": 1,
+      "sourceHash": "85a79886635a2514a8ce8fd87cb1793e59d6d2b810ef1ecfd857f0a39520339b",
+      "strength": ["MAY", "MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "H02"],
+      "rationale": "Preserve implementation metadata without deriving negotiation from document members."
+    },
+    {
+      "id": "J11-072",
+      "source": "https://jsonapi.org/format/1.1/#document-jsonapi-object",
+      "block": 2,
+      "sourceHash": "161f13f4b95c70cbf7cd0dae144d29ffd8a74e91a9c6a9c64d1da0e9335c59e6",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["D02", "H02"],
+      "rationale": "Preserve implementation metadata without deriving negotiation from document members."
+    },
+    {
+      "id": "J11-073",
+      "source": "https://jsonapi.org/format/1.1/#document-jsonapi-object",
+      "block": 3,
+      "sourceHash": "1c16880df480f1d70e21398810287cc8ce02dc6977e0f28ec57c5a8add6016bc",
+      "strength": ["MUST NOT", "MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-074",
+      "source": "https://jsonapi.org/format/1.1/#document-member-names",
+      "block": 1,
+      "sourceHash": "78398f491df2bedd90d4b20649ba2991669342306332ce748aa4105318a7b920",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-075",
+      "source": "https://jsonapi.org/format/1.1/#document-member-names",
+      "block": 2,
+      "sourceHash": "f637ea42f24ea7e55dd63def69b00d03808b80b417eb6e00da5e518453c70019",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "S01", "S08"],
+      "rationale": "Preserve case and Unicode; reject invalid generated field/type names."
+    },
+    {
+      "id": "J11-076",
+      "source": "https://jsonapi.org/format/1.1/#document-member-names",
+      "block": 3,
+      "sourceHash": "bdbbb8a85d58e6aa9a8eacb3ae2e7c74d7c29ca298ee2e5101a558a02a1c135d",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "S01", "S08"],
+      "rationale": "Preserve case and Unicode; reject invalid generated field/type names."
+    },
+    {
+      "id": "J11-077",
+      "source": "https://jsonapi.org/format/1.1/#document-member-names",
+      "block": 4,
+      "sourceHash": "1769fde577e001fdbd6d8dbff1fbc104b0ffd2a88a5d128c2857ccb693750c44",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "S01", "S08"],
+      "rationale": "Preserve case and Unicode; reject invalid generated field/type names."
+    },
+    {
+      "id": "J11-078",
+      "source": "https://jsonapi.org/format/1.1/#document-member-names",
+      "block": 5,
+      "sourceHash": "bbd9fc59288fc022e61e986039588c4a3f4e0a2e1aa6f120ee06cd2296adb279",
+      "strength": ["RECOMMENDED"],
+      "disposition": "caller",
+      "tests": [],
+      "rationale": "Callers and servers define URI targets, relation/language values, error references and presentation policy; codecs preserve supplied values."
+    },
+    {
+      "id": "J11-079",
+      "source": "https://jsonapi.org/format/1.1/#document-member-names-allowed-characters",
+      "block": 1,
+      "sourceHash": "9a40f7a4d3be322507ae3e8527c740dafff117e73d98f6a82ba6488f576e47bc",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["D02", "S08"],
+      "rationale": "Legal Unicode and field names pass; invalid field names fail."
+    },
+    {
+      "id": "J11-080",
+      "source": "https://jsonapi.org/format/1.1/#document-member-names-reserved-characters",
+      "block": 1,
+      "sourceHash": "2fe1f15b010dbf900fe16aceb071aa4e13663bec950b111cc64d1bffa94670dc",
+      "strength": ["MUST NOT"],
+      "disposition": "tested",
+      "tests": ["S08"],
+      "rationale": "Reserved field names cannot enter generated attributes."
+    },
+    {
+      "id": "J11-081",
+      "source": "https://jsonapi.org/format/1.1/#document-member-names-at-members",
+      "block": 1,
+      "sourceHash": "516e275eb38fc769b05ebc9b1e343616d18a75bf0e679bdb51c5007c39a09d22",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["D02", "S02", "D06", "S11"],
+      "rationale": "Preserve @-members as opaque implementation metadata."
+    },
+    {
+      "id": "J11-082",
+      "source": "https://jsonapi.org/format/1.1/#document-member-names-at-members",
+      "block": 2,
+      "sourceHash": "884265da81a223567c6c1955fc1c81681664f45192e3312e0a8f9ab33365e00f",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "S02", "D06", "S11"],
+      "rationale": "Preserve @-members as opaque implementation metadata."
+    },
+    {
+      "id": "J11-083",
+      "source": "https://jsonapi.org/format/1.1/#extension-members",
+      "block": 1,
+      "sourceHash": "a99fd4763e48b123c1b6dc2a535591ede7e953a007f85effbdd0225ebaafed78",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D02", "S02", "D06", "S11"],
+      "rationale": "Preserve caller-defined namespaced members without applying extension semantics."
+    },
+    {
+      "id": "J11-084",
+      "source": "https://jsonapi.org/format/1.1/#fetching-resources",
+      "block": 1,
+      "sourceHash": "dc8d3136b1c0e7609b97421e16847235c33db8b055b4268a1268dd3e5267378e",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-085",
+      "source": "https://jsonapi.org/format/1.1/#fetching-resources-responses-200",
+      "block": 1,
+      "sourceHash": "faeb92da00c5a0535c986f9a708d8a0d70ee71df0c3652ef19633d0c4eb8c33d",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-086",
+      "source": "https://jsonapi.org/format/1.1/#fetching-resources-responses-200",
+      "block": 2,
+      "sourceHash": "64b951c812432d01702406620db41462bd901ba0af3ae6d207b177f1f63f4a5b",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-087",
+      "source": "https://jsonapi.org/format/1.1/#fetching-resources-responses-200",
+      "block": 3,
+      "sourceHash": "c58c605bed48c103a05b18d36a80972e5e8d0c00aea25e2bdc14b2a40f7aa3d1",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-088",
+      "source": "https://jsonapi.org/format/1.1/#fetching-resources-responses-404",
+      "block": 1,
+      "sourceHash": "45fcf00d34c84e408b60b71e15de526b9f997c20265daa9e08c101fd8ac86e9e",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-089",
+      "source": "https://jsonapi.org/format/1.1/#fetching-resources-responses-other",
+      "block": 1,
+      "sourceHash": "3edc2e4edcf906977f166548bbc609bb65d05e5fdd79c6122189b0f024983c7a",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-090",
+      "source": "https://jsonapi.org/format/1.1/#fetching-resources-responses-other",
+      "block": 2,
+      "sourceHash": "544f2ca24eeda5ecf001a0b201689988ef7e2fb9275134d3bf36ef9d6a0ad710",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-091",
+      "source": "https://jsonapi.org/format/1.1/#fetching-resources-responses-other",
+      "block": 3,
+      "sourceHash": "e31b6b28f28852d46a2cd493591d7b9bc40bab49281902d4d7af03b6834f4f0a",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["H09", "H10"],
+      "rationale": "Interpret HTTP success/error responses and preserve status and payload."
+    },
+    {
+      "id": "J11-092",
+      "source": "https://jsonapi.org/format/1.1/#fetching-relationships",
+      "block": 1,
+      "sourceHash": "75ab57d20dd9bb9946b4c8f2e2302249fe4b455275ae7a7b6dbc6f20b4d85981",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-093",
+      "source": "https://jsonapi.org/format/1.1/#fetching-relationships-responses-200",
+      "block": 1,
+      "sourceHash": "31ae119d6855e5156a1fefb16857fd2aa20af61aa9c779d1063f5e6d73b1b158",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-094",
+      "source": "https://jsonapi.org/format/1.1/#fetching-relationships-responses-200",
+      "block": 2,
+      "sourceHash": "220bbc2ef3bfead5c72651ae2b01257d170668ff3638af955752000180a07f7d",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D01", "L04"],
+      "rationale": "Relationship primary identifiers retain cardinality and resolve supplied included resources."
+    },
+    {
+      "id": "J11-095",
+      "source": "https://jsonapi.org/format/1.1/#fetching-relationships-responses-200",
+      "block": 3,
+      "sourceHash": "1d4a3e1805c3d7f9976d3d66931b21dd03b415f647a75821c26a70ceb8fe629a",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["D01", "L04"],
+      "rationale": "Relationship primary identifiers retain cardinality and resolve supplied included resources."
+    },
+    {
+      "id": "J11-096",
+      "source": "https://jsonapi.org/format/1.1/#fetching-relationships-responses-404",
+      "block": 1,
+      "sourceHash": "fd5bf7c50934ee4aa4cdaca698bf3569da433b9ddacfdee99897d4d39bd0439d",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-097",
+      "source": "https://jsonapi.org/format/1.1/#fetching-relationships-responses-404",
+      "block": 2,
+      "sourceHash": "8f6b6e6f27f98535554557c8bf9975100a358a1bb4509d43944227591b11da01",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["H09", "H10"],
+      "rationale": "Interpret HTTP success/error responses and preserve status and payload."
+    },
+    {
+      "id": "J11-098",
+      "source": "https://jsonapi.org/format/1.1/#fetching-relationships-responses-other",
+      "block": 1,
+      "sourceHash": "3edc2e4edcf906977f166548bbc609bb65d05e5fdd79c6122189b0f024983c7a",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-099",
+      "source": "https://jsonapi.org/format/1.1/#fetching-relationships-responses-other",
+      "block": 2,
+      "sourceHash": "544f2ca24eeda5ecf001a0b201689988ef7e2fb9275134d3bf36ef9d6a0ad710",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-100",
+      "source": "https://jsonapi.org/format/1.1/#fetching-relationships-responses-other",
+      "block": 3,
+      "sourceHash": "e31b6b28f28852d46a2cd493591d7b9bc40bab49281902d4d7af03b6834f4f0a",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["H09", "H10"],
+      "rationale": "Interpret HTTP success/error responses and preserve status and payload."
+    },
+    {
+      "id": "J11-101",
+      "source": "https://jsonapi.org/format/1.1/#fetching-includes",
+      "block": 1,
+      "sourceHash": "2fc48a39ae3b45651de4253af6ad8051c406c8f76e67e364e3a88b1d189c3aad",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["Q01", "H03", "L01"],
+      "rationale": "Send comma-separated and nested include paths; server decides which related resources are returned."
+    },
+    {
+      "id": "J11-102",
+      "source": "https://jsonapi.org/format/1.1/#fetching-includes",
+      "block": 2,
+      "sourceHash": "c902b87c63ca316f30d2f8afb0faeb72bd53908dfa5d38b3483024169b9e5bdb",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["Q01", "H03", "L01"],
+      "rationale": "Send comma-separated and nested include paths; server decides which related resources are returned."
+    },
+    {
+      "id": "J11-103",
+      "source": "https://jsonapi.org/format/1.1/#fetching-includes",
+      "block": 3,
+      "sourceHash": "02e35197427eec1dcdccd3604d700d94d055ff4f5d83d4be14fbd4890fa2d82d",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["Q01", "H03", "L01"],
+      "rationale": "Send comma-separated and nested include paths; server decides which related resources are returned."
+    },
+    {
+      "id": "J11-104",
+      "source": "https://jsonapi.org/format/1.1/#fetching-includes",
+      "block": 4,
+      "sourceHash": "77656e0505d3ab163193471c5f4c6d04b4d6e24ef00db424d07091ac8f9137e8",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-105",
+      "source": "https://jsonapi.org/format/1.1/#fetching-includes",
+      "block": 5,
+      "sourceHash": "ef88e0387434cf9ff3e20ac5c2fd9a9136a5b0dcb7f877ab52becabcf157346a",
+      "strength": ["MUST NOT"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-106",
+      "source": "https://jsonapi.org/format/1.1/#fetching-includes",
+      "block": 6,
+      "sourceHash": "e110beda94a24a9a4b6d7cb6503ad35d616ddcffc34b5c1748011a1a6b6fabd2",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["Q01", "H03", "L01"],
+      "rationale": "Send comma-separated and nested include paths; server decides which related resources are returned."
+    },
+    {
+      "id": "J11-107",
+      "source": "https://jsonapi.org/format/1.1/#fetching-includes",
+      "block": 7,
+      "sourceHash": "4a43f4317d601d41e1a72f3253c372be4a4320cd083dd49753cf51eabf564e41",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-108",
+      "source": "https://jsonapi.org/format/1.1/#fetching-sparse-fieldsets",
+      "block": 1,
+      "sourceHash": "26cef038aa07f7b8e438b82eb100ab9a3178ba6a51e3a99536ab1f41a15e8070",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["Q01", "L03", "H03"],
+      "rationale": "Encode sparse fieldset requests and retain includes when fields exclude linkage."
+    },
+    {
+      "id": "J11-109",
+      "source": "https://jsonapi.org/format/1.1/#fetching-sparse-fieldsets",
+      "block": 2,
+      "sourceHash": "62725c05355d66e3ae04d9f1782348b8d231f73b707646324e2179b4c43dfc0c",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["Q01", "L03", "H03"],
+      "rationale": "Encode sparse fieldset requests and retain includes when fields exclude linkage."
+    },
+    {
+      "id": "J11-110",
+      "source": "https://jsonapi.org/format/1.1/#fetching-sparse-fieldsets",
+      "block": 3,
+      "sourceHash": "4ef04d0f2a18c115de7b50f3450f440273a29e8a78bee0a05c3eb4b0540a05f9",
+      "strength": ["MUST NOT"],
+      "disposition": "tested",
+      "tests": ["Q01", "L03", "H03"],
+      "rationale": "Encode sparse fieldset requests and retain includes when fields exclude linkage."
+    },
+    {
+      "id": "J11-111",
+      "source": "https://jsonapi.org/format/1.1/#fetching-sparse-fieldsets",
+      "block": 4,
+      "sourceHash": "247102fe4e35962655fd6229cb1c44e103bdc70ce50ac2e2ef0e7b6eb74618f3",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-112",
+      "source": "https://jsonapi.org/format/1.1/#fetching-sorting",
+      "block": 1,
+      "sourceHash": "b753f987e62e456bf10c30dbb002106f0ba1d0b3862171be9564774b5dae472b",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-113",
+      "source": "https://jsonapi.org/format/1.1/#fetching-sorting",
+      "block": 2,
+      "sourceHash": "339d50808e0ddc1ef9cfdb29480d0af48b5d86392155aab01339315e2c27c229",
+      "strength": ["MAY", "MUST"],
+      "disposition": "tested",
+      "tests": ["Q01"],
+      "rationale": "Send ordered sort fields and preserve server-returned collection order."
+    },
+    {
+      "id": "J11-114",
+      "source": "https://jsonapi.org/format/1.1/#fetching-sorting",
+      "block": 3,
+      "sourceHash": "83e5aaffd9abd5c6a24925afb019cf1a857c6f393aa0f1ba251967a6255209a8",
+      "strength": ["MAY", "SHOULD"],
+      "disposition": "tested",
+      "tests": ["Q01"],
+      "rationale": "Send ordered sort fields and preserve server-returned collection order."
+    },
+    {
+      "id": "J11-115",
+      "source": "https://jsonapi.org/format/1.1/#fetching-sorting",
+      "block": 4,
+      "sourceHash": "08bbae35f94564f4e752a8e38d7fef67e0e18e686a3ffdcf7176eba01d098f75",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["Q01"],
+      "rationale": "Send ordered sort fields and preserve server-returned collection order."
+    },
+    {
+      "id": "J11-116",
+      "source": "https://jsonapi.org/format/1.1/#fetching-sorting",
+      "block": 5,
+      "sourceHash": "95aff7599ae9d0dcf61519e69b8a05adbd01e59261f01a03cd739b944506b3b4",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-117",
+      "source": "https://jsonapi.org/format/1.1/#fetching-sorting",
+      "block": 6,
+      "sourceHash": "bc236f7247b9f92d0654c196d3bc10046f272e7c1095f0641cd12027997cf6e8",
+      "strength": ["MUST", "MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-118",
+      "source": "https://jsonapi.org/format/1.1/#fetching-pagination",
+      "block": 1,
+      "sourceHash": "dbc84edd0bb984448ad3c6957957fcb8c56b532f6964dad876d923f6a33093e2",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-119",
+      "source": "https://jsonapi.org/format/1.1/#fetching-pagination",
+      "block": 2,
+      "sourceHash": "aad8f52d484f3c67a544415deae175b467d6f250f31228513cc368b96770e71e",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-120",
+      "source": "https://jsonapi.org/format/1.1/#fetching-pagination",
+      "block": 3,
+      "sourceHash": "83bbff80fa5520d918e0ca536fa10713b66f951c0368c3a5d364c92647a14e67",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["Q02", "D05"],
+      "rationale": "Send pagination families and retain available or null pagination links."
+    },
+    {
+      "id": "J11-121",
+      "source": "https://jsonapi.org/format/1.1/#fetching-pagination",
+      "block": 4,
+      "sourceHash": "0b397f7c081efc7c92c8aec8bf33bdbe03e9352f2c18b5312360ae7b739692a1",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["Q02", "D05"],
+      "rationale": "Send pagination families and retain available or null pagination links."
+    },
+    {
+      "id": "J11-122",
+      "source": "https://jsonapi.org/format/1.1/#fetching-pagination",
+      "block": 5,
+      "sourceHash": "db75ed42c3ebb6c5127333d8567a41513112ca52d96f7d523c174020ba91dfc0",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["Q02", "D05"],
+      "rationale": "Send pagination families and retain available or null pagination links."
+    },
+    {
+      "id": "J11-123",
+      "source": "https://jsonapi.org/format/1.1/#fetching-pagination",
+      "block": 6,
+      "sourceHash": "81a8a29f48a57af6131c8333ef6dda523a00175ddea720d52e44a892160a9631",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["Q02", "D05"],
+      "rationale": "Send pagination families and retain available or null pagination links."
+    },
+    {
+      "id": "J11-124",
+      "source": "https://jsonapi.org/format/1.1/#fetching-pagination",
+      "block": 7,
+      "sourceHash": "6ce8a183edf029cd9df1e1c26a533e3094edc125f360129d5ee87c3ed0982174",
+      "strength": ["SHOULD"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-125",
+      "source": "https://jsonapi.org/format/1.1/#fetching-filtering",
+      "block": 1,
+      "sourceHash": "f5315df554998f4e170958f95d2c1a7b851d0de688dca0f1886195a15d21c66a",
+      "strength": ["SHOULD"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-126",
+      "source": "https://jsonapi.org/format/1.1/#crud",
+      "block": 1,
+      "sourceHash": "d256c97f7c2a4eef454641a6dcb0c0a8294409596f9ad5d57d76a181dd414898",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-127",
+      "source": "https://jsonapi.org/format/1.1/#crud",
+      "block": 2,
+      "sourceHash": "ed0774704d51d7b9b4d84ec3949d9d980631c5034a28257a5ba222aa4447094c",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-128",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating",
+      "block": 1,
+      "sourceHash": "0ff70cebcaa3673ba7fc488f3256161fd9b7515ab5855b8038de1307a3e63aa5",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["S01", "S02", "H04"],
+      "rationale": "POST resources carry type and relationship linkage."
+    },
+    {
+      "id": "J11-129",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating",
+      "block": 2,
+      "sourceHash": "6838f6bf8b13db8a06e55b2001735a34b940455dfa14712abf0921dca8fc1a4f",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["S01", "S02", "H04"],
+      "rationale": "POST resources carry type and relationship linkage."
+    },
+    {
+      "id": "J11-130",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-client-ids",
+      "block": 1,
+      "sourceHash": "616364fec56f8d768cc31dbd91434930c18f438129cf00dd8dc48e776aafa630",
+      "strength": ["MAY", "MUST", "SHOULD"],
+      "disposition": "caller",
+      "tests": [],
+      "rationale": "Callers choose globally unique client-generated IDs; client library cannot prove global uniqueness or server acceptance."
+    },
+    {
+      "id": "J11-131",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-client-ids",
+      "block": 2,
+      "sourceHash": "91a6645d9d69cc4eb663a4ddfb03ec242c4bd44682f62477c7f84b9f0ef5d083",
+      "strength": ["MUST"],
+      "disposition": "caller",
+      "tests": [],
+      "rationale": "Callers choose globally unique client-generated IDs; client library cannot prove global uniqueness or server acceptance."
+    },
+    {
+      "id": "J11-132",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-responses-201",
+      "block": 1,
+      "sourceHash": "5a76af6cd16b19fcd10e993597b3a28ca156e7de6ba9d3fd093e64d0ae730419",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-133",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-responses-201",
+      "block": 2,
+      "sourceHash": "d21e5864250bc96fabb54d203a27d7bb9d881c298e7dd96abf15866255163299",
+      "strength": ["SHOULD"],
+      "disposition": "tested",
+      "tests": ["H09", "H10"],
+      "rationale": "Interpret HTTP success/error responses and preserve status and payload."
+    },
+    {
+      "id": "J11-134",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-responses-201",
+      "block": 3,
+      "sourceHash": "c76305e55ae416eafcfa503fd2f884cfef88cc6dfb80503a517d2ff9d1c95088",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["H09", "H10"],
+      "rationale": "Interpret HTTP success/error responses and preserve status and payload."
+    },
+    {
+      "id": "J11-135",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-responses-201",
+      "block": 4,
+      "sourceHash": "7a043232627c723662e33fb82aae4edf588b2d854b66d46e8dd0150e48de4303",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-136",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-responses-202",
+      "block": 1,
+      "sourceHash": "a6440473b9a61162367307e0bd69eeeb8ea6feda462c8b9e8dfe606a0a94069b",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-137",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-responses-204",
+      "block": 1,
+      "sourceHash": "d31ef8f8a5e84aca74405695fd22ce3d2e08fed49505f6fb99ab5b4735a07fca",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-138",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-responses-403",
+      "block": 1,
+      "sourceHash": "e6b130c657235aecfa72bb021f87450719bf993990bedcdd6c26b5ddce24b6b7",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-139",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-responses-404",
+      "block": 1,
+      "sourceHash": "d6fb5fd2b56a0277bb0741d429165d8356ea46e6ea5ff399809b2e76c2c0886a",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-140",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-responses-409",
+      "block": 1,
+      "sourceHash": "14d45ed7beab83ce20a804204d4ad89a7d88c35b67d7a6dd50e1e3090f7d3a58",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-141",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-responses-409",
+      "block": 2,
+      "sourceHash": "00714ac011ec5db8e004697d0339c05af17705618b8d724995f43462252e42f4",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-142",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-responses-409",
+      "block": 3,
+      "sourceHash": "1e9a283e22cc01f85296cb8d64a44c38e3feb963c7f43dbfce267389e5243016",
+      "strength": ["SHOULD"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-143",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-responses-other",
+      "block": 1,
+      "sourceHash": "3edc2e4edcf906977f166548bbc609bb65d05e5fdd79c6122189b0f024983c7a",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-144",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-responses-other",
+      "block": 2,
+      "sourceHash": "544f2ca24eeda5ecf001a0b201689988ef7e2fb9275134d3bf36ef9d6a0ad710",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-145",
+      "source": "https://jsonapi.org/format/1.1/#crud-creating-responses-other",
+      "block": 3,
+      "sourceHash": "e31b6b28f28852d46a2cd493591d7b9bc40bab49281902d4d7af03b6834f4f0a",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["H09", "H10"],
+      "rationale": "Interpret HTTP success/error responses and preserve status and payload."
+    },
+    {
+      "id": "J11-146",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating",
+      "block": 1,
+      "sourceHash": "302001c8177f8b7b5253306ffdfd9bfd0ffea2ac04c6d7a0edcbfd2fe44df33a",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["S01", "H04"],
+      "rationale": "PATCH resources carry type/id and use the resource URL."
+    },
+    {
+      "id": "J11-147",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-resource-attributes",
+      "block": 1,
+      "sourceHash": "5f9652474c0e3ef0738a166e0d5da2c22356ba305a5446c9d373f7f6f2948426",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["S01", "H04"],
+      "rationale": "Only specified attributes are emitted; null remains explicit."
+    },
+    {
+      "id": "J11-148",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-resource-attributes",
+      "block": 2,
+      "sourceHash": "4f9c36ed13d33d9d6649dadf3cd41f7f9ee192f351c488d1f192e87d88c0211b",
+      "strength": ["MUST", "MUST NOT"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-149",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-resource-relationships",
+      "block": 1,
+      "sourceHash": "1cabc0d5290cf9cbfdf496752d699e71b40f22e8b2a712df762ac46420d300fb",
+      "strength": ["MAY"],
+      "disposition": "tested",
+      "tests": ["S02", "S07", "H05"],
+      "rationale": "Only specified relationships are sent; replacement/clearing preserves linkage."
+    },
+    {
+      "id": "J11-150",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-resource-relationships",
+      "block": 2,
+      "sourceHash": "2a555fb66e31fe484bfc54a2e840f1bd209b7a42243c5c1e37c1d418e9d0abe8",
+      "strength": ["MUST", "MUST NOT"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-151",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-resource-relationships",
+      "block": 3,
+      "sourceHash": "36109f59ffbcc8c7e866380d4956c49fcf4c654f36ae690f4144669744991486",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["S02", "S07", "H05"],
+      "rationale": "Only specified relationships are sent; replacement/clearing preserves linkage."
+    },
+    {
+      "id": "J11-152",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-resource-relationships",
+      "block": 4,
+      "sourceHash": "cccdd11d41da760d4f291bc9981777e0921202aaa01f8fa61da59d43ac185825",
+      "strength": ["MAY", "MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-153",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-responses-200",
+      "block": 1,
+      "sourceHash": "d44822fba6a25277611b0a946b3abb8c63e6d4b22623d942cef5428030f3f1b0",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-154",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-responses-200",
+      "block": 2,
+      "sourceHash": "a06597bd92b1af15d05818fd22eb91ffde2f7586c6505744730892e3a531e325",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-155",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-responses-202",
+      "block": 1,
+      "sourceHash": "8db4e9e9740b535c79c44f230b9bca07f4d2f9be2da0e590e03acda482983262",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-156",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-responses-204",
+      "block": 1,
+      "sourceHash": "d3e289a303b2fab770d5902ce621ec79883021da4b57c728d5c58c813e9f0f0c",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-157",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-relationship-responses-403",
+      "block": 1,
+      "sourceHash": "08199346db743b3c6f251c4c205ca21ad205062b693b81138e384134c335b19e",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-158",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-responses-404",
+      "block": 1,
+      "sourceHash": "9f98972e3c670035204155376bce511dae2bee8b9de1c346e25532965298cec0",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-159",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-responses-404",
+      "block": 2,
+      "sourceHash": "d6fb5fd2b56a0277bb0741d429165d8356ea46e6ea5ff399809b2e76c2c0886a",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-160",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-responses-409",
+      "block": 1,
+      "sourceHash": "8a6d89575f7300b94c851c9f9277782f96816cf0289d14f14c9d33d7781f8454",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-161",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-responses-409",
+      "block": 2,
+      "sourceHash": "5e08c4894491e6a01121d9207c1ada7ee923841a5d84df7974cb465ead491b4b",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-162",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-responses-409",
+      "block": 3,
+      "sourceHash": "1e9a283e22cc01f85296cb8d64a44c38e3feb963c7f43dbfce267389e5243016",
+      "strength": ["SHOULD"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-163",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-responses-other",
+      "block": 1,
+      "sourceHash": "3edc2e4edcf906977f166548bbc609bb65d05e5fdd79c6122189b0f024983c7a",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-164",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-responses-other",
+      "block": 2,
+      "sourceHash": "544f2ca24eeda5ecf001a0b201689988ef7e2fb9275134d3bf36ef9d6a0ad710",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-165",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-responses-other",
+      "block": 3,
+      "sourceHash": "e31b6b28f28852d46a2cd493591d7b9bc40bab49281902d4d7af03b6834f4f0a",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["H09", "H10"],
+      "rationale": "Interpret HTTP success/error responses and preserve status and payload."
+    },
+    {
+      "id": "J11-166",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-to-one-relationships",
+      "block": 1,
+      "sourceHash": "0087c33a420e14d2ba8e263cdc446719dfaf104332ad7c3aa53e43231ce723a3",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["S07", "H05", "H11"],
+      "rationale": "PATCH relationship endpoints send one identifier or null."
+    },
+    {
+      "id": "J11-167",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-to-one-relationships",
+      "block": 2,
+      "sourceHash": "63e8a084dae2ffb628a493e431614faec4287225bd57a776ae0a04c5e38b28b8",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-168",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-to-many-relationships",
+      "block": 1,
+      "sourceHash": "035e42a039ff98b90aa9841148a695c58e0e6cc7b1d206f427e56ae2983e1b09",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["S07", "H05", "H06", "H08", "H11"],
+      "rationale": "Relationship array bodies remain at the relationship endpoint for PATCH/POST/DELETE."
+    },
+    {
+      "id": "J11-169",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-to-many-relationships",
+      "block": 2,
+      "sourceHash": "99dcc1c2c5461713a61ec1092c5fd7bf79f645bd3ed3ec5dd69e186f26041617",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-170",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-to-many-relationships",
+      "block": 3,
+      "sourceHash": "eed20fd69d94f62f156f5e29ed46d5d526a61df5e0e967837ced28acb9032229",
+      "strength": ["MUST", "MUST NOT"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-171",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-to-many-relationships",
+      "block": 4,
+      "sourceHash": "9d8a3ff3d953c366bcacc3a2fc5b87e9bfef24765e8d2450b59fe68aed5d23ef",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-172",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-to-many-relationships",
+      "block": 5,
+      "sourceHash": "54107779b4b7610e854fb344624c0badaf7602fa939903f8a0207c9d7d765aaf",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-173",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-relationship-responses-200",
+      "block": 1,
+      "sourceHash": "83d57fc8d783cdf49bc66309861db1bc73fd789b7b0f3a6acebbda7e68a7ec49",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-174",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-relationship-responses-200",
+      "block": 2,
+      "sourceHash": "b185a803fc5f789aa443b6fbc76bb0237354fc684e0f0b4c0bc56c8b6fd4243b",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-175",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-relationship-responses-202",
+      "block": 1,
+      "sourceHash": "9742748cb58f3abfe2bfc2e0d8904f55931f30541e861a94460a4652403cdfe8",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-176",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-relationship-responses-204",
+      "block": 1,
+      "sourceHash": "0c972d3d944702e6c20406d27b45d3a489b685d89b973420ecf8ffa8254ef576",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-177",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-relationship-responses-403",
+      "block": 2,
+      "sourceHash": "aab6d129bd3f1fdf753476a0faa720393df959671300e58b5a19140206f65e97",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-178",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-relationship-responses-other",
+      "block": 1,
+      "sourceHash": "3edc2e4edcf906977f166548bbc609bb65d05e5fdd79c6122189b0f024983c7a",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-179",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-relationship-responses-other",
+      "block": 2,
+      "sourceHash": "544f2ca24eeda5ecf001a0b201689988ef7e2fb9275134d3bf36ef9d6a0ad710",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-180",
+      "source": "https://jsonapi.org/format/1.1/#crud-updating-relationship-responses-other",
+      "block": 3,
+      "sourceHash": "e31b6b28f28852d46a2cd493591d7b9bc40bab49281902d4d7af03b6834f4f0a",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["H09", "H10"],
+      "rationale": "Interpret HTTP success/error responses and preserve status and payload."
+    },
+    {
+      "id": "J11-181",
+      "source": "https://jsonapi.org/format/1.1/#crud-deleting-responses-200",
+      "block": 1,
+      "sourceHash": "ea8559a3aefe93ae3301c5e8bedc1bfa2b52abe781310e5344466d2ec4010f8a",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-182",
+      "source": "https://jsonapi.org/format/1.1/#crud-deleting-responses-202",
+      "block": 1,
+      "sourceHash": "e272b13bf20981945052118e93192929f74f93f9628592af75e58b9e978c5d6a",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-183",
+      "source": "https://jsonapi.org/format/1.1/#crud-deleting-responses-204",
+      "block": 1,
+      "sourceHash": "8ad090504467cf3f9af30297e098c27beb72b13e891aee792eac98937536356e",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-184",
+      "source": "https://jsonapi.org/format/1.1/#crud-deleting-responses-404",
+      "block": 1,
+      "sourceHash": "a2976267a9d9a033a9f334a428b757bf564cedbdb1e1801c40d8b9a4b6552709",
+      "strength": ["SHOULD"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-185",
+      "source": "https://jsonapi.org/format/1.1/#crud-deleting-responses-other",
+      "block": 1,
+      "sourceHash": "3edc2e4edcf906977f166548bbc609bb65d05e5fdd79c6122189b0f024983c7a",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-186",
+      "source": "https://jsonapi.org/format/1.1/#crud-deleting-responses-other",
+      "block": 2,
+      "sourceHash": "544f2ca24eeda5ecf001a0b201689988ef7e2fb9275134d3bf36ef9d6a0ad710",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-187",
+      "source": "https://jsonapi.org/format/1.1/#crud-deleting-responses-other",
+      "block": 3,
+      "sourceHash": "e31b6b28f28852d46a2cd493591d7b9bc40bab49281902d4d7af03b6834f4f0a",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["H09", "H10"],
+      "rationale": "Interpret HTTP success/error responses and preserve status and payload."
+    },
+    {
+      "id": "J11-188",
+      "source": "https://jsonapi.org/format/1.1/#extension-query-parameters",
+      "block": 1,
+      "sourceHash": "3471e27847209d95c2a1e0f57a9ace61644ae9cb65bdd9df605de66a94d15017",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["Q02"],
+      "rationale": "Encode caller-defined namespaced query parameters without inventing extension semantics."
+    },
+    {
+      "id": "J11-189",
+      "source": "https://jsonapi.org/format/1.1/#query-parameters-custom",
+      "block": 1,
+      "sourceHash": "005b52eee824feabbb6e6a6b76660a0a1370568bb625eeedbe6441897320a639",
+      "strength": ["MAY", "MUST"],
+      "disposition": "tested",
+      "tests": ["Q02", "Q04"],
+      "rationale": "Forward caller-defined query names and implementation-specific filter values."
+    },
+    {
+      "id": "J11-190",
+      "source": "https://jsonapi.org/format/1.1/#query-parameters-custom",
+      "block": 2,
+      "sourceHash": "31f361d531fec57180f45cfb50dde710ff9a53c0b0586ab96abb07bbe1d7e7aa",
+      "strength": ["RECOMMENDED"],
+      "disposition": "tested",
+      "tests": ["Q02", "Q04"],
+      "rationale": "Forward caller-defined query names and implementation-specific filter values."
+    },
+    {
+      "id": "J11-191",
+      "source": "https://jsonapi.org/format/1.1/#query-parameters-custom",
+      "block": 3,
+      "sourceHash": "9f0d7dfca4f0878a97a7d3b8a5d7f003ce5c010ee030449fb342fc7e70033111",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-192",
+      "source": "https://jsonapi.org/format/1.1/#errors-processing",
+      "block": 1,
+      "sourceHash": "1256a91eccff69a5f1de3c3fa42595357295a66d4807a2b729ccca954de8ab9d",
+      "strength": ["MAY"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-193",
+      "source": "https://jsonapi.org/format/1.1/#errors-processing",
+      "block": 2,
+      "sourceHash": "dcbb195505bea5a7a22e82a0ee2c0ede5312f6382e11786e4281c44b13fa4b8d",
+      "strength": ["SHOULD"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    },
+    {
+      "id": "J11-194",
+      "source": "https://jsonapi.org/format/1.1/#error-objects",
+      "block": 1,
+      "sourceHash": "df857fa536334c1bda143ac164bd1f144823a5c14f762946360e245320bd71bb",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["D03", "H10"],
+      "rationale": "Preserve all supplied error members, including links.type and source.header."
+    },
+    {
+      "id": "J11-195",
+      "source": "https://jsonapi.org/format/1.1/#error-objects",
+      "block": 2,
+      "sourceHash": "db4dd48dfeb365ad6d988b5b3267c3809f807be44b38ec850bc5946dcc31d231",
+      "strength": ["MAY", "MUST"],
+      "disposition": "tested",
+      "tests": ["D03", "H10"],
+      "rationale": "Preserve all supplied error members, including links.type and source.header."
+    },
+    {
+      "id": "J11-196",
+      "source": "https://jsonapi.org/format/1.1/#error-objects",
+      "block": 3,
+      "sourceHash": "8a561acbebd83c26127e8c9cb4c08177359b0db332bf7001702db4a366e3c64d",
+      "strength": ["SHOULD"],
+      "disposition": "caller",
+      "tests": [],
+      "rationale": "Callers and servers define URI targets, relation/language values, error references and presentation policy; codecs preserve supplied values."
+    },
+    {
+      "id": "J11-197",
+      "source": "https://jsonapi.org/format/1.1/#error-objects",
+      "block": 4,
+      "sourceHash": "c2ee82d3c2be6d4f9368c32f897d642dfe4388abbed30d0fc1a5694d5aabbf55",
+      "strength": ["SHOULD"],
+      "disposition": "caller",
+      "tests": [],
+      "rationale": "Callers and servers define URI targets, relation/language values, error references and presentation policy; codecs preserve supplied values."
+    },
+    {
+      "id": "J11-198",
+      "source": "https://jsonapi.org/format/1.1/#error-objects",
+      "block": 5,
+      "sourceHash": "79fa5a4a074946962b1e6660e0d34602bc0729b0a2cdfd0123c09b76b2523830",
+      "strength": ["MAY", "SHOULD"],
+      "disposition": "tested",
+      "tests": ["D03", "H10"],
+      "rationale": "Preserve all supplied error members, including links.type and source.header."
+    },
+    {
+      "id": "J11-199",
+      "source": "https://jsonapi.org/format/1.1/#error-objects",
+      "block": 6,
+      "sourceHash": "f07dcfe4121864e6d377438c171b1f9b4db1f415ef78f829e35b44369771295b",
+      "strength": ["SHOULD"],
+      "disposition": "tested",
+      "tests": ["D03", "H10"],
+      "rationale": "Preserve all supplied error members, including links.type and source.header."
+    },
+    {
+      "id": "J11-200",
+      "source": "https://jsonapi.org/format/1.1/#error-objects",
+      "block": 7,
+      "sourceHash": "92239c9a26073e390835302d859ea085b097d9ded417f6fb21a6ff37da79c0ad",
+      "strength": ["SHOULD NOT"],
+      "disposition": "caller",
+      "tests": [],
+      "rationale": "Callers and servers define URI targets, relation/language values, error references and presentation policy; codecs preserve supplied values."
+    },
+    {
+      "id": "J11-201",
+      "source": "https://jsonapi.org/format/1.1/#error-objects",
+      "block": 8,
+      "sourceHash": "bc98482e23e475f6971c4b281174c86f637f5f09cfe701c1040794e32de26779",
+      "strength": ["MUST", "SHOULD"],
+      "disposition": "caller",
+      "tests": [],
+      "rationale": "Callers and servers define URI targets, relation/language values, error references and presentation policy; codecs preserve supplied values."
+    },
+    {
+      "id": "J11-202",
+      "source": "https://jsonapi.org/format/1.1/#error-objects",
+      "block": 9,
+      "sourceHash": "73c9caad819cef8e268ccdc83c0dde198f6ee3fb1e426f3a5357f78b4a61e8b5",
+      "strength": ["SHOULD", "MUST"],
+      "disposition": "caller",
+      "tests": [],
+      "rationale": "Callers and servers define URI targets, relation/language values, error references and presentation policy; codecs preserve supplied values."
+    },
+    {
+      "id": "J11-203",
+      "source": "https://jsonapi.org/format/1.1/#appendix-query-details-parsing",
+      "block": 1,
+      "sourceHash": "b8441d1059dc782aa75858293ad480604f76e50a27b4497e54e3c3b5e2024dc0",
+      "strength": ["MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Request query parsing belongs to the server; this client serializes query parameters."
+    },
+    {
+      "id": "J11-204",
+      "source": "https://jsonapi.org/format/1.1/#appendix-query-details-parsing",
+      "block": 2,
+      "sourceHash": "e6439aceb0055ca3aad5d1353643e91f1fba43eefd825271045c99f63160450e",
+      "strength": ["MUST"],
+      "disposition": "tested",
+      "tests": ["Q03"],
+      "rationale": "Serialize form-encoded names and values that parse back without corruption."
+    },
+    {
+      "id": "J11-205",
+      "source": "https://jsonapi.org/format/1.1/#appendix-query-details-square-brackets",
+      "block": 1,
+      "sourceHash": "3cf33877c5063f6489abea8976d4cc2061ef0fb2581365b5440c81258e4b9656",
+      "strength": ["SHOULD", "MUST"],
+      "disposition": "server",
+      "tests": [],
+      "rationale": "Requires server behavior, storage, endpoint semantics or response generation; mocked client tests cannot certify server compliance."
+    }
+  ]
+}

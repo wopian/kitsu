@@ -1,5 +1,5 @@
 import { mkdir, readdir, writeFile } from 'node:fs/promises'
-import { resolve } from 'node:path'
+import { dirname, resolve } from 'node:path'
 import ts from 'typescript'
 
 const [mode, name] = process.argv.slice(2)
@@ -10,14 +10,16 @@ const root = resolve(import.meta.dir, '..')
 const directory = `${root}/packages/${name}`
 const output = `${root}/.cache/docs/${name}`
 await mkdir(output, { recursive: true })
-for (const file of (await readdir(`${directory}/src`)).filter(
+for (const file of (await readdir(`${directory}/src`, { recursive: true })).filter(
   (f) => f.endsWith('.ts') && !f.endsWith('.spec.ts'),
 )) {
   // Documentation.js resolves .js imports. Preserve JSDoc while preparing its input;
   // published JavaScript is built exclusively by Bun.
   const source = await Bun.file(`${directory}/src/${file}`).text()
+  const target = `${output}/${file.replace(/\.ts$/, '.js')}`
+  await mkdir(dirname(target), { recursive: true })
   await writeFile(
-    `${output}/${file.replace(/\.ts$/, '.js')}`,
+    target,
     ts.transpileModule(source, {
       compilerOptions: {
         target: ts.ScriptTarget.ES2022,

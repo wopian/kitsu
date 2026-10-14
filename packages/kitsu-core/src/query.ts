@@ -16,7 +16,7 @@ function queryFormat(value: any, key: string, traditional: boolean): string {
   if (!traditional && value !== null && Array.isArray(value))
     return value.map((v) => queryFormat(v, `${key}[]`, traditional)).join('&')
   else if (value !== null && typeof value === 'object') return query(value, key, traditional)
-  else return encodeURIComponent(key) + '=' + encodeURIComponent(value)
+  else return new URLSearchParams([[key, String(value)]]).toString()
 }
 
 /**

@@ -27,6 +27,7 @@
     "format": "biome format .",
     "format:fix": "biome format --write .",
     "test": "bun test --check",
+    "test:compliance": "bun test --check ./specification/compliance",
     "test:coverage": "bun test --check --coverage",
     "test:packages": "bun run scripts/check-packages.ts",
     "test:compatibility": "bun run scripts/compatibility.ts",

@@ -3,6 +3,16 @@ import { isDeepEqual } from '../deepEqual.js'
 
 describe('kitsu-core', () => {
   describe('isDeepEqual', () => {
+    it('compares absent values without treating null as undefined', () => {
+      expect(isDeepEqual(undefined, undefined)).toBe(true)
+      expect(isDeepEqual(null, undefined)).toBe(false)
+    })
+    it('distinguishes primitive values, arrays, and object keys', () => {
+      expect(isDeepEqual(1, 2)).toBe(false)
+      expect(isDeepEqual([1], { 0: 1 })).toBe(false)
+      expect(isDeepEqual({ a: undefined }, { b: undefined })).toBe(false)
+      expect(isDeepEqual({ a: null }, { a: undefined })).toBe(false)
+    })
     const people = {
       one: {
         firstName: 'John',

@@ -3,8 +3,18 @@ import { execFileSync } from 'node:child_process'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import ts from 'typescript'
+import Kitsu from '../packages/kitsu/src/index.ts'
+import { isDeepEqual } from '../packages/kitsu-core/src/deepEqual.ts'
+import {
+  deattribute,
+  deserialise,
+  filterIncludes,
+  linkRelationships,
+  query,
+  serialise,
+} from '../packages/kitsu-core/src/index.ts'
 
-// Compare emitted code before bundler optimization. Any changed runtime token fails.
+// Keep the v11 structure gate for unchanged helpers. Changed codecs have explicit behavior gates.
 const root = resolve(import.meta.dir, '..')
 const baseline = 'v11.1.1'
 const directory = resolve(root, '.cache/compatibility')
@@ -44,22 +54,9 @@ function runtimeShape(source: string): unknown {
   }
   return shape(tree)
 }
-const entries = [
-  'camel',
-  'deattribute',
-  'deepEqual',
-  'deserialise',
-  'error',
-  'filterIncludes',
-  'kebab',
-  'linkRelationships',
-  'query',
-  'serialise',
-  'snake',
-  'splitModel',
-]
+const entries = ['camel', 'error', 'kebab', 'snake', 'splitModel']
 let count = 0
-for (const name of [...entries, 'kitsu']) {
+for (const name of entries) {
   const legacyPath =
     name === 'kitsu' ? 'packages/kitsu/src/index.js' : `packages/kitsu-core/src/${name}/index.js`
   let before = execFileSync('git', ['show', `${baseline}:${legacyPath}`], {
@@ -81,8 +78,69 @@ for (const name of [...entries, 'kitsu']) {
   )
   count++
 }
+assert.equal(isDeepEqual([1], { 0: 1 }), false)
+const person = { type: 'people', id: '9', attributes: { name: 'Ada' }, meta: { active: true } }
+const flat = { type: 'people', id: '9', name: 'Ada', $: { meta: { active: true } } }
+assert.deepEqual(deattribute(person), flat)
+assert.deepEqual(filterIncludes([person], { type: 'people', id: '9' }), person)
+assert.deepEqual(
+  linkRelationships(
+    { type: 'articles', id: '1', relationships: { author: { data: { type: 'people', id: '9' } } } },
+    [person],
+  ).author,
+  flat,
+)
+const decoded = deserialise({
+  data: {
+    type: 'articles',
+    id: '1',
+    relationships: { author: { data: { type: 'people', id: '9' } } },
+  },
+  included: [person],
+})
+assert.equal(decoded.data.author, decoded.included[0])
+assert.deepEqual(serialise('articles', { id: 0, author: { type: 'people', id: '9' } }, 'PATCH'), {
+  data: {
+    type: 'articles',
+    id: '0',
+    relationships: { author: { data: { type: 'people', id: '9' } } },
+  },
+})
+assert.equal(query({ include: '', filter: { name: 'a + b' } }), 'include=&filter%5Bname%5D=a+%2B+b')
+const api = new Kitsu({
+  axiosOptions: {
+    adapter: async (config) => {
+      assert.equal(config.url, 'articles/1/relationships/author')
+      assert.deepEqual(JSON.parse(config.data), { data: { type: 'people', id: '9' } })
+      return { data: '', status: 204, statusText: 'No Content', headers: {}, config }
+    },
+  },
+})
+assert.deepEqual(await api.patch('articles/1/relationships/author', { type: 'people', id: '9' }), {
+  status: 204,
+})
 await writeFile(
   resolve(directory, 'result.json'),
-  JSON.stringify({ baseline, modules: count, runtimeStructureEqual: true }, null, 2),
+  JSON.stringify(
+    {
+      baseline,
+      unchangedModules: count,
+      unchangedRuntimeStructureEqual: true,
+      behaviorCheckedModules: [
+        'deepEqual',
+        'deattribute',
+        'deserialise',
+        'filterIncludes',
+        'linkRelationships',
+        'query',
+        'serialise',
+        'kitsu',
+      ],
+    },
+    null,
+    2,
+  ),
 )
-console.log(`Runtime structure matches ${baseline} across ${count} implementation modules`)
+console.log(
+  `Unchanged structure matches ${baseline} across ${count} helpers; JSON:API 1.1 behavior checks passed`,
+)

@@ -6,7 +6,7 @@ describe('kitsu-core', () => {
     it('throws an error if included is not an array', () => {
       expect.assertions(1)
       expect(() => filterIncludes({} as any, { id: '1', type: 'anime' })).toThrow(
-        'included.filter is not a function',
+        'included.find is not a function',
       )
     })
 

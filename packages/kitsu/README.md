@@ -20,13 +20,16 @@
 
 #
 
+## JSON:API 1.1
+
+Relationships are direct resources, arrays, or null. Resource metadata lives under `$`; document metadata stays at document level. See [migration guidance](MIGRATING.md) and [compliance boundaries](../../specification/compliance/README.md).
+
 ## Features
 
-*   JSON-API 1.0 compliant
+*   JSON:API 1.1 client document support
 *   Automatically links relationships to data
 *   Works in Node & browsers
 *   Uses the [Promise] API
-
 
 ## Response Comparison
 
@@ -67,21 +70,17 @@
 <details open>
 <summary>Object from a GET Response with kitsu:</summary>
 
-```json5
+```js
 {
   data: {
-    id: '1'
-    type: 'articles'
-    title: 'JSON API paints my bikeshed'
-    author: {
-      data: {
-        id: '42'
-        type: 'people'
-        name: 'John'
-      }
-    }
-  }
+    id: '1',
+    type: 'articles',
+    title: 'JSON API paints my bikeshed',
+    author: { id: '42', type: 'people', name: 'John' }
+  },
+  included: [{ id: '42', type: 'people', name: 'John' }]
 }
+// data.author and included[0] reference the same object.
 ```
 
 </details>
@@ -242,7 +241,7 @@ Creates a new `kitsu` instance
     *   `options.pluralize` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If enabled, `/user` will become `/users` in the URL request and `type` will be pluralized in POST, PATCH and DELETE requests (optional, default `true`)
     *   `options.timeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Set the request timeout in milliseconds (optional, default `30000`)
     *   `options.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
-    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If enabled, the contents of the `data` property will be hoisted to the parent. This provides a flatter response object, see examples below for transformation examples. Links and Meta properties will be merged into the parent object if they exist. If attributes named `links` or `meta` exist, they will overwrite the JSON:API `links` and `meta` properties. (optional, default `false`)
+    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Unwrap resource documents containing only data. Arrays and null stay under data in HTTP responses; document metadata keeps the wrapper. (optional, default `false`)
 
 #### Examples
 
@@ -276,7 +275,7 @@ Flatter responses without data properties
 ```javascript
 const api = new Kitsu({ hoistData: true })
 const { data } = await api.get('library-entries')
-// instead of: { data: { id: '1', type: 'people', coworkers: data: [ { id: '2', type: 'people' } ] } }
+// instead of: { data: { id: '1', type: 'people', coworkers: [ { id: '2', type: 'people' } ] } }
 // you get: { id: '1', type: 'people', coworkers: [ { id: '2', type: 'people' } ] }
 ```
 
@@ -392,6 +391,7 @@ Fetch resources (alias `fetch`)
             *   `config.params.page.size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on kitsu.app
             *   `config.params.page.before` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Get the previous page of resources (Cursor-based) - **Note:** Not Supported on kitsu.app
             *   `config.params.page.after` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Get the next page of resources (Cursor-based) - **Note:** Not Supported on kitsu.app
+    *   `config.document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Top-level JSON:API members accompanying writes
     *   `config.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
 
 ##### Examples
@@ -510,11 +510,12 @@ Update a resource (alias `update`)
 ##### Parameters
 
 *   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource to update data in. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
-*   `body` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Data to send in the request
+*   `body` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)> | null)** Data to send in the request
 *   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional configuration (optional, default `{}`)
 
     *   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. See [#get](#get) for documentation
     *   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
+    *   `config.document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Top-level JSON:API members accompanying writes
     *   `config.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
 
 ##### Examples
@@ -532,6 +533,7 @@ Update a resource with relationships
 
 ```javascript
 api.update('posts', {
+  id: '1',
   content: 'Hello World',
   uploads: {
     id: '167585',
@@ -570,11 +572,12 @@ Create a new resource (alias `create`)
 ##### Parameters
 
 *   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource to create. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
-*   `body` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Data to send in the request
+*   `body` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)> | null)** Data to send in the request
 *   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional configuration (optional, default `{}`)
 
     *   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. See [#get](#get) for documentation
     *   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
+    *   `config.document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Top-level JSON:API members accompanying writes
     *   `config.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
 
 ##### Examples
@@ -584,18 +587,8 @@ Create a post on a user's profile feed
 ```javascript
 api.create('posts', {
   content: 'Hello World',
-  targetUser: {
-    data: {
-      id: '42603',
-      type: 'users'
-    }
-  },
-  user: {
-    data: {
-      id: '42603',
-      type: 'users'
-    }
-  }
+  targetUser: { id: '42603', type: 'users' },
+  user: { id: '42603', type: 'users' }
 })
 ```
 
@@ -622,6 +615,7 @@ Remove a resource (alias `remove`)
 
     *   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. See [#get](#get) for documentation
     *   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
+    *   `config.document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Top-level JSON:API members accompanying writes
     *   `config.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
 
 ##### Examples
@@ -658,6 +652,7 @@ Get the authenticated user's data
 
     *   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. See [#get](#get) for documentation
     *   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
+    *   `config.document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Top-level JSON:API members accompanying writes
     *   `config.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
 
 ##### Examples
@@ -699,6 +694,8 @@ Send arbitrary requests
     *   `config.url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The URL path of the resource
     *   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
     *   `config.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
+    *   `config.document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Top-level JSON:API members accompanying writes
+    *   `config.relationship` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Treat custom URL as a relationship endpoint (optional, default `url?.includes('/relationships/')??false`)
 
 ##### Examples
 

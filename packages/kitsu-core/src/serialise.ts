@@ -1,246 +1,182 @@
-import { error } from './error.js'
-import type { JsonObject, SerialiseOptions } from './types.js'
+import {
+  extensionMember,
+  extraMember,
+  fail,
+  identity,
+  mapData,
+  memberCount,
+  resourceIndex,
+} from './internal/members.js'
+import type { FlatResource, JsonObject, SerialiseOptions } from './types.js'
+
+const member = /^[a-z\d\u0080-\u{10ffff}](?:[\w\u0080-\u{10ffff} -]*[a-z\d\u0080-\u{10ffff}])?$/iu
 
 /**
- * Checks if data is valid for serialisation
- *
- * @param {boolean} isArray If root element of the payload was an Array or Object
- * @param {string} type Resource type
- * @param {Object} payload The data
- * @param {string} method Request type - `PATCH` or `POST`
- * @private
- */
-function isValid(isArray: boolean, type: string | undefined, payload: any, method: string): void {
-  const requireID = new Error(`${method} requires an ID for the ${type} type`)
-
-  if (type === undefined) {
-    throw new Error(`${method} requires a resource type`)
-  }
-
-  if (isArray) {
-    // A POST request is the only request to not require an ID in spec
-    if (method !== 'POST' && payload.length > 0) {
-      for (const resource of payload) {
-        if (!resource.id) throw requireID
-      }
-    }
-  } else {
-    if (typeof payload !== 'object' || (method !== 'POST' && Object.keys(payload).length === 0)) {
-      throw new Error(`${method} requires an object or array body`)
-    }
-    // A POST request is the only request to not require an ID in spec
-    if (method !== 'POST' && !payload.id) {
-      throw requireID
-    }
-  }
-}
-
-/**
- * Serialises a relational data object to JSON:API format
- *
- * @param {Object} node Existing relation object
- * @param {Object} nodeType Resource type of the relation
- * @returns {Object} Serialised relationship
- * @private
- */
-function serialiseRelationOne(node: any, nodeType: string): any {
-  // Handle empty to-one relationship
-  if (node === null) return node
-  let relation: JsonObject = {}
-  for (const prop of Object.keys(node)) {
-    if (['id', 'type'].includes(prop)) relation[prop] = node[prop]
-    else relation = serialiseAttr(node[prop], prop, relation)
-  }
-  // Guess relationship type if not provided
-  if (!relation.type) relation.type = nodeType
-  return relation
-}
-
-/**
- * Serialises a relational data array to JSON:API format
- *
- * @param {Object} node Existing relation object
- * @param {Object} nodeType Resource type of the relation
- * @returns {Object} Serialised relationship
- * @private
- */
-function serialiseRelationMany(node: any, nodeType: string): any {
-  const relation: JsonObject[] = []
-  for (const prop of node) {
-    relation.push(serialiseRelationOne(prop, nodeType))
-  }
-  return relation
-}
-
-/**
- * Serialises a relational object to JSON:API format
- *
- * @param {Object} node Resource object
- * @param {string} nodeType Resource type of the object
- * @param {string} key The resource object's key value
- * @param {Object} data Root JSON:API data object
- * @private
- */
-function serialiseRelation(
-  node: JsonObject,
-  nodeType: string,
-  key: string,
-  data: JsonObject,
-): JsonObject {
-  if (!data.relationships) data.relationships = {}
-  data.relationships[key] = {
-    data: Array.isArray(node.data)
-      ? serialiseRelationMany(node.data, nodeType)
-      : serialiseRelationOne(node.data, nodeType),
-  }
-  if (node?.links?.self || node?.links?.related) data.relationships[key].links = node.links
-  if (node?.meta) data.relationships[key].meta = node.meta
-  return data
-}
-
-/**
- * Serialises attributes to JSON:API format
- *
- * @param {Object} node Attribute value
- * @param {string} key Attribute key
- * @param {Object} data Root JSON:API data object
- * @private
- */
-function serialiseAttr(node: any, key: string, data: JsonObject): JsonObject {
-  if (!data.attributes) data.attributes = {}
-  if (key === 'links' && (typeof node.self === 'string' || typeof node.related === 'string'))
-    data.links = node
-  else if (key === 'meta' && typeof node === 'object' && !Array.isArray(node) && node !== null)
-    data.meta = node
-  else data.attributes[key] = node
-  return data
-}
-
-/**
- * Checks if the object contains an id property
- *
- * @param {Object} node Attribute value
- * @returns {boolean} Whether `id` exists in object
- * @private
- */
-function hasID(node: any): boolean {
-  // Handle empty to-one and to-many relationships
-  if (node?.data === null || (Array.isArray(node?.data) && node?.data?.length === 0)) return true
-  if (!node.data) return false
-  // Check if relationship is to-many
-  const nodeData = Array.isArray(node.data) ? node.data[0] : node.data
-  // biome-ignore lint/suspicious/noPrototypeBuiltins: Preserve version 11 runtime operation.
-  return Object.prototype.hasOwnProperty.call(nodeData, 'id')
-}
-
-/**
- * Handles the Bulk Extension support. See `serialise` for examples.
+ * Serialises flat resources and direct relationships into a JSON:API document.
+ * Put resource metadata under `$` and explicit attribute overrides under `$.attributes`.
  *
  * @param {string} type Resource type
- * @param {Object[]} payload The data
- * @param {string} method Request type (PATCH, POST, DELETE)
- * @param {Object} options Optional configuration for camelCase and pluralisation handling
- * @param {Function} options.camelCaseTypes Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core
- * @param {Function} options.pluralTypes Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package)
- * @returns {Object} The serialised data
- * @private
- */
-function serialiseRootArray(
-  type: string | undefined,
-  payload: any,
-  method: string,
-  options: Required<SerialiseOptions>,
-): JsonObject {
-  isValid(true, type, payload, method)
-  const data: JsonObject[] = []
-  for (const resource of payload) {
-    data.push(serialiseRootObject(type, resource, method, options).data)
-  }
-  return { data }
-}
-
-/**
- * Serialises the root data object. See `serialise` for examples.
- *
- * @param {string} type Resource type
- * @param {Object} payload The data
- * @param {string} method Request type (PATCH, POST, DELETE)
- * @param {Object} options Optional configuration for camelCase and pluralisation handling
- * @param {Function} options.camelCaseTypes Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core
- * @param {Function} options.pluralTypes Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package)
- * @returns {Object} The serialised data
- * @private
- */
-function serialiseRootObject(
-  type: string | undefined,
-  payload: any,
-  method: string,
-  options: Required<SerialiseOptions>,
-): JsonObject {
-  isValid(false, type, payload, method)
-  type = options.pluralTypes(options.camelCaseTypes(type as string))
-  let data: JsonObject = { type }
-  // ID not required for POST requests
-  if (payload?.id) data.id = String(payload.id)
-  for (const key in payload) {
-    const node = payload[key]
-    const nodeType = options.pluralTypes(options.camelCaseTypes(key))
-    // 1. Skip null nodes, 2. Only grab objects, 3. Filter to only serialise relationable objects
-    if (typeof node === 'object' && !Array.isArray(node) && node !== null && hasID(node)) {
-      data = serialiseRelation(node, nodeType, key, data)
-      // 1. Don't place id/key inside attributes object
-    } else if (key !== 'id' && key !== 'type') {
-      data = serialiseAttr(node, key, data)
-    }
-  }
-  return { data }
-}
-
-/**
- * Serialises an object into a JSON-API structure
- *
- * @param {string} type Resource type
- * @param {Object|Object[]} [data] The data
- * @param {string} [method] Request type (PATCH, POST, DELETE)
- * @param {Object} [options] Optional configuration for camelCase and pluralisation handling
- * @param {Function} [options.camelCaseTypes=s=>s] Convert library-entries and library_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core
- * @param {Function} [options.pluralTypes=s=>s] Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package)
- * @returns {Object} The serialised data
- *
- * @example <caption>Setting camelCaseTypes and pluralTypes options (example shows options used by the `kitsu` package by default)</caption>
- * import { serialise, camel } from 'kitsu-core'
- * import pluralize from 'pluralize'
- *
- * const model = 'anime'
- * const obj = { id: '1', slug: 'shirobako' }
- *
- * // { data: { id: '1', type: 'anime', attributes: { slug: 'shirobako' } } }
- * const output = serialise(model, obj, 'PATCH', { camelCaseTypes: camel, pluralTypes: pluralize })
- *
- * @example <caption>Basic usage (no case conversion or pluralisation)</caption>
- * import { serialise } from 'kitsu-core'
- *
- * const model = 'anime'
- * const obj = { id: '1', slug: 'shirobako' }
- *
- * // { data: { id: '1', type: 'anime', attributes: { slug: 'shirobako' } } }
- * const output = serialise(model, obj, 'PATCH')
+ * @param {Object|Object[]} [data={}] Flat primary data
+ * @param {string} [method=POST] Request method
+ * @param {Object} [options={}] Serialization options
+ * @param {Function} [options.camelCaseTypes] Transform inferred resource types
+ * @param {Function} [options.pluralTypes] Pluralize inferred resource types
+ * @param {Object} [options.document] Additional top-level document members
+ * @param {boolean} [options.relationship=false] Serialize primary data as identifiers
+ * @returns {Object} JSON:API document with deduplicated included resources
+ * @example
+ * serialise('articles', { title: 'Hello', author: { type: 'people', id: '9' } })
+ * // { data: { type: 'articles', attributes: { title: 'Hello' }, relationships: { author: { data: { type: 'people', id: '9' } } } } }
  */
 export function serialise(
   type?: string,
-  data: JsonObject | JsonObject[] | null = {},
+  data: FlatResource | FlatResource[] | null = {},
   method = 'POST',
   options: SerialiseOptions = {},
 ): JsonObject {
-  try {
-    if (!options.camelCaseTypes) options.camelCaseTypes = (s) => s
-    if (!options.pluralTypes) options.pluralTypes = (s) => s
-    // Delete relationship to-one (data: null) or to-many (data: [])
-    if (data === null || (Array.isArray(data) && data.length === 0)) return { data }
-    if (Array.isArray(data) && data?.length > 0)
-      return serialiseRootArray(type, data, method, options as Required<SerialiseOptions>)
-    else return serialiseRootObject(type, data, method, options as Required<SerialiseOptions>)
-  } catch (E) {
-    throw error(E)
+  method = method.toUpperCase()
+  data = structuredClone(data)
+  const document = structuredClone(options.document || {})
+  if ('data' in document || 'errors' in document) fail('document cannot override data/errors')
+  const transform = (value: string) => {
+    value = options.camelCaseTypes?.(value) ?? value
+    return options.pluralTypes?.(value) ?? value
+  }
+  const visited = new WeakMap<object, JsonObject>()
+  const collected: JsonObject[] = []
+  function identifier(input: JsonObject, fallback: string, lid = input.$?.lid): JsonObject {
+    const result: JsonObject = { type: input.type ?? fallback }
+    if (typeof result.type !== 'string' || !member.test(result.type)) fail('Invalid resource type')
+    for (const [key, value] of Object.entries({ id: input.id ?? undefined, lid })) {
+      if (value === undefined) continue
+      if (typeof value !== 'string' && (key !== 'id' || typeof value !== 'number'))
+        fail(`Invalid resource ${key}`)
+      result[key] = String(value)
+    }
+    return result
+  }
+  function rawIdentifier(input: JsonObject, fallback: string): JsonObject {
+    const result = identifier(input, fallback, input.lid)
+    if (result.id === undefined && result.lid === undefined) fail('Relationship requires id or lid')
+    for (const [key, value] of Object.entries(input))
+      if ((key === 'meta' || extensionMember(key)) && value !== undefined) result[key] = value
+    return result
+  }
+  function resource(input: FlatResource, resourceType: string, root = false): JsonObject {
+    if (!input || typeof input !== 'object' || Array.isArray(input))
+      fail(`${method} requires an object or array body`)
+    if (visited.has(input)) return visited.get(input) as JsonObject
+    const result = identifier(
+      { ...input, type: root && !options.relationship ? resourceType : input.type },
+      resourceType,
+    )
+    if (root && method !== 'POST' && result.id === undefined && !options.relationship)
+      fail(`${method} requires an ID for the ${resourceType} type`)
+    const envelope = input.$ || {}
+    for (const [key, value] of Object.entries(envelope)) {
+      if (['links', 'meta'].includes(key) || extensionMember(key)) result[key] = value
+    }
+    visited.set(input, result)
+    collected.push(result)
+    const attributes: JsonObject = {}
+    const relationships: JsonObject = { ...envelope.relationships }
+    function linkage(value: any, fallback: string, saved: any): any {
+      return mapData(value, (value) => {
+        const related = resource(value, fallback)
+        const reference = rawIdentifier(
+          { type: related.type, id: related.id, lid: related.lid },
+          fallback,
+        )
+        const previous = (Array.isArray(saved) ? saved : saved ? [saved] : []).find(
+          (item: JsonObject) =>
+            identity(item) === identity(reference) ||
+            (reference.lid !== undefined &&
+              item.lid === reference.lid &&
+              item.type === reference.type),
+        )
+        for (const key of Object.keys(previous || {}))
+          if (key === 'meta' || extensionMember(key)) reference[key] = previous[key]
+        return reference
+      })
+    }
+    for (const [key, value] of Object.entries(input)) {
+      if (['id', 'type', '$'].includes(key)) continue
+      if (!member.test(key) && !key.startsWith('@')) fail(`Invalid field: ${key}`)
+      if (Object.hasOwn(envelope.attributes || {}, key)) continue
+      const candidates = Array.isArray(value) ? value : [value]
+      const isRelationship =
+        !key.startsWith('@') &&
+        ((Array.isArray(value) && value.length === 0) ||
+          candidates.some(
+            (item: any) =>
+              item &&
+              typeof item === 'object' &&
+              ('id' in item || 'type' in item || item.$?.lid !== undefined),
+          ) ||
+          Object.hasOwn(relationships, key))
+      if (isRelationship) {
+        relationships[key] = {
+          ...relationships[key],
+          data: linkage(value, transform(key), relationships[key]?.data),
+        }
+      } else attributes[key] = value
+    }
+    for (const [key, value] of Object.entries(envelope.attributes || {})) {
+      if (['id', 'type', '$'].includes(key) || (!member.test(key) && !key.startsWith('@')))
+        fail(`Invalid field: ${key}`)
+      if (Object.hasOwn(relationships, key)) fail(`Field conflict: ${key}`)
+      attributes[key] = value
+    }
+    for (const [key, relationship] of Object.entries<JsonObject>(relationships)) {
+      if (key.startsWith('@') || key.includes(':')) continue
+      if (!member.test(key) || ['id', 'type'].includes(key)) fail(`Invalid field: ${key}`)
+      if ('data' in relationship)
+        relationship.data = mapData(relationship.data, (value) =>
+          rawIdentifier(value, transform(key)),
+        )
+      if (!memberCount(relationship)) fail(`Empty relationship: ${key}`)
+      if (root && method === 'POST' && !('data' in relationship)) fail(`POST requires data: ${key}`)
+    }
+    if (memberCount(attributes)) result.attributes = attributes
+    if (memberCount(relationships)) result.relationships = relationships
+    return result
+  }
+  let output = mapData(data, (input) => {
+    if (type === undefined) fail(`${method} requires a resource type`)
+    return resource(input, transform(type), true)
+  })
+  const index = resourceIndex([...collected, ...(document.included || [])], true)
+  const canonical = (value: JsonObject) => index.get(identity(value)) || value
+  const resources = [...new Set([...collected.map(canonical), ...index.values()])]
+  for (const resource of resources) {
+    for (const [name, relationship] of Object.entries<JsonObject>(resource.relationships || {})) {
+      if (extensionMember(name)) continue
+      if (!relationship || typeof relationship !== 'object' || !('data' in relationship)) continue
+      relationship.data = mapData(relationship.data, (reference) => {
+        const target = canonical(reference)
+        return { ...reference, ...identifier(target, reference.type, target.lid) }
+      })
+    }
+  }
+  output = mapData(output, (value) =>
+    options.relationship ? rawIdentifier(canonical(value), value.type) : canonical(value),
+  )
+  const roots = new Set(
+    (Array.isArray(output) ? output : output ? [output] : []).map((item) => identity(item)),
+  )
+  const supplied = new Set(
+    (document.included || []).map((item: JsonObject) => identity(canonical(item))),
+  )
+  const included = resources.filter(
+    (item) =>
+      !roots.has(identity(item)) &&
+      (supplied.has(identity(item)) || Object.keys(item).some(extraMember)),
+  )
+  const explicitIncludes = 'included' in document
+  delete document.included
+  return {
+    ...document,
+    data: output,
+    ...(included.length || explicitIncludes ? { included } : {}),
   }
 }
