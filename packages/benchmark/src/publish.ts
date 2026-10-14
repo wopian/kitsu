@@ -1,3 +1,4 @@
+import { libraries } from './libraries.ts'
 import { commentMarker, renderComment, renderReadme, replaceReadme } from './report.ts'
 import type { Measurement } from './types.ts'
 
@@ -79,7 +80,10 @@ export async function publishReports(
       console.log('Skip stale master benchmark run')
     } else {
       // Do not replace useful results with an incomplete run. Library errors remain explicit rows.
-      if (reports.length !== 2 || reports.some((report) => report.cells.length !== 624))
+      if (
+        reports.length !== 2 ||
+        reports.some((report) => report.cells.length !== libraries.length * 2 * 3 * 13)
+      )
         throw new Error('incomplete benchmark run; preserve existing README results')
       const old = await api(`contents/README.md?ref=${run.head_sha}`)
       const markdown = Buffer.from(old.content, 'base64').toString('utf8')

@@ -4,28 +4,17 @@ import { create as fetchja } from './fetchja/index.ts'
 import { create as jsona } from './jsona/index.ts'
 import { create as kitsu } from './kitsu/index.ts'
 import { create as core } from './kitsu-core/index.ts'
-import { create as spraypaint } from './spraypaint/index.ts'
+import { libraries } from './libraries.ts'
 import { type Adapter, type Fixture, type Mode, type Suite, Unsupported } from './types.ts'
 import { create as yayson } from './yayson/index.ts'
 
-export const libraries = [
-  'kitsu-core',
-  'kitsu',
-  'fetchja',
-  'spraypaint',
-  'devour',
-  'yayson',
-  'jsona',
-  'deserialize-json-api',
-]
+export { libraries }
 export const packageName = (library: string) => (library === 'devour' ? 'devour-client' : library)
 export const suites: Suite[] = ['codec', 'client']
 export function supported(library: string, suite: Suite): boolean {
   return suite === 'client'
-    ? ['kitsu', 'fetchja', 'devour', 'spraypaint'].includes(library)
-    : ['kitsu-core', 'devour', 'spraypaint', 'yayson', 'jsona', 'deserialize-json-api'].includes(
-        library,
-      )
+    ? ['kitsu', 'fetchja', 'devour'].includes(library)
+    : ['kitsu-core', 'devour', 'yayson', 'jsona', 'deserialize-json-api'].includes(library)
 }
 export function unsupportedReason(
   library: string,
@@ -34,11 +23,7 @@ export function unsupportedReason(
   fixture: Fixture,
 ): string | undefined {
   if (!supported(library, suite)) return `no public ${suite} API`
-  if (
-    mode !== 'decode' &&
-    (library === 'deserialize-json-api' || (library === 'spraypaint' && suite === 'codec'))
-  )
-    return 'no public encoder'
+  if (mode !== 'decode' && library === 'deserialize-json-api') return 'no public encoder'
   if (
     mode !== 'decode' &&
     suite === 'client' &&
@@ -65,8 +50,6 @@ export async function createAdapter(
       return fetchja(fixture)
     case 'devour':
       return devour(fixture, suite)
-    case 'spraypaint':
-      return spraypaint(fixture, suite)
     case 'yayson':
       return yayson(fixture)
     case 'jsona':

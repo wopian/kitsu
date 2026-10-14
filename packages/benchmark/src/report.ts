@@ -1,19 +1,10 @@
 import { readFile, writeFile } from 'node:fs/promises'
+import { libraries } from './libraries.ts'
 import type { Cell, Measurement } from './types.ts'
 
 export const startMarker = '<!-- benchmark:start -->'
 export const endMarker = '<!-- benchmark:end -->'
 export const commentMarker = '<!-- kitsu-benchmark-comment -->'
-const libraries = [
-  'kitsu-core',
-  'kitsu',
-  'fetchja',
-  'spraypaint',
-  'devour',
-  'yayson',
-  'jsona',
-  'deserialize-json-api',
-]
 const escape = (value: string) =>
   value
     .replace(/[\r\n]/g, ' ')
@@ -25,12 +16,39 @@ const rate = (cell: Cell) =>
   cell.status === 'ok'
     ? number(cell.requestsPerSecond ?? (cell.operationsPerSecond as number))
     : cell.status
-const spread = (cell: Cell) => {
-  if (!cell.samples?.length || !cell.operationsPerSecond) return '—'
-  const percentage =
-    ((Math.max(...cell.samples) - Math.min(...cell.samples)) / cell.operationsPerSecond) * 100
-  return `${percentage.toFixed(1)}%`
+const scenarioKey = (cell: Cell) => [cell.suite, cell.mode, cell.fixture].join('/')
+const referenceLibrary = (cell: Cell) => (cell.suite === 'codec' ? 'kitsu-core' : 'kitsu')
+const throughput = (cell: Cell) => cell.requestsPerSecond ?? (cell.operationsPerSecond as number)
+function comparisons(cells: Cell[]) {
+  const references = new Map<string, Cell>()
+  const fastest = new Map<string, number>()
+  for (const cell of cells) {
+    const key = scenarioKey(cell)
+    if (cell.library === referenceLibrary(cell)) references.set(key, cell)
+    if (cell.status === 'ok') fastest.set(key, Math.max(fastest.get(key) ?? 0, throughput(cell)))
+  }
+  return {
+    multiplier(cell: Cell): string {
+      if (cell.library === referenceLibrary(cell)) return '1x'
+      const reference = references.get(scenarioKey(cell))
+      if (
+        cell.status !== 'ok' ||
+        reference?.status !== 'ok' ||
+        reference.fixtureHash !== cell.fixtureHash
+      )
+        return '—'
+      const ratio = throughput(cell) / throughput(reference)
+      if (ratio === 1) return '1x'
+      const factor = number(ratio > 1 ? ratio : 1 / ratio)
+      return `${factor === '1' ? '<1.01' : factor}x ${ratio > 1 ? 'faster' : 'slower'}`
+    },
+    winner(cell: Cell): boolean {
+      return cell.status === 'ok' && throughput(cell) === fastest.get(scenarioKey(cell))
+    },
+  }
 }
+const row = (values: string[], bold: boolean) =>
+  `| ${values.map((value) => (bold && value ? `**${value}**` : value)).join(' | ')} |`
 export function compare(base: Cell | undefined, head: Cell): string {
   if (!base) return 'no baseline'
   if (base.fixtureHash !== head.fixtureHash) return 'incomparable'
@@ -64,12 +82,15 @@ export function renderReadme(reports: Measurement[], runUrl?: string): string {
     '',
     'Median of five samples after warmup. Codec timings exclude JSON text parsing/stringification. Client timings include native client conversion and mocked transport overhead.',
     '',
+    'Bold rows mark the fastest library per runtime, suite, mode, and scenario, including ties. Multipliers compare codecs with kitsu-core and clients with kitsu (1x). A 3x slower library runs at one third the reference rate. Missing reference scores show —.',
+    '',
     'Reproduce: `bun run build && bun run benchmark`. Quick check: `bun run benchmark:smoke`.',
     '',
   ]
   if (runUrl) output.push(`[CI run and raw results](${runUrl})`, '')
   else output.push('Local measurements. Master CI refreshes this section automatically.', '')
   for (const report of reports) {
+    const comparison = comparisons(report.cells.map(({ head }) => head))
     output.push(
       `### ${escape(report.runtime)} ${escape(report.runtimeVersion)}${report.smoke ? ' (smoke; not publication results)' : ''}`,
       '',
@@ -92,7 +113,7 @@ export function renderReadme(reports: Measurement[], runUrl?: string): string {
         output.push(
           `#### ${mode}`,
           '',
-          '| Scenario | Library | Rate | Spread | Detail |',
+          `| Scenario | Library | Rate | vs ${suite === 'codec' ? 'kitsu-core' : 'kitsu'} | Detail |`,
           '| --- | --- | ---: | ---: | --- |',
         )
         for (const { head } of cells.filter(({ head }) => head.mode === mode)) {
@@ -101,7 +122,10 @@ export function renderReadme(reports: Measurement[], runUrl?: string): string {
               ? `${number(head.operationsPerSecond as number)} cycles/s`
               : (head.reason ?? '')
           output.push(
-            `| ${head.fixture} | ${head.library} | ${rate(head)} | ${spread(head)} | ${escape(cycle)} |`,
+            row(
+              [head.fixture, head.library, rate(head), comparison.multiplier(head), escape(cycle)],
+              comparison.winner(head),
+            ),
           )
         }
         output.push('')
@@ -111,8 +135,8 @@ export function renderReadme(reports: Measurement[], runUrl?: string): string {
   }
   output.push(
     '',
-    '- Codec APIs: kitsu-core, devour, spraypaint (decode only), yayson, jsona, deserialize-json-api (decode only).',
-    '- Client APIs: kitsu, fetchja, devour, spraypaint. Public single-resource clients report collection writes as unsupported.',
+    '- Codec APIs: kitsu-core, devour, yayson, jsona, deserialize-json-api (decode only).',
+    '- Client APIs: kitsu, fetchja, devour. Public single-resource clients report collection writes as unsupported.',
     '',
     'Full fixtures use 1,000 primary resources, 3 shared or 3,000 distinct includes, and a complex graph with 21,016 includes.',
     '',
@@ -125,7 +149,9 @@ export function renderComment(reports: Measurement[], runUrl: string): string {
     commentMarker,
     '## JSON:API benchmark changes',
     '',
-    'Every throughput change is labeled faster/slower. Sample spread shows noise; labels do not imply statistical significance.',
+    'Every throughput change is labeled faster/slower; labels do not imply statistical significance. Bold rows mark PR winners per runtime, suite, mode, and scenario, including ties.',
+    '',
+    'Multipliers compare codecs with kitsu-core and clients with kitsu (1x), separately for base and PR. A 3x slower library runs at one third the reference rate. Missing reference scores show —.',
     '',
     `[CI run and complete results](${runUrl})`,
     '',
@@ -133,6 +159,8 @@ export function renderComment(reports: Measurement[], runUrl: string): string {
   // Reserve comment space for both runtimes' Kitsu results before competitor detail.
   for (const own of [true, false]) {
     for (const report of reports) {
+      const headComparison = comparisons(report.cells.map(({ head }) => head))
+      const baseComparison = comparisons(report.cells.flatMap(({ base }) => (base ? [base] : [])))
       lines.push(
         `### ${report.runtime} ${escape(report.runtimeVersion)}`,
         '',
@@ -141,7 +169,7 @@ export function renderComment(reports: Measurement[], runUrl: string): string {
       )
       if (!own) lines.push('<details><summary>Competitor changes</summary>', '')
       lines.push(
-        '| Suite / mode / scenario | Library | Base | PR | Change | Spread base / PR |',
+        '| Suite / mode / scenario | Library | Base | PR | Change | vs Kitsu base / PR |',
         '| --- | --- | ---: | ---: | --- | ---: |',
       )
       for (const { base, head } of report.cells) {
@@ -150,7 +178,17 @@ export function renderComment(reports: Measurement[], runUrl: string): string {
           head.reason === `no public ${head.suite} API`
         )
           continue
-        const line = `| ${head.suite}/${head.mode}/${head.fixture} | ${head.library} | ${base ? rate(base) : '—'} | ${rate(head)} | ${compare(base, head)} | ${base ? spread(base) : '—'} / ${spread(head)} |`
+        const line = row(
+          [
+            scenarioKey(head),
+            head.library,
+            base ? rate(base) : '—',
+            rate(head),
+            compare(base, head),
+            `${base ? baseComparison.multiplier(base) : '—'} / ${headComparison.multiplier(head)}`,
+          ],
+          headComparison.winner(head),
+        )
         // GitHub issue comments have a 65,536-character limit. Raw artifact retains all cells.
         if (lines.join('\n').length + line.length > 59000) {
           lines.push('', 'Remaining rows available in complete results linked above.')

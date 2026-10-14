@@ -193,8 +193,7 @@ describe('public adapter integration', () => {
           adapter.cleanup?.()
         }
       })
-      if (library === 'deserialize-json-api' || (library === 'spraypaint' && suite === 'codec'))
-        continue
+      if (library === 'deserialize-json-api') continue
       test(`${library} ${suite} encodes actual small request`, async () => {
         const entry = cases[0]
         const adapter = await createAdapter(library, suite, entry, root, true)
@@ -249,6 +248,107 @@ describe('public adapter integration', () => {
 })
 
 describe('measurement and reports', () => {
+  const scored = (library: string, score: number, overrides: Partial<Cell> = {}): Cell => ({
+    ...cell,
+    library,
+    samples: Array(5).fill(score),
+    operationsPerSecond: score,
+    ...overrides,
+  })
+  test('README bolds every populated winner cell and compares competitors with core', () => {
+    const results = {
+      ...report,
+      cells: ['kitsu-core', 'jsona', 'yayson', 'devour'].map((library, index) => ({
+        head: scored(library, [50, 150, 25, 50][index]),
+      })),
+    }
+    const markdown = renderReadme([results])
+    expect(markdown).toContain('| small-no-relationships | kitsu-core | 50 | 1x |  |')
+    expect(markdown).toContain(
+      '| **small-no-relationships** | **jsona** | **150** | **3x faster** |  |',
+    )
+    expect(markdown).toContain('| small-no-relationships | yayson | 25 | 2x slower |  |')
+    expect(markdown).toContain('| small-no-relationships | devour | 50 | 1x |  |')
+    expect(markdown).not.toContain('Spread')
+  })
+  test('winner selection stays within runtime, suite, mode and scenario and includes ties', () => {
+    const head = [
+      scored('kitsu-core', 100),
+      scored('jsona', 100),
+      scored('kitsu-core', 10, { mode: 'encode' }),
+      scored('jsona', 20, { mode: 'encode' }),
+      scored('kitsu-core', 5, { fixture: 'few-includes' }),
+      scored('jsona', 10, { fixture: 'few-includes' }),
+      scored('kitsu', 20, { suite: 'client', requestsPerSecond: 20 }),
+      scored('fetchja', 10, { suite: 'client', requestsPerSecond: 10 }),
+    ]
+    const node = { ...report, cells: head.map((head) => ({ head })) }
+    const bun = {
+      ...report,
+      runtime: 'bun' as const,
+      cells: [scored('kitsu-core', 1), scored('jsona', 2)].map((head) => ({ head })),
+    }
+    const markdown = renderReadme([node, bun])
+    expect(markdown).toContain('| **small-no-relationships** | **kitsu-core** | **100** | **1x**')
+    expect(markdown).toContain('| **small-no-relationships** | **jsona** | **100** | **1x**')
+    expect(markdown).toContain('| **small-no-relationships** | **jsona** | **20** | **2x faster**')
+    expect(markdown).toContain('| **few-includes** | **jsona** | **10** | **2x faster**')
+    expect(markdown).toContain('| **small-no-relationships** | **kitsu** | **20** | **1x**')
+    expect(markdown).toContain('| small-no-relationships | fetchja | 10 | 2x slower')
+    expect(markdown).toContain('| **small-no-relationships** | **jsona** | **2** | **2x faster**')
+  })
+  test('failed and missing references never invent ratios or win', () => {
+    const failed: Cell = {
+      ...cell,
+      status: 'incorrect',
+      samples: undefined,
+      operationsPerSecond: undefined,
+    }
+    const results = {
+      ...report,
+      cells: [
+        { head: failed },
+        { head: scored('jsona', 150) },
+        { head: scored('jsona', 50, { mode: 'encode' }) },
+        { head: { ...failed, library: 'devour' } },
+      ],
+    }
+    const markdown = renderReadme([results])
+    expect(markdown).toContain('| small-no-relationships | kitsu-core | incorrect | 1x')
+    expect(markdown).toContain('| **small-no-relationships** | **jsona** | **150** | **—**')
+    expect(markdown).toContain('| **small-no-relationships** | **jsona** | **50** | **—**')
+    expect(markdown).toContain('| small-no-relationships | devour | incorrect | —')
+  })
+  test('PR comments compare base and PR references separately and retain change direction', () => {
+    const results = {
+      ...report,
+      cells: [
+        { base: scored('kitsu-core', 100), head: scored('kitsu-core', 50) },
+        { base: scored('jsona', 25), head: scored('jsona', 150) },
+      ],
+    }
+    const markdown = renderComment([results], 'https://github.com/wopian/kitsu/actions/runs/1')
+    expect(markdown).toContain('| 50.00% slower | 1x / 1x |')
+    expect(markdown).toContain(
+      '| **codec/decode/small-no-relationships** | **jsona** | **25** | **150** | **500.00% faster** | **4x slower / 3x faster** |',
+    )
+    expect(markdown).not.toContain('Spread')
+  })
+  test('incompatible fixtures have no ratio and tiny ratios preserve direction', () => {
+    const results = {
+      ...report,
+      cells: [
+        { head: cell },
+        { head: scored('jsona', 150, { fixtureHash: 'c'.repeat(64) }) },
+        { head: scored('yayson', 100.0001) },
+        { head: scored('devour', 99.9999) },
+      ],
+    }
+    const markdown = renderReadme([results])
+    expect(markdown).toContain('| **jsona** | **150** | **—**')
+    expect(markdown).toContain('| yayson | 100 | <1.01x faster |')
+    expect(markdown).toContain('| devour | 100 | <1.01x slower |')
+  })
   test('median and change preserve speed direction', () => {
     expect(median([100, 50, 90, 200, 80])).toBe(90)
     expect(median([2, 4])).toBe(3)

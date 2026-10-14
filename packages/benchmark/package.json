@@ -13,7 +13,6 @@
     "jsona": "1.14.0",
     "kitsu": "workspace:*",
     "kitsu-core": "workspace:*",
-    "spraypaint": "0.11.1",
     "yayson": "4.4.0"
   }
 }

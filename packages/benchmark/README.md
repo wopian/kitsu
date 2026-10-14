@@ -35,7 +35,11 @@ model registration, store reset, and mock response text creation stay outside ti
 conversion, lazy relationship traversal, and mock transport overhead stay inside timing. Per-operation
 timers count only measured work within 250 ms sample windows after a 250 ms warmup;
 report median of five samples. Preparation can reduce sample operation counts but never enters throughput's time denominator.
-Spread is sample range divided by median. Smoke uses 1 ms warmup and five 2 ms samples with smaller
+Bold rows mark the fastest library per runtime, suite, mode, and scenario, including ties.
+Multipliers compare codecs with kitsu-core and clients with kitsu, each fixed at 1x.
+A competitor at 150/s against 50/s shows 3x faster; at 50/s against 150/s shows 3x slower.
+Failed or missing reference scores leave competitor multipliers unavailable. Raw artifacts retain all samples.
+Smoke uses 1 ms warmup and five 2 ms samples with smaller
 stress fixtures; smoke results cannot publish README updates. Workers stop after 30 seconds.
 
 Correctness checks require primary attributes, cardinality, identifiers, and included attributes
