@@ -23,8 +23,12 @@ function link(
       continue
     }
     let extras: JsonObject | undefined
-    for (const key of Object.keys(relationship)) {
-      if (key === 'meta' || key === 'links' || extensionMember(key)) {
+    for (const key in relationship) {
+      if (key === 'data') continue
+      if (
+        (key === 'meta' || key === 'links' || extensionMember(key)) &&
+        Object.hasOwn(relationship, key)
+      ) {
         extras ??= {}
         extras[key] = copy(relationship[key])
       }

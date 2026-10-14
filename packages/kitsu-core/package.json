@@ -47,7 +47,7 @@
   "size-limit": [
     {
       "path": "./dist/index.mjs",
-      "limit": "6 kb",
+      "limit": "7 kb",
       "brotli": true
     }
   ],

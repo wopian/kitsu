@@ -39,7 +39,7 @@ export function deattribute(data: any): any {
   }
   let envelope: any
   for (const key in data) {
-    if (!Object.hasOwn(data, key)) continue
+    if (key === 'attributes' || key === 'relationships' || !Object.hasOwn(data, key)) continue
     if (key === 'id' || key === 'type') result[key] = data[key]
     else if (key === 'lid' || key === 'links' || key === 'meta' || extensionMember(key)) {
       envelope ??= {}

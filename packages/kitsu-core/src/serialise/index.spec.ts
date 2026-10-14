@@ -4,6 +4,248 @@ import { camel } from '../camel.js'
 import { serialise } from '../serialise.js'
 
 describe('kitsu-core serialise', () => {
+  it('copies nested graphs independently across flat and cyclic resource collections', () => {
+    for (const count of [1, 16, 17, 32]) {
+      for (const linked of [false, true]) {
+        const shared: any = { values: [1], date: new Date(0) }
+        shared.self = shared
+        const input: any[] = Array.from({ length: count }, (_, index) => ({
+          id: String(index),
+          info: shared,
+          $: { attributes: { ambiguous: { id: 'attribute' }, empty: [], absent: null } },
+        }))
+        if (linked)
+          for (let index = 0; index < count; index++) input[index].friend = input[(index + 1) % count]
+        const output = serialise('people', input, 'PATCH')
+        const again = serialise('people', input, 'PATCH')
+        const copied = output.data[0].attributes.info
+        expect(copied).not.toBe(shared)
+        expect(copied).not.toBe(again.data[0].attributes.info)
+        expect(copied.self).toBe(copied)
+        expect(copied.date).not.toBe(shared.date)
+        expect(copied.date.getTime()).toBe(0)
+        for (let index = 0; index < count; index++) {
+          expect(output.data[index].attributes.info).toBe(copied)
+          expect(output.data[index].attributes.ambiguous).toEqual({ id: 'attribute' })
+          expect(output.data[index].attributes.empty).toEqual([])
+          expect(output.data[index].attributes.absent).toBeNull()
+          if (linked)
+            expect(output.data[index].relationships.friend.data).toEqual({
+              type: 'people',
+              id: String((index + 1) % count),
+            })
+        }
+        copied.values.push(2)
+        expect(shared.values).toEqual([1])
+        expect(again.data[0].attributes.info.values).toEqual([1])
+        expect(output.included).toBeUndefined()
+      }
+    }
+  })
+  it('retains saved identifier objects when later getters replace array elements', () => {
+    for (const variant of ['replace', 'mutate']) {
+      for (const promote of [false, true]) {
+        const saved = [{ type: 'people', id: '9', meta: { original: true } }]
+        const input: any[] = [
+          {
+            id: '1',
+            author: { type: 'people', id: '9' },
+            $: { relationships: { author: { data: saved } } },
+          },
+          {
+            id: '2',
+            get title() {
+              if (variant === 'replace')
+                saved[0] = { type: 'people', id: '9', meta: { original: false } }
+              else saved[0].id = 'changed'
+              return 'Changed'
+            },
+          },
+        ]
+        if (promote) input.push({ id: '3', author: { type: 'people', id: '9', name: 'Ada' } })
+        const output = serialise('articles', input, 'PATCH')
+        expect(output.data[0].relationships.author.data).toEqual({
+          type: 'people',
+          id: '9',
+          meta: { original: true },
+        })
+      }
+    }
+  })
+  it('ignores array extras while matching saved identifier metadata', () => {
+    const saved = [{ type: 'people', id: '8', meta: { other: true } }]
+    Object.defineProperty(saved, 'Infinity', {
+      value: { type: 'people', id: '9', meta: { unrelated: true } },
+      enumerable: true,
+    })
+    const output = serialise('articles', {
+      author: { type: 'people', id: '9' },
+      $: { relationships: { author: { data: saved } } },
+    })
+    expect(output.data.relationships.author.data).toEqual({ type: 'people', id: '9' })
+  })
+  it('keeps numeric input convenience separate from saved wire identifier metadata', () => {
+    // @ts-expect-error Saved wire IDs must be strings; runtime matching must not coerce invalid IDs.
+    const output = serialise('articles', {
+      author: { type: 'people', id: 9 },
+      $: {
+        relationships: {
+          author: { data: { type: 'people', id: 9, meta: { numeric: true } } },
+        },
+      },
+    })
+    expect(output.data.relationships.author.data).toEqual({ type: 'people', id: '9' })
+  })
+  it('resolves aliases introduced only through saved raw linkage', () => {
+    const output = serialise('articles', {
+      author: { type: 'people', id: '9' },
+      $: {
+        relationships: {
+          first: { data: { type: 'people', lid: 'draft', meta: { first: true } } },
+          bridge: { data: { type: 'people', id: '9', lid: 'draft' } },
+        },
+      },
+    })
+    expect(output.included).toBeUndefined()
+    expect(output.data.relationships.author.data).toEqual({ type: 'people', id: '9', lid: 'draft' })
+    expect(output.data.relationships.first.data).toEqual({
+      type: 'people',
+      id: '9',
+      lid: 'draft',
+      meta: { first: true },
+    })
+    expect(output.data.relationships.bridge.data).toEqual({ type: 'people', id: '9', lid: 'draft' })
+  })
+  it('keeps non-enumerable local identities when rich metadata is present', () => {
+    const envelope = Object.defineProperty({ meta: { source: true } }, 'lid', { value: 'draft' })
+    const identifier = Object.defineProperty(
+      { type: 'people', id: '9', meta: { edge: true } },
+      'lid',
+      { value: 'person' },
+    )
+    const output = serialise('articles', { id: '1', $: envelope })
+    expect(output.data).toEqual({ type: 'articles', id: '1', lid: 'draft', meta: { source: true } })
+    const raw = serialise('articles', { $: { relationships: { author: { data: identifier } } } })
+    expect(raw.data.relationships.author.data).toEqual({
+      type: 'people',
+      id: '9',
+      lid: 'person',
+      meta: { edge: true },
+    })
+  })
+  it('keeps rich identifier metadata local and copies each edge independently', () => {
+    const meta = { roles: ['editor'] }
+    const output = serialise('articles', {
+      author: { type: 'people', id: '9' },
+      reviewers: [
+        { type: 'people', id: '9' },
+        { type: 'people', id: '9' },
+      ],
+      $: {
+        links: { self: { href: '/articles/1' } },
+        meta: { version: 1 },
+        'audit:revision': { value: 2 },
+        relationships: {
+          author: { data: { type: 'people', id: '9', meta }, links: { related: null } },
+          reviewers: { data: [{ type: 'people', id: '9', meta }], meta: { count: 2 } },
+          'audit:note': { text: 'opaque' },
+        },
+      },
+    })
+    expect(output.included).toBeUndefined()
+    expect(output.data.links).toEqual({ self: { href: '/articles/1' } })
+    expect(output.data.meta).toEqual({ version: 1 })
+    expect(output.data['audit:revision']).toEqual({ value: 2 })
+    expect(output.data.relationships.author).toEqual({
+      data: { type: 'people', id: '9', meta },
+      links: { related: null },
+    })
+    expect(output.data.relationships.reviewers.meta).toEqual({ count: 2 })
+    expect(output.data.relationships['audit:note']).toEqual({ text: 'opaque' })
+    const [first, second] = output.data.relationships.reviewers.data
+    expect(first).not.toBe(second)
+    expect(first.meta).not.toBe(meta)
+    first.meta.roles.push('changed')
+    expect(meta.roles).toEqual(['editor'])
+  })
+  it('promotes metadata and raw linkage without rereading copied getters', () => {
+    for (const related of [false, true]) {
+      let resourceReads = 0
+      let relationshipReads = 0
+      let identifierReads = 0
+      const first = {
+        id: '1',
+        author: { type: 'people', id: '9' },
+        $: {
+          get meta() {
+            resourceReads++
+            return { value: 1 }
+          },
+          relationships: {
+            author: {
+              get links() {
+                relationshipReads++
+                return { related: null }
+              },
+              data: [
+                { type: 'people', lid: 'draft' },
+                {
+                  type: 'people',
+                  id: '9',
+                  get meta() {
+                    identifierReads++
+                    return { stale: true }
+                  },
+                },
+              ],
+            },
+          },
+        },
+      }
+      const data: any[] = [first]
+      if (related)
+        data.push({
+          id: '2',
+          person: { type: 'people', id: '9', $: { lid: 'draft' }, name: 'Ada' },
+        })
+      const output = serialise('articles', data, 'PATCH')
+      expect(resourceReads).toBe(1)
+      expect(relationshipReads).toBe(1)
+      expect(identifierReads).toBe(related ? 0 : 1)
+      expect(output.data[0].relationships.author.data).toEqual(
+        related
+          ? { type: 'people', id: '9', lid: 'draft' }
+          : { type: 'people', id: '9', meta: { stale: true } },
+      )
+    }
+    let reads = 0
+    const output = serialise('articles', {
+      $: {
+        relationships: {
+          authors: {
+            data: [
+              {
+                type: 'people',
+                id: '9',
+                get meta() {
+                  reads++
+                  return { first: true }
+                },
+              },
+              { type: 'people', lid: 'draft', meta: { second: true } },
+            ],
+          },
+          clear: { data: null, links: { related: '/clear' } },
+        },
+      },
+    })
+    expect(reads).toBe(1)
+    expect(output.data.relationships.authors.data).toEqual([
+      { type: 'people', id: '9', meta: { first: true } },
+      { type: 'people', lid: 'draft', meta: { second: true } },
+    ])
+    expect(output.data.relationships.clear.data).toBeNull()
+  })
   it('copies literal prototype keys in document and relationship extras without changing prototypes', () => {
     const document = JSON.parse('{"__proto__":{"document":true}}')
     const extras = JSON.parse('{"__proto__":{"relationship":true},"data":null}')

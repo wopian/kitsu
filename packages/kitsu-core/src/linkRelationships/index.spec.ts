@@ -2,6 +2,33 @@ import { describe, expect, it } from 'bun:test'
 import { linkRelationships } from '../linkRelationships.js'
 
 describe('kitsu-core linkRelationships', () => {
+  it('copies only own relationship extras when relationship objects have prototypes', () => {
+    const relationship = Object.assign(
+      Object.create({ meta: { inherited: true }, 'audit:hidden': { inherited: true } }),
+      {
+        data: { type: 'people', id: '9' },
+        links: { related: null },
+        'audit:own': { revision: 1 },
+      },
+    )
+    const output = linkRelationships({
+      type: 'articles',
+      id: '1',
+      relationships: { author: relationship },
+    })
+    expect(output).toEqual({
+      type: 'articles',
+      id: '1',
+      author: { type: 'people', id: '9' },
+      $: {
+        relationships: {
+          author: { links: { related: null }, 'audit:own': { revision: 1 } },
+        },
+      },
+    })
+    expect(output.$.relationships.author.links).not.toBe(relationship.links)
+    expect(output.$.relationships.author['audit:own']).not.toBe(relationship['audit:own'])
+  })
   it('resolves identifier collections and empty relationships', () => {
     const input = {
       type: 'articles',
