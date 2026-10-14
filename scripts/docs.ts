@@ -3,8 +3,11 @@ import { dirname, resolve } from 'node:path'
 import ts from 'typescript'
 
 const [mode, name] = process.argv.slice(2)
-if (!['lint', 'build'].includes(mode ?? '') || !['kitsu', 'kitsu-core'].includes(name ?? '')) {
-  throw new Error('Usage: bun scripts/docs.ts lint|build kitsu|kitsu-core')
+if (
+  !['lint', 'build'].includes(mode ?? '') ||
+  !['kitsu', 'kitsu-core', 'kitsu-native'].includes(name ?? '')
+) {
+  throw new Error('Usage: bun scripts/docs.ts lint|build kitsu|kitsu-core|kitsu-native')
 }
 const root = resolve(import.meta.dir, '..')
 const directory = `${root}/packages/${name}`

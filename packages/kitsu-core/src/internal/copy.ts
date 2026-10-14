@@ -1,7 +1,10 @@
 /** Copy JSON values without a structured-clone round trip for each attribute object.
  * @private
  */
-export function copy(value: any, seen?: WeakMap<object, any>): any {
+export function copy(
+  value: any,
+  seen?: { get(source: object): any; set(source: object, output: any): unknown },
+): any {
   if (value === null || typeof value !== 'object') {
     if (typeof value === 'function' || typeof value === 'symbol') return structuredClone(value)
     return value
@@ -9,8 +12,8 @@ export function copy(value: any, seen?: WeakMap<object, any>): any {
   const cached = seen?.get(value)
   if (cached) return cached
   const array = Array.isArray(value)
-  const prototype = Object.getPrototypeOf(value)
-  if (!array && prototype !== Object.prototype && prototype !== null) {
+  const prototype = array ? null : Object.getPrototypeOf(value)
+  if (prototype !== Object.prototype && prototype !== null) {
     const output = structuredClone(value)
     seen?.set(value, output)
     return output
@@ -23,7 +26,12 @@ export function copy(value: any, seen?: WeakMap<object, any>): any {
       seen = new WeakMap()
       seen.set(value, output)
     }
-    const item = copy(source, seen)
+    const item =
+      source !== null && typeof source === 'object'
+        ? copy(source, seen)
+        : typeof source === 'function' || typeof source === 'symbol'
+          ? structuredClone(source)
+          : source
     if (key === '__proto__')
       Object.defineProperty(output, key, {
         value: item,

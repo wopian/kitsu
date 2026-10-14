@@ -30,6 +30,77 @@ describe('kitsu-core serialise', () => {
     expect(serialise('articles', {}, undefined, options)).toEqual({ data: { type: 'articles' } })
     expect(options).toEqual({})
   })
+  it('clears and replaces relationships using saved raw linkage without direct values', () => {
+    const input = {
+      $: { relationships: { author: { data: null }, tags: { data: [{ type: 'tags', id: '2' }] } } },
+    }
+    const output = serialise('articles', input)
+    expect(output).toEqual({
+      data: {
+        type: 'articles',
+        relationships: { author: { data: null }, tags: { data: [{ type: 'tags', id: '2' }] } },
+      },
+    })
+    output.data.relationships.tags.data[0].id = 'changed'
+    expect(input.$.relationships.tags.data[0].id).toBe('2')
+  })
+  it('copies nested, cyclic and shared attributes through simple and full resource graphs', () => {
+    const shared: any = { value: 1 }
+    shared.self = shared
+    for (const extra of [{}, { author: { type: 'people', id: '9', name: 'Ada' } }]) {
+      const output = serialise('articles', { first: shared, second: shared, ...extra })
+      expect(output.data.attributes.first).toBe(output.data.attributes.second)
+      expect(output.data.attributes.first.self).toBe(output.data.attributes.first)
+      expect(output.data.attributes.first).not.toBe(shared)
+      output.data.attributes.first.value = 2
+      expect(shared.value).toBe(1)
+    }
+    const fields = Object.fromEntries(
+      Array.from({ length: 600 }, (_, index) => [`field-${index}`, index]),
+    )
+    expect(serialise('articles', fields).data.attributes).toEqual(fields)
+    expect(() => serialise('articles', { value: () => {} })).toThrow()
+  })
+  it('rejects conflicting collection resources and does not retain output between calls', () => {
+    expect(() =>
+      serialise(
+        'articles',
+        [
+          { id: '1', title: 'First' },
+          { id: '1', title: 'Second' },
+        ],
+        'PATCH',
+      ),
+    ).toThrow('Conflicting resources')
+    const input = { id: '1', title: 'First' }
+    const first = serialise('articles', input, 'PATCH')
+    input.title = 'Second'
+    const second = serialise('articles', input, 'PATCH')
+    expect(second.data.attributes.title).toBe('Second')
+    expect(first.data.attributes.title).toBe('First')
+    expect(first).not.toBe(second)
+  })
+  it('ignores inherited resource fields and preserves cycles on custom prototypes', () => {
+    const person = Object.assign(Object.create({ ignored: 'inherited', id: 'wrong' }), {
+      type: 'people',
+      name: 'Ada',
+      $: { lid: 'p' },
+    })
+    person.friend = person
+    const output = serialise('articles', { author: person })
+    expect(output.included).toEqual([
+      {
+        type: 'people',
+        lid: 'p',
+        attributes: { name: 'Ada' },
+        relationships: { friend: { data: { type: 'people', lid: 'p' } } },
+      },
+    ])
+    expect(person.ignored).toBe('inherited')
+    expect(
+      serialise('articles', Object.assign(Object.create({ hidden: true }), { title: 'Hello' })),
+    ).toEqual({ data: { type: 'articles', attributes: { title: 'Hello' } } })
+  })
   it('supports legacy bulk arrays separately from base JSON:API', () => {
     expect(serialise('articles', [{ id: 1 }, { id: 2 }], 'PATCH')).toEqual({
       data: [

@@ -113,6 +113,43 @@ describe('JSON:API fixtures and correctness', () => {
 })
 
 describe('public adapter integration', () => {
+  test('missing native package is unsupported only in older base revisions', async () => {
+    const directory = await mkdtemp(resolve(root, '.cache/native-base-'))
+    try {
+      const options = {
+        library: 'kitsu-native',
+        suite: 'client',
+        mode: 'decode',
+        fixture: 'small-no-relationships',
+        root,
+        baseRoot: directory,
+        smoke: true,
+      }
+      for (const absentHead of [false, true]) {
+        const result = Bun.spawnSync(
+          [
+            process.execPath,
+            '--tsconfig-override',
+            resolve(root, 'packages/benchmark/tsconfig.runtime.json'),
+            resolve(root, 'packages/benchmark/src/worker.ts'),
+            JSON.stringify({ ...options, ...(absentHead ? { root: directory } : {}) }),
+          ],
+          { cwd: root, stdout: 'pipe', stderr: 'pipe', timeout: 10000 },
+        )
+        expect(result.exitCode).toBe(0)
+        const line = result.stdout
+          .toString()
+          .split('\n')
+          .find((line) => line.startsWith('BENCHMARK_RESULT ')) as string
+        const measurement = JSON.parse(line.slice('BENCHMARK_RESULT '.length))
+        expect(measurement.base.status).toBe('unsupported')
+        expect(measurement.base.reason).toBe('package absent from base revision')
+        expect(measurement.head.status).toBe(absentHead ? 'error' : 'ok')
+      }
+    } finally {
+      await rm(directory, { recursive: true, force: true })
+    }
+  })
   test('isolated runtimes bind each client to its own built core', async () => {
     const cache = resolve(root, '.cache')
     await mkdir(cache, { recursive: true })
@@ -281,6 +318,11 @@ describe('public adapter integration', () => {
 })
 
 describe('measurement and reports', () => {
+  test('records local changes and built package fingerprints in measurement provenance', () => {
+    const rendered = renderReadme([{ ...report, dirty: true, sourceHash: 'f'.repeat(64) }])
+    expect(rendered).toContain('Base commit (local changes measured)')
+    expect(rendered).toContain(`Built package fingerprint: \`${'f'.repeat(64)}\``)
+  })
   const scored = (library: string, score: number, overrides: Partial<Cell> = {}): Cell => ({
     ...cell,
     library,

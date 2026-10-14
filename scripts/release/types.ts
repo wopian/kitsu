@@ -1,4 +1,4 @@
-export const packageNames = ['kitsu-core', 'kitsu'] as const
+export const packageNames = ['kitsu-core', 'kitsu', 'kitsu-native'] as const
 export type PackageName = (typeof packageNames)[number]
 export interface PlannedPackage {
   name: PackageName
@@ -6,7 +6,7 @@ export interface PlannedPackage {
   integrity: string
 }
 export interface ReleasePlan {
-  schemaVersion: 1
+  schemaVersion: 1 | 2
   sha: string
   version: string
   tag: string

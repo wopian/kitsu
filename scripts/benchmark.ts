@@ -21,7 +21,14 @@ const option = (name: string) => {
   return index < 0 ? undefined : argumentsList[index + 1]
 }
 const smoke = argumentsList.includes('--smoke')
-const cases = fixtures(smoke)
+const selectedFixture = option('--fixture')
+const cases = fixtures(smoke, selectedFixture)
+if (!cases.length) throw new Error('unknown fixture')
+const selectedMode = option('--mode')
+if (selectedMode && !['decode', 'encode', 'decode-encode'].includes(selectedMode))
+  throw new Error('unknown mode')
+const selectedSuite = option('--suite')
+if (selectedSuite && !['codec', 'client'].includes(selectedSuite)) throw new Error('unknown suite')
 const output = resolve(root, option('--output') ?? '.cache/benchmark')
 const baseRoot = option('--base-root') ? resolve(root, option('--base-root') as string) : undefined
 const runtime = option('--runtime') ?? 'both'
@@ -49,11 +56,21 @@ const hash = createHash('sha256')
 await hashDirectory(join(root, 'packages/benchmark/src'), hash)
 hash.update(await readFile(join(root, 'scripts/benchmark.ts')))
 const harnessHash = hash.digest('hex')
+const productHash = createHash('sha256')
+for (const library of ['kitsu-core', 'kitsu', 'kitsu-native']) {
+  productHash.update(library)
+  await hashDirectory(join(root, 'packages', library, 'dist'), productHash)
+}
+const sourceHash = productHash.digest('hex')
+const dirty = !!execFileSync('git', ['status', '--porcelain'], {
+  cwd: root,
+  encoding: 'utf8',
+}).trim()
 const sha = (directory: string) =>
   execFileSync('git', ['rev-parse', 'HEAD'], { cwd: directory, encoding: 'utf8' }).trim()
 const versions: Record<string, string> = {}
 for (const library of libraries) {
-  const filename = ['kitsu', 'kitsu-core'].includes(library)
+  const filename = ['kitsu', 'kitsu-core', 'kitsu-native'].includes(library)
     ? join(root, 'packages', library, 'package.json')
     : join(root, 'node_modules', packageName(library), 'package.json')
   versions[library] = JSON.parse(await readFile(filename, 'utf8')).version
@@ -117,6 +134,8 @@ for (const name of runtime === 'both' ? ['node', 'bun'] : [runtime]) {
   const report: Measurement = {
     schemaVersion: 1,
     harnessHash,
+    sourceHash,
+    dirty,
     runtime: name,
     runtimeVersion: execFileSync(executable, ['--version'], { encoding: 'utf8' }).trim(),
     runner: { os: platform(), arch: arch(), cpu: cpus()[0]?.model ?? 'unknown' },
@@ -124,13 +143,18 @@ for (const name of runtime === 'both' ? ['node', 'bun'] : [runtime]) {
     headSha: sha(root),
     baseSha: baseRoot ? sha(baseRoot) : undefined,
     smoke,
+    partial: !!(selectedFixture || selectedMode || selectedSuite || selectedLibrary),
     measuredAt: new Date().toISOString(),
     cells: [],
   }
   for (const fixture of cases) {
     for (const library of selectedLibrary ? [selectedLibrary] : libraries) {
-      for (const suite of suites) {
-        for (const mode of ['decode', 'encode', 'decode-encode'] as Mode[]) {
+      for (const suite of selectedSuite
+        ? suites.filter((suite) => suite === selectedSuite)
+        : suites) {
+        for (const mode of (selectedMode
+          ? [selectedMode]
+          : ['decode', 'encode', 'decode-encode']) as Mode[]) {
           const reason = unsupportedReason(library, suite, mode, fixture)
           if (reason) {
             const cell: Cell = {

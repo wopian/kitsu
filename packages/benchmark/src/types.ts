@@ -50,6 +50,8 @@ export interface Cell {
 export interface Measurement {
   schemaVersion: 1
   harnessHash: string
+  sourceHash?: string
+  dirty?: boolean
   runtime: string
   runtimeVersion: string
   runner: { os: string; arch: string; cpu: string }
@@ -57,6 +59,7 @@ export interface Measurement {
   headSha: string
   baseSha?: string
   smoke: boolean
+  partial?: boolean
   measuredAt: string
   cells: { head: Cell; base?: Cell }[]
 }

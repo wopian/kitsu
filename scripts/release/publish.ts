@@ -12,16 +12,19 @@ const registryVisibilityWait = 20 * 60 * 1000
 export function validatePlan(value: unknown): asserts value is ReleasePlan {
   const plan = value as ReleasePlan
   if (
-    plan?.schemaVersion !== 1 ||
+    ![1, 2].includes(plan?.schemaVersion) ||
     !/^[a-f0-9]{40}$/.test(plan.sha) ||
     !/^(?:1[2-9]|[2-9]\d|\d{3,})\.\d+\.\d+$/.test(plan.version) ||
     plan.tag !== `v${plan.version}` ||
     typeof plan.notes !== 'string' ||
     !Array.isArray(plan.packages) ||
-    plan.packages.length !== 2
+    plan.packages.length !== (plan.schemaVersion === 1 ? 2 : packageNames.length)
   )
     throw new Error('Invalid release plan')
-  for (const [index, name] of packageNames.entries()) {
+  for (const [index, name] of (plan.schemaVersion === 1
+    ? packageNames.slice(0, 2)
+    : packageNames
+  ).entries()) {
     const entry = plan.packages[index]
     if (
       !entry ||
@@ -52,7 +55,7 @@ export async function publishPlan(
   const tagSha = publisher.tagSha(plan.tag)
   if (tagSha && tagSha !== plan.sha) throw new Error(`Tag ${plan.tag} points elsewhere`)
   const published = new Set<string>()
-  // Validate both tarballs and registry versions before performing any write.
+  // Validate every tarball and registry version before performing any write.
   for (const entry of plan.packages) {
     if (integrity(await readFile(resolve(directory, entry.filename))) !== entry.integrity) {
       throw new Error(`Tarball integrity mismatch: ${entry.name}`)

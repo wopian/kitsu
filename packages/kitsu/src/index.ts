@@ -257,7 +257,7 @@ export default class Kitsu {
   async get<T = any>(model: string, config: RequestConfig = {}): Promise<KitsuResponse<T>> {
     try {
       const headers = { ...this.headers, ...config.headers }
-      const params = { ...{}, ...config.params }
+      const params = config.params
       const [res, id, relationship, subRelationship] = model.split('/')
 
       // :resource
@@ -331,7 +331,7 @@ export default class Kitsu {
   ): Promise<KitsuResponse<T>> {
     try {
       const headers = { ...this.headers, ...config.headers }
-      const params = { ...{}, ...config.params }
+      const params = config.params
       const [resourceModel, url] = model.includes('/')
         ? splitModel(model)
         : splitModel(model, {
@@ -398,7 +398,7 @@ export default class Kitsu {
   ): Promise<KitsuResponse<T>> {
     try {
       const headers = { ...this.headers, ...config.headers }
-      const params = { ...{}, ...config.params }
+      const params = config.params
       const [resourceModel, url] = model.includes('/')
         ? splitModel(model)
         : splitModel(model, {
@@ -456,7 +456,7 @@ export default class Kitsu {
   ): Promise<KitsuResponse<T>> {
     try {
       const headers = { ...this.headers, ...config.headers }
-      const params = { ...{}, ...config.params }
+      const params = config.params
       const [resourceModel, url] = model.includes('/')
         ? splitModel(model)
         : splitModel(model, {

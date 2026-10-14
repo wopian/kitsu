@@ -94,8 +94,9 @@ export function renderReadme(reports: Measurement[], runUrl?: string): string {
     output.push(
       `### ${escape(report.runtime)} ${escape(report.runtimeVersion)}${report.smoke ? ' (smoke; not publication results)' : ''}`,
       '',
-      `Measured commit: \`${report.headSha}\`. Runner: ${escape(report.runner.os)} ${escape(report.runner.arch)}, ${escape(report.runner.cpu)}.`,
+      `${report.dirty ? 'Base commit (local changes measured)' : 'Measured commit'}: \`${report.headSha}\`. Runner: ${escape(report.runner.os)} ${escape(report.runner.arch)}, ${escape(report.runner.cpu)}.`,
       '',
+      ...(report.sourceHash ? [`Built package fingerprint: \`${report.sourceHash}\`.`, ''] : []),
       `Library versions: ${Object.entries(report.versions)
         .map(([name, version]) => `${escape(name)} ${escape(version)}`)
         .join(', ')}.`,
@@ -213,11 +214,14 @@ export function validateReport(value: any): asserts value is Measurement {
   if (
     value?.schemaVersion !== 1 ||
     !hash(value.harnessHash, 64) ||
+    (value.sourceHash !== undefined && !hash(value.sourceHash, 64)) ||
+    (value.dirty !== undefined && typeof value.dirty !== 'boolean') ||
     !hash(value.headSha, 40) ||
     (value.baseSha !== undefined && !hash(value.baseSha, 40)) ||
     !['node', 'bun'].includes(value.runtime) ||
     !string(value.runtimeVersion) ||
     typeof value.smoke !== 'boolean' ||
+    (value.partial !== undefined && typeof value.partial !== 'boolean') ||
     !string(value.measuredAt) ||
     !value.runner ||
     !['os', 'arch', 'cpu'].every((key) => string(value.runner[key])) ||

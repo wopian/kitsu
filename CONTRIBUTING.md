@@ -2,7 +2,7 @@
 
 ## Requirements
 
-Use Git and Bun 1.4.3. Node 26 runs documentation and release tooling. Published libraries support Node 18, 20, or 22+.
+Use Git and Bun 1.4.3. Node 26 runs documentation and release tooling. Published libraries support Node 22, 24, or 26+.
 
 ## Development
 
@@ -21,7 +21,7 @@ bun run test:packages
 bun run test:compatibility
 ```
 
-Use `bun run fix` and `bun run format:fix` for Biome corrections. Preserve runtime behavior when changing types or formatting. `bun run test:compatibility` checks runtime structure against v11.1.1.
+Use `bun run fix` and `bun run format:fix` for Biome corrections. Preserve runtime behavior when changing types or formatting. `bun run test:compatibility` checks unchanged helpers against v11.1.1 and verifies JSON:API 1.1 behavior for changed modules.
 
 Use `bun run docs:build` to regenerate README API sections. Declarations regenerate during builds.
 
@@ -45,4 +45,4 @@ BREAKING CHANGE: remove CommonJS entrypoints and UMD bundles.
 
 ## Releases
 
-Both packages share versions and `v*` tags. Releases run from master with semantic-release analysis and a frozen plan tied to commit SHA. See [release setup](RELEASING.md).
+All three packages share versions and `v*` tags. Releases run from master with semantic-release analysis and a frozen plan tied to commit SHA. See [release setup](RELEASING.md).

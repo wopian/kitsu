@@ -1,3 +1,5 @@
+import { copy } from './internal/copy.js'
+import { encodeIdentifiers, member } from './internal/encode.js'
 import {
   extensionMember,
   extraMember,
@@ -8,8 +10,6 @@ import {
   resourceIndex,
 } from './internal/members.js'
 import type { FlatResource, JsonObject, SerialiseOptions } from './types.js'
-
-const member = /^[a-z\d\u0080-\u{10ffff}](?:[\w\u0080-\u{10ffff} -]*[a-z\d\u0080-\u{10ffff}])?$/iu
 
 /**
  * Serialises flat resources and direct relationships into a JSON:API document.
@@ -35,8 +35,10 @@ export function serialise(
   options: SerialiseOptions = {},
 ): JsonObject {
   method = method.toUpperCase()
-  data = structuredClone(data)
-  const document = structuredClone(options.document || {})
+  const fast = encodeIdentifiers(type, data, method, options)
+  if (fast) return fast
+  const copies = new WeakMap<object, any>()
+  const document = copy(options.document || {}, copies)
   if ('data' in document || 'errors' in document) fail('document cannot override data/errors')
   const transform = (value: string) => {
     value = options.camelCaseTypes?.(value) ?? value
@@ -59,13 +61,16 @@ export function serialise(
     const result = identifier(input, fallback, input.lid)
     if (result.id === undefined && result.lid === undefined) fail('Relationship requires id or lid')
     for (const [key, value] of Object.entries(input))
-      if ((key === 'meta' || extensionMember(key)) && value !== undefined) result[key] = value
+      if ((key === 'meta' || extensionMember(key)) && value !== undefined)
+        result[key] = copy(value, copies)
     return result
   }
   function resource(input: FlatResource, resourceType: string, root = false): JsonObject {
     if (!input || typeof input !== 'object' || Array.isArray(input))
       fail(`${method} requires an object or array body`)
     if (visited.has(input)) return visited.get(input) as JsonObject
+    const original = input
+    if (Object.getPrototypeOf(input) !== Object.prototype) input = { ...input }
     const result = identifier(
       { ...input, type: root && !options.relationship ? resourceType : input.type },
       resourceType,
@@ -74,12 +79,21 @@ export function serialise(
       fail(`${method} requires an ID for the ${resourceType} type`)
     const envelope = input.$ || {}
     for (const [key, value] of Object.entries(envelope)) {
-      if (['links', 'meta'].includes(key) || extensionMember(key)) result[key] = value
+      if (['links', 'meta'].includes(key) || extensionMember(key)) result[key] = copy(value, copies)
     }
-    visited.set(input, result)
+    visited.set(original, result)
     collected.push(result)
     const attributes: JsonObject = {}
-    const relationships: JsonObject = { ...envelope.relationships }
+    const relationships: JsonObject = {}
+    const savedRelationships: JsonObject = envelope.relationships || {}
+    for (const name of Object.keys(savedRelationships)) {
+      const source = savedRelationships[name]
+      relationships[name] = extensionMember(name) ? copy(source, copies) : { ...source }
+      if (!extensionMember(name))
+        for (const key of Object.keys(source)) {
+          if (key !== 'data') relationships[name][key] = copy(source[key], copies)
+        }
+    }
     function linkage(value: any, fallback: string, saved: any): any {
       const values = Array.isArray(saved) ? saved : saved ? [saved] : []
       const positions = new Map<string, number>()
@@ -103,7 +117,7 @@ export function serialise(
             )
           ]
         for (const key of Object.keys(previous || {}))
-          if (key === 'meta' || extensionMember(key)) reference[key] = previous[key]
+          if (key === 'meta' || extensionMember(key)) reference[key] = copy(previous[key], copies)
         return reference
       })
     }
@@ -127,13 +141,13 @@ export function serialise(
           ...relationships[key],
           data: linkage(value, transform(key), relationships[key]?.data),
         }
-      } else attributes[key] = value
+      } else attributes[key] = copy(value, copies)
     }
     for (const [key, value] of Object.entries(envelope.attributes || {})) {
       if (['id', 'type', '$'].includes(key) || (!member.test(key) && !key.startsWith('@')))
         fail(`Invalid field: ${key}`)
       if (Object.hasOwn(relationships, key)) fail(`Field conflict: ${key}`)
-      attributes[key] = value
+      attributes[key] = copy(value, copies)
     }
     for (const [key, relationship] of Object.entries<JsonObject>(relationships)) {
       if (key.startsWith('@') || key.includes(':')) continue

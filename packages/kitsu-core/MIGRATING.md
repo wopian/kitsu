@@ -5,6 +5,10 @@
 Node support covers 22, 24, and 26. Node 18, 19, 20, 21, 23, and 25 are no
 longer supported. Browser support remains available; TypeScript targets ES2023.
 
+Encoding copies output values during construction. Decoding allocates resources
+before linking relationships, including deeply nested cycles. Input documents and
+payloads remain untouched; returned JSON values remain independent copies.
+
 Relationships now return direct resources, arrays, or null. Replace
 `resource.author.data.name` with `resource.author.name`. Resources share identity
 within each document, including cycles and `lid` aliases. Decoding never mutates

@@ -26,7 +26,7 @@ export async function createPlan(root: string, output: string): Promise<ReleaseP
     throw new Error(`First ESM-only release must be 12.0.0, planned ${version}`)
   }
   const packages = await stagePackages(version, output, root)
-  const plan: ReleasePlan = { schemaVersion: 1, sha, version, tag, notes, packages }
+  const plan: ReleasePlan = { schemaVersion: 2, sha, version, tag, notes, packages }
   await writeFile(resolve(output, 'release-plan.json'), `${JSON.stringify(plan, null, 2)}\n`)
   return plan
 }

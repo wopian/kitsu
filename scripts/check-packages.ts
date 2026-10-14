@@ -66,6 +66,7 @@ await writeFile(
 await writeFile(
   resolve(consumer, 'consumer.ts'),
   `import Kitsu, { type KitsuOptions, type RequestConfig } from 'kitsu'
+import KitsuNative, { KitsuNativeError, type FetchOptions } from 'kitsu-native'
 import { camel, query, type JsonApiDocument, type FlatResource, type ResourceEnvelope, type JsonApiLink, type JsonApiError } from 'kitsu-core'
 import { query as subpathQuery } from 'kitsu-core/query'
 const options: KitsuOptions = { query: 'modern', headers: { Custom: true } }
@@ -85,6 +86,11 @@ camel('library-entry'); query(); subpathQuery()
 new Kitsu({ resourceCase: 'invalid' })
 void document
 void resource; void link; void error; void invalid
+const fetchOptions: FetchOptions = { credentials: 'include', signal: new AbortController().signal }
+new KitsuNative({ fetch: globalThis.fetch, fetchOptions }).get('articles')
+// @ts-expect-error Generated HTTP method cannot be overridden through fetchOptions.
+const invalidFetch: FetchOptions = { method: 'POST' }
+void KitsuNativeError; void invalidFetch
 `,
 )
 await writeFile(
@@ -93,9 +99,10 @@ await writeFile(
 import { createRequire } from 'node:module'
 import { readdir, readFile } from 'node:fs/promises'
 import Kitsu from 'kitsu'
+import KitsuNative, { KitsuNativeError } from 'kitsu-native'
 import * as core from 'kitsu-core'
 const require = createRequire(import.meta.url)
-for (const name of ['kitsu-core', 'kitsu']) {
+for (const name of ['kitsu-core', 'kitsu', 'kitsu-native']) {
   const manifest = JSON.parse(await readFile(new URL('./node_modules/' + name + '/package.json', import.meta.url), 'utf8'))
   assert.equal(manifest.version, '12.0.0')
   assert.equal(manifest.type, 'module')
@@ -124,6 +131,17 @@ assert.equal(api.fetch, api.get); assert.equal(api.update, api.patch); assert.eq
 assert.equal(api.axios.defaults.baseURL, 'https://kitsu.app/api/edge')
 assert.equal(api.camel, core.camel)
 assert.equal(JSON.parse(await readFile(new URL('./node_modules/kitsu/package.json', import.meta.url), 'utf8')).dependencies['kitsu-core'], '^12.0.0')
+const nativeManifest = JSON.parse(await readFile(new URL('./node_modules/kitsu-native/package.json', import.meta.url), 'utf8'))
+assert.equal(nativeManifest.dependencies['kitsu-core'], '^12.0.0')
+assert.equal(nativeManifest.dependencies.axios, undefined)
+const native = new KitsuNative({ fetch: async (url, options) => {
+  assert.equal(url, 'https://kitsu.app/api/edge/articles/0')
+  assert.deepEqual(JSON.parse(options.body), { data: { type: 'articles', id: '0', attributes: { title: 'Hi' } } })
+  return new Response(null, { status: 204 })
+} })
+assert.equal(native.fetch, native.get); assert.equal(native.update, native.patch); assert.equal(native.create, native.post); assert.equal(native.remove, native.delete)
+assert.deepEqual(await native.patch('articles', { id: 0, title: 'Hi' }), { status: 204 })
+assert.equal(typeof KitsuNativeError, 'function')
 console.log('Packed ESM imports, identity, declarations, and package metadata passed')
 `,
 )
@@ -132,3 +150,39 @@ execFileSync('bun', ['check', '-p', resolve(consumer, 'tsconfig.json')], {
   cwd: consumer,
   stdio: 'inherit',
 })
+await writeFile(
+  resolve(consumer, 'tsconfig.node.json'),
+  JSON.stringify(
+    {
+      extends: './tsconfig.json',
+      compilerOptions: {
+        lib: ['ES2023'],
+        types: ['node'],
+        typeRoots: [resolve(root, 'node_modules/@types')],
+      },
+    },
+    null,
+    2,
+  ),
+)
+execFileSync(
+  'node',
+  [resolve(root, 'node_modules/typescript/bin/tsc'), '-p', resolve(consumer, 'tsconfig.node.json')],
+  { cwd: consumer, stdio: 'inherit' },
+)
+execFileSync(
+  'bun',
+  [
+    'build',
+    resolve(root, 'packages/kitsu-native/dist/index.mjs'),
+    '--target',
+    'browser',
+    '--minify',
+    '--outfile',
+    resolve(output, 'native-browser.mjs'),
+  ],
+  { cwd: root, stdio: 'inherit' },
+)
+const browser = await readFile(resolve(output, 'native-browser.mjs'), 'utf8')
+if (/node:|Axios|axios\.create/.test(browser))
+  throw new Error('native browser bundle contains Node or Axios code')

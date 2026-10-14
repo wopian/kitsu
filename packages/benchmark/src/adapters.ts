@@ -3,6 +3,7 @@ import { create as fetchja } from './fetchja/index.ts'
 import { create as jsona } from './jsona/index.ts'
 import { create as kitsu } from './kitsu/index.ts'
 import { create as core } from './kitsu-core/index.ts'
+import { create as native } from './kitsu-native/index.ts'
 import { libraries } from './libraries.ts'
 import { create as tsJapi } from './ts-japi/index.ts'
 import { type Adapter, type Fixture, type Mode, type Suite, Unsupported } from './types.ts'
@@ -13,7 +14,7 @@ export const packageName = (library: string) => (library === 'devour' ? 'devour-
 export const suites: Suite[] = ['codec', 'client']
 export function supported(library: string, suite: Suite): boolean {
   return suite === 'client'
-    ? ['kitsu', 'fetchja', 'devour'].includes(library)
+    ? ['kitsu', 'kitsu-native', 'fetchja', 'devour'].includes(library)
     : ['kitsu-core', 'devour', 'yayson', 'jsona', 'ts-japi'].includes(library)
 }
 export function unsupportedReason(
@@ -27,7 +28,7 @@ export function unsupportedReason(
   if (
     mode !== 'decode' &&
     suite === 'client' &&
-    library !== 'kitsu' &&
+    !['kitsu', 'kitsu-native'].includes(library) &&
     Array.isArray(fixture.document.data)
   )
     return 'public client writes single resources only'
@@ -46,6 +47,8 @@ export async function createAdapter(
       return core(root, source)
     case 'kitsu':
       return kitsu(root, source)
+    case 'kitsu-native':
+      return native(root, source)
     case 'fetchja':
       return fetchja(fixture)
     case 'devour':

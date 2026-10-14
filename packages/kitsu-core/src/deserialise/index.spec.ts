@@ -147,4 +147,31 @@ describe('kitsu-core deserialise', () => {
       expect(input.attributes.payload.value).toBe(1)
     }
   })
+  it('links deep graphs without recursive decoding and preserves a cycle back to the primary resource', () => {
+    const resources = Array.from({ length: 12000 }, (_, index) => ({
+      type: 'nodes',
+      id: String(index),
+      relationships: { next: { data: { type: 'nodes', id: String((index + 1) % 12000) } } },
+    }))
+    const output = deserialise({ data: resources[0], included: resources.slice(1) })
+    let current = output.data
+    for (let index = 0; index < resources.length; index++) {
+      expect(current.id).toBe(String(index))
+      current = current.next
+    }
+    expect(current).toBe(output.data)
+    expect(output.data.next).toBe(output.included[0])
+    expect(resources[0].relationships.next.data).toEqual({ type: 'nodes', id: '1' })
+  })
+  it('copies large nested attribute graphs without losing shared references', () => {
+    const values: any[] = Array.from({ length: 100 }, (_, index) => ({ index }))
+    values.push(values[0])
+    const output = deserialise({ data: { type: 'things', id: '1', attributes: { values } } }).data
+      .values
+    expect(output).toEqual(values)
+    expect(output[0]).toBe(output[100])
+    expect(output[0]).not.toBe(values[0])
+    output[0].index = -1
+    expect(values[0].index).toBe(0)
+  })
 })

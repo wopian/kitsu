@@ -12,6 +12,7 @@
     "jsona": "1.14.0",
     "kitsu": "workspace:*",
     "kitsu-core": "workspace:*",
+    "kitsu-native": "workspace:*",
     "ts-japi": "1.12.6",
     "yayson": "4.4.0"
   }

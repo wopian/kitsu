@@ -1,73 +1,147 @@
 import { deattribute } from '../deattribute.js'
 import type { JsonObject } from '../types.js'
 import { copy } from './copy.js'
-import { extensionMember, extraMember, identity, mapData, resourceIndex } from './members.js'
+import { extensionMember, identity, mapData, resourceIndex } from './members.js'
 
-/** Decode one document with a shared identity index, including local-id aliases.
+function reference(identifier: JsonObject): JsonObject {
+  const output: JsonObject = { type: identifier.type }
+  if ('id' in identifier) output.id = identifier.id
+  if ('lid' in identifier) output.$ = { lid: identifier.lid }
+  return output
+}
+function link(
+  relationships: JsonObject,
+  output: JsonObject,
+  target: (identifier: JsonObject) => JsonObject,
+): void {
+  for (const name of Object.keys(relationships)) {
+    const relationship = relationships[name]
+    if (extensionMember(name)) {
+      output.$ ??= {}
+      output.$.relationships ??= {}
+      output.$.relationships[name] = copy(relationship)
+      continue
+    }
+    let extras: JsonObject | undefined
+    for (const key of Object.keys(relationship)) {
+      if (key === 'meta' || key === 'links' || extensionMember(key)) {
+        extras ??= {}
+        extras[key] = copy(relationship[key])
+      }
+    }
+    if ('data' in relationship) {
+      const linkage = relationship.data
+      let metadata = false
+      if (Array.isArray(linkage)) {
+        const values = new Array(linkage.length)
+        for (let index = 0; index < linkage.length; index++) {
+          const identifier = linkage[index]
+          values[index] = target(identifier)
+          for (const key in identifier)
+            if (key !== 'id' && key !== 'type' && key !== 'lid' && Object.hasOwn(identifier, key))
+              metadata = true
+        }
+        output[name] = values
+      } else {
+        output[name] = linkage == null ? linkage : target(linkage)
+        for (const key in linkage)
+          if (key !== 'id' && key !== 'type' && key !== 'lid' && Object.hasOwn(linkage, key))
+            metadata = true
+      }
+      if (metadata) {
+        extras ??= {}
+        extras.data = copy(linkage)
+      }
+    }
+    if (extras) {
+      output.$ ??= {}
+      output.$.relationships ??= {}
+      output.$.relationships[name] = extras
+    }
+  }
+}
+
+/** Allocate resources before linking edges, so graphs never require recursive decoding.
  * @private
  */
 export function decodeGraph(data: any, included: JsonObject[] = []): JsonObject {
-  if (
-    !included.length &&
-    (data == null || (Object.getPrototypeOf(data) === Object.prototype && !data.relationships))
-  )
-    return { data: mapData(data, deattribute), included: [] }
-  const roots = Array.isArray(data) ? data : data ? [data] : []
-  const index = resourceIndex([...roots, ...included])
-  const outputs = new Map<JsonObject, JsonObject>()
-  function resolve(resource: any): any {
-    return decode(index.get(identity(resource)) || resource)
+  if (!included.length && (data == null || Object.getPrototypeOf(data) === Object.prototype)) {
+    const output = mapData(data, deattribute)
+    if (data?.relationships)
+      link(data.relationships, output, (identifier) =>
+        identifier.type === data.type &&
+        (identifier.id !== undefined
+          ? identifier.id === data.id
+          : identifier.lid !== undefined && identifier.lid === data.lid)
+          ? output
+          : reference(identifier),
+      )
+    return { data: output, included: [] }
   }
-  function decode(source: JsonObject): JsonObject {
-    const cached = outputs.get(source)
+  const roots = Array.isArray(data) ? data : data ? [data] : []
+  const sources = roots.concat(included)
+  const ids = new Map<any, Map<any, JsonObject>>()
+  const lids = new Map<any, Map<any, JsonObject>>()
+  let aliased = false
+  for (const source of sources) {
+    if (
+      source.lid !== undefined ||
+      source.id === undefined ||
+      Object.getPrototypeOf(source) !== Object.prototype
+    ) {
+      aliased = true
+      break
+    }
+    let type = ids.get(source.type)
+    if (!type) {
+      type = new Map()
+      ids.set(source.type, type)
+    }
+    if (type.has(source.id)) {
+      aliased = true
+      break
+    }
+    type.set(source.id, source)
+  }
+  const aliases = aliased ? resourceIndex(sources) : undefined
+  if (aliased) ids.clear()
+  const outputs = aliases ? new Map<JsonObject, JsonObject>() : undefined
+  const pending: any[] = []
+  function allocate(input: JsonObject): JsonObject {
+    const source = aliases?.get(identity(input)) || input
+    const cached = outputs?.get(source)
     if (cached) return cached
     const output = deattribute(source)
-    outputs.set(source, output)
-    for (const name of Object.keys(source.relationships || {})) {
-      const relationship = source.relationships[name]
-      if (extensionMember(name)) {
-        output.$ ??= {}
-        output.$.relationships ??= {}
-        output.$.relationships[name] = copy(relationship)
-        continue
+    outputs?.set(source, output)
+    if (source.id !== undefined) {
+      let type = ids.get(source.type)
+      if (!type) {
+        type = new Map()
+        ids.set(source.type, type)
       }
-      let extras: JsonObject | undefined
-      for (const key of Object.keys(relationship)) {
-        if (key === 'meta' || key === 'links' || extensionMember(key)) {
-          extras ??= {}
-          extras[key] = copy(relationship[key])
-        }
-      }
-      if ('data' in relationship) {
-        const linkage = relationship.data
-        const identifiers = Array.isArray(linkage) ? linkage : linkage ? [linkage] : []
-        if (
-          identifiers.some((identifier: JsonObject) => Object.keys(identifier).some(extraMember))
-        ) {
-          extras ??= {}
-          extras.data = copy(linkage)
-        }
-        // Identifier metadata belongs to this edge, never to the canonical resource.
-        const target = (identifier: JsonObject) => {
-          const related = index.get(identity(identifier))
-          if (related) return decode(related)
-          const reference: JsonObject = { type: identifier.type }
-          if ('id' in identifier) reference.id = identifier.id
-          if ('lid' in identifier) reference.$ = { lid: identifier.lid }
-          return reference
-        }
-        output[name] = mapData(linkage, target)
-      }
-      if (extras) {
-        output.$ ??= {}
-        output.$.relationships ??= {}
-        output.$.relationships[name] = extras
-      }
+      type.set(source.id, output)
     }
+    if (source.lid !== undefined) {
+      let type = lids.get(source.type)
+      if (!type) {
+        type = new Map()
+        lids.set(source.type, type)
+      }
+      type.set(source.lid, output)
+    }
+    if (source.relationships) pending.push(source.relationships, output)
     return output
   }
-  return {
-    data: mapData(data, resolve),
-    included: included.map(resolve),
+  const primary = mapData(data, allocate)
+  const supplied = included.map(allocate)
+  function target(identifier: JsonObject): JsonObject {
+    return (
+      (identifier.id !== undefined
+        ? ids.get(identifier.type)?.get(identifier.id)
+        : lids.get(identifier.type)?.get(identifier.lid)) || reference(identifier)
+    )
   }
+  for (let position = 0; position < pending.length; position += 2)
+    link(pending[position], pending[position + 1], target)
+  return { data: primary, included: supplied }
 }

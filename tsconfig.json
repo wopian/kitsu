@@ -10,7 +10,8 @@
     "types": ["bun"],
     "paths": {
       "kitsu": ["./packages/kitsu/src/index.ts"],
-      "kitsu-core": ["./packages/kitsu-core/src/index.ts"]
+      "kitsu-core": ["./packages/kitsu-core/src/index.ts"],
+      "kitsu-native": ["./packages/kitsu-native/src/index.ts"]
     }
   },
   "include": [

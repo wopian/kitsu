@@ -30,7 +30,7 @@ export async function stagePackages(
     delete manifest.scripts
     delete manifest.devDependencies
     delete manifest['size-limit']
-    if (name === 'kitsu') manifest.dependencies['kitsu-core'] = `^${version}`
+    if (manifest.dependencies?.['kitsu-core']) manifest.dependencies['kitsu-core'] = `^${version}`
     await writeFile(resolve(staging, 'package.json'), `${JSON.stringify(manifest, null, 2)}\n`)
     const packed = JSON.parse(
       execFileSync('npm', ['pack', '--json', '--ignore-scripts', '--pack-destination', output], {
