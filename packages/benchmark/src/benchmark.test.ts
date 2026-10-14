@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import errors from '../../../specification/getError/jsonapi.ts'
-import { createAdapter, libraries, supported } from './adapters.ts'
+import { createAdapter, libraries, supported, unsupportedReason } from './adapters.ts'
 import { fixture, fixtures, validateDocument } from './fixtures.ts'
 import {
   expectedRequest,
@@ -59,6 +59,7 @@ describe('JSON:API fixtures and correctness', () => {
     expect(full.find((entry) => entry.id === 'few-includes')?.includedCount).toBe(3)
     expect(full.find((entry) => entry.id === 'many-includes')?.includedCount).toBe(3000)
     expect(full.find((entry) => entry.id === 'complex-relationships')?.includedCount).toBe(21016)
+    expect(full.find((entry) => entry.id === 'wide-relationship')?.includedCount).toBe(4001)
     for (const entry of full) expect(() => validateDocument(entry.document)).not.toThrow()
   })
   test('rejects conflicting fields, duplicate identities and unreachable includes', () => {
@@ -107,7 +108,7 @@ describe('JSON:API fixtures and correctness', () => {
   test('error specification remains a correctness case outside success throughput', async () => {
     expect(() => validateDocument(errors)).not.toThrow()
     const adapter = await createAdapter('kitsu-core', 'codec', cases[0], root, true)
-    expect(adapter.decode(structuredClone(errors))).toEqual(errors)
+    expect(adapter.decode?.(structuredClone(errors))).toEqual(errors)
   })
 })
 
@@ -179,22 +180,22 @@ describe('public adapter integration', () => {
   for (const library of libraries) {
     for (const suite of ['codec', 'client'] as const) {
       if (!supported(library, suite)) continue
-      test(`${library} ${suite} decodes actual small response`, async () => {
-        const entry = cases[0]
-        const adapter = await createAdapter(library, suite, entry, root, true)
-        try {
-          adapter.reset?.()
-          const before = structuredClone(entry.document)
-          const document = structuredClone(entry.document)
-          adapter.prepareResponse?.(document)
-          const result = await operation(adapter, document, undefined, entry, 'decode')
-          validateOperation(result, adapter, entry, 'decode')
-          expect(entry.document).toEqual(before)
-        } finally {
-          adapter.cleanup?.()
-        }
-      })
-      if (library === 'deserialize-json-api') continue
+      if (library !== 'ts-japi')
+        test(`${library} ${suite} decodes actual small response`, async () => {
+          const entry = cases[0]
+          const adapter = await createAdapter(library, suite, entry, root, true)
+          try {
+            adapter.reset?.()
+            const before = structuredClone(entry.document)
+            const document = structuredClone(entry.document)
+            adapter.prepareResponse?.(document)
+            const result = await operation(adapter, document, undefined, entry, 'decode')
+            validateOperation(result, adapter, entry, 'decode')
+            expect(entry.document).toEqual(before)
+          } finally {
+            adapter.cleanup?.()
+          }
+        })
       test(`${library} ${suite} encodes actual small request`, async () => {
         const entry = cases[0]
         const adapter = await createAdapter(library, suite, entry, root, true)
@@ -208,23 +209,24 @@ describe('public adapter integration', () => {
           adapter.cleanup?.()
         }
       })
-      test(`${library} ${suite} decodes then encodes actual small request`, async () => {
-        const entry = cases[0]
-        const adapter = await createAdapter(library, suite, entry, root, true)
-        try {
-          adapter.reset?.()
-          const document = structuredClone(entry.document)
-          adapter.prepareResponse?.(document)
-          validateOperation(
-            await operation(adapter, document, undefined, entry, 'decode-encode'),
-            adapter,
-            entry,
-            'decode-encode',
-          )
-        } finally {
-          adapter.cleanup?.()
-        }
-      })
+      if (library !== 'ts-japi')
+        test(`${library} ${suite} decodes then encodes actual small request`, async () => {
+          const entry = cases[0]
+          const adapter = await createAdapter(library, suite, entry, root, true)
+          try {
+            adapter.reset?.()
+            const document = structuredClone(entry.document)
+            adapter.prepareResponse?.(document)
+            validateOperation(
+              await operation(adapter, document, undefined, entry, 'decode-encode'),
+              adapter,
+              entry,
+              'decode-encode',
+            )
+          } finally {
+            adapter.cleanup?.()
+          }
+        })
     }
   }
   test('core round trip resolves nested data then writes identifiers only', async () => {
@@ -245,6 +247,36 @@ describe('public adapter integration', () => {
     await expect(createAdapter('fetchja', 'codec', cases[0], root)).rejects.toThrow(
       'no public codec API',
     )
+    await expect(createAdapter('ts-japi', 'client', cases[0], root)).rejects.toThrow(
+      'no public client API',
+    )
+    const adapter = await createAdapter('ts-japi', 'codec', cases[0], root)
+    for (const mode of ['decode', 'decode-encode'] as const) {
+      expect(unsupportedReason('ts-japi', 'codec', mode, cases[0])).toBe('no public decoder')
+      expect(() => operation(adapter, cases[0].document, undefined, cases[0], mode)).toThrow(
+        'no public decoder',
+      )
+    }
+    expect(unsupportedReason('ts-japi', 'codec', 'encode', cases[0])).toBeUndefined()
+  })
+  test('ts-japi serializes every fixture through its public serializer and relators', async () => {
+    for (const entry of cases) {
+      const adapter = await createAdapter('ts-japi', 'codec', entry, root)
+      const payload = adapter.native(expectedRequest(entry).data)
+      const before = structuredClone(payload)
+      validateOperation(
+        await operation(adapter, entry.document, payload, entry, 'encode'),
+        adapter,
+        entry,
+        'encode',
+      )
+      expect(payload).toEqual(before)
+      // Read changed input rather than fixture output; cache must stay disabled.
+      const resource = Array.isArray(payload) ? payload[0] : payload
+      resource.id = 'changed'
+      const output = await adapter.encode?.(payload)
+      expect((Array.isArray(output.data) ? output.data[0] : output.data).id).toBe('changed')
+    }
   })
 })
 

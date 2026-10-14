@@ -1,4 +1,5 @@
-import { extensionMember, memberCount } from './internal/members.js'
+import { copy } from './internal/copy.js'
+import { extensionMember } from './internal/members.js'
 /**
  * Flattens resource attributes and moves resource metadata under `$` without mutation.
  *
@@ -12,16 +13,22 @@ export function deattribute(data: any): any {
   if (Array.isArray(data)) return data.map(deattribute)
   if (!data || typeof data !== 'object' || Object.getPrototypeOf(data) !== Object.prototype)
     return data
-  const result: any = { ...structuredClone(data.attributes) }
+  const attributes = copy(data.attributes)
+  const result: any =
+    attributes && Object.getPrototypeOf(attributes) === Object.prototype
+      ? attributes
+      : { ...attributes }
   delete result.id
   delete result.type
   delete result.$
-  const envelope: any = {}
-  for (const [key, value] of Object.entries(data)) {
-    if (key === 'id' || key === 'type') result[key] = value
-    else if (['lid', 'links', 'meta'].includes(key) || extensionMember(key))
-      envelope[key] = structuredClone(value)
+  let envelope: any
+  for (const key of Object.keys(data)) {
+    if (key === 'id' || key === 'type') result[key] = data[key]
+    else if (['lid', 'links', 'meta'].includes(key) || extensionMember(key)) {
+      envelope ??= {}
+      envelope[key] = copy(data[key])
+    }
   }
-  if (memberCount(envelope)) result.$ = envelope
+  if (envelope) result.$ = envelope
   return result
 }

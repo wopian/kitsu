@@ -25,7 +25,7 @@ export interface View {
 }
 export interface Adapter {
   view: View
-  decode: (document: JsonApiDocument) => any
+  decode?: (document: JsonApiDocument) => any
   encode?: (payload: any) => any
   native: (resources: JsonApiResource | JsonApiResource[]) => any
   reset?: () => void

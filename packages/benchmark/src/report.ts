@@ -135,10 +135,10 @@ export function renderReadme(reports: Measurement[], runUrl?: string): string {
   }
   output.push(
     '',
-    '- Codec APIs: kitsu-core, devour, yayson, jsona, deserialize-json-api (decode only).',
+    '- Codec APIs: kitsu-core, devour, yayson, jsona, ts-japi (encode only).',
     '- Client APIs: kitsu, fetchja, devour. Public single-resource clients report collection writes as unsupported.',
     '',
-    'Full fixtures use 1,000 primary resources, 3 shared or 3,000 distinct includes, and a complex graph with 21,016 includes.',
+    'Full fixtures use 1,000 primary resources, 3 shared or 3,000 distinct includes, a complex graph with 21,016 includes and one wide relationship with 4,000 identifiers.',
     '',
   )
   return output.join('\n')
@@ -253,7 +253,7 @@ export function validateReport(value: any): asserts value is Measurement {
           !positive(cell.operationsPerSecond)
         )
           throw new Error('invalid throughput samples')
-        const sorted = [...cell.samples].sort((left: number, right: number) => left - right)
+        const sorted = cell.samples.toSorted((left: number, right: number) => left - right)
         if (cell.operationsPerSecond !== sorted[2])
           throw new Error('throughput differs from median')
         const requests = cell.operationsPerSecond * (cell.mode === 'decode-encode' ? 2 : 1)

@@ -1,10 +1,10 @@
-import { create as deserialize } from './deserialize-json-api/index.ts'
 import { create as devour } from './devour/index.ts'
 import { create as fetchja } from './fetchja/index.ts'
 import { create as jsona } from './jsona/index.ts'
 import { create as kitsu } from './kitsu/index.ts'
 import { create as core } from './kitsu-core/index.ts'
 import { libraries } from './libraries.ts'
+import { create as tsJapi } from './ts-japi/index.ts'
 import { type Adapter, type Fixture, type Mode, type Suite, Unsupported } from './types.ts'
 import { create as yayson } from './yayson/index.ts'
 
@@ -14,7 +14,7 @@ export const suites: Suite[] = ['codec', 'client']
 export function supported(library: string, suite: Suite): boolean {
   return suite === 'client'
     ? ['kitsu', 'fetchja', 'devour'].includes(library)
-    : ['kitsu-core', 'devour', 'yayson', 'jsona', 'deserialize-json-api'].includes(library)
+    : ['kitsu-core', 'devour', 'yayson', 'jsona', 'ts-japi'].includes(library)
 }
 export function unsupportedReason(
   library: string,
@@ -23,7 +23,7 @@ export function unsupportedReason(
   fixture: Fixture,
 ): string | undefined {
   if (!supported(library, suite)) return `no public ${suite} API`
-  if (mode !== 'decode' && library === 'deserialize-json-api') return 'no public encoder'
+  if (mode !== 'encode' && library === 'ts-japi') return 'no public decoder'
   if (
     mode !== 'decode' &&
     suite === 'client' &&
@@ -54,8 +54,8 @@ export async function createAdapter(
       return yayson(fixture)
     case 'jsona':
       return jsona()
-    case 'deserialize-json-api':
-      return deserialize()
+    case 'ts-japi':
+      return tsJapi(fixture)
     default:
       throw new Error(`unknown library: ${library}`)
   }

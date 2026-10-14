@@ -82,7 +82,7 @@ export async function publishReports(
       // Do not replace useful results with an incomplete run. Library errors remain explicit rows.
       if (
         reports.length !== 2 ||
-        reports.some((report) => report.cells.length !== libraries.length * 2 * 3 * 13)
+        reports.some((report) => report.cells.length !== libraries.length * 2 * 3 * 14)
       )
         throw new Error('incomplete benchmark run; preserve existing README results')
       const old = await api(`contents/README.md?ref=${run.head_sha}`)

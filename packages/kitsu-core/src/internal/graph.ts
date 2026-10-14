@@ -1,52 +1,64 @@
 import { deattribute } from '../deattribute.js'
 import type { JsonObject } from '../types.js'
-import {
-  extensionMember,
-  extraMember,
-  identity,
-  mapData,
-  memberCount,
-  resourceIndex,
-} from './members.js'
+import { copy } from './copy.js'
+import { extensionMember, extraMember, identity, mapData, resourceIndex } from './members.js'
 
 /** Decode one document with a shared identity index, including local-id aliases.
  * @private
  */
 export function decodeGraph(data: any, included: JsonObject[] = []): JsonObject {
+  if (
+    !included.length &&
+    (data == null || (Object.getPrototypeOf(data) === Object.prototype && !data.relationships))
+  )
+    return { data: mapData(data, deattribute), included: [] }
   const roots = Array.isArray(data) ? data : data ? [data] : []
   const index = resourceIndex([...roots, ...included])
   const outputs = new Map<JsonObject, JsonObject>()
   function resolve(resource: any): any {
-    const source = index.get(identity(resource)) || resource
-    if (outputs.has(source)) return outputs.get(source)
+    return decode(index.get(identity(resource)) || resource)
+  }
+  function decode(source: JsonObject): JsonObject {
+    const cached = outputs.get(source)
+    if (cached) return cached
     const output = deattribute(source)
     outputs.set(source, output)
-    for (const [name, relationship] of Object.entries<JsonObject>(source.relationships || {})) {
+    for (const name of Object.keys(source.relationships || {})) {
+      const relationship = source.relationships[name]
       if (extensionMember(name)) {
         output.$ ??= {}
         output.$.relationships ??= {}
-        output.$.relationships[name] = structuredClone(relationship)
+        output.$.relationships[name] = copy(relationship)
         continue
       }
-      const extras: JsonObject = {}
-      for (const [key, value] of Object.entries(relationship)) {
-        if (['meta', 'links'].includes(key) || extensionMember(key))
-          extras[key] = structuredClone(value)
+      let extras: JsonObject | undefined
+      for (const key of Object.keys(relationship)) {
+        if (key === 'meta' || key === 'links' || extensionMember(key)) {
+          extras ??= {}
+          extras[key] = copy(relationship[key])
+        }
       }
       if ('data' in relationship) {
         const linkage = relationship.data
         const identifiers = Array.isArray(linkage) ? linkage : linkage ? [linkage] : []
-        if (identifiers.some((identifier: JsonObject) => Object.keys(identifier).some(extraMember)))
-          extras.data = structuredClone(linkage)
+        if (
+          identifiers.some((identifier: JsonObject) => Object.keys(identifier).some(extraMember))
+        ) {
+          extras ??= {}
+          extras.data = copy(linkage)
+        }
         // Identifier metadata belongs to this edge, never to the canonical resource.
         const target = (identifier: JsonObject) => {
-          const identity: JsonObject = { type: identifier.type }
-          for (const key of ['id', 'lid']) if (key in identifier) identity[key] = identifier[key]
-          return resolve(identity)
+          const related = index.get(identity(identifier))
+          if (related) return decode(related)
+          const reference: JsonObject = { type: identifier.type }
+          if ('id' in identifier) reference.id = identifier.id
+          if ('lid' in identifier) reference.$ = { lid: identifier.lid }
+          return reference
         }
         output[name] = mapData(linkage, target)
       }
-      if (memberCount(extras)) {
+      if (extras) {
         output.$ ??= {}
         output.$.relationships ??= {}
         output.$.relationships[name] = extras

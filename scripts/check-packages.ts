@@ -49,7 +49,7 @@ await writeFile(
   JSON.stringify(
     {
       compilerOptions: {
-        target: 'ES2022',
+        target: 'ES2023',
         module: 'NodeNext',
         moduleResolution: 'NodeNext',
         strict: true,
@@ -99,6 +99,7 @@ for (const name of ['kitsu-core', 'kitsu']) {
   const manifest = JSON.parse(await readFile(new URL('./node_modules/' + name + '/package.json', import.meta.url), 'utf8'))
   assert.equal(manifest.version, '12.0.0')
   assert.equal(manifest.type, 'module')
+  assert.equal(manifest.engines.node, '22 || 24 || >= 26')
   for (const [subpath, target] of Object.entries(manifest.exports)) {
     if (subpath === './package.json') continue
     assert.equal(target.require, undefined)

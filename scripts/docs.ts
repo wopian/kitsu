@@ -22,7 +22,7 @@ for (const file of (await readdir(`${directory}/src`, { recursive: true })).filt
     target,
     ts.transpileModule(source, {
       compilerOptions: {
-        target: ts.ScriptTarget.ES2022,
+        target: ts.ScriptTarget.ES2023,
         module: ts.ModuleKind.ESNext,
         removeComments: false,
       },

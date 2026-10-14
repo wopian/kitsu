@@ -81,19 +81,27 @@ export function serialise(
     const attributes: JsonObject = {}
     const relationships: JsonObject = { ...envelope.relationships }
     function linkage(value: any, fallback: string, saved: any): any {
+      const values = Array.isArray(saved) ? saved : saved ? [saved] : []
+      const positions = new Map<string, number>()
+      // Preserve the first match across id/lid aliases without rescanning every identifier.
+      for (let position = values.length; position--; ) {
+        for (const key of ['id', 'lid'])
+          if (values[position][key] !== undefined)
+            positions.set(identity(values[position], key), position)
+      }
       return mapData(value, (value) => {
         const related = resource(value, fallback)
         const reference = rawIdentifier(
           { type: related.type, id: related.id, lid: related.lid },
           fallback,
         )
-        const previous = (Array.isArray(saved) ? saved : saved ? [saved] : []).find(
-          (item: JsonObject) =>
-            identity(item) === identity(reference) ||
-            (reference.lid !== undefined &&
-              item.lid === reference.lid &&
-              item.type === reference.type),
-        )
+        const previous =
+          values[
+            Math.min(
+              positions.get(identity(reference)) ?? Infinity,
+              positions.get(identity(reference, 'lid')) ?? Infinity,
+            )
+          ]
         for (const key of Object.keys(previous || {}))
           if (key === 'meta' || extensionMember(key)) reference[key] = previous[key]
         return reference
@@ -172,11 +180,9 @@ export function serialise(
       !roots.has(identity(item)) &&
       (supplied.has(identity(item)) || Object.keys(item).some(extraMember)),
   )
-  const explicitIncludes = 'included' in document
-  delete document.included
   return {
     ...document,
     data: output,
-    ...(included.length || explicitIncludes ? { included } : {}),
+    ...(included.length || 'included' in document ? { included } : {}),
   }
 }

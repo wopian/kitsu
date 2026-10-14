@@ -20,6 +20,7 @@ const fixtures = [
   'few-includes',
   'many-includes',
   'complex-relationships',
+  'wide-relationship',
   'self-cycle',
   'mutual-cycle',
 ]

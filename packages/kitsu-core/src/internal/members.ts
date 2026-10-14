@@ -5,12 +5,19 @@ import type { JsonObject } from '../types.js'
  * @private
  */
 export const extensionMember = (key: string): boolean => key.includes(':') || key.startsWith('@')
-export const extraMember = (key: string): boolean => !['type', 'id', 'lid'].includes(key)
+export const extraMember = (key: string): boolean => key !== 'type' && key !== 'id' && key !== 'lid'
 
 export const identity = (
   resource: JsonObject,
   key = resource.id !== undefined ? 'id' : 'lid',
-): string => JSON.stringify([resource.type, key, resource[key]])
+): string => {
+  const type = resource.type
+  const value = resource[key]
+  // Length-prefix the type so arbitrary identifier text cannot collide with another type.
+  return typeof type === 'string' && typeof value === 'string'
+    ? `${type.length}:${type}${key}:${value}`
+    : JSON.stringify([type, key, value])
+}
 
 /** Merge identifier stubs with full resources and retain both identity aliases.
  * @private
@@ -18,12 +25,14 @@ export const identity = (
 export function resourceIndex(resources: JsonObject[], validate = false): Map<string, JsonObject> {
   const index = new Map<string, JsonObject>()
   for (const input of resources) {
-    const resource = { ...input }
+    let resource = Object.getPrototypeOf(input) === Object.prototype ? input : { ...input }
     const previous =
       index.get(identity(resource)) ||
       (resource.lid !== undefined ? index.get(identity(resource, 'lid')) : undefined)
-    const source = previous || resource
+    let source = resource
     if (previous) {
+      source = { ...previous }
+      resource = { ...resource }
       for (const key of ['id', 'lid']) {
         if (
           validate &&

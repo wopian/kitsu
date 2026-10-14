@@ -84,4 +84,76 @@ describe('kitsu-core serialise', () => {
       }),
     ).toThrow('Conflicting resources')
   })
+  it('joins wide reordered linkage by identity without losing identifier metadata', () => {
+    const identifiers = Array.from({ length: 4000 }, (_, index) => ({
+      type: 'tags',
+      id: String(index),
+      meta: { index },
+    }))
+    const tags = identifiers.map(({ type, id }) => ({ type, id })).reverse()
+    const input = { tags, $: { relationships: { tags: { data: identifiers } } } }
+    const before = structuredClone(input)
+    expect(serialise('articles', input).data.relationships.tags.data).toEqual(
+      [...identifiers].reverse(),
+    )
+    expect(input).toEqual(before)
+  })
+  it('keeps first metadata match across id and lid aliases and relationship boundaries', () => {
+    const person = { type: 'people', id: '9', $: { lid: 'draft' } }
+    const input = {
+      author: person,
+      editor: person,
+      $: {
+        relationships: {
+          author: {
+            data: [
+              { type: 'people', lid: 'draft', meta: { first: true }, 'edge:role': 'author' },
+              { type: 'people', id: '9', meta: { first: false } },
+            ],
+          },
+          editor: {
+            data: [
+              { type: 'people', id: '9', meta: { editor: true } },
+              { type: 'people', id: '9', meta: { editor: false } },
+            ],
+          },
+        },
+      },
+    }
+    const output = serialise('articles', input)
+    expect(output.data.relationships).toEqual({
+      author: {
+        data: {
+          type: 'people',
+          id: '9',
+          lid: 'draft',
+          meta: { first: true },
+          'edge:role': 'author',
+        },
+      },
+      editor: { data: { type: 'people', id: '9', lid: 'draft', meta: { editor: true } } },
+    })
+    expect(output.included).toBeUndefined()
+    expect(
+      serialise('articles', {
+        tags: [
+          { type: 'tags', id: 'same' },
+          { type: 'people', id: 'same' },
+        ],
+        $: {
+          relationships: {
+            tags: {
+              data: [
+                { type: 'people', id: 'same', meta: { person: true } },
+                { type: 'tags', id: 'same', meta: { tag: true } },
+              ],
+            },
+          },
+        },
+      }).data.relationships.tags.data,
+    ).toEqual([
+      { type: 'tags', id: 'same', meta: { tag: true } },
+      { type: 'people', id: 'same', meta: { person: true } },
+    ])
+  })
 })

@@ -29,7 +29,7 @@
   },
   "funding": "https://github.com/sponsors/wopian",
   "engines": {
-    "node": "18 || 20 || >= 22"
+    "node": "22 || 24 || >= 26"
   },
   "keywords": [
     "kitsu",
@@ -47,7 +47,7 @@
   "size-limit": [
     {
       "path": "./dist/index.mjs",
-      "limit": "2.5 kb",
+      "limit": "3 kb",
       "brotli": true
     }
   ],

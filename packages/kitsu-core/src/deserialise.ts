@@ -1,3 +1,4 @@
+import { copy } from './internal/copy.js'
 import { decodeGraph } from './internal/graph.js'
 import { extensionMember, memberCount } from './internal/members.js'
 import type { DeserialiseOptions, JsonObject } from './types.js'
@@ -19,7 +20,7 @@ export function deserialise(response: any, options: DeserialiseOptions = {}): an
   const result: JsonObject = {}
   for (const [key, value] of Object.entries(response)) {
     if (['errors', 'links', 'meta', 'jsonapi'].includes(key) || extensionMember(key))
-      result[key] = structuredClone(value)
+      result[key] = copy(value)
   }
   if ('data' in response) {
     const graph = decodeGraph(response.data, response.included)
