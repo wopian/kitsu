@@ -1,66 +1,9 @@
 {
-  "private": true,
-  "homepage": "https://github.com/wopian/kitsu#readme",
-  "repository": "https://github.com/wopian/kitsu",
-  "bugs": {
-    "url": "https://github.com/wopian/kitsu/issues"
-  },
-  "engines": {
-    "node": "18 || 20 || >= 22",
-    "bun": "1.4.3"
-  },
-  "workspaces": [
-    "packages/*"
+  "extends": [
+    "github>wopian/renovate-config"
   ],
-  "scripts": {
-    "benchmark": "bun scripts/benchmark.ts",
-    "benchmark:smoke": "bun scripts/benchmark.ts --smoke",
-    "benchmark:report": "node --experimental-strip-types scripts/benchmark-report.ts",
-    "typecheck": "bun check",
-    "build": "bun run scripts/build.ts",
-    "docs": "bun --filter '*' docs:lint",
-    "docs:build": "bun --filter '*' docs:build",
-    "docs:typescript": "bun run build:types",
-    "build:types": "tsc -p packages/kitsu-core/tsconfig.build.json && tsc -p packages/kitsu/tsconfig.build.json",
-    "lint": "biome check .",
-    "fix": "biome check --write .",
-    "format": "biome format .",
-    "format:fix": "biome format --write .",
-    "test": "bun test --check",
-    "test:coverage": "bun test --check --coverage",
-    "test:packages": "bun run scripts/check-packages.ts",
-    "test:compatibility": "bun run scripts/compatibility.ts",
-    "size": "bun --filter '*' size",
-    "validate": "bun run typecheck && bun run lint && bun run format && bun run test:coverage && bun run docs && bun run build && bun run size && bun run test:packages",
-    "release:plan": "node --experimental-strip-types scripts/release/plan.ts",
-    "release": "node --experimental-strip-types scripts/release/publish.ts"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "~2.5.7",
-    "@semantic-release/commit-analyzer": "~13.0.1",
-    "@semantic-release/release-notes-generator": "~14.1.1",
-    "@semantic-release/github": "~12.0.9",
-    "@types/bun": "~1.4.0",
-    "@types/pluralize": "^0.0.33",
-    "@types/json-stringify-safe": "^5.0.3",
-    "axios": "^1.8.4",
-    "axios-mock-adapter": "^1.22.0",
-    "json-stringify-safe": "^5.0.1",
-    "conventional-changelog-conventionalcommits": "~8.0.0",
-    "documentation": "^14.0.0",
-    "size-limit": "^12.0.0",
-    "semantic-release": "~25.0.8",
-    "typescript": "^6.0.0"
-  },
-  "renovate": {
-    "extends": [
-      "github>wopian/renovate-config"
-    ],
-    "baseBranches": [
-      "master"
-    ],
-    "minimumReleaseAge": "3 days"
-  },
-  "packageManager": "bun@1.4.3",
-  "type": "module"
+  "baseBranchPatterns": [
+    "master"
+  ],
+  "minimumReleaseAge": "3 days"
 }
