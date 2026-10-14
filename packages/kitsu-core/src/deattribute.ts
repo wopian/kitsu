@@ -15,20 +15,27 @@ export function deattribute(data: any): any {
   if (!data || typeof data !== 'object' || Object.getPrototypeOf(data) !== Object.prototype)
     return data
   const attributes = data.attributes
-  const result: any = { ...attributes }
+  const result: any = {}
   let seen: Copies | undefined
-  for (const key of Object.keys(result)) {
-    if (key === 'id' || key === 'type' || key === '$') delete result[key]
-    else {
-      const value = result[key]
-      if (
-        value !== null &&
-        (typeof value === 'object' || typeof value === 'function' || typeof value === 'symbol')
-      ) {
-        seen ??= new Copies(attributes, result)
-        result[key] = copy(value, seen)
-      }
+  for (const key in attributes) {
+    if (!Object.hasOwn(attributes, key) || key === 'id' || key === 'type' || key === '$') continue
+    const value = attributes[key]
+    let output = value
+    if (
+      value !== null &&
+      (typeof value === 'object' || typeof value === 'function' || typeof value === 'symbol')
+    ) {
+      seen ??= new Copies(attributes, result)
+      output = copy(value, seen)
     }
+    if (key === '__proto__')
+      Object.defineProperty(result, key, {
+        value: output,
+        enumerable: true,
+        writable: true,
+        configurable: true,
+      })
+    else result[key] = output
   }
   let envelope: any
   for (const key in data) {

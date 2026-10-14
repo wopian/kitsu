@@ -4,6 +4,163 @@ import { camel } from '../camel.js'
 import { serialise } from '../serialise.js'
 
 describe('kitsu-core serialise', () => {
+  it('copies literal prototype keys in document and relationship extras without changing prototypes', () => {
+    const document = JSON.parse('{"__proto__":{"document":true}}')
+    const extras = JSON.parse('{"__proto__":{"relationship":true},"data":null}')
+    for (const extra of [{}, { author: { type: 'people', id: '9', name: 'Ada' } }]) {
+      const output = serialise(
+        'articles',
+        { ...extra, $: { relationships: { clear: extras } } },
+        'POST',
+        { document },
+      )
+      expect(Object.getPrototypeOf(output)).toBe(Object.prototype)
+      expect(Object.getOwnPropertyDescriptor(output, '__proto__')?.value).toEqual({
+        document: true,
+      })
+      const relationship = output.data.relationships.clear
+      expect(Object.getPrototypeOf(relationship)).toBe(Object.prototype)
+      expect(Object.getOwnPropertyDescriptor(relationship, '__proto__')?.value).toEqual({
+        relationship: true,
+      })
+      expect(relationship.data).toBeNull()
+    }
+    expect(Object.getOwnPropertyDescriptor(document, '__proto__')?.value.document).toBe(true)
+  })
+  it('keeps prototype member names as own relationship fields', () => {
+    const original = Object.getOwnPropertyDescriptor(Object, 'data')
+    const output = serialise('articles', {
+      constructor: { type: 'people', id: '9', name: 'Ada' },
+      toString: { type: 'tags', id: '2', label: 'Tag' },
+    })
+    expect(Object.hasOwn(output.data.relationships, 'constructor')).toBe(true)
+    expect(Object.hasOwn(output.data.relationships, 'toString')).toBe(true)
+    expect(output.data.relationships.constructor.data).toEqual({ type: 'people', id: '9' })
+    expect(output.data.relationships.toString.data).toEqual({ type: 'tags', id: '2' })
+    expect(Object.getOwnPropertyDescriptor(Object, 'data')).toEqual(original)
+    const raw = serialise('articles', {
+      $: {
+        relationships: {
+          constructor: { data: { type: 'people', id: '9' }, meta: { role: 'author' } },
+        },
+      },
+    })
+    expect(raw.data.relationships.constructor).toEqual({
+      data: { type: 'people', id: '9' },
+      meta: { role: 'author' },
+    })
+    expect(Object.getOwnPropertyDescriptor(Object, 'data')).toEqual(original)
+  })
+  it('promotes completed output without rereading earlier attribute values', () => {
+    let reads = 0
+    const input = {
+      get title() {
+        reads++
+        return { nested: true }
+      },
+      tags: [
+        { type: 'tags', id: '1' },
+        { type: 'tags', id: '2', label: 'Full' },
+      ],
+      author: { type: 'people', id: '9', name: 'Ada' },
+    }
+    const output = serialise('articles', input)
+    expect(reads).toBe(1)
+    expect(output.data.attributes).toEqual({ title: { nested: true } })
+    expect(output.data.relationships.tags.data).toEqual([
+      { type: 'tags', id: '1' },
+      { type: 'tags', id: '2' },
+    ])
+    expect(output.included.map((resource: any) => resource.id)).toEqual(['2', '9'])
+    expect(
+      serialise(
+        'articles',
+        [
+          { id: '1', title: 'First' },
+          { id: '2', author: { type: 'people', id: '9', name: 'Ada' } },
+        ],
+        'PATCH',
+      ).data.map((resource: any) => resource.id),
+    ).toEqual(['1', '2'])
+  })
+  it('merges a bridge between separate id and lid entries without changing first-seen order', () => {
+    const output = serialise('articles', {
+      first: { type: 'people', id: '9' },
+      middle: { type: 'tags', id: '3', label: 'Tag' },
+      second: { type: 'people', $: { lid: 'draft' } },
+      bridge: { type: 'people', id: '9', $: { lid: 'draft' }, name: 'Ada' },
+    })
+    expect(output.included.map((resource: any) => resource.type)).toEqual(['people', 'tags'])
+    expect(output.data.relationships.first.data).toEqual({ type: 'people', id: '9', lid: 'draft' })
+    expect(output.data.relationships.second.data).toEqual({ type: 'people', id: '9', lid: 'draft' })
+    expect(() =>
+      serialise('articles', {
+        first: { type: 'people', id: '9', name: 'Ada' },
+        second: { type: 'people', $: { lid: 'draft' }, name: 'Different' },
+        bridge: { type: 'people', id: '9', $: { lid: 'draft' } },
+      }),
+    ).toThrow('Conflicting resources')
+  })
+  it('keeps metadata-free first matches and finalizes aliases in supplied linkage', () => {
+    const output = serialise(
+      'articles',
+      {
+        author: { type: 'people', id: '9', $: { lid: 'draft' } },
+        $: {
+          relationships: {
+            author: {
+              data: [
+                { type: 'people', lid: 'draft' },
+                { type: 'people', id: '9', meta: { stale: true } },
+              ],
+            },
+          },
+        },
+      },
+      'POST',
+      {
+        document: {
+          included: [
+            {
+              type: 'tags',
+              id: '1',
+              relationships: {
+                author: { data: { type: 'people', lid: 'draft', meta: { edge: true } } },
+              },
+            },
+          ],
+        },
+      },
+    )
+    expect(output.data.relationships.author.data).toEqual({ type: 'people', id: '9', lid: 'draft' })
+    expect(output.included[0].relationships.author.data).toEqual({
+      type: 'people',
+      id: '9',
+      lid: 'draft',
+      meta: { edge: true },
+    })
+    expect(output.included).toHaveLength(1)
+  })
+  it('serializes deep cyclic resource graphs and compares cyclic duplicate attributes', () => {
+    const first: any = { type: 'nodes', id: '0' }
+    let last = first
+    for (let index = 1; index < 12000; index++)
+      last = last.next = { type: 'nodes', id: String(index) }
+    last.next = first
+    const output = serialise('nodes', first, 'PATCH')
+    expect(output.included).toHaveLength(11999)
+    expect(output.included[11998].relationships.next.data).toEqual({ type: 'nodes', id: '0' })
+    const left: any = { value: 1 }
+    left.self = left
+    const right: any = { value: 1 }
+    right.self = right
+    expect(
+      serialise('articles', {
+        first: { type: 'people', id: '9', payload: left },
+        second: { type: 'people', id: '9', payload: right },
+      }).included,
+    ).toHaveLength(1)
+  })
   it('transforms root and inferred types but keeps explicit relationship types', () => {
     expect(
       serialise(

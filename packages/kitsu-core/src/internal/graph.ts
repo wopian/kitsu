@@ -79,40 +79,62 @@ export function decodeGraph(data: any, included: JsonObject[] = []): JsonObject 
     return { data: output, included: [] }
   }
   const roots = Array.isArray(data) ? data : data ? [data] : []
-  const sources = roots.concat(included)
   const ids = new Map<any, Map<any, JsonObject>>()
-  const lids = new Map<any, Map<any, JsonObject>>()
-  let aliased = false
-  for (const source of sources) {
+  const pending: any[] = []
+  function allocate(source: JsonObject): JsonObject | undefined {
     if (
       source.lid !== undefined ||
       source.id === undefined ||
       Object.getPrototypeOf(source) !== Object.prototype
-    ) {
-      aliased = true
-      break
-    }
+    )
+      return
     let type = ids.get(source.type)
     if (!type) {
       type = new Map()
       ids.set(source.type, type)
     }
-    if (type.has(source.id)) {
-      aliased = true
-      break
-    }
-    type.set(source.id, source)
+    if (type.has(source.id)) return
+    const output = deattribute(source)
+    type.set(source.id, output)
+    if (source.relationships) pending.push(source.relationships, output)
+    return output
   }
-  const aliases = aliased ? resourceIndex(sources) : undefined
-  if (aliased) ids.clear()
-  const outputs = aliases ? new Map<JsonObject, JsonObject>() : undefined
+  const primary = new Array(roots.length)
+  const supplied = new Array(included.length)
+  for (let position = 0; position < roots.length; position++) {
+    const output = allocate(roots[position])
+    if (!output) return decodeAliases(data, included)
+    primary[position] = output
+  }
+  for (let position = 0; position < included.length; position++) {
+    const output = allocate(included[position])
+    if (!output) return decodeAliases(data, included)
+    supplied[position] = output
+  }
+  function target(identifier: JsonObject): JsonObject {
+    return ids.get(identifier.type)?.get(identifier.id) || reference(identifier)
+  }
+  for (let position = 0; position < pending.length; position += 2)
+    link(pending[position], pending[position + 1], target)
+  return {
+    data: Array.isArray(data) ? primary : data == null ? data : primary[0],
+    included: supplied,
+  }
+}
+
+function decodeAliases(data: any, included: JsonObject[]): JsonObject {
+  const roots = Array.isArray(data) ? data : data ? [data] : []
+  const aliases = resourceIndex(roots.concat(included))
+  const ids = new Map<any, Map<any, JsonObject>>()
+  const lids = new Map<any, Map<any, JsonObject>>()
+  const outputs = new Map<JsonObject, JsonObject>()
   const pending: any[] = []
   function allocate(input: JsonObject): JsonObject {
-    const source = aliases?.get(identity(input)) || input
-    const cached = outputs?.get(source)
+    const source = aliases.get(identity(input)) || input
+    const cached = outputs.get(source)
     if (cached) return cached
     const output = deattribute(source)
-    outputs?.set(source, output)
+    outputs.set(source, output)
     if (source.id !== undefined) {
       let type = ids.get(source.type)
       if (!type) {

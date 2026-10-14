@@ -18,6 +18,93 @@ function client(
 }
 
 describe('kitsu-native', () => {
+  it('keeps transport and request internals private at runtime', async () => {
+    const { api, calls } = client({ baseURL: 'https://private.invalid', timeout: 0 })
+    for (const name of ['transport', 'baseURL', 'timeout', 'fetchOptions', 'model', 'send'])
+      expect(name in api).toBe(false)
+    Object.assign(api, {
+      transport: () => {
+        throw new Error('Public property must not replace private transport')
+      },
+      baseURL: 'https://wrong.invalid',
+      model: null,
+      send: null,
+      fetchOptions: { credentials: 'omit' },
+    })
+    await api.post('articles', { title: 'Private elements' })
+    expect(calls[0].url).toBe('https://private.invalid/articles')
+    expect(calls[0].options.credentials).toBeUndefined()
+  })
+  it('keeps synchronous conversion and injected transport failures as rejected promises', async () => {
+    const failure = new Error('Synchronous failure')
+    const direct = new KitsuNative({
+      fetch: (() => {
+        throw failure
+      }) as unknown as typeof fetch,
+    })
+    await expect(direct.get('articles')).rejects.toBe(failure)
+    const { api } = client()
+    api.resCase = () => {
+      throw failure
+    }
+    for (const operation of [
+      () => api.get('articles'),
+      () => api.patch('articles', { id: '1' }),
+      () => api.post('articles', {}),
+      () => api.delete('articles', '1'),
+      () =>
+        api.request({
+          url: 'articles',
+          get method(): string {
+            throw failure
+          },
+        }),
+    ]) {
+      const pending = operation()
+      expect(pending).toBeInstanceOf(Promise)
+      await expect(pending).rejects.toBe(failure)
+    }
+  })
+  it('isolates concurrent options and clears successful request timeout signals', async () => {
+    const controller = new AbortController()
+    const signals: AbortSignal[] = []
+    const replies: (() => void)[] = []
+    const requests: Request[] = []
+    const { api, calls } = client(
+      { timeout: 20, fetchOptions: { credentials: 'include', signal: controller.signal } },
+      (url, options) => {
+        signals.push(options.signal as AbortSignal)
+        requests.push(new Request(url, options))
+        return new Promise((resolve) =>
+          replies.push(() => resolve(new Response(null, { status: 204 }))),
+        )
+      },
+    )
+    const first = api.get('articles', {
+      headers: { 'X-Request': 'first' },
+      fetchOptions: { credentials: 'omit', signal: undefined },
+    })
+    const second = api.get('articles', { headers: { 'X-Request': 'second' } })
+    replies[1]()
+    replies[0]()
+    await Promise.all([first, second])
+    await Bun.sleep(40)
+    expect(signals.every((signal) => !signal.aborted)).toBe(true)
+    expect(requests.map((request) => request.headers.get('x-request'))).toEqual(['first', 'second'])
+    expect(calls.map((call) => call.options.credentials)).toEqual(['omit', 'include'])
+    expect(api.headers.has('x-request')).toBe(false)
+    controller.abort()
+    expect(signals[0].aborted).toBe(false)
+    expect(signals[1].aborted).toBe(true)
+    const reason = new Error('Default canceled')
+    const defaults = client({ timeout: 0, fetchOptions: { signal: AbortSignal.abort(reason) } })
+    await defaults.api.get('articles', { fetchOptions: { signal: undefined } })
+    expect(defaults.calls[0].options.signal).toBeUndefined()
+    await defaults.api.get('articles', {
+      fetchOptions: Object.create({ signal: controller.signal }),
+    })
+    expect(defaults.calls[1].options.signal?.reason).toBe(reason)
+  })
   it('keeps aliases and helpers with default, snake and unchanged resource names', async () => {
     const { api, calls } = client()
     expect(api.fetch).toBe(api.get)

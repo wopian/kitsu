@@ -149,7 +149,7 @@ export default class Kitsu {
     this.interceptors = this.axios.interceptors
   }
 
-  private result(data: any, status: number, headers: JsonObject): any {
+  #result(data: any, status: number, headers: JsonObject): any {
     const decoded = deserialise(data, { hoistData: this.hoistData })
     return {
       ...(decoded === null || Array.isArray(decoded) ? { data: decoded } : decoded),
@@ -282,7 +282,7 @@ export default class Kitsu {
         ...config.axiosOptions,
       })
 
-      return this.result(data, status, responseHeaders)
+      return this.#result(data, status, responseHeaders)
     } catch (E) {
       throw error(E)
     }
@@ -361,7 +361,7 @@ export default class Kitsu {
         ...config.axiosOptions,
       })
 
-      return this.result(data, status, responseHeaders)
+      return this.#result(data, status, responseHeaders)
     } catch (E) {
       throw error(E)
     }
@@ -424,7 +424,7 @@ export default class Kitsu {
         },
       )
 
-      return this.result(data, status, responseHeaders)
+      return this.#result(data, status, responseHeaders)
     } catch (E) {
       throw error(E)
     }
@@ -496,7 +496,7 @@ export default class Kitsu {
         ...config.axiosOptions,
       })
 
-      return this.result(data, status, responseHeaders)
+      return this.#result(data, status, responseHeaders)
     } catch (E) {
       throw error(E)
     }
@@ -628,7 +628,7 @@ export default class Kitsu {
         ...axiosOptions,
       })
 
-      return this.result(data, status, responseHeaders)
+      return this.#result(data, status, responseHeaders)
     } catch (E) {
       throw error(E)
     }

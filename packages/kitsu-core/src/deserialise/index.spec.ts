@@ -2,6 +2,42 @@ import { describe, expect, it } from 'bun:test'
 import { deserialise } from '../deserialise.js'
 
 describe('kitsu-core deserialise', () => {
+  it('keeps reserved attributes, inherited fields, and literal prototype keys separate', () => {
+    const attributes = Object.assign(Object.create({ ignored: true }), {
+      type: 'wrong',
+      id: 'wrong',
+      $: 'wrong',
+      title: 'Hello',
+    })
+    Object.defineProperty(attributes, '__proto__', { value: { safe: true }, enumerable: true })
+    const output = deserialise({ data: { type: 'articles', id: '1', attributes } }).data
+    expect(output.type).toBe('articles')
+    expect(output.id).toBe('1')
+    expect(output.$).toBeUndefined()
+    expect(output.ignored).toBeUndefined()
+    expect(Object.getPrototypeOf(output)).toBe(Object.prototype)
+    expect(Object.hasOwn(output, '__proto__')).toBe(true)
+    const own = Object.getOwnPropertyDescriptor(output, '__proto__')?.value
+    expect(own).toEqual({ safe: true })
+    expect(own).not.toBe(Object.getOwnPropertyDescriptor(attributes, '__proto__')?.value)
+  })
+  it('falls back after a late duplicate while retaining canonical collection references', () => {
+    const output = deserialise({
+      data: [
+        { type: 'articles', id: '1', attributes: { title: 'Hello' } },
+        { type: 'articles', id: '2' },
+      ],
+      included: [{ type: 'articles', id: '1', meta: { supplied: true } }],
+    })
+    expect(output.data[0]).toBe(output.included[0])
+    expect(output.data[0]).toEqual({
+      type: 'articles',
+      id: '1',
+      title: 'Hello',
+      $: { meta: { supplied: true } },
+    })
+    expect(output.data[1]).toEqual({ type: 'articles', id: '2' })
+  })
   it('handles missing responses', () => {
     expect(deserialise(undefined)).toBeUndefined()
     expect(deserialise(null)).toBeUndefined()

@@ -28,10 +28,10 @@ export default class KitsuNative {
   update: KitsuNative['patch']
   create: KitsuNative['post']
   remove: KitsuNative['delete']
-  private transport: typeof globalThis.fetch
-  private baseURL: string
-  private timeout: number
-  private fetchOptions?: FetchOptions
+  #transport: typeof globalThis.fetch
+  #baseURL: string
+  #timeout: number
+  #fetchOptions?: FetchOptions
   constructor(options: KitsuNativeOptions = {}) {
     const traditional = typeof options.query === 'string' ? options.query === 'traditional' : true
     this.query =
@@ -53,11 +53,11 @@ export default class KitsuNative {
     })
     if (options.headers)
       new Headers(options.headers).forEach((value, name) => this.headers.set(name, value))
-    this.baseURL = options.baseURL || 'https://kitsu.app/api/edge'
-    this.timeout = options.timeout ?? 30000
+    this.#baseURL = options.baseURL || 'https://kitsu.app/api/edge'
+    this.#timeout = options.timeout ?? 30000
     this.hoistData = options.hoistData || false
-    this.fetchOptions = options.fetchOptions
-    this.transport = options.fetch ?? globalThis.fetch
+    this.#fetchOptions = options.fetchOptions
+    this.#transport = options.fetch ?? globalThis.fetch
     this.fetch = this.get
     this.update = this.patch
     this.create = this.post
@@ -68,13 +68,17 @@ export default class KitsuNative {
    * @param {string} model Resource path
    * @param {Object} [config] Request options
    * @returns {Promise<Object>} Decoded document with HTTP status and headers */
-  async get<T = any>(model: string, config: RequestConfig = {}): Promise<KitsuNativeResponse<T>> {
-    const [resource, id, relationship, subRelationship] = model.split('/')
-    let url = this.plural(this.resCase(resource))
-    if (id) url += `/${id}`
-    if (relationship) url += `/${this.resCase(relationship)}`
-    if (subRelationship) url += `/${this.resCase(subRelationship)}`
-    return this.request({ ...config, method: 'GET', url })
+  get<T = any>(model: string, config: RequestConfig = {}): Promise<KitsuNativeResponse<T>> {
+    try {
+      const [resource, id, relationship, subRelationship] = model.split('/')
+      let url = this.plural(this.resCase(resource))
+      if (id) url += `/${id}`
+      if (relationship) url += `/${this.resCase(relationship)}`
+      if (subRelationship) url += `/${this.resCase(subRelationship)}`
+      return this.request({ ...config, method: 'GET', url })
+    } catch (error) {
+      return Promise.reject(error)
+    }
   }
 
   /** Update resources or relationship linkage.
@@ -82,26 +86,31 @@ export default class KitsuNative {
    * @param {Object|Object[]|null} body Flat resources or identifiers
    * @param {Object} [config] Request options
    * @returns {Promise<Object>} Decoded response */
-  async patch<T = any>(
+  patch<T = any>(
     model: string,
     body: JsonObject | JsonObject[] | null,
     config: RequestConfig = {},
   ): Promise<KitsuNativeResponse<T>> {
-    const [resource, url] = this.model(model)
-    const type =
-      (body as JsonObject)?.type || (model.split('/').length === 2 ? model.split('/')[0] : resource)
-    const path =
-      !model.includes('/') && (body as JsonObject)?.id !== undefined
-        ? `${url}/${encodeURIComponent(String((body as JsonObject).id))}`
-        : url
-    return this.request({
-      ...config,
-      method: 'PATCH',
-      url: path,
-      type,
-      body,
-      relationship: model.includes('/relationships/'),
-    })
+    try {
+      const [resource, url] = this.#model(model)
+      const type =
+        (body as JsonObject)?.type ||
+        (model.split('/').length === 2 ? model.split('/')[0] : resource)
+      const path =
+        !model.includes('/') && (body as JsonObject)?.id !== undefined
+          ? `${url}/${encodeURIComponent(String((body as JsonObject).id))}`
+          : url
+      return this.request({
+        ...config,
+        method: 'PATCH',
+        url: path,
+        type,
+        body,
+        relationship: model.includes('/relationships/'),
+      })
+    } catch (error) {
+      return Promise.reject(error)
+    }
   }
 
   /** Create resources or add relationship linkage.
@@ -109,20 +118,24 @@ export default class KitsuNative {
    * @param {Object|Object[]|null} body Flat resources or identifiers
    * @param {Object} [config] Request options
    * @returns {Promise<Object>} Decoded response */
-  async post<T = any>(
+  post<T = any>(
     model: string,
     body: JsonObject | JsonObject[] | null,
     config: RequestConfig = {},
   ): Promise<KitsuNativeResponse<T>> {
-    const [type, url] = this.model(model)
-    return this.request({
-      ...config,
-      method: 'POST',
-      type,
-      url,
-      body,
-      relationship: model.includes('/relationships/'),
-    })
+    try {
+      const [type, url] = this.#model(model)
+      return this.request({
+        ...config,
+        method: 'POST',
+        type,
+        url,
+        body,
+        relationship: model.includes('/relationships/'),
+      })
+    } catch (error) {
+      return Promise.reject(error)
+    }
   }
 
   /** Delete resources or remove relationship identifiers.
@@ -130,37 +143,41 @@ export default class KitsuNative {
    * @param {string|number|Array} id Resource identifiers
    * @param {Object} [config] Request options
    * @returns {Promise<Object>} Decoded response */
-  async delete<T = any>(
+  delete<T = any>(
     model: string,
     id: string | number | (string | number)[],
     config: RequestConfig = {},
   ): Promise<KitsuNativeResponse<T>> {
-    const [type, url] = this.model(model)
-    if (id === undefined || id === null)
-      throw new Error(`DELETE requires an ID for the ${type} type`)
-    const bulk = Array.isArray(id)
-    const relationship = model.includes('/relationships/')
-    const path = bulk || relationship ? url : `${url}/${encodeURIComponent(String(id))}`
-    if (bulk && !relationship) {
-      // Legacy bulk DELETE is supported by kitsu, separately from resource DELETE.
-      return this.send(
-        { ...config, method: 'DELETE', url: path },
-        serialise(
-          type,
-          id.map((id) => ({ id })),
-          'DELETE',
-          { camelCaseTypes: this.camel, pluralTypes: this.plural, document: config.document },
-        ),
-      )
+    try {
+      const [type, url] = this.#model(model)
+      if (id === undefined || id === null)
+        throw new Error(`DELETE requires an ID for the ${type} type`)
+      const bulk = Array.isArray(id)
+      const relationship = model.includes('/relationships/')
+      const path = bulk || relationship ? url : `${url}/${encodeURIComponent(String(id))}`
+      if (bulk && !relationship) {
+        // Legacy bulk DELETE is supported by kitsu, separately from resource DELETE.
+        return this.#send(
+          { ...config, method: 'DELETE', url: path },
+          serialise(
+            type,
+            id.map((id) => ({ id })),
+            'DELETE',
+            { camelCaseTypes: this.camel, pluralTypes: this.plural, document: config.document },
+          ),
+        )
+      }
+      return this.request({
+        ...config,
+        method: 'DELETE',
+        type,
+        url: path,
+        relationship,
+        body: relationship ? (bulk ? id : [id]).map((id) => ({ id })) : undefined,
+      })
+    } catch (error) {
+      return Promise.reject(error)
     }
-    return this.request({
-      ...config,
-      method: 'DELETE',
-      type,
-      url: path,
-      relationship,
-      body: relationship ? (bulk ? id : [id]).map((id) => ({ id })) : undefined,
-    })
   }
 
   /** Fetch authenticated user.
@@ -177,34 +194,39 @@ export default class KitsuNative {
   /** Send an arbitrary JSON:API request.
    * @param {Object} config Request, document and fetch options
    * @returns {Promise<Object>} Decoded document with HTTP status and headers */
-  async request<T = any>(config: ArbitraryRequest): Promise<KitsuNativeResponse<T>> {
-    const method = config.method?.toUpperCase() || 'GET'
-    const relationship = config.relationship ?? config.url.includes('/relationships/')
-    const document =
-      method === 'GET' || (method === 'DELETE' && !relationship)
-        ? undefined
-        : serialise(config.type, config.body, method, {
-            camelCaseTypes: this.camel,
-            pluralTypes: this.plural,
-            document: config.document,
-            relationship,
-          })
-    return this.send({ ...config, method }, document)
+  request<T = any>(config: ArbitraryRequest): Promise<KitsuNativeResponse<T>> {
+    try {
+      const method = config.method?.toUpperCase() || 'GET'
+      const relationship = config.relationship ?? config.url.includes('/relationships/')
+      const document =
+        method === 'GET' || (method === 'DELETE' && !relationship)
+          ? undefined
+          : serialise(config.type, config.body, method, {
+              camelCaseTypes: this.camel,
+              pluralTypes: this.plural,
+              document: config.document,
+              relationship,
+            })
+      return this.#send(config, document, method)
+    } catch (error) {
+      return Promise.reject(error)
+    }
   }
 
-  private model(model: string): [string, string] {
+  #model(model: string): [string, string] {
     return model.includes('/')
       ? splitModel(model)
       : splitModel(model, { resourceCase: this.resCase, pluralModel: this.plural })
   }
 
-  private async send<T>(
+  async #send<T>(
     config: ArbitraryRequest,
     document?: JsonObject,
+    method = config.method,
   ): Promise<KitsuNativeResponse<T>> {
     let url = /^(?:[a-z][a-z\d+.-]*:)?\/\//i.test(config.url)
       ? config.url
-      : `${this.baseURL.replace(/\/$/, '')}/${config.url.replace(/^\//, '')}`
+      : `${this.#baseURL.replace(/\/$/, '')}/${config.url.replace(/^\//, '')}`
     if (config.params) {
       const parameters = this.query(config.params)
       if (parameters) url += `${url.includes('?') ? '&' : '?'}${parameters}`
@@ -213,27 +235,29 @@ export default class KitsuNative {
     const headers = config.headers ? new Headers(this.headers) : this.headers
     if (config.headers)
       new Headers(config.headers).forEach((value, name) => headers.set(name, value))
-    const options = { ...this.fetchOptions, ...config.fetchOptions }
-    const controller = this.timeout > 0 ? new AbortController() : undefined
+    const options: RequestInit = {
+      ...this.#fetchOptions,
+      ...config.fetchOptions,
+      method,
+      headers,
+      body: document === undefined ? undefined : JSON.stringify(document),
+    }
+    const callerSignal = options.signal
+    const controller = this.#timeout > 0 ? new AbortController() : undefined
     const signal = controller
-      ? options.signal
-        ? AbortSignal.any([options.signal, controller.signal])
+      ? callerSignal
+        ? AbortSignal.any([callerSignal, controller.signal])
         : controller.signal
-      : options.signal
+      : callerSignal
     const timer = controller
       ? setTimeout(
           () => controller.abort(new DOMException('Request timed out', 'TimeoutError')),
-          this.timeout,
+          this.#timeout,
         )
       : undefined
+    options.signal = signal
     try {
-      const response = await this.transport(url, {
-        ...options,
-        method: config.method,
-        headers,
-        body: document === undefined ? undefined : JSON.stringify(document),
-        signal,
-      })
+      const response = await this.#transport(url, options)
       let body: any
       try {
         if (response.status !== 204 && response.status !== 205 && response.body !== null) {

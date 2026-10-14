@@ -114,15 +114,34 @@ describe('JSON:API fixtures and correctness', () => {
 
 describe('public adapter integration', () => {
   test('missing native package is unsupported only in older base revisions', async () => {
-    const directory = await mkdtemp(resolve(root, '.cache/native-base-'))
+    const cache = resolve(root, '.cache')
+    await mkdir(cache, { recursive: true })
+    const directory = await mkdtemp(resolve(cache, 'native-base-'))
     try {
+      // Classification must not depend on workspace dist files or concurrent builds.
+      const head = resolve(directory, 'head')
+      const absent = resolve(directory, 'absent')
+      const distribution = resolve(head, 'packages/kitsu-native/dist')
+      await mkdir(distribution, { recursive: true })
+      await writeFile(
+        resolve(distribution, 'index.mjs'),
+        `export default class KitsuNative {
+          constructor(options) { this.transport = options.fetch; }
+          async request() {
+            const response = await this.transport('https://benchmark.invalid/resources');
+            const document = await response.json();
+            const resource = document.data;
+            return { data: { type: resource.type, id: resource.id, ...resource.attributes } };
+          }
+        }`,
+      )
       const options = {
         library: 'kitsu-native',
         suite: 'client',
         mode: 'decode',
         fixture: 'small-no-relationships',
-        root,
-        baseRoot: directory,
+        root: head,
+        baseRoot: absent,
         smoke: true,
       }
       for (const absentHead of [false, true]) {
@@ -132,7 +151,7 @@ describe('public adapter integration', () => {
             '--tsconfig-override',
             resolve(root, 'packages/benchmark/tsconfig.runtime.json'),
             resolve(root, 'packages/benchmark/src/worker.ts'),
-            JSON.stringify({ ...options, ...(absentHead ? { root: directory } : {}) }),
+            JSON.stringify({ ...options, ...(absentHead ? { root: absent } : {}) }),
           ],
           { cwd: root, stdout: 'pipe', stderr: 'pipe', timeout: 10000 },
         )
