@@ -6,6 +6,9 @@ Run `bun run benchmark:verify .cache/benchmark-run-1 .cache/benchmark-run-2`.
 
 Verification requires two complete independent runs on both Node and Bun, matching
 built package fingerprints, harness, fixtures, library versions, and environments.
+Git commit IDs remain provenance. Commits of an unchanged working tree do not
+invalidate identical built package and harness fingerprints; verification records
+different commit IDs explicitly.
 Each core decode/encode case must lead the fastest measured devour, jsona, or
 ts-japi codec by at least 5%. Each shared native-client decode/encode case must
 lead fetchja and devour by at least 5%. Axios kitsu remains in comparisons but has

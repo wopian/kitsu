@@ -79,6 +79,21 @@ describe('performance verification', () => {
     expect(result.unavailable).toHaveLength(2)
     expect(result.passed).toBe(199)
   })
+  test('retains changed Git provenance only when immutable fingerprints match', () => {
+    const reports = runs()
+    reports[1][1].headSha = 'd'.repeat(40)
+    const result = verifyRuns(reports)
+    expect(result.passed).toBe(200)
+    expect(result.misses).toEqual([])
+    expect(result.provenance).toHaveLength(1)
+    expect(renderVerification(result)).toContain('## Git provenance')
+    expect(renderVerification(result)).toContain('built package and harness fingerprints match')
+    reports[1][1].sourceHash = 'e'.repeat(64)
+    expect(() => verifyRuns(reports)).toThrow('environments or versions')
+    reports[1][1].sourceHash = reports[0][0].sourceHash
+    reports[1][1].harnessHash = 'e'.repeat(64)
+    expect(() => verifyRuns(reports)).toThrow('environments or versions')
+  })
   test('requires successful own results even when competitors are unavailable', () => {
     const reports = runs()
     const own = cell(reports, 'kitsu-core')

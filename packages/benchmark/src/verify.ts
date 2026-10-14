@@ -7,6 +7,7 @@ export interface Verification {
   passed: number
   misses: string[]
   unavailable: string[]
+  provenance: string[]
 }
 
 /** Verify complete independent runs without turning unsupported APIs or failures into wins. */
@@ -14,7 +15,7 @@ export function verifyRuns(runs: Measurement[][]): Verification {
   if (runs.length !== 2) throw new Error('exactly two independent runs required')
   const cases = fixtures()
   const expected = libraries.length * 2 * 3 * cases.length
-  const result: Verification = { passed: 0, misses: [], unavailable: [] }
+  const result: Verification = { passed: 0, misses: [], unavailable: [], provenance: [] }
   for (let run = 0; run < 2; run++) {
     if (runs[run].length !== 2 || new Set(runs[run].map((report) => report.runtime)).size !== 2)
       throw new Error('both runtimes required')
@@ -32,7 +33,6 @@ export function verifyRuns(runs: Measurement[][]): Verification {
       if (
         report.harnessHash !== previous.harnessHash ||
         report.sourceHash !== previous.sourceHash ||
-        report.headSha !== previous.headSha ||
         report.runtimeVersion !== previous.runtimeVersion ||
         JSON.stringify(report.runner) !== JSON.stringify(previous.runner) ||
         JSON.stringify(report.versions) !== JSON.stringify(previous.versions)
@@ -43,10 +43,15 @@ export function verifyRuns(runs: Measurement[][]): Verification {
       if (
         report.harnessHash !== runs[run][0].harnessHash ||
         report.sourceHash !== runs[run][0].sourceHash ||
-        report.headSha !== runs[run][0].headSha ||
         JSON.stringify(report.versions) !== JSON.stringify(runs[run][0].versions)
       )
         throw new Error('runtime reports do not match')
+      // Dirty working trees can be committed while identical built files are measured.
+      // Product and harness fingerprints above remain mandatory; retain Git provenance.
+      if (report.headSha !== runs[0][0].headSha)
+        result.provenance.push(
+          `run ${run + 1}/${report.runtime}: commit ${report.headSha} differs from ${runs[0][0].headSha}; built package and harness fingerprints match`,
+        )
       const cells = new Map(
         report.cells.map(({ head }) => [
           `${head.library}/${head.suite}/${head.mode}/${head.fixture}`,
@@ -131,5 +136,8 @@ export function renderVerification(result: Verification): string {
       ? result.unavailable.map((message) => `- ${message}`)
       : ['None.']),
     '',
+    ...(result.provenance.length
+      ? ['## Git provenance', '', ...result.provenance.map((message) => `- ${message}`), '']
+      : []),
   ].join('\n')
 }

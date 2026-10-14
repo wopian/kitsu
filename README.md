@@ -60,9 +60,9 @@ Local measurements. Master CI refreshes this section automatically.
 
 ### bun 1\.4\.3
 
-Base commit (local changes measured): `499840183b8b1cb8aa51904e9ff1311226fbc125`. Runner: win32 x64, AMD Ryzen 9 5900X 12-Core Processor            .
+Base commit (local changes measured): `3324ed54e50f0262c6f2da322ae1de81cf9c71d9`. Runner: win32 x64, AMD Ryzen 9 5900X 12-Core Processor            .
 
-Built package fingerprint: `3682d7e0a8696bd04935e6b701765d8a0cce9d550713f8509deaefce8bae210a`.
+Built package fingerprint: `5033a2ae742fcb23f3d2899f04ddc2455a7e93e61454f13d0e6bc1b74b99d25e`.
 
 Library versions: kitsu-core 12\.0\.0, kitsu 12\.0\.0, kitsu-native 12\.0\.0, fetchja 3\.2\.0, devour 3\.2\.0, yayson 4\.4\.0, jsona 1\.14\.0, ts-japi 1\.12\.6.
 
@@ -72,225 +72,225 @@ Library versions: kitsu-core 12\.0\.0, kitsu 12\.0\.0, kitsu-native 12\.0\.0, fe
 
 | Scenario | Library | Rate | vs kitsu-core | Detail |
 | --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu-core | 1,068,689 | 1x |  |
-| **small-no-relationships** | **devour** | **1,358,287** | **1.27x faster** |  |
-| small-no-relationships | yayson | 807,614 | 1.32x slower |  |
-| small-no-relationships | jsona | 1,153,283 | 1.08x faster |  |
+| small-no-relationships | kitsu-core | 1,043,259 | 1x |  |
+| **small-no-relationships** | **devour** | **1,236,394** | **1.19x faster** |  |
+| small-no-relationships | yayson | 751,724 | 1.39x slower |  |
+| small-no-relationships | jsona | 1,181,518 | 1.13x faster |  |
 | small-no-relationships | ts-japi | unsupported | — | no public decoder |
-| small-links-only | kitsu-core | 748,089 | 1x |  |
-| small-links-only | devour | 703,652 | 1.06x slower |  |
-| small-links-only | yayson | 470,809 | 1.59x slower |  |
-| **small-links-only** | **jsona** | **998,613** | **1.33x faster** |  |
+| small-links-only | kitsu-core | 723,062 | 1x |  |
+| small-links-only | devour | 818,197 | 1.13x faster |  |
+| small-links-only | yayson | 464,074 | 1.56x slower |  |
+| **small-links-only** | **jsona** | **992,392** | **1.37x faster** |  |
 | small-links-only | ts-japi | unsupported | — | no public decoder |
-| **small-relationships** | **kitsu-core** | **286,951** | **1x** |  |
-| small-relationships | devour | 268,389 | 1.07x slower |  |
-| small-relationships | yayson | 151,405 | 1.9x slower |  |
-| small-relationships | jsona | 280,014 | 1.02x slower |  |
+| small-relationships | kitsu-core | 291,206 | 1x |  |
+| small-relationships | devour | 248,934 | 1.17x slower |  |
+| small-relationships | yayson | 188,375 | 1.55x slower |  |
+| **small-relationships** | **jsona** | **302,802** | **1.04x faster** |  |
 | small-relationships | ts-japi | unsupported | — | no public decoder |
-| **nested-relationships** | **kitsu-core** | **405,733** | **1x** |  |
-| nested-relationships | devour | 278,112 | 1.46x slower |  |
-| nested-relationships | yayson | 253,494 | 1.6x slower |  |
-| nested-relationships | jsona | 340,482 | 1.19x slower |  |
+| **nested-relationships** | **kitsu-core** | **412,495** | **1x** |  |
+| nested-relationships | devour | 312,507 | 1.32x slower |  |
+| nested-relationships | yayson | 243,201 | 1.7x slower |  |
+| nested-relationships | jsona | 322,770 | 1.28x slower |  |
 | nested-relationships | ts-japi | unsupported | — | no public decoder |
-| collection | kitsu-core | 79,358 | 1x |  |
-| collection | devour | 95,785 | 1.21x faster |  |
-| collection | yayson | 78,238 | 1.01x slower |  |
-| **collection** | **jsona** | **240,619** | **3.03x faster** |  |
+| collection | kitsu-core | 78,508 | 1x |  |
+| collection | devour | 88,330 | 1.13x faster |  |
+| collection | yayson | 77,928 | 1.01x slower |  |
+| **collection** | **jsona** | **227,227** | **2.89x faster** |  |
 | collection | ts-japi | unsupported | — | no public decoder |
-| collection-includes | kitsu-core | 59,887 | 1x |  |
-| collection-includes | devour | 106,077 | 1.77x faster |  |
-| collection-includes | yayson | 104,578 | 1.75x faster |  |
-| **collection-includes** | **jsona** | **144,959** | **2.42x faster** |  |
+| collection-includes | kitsu-core | 58,228 | 1x |  |
+| collection-includes | devour | 111,100 | 1.91x faster |  |
+| collection-includes | yayson | 99,918 | 1.72x faster |  |
+| **collection-includes** | **jsona** | **119,491** | **2.05x faster** |  |
 | collection-includes | ts-japi | unsupported | — | no public decoder |
-| patch-single | kitsu-core | 1,945,596 | 1x |  |
-| **patch-single** | **devour** | **2,074,502** | **1.07x faster** |  |
-| patch-single | yayson | 822,708 | 2.36x slower |  |
-| patch-single | jsona | 1,333,107 | 1.46x slower |  |
+| **patch-single** | **kitsu-core** | **1,633,467** | **1x** |  |
+| patch-single | devour | 1,411,960 | 1.16x slower |  |
+| patch-single | yayson | 671,363 | 2.43x slower |  |
+| patch-single | jsona | 1,262,091 | 1.29x slower |  |
 | patch-single | ts-japi | unsupported | — | no public decoder |
-| empty-relationships | kitsu-core | 695,514 | 1x |  |
-| empty-relationships | devour | 614,531 | 1.13x slower |  |
-| empty-relationships | yayson | 602,809 | 1.15x slower |  |
-| **empty-relationships** | **jsona** | **867,659** | **1.25x faster** |  |
+| empty-relationships | kitsu-core | 696,895 | 1x |  |
+| empty-relationships | devour | 634,400 | 1.1x slower |  |
+| empty-relationships | yayson | 527,175 | 1.32x slower |  |
+| **empty-relationships** | **jsona** | **879,203** | **1.26x faster** |  |
 | empty-relationships | ts-japi | unsupported | — | no public decoder |
-| **few-includes** | **kitsu-core** | **874** | **1x** |  |
-| few-includes | devour | 530 | 1.65x slower |  |
-| few-includes | yayson | 550 | 1.59x slower |  |
-| few-includes | jsona | 564 | 1.55x slower |  |
+| **few-includes** | **kitsu-core** | **921** | **1x** |  |
+| few-includes | devour | 513 | 1.8x slower |  |
+| few-includes | yayson | 646 | 1.43x slower |  |
+| few-includes | jsona | 566 | 1.63x slower |  |
 | few-includes | ts-japi | unsupported | — | no public decoder |
-| **many-includes** | **kitsu-core** | **459** | **1x** |  |
-| many-includes | devour | 8.03 | 57.19x slower |  |
-| many-includes | yayson | 38.83 | 11.82x slower |  |
-| many-includes | jsona | 174 | 2.64x slower |  |
+| **many-includes** | **kitsu-core** | **455** | **1x** |  |
+| many-includes | devour | 8.05 | 56.49x slower |  |
+| many-includes | yayson | 38.91 | 11.69x slower |  |
+| many-includes | jsona | 182 | 2.5x slower |  |
 | many-includes | ts-japi | unsupported | — | no public decoder |
-| **complex-relationships** | **kitsu-core** | **63.76** | **1x** |  |
+| **complex-relationships** | **kitsu-core** | **63.79** | **1x** |  |
 | complex-relationships | devour | timeout | — | worker exceeds 30-second limit |
-| complex-relationships | yayson | 0.95 | 67.33x slower |  |
-| complex-relationships | jsona | 26.45 | 2.41x slower |  |
+| complex-relationships | yayson | 0.84 | 76.31x slower |  |
+| complex-relationships | jsona | 26.24 | 2.43x slower |  |
 | complex-relationships | ts-japi | unsupported | — | no public decoder |
-| **wide-relationship** | **kitsu-core** | **484** | **1x** |  |
-| wide-relationship | devour | 5.39 | 89.85x slower |  |
-| wide-relationship | yayson | 22.96 | 21.09x slower |  |
-| wide-relationship | jsona | 163 | 2.97x slower |  |
+| **wide-relationship** | **kitsu-core** | **460** | **1x** |  |
+| wide-relationship | devour | 5.17 | 88.96x slower |  |
+| wide-relationship | yayson | 22.51 | 20.44x slower |  |
+| wide-relationship | jsona | 159 | 2.89x slower |  |
 | wide-relationship | ts-japi | unsupported | — | no public decoder |
-| **self-cycle** | **kitsu-core** | **387,918** | **1x** |  |
-| self-cycle | devour | 281,706 | 1.38x slower |  |
-| self-cycle | yayson | 251,469 | 1.54x slower |  |
-| self-cycle | jsona | 313,244 | 1.24x slower |  |
+| **self-cycle** | **kitsu-core** | **371,414** | **1x** |  |
+| self-cycle | devour | 261,139 | 1.42x slower |  |
+| self-cycle | yayson | 226,857 | 1.64x slower |  |
+| self-cycle | jsona | 269,766 | 1.38x slower |  |
 | self-cycle | ts-japi | unsupported | — | no public decoder |
-| **mutual-cycle** | **kitsu-core** | **289,075** | **1x** |  |
-| mutual-cycle | devour | 231,075 | 1.25x slower |  |
-| mutual-cycle | yayson | 210,894 | 1.37x slower |  |
-| mutual-cycle | jsona | 252,617 | 1.14x slower |  |
+| **mutual-cycle** | **kitsu-core** | **309,311** | **1x** |  |
+| mutual-cycle | devour | 212,352 | 1.46x slower |  |
+| mutual-cycle | yayson | 199,306 | 1.55x slower |  |
+| mutual-cycle | jsona | 240,330 | 1.29x slower |  |
 | mutual-cycle | ts-japi | unsupported | — | no public decoder |
 
 #### encode
 
 | Scenario | Library | Rate | vs kitsu-core | Detail |
 | --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu-core | 1,514,286 | 1x |  |
-| **small-no-relationships** | **devour** | **3,186,377** | **2.1x faster** |  |
-| small-no-relationships | yayson | 1,729,348 | 1.14x faster |  |
-| small-no-relationships | jsona | 1,951,377 | 1.29x faster |  |
-| small-no-relationships | ts-japi | 720,896 | 2.1x slower |  |
-| small-links-only | kitsu-core | 1,676,586 | 1x |  |
-| small-links-only | devour | 1,695,770 | 1.01x faster |  |
-| small-links-only | yayson | 1,262,248 | 1.33x slower |  |
-| **small-links-only** | **jsona** | **1,907,729** | **1.14x faster** |  |
-| small-links-only | ts-japi | 660,702 | 2.54x slower |  |
-| small-relationships | kitsu-core | 830,776 | 1x |  |
-| **small-relationships** | **devour** | **1,284,691** | **1.55x faster** |  |
-| small-relationships | yayson | 882,774 | 1.06x faster |  |
-| small-relationships | jsona | 805,966 | 1.03x slower |  |
-| small-relationships | ts-japi | 367,175 | 2.26x slower |  |
-| **nested-relationships** | **kitsu-core** | **1,697,432** | **1x** |  |
-| nested-relationships | devour | 1,297,618 | 1.31x slower |  |
-| nested-relationships | yayson | 870,169 | 1.95x slower |  |
-| nested-relationships | jsona | 917,103 | 1.85x slower |  |
-| nested-relationships | ts-japi | 396,516 | 4.28x slower |  |
-| collection | kitsu-core | 150,515 | 1x |  |
-| collection | devour | 161,933 | 1.08x faster |  |
-| collection | yayson | 232,540 | 1.54x faster |  |
-| **collection** | **jsona** | **596,061** | **3.96x faster** |  |
-| collection | ts-japi | 286,162 | 1.9x faster |  |
-| collection-includes | kitsu-core | 55,398 | 1x |  |
-| collection-includes | devour | 245,018 | 4.42x faster |  |
-| collection-includes | yayson | 266,690 | 4.81x faster |  |
-| **collection-includes** | **jsona** | **280,677** | **5.07x faster** |  |
-| collection-includes | ts-japi | 168,522 | 3.04x faster |  |
-| patch-single | kitsu-core | 4,031,726 | 1x |  |
-| **patch-single** | **devour** | **4,596,922** | **1.14x faster** |  |
-| patch-single | yayson | 1,684,937 | 2.39x slower |  |
-| patch-single | jsona | 2,553,740 | 1.58x slower |  |
-| patch-single | ts-japi | 616,606 | 6.54x slower |  |
-| empty-relationships | kitsu-core | 1,099,309 | 1x |  |
-| **empty-relationships** | **devour** | **1,165,939** | **1.06x faster** |  |
-| empty-relationships | yayson | 866,143 | 1.27x slower |  |
-| empty-relationships | jsona | 1,125,040 | 1.02x faster |  |
-| empty-relationships | ts-japi | 422,155 | 2.6x slower |  |
-| few-includes | kitsu-core | 1,271 | 1x |  |
-| **few-includes** | **devour** | **1,757** | **1.38x faster** |  |
-| few-includes | yayson | 1,086 | 1.17x slower |  |
-| few-includes | jsona | 1,214 | 1.05x slower |  |
-| few-includes | ts-japi | 460 | 2.76x slower |  |
-| many-includes | kitsu-core | 1,043 | 1x |  |
-| **many-includes** | **devour** | **1,663** | **1.6x faster** |  |
-| many-includes | yayson | 1,093 | 1.05x faster |  |
-| many-includes | jsona | 1,193 | 1.14x faster |  |
-| many-includes | ts-japi | 588 | 1.77x slower |  |
-| complex-relationships | kitsu-core | 628 | 1x |  |
-| **complex-relationships** | **devour** | **1,085** | **1.73x faster** |  |
-| complex-relationships | yayson | 1,068 | 1.7x faster |  |
-| complex-relationships | jsona | 658 | 1.05x faster |  |
-| complex-relationships | ts-japi | 403 | 1.56x slower |  |
-| wide-relationship | kitsu-core | 6,543 | 1x |  |
-| **wide-relationship** | **devour** | **22,057** | **3.37x faster** |  |
-| wide-relationship | yayson | 21,341 | 3.26x faster |  |
-| wide-relationship | jsona | 5,149 | 1.27x slower |  |
-| wide-relationship | ts-japi | 7,994 | 1.22x faster |  |
-| **self-cycle** | **kitsu-core** | **1,766,205** | **1x** |  |
-| self-cycle | devour | 1,483,767 | 1.19x slower |  |
-| self-cycle | yayson | 926,811 | 1.91x slower |  |
-| self-cycle | jsona | 948,414 | 1.86x slower |  |
-| self-cycle | ts-japi | 397,687 | 4.44x slower |  |
-| **mutual-cycle** | **kitsu-core** | **1,531,238** | **1x** |  |
-| mutual-cycle | devour | 1,144,018 | 1.34x slower |  |
-| mutual-cycle | yayson | 1,033,898 | 1.48x slower |  |
-| mutual-cycle | jsona | 855,377 | 1.79x slower |  |
-| mutual-cycle | ts-japi | 411,962 | 3.72x slower |  |
+| small-no-relationships | kitsu-core | 1,299,019 | 1x |  |
+| **small-no-relationships** | **devour** | **2,873,849** | **2.21x faster** |  |
+| small-no-relationships | yayson | 1,602,714 | 1.23x faster |  |
+| small-no-relationships | jsona | 2,075,557 | 1.6x faster |  |
+| small-no-relationships | ts-japi | 662,429 | 1.96x slower |  |
+| small-links-only | kitsu-core | 1,531,304 | 1x |  |
+| small-links-only | devour | 1,904,116 | 1.24x faster |  |
+| small-links-only | yayson | 1,258,827 | 1.22x slower |  |
+| **small-links-only** | **jsona** | **2,125,420** | **1.39x faster** |  |
+| small-links-only | ts-japi | 557,788 | 2.75x slower |  |
+| small-relationships | kitsu-core | 991,371 | 1x |  |
+| **small-relationships** | **devour** | **1,189,174** | **1.2x faster** |  |
+| small-relationships | yayson | 874,418 | 1.13x slower |  |
+| small-relationships | jsona | 950,999 | 1.04x slower |  |
+| small-relationships | ts-japi | 386,546 | 2.56x slower |  |
+| **nested-relationships** | **kitsu-core** | **1,748,662** | **1x** |  |
+| nested-relationships | devour | 1,428,722 | 1.22x slower |  |
+| nested-relationships | yayson | 901,796 | 1.94x slower |  |
+| nested-relationships | jsona | 934,301 | 1.87x slower |  |
+| nested-relationships | ts-japi | 368,779 | 4.74x slower |  |
+| collection | kitsu-core | 143,307 | 1x |  |
+| collection | devour | 140,058 | 1.02x slower |  |
+| collection | yayson | 238,169 | 1.66x faster |  |
+| **collection** | **jsona** | **452,883** | **3.16x faster** |  |
+| collection | ts-japi | 268,039 | 1.87x faster |  |
+| collection-includes | kitsu-core | 50,828 | 1x |  |
+| collection-includes | devour | 241,295 | 4.75x faster |  |
+| collection-includes | yayson | 241,983 | 4.76x faster |  |
+| **collection-includes** | **jsona** | **281,123** | **5.53x faster** |  |
+| collection-includes | ts-japi | 153,610 | 3.02x faster |  |
+| patch-single | kitsu-core | 3,869,356 | 1x |  |
+| **patch-single** | **devour** | **4,593,197** | **1.19x faster** |  |
+| patch-single | yayson | 1,629,839 | 2.37x slower |  |
+| patch-single | jsona | 2,469,258 | 1.57x slower |  |
+| patch-single | ts-japi | 704,247 | 5.49x slower |  |
+| empty-relationships | kitsu-core | 1,149,445 | 1x |  |
+| **empty-relationships** | **devour** | **1,155,048** | **<1.01x faster** |  |
+| empty-relationships | yayson | 950,217 | 1.21x slower |  |
+| empty-relationships | jsona | 1,095,582 | 1.05x slower |  |
+| empty-relationships | ts-japi | 432,753 | 2.66x slower |  |
+| few-includes | kitsu-core | 1,013 | 1x |  |
+| **few-includes** | **devour** | **1,568** | **1.55x faster** |  |
+| few-includes | yayson | 1,084 | 1.07x faster |  |
+| few-includes | jsona | 1,123 | 1.11x faster |  |
+| few-includes | ts-japi | 594 | 1.7x slower |  |
+| many-includes | kitsu-core | 1,138 | 1x |  |
+| **many-includes** | **devour** | **1,687** | **1.48x faster** |  |
+| many-includes | yayson | 1,121 | 1.02x slower |  |
+| many-includes | jsona | 1,268 | 1.11x faster |  |
+| many-includes | ts-japi | 608 | 1.87x slower |  |
+| complex-relationships | kitsu-core | 608 | 1x |  |
+| **complex-relationships** | **devour** | **1,068** | **1.76x faster** |  |
+| complex-relationships | yayson | 1,022 | 1.68x faster |  |
+| complex-relationships | jsona | 599 | 1.01x slower |  |
+| complex-relationships | ts-japi | 472 | 1.29x slower |  |
+| wide-relationship | kitsu-core | 6,201 | 1x |  |
+| **wide-relationship** | **devour** | **20,507** | **3.31x faster** |  |
+| wide-relationship | yayson | 14,428 | 2.33x faster |  |
+| wide-relationship | jsona | 5,470 | 1.13x slower |  |
+| wide-relationship | ts-japi | 8,242 | 1.33x faster |  |
+| **self-cycle** | **kitsu-core** | **1,824,096** | **1x** |  |
+| self-cycle | devour | 1,269,101 | 1.44x slower |  |
+| self-cycle | yayson | 841,229 | 2.17x slower |  |
+| self-cycle | jsona | 902,898 | 2.02x slower |  |
+| self-cycle | ts-japi | 381,594 | 4.78x slower |  |
+| **mutual-cycle** | **kitsu-core** | **1,682,050** | **1x** |  |
+| mutual-cycle | devour | 1,272,296 | 1.32x slower |  |
+| mutual-cycle | yayson | 833,824 | 2.02x slower |  |
+| mutual-cycle | jsona | 835,757 | 2.01x slower |  |
+| mutual-cycle | ts-japi | 402,521 | 4.18x slower |  |
 
 #### decode-encode
 
 | Scenario | Library | Rate | vs kitsu-core | Detail |
 | --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu-core | 580,800 | 1x |  |
-| **small-no-relationships** | **devour** | **747,802** | **1.29x faster** |  |
-| small-no-relationships | yayson | 449,455 | 1.29x slower |  |
-| small-no-relationships | jsona | 700,221 | 1.21x faster |  |
+| small-no-relationships | kitsu-core | 518,649 | 1x |  |
+| **small-no-relationships** | **devour** | **690,192** | **1.33x faster** |  |
+| small-no-relationships | yayson | 463,100 | 1.12x slower |  |
+| small-no-relationships | jsona | 596,032 | 1.15x faster |  |
 | small-no-relationships | ts-japi | unsupported | — | no public decoder |
-| small-links-only | kitsu-core | 405,336 | 1x |  |
-| small-links-only | devour | 471,023 | 1.16x faster |  |
-| small-links-only | yayson | 365,354 | 1.11x slower |  |
-| **small-links-only** | **jsona** | **531,664** | **1.31x faster** |  |
+| small-links-only | kitsu-core | 421,073 | 1x |  |
+| small-links-only | devour | 462,685 | 1.1x faster |  |
+| small-links-only | yayson | 338,347 | 1.24x slower |  |
+| **small-links-only** | **jsona** | **528,016** | **1.25x faster** |  |
 | small-links-only | ts-japi | unsupported | — | no public decoder |
-| small-relationships | kitsu-core | 178,620 | 1x |  |
-| small-relationships | devour | 182,181 | 1.02x faster |  |
-| small-relationships | yayson | 134,244 | 1.33x slower |  |
-| **small-relationships** | **jsona** | **189,397** | **1.06x faster** |  |
+| small-relationships | kitsu-core | 181,166 | 1x |  |
+| small-relationships | devour | 169,206 | 1.07x slower |  |
+| small-relationships | yayson | 143,091 | 1.27x slower |  |
+| **small-relationships** | **jsona** | **193,367** | **1.07x faster** |  |
 | small-relationships | ts-japi | unsupported | — | no public decoder |
-| **nested-relationships** | **kitsu-core** | **260,044** | **1x** |  |
-| nested-relationships | devour | 202,203 | 1.29x slower |  |
-| nested-relationships | yayson | 190,443 | 1.37x slower |  |
-| nested-relationships | jsona | 221,069 | 1.18x slower |  |
+| **nested-relationships** | **kitsu-core** | **258,452** | **1x** |  |
+| nested-relationships | devour | 222,509 | 1.16x slower |  |
+| nested-relationships | yayson | 184,593 | 1.4x slower |  |
+| nested-relationships | jsona | 211,017 | 1.22x slower |  |
 | nested-relationships | ts-japi | unsupported | — | no public decoder |
-| collection | kitsu-core | 46,487 | 1x |  |
-| collection | devour | 53,683 | 1.15x faster |  |
-| collection | yayson | 50,906 | 1.1x faster |  |
-| **collection** | **jsona** | **108,462** | **2.33x faster** |  |
+| collection | kitsu-core | 43,854 | 1x |  |
+| collection | devour | 49,494 | 1.13x faster |  |
+| collection | yayson | 47,964 | 1.09x faster |  |
+| **collection** | **jsona** | **112,040** | **2.55x faster** |  |
 | collection | ts-japi | unsupported | — | no public decoder |
-| collection-includes | kitsu-core | 32,442 | 1x |  |
-| collection-includes | devour | 69,139 | 2.13x faster |  |
-| collection-includes | yayson | 69,793 | 2.15x faster |  |
-| **collection-includes** | **jsona** | **79,245** | **2.44x faster** |  |
+| collection-includes | kitsu-core | 30,463 | 1x |  |
+| collection-includes | devour | 65,355 | 2.15x faster |  |
+| collection-includes | yayson | 57,440 | 1.89x faster |  |
+| **collection-includes** | **jsona** | **78,588** | **2.58x faster** |  |
 | collection-includes | ts-japi | unsupported | — | no public decoder |
-| **patch-single** | **kitsu-core** | **984,630** | **1x** |  |
-| patch-single | devour | 846,254 | 1.16x slower |  |
-| patch-single | yayson | 497,636 | 1.98x slower |  |
-| patch-single | jsona | 698,447 | 1.41x slower |  |
+| **patch-single** | **kitsu-core** | **961,670** | **1x** |  |
+| patch-single | devour | 803,449 | 1.2x slower |  |
+| patch-single | yayson | 495,552 | 1.94x slower |  |
+| patch-single | jsona | 596,767 | 1.61x slower |  |
 | patch-single | ts-japi | unsupported | — | no public decoder |
-| empty-relationships | kitsu-core | 336,730 | 1x |  |
-| empty-relationships | devour | 341,574 | 1.01x faster |  |
-| empty-relationships | yayson | 313,879 | 1.07x slower |  |
-| **empty-relationships** | **jsona** | **406,977** | **1.21x faster** |  |
+| empty-relationships | kitsu-core | 333,176 | 1x |  |
+| empty-relationships | devour | 345,792 | 1.04x faster |  |
+| empty-relationships | yayson | 323,982 | 1.03x slower |  |
+| **empty-relationships** | **jsona** | **392,152** | **1.18x faster** |  |
 | empty-relationships | ts-japi | unsupported | — | no public decoder |
-| **few-includes** | **kitsu-core** | **367** | **1x** |  |
-| few-includes | devour | 306 | 1.2x slower |  |
-| few-includes | yayson | 276 | 1.33x slower |  |
-| few-includes | jsona | 298 | 1.23x slower |  |
+| **few-includes** | **kitsu-core** | **379** | **1x** |  |
+| few-includes | devour | 328 | 1.16x slower |  |
+| few-includes | yayson | 264 | 1.44x slower |  |
+| few-includes | jsona | 277 | 1.37x slower |  |
 | few-includes | ts-japi | unsupported | — | no public decoder |
-| **many-includes** | **kitsu-core** | **263** | **1x** |  |
-| many-includes | devour | 7.25 | 36.24x slower |  |
-| many-includes | yayson | 36.2 | 7.25x slower |  |
-| many-includes | jsona | 115 | 2.28x slower |  |
+| **many-includes** | **kitsu-core** | **253** | **1x** |  |
+| many-includes | devour | 7.51 | 33.72x slower |  |
+| many-includes | yayson | 36.07 | 7.02x slower |  |
+| many-includes | jsona | 135 | 1.88x slower |  |
 | many-includes | ts-japi | unsupported | — | no public decoder |
-| **complex-relationships** | **kitsu-core** | **47.65** | **1x** |  |
+| **complex-relationships** | **kitsu-core** | **52.68** | **1x** |  |
 | complex-relationships | devour | timeout | — | worker exceeds 30-second limit |
-| complex-relationships | yayson | 0.88 | 54.13x slower |  |
-| complex-relationships | jsona | 23.19 | 2.06x slower |  |
+| complex-relationships | yayson | 0.84 | 62.47x slower |  |
+| complex-relationships | jsona | 22.17 | 2.38x slower |  |
 | complex-relationships | ts-japi | unsupported | — | no public decoder |
-| **wide-relationship** | **kitsu-core** | **404** | **1x** |  |
-| wide-relationship | devour | 4.9 | 82.49x slower |  |
-| wide-relationship | yayson | 21.72 | 18.6x slower |  |
-| wide-relationship | jsona | 112 | 3.6x slower |  |
+| **wide-relationship** | **kitsu-core** | **383** | **1x** |  |
+| wide-relationship | devour | 5.11 | 74.94x slower |  |
+| wide-relationship | yayson | 22.14 | 17.29x slower |  |
+| wide-relationship | jsona | 149 | 2.57x slower |  |
 | wide-relationship | ts-japi | unsupported | — | no public decoder |
-| **self-cycle** | **kitsu-core** | **251,572** | **1x** |  |
-| self-cycle | devour | 213,838 | 1.18x slower |  |
-| self-cycle | yayson | 183,702 | 1.37x slower |  |
-| self-cycle | jsona | 194,081 | 1.3x slower |  |
+| **self-cycle** | **kitsu-core** | **237,001** | **1x** |  |
+| self-cycle | devour | 175,208 | 1.35x slower |  |
+| self-cycle | yayson | 166,572 | 1.42x slower |  |
+| self-cycle | jsona | 179,194 | 1.32x slower |  |
 | self-cycle | ts-japi | unsupported | — | no public decoder |
-| **mutual-cycle** | **kitsu-core** | **221,458** | **1x** |  |
-| mutual-cycle | devour | 176,688 | 1.25x slower |  |
-| mutual-cycle | yayson | 158,219 | 1.4x slower |  |
-| mutual-cycle | jsona | 173,631 | 1.28x slower |  |
+| **mutual-cycle** | **kitsu-core** | **201,114** | **1x** |  |
+| mutual-cycle | devour | 158,274 | 1.27x slower |  |
+| mutual-cycle | yayson | 147,224 | 1.37x slower |  |
+| mutual-cycle | jsona | 163,040 | 1.23x slower |  |
 | mutual-cycle | ts-japi | unsupported | — | no public decoder |
 
 </details>
@@ -301,184 +301,184 @@ Library versions: kitsu-core 12\.0\.0, kitsu 12\.0\.0, kitsu-native 12\.0\.0, fe
 
 | Scenario | Library | Rate | vs kitsu | Detail |
 | --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu | 62,650 | 1x |  |
-| small-no-relationships | kitsu-native | 218,824 | 3.49x faster |  |
-| **small-no-relationships** | **fetchja** | **230,874** | **3.69x faster** |  |
-| small-no-relationships | devour | 58,001 | 1.08x slower |  |
-| small-links-only | kitsu | 60,166 | 1x |  |
-| **small-links-only** | **kitsu-native** | **198,815** | **3.3x faster** |  |
-| small-links-only | fetchja | 179,834 | 2.99x faster |  |
-| small-links-only | devour | 48,851 | 1.23x slower |  |
-| small-relationships | kitsu | 41,632 | 1x |  |
-| small-relationships | kitsu-native | 99,381 | 2.39x faster |  |
-| **small-relationships** | **fetchja** | **106,719** | **2.56x faster** |  |
-| small-relationships | devour | 38,702 | 1.08x slower |  |
-| nested-relationships | kitsu | 50,078 | 1x |  |
-| **nested-relationships** | **kitsu-native** | **129,945** | **2.59x faster** |  |
-| nested-relationships | fetchja | 122,533 | 2.45x faster |  |
-| nested-relationships | devour | 42,820 | 1.17x slower |  |
-| collection | kitsu | 18,759 | 1x |  |
-| collection | kitsu-native | 19,330 | 1.03x faster |  |
-| **collection** | **fetchja** | **32,304** | **1.72x faster** |  |
-| collection | devour | 18,855 | 1.01x faster |  |
-| collection-includes | kitsu | 17,776 | 1x |  |
-| collection-includes | kitsu-native | 19,684 | 1.11x faster |  |
-| **collection-includes** | **fetchja** | **30,351** | **1.71x faster** |  |
-| collection-includes | devour | 20,164 | 1.13x faster |  |
-| patch-single | kitsu | 68,433 | 1x |  |
-| **patch-single** | **kitsu-native** | **264,816** | **3.87x faster** |  |
-| patch-single | fetchja | 244,172 | 3.57x faster |  |
-| patch-single | devour | 58,414 | 1.17x slower |  |
-| empty-relationships | kitsu | 56,983 | 1x |  |
-| empty-relationships | kitsu-native | 176,992 | 3.11x faster |  |
-| **empty-relationships** | **fetchja** | **180,364** | **3.17x faster** |  |
-| empty-relationships | devour | 51,151 | 1.11x slower |  |
-| **few-includes** | **kitsu** | **556** | **1x** |  |
-| few-includes | kitsu-native | 544 | 1.02x slower |  |
-| few-includes | fetchja | 451 | 1.24x slower |  |
-| few-includes | devour | 361 | 1.54x slower |  |
-| many-includes | kitsu | 209 | 1x |  |
-| **many-includes** | **kitsu-native** | **210** | **1.01x faster** |  |
-| many-includes | fetchja | 208 | <1.01x slower |  |
-| many-includes | devour | 10.49 | 19.9x slower |  |
-| complex-relationships | kitsu | 35.22 | 1x |  |
-| **complex-relationships** | **kitsu-native** | **38.5** | **1.09x faster** |  |
-| complex-relationships | fetchja | 31.7 | 1.11x slower |  |
+| small-no-relationships | kitsu | 53,747 | 1x |  |
+| small-no-relationships | kitsu-native | 178,557 | 3.32x faster |  |
+| **small-no-relationships** | **fetchja** | **207,108** | **3.85x faster** |  |
+| small-no-relationships | devour | 53,053 | 1.01x slower |  |
+| small-links-only | kitsu | 54,191 | 1x |  |
+| small-links-only | kitsu-native | 170,836 | 3.15x faster |  |
+| **small-links-only** | **fetchja** | **188,341** | **3.48x faster** |  |
+| small-links-only | devour | 49,874 | 1.09x slower |  |
+| small-relationships | kitsu | 39,139 | 1x |  |
+| **small-relationships** | **kitsu-native** | **107,114** | **2.74x faster** |  |
+| small-relationships | fetchja | 105,513 | 2.7x faster |  |
+| small-relationships | devour | 37,609 | 1.04x slower |  |
+| nested-relationships | kitsu | 50,863 | 1x |  |
+| **nested-relationships** | **kitsu-native** | **133,853** | **2.63x faster** |  |
+| nested-relationships | fetchja | 116,845 | 2.3x faster |  |
+| nested-relationships | devour | 41,447 | 1.23x slower |  |
+| collection | kitsu | 18,630 | 1x |  |
+| collection | kitsu-native | 17,881 | 1.04x slower |  |
+| **collection** | **fetchja** | **29,728** | **1.6x faster** |  |
+| collection | devour | 18,012 | 1.03x slower |  |
+| collection-includes | kitsu | 16,172 | 1x |  |
+| collection-includes | kitsu-native | 18,823 | 1.16x faster |  |
+| **collection-includes** | **fetchja** | **30,744** | **1.9x faster** |  |
+| collection-includes | devour | 18,804 | 1.16x faster |  |
+| patch-single | kitsu | 60,275 | 1x |  |
+| **patch-single** | **kitsu-native** | **248,492** | **4.12x faster** |  |
+| patch-single | fetchja | 226,951 | 3.77x faster |  |
+| patch-single | devour | 53,559 | 1.13x slower |  |
+| empty-relationships | kitsu | 51,897 | 1x |  |
+| empty-relationships | kitsu-native | 170,217 | 3.28x faster |  |
+| **empty-relationships** | **fetchja** | **188,116** | **3.62x faster** |  |
+| empty-relationships | devour | 49,254 | 1.05x slower |  |
+| **few-includes** | **kitsu** | **587** | **1x** |  |
+| few-includes | kitsu-native | 576 | 1.02x slower |  |
+| few-includes | fetchja | 507 | 1.16x slower |  |
+| few-includes | devour | 384 | 1.53x slower |  |
+| **many-includes** | **kitsu** | **251** | **1x** |  |
+| many-includes | kitsu-native | 240 | 1.04x slower |  |
+| many-includes | fetchja | 194 | 1.29x slower |  |
+| many-includes | devour | 9.85 | 25.46x slower |  |
+| complex-relationships | kitsu | 37.02 | 1x |  |
+| **complex-relationships** | **kitsu-native** | **39.11** | **1.06x faster** |  |
+| complex-relationships | fetchja | 31.38 | 1.18x slower |  |
 | complex-relationships | devour | timeout | — | worker exceeds 30-second limit |
-| wide-relationship | kitsu | 250 | 1x |  |
-| **wide-relationship** | **kitsu-native** | **255** | **1.02x faster** |  |
-| wide-relationship | fetchja | 202 | 1.24x slower |  |
-| wide-relationship | devour | 6.38 | 39.22x slower |  |
-| self-cycle | kitsu | 51,785 | 1x |  |
-| **self-cycle** | **kitsu-native** | **134,825** | **2.6x faster** |  |
-| self-cycle | fetchja | 124,455 | 2.4x faster |  |
-| self-cycle | devour | 41,566 | 1.25x slower |  |
-| mutual-cycle | kitsu | 46,477 | 1x |  |
-| **mutual-cycle** | **kitsu-native** | **118,010** | **2.54x faster** |  |
-| mutual-cycle | fetchja | 111,099 | 2.39x faster |  |
-| mutual-cycle | devour | 38,727 | 1.2x slower |  |
+| wide-relationship | kitsu | 237 | 1x |  |
+| **wide-relationship** | **kitsu-native** | **244** | **1.03x faster** |  |
+| wide-relationship | fetchja | 197 | 1.2x slower |  |
+| wide-relationship | devour | 6.47 | 36.69x slower |  |
+| self-cycle | kitsu | 49,690 | 1x |  |
+| **self-cycle** | **kitsu-native** | **135,279** | **2.72x faster** |  |
+| self-cycle | fetchja | 117,166 | 2.36x faster |  |
+| self-cycle | devour | 42,818 | 1.16x slower |  |
+| mutual-cycle | kitsu | 45,862 | 1x |  |
+| **mutual-cycle** | **kitsu-native** | **98,158** | **2.14x faster** |  |
+| mutual-cycle | fetchja | 88,776 | 1.94x faster |  |
+| mutual-cycle | devour | 36,170 | 1.27x slower |  |
 
 #### encode
 
 | Scenario | Library | Rate | vs kitsu | Detail |
 | --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu | 53,350 | 1x |  |
-| **small-no-relationships** | **kitsu-native** | **283,691** | **5.32x faster** |  |
-| small-no-relationships | fetchja | 259,216 | 4.86x faster |  |
-| small-no-relationships | devour | 50,848 | 1.05x slower |  |
-| small-links-only | kitsu | 56,558 | 1x |  |
-| **small-links-only** | **kitsu-native** | **267,311** | **4.73x faster** |  |
-| small-links-only | fetchja | 218,980 | 3.87x faster |  |
-| small-links-only | devour | 46,415 | 1.22x slower |  |
-| small-relationships | kitsu | 42,748 | 1x |  |
-| **small-relationships** | **kitsu-native** | **194,261** | **4.54x faster** |  |
-| small-relationships | fetchja | 179,481 | 4.2x faster |  |
-| small-relationships | devour | 38,863 | 1.1x slower |  |
-| nested-relationships | kitsu | 51,650 | 1x |  |
-| **nested-relationships** | **kitsu-native** | **264,521** | **5.12x faster** |  |
-| nested-relationships | fetchja | 200,767 | 3.89x faster |  |
-| nested-relationships | devour | 43,874 | 1.18x slower |  |
-| collection | kitsu | 22,902 | 1x |  |
-| **collection** | **kitsu-native** | **38,240** | **1.67x faster** |  |
+| small-no-relationships | kitsu | 50,486 | 1x |  |
+| **small-no-relationships** | **kitsu-native** | **258,663** | **5.12x faster** |  |
+| small-no-relationships | fetchja | 228,097 | 4.52x faster |  |
+| small-no-relationships | devour | 47,895 | 1.05x slower |  |
+| small-links-only | kitsu | 44,069 | 1x |  |
+| **small-links-only** | **kitsu-native** | **262,705** | **5.96x faster** |  |
+| small-links-only | fetchja | 234,181 | 5.31x faster |  |
+| small-links-only | devour | 44,580 | 1.01x faster |  |
+| small-relationships | kitsu | 38,095 | 1x |  |
+| **small-relationships** | **kitsu-native** | **199,816** | **5.25x faster** |  |
+| small-relationships | fetchja | 160,559 | 4.21x faster |  |
+| small-relationships | devour | 39,083 | 1.03x faster |  |
+| nested-relationships | kitsu | 48,644 | 1x |  |
+| **nested-relationships** | **kitsu-native** | **250,037** | **5.14x faster** |  |
+| nested-relationships | fetchja | 171,265 | 3.52x faster |  |
+| nested-relationships | devour | 44,927 | 1.08x slower |  |
+| collection | kitsu | 21,976 | 1x |  |
+| **collection** | **kitsu-native** | **35,151** | **1.6x faster** |  |
 | collection | fetchja | unsupported | — | public client writes single resources only |
 | collection | devour | unsupported | — | public client writes single resources only |
-| collection-includes | kitsu | 12,434 | 1x |  |
-| **collection-includes** | **kitsu-native** | **16,249** | **1.31x faster** |  |
+| collection-includes | kitsu | 11,835 | 1x |  |
+| **collection-includes** | **kitsu-native** | **16,222** | **1.37x faster** |  |
 | collection-includes | fetchja | unsupported | — | public client writes single resources only |
 | collection-includes | devour | unsupported | — | public client writes single resources only |
-| patch-single | kitsu | 62,961 | 1x |  |
-| **patch-single** | **kitsu-native** | **360,551** | **5.73x faster** |  |
-| patch-single | fetchja | 286,267 | 4.55x faster |  |
-| patch-single | devour | 54,398 | 1.16x slower |  |
-| empty-relationships | kitsu | 46,457 | 1x |  |
-| **empty-relationships** | **kitsu-native** | **215,129** | **4.63x faster** |  |
-| empty-relationships | fetchja | 192,224 | 4.14x faster |  |
-| empty-relationships | devour | 45,100 | 1.03x slower |  |
-| few-includes | kitsu | 496 | 1x |  |
-| **few-includes** | **kitsu-native** | **559** | **1.13x faster** |  |
+| patch-single | kitsu | 59,588 | 1x |  |
+| **patch-single** | **kitsu-native** | **327,320** | **5.49x faster** |  |
+| patch-single | fetchja | 277,141 | 4.65x faster |  |
+| patch-single | devour | 52,109 | 1.14x slower |  |
+| empty-relationships | kitsu | 46,763 | 1x |  |
+| **empty-relationships** | **kitsu-native** | **233,881** | **5x faster** |  |
+| empty-relationships | fetchja | 211,763 | 4.53x faster |  |
+| empty-relationships | devour | 44,849 | 1.04x slower |  |
+| few-includes | kitsu | 534 | 1x |  |
+| **few-includes** | **kitsu-native** | **562** | **1.05x faster** |  |
 | few-includes | fetchja | unsupported | — | public client writes single resources only |
 | few-includes | devour | unsupported | — | public client writes single resources only |
 | many-includes | kitsu | 438 | 1x |  |
-| **many-includes** | **kitsu-native** | **441** | **1.01x faster** |  |
+| **many-includes** | **kitsu-native** | **449** | **1.02x faster** |  |
 | many-includes | fetchja | unsupported | — | public client writes single resources only |
 | many-includes | devour | unsupported | — | public client writes single resources only |
-| complex-relationships | kitsu | 138 | 1x |  |
-| **complex-relationships** | **kitsu-native** | **143** | **1.04x faster** |  |
+| complex-relationships | kitsu | 136 | 1x |  |
+| **complex-relationships** | **kitsu-native** | **137** | **1.01x faster** |  |
 | complex-relationships | fetchja | unsupported | — | public client writes single resources only |
 | complex-relationships | devour | unsupported | — | public client writes single resources only |
-| wide-relationship | kitsu | 1,066 | 1x |  |
-| **wide-relationship** | **kitsu-native** | **1,116** | **1.05x faster** |  |
+| wide-relationship | kitsu | 957 | 1x |  |
+| **wide-relationship** | **kitsu-native** | **1,124** | **1.17x faster** |  |
 | wide-relationship | fetchja | unsupported | — | public client writes single resources only |
 | wide-relationship | devour | unsupported | — | public client writes single resources only |
-| self-cycle | kitsu | 54,132 | 1x |  |
-| **self-cycle** | **kitsu-native** | **286,507** | **5.29x faster** |  |
-| self-cycle | fetchja | 231,319 | 4.27x faster |  |
-| self-cycle | devour | 47,802 | 1.13x slower |  |
-| mutual-cycle | kitsu | 53,696 | 1x |  |
-| **mutual-cycle** | **kitsu-native** | **260,289** | **4.85x faster** |  |
-| mutual-cycle | fetchja | 222,407 | 4.14x faster |  |
-| mutual-cycle | devour | 45,503 | 1.18x slower |  |
+| self-cycle | kitsu | 54,222 | 1x |  |
+| **self-cycle** | **kitsu-native** | **286,433** | **5.28x faster** |  |
+| self-cycle | fetchja | 209,310 | 3.86x faster |  |
+| self-cycle | devour | 42,329 | 1.28x slower |  |
+| mutual-cycle | kitsu | 49,424 | 1x |  |
+| **mutual-cycle** | **kitsu-native** | **239,948** | **4.85x faster** |  |
+| mutual-cycle | fetchja | 205,029 | 4.15x faster |  |
+| mutual-cycle | devour | 33,744 | 1.46x slower |  |
 
 #### decode-encode
 
 | Scenario | Library | Rate | vs kitsu | Detail |
 | --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu | 58,696 | 1x | 29,348 cycles/s |
-| small-no-relationships | kitsu-native | 218,573 | 3.72x faster | 109,286 cycles/s |
-| **small-no-relationships** | **fetchja** | **228,253** | **3.89x faster** | **114,126 cycles/s** |
-| small-no-relationships | devour | 50,948 | 1.15x slower | 25,474 cycles/s |
-| small-links-only | kitsu | 54,529 | 1x | 27,264 cycles/s |
-| **small-links-only** | **kitsu-native** | **209,178** | **3.84x faster** | **104,589 cycles/s** |
-| small-links-only | fetchja | 183,949 | 3.37x faster | 91,974 cycles/s |
-| small-links-only | devour | 43,545 | 1.25x slower | 21,772 cycles/s |
-| small-relationships | kitsu | 38,480 | 1x | 19,240 cycles/s |
-| **small-relationships** | **kitsu-native** | **124,261** | **3.23x faster** | **62,131 cycles/s** |
-| small-relationships | fetchja | 117,516 | 3.05x faster | 58,758 cycles/s |
-| small-relationships | devour | 36,184 | 1.06x slower | 18,092 cycles/s |
-| nested-relationships | kitsu | 47,272 | 1x | 23,636 cycles/s |
-| **nested-relationships** | **kitsu-native** | **158,431** | **3.35x faster** | **79,215 cycles/s** |
-| nested-relationships | fetchja | 131,979 | 2.79x faster | 65,990 cycles/s |
-| nested-relationships | devour | 40,355 | 1.17x slower | 20,178 cycles/s |
-| collection | kitsu | 19,454 | 1x | 9,727 cycles/s |
-| **collection** | **kitsu-native** | **24,001** | **1.23x faster** | **12,000 cycles/s** |
+| small-no-relationships | kitsu | 37,500 | 1x | 18,750 cycles/s |
+| small-no-relationships | kitsu-native | 209,122 | 5.58x faster | 104,561 cycles/s |
+| **small-no-relationships** | **fetchja** | **212,358** | **5.66x faster** | **106,179 cycles/s** |
+| small-no-relationships | devour | 47,616 | 1.27x faster | 23,808 cycles/s |
+| small-links-only | kitsu | 52,131 | 1x | 26,066 cycles/s |
+| small-links-only | kitsu-native | 203,084 | 3.9x faster | 101,542 cycles/s |
+| **small-links-only** | **fetchja** | **208,762** | **4x faster** | **104,381 cycles/s** |
+| small-links-only | devour | 39,651 | 1.31x slower | 19,825 cycles/s |
+| small-relationships | kitsu | 32,142 | 1x | 16,071 cycles/s |
+| small-relationships | kitsu-native | 91,641 | 2.85x faster | 45,820 cycles/s |
+| **small-relationships** | **fetchja** | **96,792** | **3.01x faster** | **48,396 cycles/s** |
+| small-relationships | devour | 37,043 | 1.15x faster | 18,522 cycles/s |
+| nested-relationships | kitsu | 44,098 | 1x | 22,049 cycles/s |
+| **nested-relationships** | **kitsu-native** | **145,301** | **3.29x faster** | **72,650 cycles/s** |
+| nested-relationships | fetchja | 141,191 | 3.2x faster | 70,596 cycles/s |
+| nested-relationships | devour | 37,249 | 1.18x slower | 18,625 cycles/s |
+| collection | kitsu | 19,312 | 1x | 9,656 cycles/s |
+| **collection** | **kitsu-native** | **21,947** | **1.14x faster** | **10,973 cycles/s** |
 | collection | fetchja | unsupported | — | public client writes single resources only |
 | collection | devour | unsupported | — | public client writes single resources only |
-| collection-includes | kitsu | 15,747 | 1x | 7,874 cycles/s |
-| **collection-includes** | **kitsu-native** | **18,072** | **1.15x faster** | **9,036 cycles/s** |
+| collection-includes | kitsu | 15,566 | 1x | 7,783 cycles/s |
+| **collection-includes** | **kitsu-native** | **18,229** | **1.17x faster** | **9,115 cycles/s** |
 | collection-includes | fetchja | unsupported | — | public client writes single resources only |
 | collection-includes | devour | unsupported | — | public client writes single resources only |
-| patch-single | kitsu | 65,694 | 1x | 32,847 cycles/s |
-| **patch-single** | **kitsu-native** | **282,917** | **4.31x faster** | **141,458 cycles/s** |
-| patch-single | fetchja | 243,426 | 3.71x faster | 121,713 cycles/s |
-| patch-single | devour | 52,462 | 1.25x slower | 26,231 cycles/s |
-| empty-relationships | kitsu | 45,125 | 1x | 22,563 cycles/s |
-| empty-relationships | kitsu-native | 178,088 | 3.95x faster | 89,044 cycles/s |
-| **empty-relationships** | **fetchja** | **179,976** | **3.99x faster** | **89,988 cycles/s** |
-| empty-relationships | devour | 44,544 | 1.01x slower | 22,272 cycles/s |
-| **few-includes** | **kitsu** | **482** | **1x** | **241 cycles/s** |
-| few-includes | kitsu-native | 451 | 1.07x slower | 225 cycles/s |
+| patch-single | kitsu | 64,041 | 1x | 32,020 cycles/s |
+| **patch-single** | **kitsu-native** | **265,019** | **4.14x faster** | **132,509 cycles/s** |
+| patch-single | fetchja | 232,762 | 3.63x faster | 116,381 cycles/s |
+| patch-single | devour | 52,781 | 1.21x slower | 26,391 cycles/s |
+| empty-relationships | kitsu | 50,143 | 1x | 25,072 cycles/s |
+| **empty-relationships** | **kitsu-native** | **171,247** | **3.42x faster** | **85,624 cycles/s** |
+| empty-relationships | fetchja | 163,194 | 3.25x faster | 81,597 cycles/s |
+| empty-relationships | devour | 44,267 | 1.13x slower | 22,134 cycles/s |
+| few-includes | kitsu | 476 | 1x | 238 cycles/s |
+| **few-includes** | **kitsu-native** | **497** | **1.05x faster** | **249 cycles/s** |
 | few-includes | fetchja | unsupported | — | public client writes single resources only |
 | few-includes | devour | unsupported | — | public client writes single resources only |
-| **many-includes** | **kitsu** | **254** | **1x** | **127 cycles/s** |
-| many-includes | kitsu-native | 221 | 1.15x slower | 111 cycles/s |
+| many-includes | kitsu | 267 | 1x | 134 cycles/s |
+| **many-includes** | **kitsu-native** | **300** | **1.12x faster** | **150 cycles/s** |
 | many-includes | fetchja | unsupported | — | public client writes single resources only |
 | many-includes | devour | unsupported | — | public client writes single resources only |
-| complex-relationships | kitsu | 51.03 | 1x | 25\.51 cycles/s |
-| **complex-relationships** | **kitsu-native** | **51.99** | **1.02x faster** | **25\.99 cycles/s** |
+| **complex-relationships** | **kitsu** | **53.89** | **1x** | **26\.95 cycles/s** |
+| complex-relationships | kitsu-native | 53.47 | 1.01x slower | 26\.74 cycles/s |
 | complex-relationships | fetchja | unsupported | — | public client writes single resources only |
 | complex-relationships | devour | unsupported | — | public client writes single resources only |
-| **wide-relationship** | **kitsu** | **401** | **1x** | **200 cycles/s** |
-| wide-relationship | kitsu-native | 390 | 1.03x slower | 195 cycles/s |
+| **wide-relationship** | **kitsu** | **397** | **1x** | **198 cycles/s** |
+| wide-relationship | kitsu-native | 393 | 1.01x slower | 197 cycles/s |
 | wide-relationship | fetchja | unsupported | — | public client writes single resources only |
 | wide-relationship | devour | unsupported | — | public client writes single resources only |
-| self-cycle | kitsu | 49,352 | 1x | 24,676 cycles/s |
-| **self-cycle** | **kitsu-native** | **157,800** | **3.2x faster** | **78,900 cycles/s** |
-| self-cycle | fetchja | 141,514 | 2.87x faster | 70,757 cycles/s |
-| self-cycle | devour | 41,555 | 1.19x slower | 20,778 cycles/s |
-| mutual-cycle | kitsu | 47,824 | 1x | 23,912 cycles/s |
-| **mutual-cycle** | **kitsu-native** | **144,002** | **3.01x faster** | **72,001 cycles/s** |
-| mutual-cycle | fetchja | 131,869 | 2.76x faster | 65,935 cycles/s |
-| mutual-cycle | devour | 40,081 | 1.19x slower | 20,041 cycles/s |
+| self-cycle | kitsu | 48,498 | 1x | 24,249 cycles/s |
+| **self-cycle** | **kitsu-native** | **151,799** | **3.13x faster** | **75,900 cycles/s** |
+| self-cycle | fetchja | 132,360 | 2.73x faster | 66,180 cycles/s |
+| self-cycle | devour | 37,613 | 1.29x slower | 18,807 cycles/s |
+| mutual-cycle | kitsu | 44,669 | 1x | 22,334 cycles/s |
+| **mutual-cycle** | **kitsu-native** | **124,013** | **2.78x faster** | **62,007 cycles/s** |
+| mutual-cycle | fetchja | 105,556 | 2.36x faster | 52,778 cycles/s |
+| mutual-cycle | devour | 37,131 | 1.2x slower | 18,565 cycles/s |
 
 </details>
 
@@ -486,7 +486,7 @@ Library versions: kitsu-core 12\.0\.0, kitsu 12\.0\.0, kitsu-native 12\.0\.0, fe
 
 Base commit (local changes measured): `499840183b8b1cb8aa51904e9ff1311226fbc125`. Runner: win32 x64, AMD Ryzen 9 5900X 12-Core Processor            .
 
-Built package fingerprint: `3682d7e0a8696bd04935e6b701765d8a0cce9d550713f8509deaefce8bae210a`.
+Built package fingerprint: `5033a2ae742fcb23f3d2899f04ddc2455a7e93e61454f13d0e6bc1b74b99d25e`.
 
 Library versions: kitsu-core 12\.0\.0, kitsu 12\.0\.0, kitsu-native 12\.0\.0, fetchja 3\.2\.0, devour 3\.2\.0, yayson 4\.4\.0, jsona 1\.14\.0, ts-japi 1\.12\.6.
 
@@ -496,225 +496,225 @@ Library versions: kitsu-core 12\.0\.0, kitsu 12\.0\.0, kitsu-native 12\.0\.0, fe
 
 | Scenario | Library | Rate | vs kitsu-core | Detail |
 | --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu-core | 1,110,491 | 1x |  |
-| **small-no-relationships** | **devour** | **1,593,593** | **1.44x faster** |  |
-| small-no-relationships | yayson | 730,481 | 1.52x slower |  |
-| small-no-relationships | jsona | 1,564,495 | 1.41x faster |  |
+| small-no-relationships | kitsu-core | 1,188,641 | 1x |  |
+| **small-no-relationships** | **devour** | **1,666,976** | **1.4x faster** |  |
+| small-no-relationships | yayson | 769,841 | 1.54x slower |  |
+| small-no-relationships | jsona | 1,592,401 | 1.34x faster |  |
 | small-no-relationships | ts-japi | unsupported | — | no public decoder |
-| small-links-only | kitsu-core | 892,613 | 1x |  |
-| small-links-only | devour | 768,893 | 1.16x slower |  |
-| small-links-only | yayson | 574,213 | 1.55x slower |  |
-| **small-links-only** | **jsona** | **1,502,394** | **1.68x faster** |  |
+| small-links-only | kitsu-core | 882,323 | 1x |  |
+| small-links-only | devour | 783,192 | 1.13x slower |  |
+| small-links-only | yayson | 593,908 | 1.49x slower |  |
+| **small-links-only** | **jsona** | **1,456,000** | **1.65x faster** |  |
 | small-links-only | ts-japi | unsupported | — | no public decoder |
-| small-relationships | kitsu-core | 287,131 | 1x |  |
-| small-relationships | devour | 226,881 | 1.27x slower |  |
-| small-relationships | yayson | 183,535 | 1.56x slower |  |
-| **small-relationships** | **jsona** | **361,401** | **1.26x faster** |  |
+| small-relationships | kitsu-core | 286,212 | 1x |  |
+| small-relationships | devour | 228,050 | 1.26x slower |  |
+| small-relationships | yayson | 174,850 | 1.64x slower |  |
+| **small-relationships** | **jsona** | **353,959** | **1.24x faster** |  |
 | small-relationships | ts-japi | unsupported | — | no public decoder |
-| nested-relationships | kitsu-core | 358,388 | 1x |  |
-| nested-relationships | devour | 263,431 | 1.36x slower |  |
-| nested-relationships | yayson | 223,628 | 1.6x slower |  |
-| **nested-relationships** | **jsona** | **403,184** | **1.12x faster** |  |
+| nested-relationships | kitsu-core | 362,223 | 1x |  |
+| nested-relationships | devour | 265,350 | 1.37x slower |  |
+| nested-relationships | yayson | 228,089 | 1.59x slower |  |
+| **nested-relationships** | **jsona** | **406,657** | **1.12x faster** |  |
 | nested-relationships | ts-japi | unsupported | — | no public decoder |
-| collection | kitsu-core | 80,572 | 1x |  |
-| collection | devour | 60,875 | 1.32x slower |  |
-| collection | yayson | 112,621 | 1.4x faster |  |
-| **collection** | **jsona** | **260,514** | **3.23x faster** |  |
+| collection | kitsu-core | 79,705 | 1x |  |
+| collection | devour | 60,670 | 1.31x slower |  |
+| collection | yayson | 116,028 | 1.46x faster |  |
+| **collection** | **jsona** | **293,240** | **3.68x faster** |  |
 | collection | ts-japi | unsupported | — | no public decoder |
-| collection-includes | kitsu-core | 57,204 | 1x |  |
-| collection-includes | devour | 76,232 | 1.33x faster |  |
-| collection-includes | yayson | 97,633 | 1.71x faster |  |
-| **collection-includes** | **jsona** | **121,133** | **2.12x faster** |  |
+| collection-includes | kitsu-core | 55,910 | 1x |  |
+| collection-includes | devour | 80,783 | 1.44x faster |  |
+| collection-includes | yayson | 98,716 | 1.77x faster |  |
+| **collection-includes** | **jsona** | **122,697** | **2.19x faster** |  |
 | collection-includes | ts-japi | unsupported | — | no public decoder |
-| patch-single | kitsu-core | 1,725,204 | 1x |  |
-| **patch-single** | **devour** | **2,133,151** | **1.24x faster** |  |
-| patch-single | yayson | 776,231 | 2.22x slower |  |
-| patch-single | jsona | 2,007,995 | 1.16x faster |  |
+| patch-single | kitsu-core | 1,897,968 | 1x |  |
+| **patch-single** | **devour** | **2,074,435** | **1.09x faster** |  |
+| patch-single | yayson | 796,449 | 2.38x slower |  |
+| patch-single | jsona | 1,960,449 | 1.03x faster |  |
 | patch-single | ts-japi | unsupported | — | no public decoder |
-| empty-relationships | kitsu-core | 910,766 | 1x |  |
-| empty-relationships | devour | 495,916 | 1.84x slower |  |
-| empty-relationships | yayson | 607,874 | 1.5x slower |  |
-| **empty-relationships** | **jsona** | **1,191,851** | **1.31x faster** |  |
+| empty-relationships | kitsu-core | 896,944 | 1x |  |
+| empty-relationships | devour | 528,708 | 1.7x slower |  |
+| empty-relationships | yayson | 622,668 | 1.44x slower |  |
+| **empty-relationships** | **jsona** | **1,193,100** | **1.33x faster** |  |
 | empty-relationships | ts-japi | unsupported | — | no public decoder |
-| few-includes | kitsu-core | 538 | 1x |  |
-| few-includes | devour | 348 | 1.55x slower |  |
-| few-includes | yayson | 415 | 1.3x slower |  |
-| **few-includes** | **jsona** | **562** | **1.04x faster** |  |
+| **few-includes** | **kitsu-core** | **548** | **1x** |  |
+| few-includes | devour | 362 | 1.52x slower |  |
+| few-includes | yayson | 410 | 1.34x slower |  |
+| few-includes | jsona | 449 | 1.22x slower |  |
 | few-includes | ts-japi | unsupported | — | no public decoder |
-| **many-includes** | **kitsu-core** | **229** | **1x** |  |
-| many-includes | devour | 3.89 | 58.77x slower |  |
-| many-includes | yayson | 17.72 | 12.91x slower |  |
-| many-includes | jsona | 145 | 1.58x slower |  |
+| **many-includes** | **kitsu-core** | **230** | **1x** |  |
+| many-includes | devour | 3.84 | 59.87x slower |  |
+| many-includes | yayson | 17.41 | 13.22x slower |  |
+| many-includes | jsona | 134 | 1.72x slower |  |
 | many-includes | ts-japi | unsupported | — | no public decoder |
-| **complex-relationships** | **kitsu-core** | **34.67** | **1x** |  |
+| **complex-relationships** | **kitsu-core** | **30.64** | **1x** |  |
 | complex-relationships | devour | timeout | — | worker exceeds 30-second limit |
-| complex-relationships | yayson | 0.43 | 80.99x slower |  |
-| complex-relationships | jsona | 16.49 | 2.1x slower |  |
+| complex-relationships | yayson | 0.42 | 72.29x slower |  |
+| complex-relationships | jsona | 21.65 | 1.42x slower |  |
 | complex-relationships | ts-japi | unsupported | — | no public decoder |
-| **wide-relationship** | **kitsu-core** | **212** | **1x** |  |
-| wide-relationship | devour | 2.81 | 75.39x slower |  |
-| wide-relationship | yayson | 11.05 | 19.16x slower |  |
-| wide-relationship | jsona | 146 | 1.45x slower |  |
+| **wide-relationship** | **kitsu-core** | **222** | **1x** |  |
+| wide-relationship | devour | 2.69 | 82.67x slower |  |
+| wide-relationship | yayson | 10.72 | 20.71x slower |  |
+| wide-relationship | jsona | 122 | 1.83x slower |  |
 | wide-relationship | ts-japi | unsupported | — | no public decoder |
-| self-cycle | kitsu-core | 315,613 | 1x |  |
-| self-cycle | devour | 191,839 | 1.65x slower |  |
-| self-cycle | yayson | 204,763 | 1.54x slower |  |
-| **self-cycle** | **jsona** | **331,376** | **1.05x faster** |  |
+| self-cycle | kitsu-core | 299,350 | 1x |  |
+| self-cycle | devour | 120,589 | 2.48x slower |  |
+| self-cycle | yayson | 193,646 | 1.55x slower |  |
+| **self-cycle** | **jsona** | **323,995** | **1.08x faster** |  |
 | self-cycle | ts-japi | unsupported | — | no public decoder |
-| **mutual-cycle** | **kitsu-core** | **267,749** | **1x** |  |
-| mutual-cycle | devour | 163,037 | 1.64x slower |  |
-| mutual-cycle | yayson | 169,904 | 1.58x slower |  |
-| mutual-cycle | jsona | 266,618 | <1.01x slower |  |
+| **mutual-cycle** | **kitsu-core** | **257,571** | **1x** |  |
+| mutual-cycle | devour | 161,513 | 1.59x slower |  |
+| mutual-cycle | yayson | 164,897 | 1.56x slower |  |
+| mutual-cycle | jsona | 255,934 | 1.01x slower |  |
 | mutual-cycle | ts-japi | unsupported | — | no public decoder |
 
 #### encode
 
 | Scenario | Library | Rate | vs kitsu-core | Detail |
 | --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu-core | 1,471,920 | 1x |  |
-| small-no-relationships | devour | 2,611,696 | 1.77x faster |  |
-| small-no-relationships | yayson | 727,627 | 2.02x slower |  |
-| **small-no-relationships** | **jsona** | **3,056,857** | **2.08x faster** |  |
-| small-no-relationships | ts-japi | 671,549 | 2.19x slower |  |
-| small-links-only | kitsu-core | 1,711,580 | 1x |  |
-| small-links-only | devour | 1,209,436 | 1.42x slower |  |
-| small-links-only | yayson | 1,267,396 | 1.35x slower |  |
-| **small-links-only** | **jsona** | **2,766,231** | **1.62x faster** |  |
-| small-links-only | ts-japi | 627,314 | 2.73x slower |  |
-| small-relationships | kitsu-core | 794,086 | 1x |  |
-| small-relationships | devour | 710,964 | 1.12x slower |  |
-| small-relationships | yayson | 719,051 | 1.1x slower |  |
-| **small-relationships** | **jsona** | **1,480,599** | **1.86x faster** |  |
-| small-relationships | ts-japi | 411,063 | 1.93x slower |  |
-| nested-relationships | kitsu-core | 1,494,102 | 1x |  |
-| nested-relationships | devour | 869,376 | 1.72x slower |  |
-| nested-relationships | yayson | 797,004 | 1.87x slower |  |
-| **nested-relationships** | **jsona** | **1,762,968** | **1.18x faster** |  |
-| nested-relationships | ts-japi | 468,950 | 3.19x slower |  |
-| collection | kitsu-core | 175,566 | 1x |  |
-| collection | devour | 68,845 | 2.55x slower |  |
-| collection | yayson | 192,532 | 1.1x faster |  |
-| **collection** | **jsona** | **750,585** | **4.28x faster** |  |
-| collection | ts-japi | 219,912 | 1.25x faster |  |
-| collection-includes | kitsu-core | 54,181 | 1x |  |
-| collection-includes | devour | 164,216 | 3.03x faster |  |
-| collection-includes | yayson | 204,544 | 3.78x faster |  |
-| **collection-includes** | **jsona** | **383,425** | **7.08x faster** |  |
-| collection-includes | ts-japi | 135,891 | 2.51x faster |  |
-| patch-single | kitsu-core | 4,315,740 | 1x |  |
-| **patch-single** | **devour** | **5,815,694** | **1.35x faster** |  |
-| patch-single | yayson | 2,122,812 | 2.03x slower |  |
-| patch-single | jsona | 4,403,224 | 1.02x faster |  |
-| patch-single | ts-japi | 707,017 | 6.1x slower |  |
-| empty-relationships | kitsu-core | 1,233,465 | 1x |  |
-| empty-relationships | devour | 750,981 | 1.64x slower |  |
-| empty-relationships | yayson | 815,916 | 1.51x slower |  |
-| **empty-relationships** | **jsona** | **1,722,034** | **1.4x faster** |  |
-| empty-relationships | ts-japi | 469,586 | 2.63x slower |  |
-| few-includes | kitsu-core | 689 | 1x |  |
-| few-includes | devour | 807 | 1.17x faster |  |
-| few-includes | yayson | 669 | 1.03x slower |  |
-| **few-includes** | **jsona** | **1,326** | **1.93x faster** |  |
-| few-includes | ts-japi | 372 | 1.85x slower |  |
-| many-includes | kitsu-core | 624 | 1x |  |
-| many-includes | devour | 625 | <1.01x faster |  |
-| many-includes | yayson | 718 | 1.15x faster |  |
-| **many-includes** | **jsona** | **1,706** | **2.73x faster** |  |
-| many-includes | ts-japi | 274 | 2.27x slower |  |
-| complex-relationships | kitsu-core | 299 | 1x |  |
-| complex-relationships | devour | 465 | 1.56x faster |  |
-| complex-relationships | yayson | 253 | 1.18x slower |  |
-| **complex-relationships** | **jsona** | **592** | **1.98x faster** |  |
-| complex-relationships | ts-japi | 156 | 1.92x slower |  |
-| wide-relationship | kitsu-core | 2,594 | 1x |  |
-| wide-relationship | devour | 8,695 | 3.35x faster |  |
-| wide-relationship | yayson | 7,001 | 2.7x faster |  |
-| wide-relationship | jsona | 4,020 | 1.55x faster |  |
-| **wide-relationship** | **ts-japi** | **8,815** | **3.4x faster** |  |
-| self-cycle | kitsu-core | 1,408,125 | 1x |  |
-| self-cycle | devour | 805,979 | 1.75x slower |  |
-| self-cycle | yayson | 856,894 | 1.64x slower |  |
-| **self-cycle** | **jsona** | **1,784,531** | **1.27x faster** |  |
-| self-cycle | ts-japi | 436,623 | 3.23x slower |  |
-| mutual-cycle | kitsu-core | 1,453,818 | 1x |  |
-| mutual-cycle | devour | 837,364 | 1.74x slower |  |
-| mutual-cycle | yayson | 780,675 | 1.86x slower |  |
-| **mutual-cycle** | **jsona** | **1,955,852** | **1.35x faster** |  |
-| mutual-cycle | ts-japi | 457,021 | 3.18x slower |  |
+| small-no-relationships | kitsu-core | 1,648,549 | 1x |  |
+| small-no-relationships | devour | 2,532,676 | 1.54x faster |  |
+| small-no-relationships | yayson | 1,590,552 | 1.04x slower |  |
+| **small-no-relationships** | **jsona** | **3,010,433** | **1.83x faster** |  |
+| small-no-relationships | ts-japi | 670,282 | 2.46x slower |  |
+| small-links-only | kitsu-core | 1,681,772 | 1x |  |
+| small-links-only | devour | 1,254,355 | 1.34x slower |  |
+| small-links-only | yayson | 1,274,750 | 1.32x slower |  |
+| **small-links-only** | **jsona** | **2,970,423** | **1.77x faster** |  |
+| small-links-only | ts-japi | 643,060 | 2.62x slower |  |
+| small-relationships | kitsu-core | 819,938 | 1x |  |
+| small-relationships | devour | 752,090 | 1.09x slower |  |
+| small-relationships | yayson | 697,082 | 1.18x slower |  |
+| **small-relationships** | **jsona** | **1,399,936** | **1.71x faster** |  |
+| small-relationships | ts-japi | 409,484 | 2x slower |  |
+| nested-relationships | kitsu-core | 1,395,035 | 1x |  |
+| nested-relationships | devour | 868,690 | 1.61x slower |  |
+| nested-relationships | yayson | 806,459 | 1.73x slower |  |
+| **nested-relationships** | **jsona** | **1,782,846** | **1.28x faster** |  |
+| nested-relationships | ts-japi | 463,919 | 3.01x slower |  |
+| collection | kitsu-core | 175,283 | 1x |  |
+| collection | devour | 72,036 | 2.43x slower |  |
+| collection | yayson | 204,670 | 1.17x faster |  |
+| **collection** | **jsona** | **749,257** | **4.27x faster** |  |
+| collection | ts-japi | 226,402 | 1.29x faster |  |
+| collection-includes | kitsu-core | 54,928 | 1x |  |
+| collection-includes | devour | 157,810 | 2.87x faster |  |
+| collection-includes | yayson | 235,901 | 4.29x faster |  |
+| **collection-includes** | **jsona** | **373,887** | **6.81x faster** |  |
+| collection-includes | ts-japi | 145,924 | 2.66x faster |  |
+| patch-single | kitsu-core | 4,141,814 | 1x |  |
+| **patch-single** | **devour** | **5,657,438** | **1.37x faster** |  |
+| patch-single | yayson | 2,115,632 | 1.96x slower |  |
+| patch-single | jsona | 4,705,770 | 1.14x faster |  |
+| patch-single | ts-japi | 730,877 | 5.67x slower |  |
+| empty-relationships | kitsu-core | 1,262,858 | 1x |  |
+| empty-relationships | devour | 773,460 | 1.63x slower |  |
+| empty-relationships | yayson | 836,847 | 1.51x slower |  |
+| **empty-relationships** | **jsona** | **1,732,104** | **1.37x faster** |  |
+| empty-relationships | ts-japi | 468,389 | 2.7x slower |  |
+| few-includes | kitsu-core | 629 | 1x |  |
+| few-includes | devour | 833 | 1.32x faster |  |
+| few-includes | yayson | 652 | 1.04x faster |  |
+| **few-includes** | **jsona** | **1,637** | **2.6x faster** |  |
+| few-includes | ts-japi | 356 | 1.77x slower |  |
+| many-includes | kitsu-core | 719 | 1x |  |
+| many-includes | devour | 605 | 1.19x slower |  |
+| many-includes | yayson | 571 | 1.26x slower |  |
+| **many-includes** | **jsona** | **1,515** | **2.11x faster** |  |
+| many-includes | ts-japi | 257 | 2.79x slower |  |
+| complex-relationships | kitsu-core | 264 | 1x |  |
+| complex-relationships | devour | 424 | 1.6x faster |  |
+| complex-relationships | yayson | 312 | 1.18x faster |  |
+| **complex-relationships** | **jsona** | **490** | **1.85x faster** |  |
+| complex-relationships | ts-japi | 191 | 1.39x slower |  |
+| wide-relationship | kitsu-core | 2,690 | 1x |  |
+| **wide-relationship** | **devour** | **8,499** | **3.16x faster** |  |
+| wide-relationship | yayson | 6,538 | 2.43x faster |  |
+| wide-relationship | jsona | 4,160 | 1.55x faster |  |
+| wide-relationship | ts-japi | 8,323 | 3.09x faster |  |
+| self-cycle | kitsu-core | 1,358,823 | 1x |  |
+| self-cycle | devour | 713,199 | 1.91x slower |  |
+| self-cycle | yayson | 789,258 | 1.72x slower |  |
+| **self-cycle** | **jsona** | **1,460,795** | **1.08x faster** |  |
+| self-cycle | ts-japi | 391,727 | 3.47x slower |  |
+| mutual-cycle | kitsu-core | 1,438,919 | 1x |  |
+| mutual-cycle | devour | 851,638 | 1.69x slower |  |
+| mutual-cycle | yayson | 818,244 | 1.76x slower |  |
+| **mutual-cycle** | **jsona** | **1,732,789** | **1.2x faster** |  |
+| mutual-cycle | ts-japi | 437,794 | 3.29x slower |  |
 
 #### decode-encode
 
 | Scenario | Library | Rate | vs kitsu-core | Detail |
 | --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu-core | 625,735 | 1x |  |
-| **small-no-relationships** | **devour** | **925,137** | **1.48x faster** |  |
-| small-no-relationships | yayson | 450,639 | 1.39x slower |  |
-| small-no-relationships | jsona | 856,779 | 1.37x faster |  |
+| small-no-relationships | kitsu-core | 665,721 | 1x |  |
+| **small-no-relationships** | **devour** | **915,372** | **1.38x faster** |  |
+| small-no-relationships | yayson | 454,665 | 1.46x slower |  |
+| small-no-relationships | jsona | 886,179 | 1.33x faster |  |
 | small-no-relationships | ts-japi | unsupported | — | no public decoder |
-| small-links-only | kitsu-core | 522,168 | 1x |  |
-| small-links-only | devour | 437,246 | 1.19x slower |  |
-| small-links-only | yayson | 371,010 | 1.41x slower |  |
-| **small-links-only** | **jsona** | **829,820** | **1.59x faster** |  |
+| small-links-only | kitsu-core | 558,209 | 1x |  |
+| small-links-only | devour | 451,277 | 1.24x slower |  |
+| small-links-only | yayson | 376,271 | 1.48x slower |  |
+| **small-links-only** | **jsona** | **876,160** | **1.57x faster** |  |
 | small-links-only | ts-japi | unsupported | — | no public decoder |
-| small-relationships | kitsu-core | 211,643 | 1x |  |
-| small-relationships | devour | 156,674 | 1.35x slower |  |
-| small-relationships | yayson | 126,485 | 1.67x slower |  |
-| **small-relationships** | **jsona** | **256,762** | **1.21x faster** |  |
+| small-relationships | kitsu-core | 191,943 | 1x |  |
+| small-relationships | devour | 159,182 | 1.21x slower |  |
+| small-relationships | yayson | 129,267 | 1.48x slower |  |
+| **small-relationships** | **jsona** | **253,432** | **1.32x faster** |  |
 | small-relationships | ts-japi | unsupported | — | no public decoder |
-| nested-relationships | kitsu-core | 258,549 | 1x |  |
-| nested-relationships | devour | 193,361 | 1.34x slower |  |
-| nested-relationships | yayson | 157,444 | 1.64x slower |  |
-| **nested-relationships** | **jsona** | **295,182** | **1.14x faster** |  |
+| nested-relationships | kitsu-core | 261,760 | 1x |  |
+| nested-relationships | devour | 193,123 | 1.36x slower |  |
+| nested-relationships | yayson | 163,952 | 1.6x slower |  |
+| **nested-relationships** | **jsona** | **292,546** | **1.12x faster** |  |
 | nested-relationships | ts-japi | unsupported | — | no public decoder |
-| collection | kitsu-core | 49,917 | 1x |  |
-| collection | devour | 31,066 | 1.61x slower |  |
-| collection | yayson | 67,299 | 1.35x faster |  |
-| **collection** | **jsona** | **140,858** | **2.82x faster** |  |
+| collection | kitsu-core | 49,531 | 1x |  |
+| collection | devour | 31,311 | 1.58x slower |  |
+| collection | yayson | 69,917 | 1.41x faster |  |
+| **collection** | **jsona** | **156,493** | **3.16x faster** |  |
 | collection | ts-japi | unsupported | — | no public decoder |
-| collection-includes | kitsu-core | 28,356 | 1x |  |
-| collection-includes | devour | 48,127 | 1.7x faster |  |
-| collection-includes | yayson | 54,831 | 1.93x faster |  |
-| **collection-includes** | **jsona** | **75,880** | **2.68x faster** |  |
+| collection-includes | kitsu-core | 28,779 | 1x |  |
+| collection-includes | devour | 48,137 | 1.67x faster |  |
+| collection-includes | yayson | 58,017 | 2.02x faster |  |
+| **collection-includes** | **jsona** | **75,499** | **2.62x faster** |  |
 | collection-includes | ts-japi | unsupported | — | no public decoder |
-| patch-single | kitsu-core | 1,225,052 | 1x |  |
-| **patch-single** | **devour** | **1,394,382** | **1.14x faster** |  |
-| patch-single | yayson | 531,408 | 2.31x slower |  |
-| patch-single | jsona | 1,247,090 | 1.02x faster |  |
+| patch-single | kitsu-core | 1,249,979 | 1x |  |
+| **patch-single** | **devour** | **1,383,095** | **1.11x faster** |  |
+| patch-single | yayson | 545,715 | 2.29x slower |  |
+| patch-single | jsona | 1,234,775 | 1.01x slower |  |
 | patch-single | ts-japi | unsupported | — | no public decoder |
-| empty-relationships | kitsu-core | 426,340 | 1x |  |
-| empty-relationships | devour | 280,390 | 1.52x slower |  |
-| empty-relationships | yayson | 280,386 | 1.52x slower |  |
-| **empty-relationships** | **jsona** | **599,517** | **1.41x faster** |  |
+| empty-relationships | kitsu-core | 466,337 | 1x |  |
+| empty-relationships | devour | 284,519 | 1.64x slower |  |
+| empty-relationships | yayson | 285,827 | 1.63x slower |  |
+| **empty-relationships** | **jsona** | **607,339** | **1.3x faster** |  |
 | empty-relationships | ts-japi | unsupported | — | no public decoder |
-| few-includes | kitsu-core | 254 | 1x |  |
-| few-includes | devour | 206 | 1.23x slower |  |
-| few-includes | yayson | 226 | 1.12x slower |  |
-| **few-includes** | **jsona** | **279** | **1.1x faster** |  |
+| few-includes | kitsu-core | 292 | 1x |  |
+| few-includes | devour | 216 | 1.35x slower |  |
+| few-includes | yayson | 193 | 1.51x slower |  |
+| **few-includes** | **jsona** | **311** | **1.07x faster** |  |
 | few-includes | ts-japi | unsupported | — | no public decoder |
-| **many-includes** | **kitsu-core** | **136** | **1x** |  |
-| many-includes | devour | 3.73 | 36.57x slower |  |
-| many-includes | yayson | 17.08 | 7.98x slower |  |
-| many-includes | jsona | 126 | 1.08x slower |  |
+| **many-includes** | **kitsu-core** | **160** | **1x** |  |
+| many-includes | devour | 3.84 | 41.75x slower |  |
+| many-includes | yayson | 15.09 | 10.61x slower |  |
+| many-includes | jsona | 116 | 1.39x slower |  |
 | many-includes | ts-japi | unsupported | — | no public decoder |
-| **complex-relationships** | **kitsu-core** | **27.73** | **1x** |  |
+| **complex-relationships** | **kitsu-core** | **24.93** | **1x** |  |
 | complex-relationships | devour | timeout | — | worker exceeds 30-second limit |
-| complex-relationships | yayson | 0.5 | 55.8x slower |  |
-| complex-relationships | jsona | 16.72 | 1.66x slower |  |
+| complex-relationships | yayson | 0.43 | 57.74x slower |  |
+| complex-relationships | jsona | 19.52 | 1.28x slower |  |
 | complex-relationships | ts-japi | unsupported | — | no public decoder |
-| **wide-relationship** | **kitsu-core** | **195** | **1x** |  |
-| wide-relationship | devour | 2.83 | 68.88x slower |  |
-| wide-relationship | yayson | 10.86 | 17.95x slower |  |
-| wide-relationship | jsona | 132 | 1.47x slower |  |
+| **wide-relationship** | **kitsu-core** | **189** | **1x** |  |
+| wide-relationship | devour | 2.77 | 68.2x slower |  |
+| wide-relationship | yayson | 10.42 | 18.13x slower |  |
+| wide-relationship | jsona | 115 | 1.65x slower |  |
 | wide-relationship | ts-japi | unsupported | — | no public decoder |
-| self-cycle | kitsu-core | 214,018 | 1x |  |
-| self-cycle | devour | 153,798 | 1.39x slower |  |
-| self-cycle | yayson | 146,582 | 1.46x slower |  |
-| **self-cycle** | **jsona** | **258,637** | **1.21x faster** |  |
+| self-cycle | kitsu-core | 226,695 | 1x |  |
+| self-cycle | devour | 147,979 | 1.53x slower |  |
+| self-cycle | yayson | 141,214 | 1.61x slower |  |
+| **self-cycle** | **jsona** | **239,384** | **1.06x faster** |  |
 | self-cycle | ts-japi | unsupported | — | no public decoder |
-| mutual-cycle | kitsu-core | 180,127 | 1x |  |
-| mutual-cycle | devour | 130,262 | 1.38x slower |  |
-| mutual-cycle | yayson | 125,108 | 1.44x slower |  |
-| **mutual-cycle** | **jsona** | **217,667** | **1.21x faster** |  |
+| mutual-cycle | kitsu-core | 205,123 | 1x |  |
+| mutual-cycle | devour | 130,774 | 1.57x slower |  |
+| mutual-cycle | yayson | 126,796 | 1.62x slower |  |
+| **mutual-cycle** | **jsona** | **208,529** | **1.02x faster** |  |
 | mutual-cycle | ts-japi | unsupported | — | no public decoder |
 
 </details>
@@ -725,184 +725,184 @@ Library versions: kitsu-core 12\.0\.0, kitsu 12\.0\.0, kitsu-native 12\.0\.0, fe
 
 | Scenario | Library | Rate | vs kitsu | Detail |
 | --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu | 51,631 | 1x |  |
-| **small-no-relationships** | **kitsu-native** | **88,139** | **1.71x faster** |  |
-| small-no-relationships | fetchja | 76,662 | 1.48x faster |  |
-| small-no-relationships | devour | 45,890 | 1.13x slower |  |
-| small-links-only | kitsu | 49,857 | 1x |  |
-| **small-links-only** | **kitsu-native** | **83,437** | **1.67x faster** |  |
-| small-links-only | fetchja | 72,404 | 1.45x faster |  |
-| small-links-only | devour | 40,665 | 1.23x slower |  |
-| small-relationships | kitsu | 36,826 | 1x |  |
-| **small-relationships** | **kitsu-native** | **48,780** | **1.32x faster** |  |
-| small-relationships | fetchja | 43,858 | 1.19x faster |  |
-| small-relationships | devour | 30,462 | 1.21x slower |  |
-| nested-relationships | kitsu | 41,247 | 1x |  |
-| **nested-relationships** | **kitsu-native** | **61,750** | **1.5x faster** |  |
-| nested-relationships | fetchja | 52,066 | 1.26x faster |  |
-| nested-relationships | devour | 32,510 | 1.27x slower |  |
-| **collection** | **kitsu** | **15,542** | **1x** |  |
-| collection | kitsu-native | 12,043 | 1.29x slower |  |
-| collection | fetchja | 13,540 | 1.15x slower |  |
-| collection | devour | 13,685 | 1.14x slower |  |
-| **collection-includes** | **kitsu** | **14,943** | **1x** |  |
-| collection-includes | kitsu-native | 12,280 | 1.22x slower |  |
-| collection-includes | fetchja | 12,359 | 1.21x slower |  |
-| collection-includes | devour | 14,003 | 1.07x slower |  |
-| patch-single | kitsu | 58,991 | 1x |  |
-| **patch-single** | **kitsu-native** | **116,052** | **1.97x faster** |  |
-| patch-single | fetchja | 87,869 | 1.49x faster |  |
-| patch-single | devour | 48,530 | 1.22x slower |  |
-| empty-relationships | kitsu | 47,767 | 1x |  |
-| **empty-relationships** | **kitsu-native** | **77,841** | **1.63x faster** |  |
-| empty-relationships | fetchja | 69,366 | 1.45x faster |  |
-| empty-relationships | devour | 39,453 | 1.21x slower |  |
-| **few-includes** | **kitsu** | **353** | **1x** |  |
-| few-includes | kitsu-native | 330 | 1.07x slower |  |
-| few-includes | fetchja | 277 | 1.27x slower |  |
-| few-includes | devour | 228 | 1.55x slower |  |
-| **many-includes** | **kitsu** | **143** | **1x** |  |
-| many-includes | kitsu-native | 128 | 1.12x slower |  |
-| many-includes | fetchja | 116 | 1.23x slower |  |
-| many-includes | devour | 6.15 | 23.25x slower |  |
-| **complex-relationships** | **kitsu** | **22.45** | **1x** |  |
-| complex-relationships | kitsu-native | 20.4 | 1.1x slower |  |
-| complex-relationships | fetchja | 16.61 | 1.35x slower |  |
+| small-no-relationships | kitsu | 53,778 | 1x |  |
+| **small-no-relationships** | **kitsu-native** | **90,172** | **1.68x faster** |  |
+| small-no-relationships | fetchja | 76,789 | 1.43x faster |  |
+| small-no-relationships | devour | 46,486 | 1.16x slower |  |
+| small-links-only | kitsu | 51,841 | 1x |  |
+| **small-links-only** | **kitsu-native** | **84,316** | **1.63x faster** |  |
+| small-links-only | fetchja | 73,461 | 1.42x faster |  |
+| small-links-only | devour | 41,791 | 1.24x slower |  |
+| small-relationships | kitsu | 38,300 | 1x |  |
+| **small-relationships** | **kitsu-native** | **51,724** | **1.35x faster** |  |
+| small-relationships | fetchja | 48,794 | 1.27x faster |  |
+| small-relationships | devour | 31,445 | 1.22x slower |  |
+| nested-relationships | kitsu | 40,971 | 1x |  |
+| **nested-relationships** | **kitsu-native** | **58,557** | **1.43x faster** |  |
+| nested-relationships | fetchja | 51,386 | 1.25x faster |  |
+| nested-relationships | devour | 33,700 | 1.22x slower |  |
+| **collection** | **kitsu** | **15,194** | **1x** |  |
+| collection | kitsu-native | 12,218 | 1.24x slower |  |
+| collection | fetchja | 13,469 | 1.13x slower |  |
+| collection | devour | 13,681 | 1.11x slower |  |
+| collection-includes | kitsu | 14,709 | 1x |  |
+| collection-includes | kitsu-native | 11,618 | 1.27x slower |  |
+| collection-includes | fetchja | 12,901 | 1.14x slower |  |
+| **collection-includes** | **devour** | **15,365** | **1.04x faster** |  |
+| patch-single | kitsu | 59,178 | 1x |  |
+| **patch-single** | **kitsu-native** | **109,993** | **1.86x faster** |  |
+| patch-single | fetchja | 85,959 | 1.45x faster |  |
+| patch-single | devour | 49,780 | 1.19x slower |  |
+| empty-relationships | kitsu | 50,033 | 1x |  |
+| **empty-relationships** | **kitsu-native** | **86,747** | **1.73x faster** |  |
+| empty-relationships | fetchja | 69,138 | 1.38x faster |  |
+| empty-relationships | devour | 41,277 | 1.21x slower |  |
+| **few-includes** | **kitsu** | **347** | **1x** |  |
+| few-includes | kitsu-native | 310 | 1.12x slower |  |
+| few-includes | fetchja | 279 | 1.24x slower |  |
+| few-includes | devour | 239 | 1.45x slower |  |
+| **many-includes** | **kitsu** | **141** | **1x** |  |
+| many-includes | kitsu-native | 119 | 1.18x slower |  |
+| many-includes | fetchja | 117 | 1.21x slower |  |
+| many-includes | devour | 6.21 | 22.69x slower |  |
+| complex-relationships | kitsu | 20.45 | 1x |  |
+| **complex-relationships** | **kitsu-native** | **21.38** | **1.05x faster** |  |
+| complex-relationships | fetchja | 15.88 | 1.29x slower |  |
 | complex-relationships | devour | timeout | — | worker exceeds 30-second limit |
-| **wide-relationship** | **kitsu** | **140** | **1x** |  |
-| wide-relationship | kitsu-native | 135 | 1.04x slower |  |
-| wide-relationship | fetchja | 113 | 1.24x slower |  |
-| wide-relationship | devour | 3.2 | 43.81x slower |  |
-| self-cycle | kitsu | 37,443 | 1x |  |
-| **self-cycle** | **kitsu-native** | **45,349** | **1.21x faster** |  |
-| self-cycle | fetchja | 41,461 | 1.11x faster |  |
-| self-cycle | devour | 30,112 | 1.24x slower |  |
-| mutual-cycle | kitsu | 35,506 | 1x |  |
-| **mutual-cycle** | **kitsu-native** | **46,540** | **1.31x faster** |  |
-| mutual-cycle | fetchja | 38,952 | 1.1x faster |  |
-| mutual-cycle | devour | 28,764 | 1.23x slower |  |
+| **wide-relationship** | **kitsu** | **147** | **1x** |  |
+| wide-relationship | kitsu-native | 127 | 1.16x slower |  |
+| wide-relationship | fetchja | 107 | 1.37x slower |  |
+| wide-relationship | devour | 3.16 | 46.6x slower |  |
+| self-cycle | kitsu | 36,448 | 1x |  |
+| **self-cycle** | **kitsu-native** | **37,616** | **1.03x faster** |  |
+| self-cycle | fetchja | 32,322 | 1.13x slower |  |
+| self-cycle | devour | 28,773 | 1.27x slower |  |
+| mutual-cycle | kitsu | 35,501 | 1x |  |
+| **mutual-cycle** | **kitsu-native** | **51,063** | **1.44x faster** |  |
+| mutual-cycle | fetchja | 41,329 | 1.16x faster |  |
+| mutual-cycle | devour | 27,627 | 1.28x slower |  |
 
 #### encode
 
 | Scenario | Library | Rate | vs kitsu | Detail |
 | --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu | 43,012 | 1x |  |
-| small-no-relationships | kitsu-native | 161,430 | 3.75x faster |  |
-| **small-no-relationships** | **fetchja** | **169,457** | **3.94x faster** |  |
-| small-no-relationships | devour | 45,123 | 1.05x faster |  |
-| small-links-only | kitsu | 46,019 | 1x |  |
-| **small-links-only** | **kitsu-native** | **243,778** | **5.3x faster** |  |
-| small-links-only | fetchja | 171,246 | 3.72x faster |  |
-| small-links-only | devour | 40,593 | 1.13x slower |  |
-| small-relationships | kitsu | 37,552 | 1x |  |
-| **small-relationships** | **kitsu-native** | **139,835** | **3.72x faster** |  |
-| small-relationships | fetchja | 125,515 | 3.34x faster |  |
-| small-relationships | devour | 33,053 | 1.14x slower |  |
-| nested-relationships | kitsu | 44,372 | 1x |  |
-| **nested-relationships** | **kitsu-native** | **214,699** | **4.84x faster** |  |
-| nested-relationships | fetchja | 153,119 | 3.45x faster |  |
-| nested-relationships | devour | 39,806 | 1.11x slower |  |
-| collection | kitsu | 20,109 | 1x |  |
-| **collection** | **kitsu-native** | **35,050** | **1.74x faster** |  |
+| small-no-relationships | kitsu | 46,084 | 1x |  |
+| **small-no-relationships** | **kitsu-native** | **249,526** | **5.41x faster** |  |
+| small-no-relationships | fetchja | 181,209 | 3.93x faster |  |
+| small-no-relationships | devour | 45,911 | <1.01x slower |  |
+| small-links-only | kitsu | 47,625 | 1x |  |
+| **small-links-only** | **kitsu-native** | **247,629** | **5.2x faster** |  |
+| small-links-only | fetchja | 177,253 | 3.72x faster |  |
+| small-links-only | devour | 43,021 | 1.11x slower |  |
+| small-relationships | kitsu | 38,464 | 1x |  |
+| **small-relationships** | **kitsu-native** | **161,562** | **4.2x faster** |  |
+| small-relationships | fetchja | 132,046 | 3.43x faster |  |
+| small-relationships | devour | 35,006 | 1.1x slower |  |
+| nested-relationships | kitsu | 44,469 | 1x |  |
+| **nested-relationships** | **kitsu-native** | **215,351** | **4.84x faster** |  |
+| nested-relationships | fetchja | 155,377 | 3.49x faster |  |
+| nested-relationships | devour | 37,418 | 1.19x slower |  |
+| collection | kitsu | 20,236 | 1x |  |
+| **collection** | **kitsu-native** | **33,936** | **1.68x faster** |  |
 | collection | fetchja | unsupported | — | public client writes single resources only |
 | collection | devour | unsupported | — | public client writes single resources only |
-| collection-includes | kitsu | 7,401 | 1x |  |
-| **collection-includes** | **kitsu-native** | **14,442** | **1.95x faster** |  |
+| collection-includes | kitsu | 11,196 | 1x |  |
+| **collection-includes** | **kitsu-native** | **15,174** | **1.36x faster** |  |
 | collection-includes | fetchja | unsupported | — | public client writes single resources only |
 | collection-includes | devour | unsupported | — | public client writes single resources only |
-| patch-single | kitsu | 55,055 | 1x |  |
-| **patch-single** | **kitsu-native** | **348,221** | **6.32x faster** |  |
-| patch-single | fetchja | 210,001 | 3.81x faster |  |
-| patch-single | devour | 50,622 | 1.09x slower |  |
-| empty-relationships | kitsu | 40,847 | 1x |  |
-| **empty-relationships** | **kitsu-native** | **195,223** | **4.78x faster** |  |
-| empty-relationships | fetchja | 159,072 | 3.89x faster |  |
-| empty-relationships | devour | 35,213 | 1.16x slower |  |
-| few-includes | kitsu | 266 | 1x |  |
-| **few-includes** | **kitsu-native** | **288** | **1.08x faster** |  |
+| patch-single | kitsu | 53,948 | 1x |  |
+| **patch-single** | **kitsu-native** | **359,558** | **6.66x faster** |  |
+| patch-single | fetchja | 227,129 | 4.21x faster |  |
+| patch-single | devour | 51,421 | 1.05x slower |  |
+| empty-relationships | kitsu | 43,670 | 1x |  |
+| **empty-relationships** | **kitsu-native** | **215,127** | **4.93x faster** |  |
+| empty-relationships | fetchja | 160,838 | 3.68x faster |  |
+| empty-relationships | devour | 38,883 | 1.12x slower |  |
+| few-includes | kitsu | 259 | 1x |  |
+| **few-includes** | **kitsu-native** | **279** | **1.08x faster** |  |
 | few-includes | fetchja | unsupported | — | public client writes single resources only |
 | few-includes | devour | unsupported | — | public client writes single resources only |
-| **many-includes** | **kitsu** | **285** | **1x** |  |
-| many-includes | kitsu-native | 229 | 1.24x slower |  |
+| many-includes | kitsu | 269 | 1x |  |
+| **many-includes** | **kitsu-native** | **283** | **1.05x faster** |  |
 | many-includes | fetchja | unsupported | — | public client writes single resources only |
 | many-includes | devour | unsupported | — | public client writes single resources only |
-| complex-relationships | kitsu | 101 | 1x |  |
-| **complex-relationships** | **kitsu-native** | **105** | **1.04x faster** |  |
+| complex-relationships | kitsu | 93.84 | 1x |  |
+| **complex-relationships** | **kitsu-native** | **109** | **1.16x faster** |  |
 | complex-relationships | fetchja | unsupported | — | public client writes single resources only |
 | complex-relationships | devour | unsupported | — | public client writes single resources only |
-| wide-relationship | kitsu | 753 | 1x |  |
-| **wide-relationship** | **kitsu-native** | **891** | **1.18x faster** |  |
+| wide-relationship | kitsu | 777 | 1x |  |
+| **wide-relationship** | **kitsu-native** | **889** | **1.15x faster** |  |
 | wide-relationship | fetchja | unsupported | — | public client writes single resources only |
 | wide-relationship | devour | unsupported | — | public client writes single resources only |
-| self-cycle | kitsu | 44,484 | 1x |  |
-| **self-cycle** | **kitsu-native** | **197,137** | **4.43x faster** |  |
-| self-cycle | fetchja | 147,387 | 3.31x faster |  |
-| self-cycle | devour | 37,692 | 1.18x slower |  |
-| mutual-cycle | kitsu | 43,327 | 1x |  |
-| **mutual-cycle** | **kitsu-native** | **217,421** | **5.02x faster** |  |
-| mutual-cycle | fetchja | 145,207 | 3.35x faster |  |
-| mutual-cycle | devour | 38,258 | 1.13x slower |  |
+| self-cycle | kitsu | 37,214 | 1x |  |
+| **self-cycle** | **kitsu-native** | **207,791** | **5.58x faster** |  |
+| self-cycle | fetchja | 144,028 | 3.87x faster |  |
+| self-cycle | devour | 35,552 | 1.05x slower |  |
+| mutual-cycle | kitsu | 42,888 | 1x |  |
+| **mutual-cycle** | **kitsu-native** | **201,835** | **4.71x faster** |  |
+| mutual-cycle | fetchja | 145,122 | 3.38x faster |  |
+| mutual-cycle | devour | 37,561 | 1.14x slower |  |
 
 #### decode-encode
 
 | Scenario | Library | Rate | vs kitsu | Detail |
 | --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu | 49,092 | 1x | 24,546 cycles/s |
-| **small-no-relationships** | **kitsu-native** | **115,777** | **2.36x faster** | **57,888 cycles/s** |
-| small-no-relationships | fetchja | 92,411 | 1.88x faster | 46,205 cycles/s |
-| small-no-relationships | devour | 44,757 | 1.1x slower | 22,378 cycles/s |
-| small-links-only | kitsu | 47,439 | 1x | 23,719 cycles/s |
-| **small-links-only** | **kitsu-native** | **110,777** | **2.34x faster** | **55,388 cycles/s** |
-| small-links-only | fetchja | 89,300 | 1.88x faster | 44,650 cycles/s |
-| small-links-only | devour | 37,011 | 1.28x slower | 18,505 cycles/s |
-| small-relationships | kitsu | 36,112 | 1x | 18,056 cycles/s |
-| small-relationships | kitsu-native | 46,074 | 1.28x faster | 23,037 cycles/s |
-| **small-relationships** | **fetchja** | **53,502** | **1.48x faster** | **26,751 cycles/s** |
-| small-relationships | devour | 31,971 | 1.13x slower | 15,986 cycles/s |
-| nested-relationships | kitsu | 39,773 | 1x | 19,887 cycles/s |
-| **nested-relationships** | **kitsu-native** | **81,554** | **2.05x faster** | **40,777 cycles/s** |
-| nested-relationships | fetchja | 65,494 | 1.65x faster | 32,747 cycles/s |
-| nested-relationships | devour | 35,208 | 1.13x slower | 17,604 cycles/s |
-| collection | kitsu | 16,865 | 1x | 8,433 cycles/s |
-| **collection** | **kitsu-native** | **17,003** | **1.01x faster** | **8,501 cycles/s** |
+| small-no-relationships | kitsu | 49,796 | 1x | 24,898 cycles/s |
+| **small-no-relationships** | **kitsu-native** | **115,857** | **2.33x faster** | **57,929 cycles/s** |
+| small-no-relationships | fetchja | 100,261 | 2.01x faster | 50,130 cycles/s |
+| small-no-relationships | devour | 44,755 | 1.11x slower | 22,378 cycles/s |
+| small-links-only | kitsu | 48,651 | 1x | 24,325 cycles/s |
+| **small-links-only** | **kitsu-native** | **114,870** | **2.36x faster** | **57,435 cycles/s** |
+| small-links-only | fetchja | 93,093 | 1.91x faster | 46,546 cycles/s |
+| small-links-only | devour | 41,985 | 1.16x slower | 20,992 cycles/s |
+| small-relationships | kitsu | 36,836 | 1x | 18,418 cycles/s |
+| **small-relationships** | **kitsu-native** | **66,145** | **1.8x faster** | **33,073 cycles/s** |
+| small-relationships | fetchja | 58,320 | 1.58x faster | 29,160 cycles/s |
+| small-relationships | devour | 31,743 | 1.16x slower | 15,872 cycles/s |
+| nested-relationships | kitsu | 41,232 | 1x | 20,616 cycles/s |
+| **nested-relationships** | **kitsu-native** | **83,816** | **2.03x faster** | **41,908 cycles/s** |
+| nested-relationships | fetchja | 68,010 | 1.65x faster | 34,005 cycles/s |
+| nested-relationships | devour | 35,527 | 1.16x slower | 17,764 cycles/s |
+| collection | kitsu | 16,980 | 1x | 8,490 cycles/s |
+| **collection** | **kitsu-native** | **17,244** | **1.02x faster** | **8,622 cycles/s** |
 | collection | fetchja | unsupported | — | public client writes single resources only |
 | collection | devour | unsupported | — | public client writes single resources only |
-| collection-includes | kitsu | 11,633 | 1x | 5,816 cycles/s |
-| **collection-includes** | **kitsu-native** | **13,217** | **1.14x faster** | **6,609 cycles/s** |
+| collection-includes | kitsu | 12,580 | 1x | 6,290 cycles/s |
+| **collection-includes** | **kitsu-native** | **13,237** | **1.05x faster** | **6,619 cycles/s** |
 | collection-includes | fetchja | unsupported | — | public client writes single resources only |
 | collection-includes | devour | unsupported | — | public client writes single resources only |
-| patch-single | kitsu | 55,266 | 1x | 27,633 cycles/s |
-| **patch-single** | **kitsu-native** | **155,078** | **2.81x faster** | **77,539 cycles/s** |
-| patch-single | fetchja | 109,993 | 1.99x faster | 54,997 cycles/s |
-| patch-single | devour | 47,781 | 1.16x slower | 23,891 cycles/s |
-| empty-relationships | kitsu | 43,178 | 1x | 21,589 cycles/s |
-| **empty-relationships** | **kitsu-native** | **103,134** | **2.39x faster** | **51,567 cycles/s** |
-| empty-relationships | fetchja | 90,022 | 2.08x faster | 45,011 cycles/s |
-| empty-relationships | devour | 34,928 | 1.24x slower | 17,464 cycles/s |
-| **few-includes** | **kitsu** | **311** | **1x** | **156 cycles/s** |
-| few-includes | kitsu-native | 302 | 1.03x slower | 151 cycles/s |
+| patch-single | kitsu | 54,309 | 1x | 27,154 cycles/s |
+| **patch-single** | **kitsu-native** | **158,565** | **2.92x faster** | **79,283 cycles/s** |
+| patch-single | fetchja | 114,563 | 2.11x faster | 57,282 cycles/s |
+| patch-single | devour | 49,087 | 1.11x slower | 24,543 cycles/s |
+| empty-relationships | kitsu | 44,486 | 1x | 22,243 cycles/s |
+| **empty-relationships** | **kitsu-native** | **98,440** | **2.21x faster** | **49,220 cycles/s** |
+| empty-relationships | fetchja | 89,123 | 2x faster | 44,562 cycles/s |
+| empty-relationships | devour | 39,008 | 1.14x slower | 19,504 cycles/s |
+| **few-includes** | **kitsu** | **284** | **1x** | **142 cycles/s** |
+| few-includes | kitsu-native | 281 | 1.01x slower | 140 cycles/s |
 | few-includes | fetchja | unsupported | — | public client writes single resources only |
 | few-includes | devour | unsupported | — | public client writes single resources only |
-| **many-includes** | **kitsu** | **177** | **1x** | **88\.37 cycles/s** |
-| many-includes | kitsu-native | 159 | 1.11x slower | 79\.68 cycles/s |
+| many-includes | kitsu | 163 | 1x | 81\.37 cycles/s |
+| **many-includes** | **kitsu-native** | **174** | **1.07x faster** | **87\.11 cycles/s** |
 | many-includes | fetchja | unsupported | — | public client writes single resources only |
 | many-includes | devour | unsupported | — | public client writes single resources only |
-| **complex-relationships** | **kitsu** | **35.68** | **1x** | **17\.84 cycles/s** |
-| complex-relationships | kitsu-native | 35.34 | 1.01x slower | 17\.67 cycles/s |
+| **complex-relationships** | **kitsu** | **34.59** | **1x** | **17\.29 cycles/s** |
+| complex-relationships | kitsu-native | 32.31 | 1.07x slower | 16\.16 cycles/s |
 | complex-relationships | fetchja | unsupported | — | public client writes single resources only |
 | complex-relationships | devour | unsupported | — | public client writes single resources only |
-| **wide-relationship** | **kitsu** | **243** | **1x** | **122 cycles/s** |
-| wide-relationship | kitsu-native | 234 | 1.04x slower | 117 cycles/s |
+| wide-relationship | kitsu | 226 | 1x | 113 cycles/s |
+| **wide-relationship** | **kitsu-native** | **230** | **1.02x faster** | **115 cycles/s** |
 | wide-relationship | fetchja | unsupported | — | public client writes single resources only |
 | wide-relationship | devour | unsupported | — | public client writes single resources only |
-| self-cycle | kitsu | 37,753 | 1x | 18,877 cycles/s |
-| **self-cycle** | **kitsu-native** | **73,766** | **1.95x faster** | **36,883 cycles/s** |
-| self-cycle | fetchja | 59,293 | 1.57x faster | 29,647 cycles/s |
-| self-cycle | devour | 33,845 | 1.12x slower | 16,922 cycles/s |
-| mutual-cycle | kitsu | 38,735 | 1x | 19,367 cycles/s |
-| **mutual-cycle** | **kitsu-native** | **61,857** | **1.6x faster** | **30,929 cycles/s** |
-| mutual-cycle | fetchja | 57,746 | 1.49x faster | 28,873 cycles/s |
-| mutual-cycle | devour | 32,678 | 1.19x slower | 16,339 cycles/s |
+| self-cycle | kitsu | 32,350 | 1x | 16,175 cycles/s |
+| **self-cycle** | **kitsu-native** | **68,863** | **2.13x faster** | **34,431 cycles/s** |
+| self-cycle | fetchja | 57,624 | 1.78x faster | 28,812 cycles/s |
+| self-cycle | devour | 32,089 | 1.01x slower | 16,045 cycles/s |
+| mutual-cycle | kitsu | 37,541 | 1x | 18,771 cycles/s |
+| **mutual-cycle** | **kitsu-native** | **66,500** | **1.77x faster** | **33,250 cycles/s** |
+| mutual-cycle | fetchja | 57,496 | 1.53x faster | 28,748 cycles/s |
+| mutual-cycle | devour | 29,981 | 1.25x slower | 14,991 cycles/s |
 
 </details>
 
