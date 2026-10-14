@@ -170,18 +170,19 @@ execFileSync(
   [resolve(root, 'node_modules/typescript/bin/tsc'), '-p', resolve(consumer, 'tsconfig.node.json')],
   { cwd: consumer, stdio: 'inherit' },
 )
+// Verify the installed tarball, including core resolution, without workspace builds or aliases.
 execFileSync(
   'bun',
   [
     'build',
-    resolve(root, 'packages/kitsu-native/dist/index.mjs'),
+    resolve(consumer, 'node_modules/kitsu-native/dist/index.mjs'),
     '--target',
     'browser',
     '--minify',
     '--outfile',
     resolve(output, 'native-browser.mjs'),
   ],
-  { cwd: root, stdio: 'inherit' },
+  { cwd: consumer, stdio: 'inherit' },
 )
 const browser = await readFile(resolve(output, 'native-browser.mjs'), 'utf8')
 if (/node:|Axios|axios\.create/.test(browser))
