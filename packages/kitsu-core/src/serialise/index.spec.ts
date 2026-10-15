@@ -10,12 +10,14 @@ describe('kitsu-core serialise', () => {
         const shared: any = { values: [1], date: new Date(0) }
         shared.self = shared
         const input: any[] = Array.from({ length: count }, (_, index) => ({
+          type: 'people',
           id: String(index),
           info: shared,
           $: { attributes: { ambiguous: { id: 'attribute' }, empty: [], absent: null } },
         }))
         if (linked)
-          for (let index = 0; index < count; index++) input[index].friend = input[(index + 1) % count]
+          for (let index = 0; index < count; index++)
+            input[index].friend = input[(index + 1) % count]
         const output = serialise('people', input, 'PATCH')
         const again = serialise('people', input, 'PATCH')
         const copied = output.data[0].attributes.info

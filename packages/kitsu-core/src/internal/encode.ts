@@ -79,7 +79,7 @@ function put(output: JsonObject, key: string, value: any): void {
 interface State {
   method: string
   options: SerialiseOptions
-  copies?: Copies | WeakMap<object, any>
+  copies?: Copies | Map<object, any>
   pending?: [JsonObject, Metadata][]
 }
 function clone(value: any, state: State): any {
@@ -484,7 +484,7 @@ export function encode(
   if (document && ('data' in document || 'errors' in document))
     fail('document cannot override data/errors')
   const state: State = { method, options }
-  if (Array.isArray(data) && data.length > 16) state.copies = new WeakMap()
+  if (Array.isArray(data) && data.length > 16) state.copies = new Map()
   const plain = !Array.isArray(data) && simple(data, options)
   if (plain) {
     if (type === undefined) fail(`${method} requires a resource type`)

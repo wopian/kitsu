@@ -17,6 +17,7 @@
     "benchmark:smoke": "bun scripts/benchmark.ts --smoke",
     "benchmark:report": "node --experimental-strip-types scripts/benchmark-report.ts",
     "benchmark:verify": "bun scripts/benchmark-verify.ts",
+    "benchmark:full": "bun scripts/benchmark.ts --runtime node && bun scripts/benchmark.ts --runtime bun && bun benchmark:report",
     "typecheck": "bun check",
     "build": "bun run scripts/build.ts",
     "docs": "bun --filter '*' docs:lint",
