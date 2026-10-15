@@ -5,7 +5,7 @@ import KitsuNative from 'kitsu-native'
 /** Same HTTP assertions run against each client's actual conversion pipeline. */
 export function httpClient(
   transport: 'axios' | 'native',
-  options: { hoistData?: boolean } = {},
+  options: { hoistData?: boolean; attributeCase?: 'none' | 'kebab' | 'snake' } = {},
   defaults = false,
 ) {
   const settings = {

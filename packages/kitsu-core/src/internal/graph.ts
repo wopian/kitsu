@@ -1,5 +1,5 @@
 import { deattribute } from '../deattribute.js'
-import type { JsonObject } from '../types.js'
+import type { DeserialiseOptions, JsonObject } from '../types.js'
 import { copy } from './copy.js'
 import { extensionMember, identity, mapData, resourceIndex } from './members.js'
 
@@ -68,9 +68,13 @@ function link(
 /** Allocate resources before linking edges, so graphs never require recursive decoding.
  * @private
  */
-export function decodeGraph(data: any, included: JsonObject[] = []): JsonObject {
+export function decodeGraph(
+  data: any,
+  included: JsonObject[] = [],
+  options?: DeserialiseOptions,
+): JsonObject {
   if (!included.length && (data == null || Object.getPrototypeOf(data) === Object.prototype)) {
-    const output = mapData(data, deattribute)
+    const output = data == null ? data : deattribute(data, options)
     if (data?.relationships)
       link(data.relationships, output, (identifier) =>
         identifier.type === data.type &&
@@ -98,7 +102,7 @@ export function decodeGraph(data: any, included: JsonObject[] = []): JsonObject 
       ids.set(source.type, type)
     }
     if (type.has(source.id)) return
-    const output = deattribute(source)
+    const output = deattribute(source, options)
     type.set(source.id, output)
     if (source.relationships) pending.push(source.relationships, output)
     return output
@@ -107,12 +111,12 @@ export function decodeGraph(data: any, included: JsonObject[] = []): JsonObject 
   const supplied = new Array(included.length)
   for (let position = 0; position < roots.length; position++) {
     const output = allocate(roots[position])
-    if (!output) return decodeAliases(data, included)
+    if (!output) return decodeAliases(data, included, options)
     primary[position] = output
   }
   for (let position = 0; position < included.length; position++) {
     const output = allocate(included[position])
-    if (!output) return decodeAliases(data, included)
+    if (!output) return decodeAliases(data, included, options)
     supplied[position] = output
   }
   function target(identifier: JsonObject): JsonObject {
@@ -126,7 +130,11 @@ export function decodeGraph(data: any, included: JsonObject[] = []): JsonObject 
   }
 }
 
-function decodeAliases(data: any, included: JsonObject[]): JsonObject {
+function decodeAliases(
+  data: any,
+  included: JsonObject[],
+  options?: DeserialiseOptions,
+): JsonObject {
   const roots = Array.isArray(data) ? data : data ? [data] : []
   const aliases = resourceIndex(roots.concat(included))
   const ids = new Map<any, Map<any, JsonObject>>()
@@ -137,7 +145,7 @@ function decodeAliases(data: any, included: JsonObject[]): JsonObject {
     const source = aliases.get(identity(input)) || input
     const cached = outputs.get(source)
     if (cached) return cached
-    const output = deattribute(source)
+    const output = deattribute(source, options)
     outputs.set(source, output)
     if (source.id !== undefined) {
       let type = ids.get(source.type)

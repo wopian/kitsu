@@ -12,6 +12,8 @@ export interface KitsuOptions extends RequestConfig {
   query?: 'traditional' | 'modern' | ((params?: JsonObject) => string)
   camelCaseTypes?: boolean
   resourceCase?: 'kebab' | 'snake' | 'none'
+  /** Attribute wire case; enabled modes decode camelCase. Default: none. */
+  attributeCase?: 'kebab' | 'snake' | 'none'
   pluralize?: boolean
   timeout?: number
   hoistData?: boolean

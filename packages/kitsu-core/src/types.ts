@@ -73,6 +73,8 @@ export interface FlatResource {
   [attribute: string]: any
 }
 export interface SerialiseOptions {
+  /** Convert resource attribute names to wire names; nested JSON keys stay unchanged. */
+  attributeCase?: (name: string) => string
   camelCaseTypes?: (value: string) => string
   pluralTypes?: (value: string) => string
   /** Top-level document members accompanying generated primary data. */
@@ -85,5 +87,7 @@ export interface SplitModelOptions {
   pluralModel?: (value: string) => string
 }
 export interface DeserialiseOptions {
+  /** Convert resource attribute names to application names; nested JSON keys stay unchanged. */
+  attributeCase?: (name: string) => string
   hoistData?: boolean
 }

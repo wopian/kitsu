@@ -14,6 +14,7 @@ import type { ArbitraryRequest, KitsuOptions, KitsuResponse, RequestConfig } fro
  * @param {'traditional'|'modern'|Function} [options.query=traditional] Query serializer function to use. This will impact the way keys are serialized when passing arrays as query parameters. 'modern' is recommended for new projects.
  * @param {boolean} [options.camelCaseTypes=true] If enabled, `type` will be converted to camelCase from kebab-casae or snake_case
  * @param {'kebab'|'snake'|'none'} [options.resourceCase=kebab] Case to convert camelCase to. `kebab` - `/library-entries`; `snake` - /library_entries`; `none` - `/libraryEntries`
+ * @param {'none'|'kebab'|'snake'} [options.attributeCase=none] Convert resource attribute names to camelCase on reads and selected wire case on writes. Nested JSON, relationships, and queries stay unchanged.
  * @param {boolean} [options.pluralize=true] If enabled, `/user` will become `/users` in the URL request and `type` will be pluralized in POST, PATCH and DELETE requests
  * @param {number} [options.timeout=30000] Set the request timeout in milliseconds
  * @param {Object} [options.axiosOptions] Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
@@ -52,6 +53,7 @@ export default class Kitsu {
   declare create: Kitsu['post']
   declare remove: Kitsu['delete']
   declare interceptors: AxiosInstance['interceptors']
+  #attributeCase?: (name: string) => string
   constructor(options: KitsuOptions = {}) {
     const traditional = typeof options.query === 'string' ? options.query === 'traditional' : true
     this.query =
@@ -65,6 +67,9 @@ export default class Kitsu {
     if (options.resourceCase === 'none') this.resCase = (s) => s
     else if (options.resourceCase === 'snake') this.resCase = snake
     else this.resCase = kebab
+
+    if (options.attributeCase === 'kebab') this.#attributeCase = kebab
+    else if (options.attributeCase === 'snake') this.#attributeCase = snake
 
     /**
      * If pluralization is enabled (default, see Kitsu constructor docs) then pluralization rules can be added
@@ -150,7 +155,10 @@ export default class Kitsu {
   }
 
   #result(data: any, status: number, headers: JsonObject): any {
-    const decoded = deserialise(data, { hoistData: this.hoistData })
+    const decoded = deserialise(data, {
+      hoistData: this.hoistData,
+      attributeCase: this.#attributeCase ? camel : undefined,
+    })
     return {
       ...(decoded === null || Array.isArray(decoded) ? { data: decoded } : decoded),
       status,
@@ -343,6 +351,7 @@ export default class Kitsu {
         (model.split('/').length === 2 ? model.split('/')[0] : resourceModel)
       const serialData = serialise(resourceType, body, 'PATCH', {
         camelCaseTypes: this.camel,
+        attributeCase: this.#attributeCase,
         pluralTypes: this.plural,
         document: config.document,
         relationship: model.includes('/relationships/'),
@@ -413,6 +422,7 @@ export default class Kitsu {
         url,
         serialise(resourceModel, body, 'POST', {
           camelCaseTypes: this.camel,
+          attributeCase: this.#attributeCase,
           pluralTypes: this.plural,
           document: config.document,
           relationship: model.includes('/relationships/'),
@@ -486,6 +496,7 @@ export default class Kitsu {
           isBulk || relationship
             ? serialise(resourceModel, payload, 'DELETE', {
                 camelCaseTypes: this.camel,
+                attributeCase: this.#attributeCase,
                 pluralTypes: this.plural,
                 document: config.document,
                 relationship,
@@ -619,6 +630,7 @@ export default class Kitsu {
             ? undefined
             : serialise(type, body, method, {
                 camelCaseTypes: this.camel,
+                attributeCase: this.#attributeCase,
                 pluralTypes: this.plural,
                 document,
                 relationship,

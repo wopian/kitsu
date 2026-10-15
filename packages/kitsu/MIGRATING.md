@@ -1,5 +1,29 @@
 # Migration Guides
 
+## Optional attribute casing
+
+Set `attributeCase: 'kebab'` or `'snake'` on `Kitsu` or `KitsuNative` to decode
+resource attribute names into camelCase and encode camelCase into that wire case.
+Default `'none'` preserves names. This option is independent of `resourceCase`.
+
+```js
+const api = new Kitsu({ attributeCase: 'kebab' })
+const { data } = await api.get('people/1')
+console.log(data.firstName) // wire attribute: first-name
+await api.patch('people', { id: '1', firstName: 'Ada' })
+```
+
+Conversion covers primary, included, and related resources. Nested JSON keys,
+relationship names, queries, metadata, links, and identifiers stay unchanged.
+Supply wire names explicitly in `fields`, `sort`, `filter`, and other query values.
+Name collisions reject instead of silently overwriting fields. Existing request
+methods, aliases, and `request()` use the constructor option.
+
+Resource metadata belongs under `resource.$`. Document `meta`, `links`, `jsonapi`,
+and preserved `included` remain beside `data` and prevent document hoisting.
+Relationship metadata never prevents relationship flattening. See the core
+migration guide for examples and custom attribute conversion callbacks.
+
 ## JSON:API 1.1 behavior changes
 
 Node support covers 22, 24, and 26. Node 18, 19, 20, 21, 23, and 25 are no

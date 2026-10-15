@@ -10,6 +10,7 @@ import type { FlatResource, JsonObject, SerialiseOptions } from './types.js'
  * @param {Object} [options={}] Serialization options
  * @param {Function} [options.camelCaseTypes] Transform inferred resource types
  * @param {Function} [options.pluralTypes] Pluralize inferred resource types
+ * @param {Function} [options.attributeCase] Convert attribute names; nested JSON keys stay unchanged
  * @param {Object} [options.document] Additional top-level document members
  * @param {boolean} [options.relationship=false] Serialize primary data as identifiers
  * @returns {Object} JSON:API document with deduplicated included resources

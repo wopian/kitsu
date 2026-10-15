@@ -1,5 +1,6 @@
 import { isDeepEqual } from '../deepEqual.js'
 import type { JsonObject, SerialiseOptions } from '../types.js'
+import { attributeConflicts, attributeName } from './attributes.js'
 import { Copies } from './copies.js'
 import { copy } from './copy.js'
 import { extensionMember, extraMember, fail, identity } from './members.js'
@@ -342,6 +343,7 @@ function richRelationships(
     }
   }
   if (relationships) wire.relationships = relationships
+  if (state.options.attributeCase) attributeConflicts(wire)
   return wire
 }
 function flat(input: JsonObject, type: string, state: State, rich: boolean): JsonObject | Frame {
@@ -410,7 +412,11 @@ function flat(input: JsonObject, type: string, state: State, rich: boolean): Jso
       relationships[name] = { data: targets }
     } else {
       attributes ??= {}
-      attributes[name] = clone(value, state)
+      attributes[
+        state.options.attributeCase
+          ? attributeName(name, state.options.attributeCase, attributes)
+          : name
+      ] = clone(value, state)
     }
   }
   if (explicit)
@@ -425,7 +431,11 @@ function flat(input: JsonObject, type: string, state: State, rich: boolean): Jso
         fail(`Invalid field: ${name}`)
       if (saved && Object.hasOwn(saved, name)) fail(`Field conflict: ${name}`)
       attributes ??= {}
-      attributes[name] = clone(explicit[name], state)
+      attributes[
+        state.options.attributeCase
+          ? attributeName(name, state.options.attributeCase, attributes)
+          : name
+      ] = clone(explicit[name], state)
     }
   if (saved)
     for (const name in saved) {
@@ -469,6 +479,7 @@ function flat(input: JsonObject, type: string, state: State, rich: boolean): Jso
     }
   if (attributes) wire.attributes = attributes
   if (relationships) wire.relationships = relationships
+  if (state.options.attributeCase) attributeConflicts(wire)
   return wire
 }
 /** Encode plain values directly and promote completed output when graph state becomes necessary.
@@ -819,6 +830,7 @@ class Encoder {
           if (frame.attributes) frame.wire.attributes = frame.attributes
           if (frame.relationships && Object.keys(frame.relationships).length)
             frame.wire.relationships = frame.relationships
+          if (this.#state.options.attributeCase) attributeConflicts(frame.wire)
           this.#stack.pop()
         }
         continue
@@ -846,7 +858,11 @@ class Encoder {
           fail(`Invalid field: ${name}`)
         if (frame.saved && Object.hasOwn(frame.saved, name)) fail(`Field conflict: ${name}`)
         frame.attributes ??= {}
-        frame.attributes[name] = clone(frame.explicit?.[name], this.#state)
+        frame.attributes[
+          this.#state.options.attributeCase
+            ? attributeName(name, this.#state.options.attributeCase, frame.attributes)
+            : name
+        ] = clone(frame.explicit?.[name], this.#state)
         continue
       }
       if (name === 'id' || name === 'type' || name === '$') continue
@@ -857,7 +873,11 @@ class Encoder {
       if (related) this.#relationship(frame, name, value, false)
       else {
         frame.attributes ??= {}
-        frame.attributes[name] = clone(value, this.#state)
+        frame.attributes[
+          this.#state.options.attributeCase
+            ? attributeName(name, this.#state.options.attributeCase, frame.attributes)
+            : name
+        ] = clone(value, this.#state)
       }
     }
   }

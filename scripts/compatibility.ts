@@ -82,6 +82,19 @@ assert.equal(isDeepEqual([1], { 0: 1 }), false)
 const person = { type: 'people', id: '9', attributes: { name: 'Ada' }, meta: { active: true } }
 const flat = { type: 'people', id: '9', name: 'Ada', $: { meta: { active: true } } }
 assert.deepEqual(deattribute(person), flat)
+assert.deepEqual(
+  deattribute(
+    { attributes: { 'first-name': 'Ada' } },
+    { attributeCase: (name) => name.replace('-n', 'N') },
+  ),
+  { firstName: 'Ada' },
+)
+assert.deepEqual(
+  serialise('people', { firstName: 'Ada' }, 'POST', {
+    attributeCase: (name) => name.replace('N', '-n'),
+  }),
+  { data: { type: 'people', attributes: { 'first-name': 'Ada' } } },
+)
 assert.deepEqual(filterIncludes([person], { type: 'people', id: '9' }), person)
 assert.deepEqual(
   linkRelationships(

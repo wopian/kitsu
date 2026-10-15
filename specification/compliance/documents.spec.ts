@@ -1,8 +1,47 @@
 import { describe, expect, it } from 'bun:test'
 import { deserialise } from 'kitsu-core'
-import { errorDocument, flatMetadataDocument, metadataDocument } from './fixtures.js'
+import {
+  errorDocument,
+  flatMetadataDocument,
+  hoistingIssueDocument,
+  metadataDocument,
+} from './fixtures.js'
 
 describe('JSON:API 1.1 documents', () => {
+  it('D07 #1131 flattens relationships while preserving included and document metadata', () => {
+    for (const extras of [false, true]) {
+      const input = hoistingIssueDocument(extras)
+      const snapshot = structuredClone(input)
+      const output = deserialise(input, { hoistData: true })
+      const character = { id: '1', type: 'characters', name: 'Genkai' }
+      expect(output).toEqual({
+        data: [
+          {
+            id: '1',
+            type: 'users',
+            name: 'Josh',
+            waifu: character,
+            ...(extras ? { $: { relationships: { waifu: { meta: {}, links: {} } } } } : {}),
+          },
+        ],
+        included: [character],
+        ...(extras ? { jsonapi: { version: '1.0' } } : {}),
+      })
+      expect(output.data[0].waifu).toBe(output.included[0])
+      expect(input).toEqual(snapshot)
+    }
+    for (const extra of [{ meta: {} }, { links: {} }, { jsonapi: { version: '1.1' } }]) {
+      expect(
+        deserialise(
+          { data: { type: 'users', id: '1', attributes: { payload: { data: 1 } } }, ...extra },
+          { hoistData: true },
+        ),
+      ).toEqual({
+        data: { type: 'users', id: '1', payload: { data: 1 } },
+        ...extra,
+      })
+    }
+  })
   it('D01 primary cardinality and absent data', () => {
     for (const data of [null, [], { type: 'people', id: '0' }, [{ type: 'people', id: '0' }]])
       expect(deserialise({ data })).toEqual({ data })

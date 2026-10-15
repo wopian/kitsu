@@ -115,3 +115,23 @@ export const errorDocument: JsonApiDocument = {
   ],
   meta: { trace: 'request-1' },
 }
+/** Original #1131 resource graph, including optional empty relationship metadata. */
+export function hoistingIssueDocument(extras = false) {
+  return {
+    data: [
+      {
+        id: '1',
+        type: 'users',
+        attributes: { name: 'Josh' },
+        relationships: {
+          waifu: {
+            data: { id: '1', type: 'characters' },
+            ...(extras ? { meta: {}, links: {} } : {}),
+          },
+        },
+      },
+    ],
+    included: [{ id: '1', type: 'characters', attributes: { name: 'Genkai' } }],
+    ...(extras ? { jsonapi: { version: '1.0' } } : {}),
+  }
+}

@@ -67,9 +67,9 @@ await writeFile(
   resolve(consumer, 'consumer.ts'),
   `import Kitsu, { type KitsuOptions, type RequestConfig } from 'kitsu'
 import KitsuNative, { KitsuNativeError, type FetchOptions } from 'kitsu-native'
-import { camel, query, type JsonApiDocument, type FlatResource, type ResourceEnvelope, type JsonApiLink, type JsonApiError } from 'kitsu-core'
+import { camel, kebab, deserialise, serialise, deattribute, linkRelationships, query, type JsonApiDocument, type FlatResource, type ResourceEnvelope, type JsonApiLink, type JsonApiError } from 'kitsu-core'
 import { query as subpathQuery } from 'kitsu-core/query'
-const options: KitsuOptions = { query: 'modern', headers: { Custom: true } }
+const options: KitsuOptions = { query: 'modern', headers: { Custom: true }, attributeCase: 'kebab' }
 const request: RequestConfig = { params: { filter: { id: 1 } } }
 const document: JsonApiDocument = { data: null, meta: { count: 0 } }
 const envelope: ResourceEnvelope = { lid: 'draft', links: { self: { href: '/people/1', hreflang: ['en'] } }, relationships: { author: { data: { type: 'people', id: '9' } } } }
@@ -87,7 +87,15 @@ new Kitsu({ resourceCase: 'invalid' })
 void document
 void resource; void link; void error; void invalid
 const fetchOptions: FetchOptions = { credentials: 'include', signal: new AbortController().signal }
-new KitsuNative({ fetch: globalThis.fetch, fetchOptions }).get('articles')
+new KitsuNative({ fetch: globalThis.fetch, fetchOptions, attributeCase: 'snake' }).get('articles')
+deserialise(document, { attributeCase: camel })
+serialise('articles', resource, 'POST', { attributeCase: kebab })
+deattribute(document.data, { attributeCase: camel })
+linkRelationships(document.data, [], { attributeCase: camel })
+// @ts-expect-error Invalid attribute casing must fail consumer type checking.
+new Kitsu({ attributeCase: 'invalid' })
+// @ts-expect-error Native clients accept the same attribute casing modes.
+new KitsuNative({ attributeCase: 'invalid' })
 // @ts-expect-error Generated HTTP method cannot be overridden through fetchOptions.
 const invalidFetch: FetchOptions = { method: 'POST' }
 void KitsuNativeError; void invalidFetch
@@ -122,6 +130,8 @@ for (const name of ['camel','deattribute','deserialise','error','filterIncludes'
 assert.equal(core.camel('library-entry'), 'libraryEntry')
 assert.equal(core.query({ id: [1, 2] }), 'id=1&id=2')
 assert.deepEqual(core.serialise('posts', { id: 1, title: 'Hi' }, 'PATCH'), { data: { type: 'posts', id: '1', attributes: { title: 'Hi' } } })
+assert.deepEqual(core.deserialise({ data: { type: 'people', id: '1', attributes: { 'first-name': 'Ada' } } }, { attributeCase: core.camel }), { data: { type: 'people', id: '1', firstName: 'Ada' } })
+assert.deepEqual(core.serialise('people', { firstName: 'Ada' }, 'POST', { attributeCase: core.kebab }), { data: { type: 'people', attributes: { 'first-name': 'Ada' } } })
 const decoded = core.deserialise({ data: { type: 'articles', id: '1', meta: { resource: true }, relationships: { author: { data: { type: 'people', lid: 'p' } } } }, included: [{ type: 'people', lid: 'p', attributes: { name: 'Ada' } }] })
 assert.equal(decoded.data.author, decoded.included[0])
 assert.deepEqual(decoded.data.author, { type: 'people', name: 'Ada', $: { lid: 'p' } })
@@ -142,6 +152,16 @@ const native = new KitsuNative({ fetch: async (url, options) => {
 assert.equal(native.fetch, native.get); assert.equal(native.update, native.patch); assert.equal(native.create, native.post); assert.equal(native.remove, native.delete)
 assert.deepEqual(await native.patch('articles', { id: 0, title: 'Hi' }), { status: 204 })
 assert.equal(typeof KitsuNativeError, 'function')
+const casedAxios = new Kitsu({ attributeCase: 'kebab', pluralize: false, camelCaseTypes: false, axiosOptions: { adapter: async config => {
+  assert.deepEqual(JSON.parse(config.data), { data: { type: 'people', attributes: { 'first-name': 'Ada' } } })
+  return { data: { data: { type: 'people', id: '1', attributes: { 'first-name': 'Ada' } } }, status: 201, statusText: 'Created', headers: {}, config }
+} } })
+assert.equal((await casedAxios.post('people', { firstName: 'Ada' })).data.firstName, 'Ada')
+const casedNative = new KitsuNative({ attributeCase: 'snake', pluralize: false, camelCaseTypes: false, fetch: async (url, options) => {
+  assert.deepEqual(JSON.parse(options.body), { data: { type: 'people', attributes: { first_name: 'Ada' } } })
+  return Response.json({ data: { type: 'people', id: '1', attributes: { first_name: 'Ada' } } }, { status: 201 })
+} })
+assert.equal((await casedNative.post('people', { firstName: 'Ada' })).data.firstName, 'Ada')
 console.log('Packed ESM imports, identity, declarations, and package metadata passed')
 `,
 )

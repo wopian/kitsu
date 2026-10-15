@@ -13,6 +13,7 @@ import {
 /** JSON:API client using native fetch, with kitsu resource methods and aliases.
  *
  * @param {Object} [options] Client options; fetch defaults to globalThis.fetch
+ * @param {'none'|'kebab'|'snake'} [options.attributeCase=none] Convert resource attribute names to camelCase on reads and selected wire case on writes. Nested JSON, relationships, and queries stay unchanged.
  * @example
  * const api = new KitsuNative({ baseURL: 'https://kitsu.app/api/edge' })
  * const response = await api.get('anime')
@@ -32,6 +33,7 @@ export default class KitsuNative {
   #baseURL: string
   #timeout: number
   #fetchOptions?: FetchOptions
+  #attributeCase?: (name: string) => string
   constructor(options: KitsuNativeOptions = {}) {
     const traditional = typeof options.query === 'string' ? options.query === 'traditional' : true
     this.query =
@@ -56,6 +58,8 @@ export default class KitsuNative {
     this.#baseURL = options.baseURL || 'https://kitsu.app/api/edge'
     this.#timeout = options.timeout ?? 30000
     this.hoistData = options.hoistData || false
+    if (options.attributeCase === 'kebab') this.#attributeCase = kebab
+    else if (options.attributeCase === 'snake') this.#attributeCase = snake
     this.#fetchOptions = options.fetchOptions
     this.#transport = options.fetch ?? globalThis.fetch
     this.fetch = this.get
@@ -163,7 +167,12 @@ export default class KitsuNative {
             type,
             id.map((id) => ({ id })),
             'DELETE',
-            { camelCaseTypes: this.camel, pluralTypes: this.plural, document: config.document },
+            {
+              camelCaseTypes: this.camel,
+              attributeCase: this.#attributeCase,
+              pluralTypes: this.plural,
+              document: config.document,
+            },
           ),
         )
       }
@@ -203,6 +212,7 @@ export default class KitsuNative {
           ? undefined
           : serialise(config.type, config.body, method, {
               camelCaseTypes: this.camel,
+              attributeCase: this.#attributeCase,
               pluralTypes: this.plural,
               document: config.document,
               relationship,
@@ -276,7 +286,10 @@ export default class KitsuNative {
           response,
           body,
         )
-      const decoded = deserialise(body, { hoistData: this.hoistData })
+      const decoded = deserialise(body, {
+        hoistData: this.hoistData,
+        attributeCase: this.#attributeCase ? camel : undefined,
+      })
       return {
         ...(decoded === null || Array.isArray(decoded) ? { data: decoded } : decoded),
         status: response.status,

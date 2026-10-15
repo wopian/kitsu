@@ -11,6 +11,7 @@ import type { DeserialiseOptions, JsonObject } from './types.js'
  * @param {Object} response JSON:API response document
  * @param {Object} [options={}] Deserialisation options
  * @param {boolean} [options.hoistData=false] Unwrap documents containing only `data`
+ * @param {Function} [options.attributeCase] Convert attribute names; nested JSON keys stay unchanged
  * @returns {Object} Deserialised document without mutating input
  * @example
  * deserialise({ data: { type: 'people', id: '1', attributes: { name: 'Ada' } } })
@@ -36,9 +37,9 @@ export function deserialise(response: any, options: DeserialiseOptions = {}): an
       !('included' in response) &&
       (data == null || (Object.getPrototypeOf(data) === Object.prototype && !data.relationships))
     )
-      result.data = deattribute(data)
+      result.data = deattribute(data, options)
     else {
-      const graph = decodeGraph(data, response.included)
+      const graph = decodeGraph(data, response.included, options)
       result.data = graph.data
       if ('included' in response) result.included = graph.included
     }

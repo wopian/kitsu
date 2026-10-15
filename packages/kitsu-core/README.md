@@ -138,6 +138,9 @@ Flattens resource attributes and moves resource metadata under `$` without mutat
 #### Parameters
 
 *   `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Resource data
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Attribute naming options
+
+    *   `options.attributeCase` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Convert attribute names; nested JSON keys stay unchanged
 
 #### Examples
 
@@ -159,6 +162,7 @@ Resource metadata lives under `$`; document metadata remains at document level.
 *   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Deserialisation options (optional, default `{}`)
 
     *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Unwrap documents containing only `data` (optional, default `false`)
+    *   `options.attributeCase` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Convert attribute names; nested JSON keys stay unchanged
 
 #### Examples
 
@@ -239,6 +243,9 @@ Resolves relationships into direct resources using document-local identity.
 
 *   `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Primary resource data
 *   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** Included resources (optional, default `[]`)
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Attribute naming options
+
+    *   `options.attributeCase` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Convert attribute names; nested JSON keys stay unchanged
 
 #### Examples
 
@@ -290,6 +297,7 @@ Put resource metadata under `$` and explicit attribute overrides under `$.attrib
 
     *   `options.camelCaseTypes` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Transform inferred resource types
     *   `options.pluralTypes` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Pluralize inferred resource types
+    *   `options.attributeCase` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Convert attribute names; nested JSON keys stay unchanged
     *   `options.document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional top-level document members
     *   `options.relationship` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Serialize primary data as identifiers (optional, default `false`)
 

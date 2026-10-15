@@ -41,3 +41,15 @@ does not negotiate them. No Atomic Operations or arbitrary extension processing.
 Legacy resource-array writes remain available for existing bulk integrations.
 They are not base JSON:API resource creation/update compliance. Relationship-array
 writes are base JSON:API and covered independently.
+
+## Optional application naming
+
+Attribute casing is an opt-in application feature, not a JSON:API requirement.
+`casing-http.spec.ts` verifies both transports; core tests cover custom callbacks,
+identity, cycles, explicit attributes, copy independence, and collision rejection.
+Nested JSON keys, relationships, query names, metadata, and extensions stay opaque.
+Default codecs preserve original attribute names and case.
+
+`D07` reproduces both examples from kitsu issue #1131. Relationships always flatten;
+document metadata and supplied `included` preserve the document wrapper even with
+`hoistData: true`.

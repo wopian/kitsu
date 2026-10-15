@@ -1,5 +1,45 @@
 # Migration Guides
 
+## Optional attribute casing
+
+Attribute names stay unchanged by default. Pass a conversion callback to core:
+
+```js
+import { camel, deserialise, kebab, serialise } from 'kitsu-core'
+
+const result = deserialise({
+  data: { type: 'people', id: '1', attributes: { 'first-name': 'Ada' } }
+}, { attributeCase: camel })
+result.data.firstName // 'Ada'
+
+serialise('people', result.data, 'PATCH', { attributeCase: kebab })
+// { data: { type: 'people', id: '1', attributes: { 'first-name': 'Ada' } } }
+```
+
+`deattribute(data, options)` and `linkRelationships(data, included, options)` accept
+the same decode callback. Included and related resources use the same conversion.
+Only immediate resource attribute names change. Nested JSON keys, relationship
+names, queries, metadata, links, identifiers, and extension members stay unchanged.
+`$.attributes` overrides inference before names convert. `options.document` already
+contains wire-format members, so its supplied included attributes stay unchanged.
+
+Conversion rejects duplicate output names and conflicts with structural or
+relationship names. Case conversion is a naming policy, not a lossless inverse for
+arbitrary names. Use consistent server naming and pure callbacks.
+
+### Document metadata and hoisting
+
+Resource metadata belongs in the `$` envelope at `resource.$`;
+document metadata remains beside `data`.
+For example, `result.meta` describes the document; `result.data.$.meta` describes
+one resource. Relationship metadata belongs in `resource.$.relationships[name]`.
+
+Relationships always flatten, even with empty relationship `meta` or `links`.
+`hoistData: true` unwraps only documents containing solely `data`. Document `meta`,
+`links`, `jsonapi`, or preserved `included` keeps the wrapper, including empty
+members. Arrays and null remain under `data` in HTTP responses to retain HTTP
+status and headers. Nested attribute objects containing `data` never unwrap.
+
 ## JSON:API 1.1 behavior changes
 
 Node support covers 22, 24, and 26. Node 18, 19, 20, 21, 23, and 25 are no
