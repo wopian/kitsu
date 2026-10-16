@@ -4,12 +4,11 @@ import { flatView, plainNative } from '../graph.ts'
 import { transport } from '../transport.ts'
 import type { Adapter } from '../types.ts'
 
-export async function create(root: string, source = false): Promise<Adapter> {
+export async function create(root: string, source = false, mock = transport()): Promise<Adapter> {
   const filename = source
     ? 'packages/kitsu-native/src/index.ts'
     : 'packages/kitsu-native/dist/index.mjs'
   const { default: KitsuNative } = await import(pathToFileURL(resolve(root, filename)).href)
-  const mock = transport()
   const client = new KitsuNative({
     baseURL: 'https://benchmark.invalid',
     pluralize: false,

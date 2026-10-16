@@ -3,8 +3,7 @@ import { flatView, plainNative } from '../graph.ts'
 import { transport } from '../transport.ts'
 import { type Adapter, type Fixture, Unsupported } from '../types.ts'
 
-export function create(fixture: Fixture): Adapter {
-  const mock = transport()
+export function create(fixture: Fixture, mock = transport()): Adapter {
   const client = new Fetchja({
     baseURL: 'https://benchmark.invalid',
     pluralize: false,

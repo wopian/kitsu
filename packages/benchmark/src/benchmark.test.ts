@@ -337,6 +337,47 @@ describe('public adapter integration', () => {
 })
 
 describe('measurement and reports', () => {
+  test('validates optional request counts and renders automatic GET overhead', () => {
+    const head: Cell = {
+      ...cell,
+      library: '@bjornharrtell/json-api',
+      suite: 'client',
+      mode: 'encode',
+      requestsPerOperation: 2,
+      requestsPerSecond: 200,
+    }
+    const results = { ...report, cells: [{ head }] }
+    expect(() => validateReport(results)).not.toThrow()
+    expect(renderReadme([results])).toContain(
+      '2 requests/operation \\(automatic GET after HTTP 204 PATCH\\)',
+    )
+    expect(renderComment([results], 'https://github.com/wopian/kitsu/actions/runs/1')).toContain(
+      'Extra requests do not increase the reported rate.',
+    )
+    for (const requestsPerOperation of [0, -1, 1.5, Infinity, Number.MAX_SAFE_INTEGER + 1, '2'])
+      expect(() =>
+        validateReport({ ...report, cells: [{ head: { ...head, requestsPerOperation } }] }),
+      ).toThrow()
+    for (const changes of [
+      { requestsPerSecond: 100 },
+      { requestsPerSecond: Infinity },
+      { suite: 'codec' },
+      {
+        status: 'error',
+        samples: undefined,
+        operationsPerSecond: undefined,
+        requestsPerSecond: undefined,
+      },
+    ])
+      expect(() =>
+        validateReport({ ...report, cells: [{ head: { ...head, ...changes } }] }),
+      ).toThrow()
+    for (const mode of ['decode', 'encode', 'decode-encode'] as const) {
+      const legacy = { ...head, mode, requestsPerSecond: mode === 'decode-encode' ? 200 : 100 }
+      delete legacy.requestsPerOperation
+      expect(() => validateReport({ ...report, cells: [{ head: legacy }] })).not.toThrow()
+    }
+  })
   test('records local changes and built package fingerprints in measurement provenance', () => {
     const rendered = renderReadme([{ ...report, dirty: true, sourceHash: 'f'.repeat(64) }])
     expect(rendered).toContain('Base commit (local changes measured)')
@@ -349,6 +390,77 @@ describe('measurement and reports', () => {
     operationsPerSecond: score,
     ...overrides,
   })
+  test('groups each scenario and places native baseline before Axios regardless of input order', () => {
+    const entries = [
+      scored('kitsu', 200, { suite: 'client', requestsPerSecond: 200 }),
+      scored('fetchja', 50, { suite: 'client', requestsPerSecond: 50 }),
+      scored('kitsu-native', 100, { suite: 'client', requestsPerSecond: 100 }),
+      scored('kitsu-native', 10, {
+        suite: 'client',
+        fixture: 'few-includes',
+        requestsPerSecond: 10,
+      }),
+      scored('kitsu', 20, { suite: 'client', fixture: 'few-includes', requestsPerSecond: 20 }),
+    ]
+    const values = { ...report, cells: entries.map((head) => ({ head, base: { ...head } })) }
+    const markdown = renderReadme([values])
+    expect(markdown.match(/\| Library \| Operations\/s \| vs kitsu-native \|/g)).toHaveLength(2)
+    expect(markdown).toContain('##### small-no-relationships')
+    expect(markdown).toContain('##### few-includes')
+    expect(markdown).toContain('| kitsu-native | 100 | 1x |')
+    expect(markdown).toContain('| **kitsu** | **200** | **2x faster** |')
+    expect(markdown.indexOf('| kitsu-native | 100 |')).toBeLessThan(
+      markdown.indexOf('| **kitsu** | **200** |'),
+    )
+    const comment = renderComment([values], 'https://github.com/wopian/kitsu/actions/runs/1')
+    expect(comment).toContain(
+      '| **kitsu** | **200** | **200** | **unchanged** | **2x faster / 2x faster** |',
+    )
+    expect(comment.indexOf('| kitsu-native | 100 |')).toBeLessThan(
+      comment.indexOf('| **kitsu** | **200** |'),
+    )
+  })
+  for (const mode of ['encode', 'decode-encode'] as const)
+    test(`${mode} reports use completed operations for rates, ratios, and winners`, () => {
+      const requests = mode === 'encode' ? 1 : 2
+      const client = (library: string, score: number, requestsPerOperation = requests) =>
+        scored(library, score, {
+          suite: 'client',
+          mode,
+          requestsPerOperation,
+          requestsPerSecond: score * requestsPerOperation,
+        })
+      const extraRequests = mode === 'encode' ? 2 : 3
+      const results = {
+        ...report,
+        cells: [
+          { base: client('kitsu-native', 100), head: client('kitsu-native', 100) },
+          { base: client('fetchja', 200), head: client('fetchja', 200) },
+          {
+            base: client('@bjornharrtell/json-api', 75, extraRequests),
+            head: client('@bjornharrtell/json-api', 150, extraRequests),
+          },
+        ],
+      }
+      expect(() => validateReport(results)).not.toThrow()
+      const markdown = renderReadme([results])
+      expect(markdown).toContain('Mocked client operations/s')
+      expect(markdown).toContain('| Library | Operations/s | vs kitsu-native |')
+      expect(markdown).toContain('| @bjornharrtell/json-api | 150 | 1.5x faster |')
+      expect(markdown).toContain('| **fetchja** | **200** | **2x faster** |')
+      expect(markdown).not.toContain('**@bjornharrtell/json-api**')
+      expect(markdown).not.toContain('cycles/s')
+      expect(markdown).not.toContain('requests/s')
+      const comment = renderComment([results], 'https://github.com/wopian/kitsu/actions/runs/1')
+      expect(comment).toContain('| Base operations/s | PR operations/s |')
+      expect(comment).toContain(
+        `| client/${mode}/small-no-relationships | @bjornharrtell/json-api | 75 | 150 | 100.00% faster | 1.33x slower / 1.5x faster |`,
+      )
+      expect(comment).toContain(
+        `| **client/${mode}/small-no-relationships** | **fetchja** | **200** | **200** | **unchanged** | **2x faster / 2x faster** |`,
+      )
+      expect(comment).not.toContain('**@bjornharrtell/json-api**')
+    })
   test('README bolds every populated winner cell and compares competitors with core', () => {
     const results = {
       ...report,
@@ -357,12 +469,10 @@ describe('measurement and reports', () => {
       })),
     }
     const markdown = renderReadme([results])
-    expect(markdown).toContain('| small-no-relationships | kitsu-core | 50 | 1x |  |')
-    expect(markdown).toContain(
-      '| **small-no-relationships** | **jsona** | **150** | **3x faster** |  |',
-    )
-    expect(markdown).toContain('| small-no-relationships | yayson | 25 | 2x slower |  |')
-    expect(markdown).toContain('| small-no-relationships | devour | 50 | 1x |  |')
+    expect(markdown).toContain('| kitsu-core | 50 | 1x |  |')
+    expect(markdown).toContain('| **jsona** | **150** | **3x faster** |  |')
+    expect(markdown).toContain('| yayson | 25 | 2x slower |  |')
+    expect(markdown).toContain('| devour | 50 | 1x |  |')
     expect(markdown).not.toContain('Spread')
   })
   test('winner selection stays within runtime, suite, mode and scenario and includes ties', () => {
@@ -373,7 +483,7 @@ describe('measurement and reports', () => {
       scored('jsona', 20, { mode: 'encode' }),
       scored('kitsu-core', 5, { fixture: 'few-includes' }),
       scored('jsona', 10, { fixture: 'few-includes' }),
-      scored('kitsu', 20, { suite: 'client', requestsPerSecond: 20 }),
+      scored('kitsu-native', 20, { suite: 'client', requestsPerSecond: 20 }),
       scored('fetchja', 10, { suite: 'client', requestsPerSecond: 10 }),
     ]
     const node = { ...report, cells: head.map((head) => ({ head })) }
@@ -383,13 +493,13 @@ describe('measurement and reports', () => {
       cells: [scored('kitsu-core', 1), scored('jsona', 2)].map((head) => ({ head })),
     }
     const markdown = renderReadme([node, bun])
-    expect(markdown).toContain('| **small-no-relationships** | **kitsu-core** | **100** | **1x**')
-    expect(markdown).toContain('| **small-no-relationships** | **jsona** | **100** | **1x**')
-    expect(markdown).toContain('| **small-no-relationships** | **jsona** | **20** | **2x faster**')
-    expect(markdown).toContain('| **few-includes** | **jsona** | **10** | **2x faster**')
-    expect(markdown).toContain('| **small-no-relationships** | **kitsu** | **20** | **1x**')
-    expect(markdown).toContain('| small-no-relationships | fetchja | 10 | 2x slower')
-    expect(markdown).toContain('| **small-no-relationships** | **jsona** | **2** | **2x faster**')
+    expect(markdown).toContain('| **kitsu-core** | **100** | **1x**')
+    expect(markdown).toContain('| **jsona** | **100** | **1x**')
+    expect(markdown).toContain('| **jsona** | **20** | **2x faster**')
+    expect(markdown).toContain('| **jsona** | **10** | **2x faster**')
+    expect(markdown).toContain('| **kitsu-native** | **20** | **1x**')
+    expect(markdown).toContain('| fetchja | 10 | 2x slower')
+    expect(markdown).toContain('| **jsona** | **2** | **2x faster**')
   })
   test('failed and missing references never invent ratios or win', () => {
     const failed: Cell = {
@@ -408,10 +518,10 @@ describe('measurement and reports', () => {
       ],
     }
     const markdown = renderReadme([results])
-    expect(markdown).toContain('| small-no-relationships | kitsu-core | incorrect | 1x')
-    expect(markdown).toContain('| **small-no-relationships** | **jsona** | **150** | **—**')
-    expect(markdown).toContain('| **small-no-relationships** | **jsona** | **50** | **—**')
-    expect(markdown).toContain('| small-no-relationships | devour | incorrect | —')
+    expect(markdown).toContain('| kitsu-core | incorrect | 1x')
+    expect(markdown).toContain('| **jsona** | **150** | **—**')
+    expect(markdown).toContain('| **jsona** | **50** | **—**')
+    expect(markdown).toContain('| devour | incorrect | —')
   })
   test('PR comments compare base and PR references separately and retain change direction', () => {
     const results = {

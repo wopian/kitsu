@@ -5,6 +5,16 @@ Tests run offline. HTTP tests use an isolated Axios mock adapter per client.
 
 Specification: https://jsonapi.org/format/1.1/
 
+## Library comparisons
+
+Run `bun run build && bun run benchmark:compliance --readme` for the comparative
+JSON:API 1.0 and 1.1 capability tables. These checks cover every benchmark client
+and codec on Node and Bun through published conversion and HTTP APIs. Results use
+✅ and ❌, with unsupported APIs and incorrect behavior recorded separately in raw
+artifacts. The comparison does not extend this suite's 205-clause traceability
+claim to competitor libraries or certify complete specification compliance.
+See `packages/benchmark/README.md` for scope and reproduction details.
+
 ## Traceability
 
 `requirements.json` records all 205 normative paragraph/list blocks in the pinned

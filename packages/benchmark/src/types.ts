@@ -25,7 +25,9 @@ export interface View {
 }
 export interface Adapter {
   view: View
+  requestsPerOperation?: Partial<Record<Mode, number>>
   decode?: (document: JsonApiDocument) => any
+  decodeDocument?: (document: JsonApiDocument) => any
   encode?: (payload: any) => any
   native: (resources: JsonApiResource | JsonApiResource[]) => any
   reset?: () => void
@@ -46,6 +48,7 @@ export interface Cell {
   samples?: number[]
   operationsPerSecond?: number
   requestsPerSecond?: number
+  requestsPerOperation?: number
 }
 export interface Measurement {
   schemaVersion: 1

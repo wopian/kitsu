@@ -1,10 +1,12 @@
 import { create as devour } from './devour/index.ts'
 import { create as fetchja } from './fetchja/index.ts'
+import { create as jsonApi } from './json-api/index.ts'
 import { create as jsona } from './jsona/index.ts'
 import { create as kitsu } from './kitsu/index.ts'
 import { create as core } from './kitsu-core/index.ts'
 import { create as native } from './kitsu-native/index.ts'
 import { libraries } from './libraries.ts'
+import type { transport } from './transport.ts'
 import { create as tsJapi } from './ts-japi/index.ts'
 import { type Adapter, type Fixture, type Mode, type Suite, Unsupported } from './types.ts'
 import { create as yayson } from './yayson/index.ts'
@@ -14,7 +16,7 @@ export const packageName = (library: string) => (library === 'devour' ? 'devour-
 export const suites: Suite[] = ['codec', 'client']
 export function supported(library: string, suite: Suite): boolean {
   return suite === 'client'
-    ? ['kitsu', 'kitsu-native', 'fetchja', 'devour'].includes(library)
+    ? ['kitsu', 'kitsu-native', 'fetchja', 'devour', '@bjornharrtell/json-api'].includes(library)
     : ['kitsu-core', 'devour', 'yayson', 'jsona', 'ts-japi'].includes(library)
 }
 export function unsupportedReason(
@@ -40,19 +42,22 @@ export async function createAdapter(
   fixture: Fixture,
   root: string,
   source = false,
+  mock?: ReturnType<typeof transport>,
 ): Promise<Adapter> {
   if (!supported(library, suite)) throw new Unsupported(`no public ${suite} API`)
   switch (library) {
     case 'kitsu-core':
       return core(root, source)
     case 'kitsu':
-      return kitsu(root, source)
+      return kitsu(root, source, mock)
     case 'kitsu-native':
-      return native(root, source)
+      return native(root, source, mock)
     case 'fetchja':
-      return fetchja(fixture)
+      return fetchja(fixture, mock)
+    case '@bjornharrtell/json-api':
+      return jsonApi(fixture, mock)
     case 'devour':
-      return devour(fixture, suite)
+      return devour(fixture, suite, mock)
     case 'yayson':
       return yayson(fixture)
     case 'jsona':

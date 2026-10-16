@@ -10,6 +10,37 @@ concurrency:
   group: benchmark-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 jobs:
+  compliance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.3
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '26'
+          package-manager-cache: false
+      - run: bun install --frozen-lockfile --ignore-scripts
+      - run: bun run build
+      - run: bun run benchmark:compliance
+      - name: Save compatibility results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: compliance-results
+          path: .cache/compliance/
+          include-hidden-files: true
+          if-no-files-found: warn
+      - name: Compatibility summary
+        if: always()
+        run: |
+          if [ -f .cache/compliance/report.md ]; then
+            cat .cache/compliance/report.md >> "$GITHUB_STEP_SUMMARY"
+          fi
   benchmark:
     timeout-minutes: 45
     strategy:

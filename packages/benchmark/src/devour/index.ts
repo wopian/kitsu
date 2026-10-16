@@ -4,8 +4,7 @@ import { flatView, plainNative } from '../graph.ts'
 import { transport } from '../transport.ts'
 import { type Adapter, type Fixture, type Suite, Unsupported } from '../types.ts'
 
-export function create(fixture: Fixture, suite: Suite): Adapter {
-  const mock = transport()
+export function create(fixture: Fixture, suite: Suite, mock = transport()): Adapter {
   const client = new Devour({
     apiUrl: 'https://benchmark.invalid',
     pluralize: false,

@@ -1,5 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises'
-import { libraries } from './libraries.ts'
+import { kitsuLibraries, libraries } from './libraries.ts'
 import type { Cell, Measurement } from './types.ts'
 
 export const startMarker = '<!-- benchmark:start -->'
@@ -13,12 +13,21 @@ const escape = (value: string) =>
 const number = (value: number) =>
   value.toLocaleString('en-US', { maximumFractionDigits: value < 100 ? 2 : 0 })
 const rate = (cell: Cell) =>
-  cell.status === 'ok'
-    ? number(cell.requestsPerSecond ?? (cell.operationsPerSecond as number))
-    : cell.status
+  cell.status === 'ok' ? number(cell.operationsPerSecond as number) : cell.status
 const scenarioKey = (cell: Cell) => [cell.suite, cell.mode, cell.fixture].join('/')
-const referenceLibrary = (cell: Cell) => (cell.suite === 'codec' ? 'kitsu-core' : 'kitsu')
-const throughput = (cell: Cell) => cell.requestsPerSecond ?? (cell.operationsPerSecond as number)
+const referenceLibrary = (cell: Cell) => (cell.suite === 'codec' ? 'kitsu-core' : 'kitsu-native')
+const libraryOrder = [
+  'kitsu-core',
+  'kitsu-native',
+  'kitsu',
+  ...libraries.filter((name) => !kitsuLibraries.includes(name)),
+]
+const ordered = <T extends { head: Cell }>(cells: T[]) =>
+  cells.toSorted(
+    (left, right) =>
+      libraryOrder.indexOf(left.head.library) - libraryOrder.indexOf(right.head.library),
+  )
+const throughput = (cell: Cell) => cell.operationsPerSecond as number
 function comparisons(cells: Cell[]) {
   const references = new Map<string, Cell>()
   const fastest = new Map<string, number>()
@@ -78,11 +87,13 @@ export function renderReadme(reports: Measurement[], runUrl?: string): string {
   const output = [
     '## Benchmarks',
     '',
-    'JSON:API codec operations/s and mocked client requests/s. Higher is faster. No network traffic.',
+    'JSON:API codec and mocked client operations/s. Higher is faster. No network traffic.',
     '',
     'Median of five samples after warmup. Codec timings exclude JSON text parsing/stringification. Client timings include native client conversion and mocked transport overhead.',
     '',
-    'Bold rows mark the fastest library per runtime, suite, mode, and scenario, including ties. Multipliers compare codecs with kitsu-core and clients with kitsu (1x). A 3x slower library runs at one third the reference rate. Missing reference scores show —.',
+    'One operation is one decode, one encode, or one complete decode-encode round trip. Client operations include all transport requests, including any automatic GET after HTTP 204 PATCH. Extra requests do not increase the reported rate.',
+    '',
+    'Each scenario has its own table. Bold rows mark the fastest library per runtime, suite, mode, and scenario, including ties. Multipliers compare codecs with kitsu-core and clients with kitsu-native (1x). A 3x slower library runs at one third the reference rate. Missing reference scores show —.',
     '',
     'Reproduce: `bun run build && bun run benchmark`. Quick check: `bun run benchmark:smoke`.',
     '',
@@ -104,32 +115,39 @@ export function renderReadme(reports: Measurement[], runUrl?: string): string {
     )
     for (const suite of ['codec', 'client']) {
       output.push(
-        `<details><summary>${suite === 'codec' ? 'Codec operations/s' : 'Mocked client requests/s'}</summary>`,
+        `<details><summary>${suite === 'codec' ? 'Codec operations/s' : 'Mocked client operations/s'}</summary>`,
         '',
       )
       const cells = report.cells.filter(
         ({ head }) => head.suite === suite && head.reason !== `no public ${suite} API`,
       )
       for (const mode of ['decode', 'encode', 'decode-encode']) {
-        output.push(
-          `#### ${mode}`,
-          '',
-          `| Scenario | Library | Rate | vs ${suite === 'codec' ? 'kitsu-core' : 'kitsu'} | Detail |`,
-          '| --- | --- | ---: | ---: | --- |',
-        )
-        for (const { head } of cells.filter(({ head }) => head.mode === mode)) {
-          const cycle =
-            suite === 'client' && mode === 'decode-encode' && head.status === 'ok'
-              ? `${number(head.operationsPerSecond as number)} cycles/s`
-              : (head.reason ?? '')
+        output.push(`#### ${mode}`, '')
+        const modeCells = cells.filter(({ head }) => head.mode === mode)
+        for (const fixture of new Set(modeCells.map(({ head }) => head.fixture))) {
           output.push(
-            row(
-              [head.fixture, head.library, rate(head), comparison.multiplier(head), escape(cycle)],
-              comparison.winner(head),
-            ),
+            `##### ${escape(fixture)}`,
+            '',
+            `| Library | Operations/s | vs ${suite === 'codec' ? 'kitsu-core' : 'kitsu-native'} | Detail |`,
+            '| --- | ---: | ---: | --- |',
           )
+          for (const { head } of ordered(
+            modeCells.filter(({ head }) => head.fixture === fixture),
+          )) {
+            const requests = head.requestsPerOperation ?? (mode === 'decode-encode' ? 2 : 1)
+            const detail =
+              suite === 'client' && head.status === 'ok'
+                ? `${requests} request${requests === 1 ? '' : 's'}/operation${head.library === '@bjornharrtell/json-api' && mode !== 'decode' ? ' (automatic GET after HTTP 204 PATCH)' : ''}`
+                : (head.reason ?? '')
+            output.push(
+              row(
+                [head.library, rate(head), comparison.multiplier(head), escape(detail)],
+                comparison.winner(head),
+              ),
+            )
+          }
+          output.push('')
         }
-        output.push('')
       }
       output.push('</details>', '')
     }
@@ -137,7 +155,7 @@ export function renderReadme(reports: Measurement[], runUrl?: string): string {
   output.push(
     '',
     '- Codec APIs: kitsu-core, devour, yayson, jsona, ts-japi (encode only).',
-    '- Client APIs: kitsu, fetchja, devour. Public single-resource clients report collection writes as unsupported.',
+    '- Client APIs: kitsu-native, kitsu, fetchja, devour, @bjornharrtell/json-api. Public single-resource clients report collection writes as unsupported.',
     '',
     'Full fixtures use 1,000 primary resources, 3 shared or 3,000 distinct includes, a complex graph with 21,016 includes and one wide relationship with 4,000 identifiers.',
     '',
@@ -152,7 +170,9 @@ export function renderComment(reports: Measurement[], runUrl: string): string {
     '',
     'Every throughput change is labeled faster/slower; labels do not imply statistical significance. Bold rows mark PR winners per runtime, suite, mode, and scenario, including ties.',
     '',
-    'Multipliers compare codecs with kitsu-core and clients with kitsu (1x), separately for base and PR. A 3x slower library runs at one third the reference rate. Missing reference scores show —.',
+    'Multipliers compare codecs with kitsu-core and clients with kitsu-native (1x), separately for base and PR. A 3x slower library runs at one third the reference rate. Missing reference scores show —.',
+    '',
+    'All rates, winners, multipliers, and changes compare completed operations/s. One operation is one decode, one encode, or one complete decode-encode round trip, including every transport request. @bjornharrtell/json-api uses 2 requests per encode and 3 per decode-encode because HTTP 204 PATCH triggers an automatic GET. Extra requests do not increase the reported rate.',
     '',
     `[CI run and complete results](${runUrl})`,
     '',
@@ -170,12 +190,12 @@ export function renderComment(reports: Measurement[], runUrl: string): string {
       )
       if (!own) lines.push('<details><summary>Competitor changes</summary>', '')
       lines.push(
-        '| Suite / mode / scenario | Library | Base | PR | Change | vs Kitsu base / PR |',
+        '| Suite / mode / scenario | Library | Base operations/s | PR operations/s | Change | vs Kitsu base / PR |',
         '| --- | --- | ---: | ---: | --- | ---: |',
       )
-      for (const { base, head } of report.cells) {
+      for (const { base, head } of ordered(report.cells)) {
         if (
-          ['kitsu', 'kitsu-core'].includes(head.library) !== own ||
+          kitsuLibraries.includes(head.library) !== own ||
           head.reason === `no public ${head.suite} API`
         )
           continue
@@ -246,7 +266,11 @@ export function validateReport(value: any): asserts value is Measurement {
           (key) => Number.isInteger(cell[key]) && cell[key] >= 0 && cell[key] <= 100000,
         ) ||
         !['ok', 'unsupported', 'incorrect', 'error', 'timeout'].includes(cell.status) ||
-        (cell.reason !== undefined && !string(cell.reason))
+        (cell.reason !== undefined && !string(cell.reason)) ||
+        (cell.requestsPerOperation !== undefined &&
+          (cell.suite !== 'client' ||
+            !Number.isSafeInteger(cell.requestsPerOperation) ||
+            cell.requestsPerOperation <= 0))
       )
         throw new Error('invalid benchmark cell')
       if (cell.status === 'ok') {
@@ -260,17 +284,20 @@ export function validateReport(value: any): asserts value is Measurement {
         const sorted = cell.samples.toSorted((left: number, right: number) => left - right)
         if (cell.operationsPerSecond !== sorted[2])
           throw new Error('throughput differs from median')
-        const requests = cell.operationsPerSecond * (cell.mode === 'decode-encode' ? 2 : 1)
+        const requests =
+          cell.operationsPerSecond *
+          (cell.requestsPerOperation ?? (cell.mode === 'decode-encode' ? 2 : 1))
         if (
           cell.suite === 'client'
-            ? cell.requestsPerSecond !== requests
+            ? !positive(cell.requestsPerSecond) || cell.requestsPerSecond !== requests
             : cell.requestsPerSecond !== undefined
         )
           throw new Error('invalid requests per second')
       } else if (
         cell.samples !== undefined ||
         cell.operationsPerSecond !== undefined ||
-        cell.requestsPerSecond !== undefined
+        cell.requestsPerSecond !== undefined ||
+        cell.requestsPerOperation !== undefined
       )
         throw new Error('failed cell contains numeric score')
     }

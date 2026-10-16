@@ -54,6 +54,33 @@ function cell(reports: Measurement[][], library: string): Cell {
   return entry.head
 }
 describe('performance verification', () => {
+  test('includes json-api in client targets using operations/s instead of request counts', () => {
+    const reports = runs()
+    const peer = reports[0][0].cells.find(
+      ({ head }) =>
+        head.library === '@bjornharrtell/json-api' &&
+        head.suite === 'client' &&
+        head.mode === 'encode' &&
+        head.fixture === 'small-no-relationships',
+    )?.head as Cell
+    peer.requestsPerOperation = 2
+    peer.requestsPerSecond = 200
+    expect(verifyRuns(reports).misses).toEqual([])
+    peer.samples = Array(5).fill(200)
+    peer.operationsPerSecond = 200
+    peer.requestsPerSecond = 400
+    expect(verifyRuns(reports).misses).toHaveLength(1)
+    expect(verifyRuns(reports).misses[0]).toContain('@bjornharrtell/json-api 200.00 ops/s')
+    peer.status = 'incorrect'
+    delete peer.samples
+    delete peer.operationsPerSecond
+    delete peer.requestsPerSecond
+    delete peer.requestsPerOperation
+    const result = verifyRuns(reports)
+    expect(result.misses).toEqual([])
+    expect(result.unavailable).toHaveLength(1)
+    expect(result.unavailable[0]).toContain('@bjornharrtell/json-api incorrect')
+  })
   test('checks every supported decode and encode scenario in two complete runs', () => {
     const result = verifyRuns(runs())
     expect(result.passed).toBe(200)

@@ -56,11 +56,15 @@ for (let index = 0; index < 5; index++) {
     }
   }
 }
-for (const { cell } of variants) {
+for (const { cell, adapter } of variants) {
   if (cell.status !== 'ok') continue
   cell.operationsPerSecond = median(cell.samples as number[])
-  if (cell.suite === 'client')
-    cell.requestsPerSecond = cell.operationsPerSecond * (cell.mode === 'decode-encode' ? 2 : 1)
+  if (cell.suite === 'client') {
+    const requests = adapter?.requestsPerOperation?.[cell.mode]
+    if (requests !== undefined) cell.requestsPerOperation = requests
+    cell.requestsPerSecond =
+      cell.operationsPerSecond * (requests ?? (cell.mode === 'decode-encode' ? 2 : 1))
+  }
 }
 process.stdout.write(
   `BENCHMARK_RESULT ${JSON.stringify(Object.fromEntries(variants.map((variant) => [variant.name, variant.cell])))}\n`,

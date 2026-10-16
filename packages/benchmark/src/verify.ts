@@ -88,7 +88,7 @@ export function verifyRuns(runs: Measurement[][]): Verification {
                 ? mode === 'decode'
                   ? ['devour', 'jsona']
                   : ['devour', 'jsona', 'ts-japi']
-                : ['fetchja', 'devour']
+                : ['fetchja', 'devour', '@bjornharrtell/json-api']
             const peers = names.map(
               (name) => cells.get(`${name}/${suite}/${mode}/${fixture.id}`) as Cell,
             )

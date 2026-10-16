@@ -59,870 +59,1987 @@ Node support: 22, 24 and 26 or newer.
 <!-- benchmark:start -->
 ## Benchmarks
 
-JSON:API codec operations/s and mocked client requests/s. Higher is faster. No network traffic.
+JSON:API codec and mocked client operations/s. Higher is faster. No network traffic.
 
 Median of five samples after warmup. Codec timings exclude JSON text parsing/stringification. Client timings include native client conversion and mocked transport overhead.
 
-Bold rows mark the fastest library per runtime, suite, mode, and scenario, including ties. Multipliers compare codecs with kitsu-core and clients with kitsu (1x). A 3x slower library runs at one third the reference rate. Missing reference scores show —.
+One operation is one decode, one encode, or one complete decode-encode round trip. Client operations include all transport requests, including any automatic GET after HTTP 204 PATCH. Extra requests do not increase the reported rate.
+
+Each scenario has its own table. Bold rows mark the fastest library per runtime, suite, mode, and scenario, including ties. Multipliers compare codecs with kitsu-core and clients with kitsu-native (1x). A 3x slower library runs at one third the reference rate. Missing reference scores show —.
 
 Reproduce: `bun run build && bun run benchmark`. Quick check: `bun run benchmark:smoke`.
 
-[CI run and raw results](https://github.com/wopian/kitsu/actions/runs/38913138113)
+Local measurements. Master CI refreshes this section automatically.
 
 ### bun 1\.4\.3
 
-Measured commit: `c5d7c562c1a48e5ecccd50a81d701452f70dc387`. Runner: linux x64, AMD EPYC 7763 64-Core Processor.
+Base commit (local changes measured): `50a93d9d37b9ee47927963da12e3cc2ecedaa309`. Runner: win32 x64, AMD Ryzen 9 5900X 12-Core Processor            .
 
-Built package fingerprint: `224176e00cdc9ab35518a648a0c1ead0f93fc80c838c70f97263aeb70f3cd843`.
+Built package fingerprint: `db4230bcf5a27f7fd8b9b04f236ae2fcbf985baf56640bbd3d3046360d007e12`.
 
-Library versions: kitsu-core 12\.0\.0, kitsu 12\.0\.0, kitsu-native 12\.0\.0, fetchja 3\.2\.0, devour 3\.2\.0, yayson 4\.4\.0, jsona 1\.14\.0, ts-japi 1\.12\.6.
-
-<details><summary>Codec operations/s</summary>
-
-#### decode
-
-| Scenario | Library | Rate | vs kitsu-core | Detail |
-| --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu-core | 1,016,597 | 1x |  |
-| **small-no-relationships** | **devour** | **1,283,886** | **1.26x faster** |  |
-| small-no-relationships | yayson | 753,881 | 1.35x slower |  |
-| small-no-relationships | jsona | 1,139,208 | 1.12x faster |  |
-| small-no-relationships | ts-japi | unsupported | — | no public decoder |
-| small-links-only | kitsu-core | 738,111 | 1x |  |
-| small-links-only | devour | 902,157 | 1.22x faster |  |
-| small-links-only | yayson | 539,759 | 1.37x slower |  |
-| **small-links-only** | **jsona** | **1,065,367** | **1.44x faster** |  |
-| small-links-only | ts-japi | unsupported | — | no public decoder |
-| **small-relationships** | **kitsu-core** | **325,738** | **1x** |  |
-| small-relationships | devour | 271,318 | 1.2x slower |  |
-| small-relationships | yayson | 197,702 | 1.65x slower |  |
-| small-relationships | jsona | 314,624 | 1.04x slower |  |
-| small-relationships | ts-japi | unsupported | — | no public decoder |
-| **nested-relationships** | **kitsu-core** | **441,457** | **1x** |  |
-| nested-relationships | devour | 323,502 | 1.36x slower |  |
-| nested-relationships | yayson | 269,633 | 1.64x slower |  |
-| nested-relationships | jsona | 347,217 | 1.27x slower |  |
-| nested-relationships | ts-japi | unsupported | — | no public decoder |
-| collection | kitsu-core | 68,855 | 1x |  |
-| collection | devour | 86,201 | 1.25x faster |  |
-| collection | yayson | 69,509 | 1.01x faster |  |
-| **collection** | **jsona** | **239,690** | **3.48x faster** |  |
-| collection | ts-japi | unsupported | — | no public decoder |
-| collection-includes | kitsu-core | 56,239 | 1x |  |
-| collection-includes | devour | 112,111 | 1.99x faster |  |
-| collection-includes | yayson | 99,129 | 1.76x faster |  |
-| **collection-includes** | **jsona** | **118,575** | **2.11x faster** |  |
-| collection-includes | ts-japi | unsupported | — | no public decoder |
-| **patch-single** | **kitsu-core** | **1,837,439** | **1x** |  |
-| patch-single | devour | 1,511,250 | 1.22x slower |  |
-| patch-single | yayson | 813,427 | 2.26x slower |  |
-| patch-single | jsona | 1,206,302 | 1.52x slower |  |
-| patch-single | ts-japi | unsupported | — | no public decoder |
-| empty-relationships | kitsu-core | 761,713 | 1x |  |
-| empty-relationships | devour | 625,769 | 1.22x slower |  |
-| empty-relationships | yayson | 615,681 | 1.24x slower |  |
-| **empty-relationships** | **jsona** | **939,097** | **1.23x faster** |  |
-| empty-relationships | ts-japi | unsupported | — | no public decoder |
-| **few-includes** | **kitsu-core** | **782** | **1x** |  |
-| few-includes | devour | 431 | 1.81x slower |  |
-| few-includes | yayson | 526 | 1.49x slower |  |
-| few-includes | jsona | 497 | 1.57x slower |  |
-| few-includes | ts-japi | unsupported | — | no public decoder |
-| **many-includes** | **kitsu-core** | **370** | **1x** |  |
-| many-includes | devour | 5.7 | 64.96x slower |  |
-| many-includes | yayson | 30.66 | 12.07x slower |  |
-| many-includes | jsona | 172 | 2.15x slower |  |
-| many-includes | ts-japi | unsupported | — | no public decoder |
-| **complex-relationships** | **kitsu-core** | **55.7** | **1x** |  |
-| complex-relationships | devour | timeout | — | worker exceeds 30-second limit |
-| complex-relationships | yayson | 0.71 | 78.02x slower |  |
-| complex-relationships | jsona | 24.05 | 2.32x slower |  |
-| complex-relationships | ts-japi | unsupported | — | no public decoder |
-| **wide-relationship** | **kitsu-core** | **403** | **1x** |  |
-| wide-relationship | devour | 4 | 101x slower |  |
-| wide-relationship | yayson | 17.4 | 23.14x slower |  |
-| wide-relationship | jsona | 146 | 2.77x slower |  |
-| wide-relationship | ts-japi | unsupported | — | no public decoder |
-| **self-cycle** | **kitsu-core** | **387,849** | **1x** |  |
-| self-cycle | devour | 261,549 | 1.48x slower |  |
-| self-cycle | yayson | 223,573 | 1.73x slower |  |
-| self-cycle | jsona | 302,083 | 1.28x slower |  |
-| self-cycle | ts-japi | unsupported | — | no public decoder |
-| **mutual-cycle** | **kitsu-core** | **319,836** | **1x** |  |
-| mutual-cycle | devour | 224,669 | 1.42x slower |  |
-| mutual-cycle | yayson | 193,240 | 1.66x slower |  |
-| mutual-cycle | jsona | 244,209 | 1.31x slower |  |
-| mutual-cycle | ts-japi | unsupported | — | no public decoder |
-
-#### encode
-
-| Scenario | Library | Rate | vs kitsu-core | Detail |
-| --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu-core | 1,264,164 | 1x |  |
-| **small-no-relationships** | **devour** | **2,771,465** | **2.19x faster** |  |
-| small-no-relationships | yayson | 1,714,331 | 1.36x faster |  |
-| small-no-relationships | jsona | 2,126,121 | 1.68x faster |  |
-| small-no-relationships | ts-japi | 805,262 | 1.57x slower |  |
-| small-links-only | kitsu-core | 1,573,237 | 1x |  |
-| small-links-only | devour | 1,772,903 | 1.13x faster |  |
-| small-links-only | yayson | 1,447,946 | 1.09x slower |  |
-| **small-links-only** | **jsona** | **2,108,804** | **1.34x faster** |  |
-| small-links-only | ts-japi | 777,402 | 2.02x slower |  |
-| small-relationships | kitsu-core | 847,637 | 1x |  |
-| **small-relationships** | **devour** | **1,063,446** | **1.25x faster** |  |
-| small-relationships | yayson | 851,759 | <1.01x faster |  |
-| small-relationships | jsona | 818,470 | 1.04x slower |  |
-| small-relationships | ts-japi | 391,004 | 2.17x slower |  |
-| **nested-relationships** | **kitsu-core** | **1,853,269** | **1x** |  |
-| nested-relationships | devour | 1,347,111 | 1.38x slower |  |
-| nested-relationships | yayson | 940,443 | 1.97x slower |  |
-| nested-relationships | jsona | 897,894 | 2.06x slower |  |
-| nested-relationships | ts-japi | 412,214 | 4.5x slower |  |
-| collection | kitsu-core | 128,139 | 1x |  |
-| collection | devour | 146,409 | 1.14x faster |  |
-| collection | yayson | 211,805 | 1.65x faster |  |
-| **collection** | **jsona** | **469,189** | **3.66x faster** |  |
-| collection | ts-japi | 246,006 | 1.92x faster |  |
-| collection-includes | kitsu-core | 66,700 | 1x |  |
-| collection-includes | devour | 210,233 | 3.15x faster |  |
-| **collection-includes** | **yayson** | **259,393** | **3.89x faster** |  |
-| collection-includes | jsona | 225,441 | 3.38x faster |  |
-| collection-includes | ts-japi | 144,329 | 2.16x faster |  |
-| **patch-single** | **kitsu-core** | **4,791,787** | **1x** |  |
-| patch-single | devour | 4,502,522 | 1.06x slower |  |
-| patch-single | yayson | 1,886,045 | 2.54x slower |  |
-| patch-single | jsona | 2,476,780 | 1.93x slower |  |
-| patch-single | ts-japi | 737,743 | 6.5x slower |  |
-| empty-relationships | kitsu-core | 960,572 | 1x |  |
-| **empty-relationships** | **devour** | **1,156,027** | **1.2x faster** |  |
-| empty-relationships | yayson | 937,259 | 1.02x slower |  |
-| empty-relationships | jsona | 1,078,508 | 1.12x faster |  |
-| empty-relationships | ts-japi | 410,763 | 2.34x slower |  |
-| few-includes | kitsu-core | 720 | 1x |  |
-| **few-includes** | **devour** | **1,538** | **2.14x faster** |  |
-| few-includes | yayson | 1,038 | 1.44x faster |  |
-| few-includes | jsona | 810 | 1.12x faster |  |
-| few-includes | ts-japi | 510 | 1.41x slower |  |
-| many-includes | kitsu-core | 841 | 1x |  |
-| **many-includes** | **devour** | **1,172** | **1.39x faster** |  |
-| many-includes | yayson | 1,089 | 1.29x faster |  |
-| many-includes | jsona | 871 | 1.04x faster |  |
-| many-includes | ts-japi | 506 | 1.66x slower |  |
-| complex-relationships | kitsu-core | 463 | 1x |  |
-| **complex-relationships** | **devour** | **769** | **1.66x faster** |  |
-| complex-relationships | yayson | 657 | 1.42x faster |  |
-| complex-relationships | jsona | 350 | 1.32x slower |  |
-| complex-relationships | ts-japi | 347 | 1.33x slower |  |
-| wide-relationship | kitsu-core | 4,258 | 1x |  |
-| wide-relationship | devour | 13,621 | 3.2x faster |  |
-| **wide-relationship** | **yayson** | **18,880** | **4.43x faster** |  |
-| wide-relationship | jsona | 3,574 | 1.19x slower |  |
-| wide-relationship | ts-japi | 6,646 | 1.56x faster |  |
-| **self-cycle** | **kitsu-core** | **1,776,104** | **1x** |  |
-| self-cycle | devour | 1,362,250 | 1.3x slower |  |
-| self-cycle | yayson | 877,947 | 2.02x slower |  |
-| self-cycle | jsona | 866,510 | 2.05x slower |  |
-| self-cycle | ts-japi | 395,107 | 4.5x slower |  |
-| **mutual-cycle** | **kitsu-core** | **1,797,667** | **1x** |  |
-| mutual-cycle | devour | 1,275,832 | 1.41x slower |  |
-| mutual-cycle | yayson | 893,909 | 2.01x slower |  |
-| mutual-cycle | jsona | 898,009 | 2x slower |  |
-| mutual-cycle | ts-japi | 405,506 | 4.43x slower |  |
-
-#### decode-encode
-
-| Scenario | Library | Rate | vs kitsu-core | Detail |
-| --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu-core | 504,692 | 1x |  |
-| **small-no-relationships** | **devour** | **732,859** | **1.45x faster** |  |
-| small-no-relationships | yayson | 508,606 | 1.01x faster |  |
-| small-no-relationships | jsona | 655,451 | 1.3x faster |  |
-| small-no-relationships | ts-japi | unsupported | — | no public decoder |
-| small-links-only | kitsu-core | 431,414 | 1x |  |
-| small-links-only | devour | 493,241 | 1.14x faster |  |
-| small-links-only | yayson | 334,609 | 1.29x slower |  |
-| **small-links-only** | **jsona** | **568,249** | **1.32x faster** |  |
-| small-links-only | ts-japi | unsupported | — | no public decoder |
-| small-relationships | kitsu-core | 186,718 | 1x |  |
-| **small-relationships** | **devour** | **191,837** | **1.03x faster** |  |
-| small-relationships | yayson | 148,338 | 1.26x slower |  |
-| small-relationships | jsona | 186,808 | <1.01x faster |  |
-| small-relationships | ts-japi | unsupported | — | no public decoder |
-| **nested-relationships** | **kitsu-core** | **262,036** | **1x** |  |
-| nested-relationships | devour | 231,132 | 1.13x slower |  |
-| nested-relationships | yayson | 188,370 | 1.39x slower |  |
-| nested-relationships | jsona | 216,843 | 1.21x slower |  |
-| nested-relationships | ts-japi | unsupported | — | no public decoder |
-| collection | kitsu-core | 39,508 | 1x |  |
-| collection | devour | 45,100 | 1.14x faster |  |
-| collection | yayson | 45,545 | 1.15x faster |  |
-| **collection** | **jsona** | **110,923** | **2.81x faster** |  |
-| collection | ts-japi | unsupported | — | no public decoder |
-| collection-includes | kitsu-core | 28,583 | 1x |  |
-| collection-includes | devour | 63,357 | 2.22x faster |  |
-| collection-includes | yayson | 55,947 | 1.96x faster |  |
-| **collection-includes** | **jsona** | **70,870** | **2.48x faster** |  |
-| collection-includes | ts-japi | unsupported | — | no public decoder |
-| **patch-single** | **kitsu-core** | **959,981** | **1x** |  |
-| patch-single | devour | 902,865 | 1.06x slower |  |
-| patch-single | yayson | 529,625 | 1.81x slower |  |
-| patch-single | jsona | 653,623 | 1.47x slower |  |
-| patch-single | ts-japi | unsupported | — | no public decoder |
-| empty-relationships | kitsu-core | 338,846 | 1x |  |
-| empty-relationships | devour | 322,116 | 1.05x slower |  |
-| empty-relationships | yayson | 306,844 | 1.1x slower |  |
-| **empty-relationships** | **jsona** | **383,980** | **1.13x faster** |  |
-| empty-relationships | ts-japi | unsupported | — | no public decoder |
-| **few-includes** | **kitsu-core** | **301** | **1x** |  |
-| few-includes | devour | 275 | 1.09x slower |  |
-| few-includes | yayson | 229 | 1.32x slower |  |
-| few-includes | jsona | 256 | 1.17x slower |  |
-| few-includes | ts-japi | unsupported | — | no public decoder |
-| **many-includes** | **kitsu-core** | **218** | **1x** |  |
-| many-includes | devour | 5.65 | 38.53x slower |  |
-| many-includes | yayson | 29.57 | 7.36x slower |  |
-| many-includes | jsona | 119 | 1.83x slower |  |
-| many-includes | ts-japi | unsupported | — | no public decoder |
-| **complex-relationships** | **kitsu-core** | **41.91** | **1x** |  |
-| complex-relationships | devour | timeout | — | worker exceeds 30-second limit |
-| complex-relationships | yayson | 0.71 | 58.63x slower |  |
-| complex-relationships | jsona | 18.84 | 2.23x slower |  |
-| complex-relationships | ts-japi | unsupported | — | no public decoder |
-| **wide-relationship** | **kitsu-core** | **312** | **1x** |  |
-| wide-relationship | devour | 3.98 | 78.47x slower |  |
-| wide-relationship | yayson | 17.42 | 17.92x slower |  |
-| wide-relationship | jsona | 126 | 2.49x slower |  |
-| wide-relationship | ts-japi | unsupported | — | no public decoder |
-| **self-cycle** | **kitsu-core** | **245,897** | **1x** |  |
-| self-cycle | devour | 191,897 | 1.28x slower |  |
-| self-cycle | yayson | 166,012 | 1.48x slower |  |
-| self-cycle | jsona | 188,226 | 1.31x slower |  |
-| self-cycle | ts-japi | unsupported | — | no public decoder |
-| **mutual-cycle** | **kitsu-core** | **209,004** | **1x** |  |
-| mutual-cycle | devour | 165,824 | 1.26x slower |  |
-| mutual-cycle | yayson | 137,920 | 1.52x slower |  |
-| mutual-cycle | jsona | 158,650 | 1.32x slower |  |
-| mutual-cycle | ts-japi | unsupported | — | no public decoder |
-
-</details>
-
-<details><summary>Mocked client requests/s</summary>
-
-#### decode
-
-| Scenario | Library | Rate | vs kitsu | Detail |
-| --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu | 50,919 | 1x |  |
-| small-no-relationships | kitsu-native | 189,203 | 3.72x faster |  |
-| **small-no-relationships** | **fetchja** | **198,636** | **3.9x faster** |  |
-| small-no-relationships | devour | 44,572 | 1.14x slower |  |
-| small-links-only | kitsu | 50,950 | 1x |  |
-| small-links-only | kitsu-native | 176,044 | 3.46x faster |  |
-| **small-links-only** | **fetchja** | **194,454** | **3.82x faster** |  |
-| small-links-only | devour | 44,101 | 1.16x slower |  |
-| small-relationships | kitsu | 39,581 | 1x |  |
-| **small-relationships** | **kitsu-native** | **108,849** | **2.75x faster** |  |
-| small-relationships | fetchja | 101,839 | 2.57x faster |  |
-| small-relationships | devour | 34,334 | 1.15x slower |  |
-| nested-relationships | kitsu | 43,671 | 1x |  |
-| **nested-relationships** | **kitsu-native** | **139,014** | **3.18x faster** |  |
-| nested-relationships | fetchja | 118,879 | 2.72x faster |  |
-| nested-relationships | devour | 34,456 | 1.27x slower |  |
-| collection | kitsu | 14,435 | 1x |  |
-| collection | kitsu-native | 14,836 | 1.03x faster |  |
-| **collection** | **fetchja** | **29,929** | **2.07x faster** |  |
-| collection | devour | 15,862 | 1.1x faster |  |
-| collection-includes | kitsu | 14,914 | 1x |  |
-| collection-includes | kitsu-native | 16,116 | 1.08x faster |  |
-| **collection-includes** | **fetchja** | **28,958** | **1.94x faster** |  |
-| collection-includes | devour | 16,106 | 1.08x faster |  |
-| patch-single | kitsu | 59,117 | 1x |  |
-| **patch-single** | **kitsu-native** | **249,762** | **4.22x faster** |  |
-| patch-single | fetchja | 215,271 | 3.64x faster |  |
-| patch-single | devour | 48,325 | 1.22x slower |  |
-| empty-relationships | kitsu | 48,112 | 1x |  |
-| empty-relationships | kitsu-native | 172,305 | 3.58x faster |  |
-| **empty-relationships** | **fetchja** | **172,842** | **3.59x faster** |  |
-| empty-relationships | devour | 44,389 | 1.08x slower |  |
-| **few-includes** | **kitsu** | **474** | **1x** |  |
-| few-includes | kitsu-native | 458 | 1.04x slower |  |
-| few-includes | fetchja | 405 | 1.17x slower |  |
-| few-includes | devour | 310 | 1.53x slower |  |
-| **many-includes** | **kitsu** | **203** | **1x** |  |
-| many-includes | kitsu-native | 203 | <1.01x slower |  |
-| many-includes | fetchja | 165 | 1.23x slower |  |
-| many-includes | devour | 8.01 | 25.35x slower |  |
-| complex-relationships | kitsu | 30.95 | 1x |  |
-| **complex-relationships** | **kitsu-native** | **33.05** | **1.07x faster** |  |
-| complex-relationships | fetchja | 26.57 | 1.16x slower |  |
-| complex-relationships | devour | timeout | — | worker exceeds 30-second limit |
-| wide-relationship | kitsu | 199 | 1x |  |
-| **wide-relationship** | **kitsu-native** | **203** | **1.02x faster** |  |
-| wide-relationship | fetchja | 158 | 1.25x slower |  |
-| wide-relationship | devour | 5.23 | 37.94x slower |  |
-| self-cycle | kitsu | 44,023 | 1x |  |
-| **self-cycle** | **kitsu-native** | **130,023** | **2.95x faster** |  |
-| self-cycle | fetchja | 112,131 | 2.55x faster |  |
-| self-cycle | devour | 32,221 | 1.37x slower |  |
-| mutual-cycle | kitsu | 39,683 | 1x |  |
-| **mutual-cycle** | **kitsu-native** | **110,034** | **2.77x faster** |  |
-| mutual-cycle | fetchja | 98,274 | 2.48x faster |  |
-| mutual-cycle | devour | 30,582 | 1.3x slower |  |
-
-#### encode
-
-| Scenario | Library | Rate | vs kitsu | Detail |
-| --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu | 44,984 | 1x |  |
-| **small-no-relationships** | **kitsu-native** | **251,421** | **5.59x faster** |  |
-| small-no-relationships | fetchja | 230,354 | 5.12x faster |  |
-| small-no-relationships | devour | 39,893 | 1.13x slower |  |
-| small-links-only | kitsu | 45,136 | 1x |  |
-| **small-links-only** | **kitsu-native** | **266,839** | **5.91x faster** |  |
-| small-links-only | fetchja | 221,845 | 4.91x faster |  |
-| small-links-only | devour | 41,831 | 1.08x slower |  |
-| small-relationships | kitsu | 35,370 | 1x |  |
-| **small-relationships** | **kitsu-native** | **179,812** | **5.08x faster** |  |
-| small-relationships | fetchja | 168,624 | 4.77x faster |  |
-| small-relationships | devour | 32,318 | 1.09x slower |  |
-| nested-relationships | kitsu | 43,988 | 1x |  |
-| **nested-relationships** | **kitsu-native** | **251,671** | **5.72x faster** |  |
-| nested-relationships | fetchja | 194,976 | 4.43x faster |  |
-| nested-relationships | devour | 35,596 | 1.24x slower |  |
-| collection | kitsu | 16,672 | 1x |  |
-| **collection** | **kitsu-native** | **33,021** | **1.98x faster** |  |
-| collection | fetchja | unsupported | — | public client writes single resources only |
-| collection | devour | unsupported | — | public client writes single resources only |
-| collection-includes | kitsu | 11,111 | 1x |  |
-| **collection-includes** | **kitsu-native** | **17,230** | **1.55x faster** |  |
-| collection-includes | fetchja | unsupported | — | public client writes single resources only |
-| collection-includes | devour | unsupported | — | public client writes single resources only |
-| patch-single | kitsu | 50,757 | 1x |  |
-| **patch-single** | **kitsu-native** | **329,136** | **6.48x faster** |  |
-| patch-single | fetchja | 257,540 | 5.07x faster |  |
-| patch-single | devour | 43,419 | 1.17x slower |  |
-| empty-relationships | kitsu | 38,877 | 1x |  |
-| empty-relationships | kitsu-native | 202,937 | 5.22x faster |  |
-| **empty-relationships** | **fetchja** | **205,137** | **5.28x faster** |  |
-| empty-relationships | devour | 37,071 | 1.05x slower |  |
-| few-includes | kitsu | 409 | 1x |  |
-| **few-includes** | **kitsu-native** | **455** | **1.11x faster** |  |
-| few-includes | fetchja | unsupported | — | public client writes single resources only |
-| few-includes | devour | unsupported | — | public client writes single resources only |
-| **many-includes** | **kitsu** | **360** | **1x** |  |
-| many-includes | kitsu-native | 351 | 1.02x slower |  |
-| many-includes | fetchja | unsupported | — | public client writes single resources only |
-| many-includes | devour | unsupported | — | public client writes single resources only |
-| complex-relationships | kitsu | 109 | 1x |  |
-| **complex-relationships** | **kitsu-native** | **122** | **1.12x faster** |  |
-| complex-relationships | fetchja | unsupported | — | public client writes single resources only |
-| complex-relationships | devour | unsupported | — | public client writes single resources only |
-| **wide-relationship** | **kitsu** | **765** | **1x** |  |
-| wide-relationship | kitsu-native | 756 | 1.01x slower |  |
-| wide-relationship | fetchja | unsupported | — | public client writes single resources only |
-| wide-relationship | devour | unsupported | — | public client writes single resources only |
-| self-cycle | kitsu | 43,651 | 1x |  |
-| **self-cycle** | **kitsu-native** | **261,898** | **6x faster** |  |
-| self-cycle | fetchja | 205,999 | 4.72x faster |  |
-| self-cycle | devour | 36,041 | 1.21x slower |  |
-| mutual-cycle | kitsu | 41,488 | 1x |  |
-| **mutual-cycle** | **kitsu-native** | **245,571** | **5.92x faster** |  |
-| mutual-cycle | fetchja | 196,884 | 4.75x faster |  |
-| mutual-cycle | devour | 36,100 | 1.15x slower |  |
-
-#### decode-encode
-
-| Scenario | Library | Rate | vs kitsu | Detail |
-| --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu | 46,058 | 1x | 23,029 cycles/s |
-| **small-no-relationships** | **kitsu-native** | **215,524** | **4.68x faster** | **107,762 cycles/s** |
-| small-no-relationships | fetchja | 177,257 | 3.85x faster | 88,629 cycles/s |
-| small-no-relationships | devour | 38,803 | 1.19x slower | 19,401 cycles/s |
-| small-links-only | kitsu | 44,801 | 1x | 22,401 cycles/s |
-| **small-links-only** | **kitsu-native** | **196,390** | **4.38x faster** | **98,195 cycles/s** |
-| small-links-only | fetchja | 190,198 | 4.25x faster | 95,099 cycles/s |
-| small-links-only | devour | 39,354 | 1.14x slower | 19,677 cycles/s |
-| small-relationships | kitsu | 32,622 | 1x | 16,311 cycles/s |
-| **small-relationships** | **kitsu-native** | **116,436** | **3.57x faster** | **58,218 cycles/s** |
-| small-relationships | fetchja | 114,456 | 3.51x faster | 57,228 cycles/s |
-| small-relationships | devour | 29,816 | 1.09x slower | 14,908 cycles/s |
-| nested-relationships | kitsu | 40,271 | 1x | 20,136 cycles/s |
-| **nested-relationships** | **kitsu-native** | **146,515** | **3.64x faster** | **73,258 cycles/s** |
-| nested-relationships | fetchja | 128,519 | 3.19x faster | 64,260 cycles/s |
-| nested-relationships | devour | 31,464 | 1.28x slower | 15,732 cycles/s |
-| collection | kitsu | 14,923 | 1x | 7,462 cycles/s |
-| **collection** | **kitsu-native** | **19,910** | **1.33x faster** | **9,955 cycles/s** |
-| collection | fetchja | unsupported | — | public client writes single resources only |
-| collection | devour | unsupported | — | public client writes single resources only |
-| collection-includes | kitsu | 12,598 | 1x | 6,299 cycles/s |
-| **collection-includes** | **kitsu-native** | **16,267** | **1.29x faster** | **8,133 cycles/s** |
-| collection-includes | fetchja | unsupported | — | public client writes single resources only |
-| collection-includes | devour | unsupported | — | public client writes single resources only |
-| patch-single | kitsu | 49,825 | 1x | 24,912 cycles/s |
-| **patch-single** | **kitsu-native** | **268,284** | **5.38x faster** | **134,142 cycles/s** |
-| patch-single | fetchja | 211,384 | 4.24x faster | 105,692 cycles/s |
-| patch-single | devour | 43,440 | 1.15x slower | 21,720 cycles/s |
-| empty-relationships | kitsu | 37,087 | 1x | 18,543 cycles/s |
-| empty-relationships | kitsu-native | 161,716 | 4.36x faster | 80,858 cycles/s |
-| **empty-relationships** | **fetchja** | **162,182** | **4.37x faster** | **81,091 cycles/s** |
-| empty-relationships | devour | 34,049 | 1.09x slower | 17,025 cycles/s |
-| few-includes | kitsu | 379 | 1x | 189 cycles/s |
-| **few-includes** | **kitsu-native** | **383** | **1.01x faster** | **191 cycles/s** |
-| few-includes | fetchja | unsupported | — | public client writes single resources only |
-| few-includes | devour | unsupported | — | public client writes single resources only |
-| many-includes | kitsu | 226 | 1x | 113 cycles/s |
-| **many-includes** | **kitsu-native** | **229** | **1.01x faster** | **114 cycles/s** |
-| many-includes | fetchja | unsupported | — | public client writes single resources only |
-| many-includes | devour | unsupported | — | public client writes single resources only |
-| **complex-relationships** | **kitsu** | **49.76** | **1x** | **24\.88 cycles/s** |
-| complex-relationships | kitsu-native | 42.58 | 1.17x slower | 21\.29 cycles/s |
-| complex-relationships | fetchja | unsupported | — | public client writes single resources only |
-| complex-relationships | devour | unsupported | — | public client writes single resources only |
-| wide-relationship | kitsu | 308 | 1x | 154 cycles/s |
-| **wide-relationship** | **kitsu-native** | **311** | **1.01x faster** | **156 cycles/s** |
-| wide-relationship | fetchja | unsupported | — | public client writes single resources only |
-| wide-relationship | devour | unsupported | — | public client writes single resources only |
-| self-cycle | kitsu | 37,501 | 1x | 18,750 cycles/s |
-| **self-cycle** | **kitsu-native** | **147,576** | **3.94x faster** | **73,788 cycles/s** |
-| self-cycle | fetchja | 125,693 | 3.35x faster | 62,847 cycles/s |
-| self-cycle | devour | 31,202 | 1.2x slower | 15,601 cycles/s |
-| mutual-cycle | kitsu | 35,663 | 1x | 17,831 cycles/s |
-| **mutual-cycle** | **kitsu-native** | **127,499** | **3.58x faster** | **63,749 cycles/s** |
-| mutual-cycle | fetchja | 116,936 | 3.28x faster | 58,468 cycles/s |
-| mutual-cycle | devour | 29,861 | 1.19x slower | 14,931 cycles/s |
-
-</details>
-
-### node v26\.12\.0
-
-Measured commit: `c5d7c562c1a48e5ecccd50a81d701452f70dc387`. Runner: linux x64, INTEL\(R\) XEON\(R\) PLATINUM 8573C.
-
-Built package fingerprint: `224176e00cdc9ab35518a648a0c1ead0f93fc80c838c70f97263aeb70f3cd843`.
-
-Library versions: kitsu-core 12\.0\.0, kitsu 12\.0\.0, kitsu-native 12\.0\.0, fetchja 3\.2\.0, devour 3\.2\.0, yayson 4\.4\.0, jsona 1\.14\.0, ts-japi 1\.12\.6.
+Library versions: kitsu-core 12\.0\.0, kitsu 12\.0\.0, kitsu-native 12\.0\.0, fetchja 3\.2\.0, devour 3\.2\.0, @bjornharrtell/json-api 7\.0\.0, yayson 4\.4\.0, jsona 1\.14\.0, ts-japi 1\.12\.6.
 
 <details><summary>Codec operations/s</summary>
 
 #### decode
 
-| Scenario | Library | Rate | vs kitsu-core | Detail |
-| --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu-core | 1,170,950 | 1x |  |
-| **small-no-relationships** | **devour** | **1,780,438** | **1.52x faster** |  |
-| small-no-relationships | yayson | 814,298 | 1.44x slower |  |
-| small-no-relationships | jsona | 1,662,667 | 1.42x faster |  |
-| small-no-relationships | ts-japi | unsupported | — | no public decoder |
-| small-links-only | kitsu-core | 926,708 | 1x |  |
-| small-links-only | devour | 949,914 | 1.03x faster |  |
-| small-links-only | yayson | 626,974 | 1.48x slower |  |
-| **small-links-only** | **jsona** | **1,522,037** | **1.64x faster** |  |
-| small-links-only | ts-japi | unsupported | — | no public decoder |
-| small-relationships | kitsu-core | 317,512 | 1x |  |
-| small-relationships | devour | 272,045 | 1.17x slower |  |
-| small-relationships | yayson | 199,709 | 1.59x slower |  |
-| **small-relationships** | **jsona** | **349,767** | **1.1x faster** |  |
-| small-relationships | ts-japi | unsupported | — | no public decoder |
-| nested-relationships | kitsu-core | 402,234 | 1x |  |
-| nested-relationships | devour | 317,066 | 1.27x slower |  |
-| nested-relationships | yayson | 238,339 | 1.69x slower |  |
-| **nested-relationships** | **jsona** | **405,675** | **1.01x faster** |  |
-| nested-relationships | ts-japi | unsupported | — | no public decoder |
-| collection | kitsu-core | 77,313 | 1x |  |
-| collection | devour | 79,602 | 1.03x faster |  |
-| collection | yayson | 117,302 | 1.52x faster |  |
-| **collection** | **jsona** | **305,090** | **3.95x faster** |  |
-| collection | ts-japi | unsupported | — | no public decoder |
-| collection-includes | kitsu-core | 58,686 | 1x |  |
-| collection-includes | devour | 94,693 | 1.61x faster |  |
-| collection-includes | yayson | 104,235 | 1.78x faster |  |
-| **collection-includes** | **jsona** | **125,152** | **2.13x faster** |  |
-| collection-includes | ts-japi | unsupported | — | no public decoder |
-| patch-single | kitsu-core | 1,949,680 | 1x |  |
-| **patch-single** | **devour** | **2,315,070** | **1.19x faster** |  |
-| patch-single | yayson | 808,137 | 2.41x slower |  |
-| patch-single | jsona | 2,071,261 | 1.06x faster |  |
-| patch-single | ts-japi | unsupported | — | no public decoder |
-| empty-relationships | kitsu-core | 937,202 | 1x |  |
-| empty-relationships | devour | 571,362 | 1.64x slower |  |
-| empty-relationships | yayson | 643,148 | 1.46x slower |  |
-| **empty-relationships** | **jsona** | **1,283,770** | **1.37x faster** |  |
-| empty-relationships | ts-japi | unsupported | — | no public decoder |
-| **few-includes** | **kitsu-core** | **623** | **1x** |  |
-| few-includes | devour | 347 | 1.79x slower |  |
-| few-includes | yayson | 383 | 1.63x slower |  |
-| few-includes | jsona | 452 | 1.38x slower |  |
-| few-includes | ts-japi | unsupported | — | no public decoder |
-| **many-includes** | **kitsu-core** | **225** | **1x** |  |
-| many-includes | devour | 5.7 | 39.5x slower |  |
-| many-includes | yayson | 25.92 | 8.68x slower |  |
-| many-includes | jsona | 160 | 1.41x slower |  |
-| many-includes | ts-japi | unsupported | — | no public decoder |
-| **complex-relationships** | **kitsu-core** | **32.02** | **1x** |  |
-| complex-relationships | devour | timeout | — | worker exceeds 30-second limit |
-| complex-relationships | yayson | 0.45 | 70.88x slower |  |
-| complex-relationships | jsona | 19.22 | 1.67x slower |  |
-| complex-relationships | ts-japi | unsupported | — | no public decoder |
-| **wide-relationship** | **kitsu-core** | **249** | **1x** |  |
-| wide-relationship | devour | 3.16 | 78.67x slower |  |
-| wide-relationship | yayson | 12.27 | 20.25x slower |  |
-| wide-relationship | jsona | 153 | 1.63x slower |  |
-| wide-relationship | ts-japi | unsupported | — | no public decoder |
-| self-cycle | kitsu-core | 342,183 | 1x |  |
-| self-cycle | devour | 251,025 | 1.36x slower |  |
-| self-cycle | yayson | 220,030 | 1.56x slower |  |
-| **self-cycle** | **jsona** | **348,050** | **1.02x faster** |  |
-| self-cycle | ts-japi | unsupported | — | no public decoder |
-| **mutual-cycle** | **kitsu-core** | **278,548** | **1x** |  |
-| mutual-cycle | devour | 201,360 | 1.38x slower |  |
-| mutual-cycle | yayson | 179,115 | 1.56x slower |  |
-| mutual-cycle | jsona | 270,515 | 1.03x slower |  |
-| mutual-cycle | ts-japi | unsupported | — | no public decoder |
+##### small-no-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,337,574 | 1x |  |
+| **devour** | **1,566,204** | **1.17x faster** |  |
+| yayson | 935,917 | 1.43x slower |  |
+| jsona | 1,393,696 | 1.04x faster |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### small-links-only
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 978,425 | 1x |  |
+| devour | 1,080,216 | 1.1x faster |  |
+| yayson | 625,750 | 1.56x slower |  |
+| **jsona** | **1,209,001** | **1.24x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### small-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **401,023** | **1x** |  |
+| devour | 340,341 | 1.18x slower |  |
+| yayson | 243,184 | 1.65x slower |  |
+| jsona | 346,074 | 1.16x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### nested-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **542,567** | **1x** |  |
+| devour | 380,309 | 1.43x slower |  |
+| yayson | 328,013 | 1.65x slower |  |
+| jsona | 393,767 | 1.38x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### collection
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 88,720 | 1x |  |
+| devour | 120,096 | 1.35x faster |  |
+| yayson | 85,995 | 1.03x slower |  |
+| **jsona** | **296,962** | **3.35x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### collection-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 71,240 | 1x |  |
+| devour | 142,030 | 1.99x faster |  |
+| yayson | 125,504 | 1.76x faster |  |
+| **jsona** | **157,610** | **2.21x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### patch-single
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **2,423,558** | **1x** |  |
+| devour | 2,011,146 | 1.21x slower |  |
+| yayson | 986,533 | 2.46x slower |  |
+| jsona | 1,531,382 | 1.58x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### empty-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 951,970 | 1x |  |
+| devour | 789,893 | 1.21x slower |  |
+| yayson | 759,733 | 1.25x slower |  |
+| **jsona** | **1,060,647** | **1.11x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### few-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **1,042** | **1x** |  |
+| devour | 576 | 1.81x slower |  |
+| yayson | 760 | 1.37x slower |  |
+| jsona | 630 | 1.65x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### many-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **598** | **1x** |  |
+| devour | 8.41 | 71.15x slower |  |
+| yayson | 41.93 | 14.26x slower |  |
+| jsona | 227 | 2.63x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### complex-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **85.46** | **1x** |  |
+| devour | timeout | — | worker exceeds 30-second limit |
+| yayson | 1 | 85.52x slower |  |
+| jsona | 30.87 | 2.77x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### wide-relationship
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **558** | **1x** |  |
+| devour | 5.46 | 102x slower |  |
+| yayson | 23.9 | 23.34x slower |  |
+| jsona | 192 | 2.91x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### self-cycle
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **472,348** | **1x** |  |
+| devour | 337,474 | 1.4x slower |  |
+| yayson | 292,424 | 1.62x slower |  |
+| jsona | 332,668 | 1.42x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### mutual-cycle
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **399,814** | **1x** |  |
+| devour | 272,906 | 1.47x slower |  |
+| yayson | 244,100 | 1.64x slower |  |
+| jsona | 273,652 | 1.46x slower |  |
+| ts-japi | unsupported | — | no public decoder |
 
 #### encode
 
-| Scenario | Library | Rate | vs kitsu-core | Detail |
-| --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu-core | 1,599,943 | 1x |  |
-| small-no-relationships | devour | 2,742,081 | 1.71x faster |  |
-| small-no-relationships | yayson | 1,608,507 | 1.01x faster |  |
-| **small-no-relationships** | **jsona** | **2,799,673** | **1.75x faster** |  |
-| small-no-relationships | ts-japi | 674,451 | 2.37x slower |  |
-| small-links-only | kitsu-core | 1,369,510 | 1x |  |
-| small-links-only | devour | 1,516,973 | 1.11x faster |  |
-| small-links-only | yayson | 1,231,523 | 1.11x slower |  |
-| **small-links-only** | **jsona** | **2,943,488** | **2.15x faster** |  |
-| small-links-only | ts-japi | 679,124 | 2.02x slower |  |
-| small-relationships | kitsu-core | 863,401 | 1x |  |
-| small-relationships | devour | 886,792 | 1.03x faster |  |
-| small-relationships | yayson | 776,242 | 1.11x slower |  |
-| **small-relationships** | **jsona** | **1,323,727** | **1.53x faster** |  |
-| small-relationships | ts-japi | 428,934 | 2.01x slower |  |
-| nested-relationships | kitsu-core | 1,526,550 | 1x |  |
-| nested-relationships | devour | 1,126,079 | 1.36x slower |  |
-| nested-relationships | yayson | 909,006 | 1.68x slower |  |
-| **nested-relationships** | **jsona** | **1,910,758** | **1.25x faster** |  |
-| nested-relationships | ts-japi | 483,663 | 3.16x slower |  |
-| collection | kitsu-core | 173,701 | 1x |  |
-| collection | devour | 91,126 | 1.91x slower |  |
-| collection | yayson | 204,873 | 1.18x faster |  |
-| **collection** | **jsona** | **773,064** | **4.45x faster** |  |
-| collection | ts-japi | 232,535 | 1.34x faster |  |
-| collection-includes | kitsu-core | 73,214 | 1x |  |
-| collection-includes | devour | 179,108 | 2.45x faster |  |
-| collection-includes | yayson | 214,573 | 2.93x faster |  |
-| **collection-includes** | **jsona** | **387,381** | **5.29x faster** |  |
-| collection-includes | ts-japi | 142,880 | 1.95x faster |  |
-| patch-single | kitsu-core | 4,066,531 | 1x |  |
-| patch-single | devour | 3,892,455 | 1.04x slower |  |
-| patch-single | yayson | 2,039,043 | 1.99x slower |  |
-| **patch-single** | **jsona** | **4,697,994** | **1.16x faster** |  |
-| patch-single | ts-japi | 731,251 | 5.56x slower |  |
-| empty-relationships | kitsu-core | 1,186,055 | 1x |  |
-| empty-relationships | devour | 990,026 | 1.2x slower |  |
-| empty-relationships | yayson | 838,342 | 1.41x slower |  |
-| **empty-relationships** | **jsona** | **1,731,338** | **1.46x faster** |  |
-| empty-relationships | ts-japi | 481,946 | 2.46x slower |  |
-| few-includes | kitsu-core | 828 | 1x |  |
-| few-includes | devour | 799 | 1.04x slower |  |
-| few-includes | yayson | 702 | 1.18x slower |  |
-| **few-includes** | **jsona** | **1,601** | **1.93x faster** |  |
-| few-includes | ts-japi | 340 | 2.44x slower |  |
-| many-includes | kitsu-core | 640 | 1x |  |
-| many-includes | devour | 909 | 1.42x faster |  |
-| many-includes | yayson | 671 | 1.05x faster |  |
-| **many-includes** | **jsona** | **1,451** | **2.27x faster** |  |
-| many-includes | ts-japi | 248 | 2.58x slower |  |
-| complex-relationships | kitsu-core | 295 | 1x |  |
-| **complex-relationships** | **devour** | **454** | **1.54x faster** |  |
-| complex-relationships | yayson | 250 | 1.18x slower |  |
-| complex-relationships | jsona | 409 | 1.39x faster |  |
-| complex-relationships | ts-japi | 205 | 1.44x slower |  |
-| wide-relationship | kitsu-core | 2,376 | 1x |  |
-| **wide-relationship** | **devour** | **15,474** | **6.51x faster** |  |
-| wide-relationship | yayson | 7,287 | 3.07x faster |  |
-| wide-relationship | jsona | 7,482 | 3.15x faster |  |
-| wide-relationship | ts-japi | 11,312 | 4.76x faster |  |
-| self-cycle | kitsu-core | 1,561,633 | 1x |  |
-| self-cycle | devour | 1,131,868 | 1.38x slower |  |
-| self-cycle | yayson | 856,165 | 1.82x slower |  |
-| **self-cycle** | **jsona** | **1,873,685** | **1.2x faster** |  |
-| self-cycle | ts-japi | 495,825 | 3.15x slower |  |
-| mutual-cycle | kitsu-core | 1,505,801 | 1x |  |
-| mutual-cycle | devour | 1,056,676 | 1.43x slower |  |
-| mutual-cycle | yayson | 843,314 | 1.79x slower |  |
-| **mutual-cycle** | **jsona** | **1,594,897** | **1.06x faster** |  |
-| mutual-cycle | ts-japi | 455,061 | 3.31x slower |  |
+##### small-no-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 2,147,685 | 1x |  |
+| **devour** | **3,593,677** | **1.67x faster** |  |
+| yayson | 1,972,137 | 1.09x slower |  |
+| jsona | 2,301,961 | 1.07x faster |  |
+| ts-japi | 881,859 | 2.44x slower |  |
+
+##### small-links-only
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,951,296 | 1x |  |
+| devour | 2,330,923 | 1.19x faster |  |
+| yayson | 1,660,876 | 1.17x slower |  |
+| **jsona** | **2,461,822** | **1.26x faster** |  |
+| ts-japi | 907,864 | 2.15x slower |  |
+
+##### small-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,171,039 | 1x |  |
+| **devour** | **1,425,572** | **1.22x faster** |  |
+| yayson | 1,116,265 | 1.05x slower |  |
+| jsona | 1,020,179 | 1.15x slower |  |
+| ts-japi | 455,296 | 2.57x slower |  |
+
+##### nested-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **1,997,759** | **1x** |  |
+| devour | 1,641,891 | 1.22x slower |  |
+| yayson | 1,025,935 | 1.95x slower |  |
+| jsona | 1,009,434 | 1.98x slower |  |
+| ts-japi | 476,602 | 4.19x slower |  |
+
+##### collection
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 167,441 | 1x |  |
+| devour | 180,069 | 1.08x faster |  |
+| yayson | 230,518 | 1.38x faster |  |
+| **jsona** | **546,683** | **3.26x faster** |  |
+| ts-japi | 302,884 | 1.81x faster |  |
+
+##### collection-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 85,305 | 1x |  |
+| devour | 271,981 | 3.19x faster |  |
+| yayson | 283,236 | 3.32x faster |  |
+| **jsona** | **359,721** | **4.22x faster** |  |
+| ts-japi | 187,763 | 2.2x faster |  |
+
+##### patch-single
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **6,392,691** | **1x** |  |
+| devour | 5,448,383 | 1.17x slower |  |
+| yayson | 2,119,372 | 3.02x slower |  |
+| jsona | 3,218,061 | 1.99x slower |  |
+| ts-japi | 945,416 | 6.76x slower |  |
+
+##### empty-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,390,774 | 1x |  |
+| **devour** | **1,508,494** | **1.08x faster** |  |
+| yayson | 1,064,218 | 1.31x slower |  |
+| jsona | 1,365,497 | 1.02x slower |  |
+| ts-japi | 549,878 | 2.53x slower |  |
+
+##### few-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,305 | 1x |  |
+| **devour** | **2,107** | **1.61x faster** |  |
+| yayson | 1,305 | <1.01x slower |  |
+| jsona | 1,268 | 1.03x slower |  |
+| ts-japi | 703 | 1.86x slower |  |
+
+##### many-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,283 | 1x |  |
+| **devour** | **2,040** | **1.59x faster** |  |
+| yayson | 1,370 | 1.07x faster |  |
+| jsona | 1,321 | 1.03x faster |  |
+| ts-japi | 689 | 1.86x slower |  |
+
+##### complex-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 705 | 1x |  |
+| **devour** | **1,253** | **1.78x faster** |  |
+| yayson | 1,088 | 1.54x faster |  |
+| jsona | 679 | 1.04x slower |  |
+| ts-japi | 513 | 1.37x slower |  |
+
+##### wide-relationship
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 6,798 | 1x |  |
+| **devour** | **21,845** | **3.21x faster** |  |
+| yayson | 16,198 | 2.38x faster |  |
+| jsona | 6,180 | 1.1x slower |  |
+| ts-japi | 10,594 | 1.56x faster |  |
+
+##### self-cycle
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **2,041,445** | **1x** |  |
+| devour | 1,639,514 | 1.25x slower |  |
+| yayson | 1,033,136 | 1.98x slower |  |
+| jsona | 1,314,756 | 1.55x slower |  |
+| ts-japi | 483,330 | 4.22x slower |  |
+
+##### mutual-cycle
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **1,999,761** | **1x** |  |
+| devour | 1,332,743 | 1.5x slower |  |
+| yayson | 1,097,183 | 1.82x slower |  |
+| jsona | 1,010,838 | 1.98x slower |  |
+| ts-japi | 456,067 | 4.38x slower |  |
 
 #### decode-encode
 
-| Scenario | Library | Rate | vs kitsu-core | Detail |
-| --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu-core | 606,397 | 1x |  |
-| **small-no-relationships** | **devour** | **961,518** | **1.59x faster** |  |
-| small-no-relationships | yayson | 470,404 | 1.29x slower |  |
-| small-no-relationships | jsona | 921,269 | 1.52x faster |  |
-| small-no-relationships | ts-japi | unsupported | — | no public decoder |
-| small-links-only | kitsu-core | 552,955 | 1x |  |
-| small-links-only | devour | 541,073 | 1.02x slower |  |
-| small-links-only | yayson | 408,329 | 1.35x slower |  |
-| **small-links-only** | **jsona** | **887,158** | **1.6x faster** |  |
-| small-links-only | ts-japi | unsupported | — | no public decoder |
-| small-relationships | kitsu-core | 221,961 | 1x |  |
-| small-relationships | devour | 187,777 | 1.18x slower |  |
-| small-relationships | yayson | 146,487 | 1.52x slower |  |
-| **small-relationships** | **jsona** | **253,557** | **1.14x faster** |  |
-| small-relationships | ts-japi | unsupported | — | no public decoder |
-| nested-relationships | kitsu-core | 276,937 | 1x |  |
-| nested-relationships | devour | 232,983 | 1.19x slower |  |
-| nested-relationships | yayson | 175,964 | 1.57x slower |  |
-| **nested-relationships** | **jsona** | **292,804** | **1.06x faster** |  |
-| nested-relationships | ts-japi | unsupported | — | no public decoder |
-| collection | kitsu-core | 49,244 | 1x |  |
-| collection | devour | 39,342 | 1.25x slower |  |
-| collection | yayson | 73,305 | 1.49x faster |  |
-| **collection** | **jsona** | **162,160** | **3.29x faster** |  |
-| collection | ts-japi | unsupported | — | no public decoder |
-| collection-includes | kitsu-core | 28,593 | 1x |  |
-| collection-includes | devour | 54,610 | 1.91x faster |  |
-| collection-includes | yayson | 63,843 | 2.23x faster |  |
-| **collection-includes** | **jsona** | **78,225** | **2.74x faster** |  |
-| collection-includes | ts-japi | unsupported | — | no public decoder |
-| patch-single | kitsu-core | 1,147,216 | 1x |  |
-| **patch-single** | **devour** | **1,372,116** | **1.2x faster** |  |
-| patch-single | yayson | 546,346 | 2.1x slower |  |
-| patch-single | jsona | 1,163,998 | 1.01x faster |  |
-| patch-single | ts-japi | unsupported | — | no public decoder |
-| empty-relationships | kitsu-core | 481,533 | 1x |  |
-| empty-relationships | devour | 349,401 | 1.38x slower |  |
-| empty-relationships | yayson | 326,156 | 1.48x slower |  |
-| **empty-relationships** | **jsona** | **599,529** | **1.25x faster** |  |
-| empty-relationships | ts-japi | unsupported | — | no public decoder |
-| **few-includes** | **kitsu-core** | **301** | **1x** |  |
-| few-includes | devour | 219 | 1.38x slower |  |
-| few-includes | yayson | 212 | 1.42x slower |  |
-| few-includes | jsona | 272 | 1.11x slower |  |
-| few-includes | ts-japi | unsupported | — | no public decoder |
-| **many-includes** | **kitsu-core** | **152** | **1x** |  |
-| many-includes | devour | 5.54 | 27.38x slower |  |
-| many-includes | yayson | 24.76 | 6.13x slower |  |
-| many-includes | jsona | 117 | 1.29x slower |  |
-| many-includes | ts-japi | unsupported | — | no public decoder |
-| **complex-relationships** | **kitsu-core** | **24.32** | **1x** |  |
-| complex-relationships | devour | timeout | — | worker exceeds 30-second limit |
-| complex-relationships | yayson | 0.44 | 54.85x slower |  |
-| complex-relationships | jsona | 16.33 | 1.49x slower |  |
-| complex-relationships | ts-japi | unsupported | — | no public decoder |
-| **wide-relationship** | **kitsu-core** | **220** | **1x** |  |
-| wide-relationship | devour | 2.97 | 74.28x slower |  |
-| wide-relationship | yayson | 12.33 | 17.87x slower |  |
-| wide-relationship | jsona | 140 | 1.58x slower |  |
-| wide-relationship | ts-japi | unsupported | — | no public decoder |
-| self-cycle | kitsu-core | 261,794 | 1x |  |
-| self-cycle | devour | 188,131 | 1.39x slower |  |
-| self-cycle | yayson | 161,780 | 1.62x slower |  |
-| **self-cycle** | **jsona** | **269,064** | **1.03x faster** |  |
-| self-cycle | ts-japi | unsupported | — | no public decoder |
-| mutual-cycle | kitsu-core | 217,999 | 1x |  |
-| mutual-cycle | devour | 163,853 | 1.33x slower |  |
-| mutual-cycle | yayson | 138,242 | 1.58x slower |  |
-| **mutual-cycle** | **jsona** | **221,971** | **1.02x faster** |  |
-| mutual-cycle | ts-japi | unsupported | — | no public decoder |
+##### small-no-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 658,551 | 1x |  |
+| **devour** | **930,124** | **1.41x faster** |  |
+| yayson | 577,208 | 1.14x slower |  |
+| jsona | 786,754 | 1.19x faster |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### small-links-only
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 552,352 | 1x |  |
+| devour | 613,749 | 1.11x faster |  |
+| yayson | 421,884 | 1.31x slower |  |
+| **jsona** | **690,739** | **1.25x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### small-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **240,607** | **1x** |  |
+| devour | 237,754 | 1.01x slower |  |
+| yayson | 176,523 | 1.36x slower |  |
+| jsona | 224,091 | 1.07x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### nested-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **317,119** | **1x** |  |
+| devour | 271,448 | 1.17x slower |  |
+| yayson | 228,526 | 1.39x slower |  |
+| jsona | 254,142 | 1.25x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### collection
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 50,690 | 1x |  |
+| devour | 60,921 | 1.2x faster |  |
+| yayson | 59,284 | 1.17x faster |  |
+| **jsona** | **141,543** | **2.79x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### collection-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 36,520 | 1x |  |
+| devour | 81,843 | 2.24x faster |  |
+| yayson | 78,971 | 2.16x faster |  |
+| **jsona** | **94,765** | **2.59x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### patch-single
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **1,227,350** | **1x** |  |
+| devour | 1,040,343 | 1.18x slower |  |
+| yayson | 627,546 | 1.96x slower |  |
+| jsona | 811,625 | 1.51x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### empty-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 428,226 | 1x |  |
+| devour | 417,396 | 1.03x slower |  |
+| yayson | 373,582 | 1.15x slower |  |
+| **jsona** | **458,919** | **1.07x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### few-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **433** | **1x** |  |
+| devour | 365 | 1.19x slower |  |
+| yayson | 313 | 1.38x slower |  |
+| jsona | 345 | 1.25x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### many-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **317** | **1x** |  |
+| devour | 7.9 | 40.13x slower |  |
+| yayson | 38.95 | 8.14x slower |  |
+| jsona | 162 | 1.96x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### complex-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **65.17** | **1x** |  |
+| devour | timeout | — | worker exceeds 30-second limit |
+| yayson | 1 | 65.03x slower |  |
+| jsona | 25.95 | 2.51x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### wide-relationship
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **453** | **1x** |  |
+| devour | 5.56 | 81.41x slower |  |
+| yayson | 24.64 | 18.37x slower |  |
+| jsona | 164 | 2.76x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### self-cycle
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **292,584** | **1x** |  |
+| devour | 248,048 | 1.18x slower |  |
+| yayson | 210,590 | 1.39x slower |  |
+| jsona | 224,225 | 1.3x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### mutual-cycle
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **271,074** | **1x** |  |
+| devour | 200,574 | 1.35x slower |  |
+| yayson | 174,946 | 1.55x slower |  |
+| jsona | 191,940 | 1.41x slower |  |
+| ts-japi | unsupported | — | no public decoder |
 
 </details>
 
-<details><summary>Mocked client requests/s</summary>
+<details><summary>Mocked client operations/s</summary>
 
 #### decode
 
-| Scenario | Library | Rate | vs kitsu | Detail |
-| --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu | 63,298 | 1x |  |
-| **small-no-relationships** | **kitsu-native** | **151,841** | **2.4x faster** |  |
-| small-no-relationships | fetchja | 140,533 | 2.22x faster |  |
-| small-no-relationships | devour | 56,314 | 1.12x slower |  |
-| small-links-only | kitsu | 60,186 | 1x |  |
-| **small-links-only** | **kitsu-native** | **132,898** | **2.21x faster** |  |
-| small-links-only | fetchja | 127,907 | 2.13x faster |  |
-| small-links-only | devour | 53,444 | 1.13x slower |  |
-| small-relationships | kitsu | 47,302 | 1x |  |
-| **small-relationships** | **kitsu-native** | **86,044** | **1.82x faster** |  |
-| small-relationships | fetchja | 76,904 | 1.63x faster |  |
-| small-relationships | devour | 41,387 | 1.14x slower |  |
-| nested-relationships | kitsu | 48,384 | 1x |  |
-| **nested-relationships** | **kitsu-native** | **96,000** | **1.98x faster** |  |
-| nested-relationships | fetchja | 86,198 | 1.78x faster |  |
-| nested-relationships | devour | 44,245 | 1.09x slower |  |
-| collection | kitsu | 19,358 | 1x |  |
-| collection | kitsu-native | 19,686 | 1.02x faster |  |
-| **collection** | **fetchja** | **24,080** | **1.24x faster** |  |
-| collection | devour | 18,799 | 1.03x slower |  |
-| collection-includes | kitsu | 18,528 | 1x |  |
-| collection-includes | kitsu-native | 19,673 | 1.06x faster |  |
-| **collection-includes** | **fetchja** | **23,014** | **1.24x faster** |  |
-| collection-includes | devour | 21,093 | 1.14x faster |  |
-| patch-single | kitsu | 64,005 | 1x |  |
-| **patch-single** | **kitsu-native** | **169,811** | **2.65x faster** |  |
-| patch-single | fetchja | 149,880 | 2.34x faster |  |
-| patch-single | devour | 57,700 | 1.11x slower |  |
-| empty-relationships | kitsu | 59,579 | 1x |  |
-| **empty-relationships** | **kitsu-native** | **138,189** | **2.32x faster** |  |
-| empty-relationships | fetchja | 124,150 | 2.08x faster |  |
-| empty-relationships | devour | 51,084 | 1.17x slower |  |
-| **few-includes** | **kitsu** | **390** | **1x** |  |
-| few-includes | kitsu-native | 353 | 1.11x slower |  |
-| few-includes | fetchja | 316 | 1.23x slower |  |
-| few-includes | devour | 259 | 1.51x slower |  |
-| **many-includes** | **kitsu** | **156** | **1x** |  |
-| many-includes | kitsu-native | 152 | 1.02x slower |  |
-| many-includes | fetchja | 131 | 1.19x slower |  |
-| many-includes | devour | 7.06 | 22.03x slower |  |
-| **complex-relationships** | **kitsu** | **22.16** | **1x** |  |
-| complex-relationships | kitsu-native | 21.62 | 1.02x slower |  |
-| complex-relationships | fetchja | 16.79 | 1.32x slower |  |
-| complex-relationships | devour | timeout | — | worker exceeds 30-second limit |
-| **wide-relationship** | **kitsu** | **162** | **1x** |  |
-| wide-relationship | kitsu-native | 156 | 1.04x slower |  |
-| wide-relationship | fetchja | 139 | 1.17x slower |  |
-| wide-relationship | devour | 3.69 | 43.95x slower |  |
-| self-cycle | kitsu | 47,993 | 1x |  |
-| **self-cycle** | **kitsu-native** | **89,514** | **1.87x faster** |  |
-| self-cycle | fetchja | 81,116 | 1.69x faster |  |
-| self-cycle | devour | 38,639 | 1.24x slower |  |
-| mutual-cycle | kitsu | 44,752 | 1x |  |
-| **mutual-cycle** | **kitsu-native** | **80,880** | **1.81x faster** |  |
-| mutual-cycle | fetchja | 71,272 | 1.59x faster |  |
-| mutual-cycle | devour | 39,043 | 1.15x slower |  |
+##### small-no-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 250,503 | 1x | 1 request/operation |
+| kitsu | 71,429 | 3.51x slower | 1 request/operation |
+| fetchja | 267,246 | 1.07x faster | 1 request/operation |
+| devour | 65,774 | 3.81x slower | 1 request/operation |
+| **@bjornharrtell/json-api** | **269,501** | **1.08x faster** | **1 request/operation** |
+
+##### small-links-only
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 227,947 | 1x | 1 request/operation |
+| kitsu | 66,917 | 3.41x slower | 1 request/operation |
+| **fetchja** | **240,530** | **1.06x faster** | **1 request/operation** |
+| devour | 58,734 | 3.88x slower | 1 request/operation |
+| @bjornharrtell/json-api | 235,493 | 1.03x faster | 1 request/operation |
+
+##### small-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 129,262 | 1x | 1 request/operation |
+| kitsu | 46,538 | 2.78x slower | 1 request/operation |
+| fetchja | 133,452 | 1.03x faster | 1 request/operation |
+| devour | 47,294 | 2.73x slower | 1 request/operation |
+| **@bjornharrtell/json-api** | **144,898** | **1.12x faster** | **1 request/operation** |
+
+##### nested-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **170,838** | **1x** | **1 request/operation** |
+| kitsu | 59,630 | 2.86x slower | 1 request/operation |
+| fetchja | 145,022 | 1.18x slower | 1 request/operation |
+| devour | 50,507 | 3.38x slower | 1 request/operation |
+| @bjornharrtell/json-api | 159,295 | 1.07x slower | 1 request/operation |
+
+##### collection
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 22,783 | 1x | 1 request/operation |
+| kitsu | 21,644 | 1.05x slower | 1 request/operation |
+| fetchja | 40,272 | 1.77x faster | 1 request/operation |
+| devour | 20,994 | 1.09x slower | 1 request/operation |
+| **@bjornharrtell/json-api** | **42,369** | **1.86x faster** | **1 request/operation** |
+
+##### collection-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 22,673 | 1x | 1 request/operation |
+| kitsu | 20,777 | 1.09x slower | 1 request/operation |
+| fetchja | 39,322 | 1.73x faster | 1 request/operation |
+| devour | 24,233 | 1.07x faster | 1 request/operation |
+| **@bjornharrtell/json-api** | **45,350** | **2x faster** | **1 request/operation** |
+
+##### patch-single
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **323,183** | **1x** | **1 request/operation** |
+| kitsu | 75,958 | 4.25x slower | 1 request/operation |
+| fetchja | 295,056 | 1.1x slower | 1 request/operation |
+| devour | 67,295 | 4.8x slower | 1 request/operation |
+| @bjornharrtell/json-api | 302,019 | 1.07x slower | 1 request/operation |
+
+##### empty-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 218,645 | 1x | 1 request/operation |
+| kitsu | 69,820 | 3.13x slower | 1 request/operation |
+| **fetchja** | **230,367** | **1.05x faster** | **1 request/operation** |
+| devour | 56,826 | 3.85x slower | 1 request/operation |
+| @bjornharrtell/json-api | incorrect | — | decoded relationship cardinality differs: comments |
+
+##### few-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **676** | **1x** | **1 request/operation** |
+| kitsu | 664 | 1.02x slower | 1 request/operation |
+| fetchja | 588 | 1.15x slower | 1 request/operation |
+| devour | 447 | 1.51x slower | 1 request/operation |
+| @bjornharrtell/json-api | 614 | 1.1x slower | 1 request/operation |
+
+##### many-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **302** | **1x** | **1 request/operation** |
+| kitsu | 298 | 1.01x slower | 1 request/operation |
+| fetchja | 241 | 1.26x slower | 1 request/operation |
+| devour | 10.97 | 27.54x slower | 1 request/operation |
+| @bjornharrtell/json-api | 237 | 1.27x slower | 1 request/operation |
+
+##### complex-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 45.82 | 1x | 1 request/operation |
+| **kitsu** | **46.93** | **1.02x faster** | **1 request/operation** |
+| fetchja | 37.09 | 1.24x slower | 1 request/operation |
+| devour | timeout | — | worker exceeds 30-second limit |
+| @bjornharrtell/json-api | 33.39 | 1.37x slower | 1 request/operation |
+
+##### wide-relationship
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 285 | 1x | 1 request/operation |
+| **kitsu** | **288** | **1.01x faster** | **1 request/operation** |
+| fetchja | 219 | 1.3x slower | 1 request/operation |
+| devour | 6.84 | 41.64x slower | 1 request/operation |
+| @bjornharrtell/json-api | 213 | 1.34x slower | 1 request/operation |
+
+##### self-cycle
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **160,836** | **1x** | **1 request/operation** |
+| kitsu | 57,715 | 2.79x slower | 1 request/operation |
+| fetchja | 139,733 | 1.15x slower | 1 request/operation |
+| devour | 47,699 | 3.37x slower | 1 request/operation |
+| @bjornharrtell/json-api | 153,629 | 1.05x slower | 1 request/operation |
+
+##### mutual-cycle
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **141,462** | **1x** | **1 request/operation** |
+| kitsu | 56,055 | 2.52x slower | 1 request/operation |
+| fetchja | 122,627 | 1.15x slower | 1 request/operation |
+| devour | 43,851 | 3.23x slower | 1 request/operation |
+| @bjornharrtell/json-api | 129,094 | 1.1x slower | 1 request/operation |
 
 #### encode
 
-| Scenario | Library | Rate | vs kitsu | Detail |
-| --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu | 58,307 | 1x |  |
-| **small-no-relationships** | **kitsu-native** | **270,420** | **4.64x faster** |  |
-| small-no-relationships | fetchja | 238,097 | 4.08x faster |  |
-| small-no-relationships | devour | 55,599 | 1.05x slower |  |
-| small-links-only | kitsu | 57,462 | 1x |  |
-| **small-links-only** | **kitsu-native** | **283,682** | **4.94x faster** |  |
-| small-links-only | fetchja | 233,335 | 4.06x faster |  |
-| small-links-only | devour | 53,899 | 1.07x slower |  |
-| small-relationships | kitsu | 49,005 | 1x |  |
-| **small-relationships** | **kitsu-native** | **179,237** | **3.66x faster** |  |
-| small-relationships | fetchja | 169,749 | 3.46x faster |  |
-| small-relationships | devour | 45,850 | 1.07x slower |  |
-| nested-relationships | kitsu | 53,818 | 1x |  |
-| **nested-relationships** | **kitsu-native** | **243,010** | **4.52x faster** |  |
-| nested-relationships | fetchja | 213,727 | 3.97x faster |  |
-| nested-relationships | devour | 50,956 | 1.06x slower |  |
-| collection | kitsu | 27,960 | 1x |  |
-| **collection** | **kitsu-native** | **44,027** | **1.57x faster** |  |
-| collection | fetchja | unsupported | — | public client writes single resources only |
-| collection | devour | unsupported | — | public client writes single resources only |
-| collection-includes | kitsu | 15,995 | 1x |  |
-| **collection-includes** | **kitsu-native** | **22,099** | **1.38x faster** |  |
-| collection-includes | fetchja | unsupported | — | public client writes single resources only |
-| collection-includes | devour | unsupported | — | public client writes single resources only |
-| patch-single | kitsu | 62,861 | 1x |  |
-| **patch-single** | **kitsu-native** | **387,456** | **6.16x faster** |  |
-| patch-single | fetchja | 271,724 | 4.32x faster |  |
-| patch-single | devour | 57,851 | 1.09x slower |  |
-| empty-relationships | kitsu | 52,744 | 1x |  |
-| **empty-relationships** | **kitsu-native** | **235,221** | **4.46x faster** |  |
-| empty-relationships | fetchja | 203,229 | 3.85x faster |  |
-| empty-relationships | devour | 48,496 | 1.09x slower |  |
-| few-includes | kitsu | 304 | 1x |  |
-| **few-includes** | **kitsu-native** | **313** | **1.03x faster** |  |
-| few-includes | fetchja | unsupported | — | public client writes single resources only |
-| few-includes | devour | unsupported | — | public client writes single resources only |
-| many-includes | kitsu | 311 | 1x |  |
-| **many-includes** | **kitsu-native** | **315** | **1.01x faster** |  |
-| many-includes | fetchja | unsupported | — | public client writes single resources only |
-| many-includes | devour | unsupported | — | public client writes single resources only |
-| complex-relationships | kitsu | 101 | 1x |  |
-| **complex-relationships** | **kitsu-native** | **119** | **1.19x faster** |  |
-| complex-relationships | fetchja | unsupported | — | public client writes single resources only |
-| complex-relationships | devour | unsupported | — | public client writes single resources only |
-| wide-relationship | kitsu | 879 | 1x |  |
-| **wide-relationship** | **kitsu-native** | **1,017** | **1.16x faster** |  |
-| wide-relationship | fetchja | unsupported | — | public client writes single resources only |
-| wide-relationship | devour | unsupported | — | public client writes single resources only |
-| self-cycle | kitsu | 53,906 | 1x |  |
-| **self-cycle** | **kitsu-native** | **239,464** | **4.44x faster** |  |
-| self-cycle | fetchja | 209,315 | 3.88x faster |  |
-| self-cycle | devour | 48,618 | 1.11x slower |  |
-| mutual-cycle | kitsu | 53,489 | 1x |  |
-| **mutual-cycle** | **kitsu-native** | **233,889** | **4.37x faster** |  |
-| mutual-cycle | fetchja | 192,666 | 3.6x faster |  |
-| mutual-cycle | devour | 50,882 | 1.05x slower |  |
+##### small-no-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **329,367** | **1x** | **1 request/operation** |
+| kitsu | 63,984 | 5.15x slower | 1 request/operation |
+| fetchja | 305,235 | 1.08x slower | 1 request/operation |
+| devour | 59,121 | 5.57x slower | 1 request/operation |
+| @bjornharrtell/json-api | 134,150 | 2.46x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### small-links-only
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **335,788** | **1x** | **1 request/operation** |
+| kitsu | 64,585 | 5.2x slower | 1 request/operation |
+| fetchja | 296,598 | 1.13x slower | 1 request/operation |
+| devour | 55,357 | 6.07x slower | 1 request/operation |
+| @bjornharrtell/json-api | 124,922 | 2.69x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### small-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **236,903** | **1x** | **1 request/operation** |
+| kitsu | 52,264 | 4.53x slower | 1 request/operation |
+| fetchja | 216,363 | 1.09x slower | 1 request/operation |
+| devour | 48,690 | 4.87x slower | 1 request/operation |
+| @bjornharrtell/json-api | 87,199 | 2.72x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### nested-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **314,706** | **1x** | **1 request/operation** |
+| kitsu | 59,405 | 5.3x slower | 1 request/operation |
+| fetchja | 255,625 | 1.23x slower | 1 request/operation |
+| devour | 52,410 | 6x slower | 1 request/operation |
+| @bjornharrtell/json-api | 100,322 | 3.14x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### collection
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **43,766** | **1x** | **1 request/operation** |
+| kitsu | 25,587 | 1.71x slower | 1 request/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### collection-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **23,116** | **1x** | **1 request/operation** |
+| kitsu | 16,368 | 1.41x slower | 1 request/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### patch-single
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **438,163** | **1x** | **1 request/operation** |
+| kitsu | 73,191 | 5.99x slower | 1 request/operation |
+| fetchja | 348,784 | 1.26x slower | 1 request/operation |
+| devour | 62,523 | 7.01x slower | 1 request/operation |
+| @bjornharrtell/json-api | 150,897 | 2.9x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### empty-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **268,920** | **1x** | **1 request/operation** |
+| kitsu | 55,032 | 4.89x slower | 1 request/operation |
+| fetchja | 256,948 | 1.05x slower | 1 request/operation |
+| devour | 51,785 | 5.19x slower | 1 request/operation |
+| @bjornharrtell/json-api | 120,906 | 2.22x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### few-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **623** | **1x** | **1 request/operation** |
+| kitsu | 576 | 1.08x slower | 1 request/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### many-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **526** | **1x** | **1 request/operation** |
+| kitsu | 500 | 1.05x slower | 1 request/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### complex-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 175 | 1x | 1 request/operation |
+| **kitsu** | **180** | **1.03x faster** | **1 request/operation** |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### wide-relationship
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **1,153** | **1x** | **1 request/operation** |
+| kitsu | 1,081 | 1.07x slower | 1 request/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### self-cycle
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **301,863** | **1x** | **1 request/operation** |
+| kitsu | 60,560 | 4.98x slower | 1 request/operation |
+| fetchja | 254,737 | 1.18x slower | 1 request/operation |
+| devour | 50,727 | 5.95x slower | 1 request/operation |
+| @bjornharrtell/json-api | 94,602 | 3.19x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### mutual-cycle
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **303,034** | **1x** | **1 request/operation** |
+| kitsu | 58,520 | 5.18x slower | 1 request/operation |
+| fetchja | 254,233 | 1.19x slower | 1 request/operation |
+| devour | 51,699 | 5.86x slower | 1 request/operation |
+| @bjornharrtell/json-api | 89,016 | 3.4x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
 
 #### decode-encode
 
-| Scenario | Library | Rate | vs kitsu | Detail |
-| --- | --- | ---: | ---: | --- |
-| small-no-relationships | kitsu | 59,143 | 1x | 29,572 cycles/s |
-| **small-no-relationships** | **kitsu-native** | **194,622** | **3.29x faster** | **97,311 cycles/s** |
-| small-no-relationships | fetchja | 171,295 | 2.9x faster | 85,647 cycles/s |
-| small-no-relationships | devour | 54,407 | 1.09x slower | 27,204 cycles/s |
-| small-links-only | kitsu | 57,412 | 1x | 28,706 cycles/s |
-| **small-links-only** | **kitsu-native** | **174,589** | **3.04x faster** | **87,295 cycles/s** |
-| small-links-only | fetchja | 157,616 | 2.75x faster | 78,808 cycles/s |
-| small-links-only | devour | 52,625 | 1.09x slower | 26,312 cycles/s |
-| small-relationships | kitsu | 45,858 | 1x | 22,929 cycles/s |
-| **small-relationships** | **kitsu-native** | **103,098** | **2.25x faster** | **51,549 cycles/s** |
-| small-relationships | fetchja | 102,497 | 2.24x faster | 51,248 cycles/s |
-| small-relationships | devour | 41,689 | 1.1x slower | 20,844 cycles/s |
-| nested-relationships | kitsu | 48,930 | 1x | 24,465 cycles/s |
-| **nested-relationships** | **kitsu-native** | **126,336** | **2.58x faster** | **63,168 cycles/s** |
-| nested-relationships | fetchja | 111,798 | 2.28x faster | 55,899 cycles/s |
-| nested-relationships | devour | 44,928 | 1.09x slower | 22,464 cycles/s |
-| collection | kitsu | 21,805 | 1x | 10,903 cycles/s |
-| **collection** | **kitsu-native** | **26,352** | **1.21x faster** | **13,176 cycles/s** |
-| collection | fetchja | unsupported | — | public client writes single resources only |
-| collection | devour | unsupported | — | public client writes single resources only |
-| collection-includes | kitsu | 16,239 | 1x | 8,119 cycles/s |
-| **collection-includes** | **kitsu-native** | **19,259** | **1.19x faster** | **9,630 cycles/s** |
-| collection-includes | fetchja | unsupported | — | public client writes single resources only |
-| collection-includes | devour | unsupported | — | public client writes single resources only |
-| patch-single | kitsu | 63,675 | 1x | 31,837 cycles/s |
-| **patch-single** | **kitsu-native** | **232,126** | **3.65x faster** | **116,063 cycles/s** |
-| patch-single | fetchja | 188,141 | 2.95x faster | 94,070 cycles/s |
-| patch-single | devour | 56,510 | 1.13x slower | 28,255 cycles/s |
-| empty-relationships | kitsu | 55,026 | 1x | 27,513 cycles/s |
-| **empty-relationships** | **kitsu-native** | **165,496** | **3.01x faster** | **82,748 cycles/s** |
-| empty-relationships | fetchja | 145,145 | 2.64x faster | 72,572 cycles/s |
-| empty-relationships | devour | 49,168 | 1.12x slower | 24,584 cycles/s |
-| few-includes | kitsu | 316 | 1x | 158 cycles/s |
-| **few-includes** | **kitsu-native** | **324** | **1.03x faster** | **162 cycles/s** |
-| few-includes | fetchja | unsupported | — | public client writes single resources only |
-| few-includes | devour | unsupported | — | public client writes single resources only |
-| **many-includes** | **kitsu** | **197** | **1x** | **98\.61 cycles/s** |
-| many-includes | kitsu-native | 176 | 1.12x slower | 87\.75 cycles/s |
-| many-includes | fetchja | unsupported | — | public client writes single resources only |
-| many-includes | devour | unsupported | — | public client writes single resources only |
-| complex-relationships | kitsu | 33.89 | 1x | 16\.95 cycles/s |
-| **complex-relationships** | **kitsu-native** | **34.46** | **1.02x faster** | **17\.23 cycles/s** |
-| complex-relationships | fetchja | unsupported | — | public client writes single resources only |
-| complex-relationships | devour | unsupported | — | public client writes single resources only |
-| **wide-relationship** | **kitsu** | **277** | **1x** | **138 cycles/s** |
-| wide-relationship | kitsu-native | 263 | 1.05x slower | 132 cycles/s |
-| wide-relationship | fetchja | unsupported | — | public client writes single resources only |
-| wide-relationship | devour | unsupported | — | public client writes single resources only |
-| self-cycle | kitsu | 48,608 | 1x | 24,304 cycles/s |
-| **self-cycle** | **kitsu-native** | **125,081** | **2.57x faster** | **62,540 cycles/s** |
-| self-cycle | fetchja | 110,894 | 2.28x faster | 55,447 cycles/s |
-| self-cycle | devour | 43,126 | 1.13x slower | 21,563 cycles/s |
-| mutual-cycle | kitsu | 45,061 | 1x | 22,531 cycles/s |
-| **mutual-cycle** | **kitsu-native** | **113,295** | **2.51x faster** | **56,647 cycles/s** |
-| mutual-cycle | fetchja | 104,021 | 2.31x faster | 52,011 cycles/s |
-| mutual-cycle | devour | 41,092 | 1.1x slower | 20,546 cycles/s |
+##### small-no-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **135,900** | **1x** | **2 requests/operation** |
+| kitsu | 33,302 | 4.08x slower | 2 requests/operation |
+| fetchja | 133,005 | 1.02x slower | 2 requests/operation |
+| devour | 29,352 | 4.63x slower | 2 requests/operation |
+| @bjornharrtell/json-api | 87,766 | 1.55x slower | 3 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### small-links-only
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 117,099 | 1x | 2 requests/operation |
+| kitsu | 31,763 | 3.69x slower | 2 requests/operation |
+| **fetchja** | **124,490** | **1.06x faster** | **2 requests/operation** |
+| devour | 27,102 | 4.32x slower | 2 requests/operation |
+| @bjornharrtell/json-api | 82,311 | 1.42x slower | 3 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### small-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **73,798** | **1x** | **2 requests/operation** |
+| kitsu | 24,188 | 3.05x slower | 2 requests/operation |
+| fetchja | 73,734 | <1.01x slower | 2 requests/operation |
+| devour | 22,018 | 3.35x slower | 2 requests/operation |
+| @bjornharrtell/json-api | 53,064 | 1.39x slower | 3 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### nested-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **94,312** | **1x** | **2 requests/operation** |
+| kitsu | 29,100 | 3.24x slower | 2 requests/operation |
+| fetchja | 86,023 | 1.1x slower | 2 requests/operation |
+| devour | 23,441 | 4.02x slower | 2 requests/operation |
+| @bjornharrtell/json-api | 58,552 | 1.61x slower | 3 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### collection
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **13,992** | **1x** | **2 requests/operation** |
+| kitsu | 10,856 | 1.29x slower | 2 requests/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### collection-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **11,013** | **1x** | **2 requests/operation** |
+| kitsu | 8,902 | 1.24x slower | 2 requests/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### patch-single
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **164,109** | **1x** | **2 requests/operation** |
+| kitsu | 37,734 | 4.35x slower | 2 requests/operation |
+| fetchja | 146,961 | 1.12x slower | 2 requests/operation |
+| devour | 32,097 | 5.11x slower | 2 requests/operation |
+| @bjornharrtell/json-api | 97,306 | 1.69x slower | 3 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### empty-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 106,008 | 1x | 2 requests/operation |
+| kitsu | 29,259 | 3.62x slower | 2 requests/operation |
+| **fetchja** | **108,678** | **1.03x faster** | **2 requests/operation** |
+| devour | 25,143 | 4.22x slower | 2 requests/operation |
+| @bjornharrtell/json-api | incorrect | — | decoded relationship cardinality differs: comments |
+
+##### few-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 273 | 1x | 2 requests/operation |
+| **kitsu** | **277** | **1.01x faster** | **2 requests/operation** |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### many-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **175** | **1x** | **2 requests/operation** |
+| kitsu | 172 | 1.02x slower | 2 requests/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### complex-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 33.62 | 1x | 2 requests/operation |
+| **kitsu** | **34.65** | **1.03x faster** | **2 requests/operation** |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### wide-relationship
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **217** | **1x** | **2 requests/operation** |
+| kitsu | 211 | 1.03x slower | 2 requests/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### self-cycle
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **90,823** | **1x** | **2 requests/operation** |
+| kitsu | 28,435 | 3.19x slower | 2 requests/operation |
+| fetchja | 78,768 | 1.15x slower | 2 requests/operation |
+| devour | 23,111 | 3.93x slower | 2 requests/operation |
+| @bjornharrtell/json-api | 54,453 | 1.67x slower | 3 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### mutual-cycle
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **81,548** | **1x** | **2 requests/operation** |
+| kitsu | 26,586 | 3.07x slower | 2 requests/operation |
+| fetchja | 70,313 | 1.16x slower | 2 requests/operation |
+| devour | 22,603 | 3.61x slower | 2 requests/operation |
+| @bjornharrtell/json-api | 50,717 | 1.61x slower | 3 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+</details>
+
+### node v26\.5\.0
+
+Base commit (local changes measured): `50a93d9d37b9ee47927963da12e3cc2ecedaa309`. Runner: win32 x64, AMD Ryzen 9 5900X 12-Core Processor            .
+
+Built package fingerprint: `db4230bcf5a27f7fd8b9b04f236ae2fcbf985baf56640bbd3d3046360d007e12`.
+
+Library versions: kitsu-core 12\.0\.0, kitsu 12\.0\.0, kitsu-native 12\.0\.0, fetchja 3\.2\.0, devour 3\.2\.0, @bjornharrtell/json-api 7\.0\.0, yayson 4\.4\.0, jsona 1\.14\.0, ts-japi 1\.12\.6.
+
+<details><summary>Codec operations/s</summary>
+
+#### decode
+
+##### small-no-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,363,733 | 1x |  |
+| **devour** | **1,725,920** | **1.27x faster** |  |
+| yayson | 802,341 | 1.7x slower |  |
+| jsona | 1,706,543 | 1.25x faster |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### small-links-only
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,057,773 | 1x |  |
+| devour | 846,687 | 1.25x slower |  |
+| yayson | 627,347 | 1.69x slower |  |
+| **jsona** | **1,578,420** | **1.49x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### small-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 346,866 | 1x |  |
+| devour | 242,294 | 1.43x slower |  |
+| yayson | 196,386 | 1.77x slower |  |
+| **jsona** | **378,814** | **1.09x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### nested-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **428,978** | **1x** |  |
+| devour | 278,974 | 1.54x slower |  |
+| yayson | 245,496 | 1.75x slower |  |
+| jsona | 426,244 | 1.01x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### collection
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 95,095 | 1x |  |
+| devour | 65,422 | 1.45x slower |  |
+| yayson | 119,556 | 1.26x faster |  |
+| **jsona** | **316,515** | **3.33x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### collection-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 64,497 | 1x |  |
+| devour | 90,514 | 1.4x faster |  |
+| yayson | 105,721 | 1.64x faster |  |
+| **jsona** | **132,666** | **2.06x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### patch-single
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **2,434,569** | **1x** |  |
+| devour | 2,300,935 | 1.06x slower |  |
+| yayson | 818,744 | 2.97x slower |  |
+| jsona | 2,140,633 | 1.14x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### empty-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,019,676 | 1x |  |
+| devour | 592,106 | 1.72x slower |  |
+| yayson | 656,062 | 1.55x slower |  |
+| **jsona** | **1,316,928** | **1.29x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### few-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **708** | **1x** |  |
+| devour | 395 | 1.79x slower |  |
+| yayson | 476 | 1.49x slower |  |
+| jsona | 548 | 1.29x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### many-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **310** | **1x** |  |
+| devour | 4.57 | 67.88x slower |  |
+| yayson | 19.82 | 15.66x slower |  |
+| jsona | 213 | 1.46x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### complex-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **41.77** | **1x** |  |
+| devour | timeout | — | worker exceeds 30-second limit |
+| yayson | 0.53 | 78.37x slower |  |
+| jsona | 23.71 | 1.76x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### wide-relationship
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **299** | **1x** |  |
+| devour | 2.93 | 102x slower |  |
+| yayson | 11.89 | 25.14x slower |  |
+| jsona | 182 | 1.64x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### self-cycle
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 369,350 | 1x |  |
+| devour | 232,944 | 1.59x slower |  |
+| yayson | 221,073 | 1.67x slower |  |
+| **jsona** | **373,966** | **1.01x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### mutual-cycle
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **314,147** | **1x** |  |
+| devour | 180,629 | 1.74x slower |  |
+| yayson | 180,880 | 1.74x slower |  |
+| jsona | 289,850 | 1.08x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+#### encode
+
+##### small-no-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,756,185 | 1x |  |
+| devour | 2,919,007 | 1.66x faster |  |
+| yayson | 1,675,917 | 1.05x slower |  |
+| **jsona** | **3,262,104** | **1.86x faster** |  |
+| ts-japi | 711,165 | 2.47x slower |  |
+
+##### small-links-only
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,759,402 | 1x |  |
+| devour | 1,328,527 | 1.32x slower |  |
+| yayson | 1,335,011 | 1.32x slower |  |
+| **jsona** | **3,257,688** | **1.85x faster** |  |
+| ts-japi | 699,515 | 2.52x slower |  |
+
+##### small-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 917,037 | 1x |  |
+| devour | 781,115 | 1.17x slower |  |
+| yayson | 806,303 | 1.14x slower |  |
+| **jsona** | **1,590,309** | **1.73x faster** |  |
+| ts-japi | 439,538 | 2.09x slower |  |
+
+##### nested-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,549,111 | 1x |  |
+| devour | 943,715 | 1.64x slower |  |
+| yayson | 918,893 | 1.69x slower |  |
+| **jsona** | **1,975,495** | **1.28x faster** |  |
+| ts-japi | 503,196 | 3.08x slower |  |
+
+##### collection
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 188,044 | 1x |  |
+| devour | 74,213 | 2.53x slower |  |
+| yayson | 223,347 | 1.19x faster |  |
+| **jsona** | **816,862** | **4.34x faster** |  |
+| ts-japi | 252,125 | 1.34x faster |  |
+
+##### collection-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 80,450 | 1x |  |
+| devour | 176,205 | 2.19x faster |  |
+| yayson | 261,018 | 3.24x faster |  |
+| **jsona** | **427,277** | **5.31x faster** |  |
+| ts-japi | 166,249 | 2.07x faster |  |
+
+##### patch-single
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 4,201,904 | 1x |  |
+| **devour** | **6,024,063** | **1.43x faster** |  |
+| yayson | 2,292,880 | 1.83x slower |  |
+| jsona | 4,486,908 | 1.07x faster |  |
+| ts-japi | 781,568 | 5.38x slower |  |
+
+##### empty-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,295,670 | 1x |  |
+| devour | 842,938 | 1.54x slower |  |
+| yayson | 870,774 | 1.49x slower |  |
+| **jsona** | **1,870,305** | **1.44x faster** |  |
+| ts-japi | 509,592 | 2.54x slower |  |
+
+##### few-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 780 | 1x |  |
+| devour | 876 | 1.12x faster |  |
+| yayson | 775 | 1.01x slower |  |
+| **jsona** | **1,627** | **2.09x faster** |  |
+| ts-japi | 458 | 1.7x slower |  |
+
+##### many-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 692 | 1x |  |
+| devour | 879 | 1.27x faster |  |
+| yayson | 778 | 1.12x faster |  |
+| **jsona** | **1,640** | **2.37x faster** |  |
+| ts-japi | 371 | 1.86x slower |  |
+
+##### complex-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 357 | 1x |  |
+| **devour** | **578** | **1.62x faster** |  |
+| yayson | 347 | 1.03x slower |  |
+| jsona | 429 | 1.2x faster |  |
+| ts-japi | 234 | 1.53x slower |  |
+
+##### wide-relationship
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 3,129 | 1x |  |
+| devour | 9,791 | 3.13x faster |  |
+| yayson | 7,762 | 2.48x faster |  |
+| jsona | 6,249 | 2x faster |  |
+| **ts-japi** | **10,988** | **3.51x faster** |  |
+
+##### self-cycle
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,539,439 | 1x |  |
+| devour | 935,429 | 1.65x slower |  |
+| yayson | 908,077 | 1.7x slower |  |
+| **jsona** | **2,099,065** | **1.36x faster** |  |
+| ts-japi | 501,753 | 3.07x slower |  |
+
+##### mutual-cycle
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,496,303 | 1x |  |
+| devour | 942,852 | 1.59x slower |  |
+| yayson | 869,547 | 1.72x slower |  |
+| **jsona** | **2,093,491** | **1.4x faster** |  |
+| ts-japi | 500,854 | 2.99x slower |  |
+
+#### decode-encode
+
+##### small-no-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 708,227 | 1x |  |
+| **devour** | **991,853** | **1.4x faster** |  |
+| yayson | 490,441 | 1.44x slower |  |
+| jsona | 983,357 | 1.39x faster |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### small-links-only
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 606,475 | 1x |  |
+| devour | 475,822 | 1.27x slower |  |
+| yayson | 395,540 | 1.53x slower |  |
+| **jsona** | **925,945** | **1.53x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### small-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 234,836 | 1x |  |
+| devour | 175,866 | 1.34x slower |  |
+| yayson | 138,650 | 1.69x slower |  |
+| **jsona** | **277,297** | **1.18x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### nested-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 305,533 | 1x |  |
+| devour | 205,203 | 1.49x slower |  |
+| yayson | 173,459 | 1.76x slower |  |
+| **jsona** | **324,734** | **1.06x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### collection
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 56,280 | 1x |  |
+| devour | 33,366 | 1.69x slower |  |
+| yayson | 74,128 | 1.32x faster |  |
+| **jsona** | **165,859** | **2.95x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### collection-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 31,243 | 1x |  |
+| devour | 53,140 | 1.7x faster |  |
+| yayson | 63,178 | 2.02x faster |  |
+| **jsona** | **79,871** | **2.56x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### patch-single
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 1,465,240 | 1x |  |
+| **devour** | **1,500,531** | **1.02x faster** |  |
+| yayson | 562,587 | 2.6x slower |  |
+| jsona | 1,315,148 | 1.11x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### empty-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 486,844 | 1x |  |
+| devour | 309,788 | 1.57x slower |  |
+| yayson | 313,587 | 1.55x slower |  |
+| **jsona** | **660,460** | **1.36x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### few-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 321 | 1x |  |
+| devour | 249 | 1.29x slower |  |
+| yayson | 261 | 1.23x slower |  |
+| **jsona** | **324** | **1.01x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### many-includes
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **196** | **1x** |  |
+| devour | 4.01 | 48.95x slower |  |
+| yayson | 18.65 | 10.53x slower |  |
+| jsona | 152 | 1.29x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### complex-relationships
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **33.66** | **1x** |  |
+| devour | timeout | — | worker exceeds 30-second limit |
+| yayson | 0.54 | 62.9x slower |  |
+| jsona | 23.21 | 1.45x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### wide-relationship
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **261** | **1x** |  |
+| devour | 2.9 | 90.27x slower |  |
+| yayson | 11.88 | 22.01x slower |  |
+| jsona | 181 | 1.45x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### self-cycle
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-core | 278,341 | 1x |  |
+| devour | 171,384 | 1.62x slower |  |
+| yayson | 163,229 | 1.71x slower |  |
+| **jsona** | **285,591** | **1.03x faster** |  |
+| ts-japi | unsupported | — | no public decoder |
+
+##### mutual-cycle
+
+| Library | Operations/s | vs kitsu-core | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-core** | **240,200** | **1x** |  |
+| devour | 144,947 | 1.66x slower |  |
+| yayson | 135,629 | 1.77x slower |  |
+| jsona | 230,674 | 1.04x slower |  |
+| ts-japi | unsupported | — | no public decoder |
+
+</details>
+
+<details><summary>Mocked client operations/s</summary>
+
+#### decode
+
+##### small-no-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **102,277** | **1x** | **1 request/operation** |
+| kitsu | 58,972 | 1.73x slower | 1 request/operation |
+| fetchja | 79,277 | 1.29x slower | 1 request/operation |
+| devour | 51,141 | 2x slower | 1 request/operation |
+| @bjornharrtell/json-api | 92,117 | 1.11x slower | 1 request/operation |
+
+##### small-links-only
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **93,847** | **1x** | **1 request/operation** |
+| kitsu | 54,769 | 1.71x slower | 1 request/operation |
+| fetchja | 78,165 | 1.2x slower | 1 request/operation |
+| devour | 46,249 | 2.03x slower | 1 request/operation |
+| @bjornharrtell/json-api | 86,425 | 1.09x slower | 1 request/operation |
+
+##### small-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **57,544** | **1x** | **1 request/operation** |
+| kitsu | 40,692 | 1.41x slower | 1 request/operation |
+| fetchja | 51,074 | 1.13x slower | 1 request/operation |
+| devour | 34,814 | 1.65x slower | 1 request/operation |
+| @bjornharrtell/json-api | 56,203 | 1.02x slower | 1 request/operation |
+
+##### nested-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **65,940** | **1x** | **1 request/operation** |
+| kitsu | 45,366 | 1.45x slower | 1 request/operation |
+| fetchja | 58,134 | 1.13x slower | 1 request/operation |
+| devour | 36,364 | 1.81x slower | 1 request/operation |
+| @bjornharrtell/json-api | 62,089 | 1.06x slower | 1 request/operation |
+
+##### collection
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 14,539 | 1x | 1 request/operation |
+| **kitsu** | **17,438** | **1.2x faster** | **1 request/operation** |
+| fetchja | 14,779 | 1.02x faster | 1 request/operation |
+| devour | 15,500 | 1.07x faster | 1 request/operation |
+| @bjornharrtell/json-api | 16,656 | 1.15x faster | 1 request/operation |
+
+##### collection-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 14,479 | 1x | 1 request/operation |
+| kitsu | 16,558 | 1.14x faster | 1 request/operation |
+| fetchja | 13,937 | 1.04x slower | 1 request/operation |
+| **devour** | **17,568** | **1.21x faster** | **1 request/operation** |
+| @bjornharrtell/json-api | 16,703 | 1.15x faster | 1 request/operation |
+
+##### patch-single
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **122,213** | **1x** | **1 request/operation** |
+| kitsu | 63,600 | 1.92x slower | 1 request/operation |
+| fetchja | 98,562 | 1.24x slower | 1 request/operation |
+| devour | 54,718 | 2.23x slower | 1 request/operation |
+| @bjornharrtell/json-api | 103,996 | 1.18x slower | 1 request/operation |
+
+##### empty-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **91,500** | **1x** | **1 request/operation** |
+| kitsu | 54,370 | 1.68x slower | 1 request/operation |
+| fetchja | 78,669 | 1.16x slower | 1 request/operation |
+| devour | 44,847 | 2.04x slower | 1 request/operation |
+| @bjornharrtell/json-api | incorrect | — | decoded relationship cardinality differs: comments |
+
+##### few-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 383 | 1x | 1 request/operation |
+| **kitsu** | **399** | **1.04x faster** | **1 request/operation** |
+| fetchja | 313 | 1.22x slower | 1 request/operation |
+| devour | 258 | 1.48x slower | 1 request/operation |
+| @bjornharrtell/json-api | 352 | 1.09x slower | 1 request/operation |
+
+##### many-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 160 | 1x | 1 request/operation |
+| **kitsu** | **167** | **1.04x faster** | **1 request/operation** |
+| fetchja | 132 | 1.22x slower | 1 request/operation |
+| devour | 6.86 | 23.36x slower | 1 request/operation |
+| @bjornharrtell/json-api | 146 | 1.1x slower | 1 request/operation |
+
+##### complex-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 23.87 | 1x | 1 request/operation |
+| **kitsu** | **26.38** | **1.11x faster** | **1 request/operation** |
+| fetchja | 18.63 | 1.28x slower | 1 request/operation |
+| devour | timeout | — | worker exceeds 30-second limit |
+| @bjornharrtell/json-api | 20.31 | 1.18x slower | 1 request/operation |
+
+##### wide-relationship
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 159 | 1x | 1 request/operation |
+| **kitsu** | **168** | **1.06x faster** | **1 request/operation** |
+| fetchja | 124 | 1.28x slower | 1 request/operation |
+| devour | 3.5 | 45.31x slower | 1 request/operation |
+| @bjornharrtell/json-api | 134 | 1.18x slower | 1 request/operation |
+
+##### self-cycle
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **62,781** | **1x** | **1 request/operation** |
+| kitsu | 43,309 | 1.45x slower | 1 request/operation |
+| fetchja | 51,356 | 1.22x slower | 1 request/operation |
+| devour | 34,327 | 1.83x slower | 1 request/operation |
+| @bjornharrtell/json-api | 55,219 | 1.14x slower | 1 request/operation |
+
+##### mutual-cycle
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **52,925** | **1x** | **1 request/operation** |
+| kitsu | 40,969 | 1.29x slower | 1 request/operation |
+| fetchja | 47,085 | 1.12x slower | 1 request/operation |
+| devour | 31,475 | 1.68x slower | 1 request/operation |
+| @bjornharrtell/json-api | 50,928 | 1.04x slower | 1 request/operation |
+
+#### encode
+
+##### small-no-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **266,810** | **1x** | **1 request/operation** |
+| kitsu | 47,730 | 5.59x slower | 1 request/operation |
+| fetchja | 189,818 | 1.41x slower | 1 request/operation |
+| devour | 49,629 | 5.38x slower | 1 request/operation |
+| @bjornharrtell/json-api | 25,582 | 10.43x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### small-links-only
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **276,652** | **1x** | **1 request/operation** |
+| kitsu | 50,955 | 5.43x slower | 1 request/operation |
+| fetchja | 192,177 | 1.44x slower | 1 request/operation |
+| devour | 47,189 | 5.86x slower | 1 request/operation |
+| @bjornharrtell/json-api | 25,959 | 10.66x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### small-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **170,641** | **1x** | **1 request/operation** |
+| kitsu | 43,422 | 3.93x slower | 1 request/operation |
+| fetchja | 139,392 | 1.22x slower | 1 request/operation |
+| devour | 37,856 | 4.51x slower | 1 request/operation |
+| @bjornharrtell/json-api | 20,917 | 8.16x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### nested-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **233,841** | **1x** | **1 request/operation** |
+| kitsu | 48,469 | 4.82x slower | 1 request/operation |
+| fetchja | 167,077 | 1.4x slower | 1 request/operation |
+| devour | 43,223 | 5.41x slower | 1 request/operation |
+| @bjornharrtell/json-api | 22,118 | 10.57x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### collection
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **37,948** | **1x** | **1 request/operation** |
+| kitsu | 21,933 | 1.73x slower | 1 request/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### collection-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **19,651** | **1x** | **1 request/operation** |
+| kitsu | 13,978 | 1.41x slower | 1 request/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### patch-single
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **373,594** | **1x** | **1 request/operation** |
+| kitsu | 58,333 | 6.4x slower | 1 request/operation |
+| fetchja | 241,039 | 1.55x slower | 1 request/operation |
+| devour | 54,370 | 6.87x slower | 1 request/operation |
+| @bjornharrtell/json-api | 30,198 | 12.37x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### empty-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **224,719** | **1x** | **1 request/operation** |
+| kitsu | 46,313 | 4.85x slower | 1 request/operation |
+| fetchja | 171,126 | 1.31x slower | 1 request/operation |
+| devour | 43,239 | 5.2x slower | 1 request/operation |
+| @bjornharrtell/json-api | 25,503 | 8.81x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### few-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **321** | **1x** | **1 request/operation** |
+| kitsu | 298 | 1.08x slower | 1 request/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### many-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 301 | 1x | 1 request/operation |
+| **kitsu** | **316** | **1.05x faster** | **1 request/operation** |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### complex-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **125** | **1x** | **1 request/operation** |
+| kitsu | 115 | 1.09x slower | 1 request/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### wide-relationship
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **975** | **1x** | **1 request/operation** |
+| kitsu | 884 | 1.1x slower | 1 request/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### self-cycle
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **234,806** | **1x** | **1 request/operation** |
+| kitsu | 47,746 | 4.92x slower | 1 request/operation |
+| fetchja | 169,900 | 1.38x slower | 1 request/operation |
+| devour | 42,888 | 5.47x slower | 1 request/operation |
+| @bjornharrtell/json-api | 21,655 | 10.84x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### mutual-cycle
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **214,976** | **1x** | **1 request/operation** |
+| kitsu | 48,022 | 4.48x slower | 1 request/operation |
+| fetchja | 161,748 | 1.33x slower | 1 request/operation |
+| devour | 42,870 | 5.01x slower | 1 request/operation |
+| @bjornharrtell/json-api | 20,847 | 10.31x slower | 2 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+#### decode-encode
+
+##### small-no-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **68,988** | **1x** | **2 requests/operation** |
+| kitsu | 26,945 | 2.56x slower | 2 requests/operation |
+| fetchja | 51,985 | 1.33x slower | 2 requests/operation |
+| devour | 24,599 | 2.8x slower | 2 requests/operation |
+| @bjornharrtell/json-api | 20,400 | 3.38x slower | 3 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### small-links-only
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **59,912** | **1x** | **2 requests/operation** |
+| kitsu | 25,279 | 2.37x slower | 2 requests/operation |
+| fetchja | 50,781 | 1.18x slower | 2 requests/operation |
+| devour | 22,609 | 2.65x slower | 2 requests/operation |
+| @bjornharrtell/json-api | 19,869 | 3.02x slower | 3 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### small-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **37,861** | **1x** | **2 requests/operation** |
+| kitsu | 19,735 | 1.92x slower | 2 requests/operation |
+| fetchja | 31,232 | 1.21x slower | 2 requests/operation |
+| devour | 18,007 | 2.1x slower | 2 requests/operation |
+| @bjornharrtell/json-api | 14,795 | 2.56x slower | 3 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### nested-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **46,871** | **1x** | **2 requests/operation** |
+| kitsu | 21,961 | 2.13x slower | 2 requests/operation |
+| fetchja | 36,805 | 1.27x slower | 2 requests/operation |
+| devour | 19,143 | 2.45x slower | 2 requests/operation |
+| @bjornharrtell/json-api | 16,034 | 2.92x slower | 3 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### collection
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **9,854** | **1x** | **2 requests/operation** |
+| kitsu | 9,277 | 1.06x slower | 2 requests/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### collection-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **7,663** | **1x** | **2 requests/operation** |
+| kitsu | 7,361 | 1.04x slower | 2 requests/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### patch-single
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **86,937** | **1x** | **2 requests/operation** |
+| kitsu | 30,521 | 2.85x slower | 2 requests/operation |
+| fetchja | 61,738 | 1.41x slower | 2 requests/operation |
+| devour | 26,455 | 3.29x slower | 2 requests/operation |
+| @bjornharrtell/json-api | 22,780 | 3.82x slower | 3 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### empty-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **56,877** | **1x** | **2 requests/operation** |
+| kitsu | 24,713 | 2.3x slower | 2 requests/operation |
+| fetchja | 47,101 | 1.21x slower | 2 requests/operation |
+| devour | 21,584 | 2.64x slower | 2 requests/operation |
+| @bjornharrtell/json-api | incorrect | — | decoded relationship cardinality differs: comments |
+
+##### few-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **170** | **1x** | **2 requests/operation** |
+| kitsu | 166 | 1.02x slower | 2 requests/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### many-includes
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 95.51 | 1x | 2 requests/operation |
+| **kitsu** | **108** | **1.13x faster** | **2 requests/operation** |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### complex-relationships
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **19.87** | **1x** | **2 requests/operation** |
+| kitsu | 19.57 | 1.02x slower | 2 requests/operation |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### wide-relationship
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| kitsu-native | 135 | 1x | 2 requests/operation |
+| **kitsu** | **139** | **1.03x faster** | **2 requests/operation** |
+| fetchja | unsupported | — | public client writes single resources only |
+| devour | unsupported | — | public client writes single resources only |
+| @bjornharrtell/json-api | unsupported | — | public client writes single resources only |
+
+##### self-cycle
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **43,032** | **1x** | **2 requests/operation** |
+| kitsu | 21,966 | 1.96x slower | 2 requests/operation |
+| fetchja | 33,653 | 1.28x slower | 2 requests/operation |
+| devour | 18,455 | 2.33x slower | 2 requests/operation |
+| @bjornharrtell/json-api | 15,312 | 2.81x slower | 3 requests/operation \(automatic GET after HTTP 204 PATCH\) |
+
+##### mutual-cycle
+
+| Library | Operations/s | vs kitsu-native | Detail |
+| --- | ---: | ---: | --- |
+| **kitsu-native** | **38,316** | **1x** | **2 requests/operation** |
+| kitsu | 20,559 | 1.86x slower | 2 requests/operation |
+| fetchja | 31,788 | 1.21x slower | 2 requests/operation |
+| devour | 17,681 | 2.17x slower | 2 requests/operation |
+| @bjornharrtell/json-api | 15,067 | 2.54x slower | 3 requests/operation \(automatic GET after HTTP 204 PATCH\) |
 
 </details>
 
 
 - Codec APIs: kitsu-core, devour, yayson, jsona, ts-japi (encode only).
-- Client APIs: kitsu, fetchja, devour. Public single-resource clients report collection writes as unsupported.
+- Client APIs: kitsu-native, kitsu, fetchja, devour, @bjornharrtell/json-api. Public single-resource clients report collection writes as unsupported.
 
 Full fixtures use 1,000 primary resources, 3 shared or 3,000 distinct includes, a complex graph with 21,016 includes and one wide relationship with 4,000 identifiers.
 <!-- benchmark:end -->
+
+<!-- compliance:start -->
+## JSON:API compatibility
+
+Executable capability checks against [JSON:API 1.0](https://jsonapi.org/format/1.0/) and [JSON:API 1.1](https://jsonapi.org/format/1.1/).
+
+✅ = supported and correct on both Node and Bun. ❌ = unsupported, incorrect, error, or missing result on either runtime. These checks cover the listed public API capabilities, not blanket specification certification. Optional capabilities can also show ❌.
+
+Clients use mocked HTTP and their real request/response pipelines. Codecs use their public conversion APIs. Server behavior, application policy, arbitrary extension semantics, and extension/profile request negotiation are outside these checks. Local identifier and metadata checks use the native representations exposed by each adapter.
+
+Reproduce: `bun run build && bun run benchmark:compliance --readme`. Full results and failure reasons: `.cache/compliance/results-node.json`, `results-bun.json`, and `report.md`.
+
+node v26\.5\.0; checked 2026-10-16T18:44:51\.810Z. Built package fingerprint: `db4230bcf5a27f7fd8b9b04f236ae2fcbf985baf56640bbd3d3046360d007e12`. Library versions: kitsu-core 12\.0\.0, kitsu 12\.0\.0, kitsu-native 12\.0\.0, fetchja 3\.2\.0, devour 3\.2\.0, @bjornharrtell/json-api 7\.0\.0, yayson 4\.4\.0, jsona 1\.14\.0, ts-japi 1\.12\.6.
+
+bun 1\.4\.3; checked 2026-10-16T18:44:55\.714Z. Built package fingerprint: `db4230bcf5a27f7fd8b9b04f236ae2fcbf985baf56640bbd3d3046360d007e12`. Library versions: kitsu-core 12\.0\.0, kitsu 12\.0\.0, kitsu-native 12\.0\.0, fetchja 3\.2\.0, devour 3\.2\.0, @bjornharrtell/json-api 7\.0\.0, yayson 4\.4\.0, jsona 1\.14\.0, ts-japi 1\.12\.6.
+
+### JSON:API 1.0
+
+#### Clients
+
+| Tested behavior | kitsu-native | kitsu | fetchja | devour | @bjornharrtell/json-api |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| [Read single resource](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read resource collection](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read empty collection](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read null primary data](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ❌ | ✅ | ❌ |
+| [Preserve JSON attribute values](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read included relationships](https://jsonapi.org/format/1.0/#document-compound-documents) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read unresolved relationship identifiers](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read null to-one relationship](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read empty to-many relationship](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read document metadata](https://jsonapi.org/format/1.0/#document-meta) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read resource metadata](https://jsonapi.org/format/1.0/#document-meta) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read pagination links](https://jsonapi.org/format/1.0/#fetching-pagination) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Preserve error objects](https://jsonapi.org/format/1.0/#errors) | ✅ | ✅ | ✅ | ❌ | ✅ |
+| [Write resource attributes](https://jsonapi.org/format/1.0/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Write relationship identifiers](https://jsonapi.org/format/1.0/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Write null to-one relationship](https://jsonapi.org/format/1.0/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Write empty to-many relationship](https://jsonapi.org/format/1.0/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Send JSON:API Accept header](https://jsonapi.org/format/1.0/#content-negotiation-clients) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Send JSON:API Content-Type header](https://jsonapi.org/format/1.0/#content-negotiation-clients) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Handle HTTP 204 update](https://jsonapi.org/format/1.0/#crud-updating-responses-204) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Reject HTTP error status](https://jsonapi.org/format/1.0/#errors) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Ignore response media parameters](https://jsonapi.org/format/1.0/#content-negotiation-clients) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Ignore unrecognized document members](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+#### Codecs
+
+| Tested behavior | kitsu-core | devour | yayson | jsona | ts-japi |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| [Read single resource](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read resource collection](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read empty collection](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read null primary data](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ❌ | ❌ | ❌ | ❌ |
+| [Preserve JSON attribute values](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read included relationships](https://jsonapi.org/format/1.0/#document-compound-documents) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read unresolved relationship identifiers](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read null to-one relationship](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read empty to-many relationship](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read document metadata](https://jsonapi.org/format/1.0/#document-meta) | ✅ | ❌ | ✅ | ❌ | ❌ |
+| [Read resource metadata](https://jsonapi.org/format/1.0/#document-meta) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read pagination links](https://jsonapi.org/format/1.0/#fetching-pagination) | ✅ | ❌ | ❌ | ❌ | ❌ |
+| [Preserve error objects](https://jsonapi.org/format/1.0/#errors) | ✅ | ❌ | ❌ | ❌ | ❌ |
+| [Write resource attributes](https://jsonapi.org/format/1.0/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Write relationship identifiers](https://jsonapi.org/format/1.0/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Write null to-one relationship](https://jsonapi.org/format/1.0/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Write empty to-many relationship](https://jsonapi.org/format/1.0/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Ignore unrecognized document members](https://jsonapi.org/format/1.0/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+
+### JSON:API 1.1
+
+#### Clients
+
+| Tested behavior | kitsu-native | kitsu | fetchja | devour | @bjornharrtell/json-api |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| [Read single resource](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read resource collection](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read empty collection](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read null primary data](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ❌ | ✅ | ❌ |
+| [Preserve JSON attribute values](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read included relationships](https://jsonapi.org/format/1.1/#document-compound-documents) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read unresolved relationship identifiers](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read null to-one relationship](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read empty to-many relationship](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read document metadata](https://jsonapi.org/format/1.1/#document-meta) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read resource metadata](https://jsonapi.org/format/1.1/#document-meta) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read pagination links](https://jsonapi.org/format/1.1/#fetching-pagination) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Preserve error objects](https://jsonapi.org/format/1.1/#errors) | ✅ | ✅ | ✅ | ❌ | ✅ |
+| [Write resource attributes](https://jsonapi.org/format/1.1/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Write relationship identifiers](https://jsonapi.org/format/1.1/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Write null to-one relationship](https://jsonapi.org/format/1.1/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Write empty to-many relationship](https://jsonapi.org/format/1.1/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Send JSON:API Accept header](https://jsonapi.org/format/1.1/#content-negotiation-clients) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Send JSON:API Content-Type header](https://jsonapi.org/format/1.1/#content-negotiation-clients) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Handle HTTP 204 update](https://jsonapi.org/format/1.1/#crud-updating-responses-204) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Reject HTTP error status](https://jsonapi.org/format/1.1/#errors) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Ignore response media parameters](https://jsonapi.org/format/1.1/#content-negotiation-clients) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read local identifier linkage](https://jsonapi.org/format/1.1/#document-resource-identifier-objects) | ✅ | ✅ | ❌ | ❌ | ❌ |
+| [Write local identifier](https://jsonapi.org/format/1.1/#document-resource-identifier-objects) | ✅ | ✅ | ✅ | ❌ | ✅ |
+| [Read extension/profile metadata](https://jsonapi.org/format/1.1/#document-jsonapi-object) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read rich link objects](https://jsonapi.org/format/1.1/#document-links) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read error source.header](https://jsonapi.org/format/1.1/#error-objects) | ✅ | ✅ | ✅ | ❌ | ✅ |
+| [Ignore unrecognized document members](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+#### Codecs
+
+| Tested behavior | kitsu-core | devour | yayson | jsona | ts-japi |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| [Read single resource](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read resource collection](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read empty collection](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read null primary data](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ❌ | ❌ | ❌ | ❌ |
+| [Preserve JSON attribute values](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read included relationships](https://jsonapi.org/format/1.1/#document-compound-documents) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read unresolved relationship identifiers](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read null to-one relationship](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read empty to-many relationship](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read document metadata](https://jsonapi.org/format/1.1/#document-meta) | ✅ | ❌ | ✅ | ❌ | ❌ |
+| [Read resource metadata](https://jsonapi.org/format/1.1/#document-meta) | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [Read pagination links](https://jsonapi.org/format/1.1/#fetching-pagination) | ✅ | ❌ | ❌ | ❌ | ❌ |
+| [Preserve error objects](https://jsonapi.org/format/1.1/#errors) | ✅ | ❌ | ❌ | ❌ | ❌ |
+| [Write resource attributes](https://jsonapi.org/format/1.1/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Write relationship identifiers](https://jsonapi.org/format/1.1/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Write null to-one relationship](https://jsonapi.org/format/1.1/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Write empty to-many relationship](https://jsonapi.org/format/1.1/#crud-updating-resource-attributes) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Read local identifier linkage](https://jsonapi.org/format/1.1/#document-resource-identifier-objects) | ✅ | ❌ | ❌ | ❌ | ❌ |
+| [Write local identifier](https://jsonapi.org/format/1.1/#document-resource-identifier-objects) | ✅ | ❌ | ❌ | ❌ | ❌ |
+| [Read extension/profile metadata](https://jsonapi.org/format/1.1/#document-jsonapi-object) | ✅ | ❌ | ❌ | ❌ | ❌ |
+| [Read rich link objects](https://jsonapi.org/format/1.1/#document-links) | ✅ | ❌ | ❌ | ❌ | ❌ |
+| [Read error source.header](https://jsonapi.org/format/1.1/#error-objects) | ✅ | ❌ | ❌ | ❌ | ❌ |
+| [Ignore unrecognized document members](https://jsonapi.org/format/1.1/#document-structure) | ✅ | ✅ | ✅ | ✅ | ❌ |
+
+<details><summary>Unsupported or incorrect behavior</summary>
+
+- fetchja / client / 1.0 / Read null primary data (node, bun): incorrect; Expected values to be strictly equal: \+ actual - expected  \+ undefined - null
+- fetchja / client / 1.1 / Read null primary data (node, bun): incorrect; Expected values to be strictly equal: \+ actual - expected  \+ undefined - null
+- fetchja / client / 1.1 / Read local identifier linkage (node, bun): incorrect; Expected values to be strictly equal:  undefined \!== 'Ada'
+- devour / client / 1.0 / Preserve error objects (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \[ -   \{ -     detail: 'Bad title', -     source: \{ -       pointer: '/data/attributes/title' -     \}, -     status: '400', -     title: 'Invalid input' -   \} - \]
+- devour / client / 1.1 / Preserve error objects (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \[ -   \{ -     detail: 'Bad title', -     source: \{ -       pointer: '/data/attributes/title' -     \}, -     status: '400', -     title: 'Invalid input' -   \} - \]
+- devour / client / 1.1 / Read local identifier linkage (node, bun): incorrect; Expected values to be strictly equal:  undefined \!== 'Ada'
+- devour / client / 1.1 / Write local identifier (node, bun): incorrect; Expected values to be strictly equal: \+ actual - expected  \+ undefined - 'draft'
+- devour / client / 1.1 / Read error source\.header (node, bun): incorrect; Expected values to be strictly equal: \+ actual - expected  \+ undefined - 'Accept'
+- devour / codec / 1.0 / Read null primary data (node): error; Cannot read properties of null \(reading 'type'\)
+- devour / codec / 1.0 / Read document metadata (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   total: 1 - \}
+- devour / codec / 1.0 / Read pagination links (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   next: null, -   self: '/articles/1' - \}
+- devour / codec / 1.0 / Preserve error objects (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \[ -   \{ -     detail: 'Bad title', -     source: \{ -       pointer: '/data/attributes/title' -     \}, -     status: '400', -     title: 'Invalid input' -   \} - \]
+- devour / codec / 1.1 / Read null primary data (node): error; Cannot read properties of null \(reading 'type'\)
+- devour / codec / 1.1 / Read document metadata (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   total: 1 - \}
+- devour / codec / 1.1 / Read pagination links (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   next: null, -   self: '/articles/1' - \}
+- devour / codec / 1.1 / Preserve error objects (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \[ -   \{ -     detail: 'Bad title', -     source: \{ -       pointer: '/data/attributes/title' -     \}, -     status: '400', -     title: 'Invalid input' -   \} - \]
+- devour / codec / 1.1 / Read local identifier linkage (node, bun): incorrect; Expected values to be strictly equal:  undefined \!== 'Ada'
+- devour / codec / 1.1 / Write local identifier (node, bun): incorrect; Expected values to be strictly equal: \+ actual - expected  \+ undefined - 'draft'
+- devour / codec / 1.1 / Read extension/profile metadata (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   ext: \[ -     'https://example\.org/version' -   \], -   profile: \[ -     'https://example\.org/profile' -   \], -   version: '1\.1' - \}
+- devour / codec / 1.1 / Read rich link objects (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   describedby: '/schemas/article', -   href: '/articles/1', -   hreflang: \[ -     'en', -     'ja' -   \], -   rel: 'self', -   title: 'Article', -   type: 'ap
+- devour / codec / 1.1 / Read error source\.header (node, bun): incorrect; Expected values to be strictly equal: \+ actual - expected  \+ undefined - 'Accept'
+- @bjornharrtell/json-api / client / 1.0 / Read null primary data (node): error; Cannot read properties of null \(reading 'type'\)
+- @bjornharrtell/json-api / client / 1.0 / Read unresolved relationship identifiers (node, bun): incorrect; decoded relationship count differs: author
+- @bjornharrtell/json-api / client / 1.0 / Read empty to-many relationship (node, bun): incorrect; decoded relationship cardinality differs: comments
+- @bjornharrtell/json-api / client / 1.1 / Read null primary data (node): error; Cannot read properties of null \(reading 'type'\)
+- @bjornharrtell/json-api / client / 1.1 / Read unresolved relationship identifiers (node, bun): incorrect; decoded relationship count differs: author
+- @bjornharrtell/json-api / client / 1.1 / Read empty to-many relationship (node, bun): incorrect; decoded relationship cardinality differs: comments
+- @bjornharrtell/json-api / client / 1.1 / Read local identifier linkage (node, bun): error; Resource identifier must have an id
+- yayson / codec / 1.0 / Read null primary data (node, bun): incorrect; Expected values to be strictly equal:  \[\] \!== null
+- yayson / codec / 1.0 / Read pagination links (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   next: null, -   self: '/articles/1' - \}
+- yayson / codec / 1.0 / Preserve error objects (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \[ -   \{ -     detail: 'Bad title', -     source: \{ -       pointer: '/data/attributes/title' -     \}, -     status: '400', -     title: 'Invalid input' -   \} - \]
+- yayson / codec / 1.1 / Read null primary data (node, bun): incorrect; Expected values to be strictly equal:  \[\] \!== null
+- yayson / codec / 1.1 / Read pagination links (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   next: null, -   self: '/articles/1' - \}
+- yayson / codec / 1.1 / Preserve error objects (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \[ -   \{ -     detail: 'Bad title', -     source: \{ -       pointer: '/data/attributes/title' -     \}, -     status: '400', -     title: 'Invalid input' -   \} - \]
+- yayson / codec / 1.1 / Read local identifier linkage (node): error; Cannot read properties of null \(reading 'name'\)
+- yayson / codec / 1.1 / Write local identifier (node, bun): incorrect; Expected values to be strictly equal: \+ actual - expected  \+ undefined - 'draft'
+- yayson / codec / 1.1 / Read extension/profile metadata (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   ext: \[ -     'https://example\.org/version' -   \], -   profile: \[ -     'https://example\.org/profile' -   \], -   version: '1\.1' - \}
+- yayson / codec / 1.1 / Read rich link objects (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   describedby: '/schemas/article', -   href: '/articles/1', -   hreflang: \[ -     'en', -     'ja' -   \], -   rel: 'self', -   title: 'Article', -   type: 'ap
+- yayson / codec / 1.1 / Read error source\.header (node, bun): incorrect; Expected values to be strictly equal: \+ actual - expected  \+ undefined - 'Accept'
+- jsona / codec / 1.0 / Read null primary data (node, bun): incorrect; Expected values to be strictly equal: \+ actual - expected  \+ undefined - null
+- jsona / codec / 1.0 / Read document metadata (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   total: 1 - \}
+- jsona / codec / 1.0 / Read pagination links (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   next: null, -   self: '/articles/1' - \}
+- jsona / codec / 1.0 / Preserve error objects (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \[ -   \{ -     detail: 'Bad title', -     source: \{ -       pointer: '/data/attributes/title' -     \}, -     status: '400', -     title: 'Invalid input' -   \} - \]
+- jsona / codec / 1.1 / Read null primary data (node, bun): incorrect; Expected values to be strictly equal: \+ actual - expected  \+ undefined - null
+- jsona / codec / 1.1 / Read document metadata (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   total: 1 - \}
+- jsona / codec / 1.1 / Read pagination links (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   next: null, -   self: '/articles/1' - \}
+- jsona / codec / 1.1 / Preserve error objects (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \[ -   \{ -     detail: 'Bad title', -     source: \{ -       pointer: '/data/attributes/title' -     \}, -     status: '400', -     title: 'Invalid input' -   \} - \]
+- jsona / codec / 1.1 / Read local identifier linkage (node, bun): incorrect; Expected values to be strictly equal:  undefined \!== 'Ada'
+- jsona / codec / 1.1 / Write local identifier (node, bun): incorrect; Expected values to be strictly equal: \+ actual - expected  \+ undefined - 'draft'
+- jsona / codec / 1.1 / Read extension/profile metadata (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   ext: \[ -     'https://example\.org/version' -   \], -   profile: \[ -     'https://example\.org/profile' -   \], -   version: '1\.1' - \}
+- jsona / codec / 1.1 / Read rich link objects (node, bun): incorrect; Expected values to be strictly deep-equal: \+ actual - expected  \+ undefined - \{ -   describedby: '/schemas/article', -   href: '/articles/1', -   hreflang: \[ -     'en', -     'ja' -   \], -   rel: 'self', -   title: 'Article', -   type: 'ap
+- jsona / codec / 1.1 / Read error source\.header (node, bun): incorrect; Expected values to be strictly equal: \+ actual - expected  \+ undefined - 'Accept'
+- ts-japi / codec / 1.0 / Read single resource (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.0 / Read resource collection (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.0 / Read empty collection (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.0 / Read null primary data (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.0 / Preserve JSON attribute values (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.0 / Read included relationships (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.0 / Read unresolved relationship identifiers (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.0 / Read null to-one relationship (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.0 / Read empty to-many relationship (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.0 / Read document metadata (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.0 / Read resource metadata (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.0 / Read pagination links (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.0 / Preserve error objects (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.0 / Ignore unrecognized document members (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Read single resource (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Read resource collection (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Read empty collection (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Read null primary data (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Preserve JSON attribute values (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Read included relationships (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Read unresolved relationship identifiers (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Read null to-one relationship (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Read empty to-many relationship (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Read document metadata (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Read resource metadata (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Read pagination links (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Preserve error objects (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Read local identifier linkage (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Write local identifier (node, bun): incorrect; Expected values to be strictly equal: \+ actual - expected  \+ undefined - 'draft'
+- ts-japi / codec / 1.1 / Read extension/profile metadata (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Read rich link objects (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Read error source\.header (node, bun): unsupported; no public decoder
+- ts-japi / codec / 1.1 / Ignore unrecognized document members (node, bun): unsupported; no public decoder
+- devour / codec / 1.0 / Read null primary data (bun): error; null is not an object \(evaluating 'item\.type'\)
+- devour / codec / 1.1 / Read null primary data (bun): error; null is not an object \(evaluating 'item\.type'\)
+- @bjornharrtell/json-api / client / 1.0 / Read null primary data (bun): error; null is not an object \(evaluating 'e\.type'\)
+- @bjornharrtell/json-api / client / 1.1 / Read null primary data (bun): error; null is not an object \(evaluating 'e\.type'\)
+- yayson / codec / 1.1 / Read local identifier linkage (bun): error; null is not an object \(evaluating 'resource\[key\]'\)
+
+</details>
+<!-- compliance:end -->
 
 ## Contributing
 
