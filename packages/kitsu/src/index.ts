@@ -25,8 +25,8 @@ import type { ArbitraryRequest, KitsuOptions, KitsuResponse, RequestConfig } fro
  * @param {JsonObject} [options.params] Ignored at construction; pass config.params to a method
  * @param {JsonApiDocument} [options.document] Ignored at construction; pass config.document on writes
  * @example <caption>Configure every constructor option</caption>
- * import Kitsu from 'kitsu'
- * const api = new Kitsu({
+ * import Kitsu, { type KitsuOptions } from 'kitsu'
+ * const options: KitsuOptions = {
  *   baseURL: 'https://bakery.example/api',
  *   headers: { Authorization: 'Bearer bakery-demo-token' },
  *   query: 'modern',
@@ -37,7 +37,8 @@ import type { ArbitraryRequest, KitsuOptions, KitsuResponse, RequestConfig } fro
  *   timeout: 10000,
  *   hoistData: false,
  *   axiosOptions: { withCredentials: true }
- * })
+ * }
+ * const api = new Kitsu(options)
  * await api.get('article', { params: { include: 'author' } })
  * @example <caption>Attribute casing enabled and disabled</caption>
  * const unchanged = new Kitsu({ attributeCase: 'none' })
@@ -458,7 +459,7 @@ export default class Kitsu {
    * @param {ArbitraryRequest} config Request options; inherits all RequestConfig members
    * @param {string} config.url Relative or absolute URL, used as supplied
    * @param {string} [config.method='GET'] HTTP method, case-insensitive; commonly GET, POST, PATCH or DELETE
-   * @param {string} [config.type] Encoding type; may be omitted when body supplies type or no body is sent
+   * @param {string} [config.type] Encoding type, required for nonempty resource input even when body contains type; omitted for bodyless requests, null or empty linkage
    * @param {(JsonObject|Array<JsonObject>|null)} [config.body={}] Flat data or relationship identifiers. GET and resource DELETE send no body.
    * @param {boolean} [config.relationship] Encode primary data as identifiers. Defaults to whether url contains /relationships/.
    * @param {JsonObject} [config.headers] Per-request header overrides

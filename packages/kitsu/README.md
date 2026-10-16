@@ -70,8 +70,8 @@ Relationships are direct resources, arrays, or null. Resource metadata lives und
 <details open>
 <summary>Object from a GET Response with kitsu:</summary>
 
-```js
-{
+```typescript
+const result = {
   data: {
     id: '1',
     type: 'articles',
@@ -95,15 +95,17 @@ npm install kitsu
 yarn add kitsu
 ```
 
-```js
+```typescript
 import Kitsu from "kitsu";
 ```
 
 ## Quick Start
 
-```javascript
+```typescript
+import Kitsu from 'kitsu'
+
 // kitsu.app's API
-const api = new Kitsu()
+const defaultApi = new Kitsu()
 
 // Other JSON:API servers
 const api = new Kitsu({
@@ -111,12 +113,18 @@ const api = new Kitsu({
 })
 
 // Using with async/await
-const res = await api.get('anime')
+interface Anime {
+  id: string
+  type: 'anime'
+  canonicalTitle: string
+}
+const result = await api.get<Anime[]>('anime')
+console.log(result.data?.[0]?.canonicalTitle)
 
 // Using with Promises
 api.get('anime')
-  .then(res => { ... })
-  .catch(err => { ... })
+  .then(result => console.log(result.data))
+  .catch((error: unknown) => console.error(error))
 
 // Fetching resources (get/fetch)
 api.fetch('anime')
@@ -265,9 +273,9 @@ constructor params and document are accepted by the type but ignored.
 
 Configure every constructor option
 
-```javascript
-import Kitsu from 'kitsu'
-const api = new Kitsu({
+```typescript
+import Kitsu, { type KitsuOptions } from 'kitsu'
+const options: KitsuOptions = {
   baseURL: 'https://bakery.example/api',
   headers: { Authorization: 'Bearer bakery-demo-token' },
   query: 'modern',
@@ -278,13 +286,14 @@ const api = new Kitsu({
   timeout: 10000,
   hoistData: false,
   axiosOptions: { withCredentials: true }
-})
+}
+const api = new Kitsu(options)
 await api.get('article', { params: { include: 'author' } })
 ```
 
 Attribute casing enabled and disabled
 
-```javascript
+```typescript
 const unchanged = new Kitsu({ attributeCase: 'none' })
 const converted = new Kitsu({ attributeCase: 'kebab' })
 await unchanged.post('people', { firstName: 'Mina' }) // attributes: { firstName: 'Mina' }
@@ -295,7 +304,7 @@ await converted.post('people', { firstName: 'Mina' }) // attributes: { 'first-na
 
 Document metadata, resource metadata, and hoisting
 
-```javascript
+```typescript
 const wrapped = new Kitsu({ hoistData: false })
 const hoisted = new Kitsu({ hoistData: true })
 // Server body: { data: { type: 'people', id: '9', meta: { editable: true } } }
@@ -309,7 +318,7 @@ console.log(second.$.meta.editable) // true; status and headers remain available
 
 Custom query serializer
 
-```javascript
+```typescript
 const custom = new Kitsu({
   query: (params) => new URLSearchParams({ title: String(params?.title ?? '') }).toString()
 })
@@ -333,7 +342,7 @@ Fetch a resource, collection, related resources, or relationship linkage. Alias:
 
 ##### Examples
 
-```javascript
+```typescript
 await api.get('articles', {
   headers: { 'Accept-Language': 'en' },
   params: { include: 'author', fields: { articles: 'title,author' }, sort: '-createdAt', page: { number: 2, size: 10 }, filter: { title: 'Bread' } },
@@ -362,7 +371,7 @@ Update a resource or replace relationship linkage. Alias: update.
 
 Resource and document metadata
 
-```javascript
+```typescript
 await api.patch('articles', {
   id: '42', title: 'Moonlight Bread', $: { meta: { editable: true } }
 }, { document: { meta: { requestId: 'demo-42' } } })
@@ -370,7 +379,7 @@ await api.patch('articles', {
 
 Clear relationships
 
-```javascript
+```typescript
 await api.patch('articles/42/relationships/author', null)
 await api.patch('articles/42/relationships/tags', [])
 ```
@@ -394,7 +403,7 @@ Create resources or add relationship linkage. Alias: create. Resource arrays req
 
 ##### Examples
 
-```javascript
+```typescript
 await api.post('articles', { title: 'Moonlight Bread', author: { type: 'people', id: '9' } }, {
   document: { meta: { requestId: 'demo-42' } }
 })
@@ -421,7 +430,7 @@ Relationship DELETE sends identifiers without appending their IDs to the URL. Le
 
 ##### Examples
 
-```javascript
+```typescript
 await api.delete('articles', '42') // DELETE /articles/42; no body
 await api.delete('articles/42/relationships/tags', ['3'], { document: { meta: { requestId: 'demo-42' } } })
 // DELETE /articles/42/relationships/tags; body: { data: [{ type: 'tags', id: '3' }] }
@@ -444,7 +453,7 @@ Fetch the first authenticated user. Server must support filter\[self]=true; supp
 
 ##### Examples
 
-```javascript
+```typescript
 const result = await api.self({ headers: { Authorization: 'Bearer bakery-demo-token' }, params: { fields: { users: 'name' } } })
 console.log(result.data?.name)
 ```
@@ -462,7 +471,7 @@ Send an arbitrary JSON:API request without generated URL casing or pluralization
     *   `config.body` **(JsonObject | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)\<JsonObject> | null)** Flat data or relationship identifiers. GET and resource DELETE send no body. (optional, default `{}`)
     *   `config.method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** HTTP method, case-insensitive; commonly GET, POST, PATCH or DELETE (optional, default `'GET'`)
     *   `config.params` **JsonObject?** Query parameters, including nested JSON:API families and extension parameters
-    *   `config.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Encoding type; may be omitted when body supplies type or no body is sent
+    *   `config.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Encoding type, required for nonempty resource input even when body contains type; omitted for bodyless requests, null or empty linkage
     *   `config.url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Relative or absolute URL, used as supplied
     *   `config.headers` **JsonObject?** Per-request header overrides
     *   `config.axiosOptions` **AxiosRequestConfig?** Axios overrides, applied after generated headers and params. request() also permits method, url and data overrides. Use signal for cancellation.
@@ -473,7 +482,7 @@ Send an arbitrary JSON:API request without generated URL casing or pluralization
 
 Custom relationship endpoint
 
-```javascript
+```typescript
 await api.request({
   method: 'PATCH', url: 'articles/42/byline', type: 'people', relationship: true,
   body: { id: '9' }, headers: { 'Accept-Language': 'en' }, params: { include: 'author' },
@@ -484,7 +493,7 @@ await api.request({
 
 Bodyless resource DELETE
 
-```javascript
+```typescript
 await api.request({ method: 'DELETE', url: 'articles/42' })
 ```
 
@@ -501,7 +510,7 @@ If pluralization is enabled (default, see Kitsu constructor docs) then pluraliza
 
 Adding an uncountable pluralization rule
 
-```javascript
+```typescript
 api.plural.plural('paper') //=> 'papers'
 api.plural.addUncountableRule('paper')
 api.plural.plural('paper') //=> 'paper'
@@ -515,19 +524,19 @@ Get the current headers or add additional headers
 
 Get all headers
 
-```javascript
+```typescript
 api.headers
 ```
 
 Get a single header's value
 
-```javascript
+```typescript
 api.headers['User-Agent']
 ```
 
 Add or update a header's value
 
-```javascript
+```typescript
 api.headers['Authorization'] = 'Bearer 1234567890'
 ```
 
@@ -545,7 +554,7 @@ You can intercept responses before they are handled by `get`, `post`, `patch` an
 
 Request Interceptor
 
-```javascript
+```typescript
 // Add a request interceptor
 api.interceptors.request.use(config => {
    // Do something before request is sent
@@ -558,7 +567,7 @@ api.interceptors.request.use(config => {
 
 Response Interceptor
 
-```javascript
+```typescript
 // Add a response interceptor
 api.interceptors.response.use(response => {
    // Any status code that lie within the range of 2xx cause this function to trigger
@@ -573,7 +582,7 @@ api.interceptors.response.use(response => {
 
 Removing Interceptors
 
-```javascript
+```typescript
 const myInterceptor = api.interceptors.request.use(config => config)
 api.interceptors.request.eject(myInterceptor)
 ```
@@ -593,8 +602,8 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 #### Examples
 
-```javascript
-const config = { params: { include: 'author' }, axiosOptions: { withCredentials: true } };
+```typescript
+const config: RequestConfig = { params: { include: 'author' }, axiosOptions: { withCredentials: true } }
 ```
 
 ### KitsuOptions
@@ -613,15 +622,15 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 *   `query` **(`"traditional"` | `"modern"` | function (JsonObject?): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))?** Query serializer. Default: 'traditional' repeats array keys. 'modern' uses bracketed keys (tag\[]). A callback receives parameters and returns an encoded query string without ?. No parameter casing conversion. TypeScript: `'traditional' | 'modern' | ((params?: JsonObject) => string)`. Example: `(params) => new URLSearchParams({ title: String(params?.title ?? '') }).toString()`.
 *   `camelCaseTypes` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Convert inferred outgoing resource types from kebab-case or snake\_case to camelCase. Default: true. Does not change decoded types. TypeScript: `boolean`. Example: `false`.
 *   `resourceCase` **(`"kebab"` | `"snake"` | `"none"`)?** Generated resource URL case. Default: 'kebab' (library-entries). 'snake' gives library\_entries; 'none' keeps libraryEntries. Explicit request() URLs are unchanged. TypeScript: `'kebab' | 'snake' | 'none'`. Example: `'snake'`.
-*   `attributeCase` **(`"kebab"` | `"snake"` | `"none"`)?** Attribute wire case. Default: 'none' keeps names unchanged. 'kebab' or 'snake' encodes that case and decodes camelCase. Nested JSON, relationships, metadata, extension attributes and queries stay unchanged. Converted name collisions throw TypeError. TypeScript: `'kebab' | 'snake' | 'none'`. Example: `'kebab'`.
+*   `attributeCase` **(`"kebab"` | `"snake"` | `"none"`)?** Attribute wire case. Default: 'none' keeps names unchanged. 'kebab' or 'snake' encodes that case and decodes camelCase. Nested JSON, relationships, metadata, extension attributes and queries stay unchanged. Converted name collisions throw Error. TypeScript: `'kebab' | 'snake' | 'none'`. Example: `'kebab'`.
 *   `pluralize` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Pluralize generated resource URLs and inferred outgoing types. Default: true. Disable for APIs using singular names. TypeScript: `boolean`. Example: `false`.
 *   `timeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Axios timeout in milliseconds. Default: 30000. A top-level 0 also selects the default; set axiosOptions.timeout to 0 to disable. Request axiosOptions.timeout overrides this default. TypeScript: `number`. Example: `10000`.
 *   `hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Unwrap a single-resource document containing only data. Default: false. Resource metadata stays in $. Document meta, links, jsonapi or included keep the wrapper. HTTP arrays and null stay under data. TypeScript: `boolean`. Example: `true`.
 
 #### Examples
 
-```javascript
-const options = { baseURL: 'https://bakery.example/api', attributeCase: 'kebab', timeout: 10000 };
+```typescript
+const options: KitsuOptions = { baseURL: 'https://bakery.example/api', attributeCase: 'kebab', timeout: 10000 }
 ```
 
 ### ArbitraryRequest
@@ -638,14 +647,14 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 *   `axiosOptions` **AxiosRequestConfig?** AxiosRequestConfig passed to Axios. Default: none. Constructor options override generated Axios defaults; request options override generated headers and params, and request() method, url and data. Use signal for cancellation or timeout: 0 to disable Axios timeout. Legacy self() forwards this object as outer get configuration; use get() for transport overrides. TypeScript: `AxiosRequestConfig`. Example: `{ withCredentials: true, timeout: 10000, signal: new AbortController().signal }`.
 *   `relationship` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Encode the body as relationship identifiers. Default: whether url contains /relationships/. Set explicitly for custom relationship endpoints. Direct values control linkage. TypeScript: `boolean`. Example: `true`.
 *   `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Relative or absolute URL. Required. Used as supplied; resourceCase and pluralize do not rewrite this URL. TypeScript: `string`. Example: `'articles/42/relationships/author'`.
-*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Resource type for encoding the body. May be omitted when the body supplies type. Not needed for bodyless GET or resource DELETE. TypeScript: `string`. Example: `'people'`.
+*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Resource type required for encoding nonempty resource input, even when body contains type. Not needed for bodyless GET, resource DELETE, null or empty linkage. TypeScript: `string`. Example: `'people'`.
 *   `body` **(JsonObject | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)\<JsonObject> | null)?** Flat resource, array of resources, or null for to-one relationship clearing. Default: empty data on body-bearing requests. GET and resource DELETE send no body. Put resource metadata under $; document metadata belongs in document. TypeScript: `JsonObject | JsonObject[] | null`. Example: `{ type: 'articles', id: '42', title: 'Moonlight Bread', $: { meta: { editable: true } } }`.
 *   `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** HTTP method, case-insensitive. Default: GET. Common values are GET, POST, PATCH and DELETE; other method strings are passed to the transport. TypeScript: `string`. Example: `'PATCH'`.
 
 #### Examples
 
-```javascript
-const request = { method: 'PATCH', url: 'articles/42', type: 'articles', body: { id: '42', title: 'Moonlight Bread' } };
+```typescript
+const request: ArbitraryRequest = { method: 'PATCH', url: 'articles/42', type: 'articles', body: { id: '42', title: 'Moonlight Bread' } }
 ```
 
 ### KitsuResponse
@@ -665,6 +674,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 #### Examples
 
-```javascript
-const result = { status: 200, data: { title: 'Moonlight Bread' } };
+```typescript
+const result: KitsuResponse<{ title: string }> = { status: 200, data: { title: 'Moonlight Bread' } }
 ```

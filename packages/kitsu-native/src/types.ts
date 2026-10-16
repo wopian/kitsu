@@ -56,7 +56,7 @@ export interface KitsuNativeOptions extends RequestConfig {
    * 'snake'
    */
   resourceCase?: 'kebab' | 'snake' | 'none'
-  /** Attribute wire case. Default: 'none' keeps names unchanged. 'kebab' or 'snake' encodes that case and decodes camelCase. Nested JSON, relationships, metadata, extension attributes and queries stay unchanged. Converted name collisions throw TypeError.
+  /** Attribute wire case. Default: 'none' keeps names unchanged. 'kebab' or 'snake' encodes that case and decodes camelCase. Nested JSON, relationships, metadata, extension attributes and queries stay unchanged. Converted name collisions throw Error.
    * @example
    * 'kebab'
    */
@@ -97,7 +97,7 @@ export interface ArbitraryRequest extends RequestConfig {
    * 'articles/42/relationships/author'
    */
   url: string
-  /** Resource type for encoding the body. May be omitted when the body supplies type. Not needed for bodyless GET or resource DELETE.
+  /** Resource type required for encoding nonempty resource input, even when body contains type. Not needed for bodyless GET, resource DELETE, null or empty linkage.
    * @example
    * 'people'
    */

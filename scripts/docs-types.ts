@@ -101,10 +101,7 @@ export function documentTypes(source: string, fileName: string): string {
           ...fields.filter((line) => line.startsWith('@')),
         )
       }
-      for (const example of examples)
-        lines.push(
-          `@example\n${ts.transpileModule(example, { compilerOptions: { target: ts.ScriptTarget.ESNext, module: ts.ModuleKind.ESNext, alwaysStrict: false } }).outputText.trim()}`,
-        )
+      for (const example of examples) lines.push(`@example\n${example}`)
       return `/**\n${lines
         .join('\n')
         .split('\n')
@@ -112,4 +109,9 @@ export function documentTypes(source: string, fileName: string): string {
         .join('\n')}\n */\n`
     })
     .join('\n')
+}
+
+/** Documentation.js emits JavaScript fences even when examples contain TypeScript. */
+export function typescriptExamples(markdown: string): string {
+  return markdown.replace(/^(`{3,})(?:javascript|js)[\t ]*\r?$/gm, '$1typescript')
 }

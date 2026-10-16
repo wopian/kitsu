@@ -9,7 +9,7 @@ import type { DeserialiseOptions } from './types.js'
  * This helper does not resolve relationships. Use deserialise for a complete document.
  * @param {(JsonApiResource|Array<JsonApiResource>|null)} data Wire resource data
  * @param {DeserialiseOptions} [options] Attribute naming options
- * @param {function(string): string} [options.attributeCase] Convert attribute names. Default: unchanged. Nested JSON and extension attributes keep their names; invalid names or collisions throw TypeError.
+ * @param {function(string): string} [options.attributeCase] Convert attribute names. Default: unchanged. Nested JSON and extension attributes keep their names; invalid names or collisions throw Error.
  * @param {boolean} [options.hoistData=false] Accepted through the shared type, but unused by this resource helper
  * @returns {(FlatResource|Array<FlatResource>|null)} Flat resource data
  * @example

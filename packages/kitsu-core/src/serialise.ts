@@ -4,14 +4,14 @@ import type { FlatResource, JsonObject, SerialiseOptions } from './types.js'
  * Serialises flat resources and direct relationships into a JSON:API document.
  * Put resource metadata under `$` and explicit attribute overrides under `$.attributes`.
  *
- * @param {string} [type] Resource type, required when data does not provide one
+ * @param {string} [type] Resource type, required for nonempty resource input even when data contains type
  * @param {(FlatResource|Array<FlatResource>|null)} [data={}] Flat primary data, direct relationships and optional $ metadata
  * @param {string} [method='POST'] Request method, case-insensitive; commonly POST, PATCH or DELETE
  * @param {SerialiseOptions} [options={}] Encoding options
  * @param {function(string): string} [options.camelCaseTypes] Transform inferred types before pluralTypes. Default: unchanged.
  * @param {function(string): string} [options.pluralTypes] Pluralize inferred types after camelCaseTypes. Default: unchanged.
- * @param {function(string): string} [options.attributeCase] Convert attribute names. Default: unchanged. Nested JSON keys and extension attributes stay unchanged. Invalid names or collisions throw TypeError.
- * @param {JsonApiDocument} [options.document] Additional document meta, links, jsonapi, included and extension members. included uses wire resources and merges by identity. data and errors throw TypeError.
+ * @param {function(string): string} [options.attributeCase] Convert attribute names. Default: unchanged. Nested JSON keys and extension attributes stay unchanged. Invalid names or collisions throw Error.
+ * @param {JsonApiDocument} [options.document] Additional document meta, links, jsonapi, included and extension members. included uses wire resources and merges by identity. data and errors throw Error.
  * @param {boolean} [options.relationship=false] Serialize primary data as identifiers
  * @returns {JsonApiDocument} Independent JSON:API document with deduplicated included resources
  * @example

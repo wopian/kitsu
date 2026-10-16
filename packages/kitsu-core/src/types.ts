@@ -64,7 +64,7 @@ export interface ResourceIdentifier {
    * @example 'new-person'
    */
   lid?: string
-  /** Metadata for this identifier edge. Never merged into shared resource metadata.
+  /** Metadata for this wire object. On relationship identifiers, belongs to that edge and never merges into shared resource metadata.
    * @example { role: 'author' }
    */
   meta?: JsonApiMeta
@@ -267,7 +267,7 @@ export interface ResourceEnvelope {
  * const article: FlatResource = { type: 'articles', id: 0, title: 'Moonlight Bread', author: { type: 'people', id: '9' }, $: { meta: { editable: true } } }
  */
 export interface FlatResource {
-  /** Resource type. Supply serialise's type argument when primary data omits it.
+  /** Resource type. serialise also requires its type argument for nonempty primary resource input.
    * @example 'articles'
    */
   type?: string
@@ -290,7 +290,7 @@ export interface FlatResource {
  */
 export interface SerialiseOptions {
   /** Convert attribute names to wire names. Default: unchanged. Nested JSON keys and extension attributes stay unchanged.
-   * Colliding, empty or reserved converted names throw TypeError.
+   * Colliding, empty or reserved converted names throw Error.
    * @example kebab
    */
   attributeCase?: (name: string) => string
@@ -332,7 +332,7 @@ export interface SplitModelOptions {
  */
 export interface DeserialiseOptions {
   /** Convert attribute names to application names. Default: unchanged. Nested keys and extension attributes stay unchanged.
-   * Colliding, empty or reserved converted names throw TypeError.
+   * Colliding, empty or reserved converted names throw Error.
    * @example camel
    */
   attributeCase?: (name: string) => string

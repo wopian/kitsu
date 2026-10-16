@@ -11,7 +11,7 @@ import type { DeserialiseOptions, JsonObject } from './types.js'
  * @param {JsonApiDocument} response JSON:API document, including collection, null, meta-only or error-only documents
  * @param {DeserialiseOptions} [options={}] Decoding options
  * @param {boolean} [options.hoistData=false] Unwrap only documents containing solely data; never recursively unwrap JSON attributes
- * @param {function(string): string} [options.attributeCase] Convert attribute names. Default: unchanged. Nested JSON keys and extension attributes stay unchanged. Invalid names or collisions throw TypeError.
+ * @param {function(string): string} [options.attributeCase] Convert attribute names. Default: unchanged. Nested JSON keys and extension attributes stay unchanged. Invalid names or collisions throw Error.
  * @returns {(Object|Array<FlatResource>|FlatResource|null|undefined)} Independent decoded document, or primary data when hoisted; undefined for missing input
  * @example
  * deserialise({ data: { type: 'people', id: '1', attributes: { name: 'Ada' } } })

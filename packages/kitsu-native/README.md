@@ -79,7 +79,7 @@ for every scenario, runtime version and library version.
 <details open>
 <summary>Object from a GET Response with kitsu-native</summary>
 
-```js
+```typescript
 const author = { id: '9', type: 'people', name: 'Mina Reed' }
 
 const response = {
@@ -111,30 +111,35 @@ npm install kitsu-native
 yarn add kitsu-native
 ```
 
-```js
+```typescript
 import Kitsu from 'kitsu-native'
 ```
 
 ## Quick Start
 
-```js
+```typescript
 import Kitsu from 'kitsu-native'
 
 // kitsu.app's API
-const api = new Kitsu()
-const anime = await api.get('anime')
+const defaultApi = new Kitsu()
+const anime = await defaultApi.get('anime')
 
 // Other JSON:API servers
 const api = new Kitsu({ baseURL: 'https://bakery.example/api' })
 
 // Using async/await
-const result = await api.get('articles/42')
-console.log(result.data.title) // 'Moonlight Bread'
+interface Article {
+  id: string
+  type: 'articles'
+  title: string
+}
+const result = await api.get<Article>('articles/42')
+console.log(result.data?.title) // 'Moonlight Bread'
 
 // Using Promises
-api.get('articles/42')
-  .then(result => console.log(result.data.title))
-  .catch(error => console.error(error))
+api.get<Article>('articles/42')
+  .then(result => console.log(result.data?.title))
+  .catch((error: unknown) => console.error(error))
 
 // Fetching resources (get/fetch)
 await api.fetch('articles')
@@ -169,7 +174,7 @@ Inject a Fetch implementation with the constructor's `fetch` option. Pass native
 request options through `fetchOptions`; request values override constructor
 defaults.
 
-```js
+```typescript
 const api = new Kitsu({
   baseURL: 'https://bakery.example/api',
   fetch: globalThis.fetch,
@@ -307,9 +312,9 @@ constructor params and document are accepted by the type but ignored.
 
 Configure every constructor option
 
-```javascript
-import Kitsu from 'kitsu-native'
-const api = new Kitsu({
+```typescript
+import Kitsu, { type KitsuNativeOptions } from 'kitsu-native'
+const options: KitsuNativeOptions = {
   baseURL: 'https://bakery.example/api',
   headers: { Authorization: 'Bearer bakery-demo-token' },
   query: 'modern',
@@ -321,13 +326,14 @@ const api = new Kitsu({
   hoistData: false,
   fetch: (input, init) => globalThis.fetch(input, init),
   fetchOptions: { credentials: 'include', cache: 'no-store' }
-})
+}
+const api = new Kitsu(options)
 await api.get('article', { params: { include: 'author' } })
 ```
 
 Attribute casing enabled and disabled
 
-```javascript
+```typescript
 const unchanged = new Kitsu({ attributeCase: 'none' })
 const converted = new Kitsu({ attributeCase: 'kebab' })
 await unchanged.post('people', { firstName: 'Mina' }) // attributes: { firstName: 'Mina' }
@@ -338,7 +344,7 @@ await converted.post('people', { firstName: 'Mina' }) // attributes: { 'first-na
 
 Document metadata, resource metadata, and hoisting
 
-```javascript
+```typescript
 const wrapped = new Kitsu({ hoistData: false })
 const hoisted = new Kitsu({ hoistData: true })
 // Server body: { data: { type: 'people', id: '9', meta: { editable: true } } }
@@ -352,7 +358,7 @@ console.log(second.$.meta.editable) // true; status and headers remain available
 
 Custom query serializer
 
-```javascript
+```typescript
 const custom = new Kitsu({
   query: (params) => new URLSearchParams({ title: String(params?.title ?? '') }).toString()
 })
@@ -376,7 +382,7 @@ Fetch a resource, collection, related resources, or relationship linkage. Alias:
 
 ##### Examples
 
-```javascript
+```typescript
 await api.get('articles', {
   headers: { 'Accept-Language': 'en' },
   params: { include: 'author', fields: { articles: 'title,author' }, sort: '-createdAt', page: { number: 2, size: 10 }, filter: { title: 'Bread' } },
@@ -405,7 +411,7 @@ Update a resource or replace relationship linkage. Alias: update.
 
 Resource and document metadata
 
-```javascript
+```typescript
 await api.patch('articles', {
   id: '42', title: 'Moonlight Bread', $: { meta: { editable: true } }
 }, { document: { meta: { requestId: 'demo-42' } } })
@@ -413,7 +419,7 @@ await api.patch('articles', {
 
 Clear relationships
 
-```javascript
+```typescript
 await api.patch('articles/42/relationships/author', null)
 await api.patch('articles/42/relationships/tags', [])
 ```
@@ -437,7 +443,7 @@ Create resources or add relationship linkage. Alias: create. Resource arrays req
 
 ##### Examples
 
-```javascript
+```typescript
 await api.post('articles', { title: 'Moonlight Bread', author: { type: 'people', id: '9' } }, {
   document: { meta: { requestId: 'demo-42' } }
 })
@@ -464,7 +470,7 @@ Relationship DELETE sends identifiers without appending their IDs to the URL. Le
 
 ##### Examples
 
-```javascript
+```typescript
 await api.delete('articles', '42') // DELETE /articles/42; no body
 await api.delete('articles/42/relationships/tags', ['3'], { document: { meta: { requestId: 'demo-42' } } })
 // DELETE /articles/42/relationships/tags; body: { data: [{ type: 'tags', id: '3' }] }
@@ -487,7 +493,7 @@ Fetch the first authenticated user. Server must support filter\[self]=true; supp
 
 ##### Examples
 
-```javascript
+```typescript
 const result = await api.self({ headers: { Authorization: 'Bearer bakery-demo-token' }, params: { fields: { users: 'name' } } })
 console.log(result.data?.name)
 ```
@@ -504,7 +510,7 @@ Send an arbitrary JSON:API request without generated URL casing or pluralization
 
     *   `config.url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Relative or absolute URL, used as supplied
     *   `config.method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** HTTP method, case-insensitive; commonly GET, POST, PATCH or DELETE (optional, default `'GET'`)
-    *   `config.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Encoding type; may be omitted when body supplies type or no body is sent
+    *   `config.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Encoding type, required for nonempty resource input even when body contains type; omitted for bodyless requests, null or empty linkage
     *   `config.body` **(JsonObject | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)\<JsonObject> | null)** Flat data or relationship identifiers. GET and resource DELETE send no body. (optional, default `{}`)
     *   `config.relationship` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Encode primary data as identifiers. Defaults to whether url contains /relationships/.
     *   `config.headers` **HeadersInit?** Per-request header overrides
@@ -516,7 +522,7 @@ Send an arbitrary JSON:API request without generated URL casing or pluralization
 
 Custom relationship endpoint
 
-```javascript
+```typescript
 await api.request({
   method: 'PATCH', url: 'articles/42/byline', type: 'people', relationship: true,
   body: { id: '9' }, headers: { 'Accept-Language': 'en' }, params: { include: 'author' },
@@ -527,7 +533,7 @@ await api.request({
 
 Bodyless resource DELETE
 
-```javascript
+```typescript
 await api.request({ method: 'DELETE', url: 'articles/42' })
 ```
 
@@ -560,7 +566,7 @@ HTTP and JSON parsing failures retain the original fetch response and JSON:API d
 
 Handle HTTP and response-parsing errors
 
-```javascript
+```typescript
 import Kitsu, { KitsuNativeError } from 'kitsu-native'
 const api = new Kitsu({ baseURL: 'https://bakery.example/api' })
 try {
@@ -577,7 +583,7 @@ try {
 
 Preserve a parsing cause
 
-```javascript
+```typescript
 const response = new Response('invalid JSON', { status: 200 })
 const error = new KitsuNativeError('Invalid JSON response', response, undefined, {
   cause: new SyntaxError('Invalid JSON')
@@ -590,7 +596,7 @@ HTTP status copied from response.
 
 ##### Examples
 
-```javascript
+```typescript
 422
 ```
 
@@ -600,7 +606,7 @@ Native Headers from response, without conversion to a plain object.
 
 ##### Examples
 
-```javascript
+```typescript
 error.headers.get('content-type')
 ```
 
@@ -610,7 +616,7 @@ JSON:API errors from document.errors, absent for malformed JSON.
 
 ##### Examples
 
-```javascript
+```typescript
 [{ status: '422', source: { header: 'Accept' } }]
 ```
 
@@ -623,8 +629,8 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 #### Examples
 
-```javascript
-const options = { credentials: 'include', cache: 'no-store', redirect: 'error', signal: new AbortController().signal };
+```typescript
+const options: FetchOptions = { credentials: 'include', cache: 'no-store', redirect: 'error', signal: new AbortController().signal }
 ```
 
 ### RequestConfig
@@ -642,8 +648,8 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 #### Examples
 
-```javascript
-const config = { params: { include: 'author' }, fetchOptions: { cache: 'no-store' } };
+```typescript
+const config: RequestConfig = { params: { include: 'author' }, fetchOptions: { cache: 'no-store' } }
 ```
 
 ### KitsuNativeOptions
@@ -662,7 +668,7 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 *   `query` **(`"traditional"` | `"modern"` | function (JsonObject?): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))?** Query serializer. Default: 'traditional' repeats array keys. 'modern' uses bracketed keys (tag\[]). A callback receives parameters and returns an encoded query string without ?. No parameter casing conversion. TypeScript: `'traditional' | 'modern' | ((params?: JsonObject) => string)`. Example: `(params) => new URLSearchParams({ title: String(params?.title ?? '') }).toString()`.
 *   `camelCaseTypes` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Convert inferred outgoing resource types from kebab-case or snake\_case to camelCase. Default: true. Does not change decoded types. TypeScript: `boolean`. Example: `false`.
 *   `resourceCase` **(`"kebab"` | `"snake"` | `"none"`)?** Generated resource URL case. Default: 'kebab' (library-entries). 'snake' gives library\_entries; 'none' keeps libraryEntries. Explicit request() URLs are unchanged. TypeScript: `'kebab' | 'snake' | 'none'`. Example: `'snake'`.
-*   `attributeCase` **(`"kebab"` | `"snake"` | `"none"`)?** Attribute wire case. Default: 'none' keeps names unchanged. 'kebab' or 'snake' encodes that case and decodes camelCase. Nested JSON, relationships, metadata, extension attributes and queries stay unchanged. Converted name collisions throw TypeError. TypeScript: `'kebab' | 'snake' | 'none'`. Example: `'kebab'`.
+*   `attributeCase` **(`"kebab"` | `"snake"` | `"none"`)?** Attribute wire case. Default: 'none' keeps names unchanged. 'kebab' or 'snake' encodes that case and decodes camelCase. Nested JSON, relationships, metadata, extension attributes and queries stay unchanged. Converted name collisions throw Error. TypeScript: `'kebab' | 'snake' | 'none'`. Example: `'kebab'`.
 *   `pluralize` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Pluralize generated resource URLs and inferred outgoing types. Default: true. Disable for APIs using singular names. TypeScript: `boolean`. Example: `false`.
 *   `timeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Request timeout in milliseconds. Default: 30000. Set 0 to disable. Caller cancellation and timeout both cancel the request; timer is cleared after completion. TypeScript: `number`. Example: `10000`.
 *   `hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Unwrap a single-resource document containing only data. Default: false. Resource metadata stays in $. Document meta, links, jsonapi or included keep the wrapper. HTTP arrays and null stay under data. TypeScript: `boolean`. Example: `true`.
@@ -670,8 +676,8 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 #### Examples
 
-```javascript
-const options = { baseURL: 'https://bakery.example/api', attributeCase: 'kebab', timeout: 10000 };
+```typescript
+const options: KitsuNativeOptions = { baseURL: 'https://bakery.example/api', attributeCase: 'kebab', timeout: 10000 }
 ```
 
 ### ArbitraryRequest
@@ -688,14 +694,14 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 *   `fetchOptions` **[FetchOptions](#fetchoptions)?** Native RequestInit defaults or per-request overrides. Default: none. Request options shallowly override constructor options. method, headers and body are generated afterward and cannot be supplied here. A request signal replaces the default signal and combines with the timeout. TypeScript: `FetchOptions`. Example: `{ credentials: 'include', cache: 'no-store', signal: new AbortController().signal }`.
 *   `relationship` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Encode the body as relationship identifiers. Default: whether url contains /relationships/. Set explicitly for custom relationship endpoints. Direct values control linkage. TypeScript: `boolean`. Example: `true`.
 *   `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Relative or absolute URL. Required. Used as supplied; resourceCase and pluralize do not rewrite this URL. TypeScript: `string`. Example: `'articles/42/relationships/author'`.
-*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Resource type for encoding the body. May be omitted when the body supplies type. Not needed for bodyless GET or resource DELETE. TypeScript: `string`. Example: `'people'`.
+*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Resource type required for encoding nonempty resource input, even when body contains type. Not needed for bodyless GET, resource DELETE, null or empty linkage. TypeScript: `string`. Example: `'people'`.
 *   `body` **(JsonObject | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)\<JsonObject> | null)?** Flat resource, array of resources, or null for to-one relationship clearing. Default: empty data on body-bearing requests. GET and resource DELETE send no body. Put resource metadata under $; document metadata belongs in document. TypeScript: `JsonObject | JsonObject[] | null`. Example: `{ type: 'articles', id: '42', title: 'Moonlight Bread', $: { meta: { editable: true } } }`.
 *   `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** HTTP method, case-insensitive. Default: GET. Common values are GET, POST, PATCH and DELETE; other method strings are passed to the transport. TypeScript: `string`. Example: `'PATCH'`.
 
 #### Examples
 
-```javascript
-const request = { method: 'PATCH', url: 'articles/42', type: 'articles', body: { id: '42', title: 'Moonlight Bread' } };
+```typescript
+const request: ArbitraryRequest = { method: 'PATCH', url: 'articles/42', type: 'articles', body: { id: '42', title: 'Moonlight Bread' } }
 ```
 
 ### KitsuNativeResponse
@@ -715,6 +721,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 #### Examples
 
-```javascript
-const result = { status: 200, data: { title: 'Moonlight Bread' } };
+```typescript
+const result: KitsuNativeResponse<{ title: string }> = { status: 200, data: { title: 'Moonlight Bread' } }
 ```

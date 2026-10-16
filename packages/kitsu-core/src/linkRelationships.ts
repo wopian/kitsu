@@ -7,7 +7,7 @@ import type { DeserialiseOptions, JsonObject } from './types.js'
  * @param {(JsonApiResource|Array<JsonApiResource>|null)} data Primary wire resources
  * @param {Array<JsonApiResource>} [included=[]] Included wire resources, matched by type plus id or lid
  * @param {DeserialiseOptions} [options] Attribute naming options
- * @param {function(string): string} [options.attributeCase] Convert attribute names. Default: unchanged. Nested JSON and extension attributes keep their names; invalid names or collisions throw TypeError.
+ * @param {function(string): string} [options.attributeCase] Convert attribute names. Default: unchanged. Nested JSON and extension attributes keep their names; invalid names or collisions throw Error.
  * @param {boolean} [options.hoistData=false] Accepted through the shared type, but unused by this resource helper
  * @returns {(FlatResource|Array<FlatResource>|null)} Independent flat graph, preserving shared references, cycles and unresolved identifiers
  * @example

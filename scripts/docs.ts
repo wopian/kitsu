@@ -1,7 +1,7 @@
 import { mkdir, readdir, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import ts from 'typescript'
-import { documentTypes } from './docs-types.js'
+import { documentTypes, typescriptExamples } from './docs-types.js'
 
 const [mode, name] = process.argv.slice(2)
 if (
@@ -61,4 +61,10 @@ const result = Bun.spawnSync(
     stderr: 'inherit',
   },
 )
+if (result.exitCode === 0 && mode === 'build') {
+  const readme = `${directory}/README.md`
+  const markdown = await Bun.file(readme).text()
+  const updated = typescriptExamples(markdown)
+  if (updated !== markdown) await writeFile(readme, updated)
+}
 process.exit(result.exitCode)
