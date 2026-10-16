@@ -106,6 +106,48 @@ All code released under [MIT]
 *   [splitModel](#splitmodel)
     *   [Parameters](#parameters-10)
     *   [Examples](#examples-9)
+*   [JsonObject](#jsonobject)
+    *   [Examples](#examples-10)
+*   [JsonApiMeta](#jsonapimeta)
+    *   [Examples](#examples-11)
+*   [JsonApiLink](#jsonapilink)
+    *   [Properties](#properties)
+    *   [Examples](#examples-12)
+*   [JsonApiLinks](#jsonapilinks)
+    *   [Examples](#examples-13)
+*   [ResourceIdentifier](#resourceidentifier)
+    *   [Properties](#properties-1)
+    *   [Examples](#examples-14)
+*   [JsonApiResource](#jsonapiresource)
+    *   [Properties](#properties-2)
+    *   [Examples](#examples-15)
+*   [JsonApiRelationship](#jsonapirelationship)
+    *   [Properties](#properties-3)
+    *   [Examples](#examples-16)
+*   [JsonApiObject](#jsonapiobject)
+    *   [Properties](#properties-4)
+    *   [Examples](#examples-17)
+*   [JsonApiError](#jsonapierror)
+    *   [Properties](#properties-5)
+    *   [Examples](#examples-18)
+*   [JsonApiDocument](#jsonapidocument)
+    *   [Properties](#properties-6)
+    *   [Examples](#examples-19)
+*   [ResourceEnvelope](#resourceenvelope)
+    *   [Properties](#properties-7)
+    *   [Examples](#examples-20)
+*   [FlatResource](#flatresource)
+    *   [Properties](#properties-8)
+    *   [Examples](#examples-21)
+*   [SerialiseOptions](#serialiseoptions)
+    *   [Properties](#properties-9)
+    *   [Examples](#examples-22)
+*   [SplitModelOptions](#splitmodeloptions)
+    *   [Properties](#properties-10)
+    *   [Examples](#examples-23)
+*   [DeserialiseOptions](#deserialiseoptions)
+    *   [Properties](#properties-11)
+    *   [Examples](#examples-24)
 
 ### camel
 
@@ -365,3 +407,314 @@ splitModel('libraryEntries', { resourceCase: snake })
 ```
 
 Returns **\[[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)]** } Array containing the model name and the resource URL with pluralisation applied
+
+### JsonObject
+
+Dynamic JSON attributes and extension members. Keys remain case-sensitive.
+TypeScript: `Record<string, any>`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Examples
+
+```javascript
+"use strict";
+const attributes = { title: 'Moonlight Bread', tags: ['bread'] };
+```
+
+### JsonApiMeta
+
+Application-defined JSON:API metadata. Values may contain arbitrary JSON.
+TypeScript: `JsonObject`.
+
+Type: [JsonObject](#jsonobject)
+
+#### Examples
+
+```javascript
+"use strict";
+const meta = { total: 42 };
+```
+
+### JsonApiLink
+
+Rich JSON:API link. A link may also be a URL string or null; see JsonApiLinks.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `href` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Link target, absolute or relative. TypeScript: `string`. Example: `'/articles/42'`.
+*   `rel` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Link relation, such as a registered relation name or extension URI. TypeScript: `string`. Example: `'next'`.
+*   `describedby` **([JsonApiLink](#jsonapilink) | [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | null)?** Link to a description of the target resource. TypeScript: `JsonApiLink | string | null`. Example: `{ href: '/schemas/article' }`.
+*   `title` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Human-readable link title. TypeScript: `string`. Example: `'Next articles'`.
+*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Media type expected at the target. TypeScript: `string`. Example: `'application/vnd.api+json'`.
+*   `hreflang` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)?** One language tag or an array of language tags. TypeScript: `string | string[]`. Example: `['en', 'fr']`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Metadata belonging to this link. TypeScript: `JsonApiMeta`. Example: `{ count: 10 }`.
+
+#### Examples
+
+```javascript
+"use strict";
+const link = { href: '/articles/42', title: 'Moonlight Bread', hreflang: 'en' };
+```
+
+### JsonApiLinks
+
+Named links. Each value supports a URL string, rich link, or null.
+TypeScript: `Record<string, string | JsonApiLink | null>`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Examples
+
+```javascript
+"use strict";
+const links = { self: '/articles/42', next: null };
+```
+
+### ResourceIdentifier
+
+Wire identifier. Supply type and id, or type and lid for a new local resource.
+Additional members (`[member: string]: any;`): Extension members; namespaced members are preserved without interpretation. TypeScript: `any`. Example: `{ 'version:id': '7' }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Case-sensitive resource type. TypeScript: `string`. Example: `'people'`.
+*   `id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Server identifier. Wire identifiers are strings, including numeric-looking IDs. TypeScript: `string`. Example: `'0'`.
+*   `lid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Local identifier for matching resources within one document. TypeScript: `string`. Example: `'new-person'`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Metadata for this identifier edge. Never merged into shared resource metadata. TypeScript: `JsonApiMeta`. Example: `{ role: 'author' }`.
+
+#### Examples
+
+```javascript
+"use strict";
+const identifier = { type: 'people', id: '9', meta: { role: 'author' } };
+```
+
+### JsonApiResource
+
+JSON:API resource before decoding. Inherits type, id, lid and meta from ResourceIdentifier.
+Additional members (`[member: string]: any;`): Extension members; namespaced members are preserved without interpretation. TypeScript: `any`. Example: `{ 'version:id': '7' }`.
+Additional members (`[member: string]: any;`): Extension members. Unknown ordinary members are ignored on decode. TypeScript: `any`. Example: `{ 'version:id': '7' }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Case-sensitive resource type. TypeScript: `string`. Example: `'people'`.
+*   `id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Server identifier. Wire identifiers are strings, including numeric-looking IDs. TypeScript: `string`. Example: `'0'`.
+*   `lid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Local identifier for matching resources within one document. TypeScript: `string`. Example: `'new-person'`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Metadata for this identifier edge. Never merged into shared resource metadata. TypeScript: `JsonApiMeta`. Example: `{ role: 'author' }`.
+*   `attributes` **[JsonObject](#jsonobject)?** Resource attributes. Nested JSON is copied without changing nested key names. TypeScript: `JsonObject`. Example: `{ title: 'Moonlight Bread', settings: { dark_mode: true } }`.
+*   `relationships` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Named relationship objects with linkage, links and metadata. TypeScript: `Record<string, JsonApiRelationship>`. Example: `{ author: { data: { type: 'people', id: '9' } } }`.
+*   `links` **[JsonApiLinks](#jsonapilinks)?** Resource links, decoded into resource.$.links. TypeScript: `JsonApiLinks`. Example: `{ self: '/articles/42' }`.
+
+#### Examples
+
+```javascript
+"use strict";
+const resource = { type: 'articles', id: '42', attributes: { title: 'Moonlight Bread' } };
+```
+
+### JsonApiRelationship
+
+Wire relationship or saved relationship extras under resource.$.relationships\[name].
+Additional members (`[member: string]: any;`): Relationship extension members. TypeScript: `any`. Example: `{ 'audit:changed': true }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `data` **([ResourceIdentifier](#resourceidentifier) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[ResourceIdentifier](#resourceidentifier)> | null)?** To-one identifier, to-many identifiers, or null. Empty arrays clear to-many linkage.
+    Saved data applies on writes only when the direct relationship value is absent. TypeScript: `ResourceIdentifier | ResourceIdentifier[] | null`. Example: `[{ type: 'people', id: '9' }]`.
+*   `links` **[JsonApiLinks](#jsonapilinks)?** Links for this relationship, separate from links on the related resource. TypeScript: `JsonApiLinks`. Example: `{ related: '/articles/42/author' }`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Metadata describing this relationship. TypeScript: `JsonApiMeta`. Example: `{ editable: true }`.
+
+#### Examples
+
+```javascript
+"use strict";
+const relationship = { data: null, meta: { editable: true } };
+```
+
+### JsonApiObject
+
+Top-level jsonapi object. Declares version, extensions and profiles without enabling extension processing.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `version` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** JSON:API version supported by the server. TypeScript: `string`. Example: `'1.1'`.
+*   `ext` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** Applied extension URIs. Configure matching media parameters through HTTP headers separately. TypeScript: `string[]`. Example: `['https://bakery.example/extensions/version']`.
+*   `profile` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** Applied profile URIs. Values are preserved without profile-specific processing. TypeScript: `string[]`. Example: `['https://bakery.example/profiles/dates']`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Metadata about this JSON:API implementation. TypeScript: `JsonApiMeta`. Example: `{ implementation: 'bakery' }`.
+
+#### Examples
+
+```javascript
+"use strict";
+const jsonapi = { version: '1.1', profile: ['https://bakery.example/profiles/dates'] };
+```
+
+### JsonApiError
+
+JSON:API error object. Members are optional and preserved in error documents.
+Additional members (`[member: string]: any;`): Error extension members. TypeScript: `any`. Example: `{ 'audit:trace': 'trace-42' }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Identifier for this error occurrence. TypeScript: `string`. Example: `'failure-42'`.
+*   `links` **[JsonApiLinks](#jsonapilinks)?** Error links, commonly about or type. TypeScript: `JsonApiLinks`. Example: `{ about: '/errors/failure-42' }`.
+*   `status` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** HTTP status expressed as a string. TypeScript: `string`. Example: `'422'`.
+*   `code` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Application-specific error code. TypeScript: `string`. Example: `'title_required'`.
+*   `title` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Short summary shared by errors of this kind. TypeScript: `string`. Example: `'Title required'`.
+*   `detail` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Explanation specific to this occurrence. TypeScript: `string`. Example: `'Enter a title for Moonlight Bread.'`.
+*   `source` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Request location responsible for this error. Supply the applicable location member. TypeScript: `{ pointer?: string; parameter?: string; header?: string; }`. Example: `{ header: 'Accept' }`.
+
+    *   `source.pointer` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** JSON Pointer into the request document. TypeScript: `string`. Example: `'/data/attributes/title'`.
+    *   `source.parameter` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Query parameter name. TypeScript: `string`. Example: `'filter[title]'`.
+    *   `source.header` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Request header name. TypeScript: `string`. Example: `'Accept'`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Additional error context. TypeScript: `JsonApiMeta`. Example: `{ retryable: false }`.
+
+#### Examples
+
+```javascript
+"use strict";
+const error = { status: '422', title: 'Title required', source: { pointer: '/data/attributes/title' } };
+```
+
+### JsonApiDocument
+
+JSON:API wire document. Resource metadata is separate from document metadata.
+data and errors must not coexist. Serialization document options reject both data and errors.
+Additional members (`[member: string]: any;`): Document extension members. Namespaced members are preserved without extension processing. TypeScript: `any`. Example: `{ 'audit:trace': 'trace-42' }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `data` **([JsonApiResource](#jsonapiresource) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[JsonApiResource](#jsonapiresource)> | null)?** Primary resource, collection, or null. Decoding retains the document wrapper by default. TypeScript: `JsonApiResource | JsonApiResource[] | null`. Example: `{ type: 'articles', id: '42' }`.
+*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[JsonApiResource](#jsonapiresource)>?** Included wire resources. Decoding keeps canonical flat resources accessible under included. TypeScript: `JsonApiResource[]`. Example: `[{ type: 'people', id: '9', attributes: { name: 'Mina Reed' } }]`.
+*   `errors` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[JsonApiError](#jsonapierror)>?** JSON:API errors. Error-only documents can be decoded but are not generated by serialise. TypeScript: `JsonApiError[]`. Example: `[{ status: '422', title: 'Title required' }]`.
+*   `jsonapi` **[JsonApiObject](#jsonapiobject)?** JSON:API version, extensions and profiles. TypeScript: `JsonApiObject`. Example: `{ version: '1.1' }`.
+*   `links` **[JsonApiLinks](#jsonapilinks)?** Document links, retained beside data. TypeScript: `JsonApiLinks`. Example: `{ next: '/articles?page[number]=2' }`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Document metadata, retained beside data rather than inside a resource's $ envelope. TypeScript: `JsonApiMeta`. Example: `{ total: 42 }`.
+
+#### Examples
+
+```javascript
+"use strict";
+const document = { data: { type: 'articles', id: '42' }, meta: { total: 1 } };
+```
+
+### ResourceEnvelope
+
+Resource members stored under $. Attributes named meta, links and lid remain ordinary attributes.
+Empty envelopes are omitted on decode. Document metadata stays beside data.
+Additional members (`[member: string]: any;`): Resource extension members. TypeScript: `any`. Example: `{ 'version:id': '7' }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `lid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Local resource identity. Decoding moves wire lid here. TypeScript: `string`. Example: `'new-article'`.
+*   `links` **[JsonApiLinks](#jsonapilinks)?** Resource links, separate from document links and relationship links. TypeScript: `JsonApiLinks`. Example: `{ self: '/articles/42' }`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Metadata for this resource, separate from an attribute named meta. TypeScript: `JsonApiMeta`. Example: `{ editable: true }`.
+*   `relationships` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Relationship extras and saved identifier metadata. Direct values control linkage when present.
+    Use data: null here to clear a to-one relationship; a plain flat null remains an attribute. TypeScript: `Record<string, JsonApiRelationship>`. Example: `{ author: { data: null, meta: { editable: true } } }`.
+*   `attributes` **[JsonObject](#jsonobject)?** Explicit attributes override inferred attributes and relationship inference by source name on writes. TypeScript: `JsonObject`. Example: `{ coordinates: [], author: { type: 'label', id: 'fictional' } }`.
+
+#### Examples
+
+```javascript
+"use strict";
+const envelope = { meta: { editable: true }, relationships: { author: { data: null } } };
+```
+
+### FlatResource
+
+Application resource with flat attributes and direct related resources, arrays, or null.
+Additional members (`[attribute: string]: any;`): Flat attributes or direct relationships. Identifiers and empty arrays infer relationships. TypeScript: `any`. Example: `{ title: 'Moonlight Bread', author: { type: 'people', id: '9' } }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Resource type. Supply serialise's type argument when primary data omits it. TypeScript: `string`. Example: `'articles'`.
+*   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))?** String or numeric input identifier, including 0. Encoding emits strings. TypeScript: `string | number`. Example: `0`.
+*   `$` **[ResourceEnvelope](#resourceenvelope)?** Resource metadata, local identity, relationship extras and explicit attribute overrides. TypeScript: `ResourceEnvelope`. Example: `{ meta: { editable: true } }`.
+
+#### Examples
+
+```javascript
+"use strict";
+const article = { type: 'articles', id: 0, title: 'Moonlight Bread', author: { type: 'people', id: '9' }, $: { meta: { editable: true } } };
+```
+
+### SerialiseOptions
+
+Encoding options. Callbacks are optional; omitted callbacks keep names unchanged.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `attributeCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert attribute names to wire names. Default: unchanged. Nested JSON keys and extension attributes stay unchanged.
+    Colliding, empty or reserved converted names throw TypeError. TypeScript: `(name: string) => string`. Example: `kebab`.
+*   `camelCaseTypes` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Transform inferred resource type names before pluralTypes. Default: unchanged. TypeScript: `(value: string) => string`. Example: `camel`.
+*   `pluralTypes` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Pluralize inferred resource type names after camelCaseTypes. Default: unchanged. TypeScript: `(value: string) => string`. Example: `(value) => value === 'person' ? 'people' : value`.
+*   `document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Extra document members: meta, links, jsonapi, included and extensions. Default: none.
+    included uses wire resources and merges by identity. data and errors are rejected at runtime. TypeScript: `Omit<JsonApiDocument, 'data'>`. Example: `{ meta: { requestId: 'demo-42' }, jsonapi: { version: '1.1' } }`.
+*   `relationship` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Encode primary data as identifier linkage for a relationship endpoint. Default: false. TypeScript: `boolean`. Example: `true`.
+
+#### Examples
+
+```javascript
+"use strict";
+const options = { attributeCase: kebab, document: { meta: { requestId: 'demo-42' } } };
+```
+
+### SplitModelOptions
+
+URL model transformations. Both callbacks default to identity functions.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `resourceCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert the last URL segment before pluralModel. Default: unchanged. TypeScript: `(value: string) => string`. Example: `kebab`.
+*   `pluralModel` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Pluralize the converted last URL segment. Default: unchanged. TypeScript: `(value: string) => string`. Example: `(value) => value === 'person' ? 'people' : value`.
+
+#### Examples
+
+```javascript
+"use strict";
+const options = { resourceCase: kebab, pluralModel: (value) => `${value}s` };
+```
+
+### DeserialiseOptions
+
+Decoding options. No input document mutation or resource-result caching.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `attributeCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert attribute names to application names. Default: unchanged. Nested keys and extension attributes stay unchanged.
+    Colliding, empty or reserved converted names throw TypeError. TypeScript: `(name: string) => string`. Example: `camel`.
+*   `hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Unwrap a decoded document containing only data. Default: false.
+    Document meta, links, jsonapi, errors or included keep the wrapper. Never unwrap attribute objects recursively.
+    Used only by deserialise; deattribute and linkRelationships do not unwrap documents. TypeScript: `boolean`. Example: `true`.
+
+#### Examples
+
+```javascript
+"use strict";
+const options = { attributeCase: camel, hoistData: true };
+```

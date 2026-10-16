@@ -8,14 +8,27 @@ import type { DeserialiseOptions, JsonObject } from './types.js'
  * Deserialises JSON:API documents into flat resources and direct relationships.
  * Resource metadata lives under `$`; document metadata remains at document level.
  *
- * @param {Object} response JSON:API response document
- * @param {Object} [options={}] Deserialisation options
- * @param {boolean} [options.hoistData=false] Unwrap documents containing only `data`
- * @param {Function} [options.attributeCase] Convert attribute names; nested JSON keys stay unchanged
- * @returns {Object} Deserialised document without mutating input
+ * @param {JsonApiDocument} response JSON:API document, including collection, null, meta-only or error-only documents
+ * @param {DeserialiseOptions} [options={}] Decoding options
+ * @param {boolean} [options.hoistData=false] Unwrap only documents containing solely data; never recursively unwrap JSON attributes
+ * @param {function(string): string} [options.attributeCase] Convert attribute names. Default: unchanged. Nested JSON keys and extension attributes stay unchanged. Invalid names or collisions throw TypeError.
+ * @returns {(Object|Array<FlatResource>|FlatResource|null|undefined)} Independent decoded document, or primary data when hoisted; undefined for missing input
  * @example
  * deserialise({ data: { type: 'people', id: '1', attributes: { name: 'Ada' } } })
  * // { data: { type: 'people', id: '1', name: 'Ada' } }
+ * @example <caption>Casing enabled and disabled</caption>
+ * import { camel, deserialise } from 'kitsu-core'
+ * const document = { data: { type: 'people', id: '9', attributes: { 'first-name': 'Mina' } } }
+ * deserialise(document).data['first-name'] // 'Mina'
+ * deserialise(document, { attributeCase: camel }).data.firstName // 'Mina'
+ * @example <caption>Resource metadata and document metadata</caption>
+ * const document = { data: { type: 'people', id: '9', meta: { editable: true } } }
+ * deserialise(document).data.$.meta.editable // true
+ * deserialise(document, { hoistData: true }).$.meta.editable // true
+ * const withMeta = { ...document, meta: { total: 1 } }
+ * const result = deserialise(withMeta, { hoistData: true })
+ * result.meta.total // 1; document metadata keeps the wrapper
+ * result.data.$.meta.editable // true
  */
 export function deserialise(response: any, options: DeserialiseOptions = {}): any {
   if (!response) return

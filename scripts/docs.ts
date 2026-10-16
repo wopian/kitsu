@@ -1,6 +1,7 @@
 import { mkdir, readdir, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import ts from 'typescript'
+import { documentTypes } from './docs-types.js'
 
 const [mode, name] = process.argv.slice(2)
 if (
@@ -13,6 +14,11 @@ const root = resolve(import.meta.dir, '..')
 const directory = `${root}/packages/${name}`
 const output = `${root}/.cache/docs/${name}`
 await mkdir(output, { recursive: true })
+const publicTypes = `${output}/public-types.js`
+await writeFile(
+  publicTypes,
+  documentTypes(await Bun.file(`${directory}/src/types.ts`).text(), `${name}/src/types.ts`),
+)
 for (const file of (await readdir(`${directory}/src`, { recursive: true })).filter(
   (f) => f.endsWith('.ts') && !f.endsWith('.spec.ts'),
 )) {
@@ -34,10 +40,11 @@ for (const file of (await readdir(`${directory}/src`, { recursive: true })).filt
 }
 const argumentsToRun =
   mode === 'lint'
-    ? ['lint', `${output}/index.js`]
+    ? ['lint', `${output}/index.js`, publicTypes]
     : [
         'readme',
         `${output}/index.js`,
+        publicTypes,
         '--readme-file',
         `${directory}/README.md`,
         '--section=API',

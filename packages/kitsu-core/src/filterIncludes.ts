@@ -3,9 +3,12 @@ import type { JsonObject, ResourceIdentifier } from './types.js'
 /**
  * Finds included resources by type and id, or type and lid.
  *
- * @param {Object[]} included Included resources
- * @param {Object} relationship Resource identifier
- * @returns {Object} Independent resource copy, or unresolved identifier
+ * @param {Array<JsonApiResource>} included Wire resources to search, in document order
+ * @param {ResourceIdentifier} relationship Identifier with type and id or lid; comparisons are case-sensitive
+ * @returns {Object} Independent copy of the first match, unresolved identifier, or {} when type/identity is missing
+ * @example
+ * filterIncludes([{ type: 'people', lid: 'mina', attributes: { name: 'Mina' } }], { type: 'people', lid: 'mina' })
+ * // { type: 'people', lid: 'mina', attributes: { name: 'Mina' } }
  */
 export function filterIncludes(
   included: JsonObject[],

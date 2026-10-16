@@ -22,10 +22,12 @@ function queryFormat(value: any, key: string, traditional: boolean): string {
 /**
  * Formats key names to correct array syntax
  *
- * @param {string} [param] Parameter name to parse
+ * @param {(string|null)} [param] Nested parameter name; null or undefined produces an empty string
  *
  * @returns {string} Key name in nested query-param format with optional array style suffix
- * @private
+ * @example
+ * paramKeyName('title') // '[title]'
+ * paramKeyName('tags[]') // '[tags][]'
  */
 export function paramKeyName(param?: string | null): string {
   if (param === null || param === undefined) return ''
@@ -40,9 +42,9 @@ export function paramKeyName(param?: string | null): string {
 /**
  * Constructs a URL query string for JSON:API parameters
  *
- * @param {Object} [params] Parameters to parse
+ * @param {(JsonObject|null)} [params] Parameters, including nested include, fields, sort, page, filter and extension families
  * @param {string} [prefix] Prefix for nested parameters - used internally
- * @param {boolean} [traditional=true] Use the traditional (default) or modern param serializer. Set to false if your server is running Ruby on Rails or other modern web frameworks
+ * @param {boolean} [traditional=true] true repeats array keys; false appends [] to array keys. Choose the convention accepted by your server.
  * @returns {string} URL query string
  *
  * @example
@@ -52,10 +54,15 @@ export function paramKeyName(param?: string | null): string {
  *     title: {
  *       value: 'foo'
  *     }
- *   }
+ *   },
  *  sort: '-id'
  * })
  * // filter%5Bslug%5D=cowboy-bebop&filter%5Btitle%5D%5Bvalue%5D=foo&sort=-id
+ * @example <caption>Array modes and nested prefix</caption>
+ * query({ tag: ['bread', 'cake'] }) // 'tag=bread&tag=cake'
+ * query({ tag: ['bread', 'cake'] }, undefined, false) // 'tag%5B%5D=bread&tag%5B%5D=cake'
+ * query({ title: 'Bread' }, 'filter') // 'filter%5Btitle%5D=Bread'
+ * query({ include: '', fields: { articles: '' } }) // 'include=&fields%5Barticles%5D='
  */
 
 export function query(
