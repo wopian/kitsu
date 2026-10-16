@@ -1,17 +1,27 @@
 <h1 align=center>Kitsu Core</h1>
 
-<p align=center>
-  <a href=https://www.npmjs.com/package/kitsu-core><img alt=npm src=https://flat.badgen.net/npm/v/kitsu-core></a>
-  <a href=https://www.npmjs.com/package/kitsu-core><img alt=npm src=https://flat.badgen.net/npm/dy/kitsu-core></a>
-  <a href="https://bundlephobia.com/result?p=kitsu-core"><img alt=bundlephobia src='https://flat.badgen.net/bundlephobia/minzip/kitsu-core?label=library%20size'></a>
-  <img alt=types src='https://flat.badgen.net/npm/types/kitsu-core'>
+<p align="center">
+  <a href="https://www.npmjs.com/package/kitsu-core"><img alt="kitsu-core on npm" src="https://flat.badgen.net/npm/v/kitsu-core?label=kitsu-core"></a>
+  <a href="https://www.npmjs.com/package/kitsu-core"><img alt="kitsu-core monthly downloads" src="https://flat.badgen.net/npm/dm/kitsu-core"></a>
+  <a href="https://bundlejs.com/?q=kitsu-core"><img alt="Published kitsu-core minified and gzipped bundle size" src="https://flat.badgen.net/bundlejs/minzip/kitsu-core?label=gzip%20size"></a>
+  <a href="https://www.npmjs.com/package/kitsu-core"><img alt="TypeScript declarations included" src="https://flat.badgen.net/npm/types/kitsu-core"></a>
+  <a href="package.json"><img alt="No runtime dependencies" src="https://flat.badgen.net/static/dependencies/0/green"></a>
 </p>
 
-<p align=center>
-  <a href=https://github.com/wopian/kitsu/actions><img alt=checks src=https://flat.badgen.net/github/checks/wopian/kitsu/master></a>
-  <a href=https://github.com/wopian/kitsu/network/dependents><img alt=repoDependants src=https://flat.badgen.net/github/dependents-repo/wopian/kitsu></a>
-  <a href=https://github.com/wopian/kitsu/graphs/contributors><img alt=contributors src=https://flat.badgen.net/github/contributors/wopian/kitsu></a>
-  <a href=https://github.com/sponsors/wopian><img alt=sponsor src='https://flat.badgen.net/badge/sponsor/%E2%9D%A4/pink?icon=github'></a>
+<p align="center">
+  <a href="https://github.com/wopian/kitsu/actions"><img alt="GitHub checks" src="https://flat.badgen.net/github/checks/wopian/kitsu/master"></a>
+  <a href="https://github.com/wopian/kitsu/blob/master/LICENSE.md"><img alt="MIT license" src="https://flat.badgen.net/github/license/wopian/kitsu"></a>
+  <a href="https://github.com/wopian/kitsu/network/dependents"><img alt="Dependent repositories" src="https://flat.badgen.net/github/dependents-repo/wopian/kitsu"></a>
+  <a href="https://github.com/wopian/kitsu/graphs/contributors"><img alt="Contributors" src="https://flat.badgen.net/github/contributors/wopian/kitsu"></a>
+  <a href="https://github.com/sponsors/wopian"><img alt="Sponsor this project" src="https://flat.badgen.net/static/sponsor/%E2%9D%A4/pink?icon=github"></a>
+</p>
+
+<p align="center">
+  <a href="https://jsonapi.org/format/1.1/"><img alt="JSON:API 1.1 client support" src="https://flat.badgen.net/static/JSON%3AAPI/1.1/blue"></a>
+  <a href="package.json"><img alt="Node.js 22, 24, and 26 or newer" src="https://flat.badgen.net/static/node/22%20%7C%2024%20%7C%2026%2B/green"></a>
+  <a href="../../.github/workflows/ci.yml"><img alt="Tested with Bun" src="https://flat.badgen.net/static/Bun/tested/blue?icon=bun"></a>
+  <a href="src/types.ts"><img alt="TypeScript declarations included" src="https://flat.badgen.net/static/types/included/blue?icon=typescript"></a>
+  <a href="package.json"><img alt="ECMAScript modules" src="https://flat.badgen.net/static/module/ESM/blue"></a>
 </p>
 
 <p align=center>Simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> (de)serialisation components</p>
