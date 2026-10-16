@@ -1,26 +1,37 @@
 import { mkdir, readdir, writeFile } from 'node:fs/promises'
-import { resolve } from 'node:path'
+import { dirname, resolve } from 'node:path'
 import ts from 'typescript'
+import { documentTypes, typescriptExamples } from './docs-types.js'
 
 const [mode, name] = process.argv.slice(2)
-if (!['lint', 'build'].includes(mode ?? '') || !['kitsu', 'kitsu-core'].includes(name ?? '')) {
-  throw new Error('Usage: bun scripts/docs.ts lint|build kitsu|kitsu-core')
+if (
+  !['lint', 'build'].includes(mode ?? '') ||
+  !['kitsu', 'kitsu-core', 'kitsu-native'].includes(name ?? '')
+) {
+  throw new Error('Usage: bun scripts/docs.ts lint|build kitsu|kitsu-core|kitsu-native')
 }
 const root = resolve(import.meta.dir, '..')
 const directory = `${root}/packages/${name}`
 const output = `${root}/.cache/docs/${name}`
 await mkdir(output, { recursive: true })
-for (const file of (await readdir(`${directory}/src`)).filter(
+const publicTypes = `${output}/public-types.js`
+await writeFile(
+  publicTypes,
+  documentTypes(await Bun.file(`${directory}/src/types.ts`).text(), `${name}/src/types.ts`),
+)
+for (const file of (await readdir(`${directory}/src`, { recursive: true })).filter(
   (f) => f.endsWith('.ts') && !f.endsWith('.spec.ts'),
 )) {
   // Documentation.js resolves .js imports. Preserve JSDoc while preparing its input;
   // published JavaScript is built exclusively by Bun.
   const source = await Bun.file(`${directory}/src/${file}`).text()
+  const target = `${output}/${file.replace(/\.ts$/, '.js')}`
+  await mkdir(dirname(target), { recursive: true })
   await writeFile(
-    `${output}/${file.replace(/\.ts$/, '.js')}`,
+    target,
     ts.transpileModule(source, {
       compilerOptions: {
-        target: ts.ScriptTarget.ES2022,
+        target: ts.ScriptTarget.ES2023,
         module: ts.ModuleKind.ESNext,
         removeComments: false,
       },
@@ -29,10 +40,11 @@ for (const file of (await readdir(`${directory}/src`)).filter(
 }
 const argumentsToRun =
   mode === 'lint'
-    ? ['lint', `${output}/index.js`]
+    ? ['lint', `${output}/index.js`, publicTypes]
     : [
         'readme',
         `${output}/index.js`,
+        publicTypes,
         '--readme-file',
         `${directory}/README.md`,
         '--section=API',
@@ -49,4 +61,10 @@ const result = Bun.spawnSync(
     stderr: 'inherit',
   },
 )
+if (result.exitCode === 0 && mode === 'build') {
+  const readme = `${directory}/README.md`
+  const markdown = await Bun.file(readme).text()
+  const updated = typescriptExamples(markdown)
+  if (updated !== markdown) await writeFile(readme, updated)
+}
 process.exit(result.exitCode)

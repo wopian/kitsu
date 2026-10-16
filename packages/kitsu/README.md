@@ -1,32 +1,44 @@
 <h1 align=center>Kitsu</h1>
 
-<p align=center>
-  <a href=https://www.npmjs.com/package/kitsu><img alt=npm src=https://flat.badgen.net/npm/v/kitsu></a>
-  <a href=https://www.npmjs.com/package/kitsu><img alt=npm src=https://flat.badgen.net/npm/dy/kitsu></a>
-  <a href="https://bundlephobia.com/result?p=kitsu"><img alt=bundlephobia src='https://flat.badgen.net/bundlephobia/minzip/kitsu?label=library%20size'></a>
-  <img alt=types src='https://flat.badgen.net/npm/types/kitsu'>
+<p align="center">
+  <a href="https://www.npmjs.com/package/kitsu"><img alt="kitsu on npm" src="https://flat.badgen.net/npm/v/kitsu?label=kitsu"></a>
+  <a href="https://www.npmjs.com/package/kitsu"><img alt="kitsu monthly downloads" src="https://flat.badgen.net/npm/dm/kitsu"></a>
+  <a href="https://packagephobia.com/result?p=kitsu"><img alt="Published kitsu installed size including dependencies" src="https://flat.badgen.net/packagephobia/install/kitsu"></a>
+  <a href="https://www.npmjs.com/package/kitsu"><img alt="TypeScript declarations included" src="https://flat.badgen.net/npm/types/kitsu"></a>
 </p>
 
-<p align=center>
-  <a href=https://github.com/wopian/kitsu/actions><img alt=checks src=https://flat.badgen.net/github/checks/wopian/kitsu/master></a>
-  <a href=https://github.com/wopian/kitsu/network/dependents><img alt=repoDependants src=https://flat.badgen.net/github/dependents-repo/wopian/kitsu></a>
-  <a href=https://github.com/wopian/kitsu/graphs/contributors><img alt=contributors src=https://flat.badgen.net/github/contributors/wopian/kitsu></a>
-  <a href=https://github.com/sponsors/wopian><img alt=sponsor src='https://flat.badgen.net/badge/sponsor/%E2%9D%A4/pink?icon=github'></a>
+<p align="center">
+  <a href="https://github.com/wopian/kitsu/actions"><img alt="GitHub checks" src="https://flat.badgen.net/github/checks/wopian/kitsu/master"></a>
+  <a href="https://github.com/wopian/kitsu/blob/master/LICENSE.md"><img alt="MIT license" src="https://flat.badgen.net/github/license/wopian/kitsu"></a>
+  <a href="https://github.com/wopian/kitsu/network/dependents"><img alt="Dependent repositories" src="https://flat.badgen.net/github/dependents-repo/wopian/kitsu"></a>
+  <a href="https://github.com/wopian/kitsu/graphs/contributors"><img alt="Contributors" src="https://flat.badgen.net/github/contributors/wopian/kitsu"></a>
+  <a href="https://github.com/sponsors/wopian"><img alt="Sponsor this project" src="https://flat.badgen.net/static/sponsor/%E2%9D%A4/pink?icon=github"></a>
+</p>
+
+<p align="center">
+  <a href="https://jsonapi.org/format/1.1/"><img alt="JSON:API 1.1 client support" src="https://flat.badgen.net/static/JSON%3AAPI/1.1/blue"></a>
+  <a href="package.json"><img alt="Node.js 22, 24, and 26 or newer" src="https://flat.badgen.net/static/node/22%20%7C%2024%20%7C%2026%2B/green"></a>
+  <a href="../../.github/workflows/ci.yml"><img alt="Tested with Bun" src="https://flat.badgen.net/static/Bun/tested/blue?icon=bun"></a>
+  <a href="src/types.ts"><img alt="TypeScript declarations included" src="https://flat.badgen.net/static/types/included/blue?icon=typescript"></a>
+  <a href="package.json"><img alt="ECMAScript modules" src="https://flat.badgen.net/static/module/ESM/blue"></a>
 </p>
 
 <p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client using Axios</p>
 
-<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v12 & previous major releases</p>
+<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v13 & previous major releases</p>
 
 #
 
+## JSON:API 1.1
+
+Relationships are direct resources, arrays, or null. Resource metadata lives under `$`; document metadata stays at document level. See [migration guidance](MIGRATING.md) and [compliance boundaries](../../specification/compliance/README.md).
+
 ## Features
 
-*   JSON-API 1.0 compliant
+*   JSON:API 1.1 client document support
 *   Automatically links relationships to data
 *   Works in Node & browsers
 *   Uses the [Promise] API
-
 
 ## Response Comparison
 
@@ -67,21 +79,17 @@
 <details open>
 <summary>Object from a GET Response with kitsu:</summary>
 
-```json5
-{
+```typescript
+const result = {
   data: {
-    id: '1'
-    type: 'articles'
-    title: 'JSON API paints my bikeshed'
-    author: {
-      data: {
-        id: '42'
-        type: 'people'
-        name: 'John'
-      }
-    }
-  }
+    id: '1',
+    type: 'articles',
+    title: 'JSON API paints my bikeshed',
+    author: { id: '42', type: 'people', name: 'John' }
+  },
+  included: [{ id: '42', type: 'people', name: 'John' }]
 }
+// data.author and included[0] reference the same object.
 ```
 
 </details>
@@ -96,15 +104,17 @@ npm install kitsu
 yarn add kitsu
 ```
 
-```js
+```typescript
 import Kitsu from "kitsu";
 ```
 
 ## Quick Start
 
-```javascript
+```typescript
+import Kitsu from 'kitsu'
+
 // kitsu.app's API
-const api = new Kitsu()
+const defaultApi = new Kitsu()
 
 // Other JSON:API servers
 const api = new Kitsu({
@@ -112,12 +122,18 @@ const api = new Kitsu({
 })
 
 // Using with async/await
-const res = await api.get('anime')
+interface Anime {
+  id: string
+  type: 'anime'
+  canonicalTitle: string
+}
+const result = await api.get<Anime[]>('anime')
+console.log(result.data?.[0]?.canonicalTitle)
 
 // Using with Promises
 api.get('anime')
-  .then(res => { ... })
-  .catch(err => { ... })
+  .then(result => console.log(result.data))
+  .catch((error: unknown) => console.error(error))
 
 // Fetching resources (get/fetch)
 api.fetch('anime')
@@ -201,84 +217,296 @@ All code released under [MIT]
 *   [Kitsu](#kitsu)
     *   [Parameters](#parameters)
     *   [Examples](#examples)
-    *   [plural](#plural)
-        *   [Examples](#examples-1)
-    *   [headers](#headers)
-        *   [Examples](#examples-2)
-    *   [interceptors](#interceptors)
-        *   [Examples](#examples-3)
     *   [get](#get)
         *   [Parameters](#parameters-1)
-        *   [Examples](#examples-4)
+        *   [Examples](#examples-1)
     *   [patch](#patch)
         *   [Parameters](#parameters-2)
-        *   [Examples](#examples-5)
+        *   [Examples](#examples-2)
     *   [post](#post)
         *   [Parameters](#parameters-3)
-        *   [Examples](#examples-6)
+        *   [Examples](#examples-3)
     *   [delete](#delete)
         *   [Parameters](#parameters-4)
-        *   [Examples](#examples-7)
+        *   [Examples](#examples-4)
     *   [self](#self)
         *   [Parameters](#parameters-5)
-        *   [Examples](#examples-8)
+        *   [Examples](#examples-5)
     *   [request](#request)
         *   [Parameters](#parameters-6)
+        *   [Examples](#examples-6)
+    *   [plural](#plural)
+        *   [Examples](#examples-7)
+    *   [headers](#headers)
+        *   [Examples](#examples-8)
+    *   [interceptors](#interceptors)
         *   [Examples](#examples-9)
+*   [RequestConfig](#requestconfig)
+    *   [Properties](#properties)
+    *   [Examples](#examples-10)
+*   [KitsuOptions](#kitsuoptions)
+    *   [Properties](#properties-1)
+    *   [Examples](#examples-11)
+*   [ArbitraryRequest](#arbitraryrequest)
+    *   [Properties](#properties-2)
+    *   [Examples](#examples-12)
+*   [KitsuResponse](#kitsuresponse)
+    *   [Properties](#properties-3)
+    *   [Examples](#examples-13)
 
 ### Kitsu
 
-Creates a new `kitsu` instance
+JSON:API client using Axios, including adapters and interceptors.
+
+Constructor options configure defaults. Pass params and document per request;
+constructor params and document are accepted by the type but ignored.
 
 #### Parameters
 
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Options (optional, default `{}`)
+*   `options` **[KitsuOptions](#kitsuoptions)** Client defaults; see typed properties and individual examples in KitsuOptions (optional, default `{}`)
 
-    *   `options.baseURL` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Set the API endpoint (optional, default `'https://kitsu.app/api/edge'`)
-    *   `options.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the requests
-    *   `options.query` **(`"traditional"` | `"modern"` | [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function))** Query serializer function to use. This will impact the way keys are serialized when passing arrays as query parameters. 'modern' is recommended for new projects. (optional, default `traditional`)
-    *   `options.camelCaseTypes` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If enabled, `type` will be converted to camelCase from kebab-casae or snake\_case (optional, default `true`)
-    *   `options.resourceCase` **(`"kebab"` | `"snake"` | `"none"`)** Case to convert camelCase to. `kebab` - `/library-entries`; `snake` - /library\_entries`; `none`-`/libraryEntries\` (optional, default `kebab`)
-    *   `options.pluralize` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If enabled, `/user` will become `/users` in the URL request and `type` will be pluralized in POST, PATCH and DELETE requests (optional, default `true`)
-    *   `options.timeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Set the request timeout in milliseconds (optional, default `30000`)
-    *   `options.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
-    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If enabled, the contents of the `data` property will be hoisted to the parent. This provides a flatter response object, see examples below for transformation examples. Links and Meta properties will be merged into the parent object if they exist. If attributes named `links` or `meta` exist, they will overwrite the JSON:API `links` and `meta` properties. (optional, default `false`)
+    *   `options.baseURL` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** API base URL for relative resource paths (optional, default `'https://kitsu.app/api/edge'`)
+    *   `options.headers` **JsonObject?** Default headers. Accept and Content-Type initially use application/vnd.api+json. Media parameters and Accept alternatives are preserved.
+    *   `options.query` **(`"traditional"` | `"modern"` | function (JsonObject?): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))** Traditional mode repeats array keys. Modern mode uses key\[]. A callback returns an encoded query string without ?. (optional, default `'traditional'`)
+    *   `options.camelCaseTypes` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Convert inferred outgoing types to camelCase; decoded types stay unchanged (optional, default `true`)
+    *   `options.resourceCase` **(`"kebab"` | `"snake"` | `"none"`)** Generated URL case: library-entries, library\_entries, or libraryEntries (optional, default `'kebab'`)
+    *   `options.attributeCase` **(`"kebab"` | `"snake"` | `"none"`)** Keep attribute names by default. kebab and snake encode that case and decode camelCase. Nested JSON, relationships, metadata, extension attributes and queries stay unchanged. (optional, default `'none'`)
+    *   `options.pluralize` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Pluralize generated resource URLs and inferred outgoing types (optional, default `true`)
+    *   `options.timeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds. Top-level 0 also selects 30000; use axiosOptions.timeout: 0 to disable. (optional, default `30000`)
+    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Unwrap a single-resource document containing only data. Document metadata and included keep the wrapper; HTTP arrays and null stay under data. Resource metadata stays under $. (optional, default `false`)
+    *   `options.axiosOptions` **AxiosRequestConfig?** Axios defaults, overriding generated baseURL, timeout and paramsSerializer when supplied.
+    *   `options.params` **JsonObject?** Ignored at construction; pass config.params to a method
+    *   `options.document` **JsonApiDocument?** Ignored at construction; pass config.document on writes
 
 #### Examples
 
-Using with kitsu.app's API
+Configure every constructor option
 
-```javascript
-const api = new Kitsu()
+```typescript
+import Kitsu, { type KitsuOptions } from 'kitsu'
+const options: KitsuOptions = {
+  baseURL: 'https://bakery.example/api',
+  headers: { Authorization: 'Bearer bakery-demo-token' },
+  query: 'modern',
+  camelCaseTypes: false,
+  resourceCase: 'snake',
+  attributeCase: 'kebab',
+  pluralize: false,
+  timeout: 10000,
+  hoistData: false,
+  axiosOptions: { withCredentials: true }
+}
+const api = new Kitsu(options)
+await api.get('article', { params: { include: 'author' } })
 ```
 
-Using another API server
+Attribute casing enabled and disabled
 
-```javascript
-const api = new Kitsu({
-  baseURL: 'https://api.example.org/2'
+```typescript
+const unchanged = new Kitsu({ attributeCase: 'none' })
+const converted = new Kitsu({ attributeCase: 'kebab' })
+await unchanged.post('people', { firstName: 'Mina' }) // attributes: { firstName: 'Mina' }
+await converted.post('people', { firstName: 'Mina' }) // attributes: { 'first-name': 'Mina' }
+// For a response with attributes: { 'first-name': 'Mina' }:
+// unchanged.get('people/9') keeps data['first-name']; converted.get('people/9') gives data.firstName.
+```
+
+Document metadata, resource metadata, and hoisting
+
+```typescript
+const wrapped = new Kitsu({ hoistData: false })
+const hoisted = new Kitsu({ hoistData: true })
+// Server body: { data: { type: 'people', id: '9', meta: { editable: true } } }
+const first = await wrapped.get('people/9')
+console.log(first.data.$.meta.editable) // true
+const second = await hoisted.get('people/9')
+console.log(second.$.meta.editable) // true; status and headers remain available
+// If that body also contains meta: { total: 1 }, both clients retain data:
+// result.meta.total describes the document; result.data.$.meta.editable describes the person.
+```
+
+Custom query serializer
+
+```typescript
+const custom = new Kitsu({
+  query: (params) => new URLSearchParams({ title: String(params?.title ?? '') }).toString()
+})
+await custom.get('articles', { params: { title: 'Moonlight Bread' } })
+// URL ends with ?title=Moonlight+Bread
+```
+
+#### get
+
+Fetch a resource, collection, related resources, or relationship linkage. Alias: fetch.
+
+##### Parameters
+
+*   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource path: articles, articles/42, articles/42/author, or articles/42/relationships/author
+*   `config` **[RequestConfig](#requestconfig)** Per-request options (optional, default `{}`)
+
+    *   `config.headers` **JsonObject?** Override default headers without changing client defaults
+    *   `config.params` **JsonObject?** Encoded query parameters: include, fields, sort, page, filter and extension families.
+    *   `config.document` **JsonApiDocument?** Ignored by this read method; use document on writes.
+    *   `config.axiosOptions` **AxiosRequestConfig?** Axios overrides, applied after generated headers and params. request() also permits method, url and data overrides. Use signal for cancellation.
+
+##### Examples
+
+```typescript
+await api.get('articles', {
+  headers: { 'Accept-Language': 'en' },
+  params: { include: 'author', fields: { articles: 'title,author' }, sort: '-createdAt', page: { number: 2, size: 10 }, filter: { title: 'Bread' } },
+  axiosOptions: { timeout: 10000, signal: new AbortController().signal }
 })
 ```
 
-Setting headers
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[KitsuResponse](#kitsuresponse)>** Decoded document with HTTP details
 
-```javascript
-const api = new Kitsu({
-  headers: {
-    'User-Agent': 'MyApp/1.0.0 (github.com/username/repo)',
-    Authorization: 'Bearer 1234567890'
-  }
+#### patch
+
+Update a resource or replace relationship linkage. Alias: update.
+
+##### Parameters
+
+*   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource or relationship path. With a bare resource name, body.id is appended to the URL.
+*   `body` **(JsonObject | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)\<JsonObject> | null)** Flat resources or relationship identifiers. Use null to clear to-one linkage at a relationship endpoint.
+*   `config` **[RequestConfig](#requestconfig)** Per-request options (optional, default `{}`)
+
+    *   `config.headers` **JsonObject?** Override default headers without changing client defaults
+    *   `config.params` **JsonObject?** Encoded query parameters: include, fields, sort, page, filter and extension families.
+    *   `config.document` **JsonApiDocument?** Extra write document members: meta, links, jsonapi, included and extensions. No data or errors. Ignored by bodyless resource DELETE.
+    *   `config.axiosOptions` **AxiosRequestConfig?** Axios overrides, applied after generated headers and params. request() also permits method, url and data overrides. Use signal for cancellation.
+
+##### Examples
+
+Resource and document metadata
+
+```typescript
+await api.patch('articles', {
+  id: '42', title: 'Moonlight Bread', $: { meta: { editable: true } }
+}, { document: { meta: { requestId: 'demo-42' } } })
+```
+
+Clear relationships
+
+```typescript
+await api.patch('articles/42/relationships/author', null)
+await api.patch('articles/42/relationships/tags', [])
+```
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[KitsuResponse](#kitsuresponse)>** Decoded response with HTTP details
+
+#### post
+
+Create resources or add relationship linkage. Alias: create. Resource arrays require server support; no Atomic Operations processing.
+
+##### Parameters
+
+*   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource or relationship path
+*   `body` **(JsonObject | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)\<JsonObject> | null)** Flat resources or relationship identifiers; full related resources generate included
+*   `config` **[RequestConfig](#requestconfig)** Per-request options (optional, default `{}`)
+
+    *   `config.headers` **JsonObject?** Override default headers without changing client defaults
+    *   `config.params` **JsonObject?** Encoded query parameters: include, fields, sort, page, filter and extension families.
+    *   `config.document` **JsonApiDocument?** Extra write document members: meta, links, jsonapi, included and extensions. No data or errors. Ignored by bodyless resource DELETE.
+    *   `config.axiosOptions` **AxiosRequestConfig?** Axios overrides, applied after generated headers and params. request() also permits method, url and data overrides. Use signal for cancellation.
+
+##### Examples
+
+```typescript
+await api.post('articles', { title: 'Moonlight Bread', author: { type: 'people', id: '9' } }, {
+  document: { meta: { requestId: 'demo-42' } }
+})
+await api.post('articles/42/relationships/tags', [{ type: 'tags', id: '3' }])
+```
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[KitsuResponse](#kitsuresponse)>** Decoded response with HTTP details
+
+#### delete
+
+Delete a resource or remove relationship identifiers. Alias: remove. Resource DELETE sends no body.
+Relationship DELETE sends identifiers without appending their IDs to the URL. Legacy bulk resource DELETE requires server support.
+
+##### Parameters
+
+*   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource name or relationship path. For a resource, pass its ID separately.
+*   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))>)** Resource ID, including 0, or IDs for relationship/bulk deletion
+*   `config` **[RequestConfig](#requestconfig)** Per-request options (optional, default `{}`)
+
+    *   `config.headers` **JsonObject?** Override default headers without changing client defaults
+    *   `config.params` **JsonObject?** Encoded query parameters: include, fields, sort, page, filter and extension families.
+    *   `config.document` **JsonApiDocument?** Extra write document members: meta, links, jsonapi, included and extensions. No data or errors. Ignored by bodyless resource DELETE.
+    *   `config.axiosOptions` **AxiosRequestConfig?** Axios overrides, applied after generated headers and params. request() also permits method, url and data overrides. Use signal for cancellation.
+
+##### Examples
+
+```typescript
+await api.delete('articles', '42') // DELETE /articles/42; no body
+await api.delete('articles/42/relationships/tags', ['3'], { document: { meta: { requestId: 'demo-42' } } })
+// DELETE /articles/42/relationships/tags; body: { data: [{ type: 'tags', id: '3' }] }
+```
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[KitsuResponse](#kitsuresponse)>** Decoded response; empty responses retain HTTP details
+
+#### self
+
+Fetch the first authenticated user. Server must support filter\[self]=true; supplied filter is replaced.
+
+##### Parameters
+
+*   `config` **[RequestConfig](#requestconfig)** Per-request options (optional, default `{}`)
+
+    *   `config.headers` **JsonObject?** Override default headers without changing client defaults
+    *   `config.params` **JsonObject?** Encoded query parameters: include, fields, sort, page, filter and extension families. self() replaces filter with { self: true }.
+    *   `config.document` **JsonApiDocument?** Ignored by this read method; use document on writes.
+    *   `config.axiosOptions` **AxiosRequestConfig?** Legacy self() forwards this object as outer get configuration. Use get() for transport overrides.
+
+##### Examples
+
+```typescript
+const result = await api.self({ headers: { Authorization: 'Bearer bakery-demo-token' }, params: { fields: { users: 'name' } } })
+console.log(result.data?.name)
+```
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[KitsuResponse](#kitsuresponse)>** First user under data, plus response headers. Legacy self() omits status and other document members.
+
+#### request
+
+Send an arbitrary JSON:API request without generated URL casing or pluralization.
+
+##### Parameters
+
+*   `config` **[ArbitraryRequest](#arbitraryrequest)** Request options; inherits all RequestConfig members
+
+    *   `config.body` **(JsonObject | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)\<JsonObject> | null)** Flat data or relationship identifiers. GET and resource DELETE send no body. (optional, default `{}`)
+    *   `config.method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** HTTP method, case-insensitive; commonly GET, POST, PATCH or DELETE (optional, default `'GET'`)
+    *   `config.params` **JsonObject?** Query parameters, including nested JSON:API families and extension parameters
+    *   `config.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Encoding type, required for nonempty resource input even when body contains type; omitted for bodyless requests, null or empty linkage
+    *   `config.url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Relative or absolute URL, used as supplied
+    *   `config.headers` **JsonObject?** Per-request header overrides
+    *   `config.axiosOptions` **AxiosRequestConfig?** Axios overrides, applied after generated headers and params. request() also permits method, url and data overrides. Use signal for cancellation.
+    *   `config.document` **JsonApiDocument?** Additional document members for body-bearing requests; no data or errors
+    *   `config.relationship` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Encode primary data as identifiers. Defaults to whether url contains /relationships/. (optional, default `url?.includes('/relationships/')??false`)
+
+##### Examples
+
+Custom relationship endpoint
+
+```typescript
+await api.request({
+  method: 'PATCH', url: 'articles/42/byline', type: 'people', relationship: true,
+  body: { id: '9' }, headers: { 'Accept-Language': 'en' }, params: { include: 'author' },
+  document: { meta: { requestId: 'demo-42' } },
+  axiosOptions: { withCredentials: true }
 })
 ```
 
-Flatter responses without data properties
+Bodyless resource DELETE
 
-```javascript
-const api = new Kitsu({ hoistData: true })
-const { data } = await api.get('library-entries')
-// instead of: { data: { id: '1', type: 'people', coworkers: data: [ { id: '2', type: 'people' } ] } }
-// you get: { id: '1', type: 'people', coworkers: [ { id: '2', type: 'people' } ] }
+```typescript
+await api.request({ method: 'DELETE', url: 'articles/42' })
 ```
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[KitsuResponse](#kitsuresponse)>** Decoded document with HTTP details
 
 #### plural
 
@@ -291,7 +519,7 @@ If pluralization is enabled (default, see Kitsu constructor docs) then pluraliza
 
 Adding an uncountable pluralization rule
 
-```javascript
+```typescript
 api.plural.plural('paper') //=> 'papers'
 api.plural.addUncountableRule('paper')
 api.plural.plural('paper') //=> 'paper'
@@ -305,19 +533,19 @@ Get the current headers or add additional headers
 
 Get all headers
 
-```javascript
+```typescript
 api.headers
 ```
 
 Get a single header's value
 
-```javascript
+```typescript
 api.headers['User-Agent']
 ```
 
 Add or update a header's value
 
-```javascript
+```typescript
 api.headers['Authorization'] = 'Bearer 1234567890'
 ```
 
@@ -335,7 +563,7 @@ You can intercept responses before they are handled by `get`, `post`, `patch` an
 
 Request Interceptor
 
-```javascript
+```typescript
 // Add a request interceptor
 api.interceptors.request.use(config => {
    // Do something before request is sent
@@ -348,7 +576,7 @@ api.interceptors.request.use(config => {
 
 Response Interceptor
 
-```javascript
+```typescript
 // Add a response interceptor
 api.interceptors.response.use(response => {
    // Any status code that lie within the range of 2xx cause this function to trigger
@@ -363,400 +591,98 @@ api.interceptors.response.use(response => {
 
 Removing Interceptors
 
-```javascript
-const myInterceptor = api.interceptors.request.use(function () {...})
+```typescript
+const myInterceptor = api.interceptors.request.use(config => config)
 api.interceptors.request.eject(myInterceptor)
 ```
 
-#### get
+### RequestConfig
 
-Fetch resources (alias `fetch`)
+Per-request options. headers and transport options also configure constructor defaults. params and document apply only per request.
 
-##### Parameters
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
-*   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource to fetch data from. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
-*   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional configuration (optional, default `{}`)
+#### Properties
 
-    *   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
-    *   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. JSON:API query parameters not listed are supported
+*   `document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Extra top-level members for writes: meta, links, jsonapi, included and extensions. Default: none. included contains wire resources. Generated data cannot be replaced; data and errors throw. Ignored by GET and bodyless resource DELETE. Constructor document is not applied. TypeScript: `Omit<JsonApiDocument, 'data'>`. Example: `{ meta: { requestId: 'demo-42' }, jsonapi: { version: '1.1' } }`.
+*   `headers` **JsonObject?** Header name/value object. Default: client headers. Request values merge over client headers. Accept and Content-Type initially use application/vnd.api+json; media parameters and Accept alternatives are retained. TypeScript: `JsonObject`. Example: `{ Authorization: 'Bearer bakery-demo-token' }`.
+*   `params` **JsonObject?** Query parameters, including include, fields, sort, page, filter and extension families. Default: none. Encoded by the selected query serializer. Empty include and field strings are retained. Constructor params are not applied. TypeScript: `JsonObject`. Example: `{ include: 'author', fields: { articles: 'title,author' }, sort: '-createdAt', page: { number: 2, size: 10 }, filter: { title: 'Bread' } }`.
+*   `axiosOptions` **AxiosRequestConfig?** AxiosRequestConfig passed to Axios. Default: none. Constructor options override generated Axios defaults; request options override generated headers and params, and request() method, url and data. Use signal for cancellation or timeout: 0 to disable Axios timeout. Legacy self() forwards this object as outer get configuration; use get() for transport overrides. TypeScript: `AxiosRequestConfig`. Example: `{ withCredentials: true, timeout: 10000, signal: new AbortController().signal }`.
 
-        *   `config.params.fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Return a sparse fieldset with only the included attributes/relationships - [JSON:API Sparse Fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets)
-        *   `config.params.filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Filter dataset by attribute values - [JSON:API Filtering](http://jsonapi.org/format/#fetching-filtering)
-        *   `config.params.include` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Include relationship data - [JSON:API Includes](http://jsonapi.org/format/#fetching-includes)
-        *   `config.params.sort` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Sort dataset by one or more comma separated attributes (prepend `-` for descending order) - [JSON:API Sorting](http://jsonapi.org/format/#fetching-sorting)
-        *   `config.params.page` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** [JSON:API Pagination](http://jsonapi.org/format/#fetching-pagination). All pagination strategies are supported, even if they are not listed below.
+#### Examples
 
-            *   `config.params.page.limit` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to return in request (Offset-based) - **Note:** For kitsu.app, max is `20` except on `libraryEntries` which has a max of `500`
-            *   `config.params.page.offset` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to offset the dataset by (Offset-based)
-            *   `config.params.page.number` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Page of resources to return in request (Page-based) - **Note:** Not supported on kitsu.app
-            *   `config.params.page.size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Number of resources to return in request (Page-based and cursor-based) - **Note:** Not supported on kitsu.app
-            *   `config.params.page.before` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Get the previous page of resources (Cursor-based) - **Note:** Not Supported on kitsu.app
-            *   `config.params.page.after` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Get the next page of resources (Cursor-based) - **Note:** Not Supported on kitsu.app
-    *   `config.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
-
-##### Examples
-
-Getting a resource with JSON:API parameters
-
-```javascript
-api.get('users', {
-  params: {
-    fields: {
-      users: 'name,birthday'
-    },
-    filter: {
-      name: 'wopian'
-    }
-  }
-})
+```typescript
+const config: RequestConfig = { params: { include: 'author' }, axiosOptions: { withCredentials: true } }
 ```
 
-Getting a collection of resources with their relationships
+### KitsuOptions
 
-```javascript
-api.get('anime', {
-  params: {
-    include: 'categories'
-  }
-})
+Client defaults, including inherited headers and transport options from RequestConfig. Inherited params and document are accepted by the type but ignored by the constructor; pass them per request.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Extra top-level members for writes: meta, links, jsonapi, included and extensions. Default: none. included contains wire resources. Generated data cannot be replaced; data and errors throw. Ignored by GET and bodyless resource DELETE. Constructor document is not applied. TypeScript: `Omit<JsonApiDocument, 'data'>`. Example: `{ meta: { requestId: 'demo-42' }, jsonapi: { version: '1.1' } }`.
+*   `headers` **JsonObject?** Header name/value object. Default: client headers. Request values merge over client headers. Accept and Content-Type initially use application/vnd.api+json; media parameters and Accept alternatives are retained. TypeScript: `JsonObject`. Example: `{ Authorization: 'Bearer bakery-demo-token' }`.
+*   `params` **JsonObject?** Query parameters, including include, fields, sort, page, filter and extension families. Default: none. Encoded by the selected query serializer. Empty include and field strings are retained. Constructor params are not applied. TypeScript: `JsonObject`. Example: `{ include: 'author', fields: { articles: 'title,author' }, sort: '-createdAt', page: { number: 2, size: 10 }, filter: { title: 'Bread' } }`.
+*   `axiosOptions` **AxiosRequestConfig?** AxiosRequestConfig passed to Axios. Default: none. Constructor options override generated Axios defaults; request options override generated headers and params, and request() method, url and data. Use signal for cancellation or timeout: 0 to disable Axios timeout. Legacy self() forwards this object as outer get configuration; use get() for transport overrides. TypeScript: `AxiosRequestConfig`. Example: `{ withCredentials: true, timeout: 10000, signal: new AbortController().signal }`.
+*   `baseURL` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** API base URL for relative paths. Default: <https://kitsu.app/api/edge>. TypeScript: `string`. Example: `'https://bakery.example/api'`.
+*   `query` **(`"traditional"` | `"modern"` | function (JsonObject?): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))?** Query serializer. Default: 'traditional' repeats array keys. 'modern' uses bracketed keys (tag\[]). A callback receives parameters and returns an encoded query string without ?. No parameter casing conversion. TypeScript: `'traditional' | 'modern' | ((params?: JsonObject) => string)`. Example: `(params) => new URLSearchParams({ title: String(params?.title ?? '') }).toString()`.
+*   `camelCaseTypes` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Convert inferred outgoing resource types from kebab-case or snake\_case to camelCase. Default: true. Does not change decoded types. TypeScript: `boolean`. Example: `false`.
+*   `resourceCase` **(`"kebab"` | `"snake"` | `"none"`)?** Generated resource URL case. Default: 'kebab' (library-entries). 'snake' gives library\_entries; 'none' keeps libraryEntries. Explicit request() URLs are unchanged. TypeScript: `'kebab' | 'snake' | 'none'`. Example: `'snake'`.
+*   `attributeCase` **(`"kebab"` | `"snake"` | `"none"`)?** Attribute wire case. Default: 'none' keeps names unchanged. 'kebab' or 'snake' encodes that case and decodes camelCase. Nested JSON, relationships, metadata, extension attributes and queries stay unchanged. Converted name collisions throw Error. TypeScript: `'kebab' | 'snake' | 'none'`. Example: `'kebab'`.
+*   `pluralize` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Pluralize generated resource URLs and inferred outgoing types. Default: true. Disable for APIs using singular names. TypeScript: `boolean`. Example: `false`.
+*   `timeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Axios timeout in milliseconds. Default: 30000. A top-level 0 also selects the default; set axiosOptions.timeout to 0 to disable. Request axiosOptions.timeout overrides this default. TypeScript: `number`. Example: `10000`.
+*   `hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Unwrap a single-resource document containing only data. Default: false. Resource metadata stays in $. Document meta, links, jsonapi or included keep the wrapper. HTTP arrays and null stay under data. TypeScript: `boolean`. Example: `true`.
+
+#### Examples
+
+```typescript
+const options: KitsuOptions = { baseURL: 'https://bakery.example/api', attributeCase: 'kebab', timeout: 10000 }
 ```
 
-Getting a single resource by ID (method one)
+### ArbitraryRequest
 
-```javascript
-api.get('anime/2', {
-  params: {
-    include: 'categories'
-  }
-})
+Arbitrary request options plus all RequestConfig fields. Generated JSON:API bodies use flat resources and direct relationship values.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Extra top-level members for writes: meta, links, jsonapi, included and extensions. Default: none. included contains wire resources. Generated data cannot be replaced; data and errors throw. Ignored by GET and bodyless resource DELETE. Constructor document is not applied. TypeScript: `Omit<JsonApiDocument, 'data'>`. Example: `{ meta: { requestId: 'demo-42' }, jsonapi: { version: '1.1' } }`.
+*   `headers` **JsonObject?** Header name/value object. Default: client headers. Request values merge over client headers. Accept and Content-Type initially use application/vnd.api+json; media parameters and Accept alternatives are retained. TypeScript: `JsonObject`. Example: `{ Authorization: 'Bearer bakery-demo-token' }`.
+*   `params` **JsonObject?** Query parameters, including include, fields, sort, page, filter and extension families. Default: none. Encoded by the selected query serializer. Empty include and field strings are retained. Constructor params are not applied. TypeScript: `JsonObject`. Example: `{ include: 'author', fields: { articles: 'title,author' }, sort: '-createdAt', page: { number: 2, size: 10 }, filter: { title: 'Bread' } }`.
+*   `axiosOptions` **AxiosRequestConfig?** AxiosRequestConfig passed to Axios. Default: none. Constructor options override generated Axios defaults; request options override generated headers and params, and request() method, url and data. Use signal for cancellation or timeout: 0 to disable Axios timeout. Legacy self() forwards this object as outer get configuration; use get() for transport overrides. TypeScript: `AxiosRequestConfig`. Example: `{ withCredentials: true, timeout: 10000, signal: new AbortController().signal }`.
+*   `relationship` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Encode the body as relationship identifiers. Default: whether url contains /relationships/. Set explicitly for custom relationship endpoints. Direct values control linkage. TypeScript: `boolean`. Example: `true`.
+*   `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Relative or absolute URL. Required. Used as supplied; resourceCase and pluralize do not rewrite this URL. TypeScript: `string`. Example: `'articles/42/relationships/author'`.
+*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Resource type required for encoding nonempty resource input, even when body contains type. Not needed for bodyless GET, resource DELETE, null or empty linkage. TypeScript: `string`. Example: `'people'`.
+*   `body` **(JsonObject | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)\<JsonObject> | null)?** Flat resource, array of resources, or null for to-one relationship clearing. Default: empty data on body-bearing requests. GET and resource DELETE send no body. Put resource metadata under $; document metadata belongs in document. TypeScript: `JsonObject | JsonObject[] | null`. Example: `{ type: 'articles', id: '42', title: 'Moonlight Bread', $: { meta: { editable: true } } }`.
+*   `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** HTTP method, case-insensitive. Default: GET. Common values are GET, POST, PATCH and DELETE; other method strings are passed to the transport. TypeScript: `string`. Example: `'PATCH'`.
+
+#### Examples
+
+```typescript
+const request: ArbitraryRequest = { method: 'PATCH', url: 'articles/42', type: 'articles', body: { id: '42', title: 'Moonlight Bread' } }
 ```
 
-Getting a single resource by ID (method two)
+### KitsuResponse
 
-```javascript
-api.get('anime', {
-  params: {
-    include: 'categories',
-    filter: { id: '2' }
- }
-})
+Decoded JSON:API document with HTTP details. T describes primary data, not the surrounding document.
+Additional members (`[attribute: string]: any;`): Other decoded document members, such as included, jsonapi, errors and extension members. With hoistData enabled, single-resource fields can appear here. TypeScript: `any`. Example: `{ jsonapi: { version: '1.1' } }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `data` **T?** Decoded primary data with flat attributes and direct relationships. Absent after single-resource hoisting or for empty responses. TypeScript: `T`. Example: `{ type: 'articles', id: '42', title: 'Moonlight Bread' }`.
+*   `status` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** HTTP response status from resource methods and request(). Legacy self() returns only data and headers. TypeScript: `number`. Example: `200`.
+*   `headers` **JsonObject?** Axios response headers, omitted when empty. TypeScript: `JsonObject`. Example: `{ 'content-type': 'application/vnd.api+json' }`.
+*   `links` **JsonObject?** Document links beside data. Resource links live under resource.$.links. TypeScript: `JsonObject`. Example: `{ next: '/articles?page[number]=2' }`.
+*   `meta` **JsonObject?** Document metadata beside data. Resource metadata lives under resource.$.meta. TypeScript: `JsonObject`. Example: `{ total: 42 }`.
+
+#### Examples
+
+```typescript
+const result: KitsuResponse<{ title: string }> = { status: 200, data: { title: 'Moonlight Bread' } }
 ```
-
-Getting a resource's relationship data only
-
-```javascript
-api.get('anime/2/categories')
-```
-
-Getting a resource with nested JSON:API filters (not supported by kitsu.app's API)
-
-```javascript
-// resource?filter[x][y]=value
-api.get('resource', {
-  params: {
-    filter: {
-      x: {
-        y: 'value'
-      }
-    }
-  }
-})
-```
-
-Handling errors (async/await)
-
-```javascript
-try {
-  const { data } = await api.get('anime')
-} catch (err) {
-  // Array of JSON:API errors: http://jsonapi.org/format/#error-objects
-  if (err.errors) err.errors.forEach(error => { ... })
-  // Error type (Error, TypeError etc.)
-  err.name
-  // Error message
-  err.message
-  // Axios request parameters
-  err.config
-  // Axios response parameters
-  err.response
-}
-```
-
-Handling errors (Promises)
-
-```javascript
-api.get('anime')
-  .then(({ data }) => { ... })
-  .catch(err => {
-    // Array of JSON:API errors: http://jsonapi.org/format/#error-objects
-    if (err.errors) err.errors.forEach(error => { ... })
-    // Error type (Error, TypeError etc.)
-    err.name
-    // Error message
-    err.message
-    // Axios request parameters
-    err.config
-    // Axios response parameters
-    err.response
-  })
-```
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** JSON-parsed response
-
-#### patch
-
-Update a resource (alias `update`)
-
-##### Parameters
-
-*   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource to update data in. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
-*   `body` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Data to send in the request
-*   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional configuration (optional, default `{}`)
-
-    *   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. See [#get](#get) for documentation
-    *   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
-    *   `config.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
-
-##### Examples
-
-Update a resource
-
-```javascript
-api.update('posts', {
-  id: '1',
-  content: 'Goodbye World'
-})
-```
-
-Update a resource with relationships
-
-```javascript
-api.update('posts', {
-  content: 'Hello World',
-  uploads: {
-    id: '167585',
-    type: 'uploads'
-  }
-})
-```
-
-Clear to-one relationships from a resource
-
-```javascript
-api.update('posts/1/relationships/uploads', null)
-```
-
-Clear to-many relationships from a resource
-
-```javascript
-api.update('posts/1/relationships/uploads', [])
-```
-
-Update multiple resources (API must support the Bulk Extension)
-
-```javascript
-api.update('posts', [
-  { id: '1', content: 'Hello World' },
-  { id: '2', content: 'Another post' }
-])
-```
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)>** JSON-parsed response
-
-#### post
-
-Create a new resource (alias `create`)
-
-##### Parameters
-
-*   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource to create. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
-*   `body` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Data to send in the request
-*   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional configuration (optional, default `{}`)
-
-    *   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. See [#get](#get) for documentation
-    *   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
-    *   `config.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
-
-##### Examples
-
-Create a post on a user's profile feed
-
-```javascript
-api.create('posts', {
-  content: 'Hello World',
-  targetUser: {
-    data: {
-      id: '42603',
-      type: 'users'
-    }
-  },
-  user: {
-    data: {
-      id: '42603',
-      type: 'users'
-    }
-  }
-})
-```
-
-Create multiple resources (API must support the Bulk Extension)
-
-```javascript
-api.create('posts', [
-  { content: 'Hello World' },
-  { content: 'Another post' }
-])
-```
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)>** JSON-parsed response
-
-#### delete
-
-Remove a resource (alias `remove`)
-
-##### Parameters
-
-*   `model` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource to remove. Expected formats are [`:resource`](https://jsonapi.org/format/#document-resource-objects), [`:resource/:id/:relationship`](https://jsonapi.org/format/#document-resource-object-relationships) or [`:resource/:id/relationships/:relationship`](https://jsonapi.org/format/#document-resource-object-linkage)
-*   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>)** Resource ID to remove. Pass an array of IDs to delete multiple resources (Bulk Extension)
-*   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional configuration (optional, default `{}`)
-
-    *   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. See [#get](#get) for documentation
-    *   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
-    *   `config.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
-
-##### Examples
-
-Remove one or more relationships from a resource
-
-```javascript
-api.delete('posts/1/relationships/uploads', [456, 789])
-```
-
-Remove a single resource
-
-```javascript
-api.delete('posts', 123)
-```
-
-Remove multiple resources (API must support the Bulk Extension)
-
-```javascript
-api.delete('posts', [ 1, 2 ])
-```
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)>** JSON-parsed response
-
-#### self
-
-Get the authenticated user's data
-
-**Note** Requires the JSON:API server to support `filter[self]=true`
-
-##### Parameters
-
-*   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional configuration (optional, default `{}`)
-
-    *   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. See [#get](#get) for documentation
-    *   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
-    *   `config.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
-
-##### Examples
-
-Get the authenticated user's resource
-
-```javascript
-api.self()
-```
-
-Using JSON:API parameters
-
-```javascript
-api.self({
-  params: {
-    fields: {
-      users: 'name,birthday'
-    }
-  }
-})
-```
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** JSON-parsed response
-
-#### request
-
-Send arbitrary requests
-
-**Note** Planned changes to the `get`, `patch`, `post` and `delete` methods in a future major release may make this method redundent. See <https://github.com/wopian/kitsu/issues/415> for details.
-
-##### Parameters
-
-*   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Request configuration
-
-    *   `config.body` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)?** Data to send in the request
-    *   `config.method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Request method - `GET`, `PATCH`, `POST` or `DELETE` (defaults to `GET`, case-insensitive)
-    *   `config.params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** JSON:API request queries. See [#get](#get) for documentation
-    *   `config.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The resource type
-    *   `config.url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The URL path of the resource
-    *   `config.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional headers to send with the request
-    *   `config.axiosOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional options for the axios instance (see [axios/axios#request-config](https://github.com/axios/axios#request-config) for details)
-
-##### Examples
-
-Raw GET request
-
-```javascript
-api.request({
-  url: 'anime/1/mappings',
-  type: 'mappings',
-  params: { filter: { externalSite: 'aozora' } }
-})
-```
-
-Raw PATCH request
-
-```javascript
-api.request({
-  method: 'PATCH',
-  url: 'anime',
-  type: 'anime',
-  body: { id: '1', subtype: 'tv' }
-})
-```
-
-Raw POST request
-
-```javascript
-api.request({
-  method: 'PATCH',
-  url: 'anime',
-  type: 'anime',
-  body: { subtype: 'tv' }
-})
-```
-
-Raw DELETE request
-
-```javascript
-api.request({
-  method: 'DELETE',
-  url: 'anime/1',
-  type: 'anime',
-  body: { id: '1' }
-})
-```
-
-Bulk Extension support (`PATCH`, `POST` & `DELETE`)
-
-```javascript
-api.request({
-  method: 'PATCH',
-  url: 'anime',
-  type: 'anime',
-  body: [
-    { id: '1', subtype: 'tv' }
-    { id: '2', subtype: 'ona' }
-  ]
-})
-```
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** JSON-parsed response

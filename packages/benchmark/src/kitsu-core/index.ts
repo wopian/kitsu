@@ -1,6 +1,6 @@
 import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { plainNative, wrappedView } from '../graph.ts'
+import { flatView, plainNative, wrappedView } from '../graph.ts'
 import type { Adapter } from '../types.ts'
 
 export async function create(root: string, source = false): Promise<Adapter> {
@@ -8,11 +8,15 @@ export async function create(root: string, source = false): Promise<Adapter> {
     ? 'packages/kitsu-core/src/index.ts'
     : 'packages/kitsu-core/dist/index.mjs'
   const core = await import(pathToFileURL(resolve(root, filename)).href)
+  const flat =
+    core.deserialise({
+      data: { type: 'probe', id: '1', relationships: { target: { data: null } } },
+    }).data.target === null
   return {
-    view: wrappedView,
+    view: flat ? { ...flatView, roots: (output) => output.data } : wrappedView,
     decode: (document) => core.deserialise(document),
     encode: (payload) =>
       core.serialise(Array.isArray(payload) ? payload[0]?.type : payload.type, payload, 'PATCH'),
-    native: (resources) => plainNative(resources, true),
+    native: (resources) => plainNative(resources, !flat, false, flat),
   }
 }

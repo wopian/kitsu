@@ -16,7 +16,7 @@ import {
 } from './types.ts'
 
 export const median = (values: number[]): number => {
-  const sorted = [...values].sort((left, right) => left - right)
+  const sorted = values.toSorted((left, right) => left - right)
   const middle = Math.floor(sorted.length / 2)
   return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2
 }
@@ -38,6 +38,7 @@ export function operation(
     if (!adapter.encode) throw new Unsupported('no public encoder')
     return then(adapter.encode(payload), (encoded) => ({ encoded }))
   }
+  if (!adapter.decode) throw new Unsupported('no public decoder')
   return then(adapter.decode(document), (decoded) => {
     touchGraph(decoded, adapter.view, fixture)
     if (mode === 'decode') return { decoded }

@@ -1,7 +1,9 @@
+import { existsSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { createAdapter } from './adapters.ts'
 import { fixtures } from './fixtures.ts'
 import { failure, median, sample } from './measure.ts'
-import type { Adapter, Cell, WorkerOptions } from './types.ts'
+import { type Adapter, type Cell, Unsupported, type WorkerOptions } from './types.ts'
 
 const options = JSON.parse(process.argv[2]) as WorkerOptions
 const fixture = fixtures(options.smoke, options.fixture)[0]
@@ -23,6 +25,12 @@ variants.push({ name: 'head', root: options.root, cell: makeCell() })
 const duration = options.smoke ? 2 : 250
 for (const variant of variants) {
   try {
+    if (
+      variant.name === 'base' &&
+      options.library === 'kitsu-native' &&
+      !existsSync(resolve(variant.root, 'packages/kitsu-native/dist/index.mjs'))
+    )
+      throw new Unsupported('package absent from base revision')
     variant.adapter = await createAdapter(options.library, options.suite, fixture, variant.root)
     await sample(variant.adapter, fixture, options.mode, options.smoke ? 1 : 250)
   } catch (error) {

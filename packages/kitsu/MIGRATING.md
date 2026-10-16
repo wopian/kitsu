@@ -1,5 +1,315 @@
 # Migration Guides
 
+## Migrating to `13.0.0`
+
+### Switch to native fetch if needed
+
+`kitsu` continues to use Axios. The new `kitsu-native` package offers the same
+resource methods through native fetch. Both default exports are classes named
+`Kitsu`. Follow the [Axios-to-fetch migration guide](../kitsu-native/MIGRATING.md)
+for options, headers, interceptors, cancellation, and error handling.
+
+### Node.js support changes
+
+Node.js 18, 19, 20, 21, 23, and 25 are no longer supported.
+
+Move your application and CI to Node.js 22, 24, or 26 and later before upgrading.
+
+Browser support remains available. TypeScript output targets ES2023.
+
+### What has changed
+
+Version 13 keeps attributes flat, removes relationship `data` wrappers, and puts
+resource metadata under `$`. These examples use a fictional bakery API.
+
+```js
+import Kitsu from 'kitsu'
+
+const api = new Kitsu({ baseURL: 'https://bakery.example/api' })
+```
+
+#### Read relationships directly
+
+Suppose article `42`, "Moonlight Bread", has author Mina Reed:
+
+```js
+const result = await api.get('articles/42', { params: { include: 'author,tags' } })
+
+// Before, with the default hoistData: false
+result.data.author.data.name // 'Mina Reed'
+result.data.tags.data[0].name // 'Baking'
+
+// After, with hoistData enabled or disabled
+result.data.author.name // 'Mina Reed'
+result.data.tags[0].name // 'Baking'
+result.data.editor // null when the server sends an empty to-one relationship
+```
+
+Included resources remain available in `result.included`. If Mina is both author
+and reviewer, both properties point to the same decoded person. Local IDs (`lid`)
+and cyclic relationships also resolve without changing your input objects.
+
+#### Keep resource metadata under `$`
+
+Document metadata describes the whole response. Resource metadata describes one
+article. Version 13 keeps them separate from each other and from attributes.
+
+For example, the bakery API sends:
+
+```js
+const serverDocument = {
+  data: {
+    type: 'articles', id: '42',
+    attributes: {
+      title: 'Moonlight Bread',
+      meta: { summary: 'A recipe for night owls' }
+    },
+    meta: { reviewed: true },
+    links: { self: '/articles/42' },
+    relationships: {
+      author: {
+        data: { type: 'people', id: '9', meta: { role: 'writer' } },
+        meta: { featured: true },
+        links: { related: '/articles/42/author' }
+      }
+    }
+  },
+  included: [{ type: 'people', id: '9', attributes: { name: 'Mina Reed' }, meta: { verified: true } }],
+  meta: { total: 1 },
+  links: { next: null },
+  jsonapi: { version: '1.1' }
+}
+```
+
+Read it like this:
+
+```js
+const result = await api.get('articles/42')
+
+result.data.title // 'Moonlight Bread'
+result.data.meta.summary // 'A recipe for night owls': an ordinary attribute
+result.data.$.meta.reviewed // true: metadata about this article
+result.data.$.links.self // '/articles/42': a resource link
+result.meta.total // 1: metadata about the whole response
+result.links.next // null: a document link
+result.jsonapi.version // '1.1': document information
+result.status // 200: HTTP status
+```
+
+Before, an attribute named `meta` could hide the resource's metadata. Now the
+attribute stays at `article.meta`, and resource metadata lives at `article.$.meta`.
+Attributes named `links`, `lid`, or `attributes` stay ordinary attributes too.
+Resources without extra metadata have no `$` object.
+
+Relationship metadata stays with the article's connection to its author:
+
+```js
+const article = result.data
+
+article.$.relationships.author.meta // { featured: true }: relationship metadata
+article.$.relationships.author.links.related // URL for loading the author
+article.$.relationships.author.data.meta // { role: 'writer' }: identifier metadata
+article.author.$.meta // { verified: true }: metadata about Mina herself
+```
+
+Move resource metadata under `$` when saving too:
+
+```js
+// Before
+await api.patch('articles', { id: '42', title: 'Moonlight Bread', meta: { reviewed: true } })
+
+// After
+await api.patch('articles', {
+  id: '42',
+  title: 'Moonlight Bread',
+  $: { meta: { reviewed: true } }
+})
+```
+
+Use `config.document` for metadata about the whole request:
+
+```js
+await api.post('articles', { title: 'Moonlight Bread' }, {
+  document: { meta: { source: 'bakery-editor' } }
+})
+// Sends:
+// {
+//   meta: { source: 'bakery-editor' },
+//   data: { type: 'articles', attributes: { title: 'Moonlight Bread' } }
+// }
+```
+
+#### Choose whether to unwrap the document
+
+`hoistData` defaults to `false`. Suppose the server sends only this resource:
+
+```js
+const resourceDocument = {
+  data: {
+    type: 'articles', id: '42',
+    attributes: { title: 'Moonlight Bread' },
+    meta: { reviewed: true }
+  }
+}
+```
+
+Compare the two settings:
+
+```js
+import Kitsu from 'kitsu'
+
+const wrappedApi = new Kitsu({ hoistData: false })
+const wrapped = await wrappedApi.get('articles/42')
+wrapped.data.title // 'Moonlight Bread'
+wrapped.data.$.meta.reviewed // true
+wrapped.status // 200
+
+const flatApi = new Kitsu({ hoistData: true })
+const flat = await flatApi.get('articles/42')
+flat.title // 'Moonlight Bread'
+flat.$.meta.reviewed // true
+flat.status // 200
+```
+
+Resource metadata under `$` does not prevent hoisting. If the response also has
+document metadata, such as `meta: { total: 1 }`, both clients keep the wrapper:
+
+```js
+const result = await flatApi.get('articles/42')
+// For a response containing document meta: { total: 1 }
+result.data.title // 'Moonlight Bread'
+result.data.$.meta.reviewed // true: resource metadata
+result.meta.total // 1: document metadata
+result.status // 200
+```
+
+Document `links`, `jsonapi`, or preserved `included` also keep the wrapper, even if
+empty. Relationship links and metadata never prevent relationship flattening.
+HTTP responses always keep arrays and `null` under `data` so status and headers
+remain available. Nested JSON attributes containing `data` never unwrap.
+
+Before, `hoistData: true` could change `preferences: { data: { newsletter: true } }`
+into `preferences: { newsletter: true }`. After upgrading, read
+`article.preferences.data.newsletter` regardless of the hoisting setting.
+
+#### Enable attribute casing when your API needs it
+
+Suppose the bakery API uses `first-name`, but your application prefers `firstName`.
+The new `attributeCase` option defaults to `'none'`, so existing names stay unchanged:
+
+```js
+const unchangedApi = new Kitsu({ attributeCase: 'none' }) // also the default
+const unchanged = await unchangedApi.get('people/9')
+unchanged.data['first-name'] // 'Mina'
+
+const camelApi = new Kitsu({ attributeCase: 'kebab' })
+const converted = await camelApi.get('people/9')
+converted.data.firstName // 'Mina'
+
+await unchangedApi.patch('people', { id: '9', firstName: 'Mina' })
+// Sends attributes: { firstName: 'Mina' }
+
+await camelApi.patch('people', { id: '9', firstName: 'Mina' })
+// Sends attributes: { 'first-name': 'Mina' }
+```
+
+Use `'snake'` for an API that expects `first_name`. Both enabled modes read names
+into camelCase. This option is independent of URL casing through `resourceCase`.
+
+Conversion applies to resource attributes, including related and included
+resources. Nested JSON keys, relationships, metadata, links, IDs, and extension
+members stay unchanged. For example, `preferences['email-frequency']` stays unchanged.
+Supply the server's names yourself in query parameters:
+
+```js
+await camelApi.get('people', {
+  params: { fields: { people: 'first-name' }, sort: 'first-name' }
+})
+```
+
+If two names become the same name, conversion throws instead of losing one value.
+For example, `first-name` and `first_name` cannot both become `firstName`.
+
+#### Send relationships without `data` wrappers
+
+Change existing write bodies:
+
+```js
+// Before
+await api.patch('articles', {
+  id: '42', author: { data: { type: 'people', id: '9' } }
+})
+
+// After
+await api.patch('articles', {
+  id: '42', author: { type: 'people', id: '9' }
+})
+// Sends relationships: { author: { data: { type: 'people', id: '9' } } }
+```
+
+A `{ data: ... }` object now stays an ordinary JSON attribute. The library creates
+the relationship wrapper. A bare identifier only creates linkage. A related
+object with fields, such as `name: 'Mina Reed'`, is also collected in `included`.
+
+Use `$` when a value could mean either an attribute or a relationship:
+
+```js
+await api.patch('articles', {
+  id: '42',
+  subtitle: null, // an attribute
+  tags: [], // clear a to-many relationship
+  $: {
+    attributes: {
+      shoppingList: [], // an attribute, not a relationship
+      reference: { type: 'recipe-card', id: 7 } // ordinary JSON
+    },
+    relationships: { editor: { data: null } } // clear a to-one relationship
+  }
+})
+```
+
+Values in `$.attributes` are always attributes, even if they look like relationships.
+They replace same-named values in the flat object. If you change `article.author`,
+the new person wins over the old identifier saved under `$`. Old identifier
+metadata is reused only when the type and ID or local ID still match.
+Conflicting full objects with the same type and ID throw;
+use one consistent author object instead of two different names for person `9`.
+
+Numeric IDs, including `0`, become strings in outgoing JSON. New resources can use
+`$: { lid: 'draft-article' }` until the server assigns an ID. Decoding and encoding
+leave your input objects untouched and copy nested JSON into the result.
+
+#### Relationship URLs, DELETE bodies, and query strings
+
+Relationship writes use the relationship URL without adding the target person's ID:
+
+```js
+await api.patch('articles/42/relationships/author', { type: 'people', id: '9' })
+// PATCH /articles/42/relationships/author
+// Body: { data: { type: 'people', id: '9' } }
+
+await api.patch('articles/42/relationships/author', null)
+// Body: { data: null }
+
+await api.delete('articles/42/relationships/tags', ['3', '4'])
+// DELETE /articles/42/relationships/tags, with identifier data in the body
+
+await api.delete('articles', '42')
+// DELETE /articles/42, with no body
+```
+
+An explicit URL such as `articles/42` no longer gets another `/42` suffix when
+PATCH receives a body with that ID. IDs keep their case. For custom relationship
+URLs passed to `request()`, set `relationship: true` when the URL does not contain
+`/relationships/`.
+
+Query spaces now use `+`; a literal plus sign uses `%2B`. Searching for
+`Tea + toast` sends `Tea+%2B+toast`. Traditional and modern array modes remain
+available. Existing headers still configure extensions and profiles;
+document `jsonapi.ext` and `jsonapi.profile` do not configure request headers.
+Unknown members are ignored; extension and `@` members remain uninterpreted.
+Atomic Operations is not included.
+
 ## Migrating to `12.0.0`
 
 Both packages now publish ESM only. Replace `require()` with `import` and enable ESM in your application with `"type": "module"` or an `.mjs` file. CommonJS exports and UMD bundles, including the `kitsuCore` global, are removed.

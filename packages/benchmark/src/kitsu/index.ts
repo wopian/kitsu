@@ -1,6 +1,6 @@
 import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { plainNative, wrappedView } from '../graph.ts'
+import { flatView, plainNative, wrappedView } from '../graph.ts'
 import { transport } from '../transport.ts'
 import type { Adapter } from '../types.ts'
 
@@ -14,8 +14,11 @@ export async function create(root: string, source = false): Promise<Adapter> {
     camelCaseTypes: false,
     axiosOptions: { adapter: mock.axios },
   })
+  // Probe the actual client-bound core before timed work, including comparison checkouts.
+  mock.response({ data: { type: 'probe', id: '1', relationships: { target: { data: null } } } })
+  const flat = (await client.request({ method: 'GET', url: '/probe' })).data.target === null
   return {
-    view: wrappedView,
+    view: flat ? { ...flatView, roots: (output) => output.data } : wrappedView,
     decode: () => client.request({ method: 'GET', url: '/resources' }),
     async encode(payload) {
       await client.request({
@@ -26,7 +29,7 @@ export async function create(root: string, source = false): Promise<Adapter> {
       })
       return mock.captured()
     },
-    native: (resources) => plainNative(resources, true),
+    native: (resources) => plainNative(resources, !flat, false, flat),
     prepareResponse: mock.response,
   }
 }

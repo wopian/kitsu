@@ -1,7 +1,6 @@
 import { afterAll, afterEach, describe, expect, it, mock } from 'bun:test'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import stringify from 'json-stringify-safe'
 import Kitsu from 'kitsu'
 import {
   getCollection,
@@ -160,7 +159,7 @@ describe('kitsu', () => {
       }
       const api = new Kitsu({ pluralize: false })
       adapter.onGet('profile/user-accounts/me').reply(200, response)
-      const request = await api.get('profile/userAccounts/me')
+      const request = await api.get('profile/user-accounts/me')
       expect(request).toEqual({ ...response, status: 200 })
     })
 
@@ -180,7 +179,7 @@ describe('kitsu', () => {
     })
 
     it('fetches infinitely nested relationship resource', async () => {
-      expect.assertions(1)
+      expect.assertions(4)
       const api = new Kitsu()
       adapter.onGet('printers', { params: { include: 'paper,labels' } }).reply(200, {
         data: [
@@ -242,52 +241,11 @@ describe('kitsu', () => {
         ],
       })
       const request = await api.get('printers', { params: { include: 'paper,labels' } })
-      expect(JSON.parse(stringify(request))).toEqual({
-        data: [
-          {
-            type: 'printer',
-            id: '1',
-            name: 'Printer 1',
-            labels: {
-              data: [
-                {
-                  id: '1',
-                  type: 'label',
-                  name: 'Label 1',
-                  paper: {
-                    data: {
-                      id: '1',
-                      type: 'paper',
-                      name: 'Paper 1',
-                      labels: {
-                        data: '[Circular ~.data.0.labels.data.0]',
-                      },
-                    },
-                  },
-                },
-              ],
-            },
-            paper: {
-              data: {
-                id: '1',
-                type: 'paper',
-                name: 'Paper 1',
-                labels: {
-                  data: {
-                    id: '1',
-                    type: 'label',
-                    name: 'Label 1',
-                    paper: {
-                      data: '[Circular ~.data.0.paper.data]',
-                    },
-                  },
-                },
-              },
-            },
-          },
-        ],
-        status: 200,
-      })
+      const result = request.data[0]
+      expect(result.paper.labels).toBe(result.labels[0])
+      expect(result.labels[0].paper).toBe(result.paper)
+      expect(request.included[0]).toBe(result.paper)
+      expect(request.included[1]).toBe(result.labels[0])
     })
   })
 })

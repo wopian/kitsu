@@ -63,9 +63,7 @@ describe('kitsu', () => {
         expect(JSON.parse(config.data)).toEqual({
           data: {
             type: 'anime',
-            attributes: {
-              name: 'Name',
-            },
+            attributes: { name: 'Name' },
           },
         })
         return [200]
@@ -80,16 +78,14 @@ describe('kitsu', () => {
         expect(JSON.parse(config.data)).toEqual({
           data: {
             type: 'anime',
-            attributes: {
-              name: 'Name',
-            },
+            id: '9',
           },
         })
         return [200]
       })
-      expect(
-        await api.post('something/1/relationships/anime', { type: 'anime', name: 'Name' }),
-      ).toEqual({ status: 200 })
+      expect(await api.post('something/1/relationships/anime', { type: 'anime', id: '9' })).toEqual(
+        { status: 200 },
+      )
     })
 
     it('sends data in request with client-generated ID', async () => {

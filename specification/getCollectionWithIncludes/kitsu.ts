@@ -1,13 +1,6 @@
-/* eslint-disable quote-props */
-
 export default {
   data: [
     {
-      id: '1',
-      type: 'anime',
-      links: {
-        self: 'https://kitsu.app/api/edge/anime/1',
-      },
       createdAt: '2013-02-20T16:00:13.609Z',
       updatedAt: '2017-12-30T00:49:40.721Z',
       slug: 'cowboy-bebop',
@@ -107,66 +100,88 @@ export default {
       youtubeVideoId: 'qig4KOK2R2g',
       showType: 'TV',
       nsfw: false,
-      categories: {
-        links: {
-          related: 'https://kitsu.app/api/edge/anime/1/categories',
-          self: 'https://kitsu.app/api/edge/anime/1/relationships/categories',
-        },
-        data: [
-          {
-            childCount: 8,
-            createdAt: '2017-05-31T06:39:22.090Z',
-            id: '155',
-            image: null,
+      type: 'anime',
+      id: '1',
+      categories: [
+        {
+          createdAt: '2017-05-31T06:39:22.090Z',
+          updatedAt: '2017-05-31T09:01:35.589Z',
+          title: 'Science Fiction',
+          totalMediaCount: 4368,
+          slug: 'science-fiction',
+          nsfw: false,
+          childCount: 8,
+          image: null,
+          type: 'categories',
+          id: '155',
+          $: {
             links: {
               self: 'https://kitsu.app/api/edge/categories/155',
             },
-            meta: {
-              dic1: 'def1',
-            },
-            nsfw: false,
-            parent: {
-              links: {
-                related: 'https://kitsu.app/api/edge/categories/155/parent',
-                self: 'https://kitsu.app/api/edge/categories/155/relationships/parent',
+            relationships: {
+              parent: {
+                links: {
+                  self: 'https://kitsu.app/api/edge/categories/155/relationships/parent',
+                  related: 'https://kitsu.app/api/edge/categories/155/parent',
+                },
               },
             },
-            slug: 'science-fiction',
-            title: 'Science Fiction',
-            totalMediaCount: 4368,
-            type: 'categories',
-            updatedAt: '2017-05-31T09:01:35.589Z',
           },
-          {
-            childCount: 2,
-            createdAt: '2017-05-31T06:38:47.070Z',
-            id: '51',
-            image: null,
+        },
+        {
+          createdAt: '2017-05-31T06:38:47.070Z',
+          updatedAt: '2017-05-31T09:05:33.687Z',
+          title: 'Space',
+          totalMediaCount: 574,
+          slug: 'space',
+          nsfw: false,
+          childCount: 2,
+          image: null,
+          type: 'categories',
+          id: '51',
+          $: {
             links: {
               self: 'https://kitsu.app/api/edge/categories/51',
             },
-            nsfw: false,
-            parent: {
-              links: {
-                related: 'https://kitsu.app/api/edge/categories/51/parent',
-                self: 'https://kitsu.app/api/edge/categories/51/relationships/parent',
+            relationships: {
+              parent: {
+                links: {
+                  self: 'https://kitsu.app/api/edge/categories/51/relationships/parent',
+                  related: 'https://kitsu.app/api/edge/categories/51/parent',
+                },
               },
             },
-            slug: 'space',
-            title: 'Space',
-            totalMediaCount: 574,
-            type: 'categories',
-            updatedAt: '2017-05-31T09:05:33.687Z',
           },
-        ],
+        },
+      ],
+      $: {
+        links: {
+          self: 'https://kitsu.app/api/edge/anime/1',
+        },
+        relationships: {
+          categories: {
+            data: [
+              {
+                type: 'categories',
+                id: '155',
+                meta: {
+                  dic1: 'def1',
+                },
+              },
+              {
+                type: 'categories',
+                id: '51',
+              },
+            ],
+            links: {
+              self: 'https://kitsu.app/api/edge/anime/1/relationships/categories',
+              related: 'https://kitsu.app/api/edge/anime/1/categories',
+            },
+          },
+        },
       },
     },
     {
-      id: '2',
-      type: 'anime',
-      links: {
-        self: 'https://kitsu.app/api/edge/anime/2',
-      },
       createdAt: '2013-02-20T16:00:16.085Z',
       updatedAt: '2017-12-30T00:00:21.154Z',
       slug: 'cowboy-bebop-tengoku-no-tobira',
@@ -268,55 +283,149 @@ export default {
       youtubeVideoId: 'hc7IxJ93jtM',
       showType: 'movie',
       nsfw: false,
-      categories: {
-        links: {
-          related: 'https://kitsu.app/api/edge/anime/2/categories',
-          self: 'https://kitsu.app/api/edge/anime/2/relationships/categories',
-        },
-        data: [
-          {
-            childCount: 8,
-            createdAt: '2017-05-31T06:39:22.090Z',
-            id: '155',
-            image: null,
+      type: 'anime',
+      id: '2',
+      categories: [
+        {
+          createdAt: '2017-05-31T06:39:22.090Z',
+          updatedAt: '2017-05-31T09:01:35.589Z',
+          title: 'Science Fiction',
+          totalMediaCount: 4368,
+          slug: 'science-fiction',
+          nsfw: false,
+          childCount: 8,
+          image: null,
+          type: 'categories',
+          id: '155',
+          $: {
             links: {
               self: 'https://kitsu.app/api/edge/categories/155',
             },
-            nsfw: false,
-            parent: {
-              links: {
-                related: 'https://kitsu.app/api/edge/categories/155/parent',
-                self: 'https://kitsu.app/api/edge/categories/155/relationships/parent',
+            relationships: {
+              parent: {
+                links: {
+                  self: 'https://kitsu.app/api/edge/categories/155/relationships/parent',
+                  related: 'https://kitsu.app/api/edge/categories/155/parent',
+                },
               },
             },
-            slug: 'science-fiction',
-            title: 'Science Fiction',
-            totalMediaCount: 4368,
-            type: 'categories',
-            updatedAt: '2017-05-31T09:01:35.589Z',
           },
-          {
-            childCount: 5,
-            createdAt: '2017-05-31T06:39:20.357Z',
-            id: '150',
-            image: null,
+        },
+        {
+          createdAt: '2017-05-31T06:39:20.357Z',
+          updatedAt: '2017-05-31T09:01:35.520Z',
+          title: 'Action',
+          totalMediaCount: 8908,
+          slug: 'action',
+          nsfw: false,
+          childCount: 5,
+          image: null,
+          type: 'categories',
+          id: '150',
+          $: {
             links: {
               self: 'https://kitsu.app/api/edge/categories/150',
             },
-            nsfw: false,
-            parent: {
-              links: {
-                related: 'https://kitsu.app/api/edge/categories/150/parent',
-                self: 'https://kitsu.app/api/edge/categories/150/relationships/parent',
+            relationships: {
+              parent: {
+                links: {
+                  self: 'https://kitsu.app/api/edge/categories/150/relationships/parent',
+                  related: 'https://kitsu.app/api/edge/categories/150/parent',
+                },
               },
             },
-            slug: 'action',
-            title: 'Action',
-            totalMediaCount: 8908,
-            type: 'categories',
-            updatedAt: '2017-05-31T09:01:35.520Z',
           },
-        ],
+        },
+      ],
+      $: {
+        links: {
+          self: 'https://kitsu.app/api/edge/anime/2',
+        },
+        relationships: {
+          categories: {
+            links: {
+              self: 'https://kitsu.app/api/edge/anime/2/relationships/categories',
+              related: 'https://kitsu.app/api/edge/anime/2/categories',
+            },
+          },
+        },
+      },
+    },
+  ],
+  included: [
+    {
+      createdAt: '2017-05-31T06:39:22.090Z',
+      updatedAt: '2017-05-31T09:01:35.589Z',
+      title: 'Science Fiction',
+      totalMediaCount: 4368,
+      slug: 'science-fiction',
+      nsfw: false,
+      childCount: 8,
+      image: null,
+      type: 'categories',
+      id: '155',
+      $: {
+        links: {
+          self: 'https://kitsu.app/api/edge/categories/155',
+        },
+        relationships: {
+          parent: {
+            links: {
+              self: 'https://kitsu.app/api/edge/categories/155/relationships/parent',
+              related: 'https://kitsu.app/api/edge/categories/155/parent',
+            },
+          },
+        },
+      },
+    },
+    {
+      createdAt: '2017-05-31T06:38:47.070Z',
+      updatedAt: '2017-05-31T09:05:33.687Z',
+      title: 'Space',
+      totalMediaCount: 574,
+      slug: 'space',
+      nsfw: false,
+      childCount: 2,
+      image: null,
+      type: 'categories',
+      id: '51',
+      $: {
+        links: {
+          self: 'https://kitsu.app/api/edge/categories/51',
+        },
+        relationships: {
+          parent: {
+            links: {
+              self: 'https://kitsu.app/api/edge/categories/51/relationships/parent',
+              related: 'https://kitsu.app/api/edge/categories/51/parent',
+            },
+          },
+        },
+      },
+    },
+    {
+      createdAt: '2017-05-31T06:39:20.357Z',
+      updatedAt: '2017-05-31T09:01:35.520Z',
+      title: 'Action',
+      totalMediaCount: 8908,
+      slug: 'action',
+      nsfw: false,
+      childCount: 5,
+      image: null,
+      type: 'categories',
+      id: '150',
+      $: {
+        links: {
+          self: 'https://kitsu.app/api/edge/categories/150',
+        },
+        relationships: {
+          parent: {
+            links: {
+              self: 'https://kitsu.app/api/edge/categories/150/relationships/parent',
+              related: 'https://kitsu.app/api/edge/categories/150/parent',
+            },
+          },
+        },
       },
     },
   ],

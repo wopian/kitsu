@@ -1,0 +1,111 @@
+{
+  "version": "12.0.0",
+  "name": "kitsu-native",
+  "description": "JSON:API 1.1 client using native fetch",
+  "author": "James Harris <wopian@wopian.me>",
+  "contributors": [
+    "Brandon Martinez <me@brandonmartinez.com>",
+    "Daniel Skogly <daniel.skogly@protonmail.com>",
+    "Lukas Erlacher <erlacher@in.tum.de>",
+    "Matthew Dias <matthewdias@me.com>",
+    "Menthol <bennetteson@gmail.com>",
+    "pedep <pedep@users.noreply.github.com>"
+  ],
+  "license": "MIT",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "types": "types/index.d.ts",
+  "type": "module",
+  "homepage": "https://github.com/wopian/kitsu/tree/master/packages/kitsu-native#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wopian/kitsu.git",
+    "directory": "packages/kitsu-native"
+  },
+  "bugs": {
+    "url": "https://github.com/wopian/kitsu/issues"
+  },
+  "funding": "https://github.com/sponsors/wopian",
+  "engines": {
+    "node": "22 || 24 || >= 26"
+  },
+  "keywords": [
+    "kitsu",
+    "kitsu.app",
+    "anime",
+    "manga",
+    "drama",
+    "json",
+    "api",
+    "wrapper",
+    "client",
+    "jsonapi",
+    "json-api",
+    "json:api",
+    "serialize",
+    "deserialize",
+    "fetch"
+  ],
+  "scripts": {
+    "build": "bun ../../scripts/build.ts kitsu-native",
+    "docs:lint": "bun ../../scripts/docs.ts lint kitsu-native",
+    "docs:build": "bun ../../scripts/docs.ts build kitsu-native",
+    "size": "size-limit"
+  },
+  "dependencies": {
+    "kitsu-core": "workspace:^",
+    "pluralize": "^8.0.0"
+  },
+  "size-limit": [
+    {
+      "path": "./dist/index.mjs",
+      "limit": "11 kb",
+      "brotli": true
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^12.0.0"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./index": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./index.js": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./index.mjs": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./dist/index": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./dist/index.js": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./dist/index.mjs": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "files": [
+    "dist",
+    "types",
+    "README.md",
+    "MIGRATING.md",
+    "CHANGELOG.md",
+    "LICENSE.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

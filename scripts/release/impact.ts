@@ -4,7 +4,7 @@ import type { ImpactContext } from './types.ts'
 
 export function affects(path: string): boolean {
   return (
-    /^(packages\/(kitsu|kitsu-core)\/|package\.json$|bun\.lock$|scripts\/(build|docs)\.ts$|scripts\/release\/|release\.config\.ts$|\.github\/workflows\/release\.yml$)/.test(
+    /^(packages\/(kitsu|kitsu-core|kitsu-native)\/|package\.json$|bun\.lock$|scripts\/(build|docs)\.ts$|scripts\/release\/|release\.config\.ts$|\.github\/workflows\/release\.yml$)/.test(
       path,
     ) && !/(\.(spec|test)\.ts$|\/example\/|\.md$)/.test(path)
   )
@@ -66,6 +66,6 @@ export async function generateNotes(_config: unknown, context: ImpactContext) {
     { ...context, commits: relevantCommits(context) },
   )
   return /^11\./.test(context.lastRelease?.version ?? '')
-    ? `${notes}\n### ESM-only migration\n\nBoth packages now publish ESM only. CommonJS entrypoints and UMD bundles are removed. Runtime API behavior remains unchanged.\n`
+    ? `${notes}\n### ESM-only migration\n\nkitsu-core and kitsu publish ESM only, joined by the native-fetch client kitsu-native. CommonJS entrypoints and UMD bundles are removed. See package migration guides for JSON:API 1.1 behavior changes.\n`
     : notes
 }

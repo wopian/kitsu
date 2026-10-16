@@ -6,7 +6,7 @@
     "url": "https://github.com/wopian/kitsu/issues"
   },
   "engines": {
-    "node": "18 || 20 || >= 22",
+    "node": "22 || 24 || >= 26",
     "bun": "1.4.3"
   },
   "workspaces": [
@@ -16,17 +16,20 @@
     "benchmark": "bun scripts/benchmark.ts",
     "benchmark:smoke": "bun scripts/benchmark.ts --smoke",
     "benchmark:report": "node --experimental-strip-types scripts/benchmark-report.ts",
+    "benchmark:verify": "bun scripts/benchmark-verify.ts",
+    "benchmark:full": "bun scripts/benchmark.ts --runtime node && bun scripts/benchmark.ts --runtime bun && bun benchmark:report",
     "typecheck": "bun check",
     "build": "bun run scripts/build.ts",
     "docs": "bun --filter '*' docs:lint",
     "docs:build": "bun --filter '*' docs:build",
     "docs:typescript": "bun run build:types",
-    "build:types": "tsc -p packages/kitsu-core/tsconfig.build.json && tsc -p packages/kitsu/tsconfig.build.json",
+    "build:types": "tsc -p packages/kitsu-core/tsconfig.build.json && tsc -p packages/kitsu/tsconfig.build.json && tsc -p packages/kitsu-native/tsconfig.build.json",
     "lint": "biome check .",
     "fix": "biome check --write .",
     "format": "biome format .",
     "format:fix": "biome format --write .",
     "test": "bun test --check",
+    "test:compliance": "bun test --check ./specification/compliance",
     "test:coverage": "bun test --check --coverage",
     "test:packages": "bun run scripts/check-packages.ts",
     "test:compatibility": "bun run scripts/compatibility.ts",

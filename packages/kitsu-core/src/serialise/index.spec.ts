@@ -1,726 +1,631 @@
 import { describe, expect, it } from 'bun:test'
 import plural from 'pluralize'
-import { camel } from '../'
+import { camel } from '../camel.js'
 import { serialise } from '../serialise.js'
 
-describe('kitsu-core', () => {
-  describe('serialise', () => {
-    it('accepts camelCaseTypes as an option (default)', () => {
-      expect.assertions(1)
-      const input = serialise('library-entries', { id: '1' }, undefined)
-      expect(input).toEqual({
-        data: {
-          id: '1',
-          type: 'library-entries',
-        },
-      })
-    })
-
-    it('accepts camelCaseTypes as an option (value set)', () => {
-      expect.assertions(1)
-      const input = serialise('library-entries', { id: '1' }, undefined, {
-        camelCaseTypes: camel,
-      })
-      expect(input).toEqual({
-        data: {
-          id: '1',
-          type: 'libraryEntries',
-        },
-      })
-    })
-
-    it('accepts pluralTypes  as an option (default)', () => {
-      expect.assertions(1)
-      const input = serialise('libraryEntry', { id: '1' }, undefined)
-      expect(input).toEqual({
-        data: {
-          id: '1',
-          type: 'libraryEntry',
-        },
-      })
-    })
-
-    it('accepts pluralTypes as an option (value set)', () => {
-      expect.assertions(1)
-      const input = serialise('libraryEntry', { id: '1' }, undefined, {
-        pluralTypes: plural,
-      })
-      expect(input).toEqual({
-        data: {
-          id: '1',
-          type: 'libraryEntries',
-        },
-      })
-    })
-
-    it('serialises to a JSON API compliant object', () => {
-      expect.assertions(1)
-      const input = serialise(
-        'libraryEntries',
-        {
-          ratingTwenty: 20,
-        },
-        undefined,
-        {
-          camelCaseTypes: camel,
-          pluralTypes: plural,
-        },
-      )
-      expect(input).toEqual({
-        data: {
-          attributes: {
-            ratingTwenty: 20,
+describe('kitsu-core serialise', () => {
+  it('copies nested graphs independently across flat and cyclic resource collections', () => {
+    for (const count of [1, 16, 17, 32]) {
+      for (const linked of [false, true]) {
+        const shared: any = { values: [1], date: new Date(0) }
+        shared.self = shared
+        const input: any[] = Array.from({ length: count }, (_, index) => ({
+          type: 'people',
+          id: String(index),
+          info: shared,
+          $: { attributes: { ambiguous: { id: 'attribute' }, empty: [], absent: null } },
+        }))
+        if (linked)
+          for (let index = 0; index < count; index++)
+            input[index].friend = input[(index + 1) % count]
+        const output = serialise('people', input, 'PATCH')
+        const again = serialise('people', input, 'PATCH')
+        const copied = output.data[0].attributes.info
+        expect(copied).not.toBe(shared)
+        expect(copied).not.toBe(again.data[0].attributes.info)
+        expect(copied.self).toBe(copied)
+        expect(copied.date).not.toBe(shared.date)
+        expect(copied.date.getTime()).toBe(0)
+        for (let index = 0; index < count; index++) {
+          expect(output.data[index].attributes.info).toBe(copied)
+          expect(output.data[index].attributes.ambiguous).toEqual({ id: 'attribute' })
+          expect(output.data[index].attributes.empty).toEqual([])
+          expect(output.data[index].attributes.absent).toBeNull()
+          if (linked)
+            expect(output.data[index].relationships.friend.data).toEqual({
+              type: 'people',
+              id: String((index + 1) % count),
+            })
+        }
+        copied.values.push(2)
+        expect(shared.values).toEqual([1])
+        expect(again.data[0].attributes.info.values).toEqual([1])
+        expect(output.included).toBeUndefined()
+      }
+    }
+  })
+  it('retains saved identifier objects when later getters replace array elements', () => {
+    for (const variant of ['replace', 'mutate']) {
+      for (const promote of [false, true]) {
+        const saved = [{ type: 'people', id: '9', meta: { original: true } }]
+        const input: any[] = [
+          {
+            id: '1',
+            author: { type: 'people', id: '9' },
+            $: { relationships: { author: { data: saved } } },
           },
-          type: 'libraryEntries',
-        },
-      })
-    })
-
-    it('serialises JSON API relationships', () => {
-      expect.assertions(1)
-      const input = serialise(
-        'libraryEntries',
-        {
-          user: {
-            data: {
-              id: '2',
+          {
+            id: '2',
+            get title() {
+              if (variant === 'replace')
+                saved[0] = { type: 'people', id: '9', meta: { original: false } }
+              else saved[0].id = 'changed'
+              return 'Changed'
             },
           },
+        ]
+        if (promote) input.push({ id: '3', author: { type: 'people', id: '9', name: 'Ada' } })
+        const output = serialise('articles', input, 'PATCH')
+        expect(output.data[0].relationships.author.data).toEqual({
+          type: 'people',
+          id: '9',
+          meta: { original: true },
+        })
+      }
+    }
+  })
+  it('ignores array extras while matching saved identifier metadata', () => {
+    const saved = [{ type: 'people', id: '8', meta: { other: true } }]
+    Object.defineProperty(saved, 'Infinity', {
+      value: { type: 'people', id: '9', meta: { unrelated: true } },
+      enumerable: true,
+    })
+    const output = serialise('articles', {
+      author: { type: 'people', id: '9' },
+      $: { relationships: { author: { data: saved } } },
+    })
+    expect(output.data.relationships.author.data).toEqual({ type: 'people', id: '9' })
+  })
+  it('keeps numeric input convenience separate from saved wire identifier metadata', () => {
+    // @ts-expect-error Saved wire IDs must be strings; runtime matching must not coerce invalid IDs.
+    const output = serialise('articles', {
+      author: { type: 'people', id: 9 },
+      $: {
+        relationships: {
+          author: { data: { type: 'people', id: 9, meta: { numeric: true } } },
         },
-        undefined,
-        {
-          camelCaseTypes: camel,
-          pluralTypes: plural,
+      },
+    })
+    expect(output.data.relationships.author.data).toEqual({ type: 'people', id: '9' })
+  })
+  it('resolves aliases introduced only through saved raw linkage', () => {
+    const output = serialise('articles', {
+      author: { type: 'people', id: '9' },
+      $: {
+        relationships: {
+          first: { data: { type: 'people', lid: 'draft', meta: { first: true } } },
+          bridge: { data: { type: 'people', id: '9', lid: 'draft' } },
         },
-      )
-      expect(input).toEqual({
-        data: {
+      },
+    })
+    expect(output.included).toBeUndefined()
+    expect(output.data.relationships.author.data).toEqual({ type: 'people', id: '9', lid: 'draft' })
+    expect(output.data.relationships.first.data).toEqual({
+      type: 'people',
+      id: '9',
+      lid: 'draft',
+      meta: { first: true },
+    })
+    expect(output.data.relationships.bridge.data).toEqual({ type: 'people', id: '9', lid: 'draft' })
+  })
+  it('keeps non-enumerable local identities when rich metadata is present', () => {
+    const envelope = Object.defineProperty({ meta: { source: true } }, 'lid', { value: 'draft' })
+    const identifier = Object.defineProperty(
+      { type: 'people', id: '9', meta: { edge: true } },
+      'lid',
+      { value: 'person' },
+    )
+    const output = serialise('articles', { id: '1', $: envelope })
+    expect(output.data).toEqual({ type: 'articles', id: '1', lid: 'draft', meta: { source: true } })
+    const raw = serialise('articles', { $: { relationships: { author: { data: identifier } } } })
+    expect(raw.data.relationships.author.data).toEqual({
+      type: 'people',
+      id: '9',
+      lid: 'person',
+      meta: { edge: true },
+    })
+  })
+  it('keeps rich identifier metadata local and copies each edge independently', () => {
+    const meta = { roles: ['editor'] }
+    const output = serialise('articles', {
+      author: { type: 'people', id: '9' },
+      reviewers: [
+        { type: 'people', id: '9' },
+        { type: 'people', id: '9' },
+      ],
+      $: {
+        links: { self: { href: '/articles/1' } },
+        meta: { version: 1 },
+        'audit:revision': { value: 2 },
+        relationships: {
+          author: { data: { type: 'people', id: '9', meta }, links: { related: null } },
+          reviewers: { data: [{ type: 'people', id: '9', meta }], meta: { count: 2 } },
+          'audit:note': { text: 'opaque' },
+        },
+      },
+    })
+    expect(output.included).toBeUndefined()
+    expect(output.data.links).toEqual({ self: { href: '/articles/1' } })
+    expect(output.data.meta).toEqual({ version: 1 })
+    expect(output.data['audit:revision']).toEqual({ value: 2 })
+    expect(output.data.relationships.author).toEqual({
+      data: { type: 'people', id: '9', meta },
+      links: { related: null },
+    })
+    expect(output.data.relationships.reviewers.meta).toEqual({ count: 2 })
+    expect(output.data.relationships['audit:note']).toEqual({ text: 'opaque' })
+    const [first, second] = output.data.relationships.reviewers.data
+    expect(first).not.toBe(second)
+    expect(first.meta).not.toBe(meta)
+    first.meta.roles.push('changed')
+    expect(meta.roles).toEqual(['editor'])
+  })
+  it('promotes metadata and raw linkage without rereading copied getters', () => {
+    for (const related of [false, true]) {
+      let resourceReads = 0
+      let relationshipReads = 0
+      let identifierReads = 0
+      const first = {
+        id: '1',
+        author: { type: 'people', id: '9' },
+        $: {
+          get meta() {
+            resourceReads++
+            return { value: 1 }
+          },
           relationships: {
-            user: {
-              data: {
-                id: '2',
-                type: 'users',
+            author: {
+              get links() {
+                relationshipReads++
+                return { related: null }
               },
+              data: [
+                { type: 'people', lid: 'draft' },
+                {
+                  type: 'people',
+                  id: '9',
+                  get meta() {
+                    identifierReads++
+                    return { stale: true }
+                  },
+                },
+              ],
             },
           },
-          type: 'libraryEntries',
         },
-      })
-    })
-
-    it('serialises JSON API array relationships', () => {
-      expect.assertions(1)
-      const input = serialise(
-        'libraryEntries',
-        {
-          user: {
+      }
+      const data: any[] = [first]
+      if (related)
+        data.push({
+          id: '2',
+          person: { type: 'people', id: '9', $: { lid: 'draft' }, name: 'Ada' },
+        })
+      const output = serialise('articles', data, 'PATCH')
+      expect(resourceReads).toBe(1)
+      expect(relationshipReads).toBe(1)
+      expect(identifierReads).toBe(related ? 0 : 1)
+      expect(output.data[0].relationships.author.data).toEqual(
+        related
+          ? { type: 'people', id: '9', lid: 'draft' }
+          : { type: 'people', id: '9', meta: { stale: true } },
+      )
+    }
+    let reads = 0
+    const output = serialise('articles', {
+      $: {
+        relationships: {
+          authors: {
             data: [
               {
-                id: '2',
-                type: 'users',
-                content: 'yuzu',
+                type: 'people',
+                id: '9',
+                get meta() {
+                  reads++
+                  return { first: true }
+                },
               },
-              {
-                id: '3',
+              { type: 'people', lid: 'draft', meta: { second: true } },
+            ],
+          },
+          clear: { data: null, links: { related: '/clear' } },
+        },
+      },
+    })
+    expect(reads).toBe(1)
+    expect(output.data.relationships.authors.data).toEqual([
+      { type: 'people', id: '9', meta: { first: true } },
+      { type: 'people', lid: 'draft', meta: { second: true } },
+    ])
+    expect(output.data.relationships.clear.data).toBeNull()
+  })
+  it('copies literal prototype keys in document and relationship extras without changing prototypes', () => {
+    const document = JSON.parse('{"__proto__":{"document":true}}')
+    const extras = JSON.parse('{"__proto__":{"relationship":true},"data":null}')
+    for (const extra of [{}, { author: { type: 'people', id: '9', name: 'Ada' } }]) {
+      const output = serialise(
+        'articles',
+        { ...extra, $: { relationships: { clear: extras } } },
+        'POST',
+        { document },
+      )
+      expect(Object.getPrototypeOf(output)).toBe(Object.prototype)
+      expect(Object.getOwnPropertyDescriptor(output, '__proto__')?.value).toEqual({
+        document: true,
+      })
+      const relationship = output.data.relationships.clear
+      expect(Object.getPrototypeOf(relationship)).toBe(Object.prototype)
+      expect(Object.getOwnPropertyDescriptor(relationship, '__proto__')?.value).toEqual({
+        relationship: true,
+      })
+      expect(relationship.data).toBeNull()
+    }
+    expect(Object.getOwnPropertyDescriptor(document, '__proto__')?.value.document).toBe(true)
+  })
+  it('keeps prototype member names as own relationship fields', () => {
+    const original = Object.getOwnPropertyDescriptor(Object, 'data')
+    const output = serialise('articles', {
+      constructor: { type: 'people', id: '9', name: 'Ada' },
+      toString: { type: 'tags', id: '2', label: 'Tag' },
+    })
+    expect(Object.hasOwn(output.data.relationships, 'constructor')).toBe(true)
+    expect(Object.hasOwn(output.data.relationships, 'toString')).toBe(true)
+    expect(output.data.relationships.constructor.data).toEqual({ type: 'people', id: '9' })
+    expect(output.data.relationships.toString.data).toEqual({ type: 'tags', id: '2' })
+    expect(Object.getOwnPropertyDescriptor(Object, 'data')).toEqual(original)
+    const raw = serialise('articles', {
+      $: {
+        relationships: {
+          constructor: { data: { type: 'people', id: '9' }, meta: { role: 'author' } },
+        },
+      },
+    })
+    expect(raw.data.relationships.constructor).toEqual({
+      data: { type: 'people', id: '9' },
+      meta: { role: 'author' },
+    })
+    expect(Object.getOwnPropertyDescriptor(Object, 'data')).toEqual(original)
+  })
+  it('promotes completed output without rereading earlier attribute values', () => {
+    let reads = 0
+    const input = {
+      get title() {
+        reads++
+        return { nested: true }
+      },
+      tags: [
+        { type: 'tags', id: '1' },
+        { type: 'tags', id: '2', label: 'Full' },
+      ],
+      author: { type: 'people', id: '9', name: 'Ada' },
+    }
+    const output = serialise('articles', input)
+    expect(reads).toBe(1)
+    expect(output.data.attributes).toEqual({ title: { nested: true } })
+    expect(output.data.relationships.tags.data).toEqual([
+      { type: 'tags', id: '1' },
+      { type: 'tags', id: '2' },
+    ])
+    expect(output.included.map((resource: any) => resource.id)).toEqual(['2', '9'])
+    expect(
+      serialise(
+        'articles',
+        [
+          { id: '1', title: 'First' },
+          { id: '2', author: { type: 'people', id: '9', name: 'Ada' } },
+        ],
+        'PATCH',
+      ).data.map((resource: any) => resource.id),
+    ).toEqual(['1', '2'])
+  })
+  it('merges a bridge between separate id and lid entries without changing first-seen order', () => {
+    const output = serialise('articles', {
+      first: { type: 'people', id: '9' },
+      middle: { type: 'tags', id: '3', label: 'Tag' },
+      second: { type: 'people', $: { lid: 'draft' } },
+      bridge: { type: 'people', id: '9', $: { lid: 'draft' }, name: 'Ada' },
+    })
+    expect(output.included.map((resource: any) => resource.type)).toEqual(['people', 'tags'])
+    expect(output.data.relationships.first.data).toEqual({ type: 'people', id: '9', lid: 'draft' })
+    expect(output.data.relationships.second.data).toEqual({ type: 'people', id: '9', lid: 'draft' })
+    expect(() =>
+      serialise('articles', {
+        first: { type: 'people', id: '9', name: 'Ada' },
+        second: { type: 'people', $: { lid: 'draft' }, name: 'Different' },
+        bridge: { type: 'people', id: '9', $: { lid: 'draft' } },
+      }),
+    ).toThrow('Conflicting resources')
+  })
+  it('keeps metadata-free first matches and finalizes aliases in supplied linkage', () => {
+    const output = serialise(
+      'articles',
+      {
+        author: { type: 'people', id: '9', $: { lid: 'draft' } },
+        $: {
+          relationships: {
+            author: {
+              data: [
+                { type: 'people', lid: 'draft' },
+                { type: 'people', id: '9', meta: { stale: true } },
+              ],
+            },
+          },
+        },
+      },
+      'POST',
+      {
+        document: {
+          included: [
+            {
+              type: 'tags',
+              id: '1',
+              relationships: {
+                author: { data: { type: 'people', lid: 'draft', meta: { edge: true } } },
               },
+            },
+          ],
+        },
+      },
+    )
+    expect(output.data.relationships.author.data).toEqual({ type: 'people', id: '9', lid: 'draft' })
+    expect(output.included[0].relationships.author.data).toEqual({
+      type: 'people',
+      id: '9',
+      lid: 'draft',
+      meta: { edge: true },
+    })
+    expect(output.included).toHaveLength(1)
+  })
+  it('serializes deep cyclic resource graphs and compares cyclic duplicate attributes', () => {
+    const first: any = { type: 'nodes', id: '0' }
+    let last = first
+    for (let index = 1; index < 12000; index++)
+      last = last.next = { type: 'nodes', id: String(index) }
+    last.next = first
+    const output = serialise('nodes', first, 'PATCH')
+    expect(output.included).toHaveLength(11999)
+    expect(output.included[11998].relationships.next.data).toEqual({ type: 'nodes', id: '0' })
+    const left: any = { value: 1 }
+    left.self = left
+    const right: any = { value: 1 }
+    right.self = right
+    expect(
+      serialise('articles', {
+        first: { type: 'people', id: '9', payload: left },
+        second: { type: 'people', id: '9', payload: right },
+      }).included,
+    ).toHaveLength(1)
+  })
+  it('transforms root and inferred types but keeps explicit relationship types', () => {
+    expect(
+      serialise(
+        'library-entry',
+        { user: { id: '2' }, author: { type: 'people', id: '9' } },
+        'POST',
+        { camelCaseTypes: camel, pluralTypes: plural },
+      ),
+    ).toEqual({
+      data: {
+        type: 'libraryEntries',
+        relationships: {
+          user: { data: { type: 'users', id: '2' } },
+          author: { data: { type: 'people', id: '9' } },
+        },
+      },
+    })
+    expect(serialise('anime', {}, 'POST', { pluralTypes: plural })).toEqual({
+      data: { type: 'anime' },
+    })
+  })
+  it('preserves options without installing defaults onto caller objects', () => {
+    const options = Object.freeze({})
+    expect(serialise('articles', {}, undefined, options)).toEqual({ data: { type: 'articles' } })
+    expect(options).toEqual({})
+  })
+  it('clears and replaces relationships using saved raw linkage without direct values', () => {
+    const input = {
+      $: { relationships: { author: { data: null }, tags: { data: [{ type: 'tags', id: '2' }] } } },
+    }
+    const output = serialise('articles', input)
+    expect(output).toEqual({
+      data: {
+        type: 'articles',
+        relationships: { author: { data: null }, tags: { data: [{ type: 'tags', id: '2' }] } },
+      },
+    })
+    output.data.relationships.tags.data[0].id = 'changed'
+    expect(input.$.relationships.tags.data[0].id).toBe('2')
+  })
+  it('copies nested, cyclic and shared attributes through simple and full resource graphs', () => {
+    const shared: any = { value: 1 }
+    shared.self = shared
+    for (const extra of [{}, { author: { type: 'people', id: '9', name: 'Ada' } }]) {
+      const output = serialise('articles', { first: shared, second: shared, ...extra })
+      expect(output.data.attributes.first).toBe(output.data.attributes.second)
+      expect(output.data.attributes.first.self).toBe(output.data.attributes.first)
+      expect(output.data.attributes.first).not.toBe(shared)
+      output.data.attributes.first.value = 2
+      expect(shared.value).toBe(1)
+    }
+    const fields = Object.fromEntries(
+      Array.from({ length: 600 }, (_, index) => [`field-${index}`, index]),
+    )
+    expect(serialise('articles', fields).data.attributes).toEqual(fields)
+    expect(() => serialise('articles', { value: () => {} })).toThrow()
+  })
+  it('rejects conflicting collection resources and does not retain output between calls', () => {
+    expect(() =>
+      serialise(
+        'articles',
+        [
+          { id: '1', title: 'First' },
+          { id: '1', title: 'Second' },
+        ],
+        'PATCH',
+      ),
+    ).toThrow('Conflicting resources')
+    const input = { id: '1', title: 'First' }
+    const first = serialise('articles', input, 'PATCH')
+    input.title = 'Second'
+    const second = serialise('articles', input, 'PATCH')
+    expect(second.data.attributes.title).toBe('Second')
+    expect(first.data.attributes.title).toBe('First')
+    expect(first).not.toBe(second)
+  })
+  it('ignores inherited resource fields and preserves cycles on custom prototypes', () => {
+    const person = Object.assign(Object.create({ ignored: 'inherited', id: 'wrong' }), {
+      type: 'people',
+      name: 'Ada',
+      $: { lid: 'p' },
+    })
+    person.friend = person
+    const output = serialise('articles', { author: person })
+    expect(output.included).toEqual([
+      {
+        type: 'people',
+        lid: 'p',
+        attributes: { name: 'Ada' },
+        relationships: { friend: { data: { type: 'people', lid: 'p' } } },
+      },
+    ])
+    expect(person.ignored).toBe('inherited')
+    expect(
+      serialise('articles', Object.assign(Object.create({ hidden: true }), { title: 'Hello' })),
+    ).toEqual({ data: { type: 'articles', attributes: { title: 'Hello' } } })
+  })
+  it('supports legacy bulk arrays separately from base JSON:API', () => {
+    expect(serialise('articles', [{ id: 1 }, { id: 2 }], 'PATCH')).toEqual({
+      data: [
+        { type: 'articles', id: '1' },
+        { type: 'articles', id: '2' },
+      ],
+    })
+    expect(() => serialise('articles', [{ id: 1 }, {}], 'PATCH')).toThrow('PATCH requires an ID')
+  })
+  it('requires object bodies and valid identifier values', () => {
+    for (const value of [0, 'text', true])
+      expect(() => serialise('articles', value as any)).toThrow('requires an object or array body')
+    expect(() => serialise('articles', undefined, 'PATCH')).toThrow('PATCH requires an ID')
+    expect(() => serialise('articles', { id: {} } as any)).toThrow('Invalid resource id')
+    expect(() => serialise('articles', { $: { lid: 1 } } as any)).toThrow('Invalid resource lid')
+    expect(() =>
+      serialise('articles', { $: { relationships: { 'bad.name': { data: null } } } }),
+    ).toThrow('Invalid field')
+    expect(() => serialise('articles', { 'bad.name': 1 })).toThrow('Invalid field')
+  })
+  it('writes arbitrary JSON values and ordinary objects containing data', () => {
+    expect(
+      serialise('articles', {
+        n: 0,
+        yes: false,
+        nothing: null,
+        object: { data: { id: '9' } },
+        array: ['one'],
+      }),
+    ).toEqual({
+      data: {
+        type: 'articles',
+        attributes: {
+          n: 0,
+          yes: false,
+          nothing: null,
+          object: { data: { id: '9' } },
+          array: ['one'],
+        },
+      },
+    })
+  })
+  it('checks conflicts with primary and explicit included representations', () => {
+    expect(() =>
+      serialise('articles', { id: '1', title: 'Hello' }, 'PATCH', {
+        document: { included: [{ type: 'articles', id: '1', attributes: { title: 'Changed' } }] },
+      }),
+    ).toThrow('Conflicting resources')
+    expect(() =>
+      serialise('articles', { author: { type: 'people', id: '9', name: 'Ada' } }, 'POST', {
+        document: { included: [{ type: 'people', id: '9', attributes: { name: 'Changed' } }] },
+      }),
+    ).toThrow('Conflicting resources')
+  })
+  it('joins wide reordered linkage by identity without losing identifier metadata', () => {
+    const identifiers = Array.from({ length: 4000 }, (_, index) => ({
+      type: 'tags',
+      id: String(index),
+      meta: { index },
+    }))
+    const tags = identifiers.map(({ type, id }) => ({ type, id })).reverse()
+    const input = { tags, $: { relationships: { tags: { data: identifiers } } } }
+    const before = structuredClone(input)
+    expect(serialise('articles', input).data.relationships.tags.data).toEqual(
+      [...identifiers].reverse(),
+    )
+    expect(input).toEqual(before)
+  })
+  it('keeps first metadata match across id and lid aliases and relationship boundaries', () => {
+    const person = { type: 'people', id: '9', $: { lid: 'draft' } }
+    const input = {
+      author: person,
+      editor: person,
+      $: {
+        relationships: {
+          author: {
+            data: [
+              { type: 'people', lid: 'draft', meta: { first: true }, 'edge:role': 'author' },
+              { type: 'people', id: '9', meta: { first: false } },
+            ],
+          },
+          editor: {
+            data: [
+              { type: 'people', id: '9', meta: { editor: true } },
+              { type: 'people', id: '9', meta: { editor: false } },
             ],
           },
         },
-        undefined,
-        {
-          camelCaseTypes: camel,
-          pluralTypes: plural,
-        },
-      )
-      expect(input).toEqual({
+      },
+    }
+    const output = serialise('articles', input)
+    expect(output.data.relationships).toEqual({
+      author: {
         data: {
-          relationships: {
-            user: {
-              data: [
-                {
-                  id: '2',
-                  type: 'users',
-                  attributes: {
-                    content: 'yuzu',
-                  },
-                },
-                {
-                  id: '3',
-                  type: 'users',
-                },
-              ],
-            },
-          },
-          type: 'libraryEntries',
+          type: 'people',
+          id: '9',
+          lid: 'draft',
+          meta: { first: true },
+          'edge:role': 'author',
         },
-      })
+      },
+      editor: { data: { type: 'people', id: '9', lid: 'draft', meta: { editor: true } } },
     })
-
-    it('serialises JSON API with a client-generated ID', () => {
-      expect.assertions(1)
-      const input = serialise(
-        'libraryEntries',
-        {
-          id: '123456789',
-          ratingTwenty: 20,
-        },
-        undefined,
-        {
-          camelCaseTypes: camel,
-          pluralTypes: plural,
-        },
-      )
-      expect(input).toEqual({
-        data: {
-          id: '123456789',
-          type: 'libraryEntries',
-          attributes: {
-            ratingTwenty: 20,
-          },
-        },
-      })
-    })
-
-    it('pluralises type', () => {
-      expect.assertions(1)
-      const input = serialise(
-        'libraryEntry',
-        {
-          rating: '1',
-        },
-        undefined,
-        {
-          camelCaseTypes: camel,
-          pluralTypes: plural,
-        },
-      )
-      expect(input).toEqual({
-        data: {
-          type: 'libraryEntries',
-          attributes: {
-            rating: '1',
-          },
-        },
-      })
-    })
-
-    it('does not pluralise mass nouns', () => {
-      expect.assertions(1)
-      const input = serialise(
-        'anime',
-        {
-          slug: 'Cowboy Bebop 2',
-        },
-        undefined,
-        {
-          camelCaseTypes: camel,
-          pluralTypes: plural,
-        },
-      )
-      expect(input).toEqual({
-        data: {
-          type: 'anime',
-          attributes: {
-            slug: 'Cowboy Bebop 2',
-          },
-        },
-      })
-    })
-
-    it('does not pluralise type', () => {
-      expect.assertions(1)
-      const input = serialise('libraryEntry', {
-        rating: '1',
-      })
-      expect(input).toEqual({
-        data: {
-          type: 'libraryEntry',
-          attributes: {
-            rating: '1',
-          },
-        },
-      })
-    })
-
-    it('does not throws an error if obj is missing when method is POST', () => {
-      expect.assertions(1)
-      const input = serialise('anime', {}, 'POST')
-      expect(input).toEqual({
-        data: {
-          type: 'anime',
-        },
-      })
-    })
-
-    it('throws an error if obj is missing when method is not POST', () => {
-      expect.assertions(1)
-      expect(() => serialise('post', {}, 'PATCH')).toThrow('PATCH requires an object or array body')
-    })
-
-    it('throws an error if obj is not an Object', () => {
-      expect.assertions(1)
-      expect(() => serialise('post', 'id: 1' as any, 'DELETE')).toThrow(
-        'DELETE requires an object or array body',
-      )
-    })
-
-    it('throws an error when missing ID', () => {
-      expect.assertions(1)
-      expect(() => serialise('user', { theme: 'dark' }, 'PATCH')).toThrow(
-        'PATCH requires an ID for the user type',
-      )
-    })
-
-    it('throws an error when missing ID in array', () => {
-      expect.assertions(1)
-      expect(() => serialise('user', [{ theme: 'dark' }], 'PATCH')).toThrow(
-        'PATCH requires an ID for the user type',
-      )
-    })
-
-    it('serialises strings/numbers/booleans into attributes', () => {
-      expect.assertions(1)
-      const input = serialise('resourceModel', {
-        string: 'shark',
-        number: 1,
-        boolean: true,
-      })
-      expect(input).toEqual({
-        data: {
-          type: 'resourceModel',
-          attributes: {
-            string: 'shark',
-            number: 1,
-            boolean: true,
-          },
-        },
-      })
-    })
-
-    it('serialises bare objects into attributes', () => {
-      expect.assertions(1)
-      const input = serialise('resourceModel', {
-        object: {
-          string: 'shark',
-        },
-        blank: {},
-      })
-      expect(input).toEqual({
-        data: {
-          type: 'resourceModel',
-          attributes: {
-            object: {
-              string: 'shark',
-            },
-            blank: {},
-          },
-        },
-      })
-    })
-
-    it('serialises type objects into relationships', () => {
-      expect.assertions(1)
-      const input = serialise('resourceModel', {
-        myRelationship: {
-          data: {
-            id: '1',
-            type: 'relationshipModel',
-            content: 'Hello',
-            attributes: 'Keep me',
-          },
-        },
-      })
-      expect(input).toEqual({
-        data: {
-          type: 'resourceModel',
-          relationships: {
-            myRelationship: {
-              data: {
-                id: '1',
-                type: 'relationshipModel',
-                attributes: {
-                  content: 'Hello',
-                  attributes: 'Keep me',
-                },
-              },
-            },
-          },
-        },
-      })
-    })
-
-    it('serialises type objects into relationships inside arrays', () => {
-      expect.assertions(1)
-      const input = serialise('resourceModel', [
-        {
-          myRelationship: {
-            data: {
-              id: '1',
-              type: 'relationshipModel',
-              content: 'Hello',
-            },
-          },
-        },
-      ])
-      expect(input).toEqual({
-        data: [
-          {
-            type: 'resourceModel',
-            relationships: {
-              myRelationship: {
-                data: {
-                  id: '1',
-                  type: 'relationshipModel',
-                  attributes: {
-                    content: 'Hello',
-                  },
-                },
-              },
-            },
-          },
+    expect(output.included).toBeUndefined()
+    expect(
+      serialise('articles', {
+        tags: [
+          { type: 'tags', id: 'same' },
+          { type: 'people', id: 'same' },
         ],
-      })
-    })
-
-    it('serialises bare arrays into attributes', () => {
-      expect.assertions(1)
-      const input = serialise('resourceModel', {
-        array: [0],
-        deepArray: [[0]],
-        arrayObject: [{ string: 'shark' }],
-        blank: [],
-      })
-      expect(input).toEqual({
-        data: {
-          type: 'resourceModel',
-          attributes: {
-            array: [0],
-            deepArray: [[0]],
-            arrayObject: [{ string: 'shark' }],
-            blank: [],
-          },
-        },
-      })
-    })
-
-    it('serialises type arrays into relationships', () => {
-      expect.assertions(1)
-      const input = serialise('resourceModels', {
-        arrayRelation: {
-          data: [
-            {
-              id: '1',
-              type: 'arrayRelations',
-              content: 'Hey',
-              attributes: 'Keep me',
-            },
-          ],
-        },
-      })
-      expect(input).toEqual({
-        data: {
-          type: 'resourceModels',
+        $: {
           relationships: {
-            arrayRelation: {
+            tags: {
               data: [
-                {
-                  id: '1',
-                  type: 'arrayRelations',
-                  attributes: {
-                    content: 'Hey',
-                    attributes: 'Keep me',
-                  },
-                },
+                { type: 'people', id: 'same', meta: { person: true } },
+                { type: 'tags', id: 'same', meta: { tag: true } },
               ],
             },
           },
         },
-      })
-    })
-
-    it('serialises relationship clearing (to-one)', () => {
-      expect.assertions(1)
-      const input = serialise('resourceModel', null)
-      expect(input).toEqual({
-        data: null,
-      })
-    })
-
-    it('serialises relationship clearing (to-many)', () => {
-      expect.assertions(1)
-      const input = serialise('resourceModel', [])
-      expect(input).toEqual({
-        data: [],
-      })
-    })
-
-    it('serialises a data array without ID (POST)', () => {
-      expect.assertions(1)
-      const resource = { content: 'some new content' }
-      const resourceOutput = { type: 'posts', attributes: { content: 'some new content' } }
-      const input = serialise('posts', [resource, resource])
-      expect(input).toEqual({
-        data: [resourceOutput, resourceOutput],
-      })
-    })
-
-    it('serialises a data array with ID (PATCH/DELETE)', () => {
-      expect.assertions(1)
-      const resource = { id: '1', content: 'some new content' }
-      const resourceOutput = { id: '1', type: 'posts', attributes: { content: 'some new content' } }
-      const input = serialise('posts', [resource, resource])
-      expect(input).toEqual({
-        data: [resourceOutput, resourceOutput],
-      })
-    })
-
-    it('does not error with an invalid JSON value (undefined)', () => {
-      expect.assertions(1)
-      const resource = { id: '1', content: undefined }
-      const resourceOutput = { id: '1', type: 'posts', attributes: { content: undefined } }
-      const input = serialise('posts', resource)
-      expect(input).toEqual({ data: resourceOutput })
-    })
-
-    it('serialises object and array relationships', () => {
-      expect.assertions(1)
-      const input = {
-        id: '1',
-        type: 'libraryEntries',
-        links: { self: 'library-entries/1' },
-        meta: { extra: true },
-        ratingTwenty: 10,
-        user: {
-          links: {
-            self: 'library-entries/1/relationships/user',
-            related: 'library-entries/1/user',
-          },
-          meta: { some: 'meta info' },
-          data: {
-            id: '2',
-            type: 'users',
-            name: 'Example',
-            links: { self: 'users/2' },
-          },
-        },
-        unit: {
-          links: {
-            self: 'library-entries/1/relationships/unit',
-            related: 'library-entries/1/unit',
-          },
-          meta: { extra: 'info' },
-          data: [
-            {
-              id: '3',
-              type: 'episodes',
-              number: 12,
-              links: { self: 'episodes/3' },
-            },
-          ],
-        },
-      }
-      const output = {
-        data: {
-          id: '1',
-          type: 'libraryEntries',
-          links: { self: 'library-entries/1' },
-          meta: { extra: true },
-          attributes: { ratingTwenty: 10 },
-          relationships: {
-            user: {
-              links: {
-                self: 'library-entries/1/relationships/user',
-                related: 'library-entries/1/user',
-              },
-              meta: { some: 'meta info' },
-              data: {
-                id: '2',
-                type: 'users',
-                attributes: { name: 'Example' },
-                links: { self: 'users/2' },
-              },
-            },
-            unit: {
-              links: {
-                self: 'library-entries/1/relationships/unit',
-                related: 'library-entries/1/unit',
-              },
-              meta: { extra: 'info' },
-              data: [
-                {
-                  id: '3',
-                  type: 'episodes',
-                  attributes: { number: 12 },
-                  links: { self: 'episodes/3' },
-                },
-              ],
-            },
-          },
-        },
-      }
-      expect(serialise('libraryEntries', input)).toStrictEqual(output)
-    })
-
-    it('serialises object and array relationships by guessing the types', () => {
-      expect.assertions(1)
-      const input = {
-        id: '1',
-        links: { self: 'library-entries/1' },
-        meta: { extra: true },
-        ratingTwenty: 10,
-        user: {
-          links: {
-            self: 'library-entries/1/relationships/user',
-            related: 'library-entries/1/user',
-          },
-          meta: { some: 'meta info' },
-          data: {
-            id: '2',
-            name: 'Example',
-            links: { self: 'users/2' },
-          },
-        },
-        unit: {
-          links: {
-            self: 'library-entries/1/relationships/unit',
-            related: 'library-entries/1/unit',
-          },
-          meta: { extra: 'info' },
-          data: [
-            {
-              id: '3',
-              number: 12,
-              links: { self: 'episodes/3' },
-            },
-          ],
-        },
-      }
-      const output = {
-        data: {
-          id: '1',
-          type: 'libraryEntries',
-          links: { self: 'library-entries/1' },
-          meta: { extra: true },
-          attributes: { ratingTwenty: 10 },
-          relationships: {
-            user: {
-              links: {
-                self: 'library-entries/1/relationships/user',
-                related: 'library-entries/1/user',
-              },
-              meta: { some: 'meta info' },
-              data: {
-                id: '2',
-                type: 'user',
-                attributes: { name: 'Example' },
-                links: { self: 'users/2' },
-              },
-            },
-            unit: {
-              links: {
-                self: 'library-entries/1/relationships/unit',
-                related: 'library-entries/1/unit',
-              },
-              meta: { extra: 'info' },
-              data: [
-                {
-                  id: '3',
-                  type: 'unit',
-                  attributes: { number: 12 },
-                  links: { self: 'episodes/3' },
-                },
-              ],
-            },
-          },
-        },
-      }
-      expect(serialise('libraryEntries', input)).toStrictEqual(output)
-    })
-
-    it('keeps non-JSON:API links/meta properties in attributes', () => {
-      expect.assertions(1)
-      const input = {
-        id: '1',
-        type: 'libraryEntries',
-        links: 'Not JSON:API link object',
-        meta: 'Not JSON:API meta object',
-        user: {
-          data: {
-            id: '1',
-            links: 'Not JSON:API link object',
-            meta: 'Not JSON:API meta object',
-          },
-        },
-      }
-      const output = {
-        data: {
-          id: '1',
-          type: 'libraryEntries',
-          attributes: {
-            links: 'Not JSON:API link object',
-            meta: 'Not JSON:API meta object',
-          },
-          relationships: {
-            user: {
-              data: {
-                id: '1',
-                type: 'user',
-                attributes: {
-                  links: 'Not JSON:API link object',
-                  meta: 'Not JSON:API meta object',
-                },
-              },
-            },
-          },
-        },
-      }
-      expect(serialise('libraryEntries', input)).toStrictEqual(output)
-    })
-
-    it('deletes a to-one relationship', () => {
-      expect.assertions(1)
-      const input = {
-        id: '1',
-        type: 'libraryEntries',
-        user: {
-          data: null,
-        },
-      }
-      const output = {
-        data: {
-          id: '1',
-          type: 'libraryEntries',
-          relationships: {
-            user: {
-              data: null,
-            },
-          },
-        },
-      }
-      expect(serialise('libraryEntries', input)).toStrictEqual(output)
-    })
-
-    it('deletes a to-many relationship', () => {
-      expect.assertions(1)
-      const input = {
-        id: '1',
-        type: 'libraryEntries',
-        user: {
-          data: [],
-        },
-      }
-      const output = {
-        data: {
-          id: '1',
-          type: 'libraryEntries',
-          relationships: {
-            user: {
-              data: [],
-            },
-          },
-        },
-      }
-      expect(serialise('libraryEntries', input)).toStrictEqual(output)
-    })
+      }).data.relationships.tags.data,
+    ).toEqual([
+      { type: 'tags', id: 'same', meta: { tag: true } },
+      { type: 'people', id: 'same', meta: { person: true } },
+    ])
   })
 })

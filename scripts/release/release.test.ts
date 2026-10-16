@@ -25,14 +25,14 @@ const plan: ReleasePlan = {
   })) as ReleasePlan['packages'],
 }
 for (const entry of plan.packages) await writeFile(join(root, entry.filename), bytes)
-function publisher(existing: Record<string, string> = {}) {
+function publisher(existing: Record<string, string> = {}, packages = plan.packages) {
   const calls: string[] = []
   const driver: Publisher = {
     sha: () => plan.sha,
     tagSha: () => null,
     registryIntegrity: async (name) => existing[name] ?? null,
     async publish(filename) {
-      const entry = plan.packages.find((p) => filename.endsWith(p.filename))
+      const entry = packages.find((p) => filename.endsWith(p.filename))
       if (!entry) throw new Error('Unknown tarball in publisher fixture')
       calls.push(entry.name)
       existing[entry.name] = entry.integrity
@@ -47,6 +47,32 @@ function publisher(existing: Record<string, string> = {}) {
   return { calls, driver }
 }
 describe('release recovery', () => {
+  test('publishes and recovers schema 2 plans with all three packages while retaining schema 1 recovery', async () => {
+    const native = {
+      name: 'kitsu-native' as const,
+      filename: 'kitsu-native-12.0.0.tgz',
+      integrity: integrity(bytes),
+    }
+    await writeFile(join(root, native.filename), bytes)
+    const expanded: ReleasePlan = {
+      ...plan,
+      schemaVersion: 2,
+      packages: [...plan.packages, native],
+    }
+    expect(() => validatePlan(expanded)).not.toThrow()
+    expect(() => validatePlan({ ...expanded, schemaVersion: 1 })).toThrow('Invalid release plan')
+    expect(() => validatePlan({ ...plan, schemaVersion: 2 })).toThrow('Invalid release plan')
+    const initial = publisher({}, expanded.packages)
+    await publishPlan(expanded, root, initial.driver)
+    expect(initial.calls).toEqual(['kitsu-core', 'kitsu', 'kitsu-native', 'tag', 'release'])
+    const resumed = publisher(
+      Object.fromEntries(plan.packages.map((entry) => [entry.name, entry.integrity])),
+      expanded.packages,
+    )
+    await publishPlan(expanded, root, resumed.driver)
+    expect(resumed.calls).toEqual(['kitsu-native', 'tag', 'release'])
+    expect(() => validatePlan(plan)).not.toThrow()
+  })
   test('publishes dependency first, then shared tag and release', async () => {
     const { driver, calls } = publisher()
     await publishPlan(plan, root, driver)
@@ -159,6 +185,7 @@ describe('release recovery', () => {
 describe('semantic analysis', () => {
   test('keeps documentation, tests, and examples outside release impact', () => {
     expect(affects('packages/kitsu/src/index.ts')).toBe(true)
+    expect(affects('packages/kitsu-native/src/index.ts')).toBe(true)
     for (const path of [
       'README.md',
       'specification/index.ts',

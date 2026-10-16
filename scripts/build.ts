@@ -1,9 +1,11 @@
 import { readdir, rm } from 'node:fs/promises'
 import { resolve } from 'node:path'
+import { packageNames } from './release/types.ts'
 
-const names = process.argv[2] ? [process.argv[2]] : ['kitsu-core', 'kitsu']
+const names = process.argv[2] ? [process.argv[2]] : packageNames
 for (const name of names) {
-  if (!['kitsu-core', 'kitsu'].includes(name)) throw new Error(`Unknown package: ${name}`)
+  if (!(packageNames as readonly string[]).includes(name))
+    throw new Error(`Unknown package: ${name}`)
   const directory = resolve(import.meta.dir, '..', 'packages', name)
   const sourceFiles = (await readdir(`${directory}/src`)).filter(
     (file) =>

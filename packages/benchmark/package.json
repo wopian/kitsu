@@ -7,12 +7,13 @@
     "benchmark:smoke": "bun ../../scripts/benchmark.ts --smoke"
   },
   "devDependencies": {
-    "deserialize-json-api": "2.0.0",
     "devour-client": "3.2.0",
     "fetchja": "3.2.0",
     "jsona": "1.14.0",
     "kitsu": "workspace:*",
     "kitsu-core": "workspace:*",
+    "kitsu-native": "workspace:*",
+    "ts-japi": "1.12.6",
     "yayson": "4.4.0"
   }
 }

@@ -151,6 +151,7 @@ export function fixtures(smoke = false, only?: string): Fixture[] {
     ['few-includes', () => stress(smoke ? 3 : 1000, 2, true)],
     ['many-includes', () => stress(smoke ? 3 : 1000, 2, false)],
     ['complex-relationships', () => stress(smoke ? 3 : 1000, smoke ? 3 : 20, false, 16)],
+    ['wide-relationship', () => stress(1, smoke ? 8 : 4000, false)],
     ['self-cycle', () => self],
     ['mutual-cycle', () => mutual],
   ]

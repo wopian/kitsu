@@ -1,28 +1,42 @@
 <h1 align=center>Kitsu Core</h1>
 
-<p align=center>
-  <a href=https://www.npmjs.com/package/kitsu-core><img alt=npm src=https://flat.badgen.net/npm/v/kitsu-core></a>
-  <a href=https://www.npmjs.com/package/kitsu-core><img alt=npm src=https://flat.badgen.net/npm/dy/kitsu-core></a>
-  <a href="https://bundlephobia.com/result?p=kitsu-core"><img alt=bundlephobia src='https://flat.badgen.net/bundlephobia/minzip/kitsu-core?label=library%20size'></a>
-  <img alt=types src='https://flat.badgen.net/npm/types/kitsu-core'>
+<p align="center">
+  <a href="https://www.npmjs.com/package/kitsu-core"><img alt="kitsu-core on npm" src="https://flat.badgen.net/npm/v/kitsu-core?label=kitsu-core"></a>
+  <a href="https://www.npmjs.com/package/kitsu-core"><img alt="kitsu-core monthly downloads" src="https://flat.badgen.net/npm/dm/kitsu-core"></a>
+  <a href="https://bundlejs.com/?q=kitsu-core"><img alt="Published kitsu-core minified and gzipped bundle size" src="https://flat.badgen.net/bundlejs/minzip/kitsu-core?label=gzip%20size"></a>
+  <a href="https://www.npmjs.com/package/kitsu-core"><img alt="TypeScript declarations included" src="https://flat.badgen.net/npm/types/kitsu-core"></a>
+  <a href="package.json"><img alt="No runtime dependencies" src="https://flat.badgen.net/static/dependencies/0/green"></a>
 </p>
 
-<p align=center>
-  <a href=https://github.com/wopian/kitsu/actions><img alt=checks src=https://flat.badgen.net/github/checks/wopian/kitsu/master></a>
-  <a href=https://github.com/wopian/kitsu/network/dependents><img alt=repoDependants src=https://flat.badgen.net/github/dependents-repo/wopian/kitsu></a>
-  <a href=https://github.com/wopian/kitsu/graphs/contributors><img alt=contributors src=https://flat.badgen.net/github/contributors/wopian/kitsu></a>
-  <a href=https://github.com/sponsors/wopian><img alt=sponsor src='https://flat.badgen.net/badge/sponsor/%E2%9D%A4/pink?icon=github'></a>
+<p align="center">
+  <a href="https://github.com/wopian/kitsu/actions"><img alt="GitHub checks" src="https://flat.badgen.net/github/checks/wopian/kitsu/master"></a>
+  <a href="https://github.com/wopian/kitsu/blob/master/LICENSE.md"><img alt="MIT license" src="https://flat.badgen.net/github/license/wopian/kitsu"></a>
+  <a href="https://github.com/wopian/kitsu/network/dependents"><img alt="Dependent repositories" src="https://flat.badgen.net/github/dependents-repo/wopian/kitsu"></a>
+  <a href="https://github.com/wopian/kitsu/graphs/contributors"><img alt="Contributors" src="https://flat.badgen.net/github/contributors/wopian/kitsu"></a>
+  <a href="https://github.com/sponsors/wopian"><img alt="Sponsor this project" src="https://flat.badgen.net/static/sponsor/%E2%9D%A4/pink?icon=github"></a>
+</p>
+
+<p align="center">
+  <a href="https://jsonapi.org/format/1.1/"><img alt="JSON:API 1.1 client support" src="https://flat.badgen.net/static/JSON%3AAPI/1.1/blue"></a>
+  <a href="package.json"><img alt="Node.js 22, 24, and 26 or newer" src="https://flat.badgen.net/static/node/22%20%7C%2024%20%7C%2026%2B/green"></a>
+  <a href="../../.github/workflows/ci.yml"><img alt="Tested with Bun" src="https://flat.badgen.net/static/Bun/tested/blue?icon=bun"></a>
+  <a href="src/types.ts"><img alt="TypeScript declarations included" src="https://flat.badgen.net/static/types/included/blue?icon=typescript"></a>
+  <a href="package.json"><img alt="ECMAScript modules" src="https://flat.badgen.net/static/module/ESM/blue"></a>
 </p>
 
 <p align=center>Simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> (de)serialisation components</p>
 
-<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md>Migration guide</a> for v12 & previous major releases</p>
+<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md>Migration guide</a> for v13 & previous major releases</p>
 
 #
 
+## JSON:API 1.1
+
+Relationships are direct resources, arrays, or null. Resource metadata lives under `$`; document metadata stays at document level. See [migration guidance](MIGRATING.md) and [compliance boundaries](../../specification/compliance/README.md).
+
 ## Features
 
-*   JSON-API 1.0 compliant
+*   JSON:API 1.1 client document support
 *   Automatically links relationships to data
 *   Works in Node & browsers
 *   Tree shakeable components
@@ -38,10 +52,10 @@ npm install kitsu-core
 yarn add kitsu-core
 ```
 
-```js
+```typescript
 import { camel } from 'kitsu-core'
 
-camel(...)
+camel('first-name') // 'firstName'
 ```
 
 ## Contributing
@@ -91,7 +105,7 @@ All code released under [MIT]
 *   [linkRelationships](#linkrelationships)
     *   [Parameters](#parameters-6)
     *   [Examples](#examples-6)
-*   [isDeepEqual](#isdeepequal)
+*   [paramKeyName](#paramkeyname)
     *   [Parameters](#parameters-7)
     *   [Examples](#examples-7)
 *   [query](#query)
@@ -106,6 +120,48 @@ All code released under [MIT]
 *   [splitModel](#splitmodel)
     *   [Parameters](#parameters-11)
     *   [Examples](#examples-11)
+*   [JsonObject](#jsonobject)
+    *   [Examples](#examples-12)
+*   [JsonApiMeta](#jsonapimeta)
+    *   [Examples](#examples-13)
+*   [JsonApiLink](#jsonapilink)
+    *   [Properties](#properties)
+    *   [Examples](#examples-14)
+*   [JsonApiLinks](#jsonapilinks)
+    *   [Examples](#examples-15)
+*   [ResourceIdentifier](#resourceidentifier)
+    *   [Properties](#properties-1)
+    *   [Examples](#examples-16)
+*   [JsonApiResource](#jsonapiresource)
+    *   [Properties](#properties-2)
+    *   [Examples](#examples-17)
+*   [JsonApiRelationship](#jsonapirelationship)
+    *   [Properties](#properties-3)
+    *   [Examples](#examples-18)
+*   [JsonApiObject](#jsonapiobject)
+    *   [Properties](#properties-4)
+    *   [Examples](#examples-19)
+*   [JsonApiError](#jsonapierror)
+    *   [Properties](#properties-5)
+    *   [Examples](#examples-20)
+*   [JsonApiDocument](#jsonapidocument)
+    *   [Properties](#properties-6)
+    *   [Examples](#examples-21)
+*   [ResourceEnvelope](#resourceenvelope)
+    *   [Properties](#properties-7)
+    *   [Examples](#examples-22)
+*   [FlatResource](#flatresource)
+    *   [Properties](#properties-8)
+    *   [Examples](#examples-23)
+*   [SerialiseOptions](#serialiseoptions)
+    *   [Properties](#properties-9)
+    *   [Examples](#examples-24)
+*   [SplitModelOptions](#splitmodeloptions)
+    *   [Properties](#properties-10)
+    *   [Examples](#examples-25)
+*   [DeserialiseOptions](#deserialiseoptions)
+    *   [Properties](#properties-11)
+    *   [Examples](#examples-26)
 
 ### camel
 
@@ -119,13 +175,13 @@ Converts kebab-case and snake\_case into camelCase
 
 Convert kebab-case
 
-```javascript
+```typescript
 camel('hello-world') // 'helloWorld'
 ```
 
 Convert snake\_case
 
-```javascript
+```typescript
 camel('hello_world') // 'helloWorld'
 ```
 
@@ -133,113 +189,75 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### deattribute
 
-Hoists attributes to be top-level
+Flattens resource attributes and moves resource metadata under `$` without mutation.
+
+This helper does not resolve relationships. Use deserialise for a complete document.
 
 #### Parameters
 
-*   `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Resource data
+*   `data` **([JsonApiResource](#jsonapiresource) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[JsonApiResource](#jsonapiresource)> | null)** Wire resource data
+*   `options` **[DeserialiseOptions](#deserialiseoptions)?** Attribute naming options
+
+    *   `options.attributeCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert attribute names. Default: unchanged. Nested JSON and extension attributes keep their names; invalid names or collisions throw Error.
+    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Accepted through the shared type, but unused by this resource helper (optional, default `false`)
 
 #### Examples
 
-Deattribute an array of resources
-
-```javascript
-// JSON:API 'data' field
-const data = [
-  {
-    id: '1',
-    type: 'users',
-    attributes: { slug: 'wopian' }
-  }
-]
-
-const output = deattribute(data) // [ { id: '1', type: 'users', slug: 'wopian' } ]
+```typescript
+deattribute({ type: 'people', id: '1', attributes: { name: 'Ada' }, meta: { active: true } })
+// { type: 'people', id: '1', name: 'Ada', $: { meta: { active: true } } }
 ```
 
-Deattribute a resource
-
-```javascript
-// JSON:API 'data' field
-const data = {
-  id: '1',
-  type: 'users',
-  attributes: { slug: 'wopian' }
-}
-
-const output = deattribute(data) // { id: '1', type: 'users', slug: 'wopian' }
+```typescript
+import { camel, deattribute } from 'kitsu-core'
+deattribute({ type: 'people', id: '9', attributes: { 'first-name': 'Mina' } }, { attributeCase: camel })
+// { type: 'people', id: '9', firstName: 'Mina' }
 ```
 
-Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Deattributed resource data
+Returns **([FlatResource](#flatresource) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[FlatResource](#flatresource)> | null)** Flat resource data
 
 ### deserialise
 
-Deserialises a JSON-API response
+Deserialises JSON:API documents into flat resources and direct relationships.
+Resource metadata lives under `$`; document metadata remains at document level.
 
 #### Parameters
 
-*   `response` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The raw JSON:API response object
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Deserialisation options (optional, default `{}`)
+*   `response` **[JsonApiDocument](#jsonapidocument)** JSON:API document, including collection, null, meta-only or error-only documents
+*   `options` **[DeserialiseOptions](#deserialiseoptions)** Decoding options (optional, default `{}`)
 
-    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If enabled, the contents of the `data` property will be hoisted to the parent. This provides a flatter response object, see examples below for transformation examples. Links and Meta properties will be merged into the parent object if they exist. If attributes named `links` or `meta` exist, they will overwrite the JSON:API `links` and `meta` properties. (optional, default `false`)
+    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Unwrap only documents containing solely data; never recursively unwrap JSON attributes (optional, default `false`)
+    *   `options.attributeCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert attribute names. Default: unchanged. Nested JSON keys and extension attributes stay unchanged. Invalid names or collisions throw Error.
 
 #### Examples
 
-Deserialise with a basic data object
-
-```javascript
-deserialise({
-  data: {
-    id: '1',
-    attributes: { liked: true }
-  },
-  meta: { hello: 'world' }
-}) // { data: { id: '1', liked: true }, meta: { hello: 'world' } }
+```typescript
+deserialise({ data: { type: 'people', id: '1', attributes: { name: 'Ada' } } })
+// { data: { type: 'people', id: '1', name: 'Ada' } }
 ```
 
-Deserialise with relationships
+Casing enabled and disabled
 
-```javascript
-deserialise({
-  data: {
-    id: '1',
-    relationships: {
-      user: {
-        data: {
-          type: 'users',
-          id: '2' }
-      }
-    }
-  },
-  included: [
-    {
-      type: 'users',
-      id: '2',
-      attributes: { slug: 'wopian' }
-    }
-  ]
-}) // { data: { id: '1', user: { data: { type: 'users', id: '2', slug: 'wopian' } } } }
+```typescript
+import { camel, deserialise } from 'kitsu-core'
+const document = { data: { type: 'people', id: '9', attributes: { 'first-name': 'Mina' } } }
+deserialise(document).data['first-name'] // 'Mina'
+deserialise(document, { attributeCase: camel }).data.firstName // 'Mina'
 ```
 
-Deserialise with hoisted data
+Resource metadata and document metadata
 
-```javascript
-deserialise({
-  data: {
-    id: '1',
-    type: 'people',
-    relationships: {
-      coworkers: {
-        data: [
-          { id: '2', type: 'people' }
-        ]
-      }
-    }
-  },
-  included: []
-}, { hoistData: true }) // { id: '1', type: 'people', coworkers: [ { id: '2', type: 'people' } ] }
+```typescript
+const document = { data: { type: 'people', id: '9', meta: { editable: true } } }
+deserialise(document).data.$.meta.editable // true
+deserialise(document, { hoistData: true }).$.meta.editable // true
+const withMeta = { ...document, meta: { total: 1 } }
+const result = deserialise(withMeta, { hoistData: true })
+result.meta.total // 1; document metadata keeps the wrapper
+result.data.$.meta.editable // true
 ```
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The deserialised response
+Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[FlatResource](#flatresource)> | [FlatResource](#flatresource) | null | [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined))** Independent decoded document, or primary data when hoisted; undefined for missing input
 
 ### error
 
@@ -251,15 +269,15 @@ Uniform error handling for Axios, JSON:API and internal package errors. Mutated 
 
 #### Examples
 
-```javascript
+```typescript
 error('Hello')
 ```
 
-```javascript
+```typescript
 error({errors: [ { code: 400 } ]})
 ```
 
-```javascript
+```typescript
 error({
   response: {
     data: {
@@ -278,41 +296,21 @@ error({
 
 ### filterIncludes
 
-Filters includes for the specific relationship requested
+Finds included resources by type and id, or type and lid.
 
 #### Parameters
 
-*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The response included object
-*   `relationship` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
-
-    *   `relationship.id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship ID
-    *   `relationship.type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The relationship type
+*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[JsonApiResource](#jsonapiresource)>** Wire resources to search, in document order
+*   `relationship` **Partial<[ResourceIdentifier](#resourceidentifier)>** Identifier with type and id or lid; comparisons are case-sensitive
 
 #### Examples
 
-```javascript
-const includes = [
-  {
-    id: '1',
-    type: 'users',
-    attributes: { name: 'Emma' }
-  },
-  {
-    id: '2',
-    type: 'users',
-    attributes: { name: 'Josh' }
-  }
-]
-const relationship = { id: '1', type: 'users' }
-const response = filterIncludes(includes, relationship)
-// {
-//   id: '1',
-//   type: 'users',
-//   attributes: { name: 'Emma' }
-// }
+```typescript
+filterIncludes([{ type: 'people', lid: 'mina', attributes: { name: 'Mina' } }], { type: 'people', lid: 'mina' })
+// { type: 'people', lid: 'mina', attributes: { name: 'Mina' } }
 ```
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The matched includes
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Independent copy of the first match, unresolved identifier, or {} when type/identity is missing
 
 ### kebab
 
@@ -324,7 +322,7 @@ Converts camelCase into kebab-case
 
 #### Examples
 
-```javascript
+```typescript
 kebab('helloWorld') // 'hello-world'
 ```
 
@@ -332,68 +330,50 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### linkRelationships
 
-Links relationships to included data
+Resolves relationships into direct resources using document-local identity.
 
 #### Parameters
 
-*   `data` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The response data object
-*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>?** The response included object (optional, default `[]`)
-*   `previouslyLinked` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** A mapping of already visited resources (internal use only) (optional, default `{}`)
-*   `relationshipCache` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** A cache object for relationship meta and links (optional, default `{}`)
+*   `data` **([JsonApiResource](#jsonapiresource) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[JsonApiResource](#jsonapiresource)> | null)** Primary wire resources
+*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[JsonApiResource](#jsonapiresource)>** Included wire resources, matched by type plus id or lid (optional, default `[]`)
+*   `options` **[DeserialiseOptions](#deserialiseoptions)?** Attribute naming options
+
+    *   `options.attributeCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert attribute names. Default: unchanged. Nested JSON and extension attributes keep their names; invalid names or collisions throw Error.
+    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Accepted through the shared type, but unused by this resource helper (optional, default `false`)
 
 #### Examples
 
-```javascript
-const data = {
-  attributes: { author: 'Joe' },
-  relationships: {
-    author: {
-      data: { id: '1', type: 'people' }
-    }
-  }
-}
-const included = [ {
-  id: '1',
-  type: 'people',
-  attributes: { name: 'Joe' }
-} ]
-const output = linkRelationships(data, included)
-// {
-//   attributes: { author: 'Joe' },
-//   author: {
-//     data: { id: '1', name: 'Joe', type: 'people' }
-//   }
-// }
+```typescript
+linkRelationships({ type: 'articles', id: '1', relationships: { author: { data: null } } })
+// { type: 'articles', id: '1', author: null }
 ```
 
-Returns **any** Parsed data
+```typescript
+import { camel, linkRelationships } from 'kitsu-core'
+const result = linkRelationships({ type: 'articles', id: '42', relationships: {
+  author: { data: { type: 'people', id: '9' } }
+} }, [{ type: 'people', id: '9', attributes: { 'first-name': 'Mina' } }], { attributeCase: camel })
+result.author.firstName // 'Mina'
+```
 
-### isDeepEqual
+Returns **([FlatResource](#flatresource) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[FlatResource](#flatresource)> | null)** Independent flat graph, preserving shared references, cycles and unresolved identifiers
 
-Compare two objects equality
+### paramKeyName
+
+Formats key names to correct array syntax
 
 #### Parameters
 
-*   `left` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Object to compare against the right object
-*   `right` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Object to compare against the left object
+*   `param` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | null)?** Nested parameter name; null or undefined produces an empty string
 
 #### Examples
 
-Deep equality check
-
-```javascript
-isDeepEqual({
-  firstName: 'John',
-  lastName: 'Doe',
-  age: 35
-},{
-  firstName: 'John',
-  lastName: 'Doe',
-  age: 35
-}) // true
+```typescript
+paramKeyName('title') // '[title]'
+paramKeyName('tags[]') // '[tags][]'
 ```
 
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether the objects are equal
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Key name in nested query-param format with optional array style suffix
 
 ### query
 
@@ -401,69 +381,99 @@ Constructs a URL query string for JSON:API parameters
 
 #### Parameters
 
-*   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Parameters to parse
+*   `params` **([JsonObject](#jsonobject) | null)?** Parameters, including nested include, fields, sort, page, filter and extension families
 *   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Prefix for nested parameters - used internally (optional, default `undefined`)
-*   `traditional` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Use the traditional (default) or modern param serializer. Set to false if your server is running Ruby on Rails or other modern web frameworks (optional, default `true`)
+*   `traditional` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true repeats array keys; false appends \[] to array keys. Choose the convention accepted by your server. (optional, default `true`)
 
 #### Examples
 
-```javascript
+```typescript
 query({
   filter: {
     slug: 'cowboy-bebop',
     title: {
       value: 'foo'
     }
-  }
+  },
  sort: '-id'
 })
 // filter%5Bslug%5D=cowboy-bebop&filter%5Btitle%5D%5Bvalue%5D=foo&sort=-id
+```
+
+Array modes and nested prefix
+
+```typescript
+query({ tag: ['bread', 'cake'] }) // 'tag=bread&tag=cake'
+query({ tag: ['bread', 'cake'] }, undefined, false) // 'tag%5B%5D=bread&tag%5B%5D=cake'
+query({ title: 'Bread' }, 'filter') // 'filter%5Btitle%5D=Bread'
+query({ include: '', fields: { articles: '' } }) // 'include=&fields%5Barticles%5D='
 ```
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** URL query string
 
 ### serialise
 
-Serialises an object into a JSON-API structure
+Serialises flat resources and direct relationships into a JSON:API document.
+Put resource metadata under `$` and explicit attribute overrides under `$.attributes`.
 
 #### Parameters
 
-*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource type
-*   `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)?** The data (optional, default `{}`)
-*   `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Request type (PATCH, POST, DELETE) (optional, default `'POST'`)
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional configuration for camelCase and pluralisation handling (optional, default `{}`)
+*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Resource type, required for nonempty resource input even when data contains type
+*   `data` **([FlatResource](#flatresource) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[FlatResource](#flatresource)> | null)** Flat primary data, direct relationships and optional $ metadata (optional, default `{}`)
+*   `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Request method, case-insensitive; commonly POST, PATCH or DELETE (optional, default `'POST'`)
+*   `options` **[SerialiseOptions](#serialiseoptions)** Encoding options (optional, default `{}`)
 
-    *   `options.camelCaseTypes` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Convert library-entries and library\_entries to libraryEntries (default no conversion). To use parameter, import camel from kitsu-core (optional, default `s=>s`)
-    *   `options.pluralTypes` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Pluralise types (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package) (optional, default `s=>s`)
+    *   `options.camelCaseTypes` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Transform inferred types before pluralTypes. Default: unchanged.
+    *   `options.pluralTypes` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Pluralize inferred types after camelCaseTypes. Default: unchanged.
+    *   `options.attributeCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert attribute names. Default: unchanged. Nested JSON keys and extension attributes stay unchanged. Invalid names or collisions throw Error.
+    *   `options.document` **[JsonApiDocument](#jsonapidocument)?** Additional document meta, links, jsonapi, included and extension members. included uses wire resources and merges by identity. data and errors throw Error.
+    *   `options.relationship` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Serialize primary data as identifiers (optional, default `false`)
 
 #### Examples
 
-Setting camelCaseTypes and pluralTypes options (example shows options used by the `kitsu` package by default)
-
-```javascript
-import { serialise, camel } from 'kitsu-core'
-import pluralize from 'pluralize'
-
-const model = 'anime'
-const obj = { id: '1', slug: 'shirobako' }
-
-// { data: { id: '1', type: 'anime', attributes: { slug: 'shirobako' } } }
-const output = serialise(model, obj, 'PATCH', { camelCaseTypes: camel, pluralTypes: pluralize })
+```typescript
+serialise('articles', { title: 'Hello', author: { type: 'people', id: '9' } })
+// { data: { type: 'articles', attributes: { title: 'Hello' }, relationships: { author: { data: { type: 'people', id: '9' } } } } }
 ```
 
-Basic usage (no case conversion or pluralisation)
+Attribute casing enabled and disabled
 
-```javascript
-import { serialise } from 'kitsu-core'
-
-const model = 'anime'
-const obj = { id: '1', slug: 'shirobako' }
-
-// { data: { id: '1', type: 'anime', attributes: { slug: 'shirobako' } } }
-const output = serialise(model, obj, 'PATCH')
+```typescript
+import { camel, kebab, serialise } from 'kitsu-core'
+serialise('people', { firstName: 'Mina' }).data.attributes // { firstName: 'Mina' }
+serialise('people', { firstName: 'Mina' }, 'POST', { attributeCase: kebab }).data.attributes
+// { 'first-name': 'Mina' }
 ```
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The serialised data
+Type callbacks and document metadata
+
+```typescript
+serialise('library-entry', { id: 0 }, 'PATCH', {
+  camelCaseTypes: camel,
+  pluralTypes: (type) => type === 'libraryEntry' ? 'libraryEntries' : type,
+  document: { meta: { requestId: 'demo-42' }, jsonapi: { version: '1.1' } }
+})
+// { data: { type: 'libraryEntries', id: '0' }, meta: { requestId: 'demo-42' }, jsonapi: { version: '1.1' } }
+```
+
+Explicit attributes and relationship clearing
+
+```typescript
+serialise('articles', { id: '42', $: {
+  attributes: { coordinates: [] },
+  relationships: { author: { data: null, meta: { editable: true } } }
+} }, 'PATCH')
+// attributes.coordinates stays an attribute; relationships.author.data is null
+```
+
+Relationship endpoint
+
+```typescript
+serialise('people', { id: '9' }, 'PATCH', { relationship: true })
+// { data: { type: 'people', id: '9' } }
+```
+
+Returns **[JsonApiDocument](#jsonapidocument)** Independent JSON:API document with deduplicated included resources
 
 ### snake
 
@@ -475,7 +485,7 @@ Converts camelCase into snake\_case
 
 #### Examples
 
-```javascript
+```typescript
 snake('helloWorld') // 'hello_world'
 ```
 
@@ -488,21 +498,21 @@ Split model name from the model's resource URL
 #### Parameters
 
 *   `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** URL path for the model
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional configuration for camelCase and pluralisation handling
+*   `options` **[SplitModelOptions](#splitmodeloptions)** Optional transformations for the last path segment (optional, default `{}`)
 
-    *   `options.resourceCase` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Convert libraryEntries to library-entries or library\_entries (default no conversion). To use parameter, import kebab or snake from kitsu-core (optional, default `s=>s`)
-    *   `options.pluralModel` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Pluralise models (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package) (optional, default `s=>s`)
+    *   `options.resourceCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert the last segment before pluralization. Default: unchanged. Use kebab or snake from kitsu-core.
+    *   `options.pluralModel` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Pluralize the converted last segment. Default: unchanged. Supply a callback or pluralize library function.
 
 #### Examples
 
-```javascript
+```typescript
 splitModel('posts/1/comments')
 // [ 'comments', 'posts/1/comments' ]
 ```
 
 With pluralModel option
 
-```javascript
+```typescript
 import plural from 'pluralize'
 splitModel('posts/1/comment', { pluralModel: plural })
 // [ 'comment', 'posts/1/comments' ]
@@ -510,7 +520,7 @@ splitModel('posts/1/comment', { pluralModel: plural })
 
 With resourceCase option
 
-```javascript
+```typescript
 import { kebab, snake } from 'kitsu-core'
 splitModel('libraryEntries', { resourceCase: kebab })
 // [ 'libraryEntries', 'library-entries' ]
@@ -519,4 +529,300 @@ splitModel('libraryEntries', { resourceCase: snake })
 // [ 'libraryEntries', 'library_entries' ]
 ```
 
-Returns **\[[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)]** } Array containing the model name and the resource URL with pluralisation applied
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** Two strings: original last segment and transformed URL
+
+### JsonObject
+
+Dynamic JSON attributes and extension members. Keys remain case-sensitive.
+TypeScript: `Record<string, any>`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Examples
+
+```typescript
+const attributes: JsonObject = { title: 'Moonlight Bread', tags: ['bread'] }
+```
+
+### JsonApiMeta
+
+Application-defined JSON:API metadata. Values may contain arbitrary JSON.
+TypeScript: `JsonObject`.
+
+Type: [JsonObject](#jsonobject)
+
+#### Examples
+
+```typescript
+const meta: JsonApiMeta = { total: 42 }
+```
+
+### JsonApiLink
+
+Rich JSON:API link. A link may also be a URL string or null; see JsonApiLinks.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `href` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Link target, absolute or relative. TypeScript: `string`. Example: `'/articles/42'`.
+*   `rel` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Link relation, such as a registered relation name or extension URI. TypeScript: `string`. Example: `'next'`.
+*   `describedby` **([JsonApiLink](#jsonapilink) | [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | null)?** Link to a description of the target resource. TypeScript: `JsonApiLink | string | null`. Example: `{ href: '/schemas/article' }`.
+*   `title` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Human-readable link title. TypeScript: `string`. Example: `'Next articles'`.
+*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Media type expected at the target. TypeScript: `string`. Example: `'application/vnd.api+json'`.
+*   `hreflang` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)?** One language tag or an array of language tags. TypeScript: `string | string[]`. Example: `['en', 'fr']`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Metadata belonging to this link. TypeScript: `JsonApiMeta`. Example: `{ count: 10 }`.
+
+#### Examples
+
+```typescript
+const link: JsonApiLink = { href: '/articles/42', title: 'Moonlight Bread', hreflang: 'en' }
+```
+
+### JsonApiLinks
+
+Named links. Each value supports a URL string, rich link, or null.
+TypeScript: `Record<string, string | JsonApiLink | null>`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Examples
+
+```typescript
+const links: JsonApiLinks = { self: '/articles/42', next: null }
+```
+
+### ResourceIdentifier
+
+Wire identifier. Supply type and id, or type and lid for a new local resource.
+Additional members (`[member: string]: any;`): Extension members; namespaced members are preserved without interpretation. TypeScript: `any`. Example: `{ 'version:id': '7' }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Case-sensitive resource type. TypeScript: `string`. Example: `'people'`.
+*   `id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Server identifier. Wire identifiers are strings, including numeric-looking IDs. TypeScript: `string`. Example: `'0'`.
+*   `lid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Local identifier for matching resources within one document. TypeScript: `string`. Example: `'new-person'`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Metadata for this wire object. On relationship identifiers, belongs to that edge and never merges into shared resource metadata. TypeScript: `JsonApiMeta`. Example: `{ role: 'author' }`.
+
+#### Examples
+
+```typescript
+const identifier: ResourceIdentifier = { type: 'people', id: '9', meta: { role: 'author' } }
+```
+
+### JsonApiResource
+
+JSON:API resource before decoding. Inherits type, id, lid and meta from ResourceIdentifier.
+Additional members (`[member: string]: any;`): Extension members; namespaced members are preserved without interpretation. TypeScript: `any`. Example: `{ 'version:id': '7' }`.
+Additional members (`[member: string]: any;`): Extension members. Unknown ordinary members are ignored on decode. TypeScript: `any`. Example: `{ 'version:id': '7' }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Case-sensitive resource type. TypeScript: `string`. Example: `'people'`.
+*   `id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Server identifier. Wire identifiers are strings, including numeric-looking IDs. TypeScript: `string`. Example: `'0'`.
+*   `lid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Local identifier for matching resources within one document. TypeScript: `string`. Example: `'new-person'`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Metadata for this wire object. On relationship identifiers, belongs to that edge and never merges into shared resource metadata. TypeScript: `JsonApiMeta`. Example: `{ role: 'author' }`.
+*   `attributes` **[JsonObject](#jsonobject)?** Resource attributes. Nested JSON is copied without changing nested key names. TypeScript: `JsonObject`. Example: `{ title: 'Moonlight Bread', settings: { dark_mode: true } }`.
+*   `relationships` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Named relationship objects with linkage, links and metadata. TypeScript: `Record<string, JsonApiRelationship>`. Example: `{ author: { data: { type: 'people', id: '9' } } }`.
+*   `links` **[JsonApiLinks](#jsonapilinks)?** Resource links, decoded into resource.$.links. TypeScript: `JsonApiLinks`. Example: `{ self: '/articles/42' }`.
+
+#### Examples
+
+```typescript
+const resource: JsonApiResource = { type: 'articles', id: '42', attributes: { title: 'Moonlight Bread' } }
+```
+
+### JsonApiRelationship
+
+Wire relationship or saved relationship extras under resource.$.relationships\[name].
+Additional members (`[member: string]: any;`): Relationship extension members. TypeScript: `any`. Example: `{ 'audit:changed': true }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `data` **([ResourceIdentifier](#resourceidentifier) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[ResourceIdentifier](#resourceidentifier)> | null)?** To-one identifier, to-many identifiers, or null. Empty arrays clear to-many linkage.
+    Saved data applies on writes only when the direct relationship value is absent. TypeScript: `ResourceIdentifier | ResourceIdentifier[] | null`. Example: `[{ type: 'people', id: '9' }]`.
+*   `links` **[JsonApiLinks](#jsonapilinks)?** Links for this relationship, separate from links on the related resource. TypeScript: `JsonApiLinks`. Example: `{ related: '/articles/42/author' }`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Metadata describing this relationship. TypeScript: `JsonApiMeta`. Example: `{ editable: true }`.
+
+#### Examples
+
+```typescript
+const relationship: JsonApiRelationship = { data: null, meta: { editable: true } }
+```
+
+### JsonApiObject
+
+Top-level jsonapi object. Declares version, extensions and profiles without enabling extension processing.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `version` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** JSON:API version supported by the server. TypeScript: `string`. Example: `'1.1'`.
+*   `ext` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** Applied extension URIs. Configure matching media parameters through HTTP headers separately. TypeScript: `string[]`. Example: `['https://bakery.example/extensions/version']`.
+*   `profile` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** Applied profile URIs. Values are preserved without profile-specific processing. TypeScript: `string[]`. Example: `['https://bakery.example/profiles/dates']`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Metadata about this JSON:API implementation. TypeScript: `JsonApiMeta`. Example: `{ implementation: 'bakery' }`.
+
+#### Examples
+
+```typescript
+const jsonapi: JsonApiObject = { version: '1.1', profile: ['https://bakery.example/profiles/dates'] }
+```
+
+### JsonApiError
+
+JSON:API error object. Members are optional and preserved in error documents.
+Additional members (`[member: string]: any;`): Error extension members. TypeScript: `any`. Example: `{ 'audit:trace': 'trace-42' }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Identifier for this error occurrence. TypeScript: `string`. Example: `'failure-42'`.
+*   `links` **[JsonApiLinks](#jsonapilinks)?** Error links, commonly about or type. TypeScript: `JsonApiLinks`. Example: `{ about: '/errors/failure-42' }`.
+*   `status` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** HTTP status expressed as a string. TypeScript: `string`. Example: `'422'`.
+*   `code` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Application-specific error code. TypeScript: `string`. Example: `'title_required'`.
+*   `title` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Short summary shared by errors of this kind. TypeScript: `string`. Example: `'Title required'`.
+*   `detail` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Explanation specific to this occurrence. TypeScript: `string`. Example: `'Enter a title for Moonlight Bread.'`.
+*   `source` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Request location responsible for this error. Supply the applicable location member. TypeScript: `{ pointer?: string; parameter?: string; header?: string; }`. Example: `{ header: 'Accept' }`.
+
+    *   `source.pointer` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** JSON Pointer into the request document. TypeScript: `string`. Example: `'/data/attributes/title'`.
+    *   `source.parameter` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Query parameter name. TypeScript: `string`. Example: `'filter[title]'`.
+    *   `source.header` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Request header name. TypeScript: `string`. Example: `'Accept'`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Additional error context. TypeScript: `JsonApiMeta`. Example: `{ retryable: false }`.
+
+#### Examples
+
+```typescript
+const error: JsonApiError = { status: '422', title: 'Title required', source: { pointer: '/data/attributes/title' } }
+```
+
+### JsonApiDocument
+
+JSON:API wire document. Resource metadata is separate from document metadata.
+data and errors must not coexist. Serialization document options reject both data and errors.
+Additional members (`[member: string]: any;`): Document extension members. Namespaced members are preserved without extension processing. TypeScript: `any`. Example: `{ 'audit:trace': 'trace-42' }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `data` **([JsonApiResource](#jsonapiresource) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[JsonApiResource](#jsonapiresource)> | null)?** Primary resource, collection, or null. Decoding retains the document wrapper by default. TypeScript: `JsonApiResource | JsonApiResource[] | null`. Example: `{ type: 'articles', id: '42' }`.
+*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[JsonApiResource](#jsonapiresource)>?** Included wire resources. Decoding keeps canonical flat resources accessible under included. TypeScript: `JsonApiResource[]`. Example: `[{ type: 'people', id: '9', attributes: { name: 'Mina Reed' } }]`.
+*   `errors` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[JsonApiError](#jsonapierror)>?** JSON:API errors. Error-only documents can be decoded but are not generated by serialise. TypeScript: `JsonApiError[]`. Example: `[{ status: '422', title: 'Title required' }]`.
+*   `jsonapi` **[JsonApiObject](#jsonapiobject)?** JSON:API version, extensions and profiles. TypeScript: `JsonApiObject`. Example: `{ version: '1.1' }`.
+*   `links` **[JsonApiLinks](#jsonapilinks)?** Document links, retained beside data. TypeScript: `JsonApiLinks`. Example: `{ next: '/articles?page[number]=2' }`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Document metadata, retained beside data rather than inside a resource's $ envelope. TypeScript: `JsonApiMeta`. Example: `{ total: 42 }`.
+
+#### Examples
+
+```typescript
+const document: JsonApiDocument = { data: { type: 'articles', id: '42' }, meta: { total: 1 } }
+```
+
+### ResourceEnvelope
+
+Resource members stored under $. Attributes named meta, links and lid remain ordinary attributes.
+Empty envelopes are omitted on decode. Document metadata stays beside data.
+Additional members (`[member: string]: any;`): Resource extension members. TypeScript: `any`. Example: `{ 'version:id': '7' }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `lid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Local resource identity. Decoding moves wire lid here. TypeScript: `string`. Example: `'new-article'`.
+*   `links` **[JsonApiLinks](#jsonapilinks)?** Resource links, separate from document links and relationship links. TypeScript: `JsonApiLinks`. Example: `{ self: '/articles/42' }`.
+*   `meta` **[JsonApiMeta](#jsonapimeta)?** Metadata for this resource, separate from an attribute named meta. TypeScript: `JsonApiMeta`. Example: `{ editable: true }`.
+*   `relationships` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Relationship extras and saved identifier metadata. Direct values control linkage when present.
+    Use data: null here to clear a to-one relationship; a plain flat null remains an attribute. TypeScript: `Record<string, JsonApiRelationship>`. Example: `{ author: { data: null, meta: { editable: true } } }`.
+*   `attributes` **[JsonObject](#jsonobject)?** Explicit attributes override inferred attributes and relationship inference by source name on writes. TypeScript: `JsonObject`. Example: `{ coordinates: [], author: { type: 'label', id: 'fictional' } }`.
+
+#### Examples
+
+```typescript
+const envelope: ResourceEnvelope = { meta: { editable: true }, relationships: { author: { data: null } } }
+```
+
+### FlatResource
+
+Application resource with flat attributes and direct related resources, arrays, or null.
+Additional members (`[attribute: string]: any;`): Flat attributes or direct relationships. Identifiers and empty arrays infer relationships. TypeScript: `any`. Example: `{ title: 'Moonlight Bread', author: { type: 'people', id: '9' } }`.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Resource type. serialise also requires its type argument for nonempty primary resource input. TypeScript: `string`. Example: `'articles'`.
+*   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))?** String or numeric input identifier, including 0. Encoding emits strings. TypeScript: `string | number`. Example: `0`.
+*   `$` **[ResourceEnvelope](#resourceenvelope)?** Resource metadata, local identity, relationship extras and explicit attribute overrides. TypeScript: `ResourceEnvelope`. Example: `{ meta: { editable: true } }`.
+
+#### Examples
+
+```typescript
+const article: FlatResource = { type: 'articles', id: 0, title: 'Moonlight Bread', author: { type: 'people', id: '9' }, $: { meta: { editable: true } } }
+```
+
+### SerialiseOptions
+
+Encoding options. Callbacks are optional; omitted callbacks keep names unchanged.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `attributeCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert attribute names to wire names. Default: unchanged. Nested JSON keys and extension attributes stay unchanged.
+    Colliding, empty or reserved converted names throw Error. TypeScript: `(name: string) => string`. Example: `kebab`.
+*   `camelCaseTypes` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Transform inferred resource type names before pluralTypes. Default: unchanged. TypeScript: `(value: string) => string`. Example: `camel`.
+*   `pluralTypes` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Pluralize inferred resource type names after camelCaseTypes. Default: unchanged. TypeScript: `(value: string) => string`. Example: `(value) => value === 'person' ? 'people' : value`.
+*   `document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Extra document members: meta, links, jsonapi, included and extensions. Default: none.
+    included uses wire resources and merges by identity. data and errors are rejected at runtime. TypeScript: `Omit<JsonApiDocument, 'data'>`. Example: `{ meta: { requestId: 'demo-42' }, jsonapi: { version: '1.1' } }`.
+*   `relationship` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Encode primary data as identifier linkage for a relationship endpoint. Default: false. TypeScript: `boolean`. Example: `true`.
+
+#### Examples
+
+```typescript
+const options: SerialiseOptions = { attributeCase: kebab, document: { meta: { requestId: 'demo-42' } } }
+```
+
+### SplitModelOptions
+
+URL model transformations. Both callbacks default to identity functions.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `resourceCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert the last URL segment before pluralModel. Default: unchanged. TypeScript: `(value: string) => string`. Example: `kebab`.
+*   `pluralModel` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Pluralize the converted last URL segment. Default: unchanged. TypeScript: `(value: string) => string`. Example: `(value) => value === 'person' ? 'people' : value`.
+
+#### Examples
+
+```typescript
+const options: SplitModelOptions = { resourceCase: kebab, pluralModel: (value) => `${value}s` }
+```
+
+### DeserialiseOptions
+
+Decoding options. No input document mutation or resource-result caching.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `attributeCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert attribute names to application names. Default: unchanged. Nested keys and extension attributes stay unchanged.
+    Colliding, empty or reserved converted names throw Error. TypeScript: `(name: string) => string`. Example: `camel`.
+*   `hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Unwrap a decoded document containing only data. Default: false.
+    Document meta, links, jsonapi, errors or included keep the wrapper. Never unwrap attribute objects recursively.
+    Used only by deserialise; deattribute and linkRelationships do not unwrap documents. TypeScript: `boolean`. Example: `true`.
+
+#### Examples
+
+```typescript
+const options: DeserialiseOptions = { attributeCase: camel, hoistData: true }
+```

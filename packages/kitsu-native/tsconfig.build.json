@@ -1,0 +1,6 @@
+{
+  "extends": "../kitsu-core/tsconfig.build.json",
+  "compilerOptions": { "rootDir": "src", "outDir": "types" },
+  "include": ["src/*.ts"],
+  "exclude": ["src/**/*.spec.ts"]
+}

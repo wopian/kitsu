@@ -1,188 +1,62 @@
 import { deattribute } from './deattribute.js'
-import { linkRelationships } from './linkRelationships.js'
+import { copy } from './internal/copy.js'
+import { decodeGraph } from './internal/graph.js'
+import { extensionMember, memberCount } from './internal/members.js'
 import type { DeserialiseOptions, JsonObject } from './types.js'
 
 /**
- * Hoists the contents of `data` properties to their parent object recursively.
- * This provides a flatter response object, but removes access to `links` and `meta`
- * properties.
+ * Deserialises JSON:API documents into flat resources and direct relationships.
+ * Resource metadata lives under `$`; document metadata remains at document level.
  *
- * @param {Object} response The response object
- * @returns {Object} The response with `data` properties hoisted
- * @private
+ * @param {JsonApiDocument} response JSON:API document, including collection, null, meta-only or error-only documents
+ * @param {DeserialiseOptions} [options={}] Decoding options
+ * @param {boolean} [options.hoistData=false] Unwrap only documents containing solely data; never recursively unwrap JSON attributes
+ * @param {function(string): string} [options.attributeCase] Convert attribute names. Default: unchanged. Nested JSON keys and extension attributes stay unchanged. Invalid names or collisions throw Error.
+ * @returns {(Object|Array<FlatResource>|FlatResource|null|undefined)} Independent decoded document, or primary data when hoisted; undefined for missing input
+ * @example
+ * deserialise({ data: { type: 'people', id: '1', attributes: { name: 'Ada' } } })
+ * // { data: { type: 'people', id: '1', name: 'Ada' } }
+ * @example <caption>Casing enabled and disabled</caption>
+ * import { camel, deserialise } from 'kitsu-core'
+ * const document = { data: { type: 'people', id: '9', attributes: { 'first-name': 'Mina' } } }
+ * deserialise(document).data['first-name'] // 'Mina'
+ * deserialise(document, { attributeCase: camel }).data.firstName // 'Mina'
+ * @example <caption>Resource metadata and document metadata</caption>
+ * const document = { data: { type: 'people', id: '9', meta: { editable: true } } }
+ * deserialise(document).data.$.meta.editable // true
+ * deserialise(document, { hoistData: true }).$.meta.editable // true
+ * const withMeta = { ...document, meta: { total: 1 } }
+ * const result = deserialise(withMeta, { hoistData: true })
+ * result.meta.total // 1; document metadata keeps the wrapper
+ * result.data.$.meta.editable // true
  */
-function hoistData(response: JsonObject): JsonObject {
-  const seen = new WeakMap()
-  const hasOwn = Object.prototype.hasOwnProperty
-
-  /**
-   * Recursively traverses and clones an object or array, handling cyclic references.
-   * If the object is a wrapper of the form { data: ... }, it unwraps and processes the `data` property.
-   *
-   * @param {any} object The input to hoist (object or array)
-   * @returns {any} The hoisted object or array
-   * @private
-   */
-  function hoist(object: any): any {
-    if (object && typeof object === 'object') {
-      if (seen.has(object)) {
-        return seen.get(object)
-      }
-
-      let out: any
-
-      if (Array.isArray(object)) {
-        out = []
-        seen.set(object, out)
-
-        let i = 0
-
-        for (const item of object) {
-          out[i] = hoist(item)
-          i++
-        }
-
-        return out
-      }
-
-      // Check for { data: ... } wrapper without allocating Object.keys
-      let onlyData = false
-
-      for (const key in object) {
-        if (!hasOwn.call(object, key)) continue
-
-        if (key === 'data' && !onlyData) {
-          onlyData = true
-        } else {
-          onlyData = false
-          break
-        }
-      }
-
-      if (onlyData) {
-        return hoist(object.data)
-      }
-
-      out = {}
-      seen.set(object, out)
-
-      for (const key in object) {
-        if (hasOwn.call(object, key)) {
-          out[key] = hoist(object[key])
-        }
-      }
-
-      return out
-    }
-
-    return object
-  }
-
-  return hoist(response)
-}
-
-/**
- * Deserialises an array from a JSON-API structure
- *
- * @param {Object} response The response
- * @returns {Object} The deserialised response
- * @private
- */
-function deserialiseArray(response: JsonObject): JsonObject {
-  const previouslyLinked = {}
-  const relationshipCache = {}
-  const included = [
-    ...response.data.map((item: JsonObject) => ({
-      ...item,
-      relationships: { ...item.relationships },
-    })),
-    ...(response.included || []),
-  ]
-
-  for (let value of response.data) {
-    value = linkRelationships(value, included, previouslyLinked, relationshipCache)
-    if (value.attributes) value = deattribute(value)
-    response.data[response.data.indexOf(value)] = value
-  }
-  return response
-}
-
-/**
- * Deserialises a JSON-API response
- *
- * @param {Object} response The raw JSON:API response object
- * @param {Object} [options={}] Deserialisation options
- * @param {boolean} [options.hoistData=false] If enabled, the contents of the `data` property will be hoisted to the parent. This provides a flatter response object, see examples below for transformation examples. Links and Meta properties will be merged into the parent object if they exist. If attributes named `links` or `meta` exist, they will overwrite the JSON:API `links` and `meta` properties.
- * @returns {Object} The deserialised response
- *
- * @example <caption>Deserialise with a basic data object</caption>
- * deserialise({
- *   data: {
- *     id: '1',
- *     attributes: { liked: true }
- *   },
- *   meta: { hello: 'world' }
- * }) // { data: { id: '1', liked: true }, meta: { hello: 'world' } }
- *
- * @example <caption>Deserialise with relationships</caption>
- * deserialise({
- *   data: {
- *     id: '1',
- *     relationships: {
- *       user: {
- *         data: {
- *           type: 'users',
- *           id: '2' }
- *       }
- *     }
- *   },
- *   included: [
- *     {
- *       type: 'users',
- *       id: '2',
- *       attributes: { slug: 'wopian' }
- *     }
- *   ]
- * }) // { data: { id: '1', user: { data: { type: 'users', id: '2', slug: 'wopian' } } } }
- *
- * @example <caption>Deserialise with hoisted data</caption>
- * deserialise({
- *   data: {
- *     id: '1',
- *     type: 'people',
- *     relationships: {
- *       coworkers: {
- *         data: [
- *           { id: '2', type: 'people' }
- *         ]
- *       }
- *     }
- *   },
- *   included: []
- * }, { hoistData: true }) // { id: '1', type: 'people', coworkers: [ { id: '2', type: 'people' } ] }
- */
-export function deserialise(
-  response: any,
-  options: DeserialiseOptions = { hoistData: false },
-): any {
+export function deserialise(response: any, options: DeserialiseOptions = {}): any {
   if (!response) return
-
-  // Collection of resources
-  if (Array.isArray(response.data)) response = deserialiseArray(response)
-  // Single resource with included relationships
-  else if (response.included) response.data = linkRelationships(response.data, response.included)
-  else if (typeof response.data === 'object' && response.data !== null)
-    response.data = linkRelationships(response.data)
-
-  delete response.included
-
-  // Move attributes to the parent object
-  if (response.data?.attributes) response.data = deattribute(response.data)
-
-  // Hoist data to flatten the response structure if requested
-  if (options.hoistData && response.data) {
-    response = hoistData(response)
+  const result: JsonObject = {}
+  for (const key in response) {
+    if (!Object.hasOwn(response, key)) continue
+    if (
+      key === 'errors' ||
+      key === 'links' ||
+      key === 'meta' ||
+      key === 'jsonapi' ||
+      extensionMember(key)
+    )
+      result[key] = copy(response[key])
   }
-
-  return response
+  if ('data' in response) {
+    const data = response.data
+    if (
+      !('included' in response) &&
+      (data == null || (Object.getPrototypeOf(data) === Object.prototype && !data.relationships))
+    )
+      result.data = deattribute(data, options)
+    else {
+      const graph = decodeGraph(data, response.included, options)
+      result.data = graph.data
+      if ('included' in response) result.included = graph.included
+    }
+  }
+  if (options.hoistData && memberCount(result) === 1 && 'data' in result) return result.data
+  return result
 }

@@ -94,8 +94,9 @@ export function renderReadme(reports: Measurement[], runUrl?: string): string {
     output.push(
       `### ${escape(report.runtime)} ${escape(report.runtimeVersion)}${report.smoke ? ' (smoke; not publication results)' : ''}`,
       '',
-      `Measured commit: \`${report.headSha}\`. Runner: ${escape(report.runner.os)} ${escape(report.runner.arch)}, ${escape(report.runner.cpu)}.`,
+      `${report.dirty ? 'Base commit (local changes measured)' : 'Measured commit'}: \`${report.headSha}\`. Runner: ${escape(report.runner.os)} ${escape(report.runner.arch)}, ${escape(report.runner.cpu)}.`,
       '',
+      ...(report.sourceHash ? [`Built package fingerprint: \`${report.sourceHash}\`.`, ''] : []),
       `Library versions: ${Object.entries(report.versions)
         .map(([name, version]) => `${escape(name)} ${escape(version)}`)
         .join(', ')}.`,
@@ -135,10 +136,10 @@ export function renderReadme(reports: Measurement[], runUrl?: string): string {
   }
   output.push(
     '',
-    '- Codec APIs: kitsu-core, devour, yayson, jsona, deserialize-json-api (decode only).',
+    '- Codec APIs: kitsu-core, devour, yayson, jsona, ts-japi (encode only).',
     '- Client APIs: kitsu, fetchja, devour. Public single-resource clients report collection writes as unsupported.',
     '',
-    'Full fixtures use 1,000 primary resources, 3 shared or 3,000 distinct includes, and a complex graph with 21,016 includes.',
+    'Full fixtures use 1,000 primary resources, 3 shared or 3,000 distinct includes, a complex graph with 21,016 includes and one wide relationship with 4,000 identifiers.',
     '',
   )
   return output.join('\n')
@@ -213,11 +214,14 @@ export function validateReport(value: any): asserts value is Measurement {
   if (
     value?.schemaVersion !== 1 ||
     !hash(value.harnessHash, 64) ||
+    (value.sourceHash !== undefined && !hash(value.sourceHash, 64)) ||
+    (value.dirty !== undefined && typeof value.dirty !== 'boolean') ||
     !hash(value.headSha, 40) ||
     (value.baseSha !== undefined && !hash(value.baseSha, 40)) ||
     !['node', 'bun'].includes(value.runtime) ||
     !string(value.runtimeVersion) ||
     typeof value.smoke !== 'boolean' ||
+    (value.partial !== undefined && typeof value.partial !== 'boolean') ||
     !string(value.measuredAt) ||
     !value.runner ||
     !['os', 'arch', 'cpu'].every((key) => string(value.runner[key])) ||
@@ -253,7 +257,7 @@ export function validateReport(value: any): asserts value is Measurement {
           !positive(cell.operationsPerSecond)
         )
           throw new Error('invalid throughput samples')
-        const sorted = [...cell.samples].sort((left: number, right: number) => left - right)
+        const sorted = cell.samples.toSorted((left: number, right: number) => left - right)
         if (cell.operationsPerSecond !== sorted[2])
           throw new Error('throughput differs from median')
         const requests = cell.operationsPerSecond * (cell.mode === 'decode-encode' ? 2 : 1)

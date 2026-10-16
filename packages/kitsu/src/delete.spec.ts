@@ -53,12 +53,7 @@ describe('kitsu', () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       adapter.onDelete('/posts/1').reply((config: any) => {
-        expect(JSON.parse(config.data)).toEqual({
-          data: {
-            id: '1',
-            type: 'posts',
-          },
-        })
+        expect(config.data).toBeUndefined()
         return [200]
       })
       expect(await api.delete('post', 1)).toEqual({ status: 200 })
@@ -68,12 +63,7 @@ describe('kitsu', () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
       adapter.onDelete('/posts/1/comments/1').reply((config: any) => {
-        expect(JSON.parse(config.data)).toEqual({
-          data: {
-            id: '1',
-            type: 'comments',
-          },
-        })
+        expect(config.data).toBeUndefined()
         return [200]
       })
       expect(await api.delete('posts/1/comments', 1)).toEqual({ status: 200 })
