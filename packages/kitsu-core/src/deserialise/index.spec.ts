@@ -2,6 +2,85 @@ import { describe, expect, it } from 'bun:test'
 import { deserialise } from '../deserialise.js'
 
 describe('kitsu-core deserialise', () => {
+  it('keeps alternating types, unresolved targets, and document-local identity separate', () => {
+    const resources = ['people', 'articles', 'people', 'comments'].map((type, index) =>
+      Object.freeze({
+        type,
+        id: String(index),
+        attributes: Object.freeze({ value: index }),
+        relationships: Object.freeze({
+          targets: Object.freeze({
+            data: Object.freeze([
+              Object.freeze({ type: 'people', id: '0' }),
+              Object.freeze({ type: 'missing', id: '0' }),
+              Object.freeze({ type: 'articles', id: '1' }),
+              Object.freeze({ type: 'people', id: '2' }),
+              Object.freeze({ type: 'missing', id: '1' }),
+            ]),
+          }),
+        }),
+      }),
+    )
+    const input = Object.freeze({ data: Object.freeze(resources) })
+    const first = deserialise(input)
+    const second = deserialise(input)
+    for (const resource of first.data) {
+      expect(resource.targets[0]).toBe(first.data[0])
+      expect(resource.targets[1]).toEqual({ type: 'missing', id: '0' })
+      expect(resource.targets[2]).toBe(first.data[1])
+      expect(resource.targets[3]).toBe(first.data[2])
+      expect(resource.targets[4]).toEqual({ type: 'missing', id: '1' })
+      expect(resource.targets[0]).not.toBe(second.data[0])
+    }
+    expect(first.data[0].targets[0]).toBe(first.data[0])
+    expect(input.data[0].attributes).toEqual({ value: 0 })
+  })
+  it('preserves all identifier metadata after the first metadata member', () => {
+    const linkage = [
+      { type: 'people', id: '1', meta: { position: 0 }, 'audit:revision': [1] },
+      { type: 'people', id: '2', meta: { position: 1 }, 'audit:revision': [2] },
+    ]
+    const relationships = Object.assign(Object.create({ inherited: { data: null } }), {
+      people: { data: linkage },
+      owner: { data: linkage[0] },
+    })
+    const output = deserialise({ data: { type: 'articles', id: '1', relationships } }).data
+    expect(Object.hasOwn(output, 'inherited')).toBe(false)
+    expect(output.people).toEqual([
+      { type: 'people', id: '1' },
+      { type: 'people', id: '2' },
+    ])
+    expect(output.$.relationships.people.data).toEqual(linkage)
+    expect(output.$.relationships.owner.data).toEqual(linkage[0])
+    expect(output.$.relationships.people.data).not.toBe(linkage)
+    expect(output.$.relationships.people.data[1].meta).not.toBe(linkage[1].meta)
+    output.$.relationships.people.data[0]['audit:revision'].push(3)
+    expect(linkage[0]['audit:revision']).toEqual([1])
+  })
+  it('distinguishes repeated ids across types without sharing resources between documents', () => {
+    const input = {
+      data: [
+        { type: 'people', id: '__proto__', attributes: { name: 'Ada' } },
+        { type: 'articles', id: '__proto__', attributes: { title: 'Hello' } },
+      ],
+      included: [
+        {
+          type: 'comments',
+          id: 'constructor',
+          relationships: {
+            author: { data: { type: 'people', id: '__proto__' } },
+            article: { data: { type: 'articles', id: '__proto__' } },
+          },
+        },
+      ],
+    }
+    const first = deserialise(input)
+    const second = deserialise(input)
+    expect(first.included[0].author).toBe(first.data[0])
+    expect(first.included[0].article).toBe(first.data[1])
+    expect(first.data[0]).not.toBe(first.data[1])
+    expect(first.included[0].author).not.toBe(second.included[0].author)
+  })
   it('keeps reserved attributes, inherited fields, and literal prototype keys separate', () => {
     const attributes = Object.assign(Object.create({ ignored: true }), {
       type: 'wrong',

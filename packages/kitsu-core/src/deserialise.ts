@@ -1,5 +1,5 @@
-import { deattribute } from './deattribute.js'
 import { copy } from './internal/copy.js'
+import { flatten } from './internal/flatten.js'
 import { decodeGraph } from './internal/graph.js'
 import { extensionMember, memberCount } from './internal/members.js'
 import type { DeserialiseOptions, JsonObject } from './types.js'
@@ -50,7 +50,7 @@ export function deserialise(response: any, options: DeserialiseOptions = {}): an
       !('included' in response) &&
       (data == null || (Object.getPrototypeOf(data) === Object.prototype && !data.relationships))
     )
-      result.data = deattribute(data, options)
+      result.data = data == null ? data : flatten(data, options)
     else {
       const graph = decodeGraph(data, response.included, options)
       result.data = graph.data

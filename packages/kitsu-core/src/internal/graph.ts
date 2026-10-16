@@ -1,6 +1,7 @@
 import { deattribute } from '../deattribute.js'
 import type { DeserialiseOptions, JsonObject } from '../types.js'
 import { copy } from './copy.js'
+import { flatten } from './flatten.js'
 import { extensionMember, identity, mapData, resourceIndex } from './members.js'
 
 function reference(identifier: JsonObject): JsonObject {
@@ -14,7 +15,8 @@ function link(
   output: JsonObject,
   target: (identifier: JsonObject) => JsonObject,
 ): void {
-  for (const name of Object.keys(relationships)) {
+  for (const name in relationships) {
+    if (!Object.hasOwn(relationships, name)) continue
     const relationship = relationships[name]
     if (extensionMember(name)) {
       output.$ ??= {}
@@ -41,16 +43,26 @@ function link(
         for (let index = 0; index < linkage.length; index++) {
           const identifier = linkage[index]
           values[index] = target(identifier)
-          for (const key in identifier)
-            if (key !== 'id' && key !== 'type' && key !== 'lid' && Object.hasOwn(identifier, key))
-              metadata = true
+          if (!metadata)
+            for (const key in identifier)
+              if (
+                key !== 'id' &&
+                key !== 'type' &&
+                key !== 'lid' &&
+                Object.hasOwn(identifier, key)
+              ) {
+                metadata = true
+                break
+              }
         }
         output[name] = values
       } else {
         output[name] = linkage == null ? linkage : target(linkage)
         for (const key in linkage)
-          if (key !== 'id' && key !== 'type' && key !== 'lid' && Object.hasOwn(linkage, key))
+          if (key !== 'id' && key !== 'type' && key !== 'lid' && Object.hasOwn(linkage, key)) {
             metadata = true
+            break
+          }
       }
       if (metadata) {
         extras ??= {}
@@ -74,7 +86,7 @@ export function decodeGraph(
   options?: DeserialiseOptions,
 ): JsonObject {
   if (!included.length && (data == null || Object.getPrototypeOf(data) === Object.prototype)) {
-    const output = data == null ? data : deattribute(data, options)
+    const output = data == null ? data : flatten(data, options)
     if (data?.relationships)
       link(data.relationships, output, (identifier) =>
         identifier.type === data.type &&
@@ -102,7 +114,7 @@ export function decodeGraph(
       ids.set(source.type, type)
     }
     if (type.has(source.id)) return
-    const output = deattribute(source, options)
+    const output = flatten(source, options)
     type.set(source.id, output)
     if (source.relationships) pending.push(source.relationships, output)
     return output

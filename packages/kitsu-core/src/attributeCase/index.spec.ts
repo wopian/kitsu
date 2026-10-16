@@ -10,6 +10,26 @@ import {
 } from '../index.js'
 
 describe('optional attribute casing', () => {
+  it('calls custom converters for every attribute without memoizing callback results', () => {
+    let calls = 0
+    const input = {
+      data: [
+        { type: 'people', id: '1', attributes: { name: 'Ada' } },
+        { type: 'people', id: '2', attributes: { name: 'Grace' } },
+      ],
+    }
+    const options = { attributeCase: (name: string) => `${name}${++calls}` }
+    expect(deserialise(input, options).data).toEqual([
+      { type: 'people', id: '1', name1: 'Ada' },
+      { type: 'people', id: '2', name2: 'Grace' },
+    ])
+    expect(deserialise(input, options).data).toEqual([
+      { type: 'people', id: '1', name3: 'Ada' },
+      { type: 'people', id: '2', name4: 'Grace' },
+    ])
+    expect(calls).toBe(4)
+    expect(input.data[0].attributes).toEqual({ name: 'Ada' })
+  })
   it('keeps default names and converts only immediate attribute names when enabled', () => {
     const nested: any = { 'keep-key': [{ nested_key: 1, data: null }] }
     nested.self = nested
