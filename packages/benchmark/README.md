@@ -21,6 +21,13 @@ Use `--fixture NAME`, `--mode decode|encode|decode-encode`, `--suite codec|clien
 results cannot replace README benchmarks. Missing native package in an older base
 revision is unsupported; missing current package is an error.
 
+The measurement command and Benchmark workflow fail only for current-revision
+`kitsu-core`, `kitsu`, or `kitsu-native` cells marked `incorrect`, `error`, or
+`timeout`. Competitor failures and older base failures remain visible in reports
+without failing measurement. Unsupported cells never fail measurement. Reports
+and artifacts are saved even when a Kitsu benchmark fails. The separate
+`benchmark:verify` command retains its strict performance targets.
+
 Run `bun run benchmark:report .cache/benchmark-run-2 --readme` to refresh root
 README after complete measurements. Publish truthful results even when target is
 not reached. Keep conversion, fresh inputs, graph traversal, correctness checks,

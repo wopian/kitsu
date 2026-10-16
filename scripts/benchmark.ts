@@ -10,6 +10,7 @@ import {
   suites,
   unsupportedReason,
 } from '../packages/benchmark/src/adapters.ts'
+import { benchmarkFailures } from '../packages/benchmark/src/failures.ts'
 import { fixtures } from '../packages/benchmark/src/fixtures.ts'
 import { renderReadme } from '../packages/benchmark/src/report.ts'
 import type { Cell, Measurement, Mode, WorkerOptions } from '../packages/benchmark/src/types.ts'
@@ -201,9 +202,9 @@ const runUrl =
     ? `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
     : undefined
 await writeFile(join(output, 'report.md'), renderReadme(reports, runUrl))
-if (
-  reports.some((report) =>
-    report.cells.some(({ head }) => head.status === 'error' || head.status === 'timeout'),
+const failures = benchmarkFailures(reports)
+for (const cell of failures)
+  console.error(
+    `${cell.library} ${cell.suite} ${cell.mode} ${cell.fixture}: ${cell.status}${cell.reason ? `: ${cell.reason}` : ''}`,
   )
-)
-  process.exitCode = 1
+if (failures.length) process.exitCode = 1
