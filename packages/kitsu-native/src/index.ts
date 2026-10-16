@@ -244,7 +244,7 @@ export default class Kitsu {
    * @example
    * await api.delete('articles', '42') // DELETE /articles/42; no body
    * await api.delete('articles/42/relationships/tags', ['3'], { document: { meta: { requestId: 'demo-42' } } })
-   * // DELETE /articles/42/relationships/tags; data: [{ type: tags, id: 3 }] with string values
+   * // DELETE /articles/42/relationships/tags; body: { data: [{ type: 'tags', id: '3' }] }
    */
   delete<T = any>(
     model: string,

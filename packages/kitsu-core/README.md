@@ -88,66 +88,70 @@ All code released under [MIT]
     *   [Examples](#examples-3)
 *   [filterIncludes](#filterincludes)
     *   [Parameters](#parameters-4)
+    *   [Examples](#examples-4)
 *   [kebab](#kebab)
     *   [Parameters](#parameters-5)
-    *   [Examples](#examples-4)
+    *   [Examples](#examples-5)
 *   [linkRelationships](#linkrelationships)
     *   [Parameters](#parameters-6)
-    *   [Examples](#examples-5)
-*   [query](#query)
-    *   [Parameters](#parameters-7)
     *   [Examples](#examples-6)
-*   [serialise](#serialise)
-    *   [Parameters](#parameters-8)
+*   [paramKeyName](#paramkeyname)
+    *   [Parameters](#parameters-7)
     *   [Examples](#examples-7)
-*   [snake](#snake)
-    *   [Parameters](#parameters-9)
+*   [query](#query)
+    *   [Parameters](#parameters-8)
     *   [Examples](#examples-8)
-*   [splitModel](#splitmodel)
-    *   [Parameters](#parameters-10)
+*   [serialise](#serialise)
+    *   [Parameters](#parameters-9)
     *   [Examples](#examples-9)
-*   [JsonObject](#jsonobject)
+*   [snake](#snake)
+    *   [Parameters](#parameters-10)
     *   [Examples](#examples-10)
-*   [JsonApiMeta](#jsonapimeta)
+*   [splitModel](#splitmodel)
+    *   [Parameters](#parameters-11)
     *   [Examples](#examples-11)
+*   [JsonObject](#jsonobject)
+    *   [Examples](#examples-12)
+*   [JsonApiMeta](#jsonapimeta)
+    *   [Examples](#examples-13)
 *   [JsonApiLink](#jsonapilink)
     *   [Properties](#properties)
-    *   [Examples](#examples-12)
+    *   [Examples](#examples-14)
 *   [JsonApiLinks](#jsonapilinks)
-    *   [Examples](#examples-13)
+    *   [Examples](#examples-15)
 *   [ResourceIdentifier](#resourceidentifier)
     *   [Properties](#properties-1)
-    *   [Examples](#examples-14)
+    *   [Examples](#examples-16)
 *   [JsonApiResource](#jsonapiresource)
     *   [Properties](#properties-2)
-    *   [Examples](#examples-15)
+    *   [Examples](#examples-17)
 *   [JsonApiRelationship](#jsonapirelationship)
     *   [Properties](#properties-3)
-    *   [Examples](#examples-16)
+    *   [Examples](#examples-18)
 *   [JsonApiObject](#jsonapiobject)
     *   [Properties](#properties-4)
-    *   [Examples](#examples-17)
+    *   [Examples](#examples-19)
 *   [JsonApiError](#jsonapierror)
     *   [Properties](#properties-5)
-    *   [Examples](#examples-18)
+    *   [Examples](#examples-20)
 *   [JsonApiDocument](#jsonapidocument)
     *   [Properties](#properties-6)
-    *   [Examples](#examples-19)
+    *   [Examples](#examples-21)
 *   [ResourceEnvelope](#resourceenvelope)
     *   [Properties](#properties-7)
-    *   [Examples](#examples-20)
+    *   [Examples](#examples-22)
 *   [FlatResource](#flatresource)
     *   [Properties](#properties-8)
-    *   [Examples](#examples-21)
+    *   [Examples](#examples-23)
 *   [SerialiseOptions](#serialiseoptions)
     *   [Properties](#properties-9)
-    *   [Examples](#examples-22)
+    *   [Examples](#examples-24)
 *   [SplitModelOptions](#splitmodeloptions)
     *   [Properties](#properties-10)
-    *   [Examples](#examples-23)
+    *   [Examples](#examples-25)
 *   [DeserialiseOptions](#deserialiseoptions)
     *   [Properties](#properties-11)
-    *   [Examples](#examples-24)
+    *   [Examples](#examples-26)
 
 ### camel
 
@@ -177,12 +181,15 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Flattens resource attributes and moves resource metadata under `$` without mutation.
 
+This helper does not resolve relationships. Use deserialise for a complete document.
+
 #### Parameters
 
-*   `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Resource data
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Attribute naming options
+*   `data` **([JsonApiResource](#jsonapiresource) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[JsonApiResource](#jsonapiresource)> | null)** Wire resource data
+*   `options` **[DeserialiseOptions](#deserialiseoptions)?** Attribute naming options
 
-    *   `options.attributeCase` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Convert attribute names; nested JSON keys stay unchanged
+    *   `options.attributeCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert attribute names. Default: unchanged. Nested JSON and extension attributes keep their names; invalid names or collisions throw TypeError.
+    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Accepted through the shared type, but unused by this resource helper (optional, default `false`)
 
 #### Examples
 
@@ -191,7 +198,13 @@ deattribute({ type: 'people', id: '1', attributes: { name: 'Ada' }, meta: { acti
 // { type: 'people', id: '1', name: 'Ada', $: { meta: { active: true } } }
 ```
 
-Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Flat resource data
+```javascript
+import { camel, deattribute } from 'kitsu-core'
+deattribute({ type: 'people', id: '9', attributes: { 'first-name': 'Mina' } }, { attributeCase: camel })
+// { type: 'people', id: '9', firstName: 'Mina' }
+```
+
+Returns **([FlatResource](#flatresource) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[FlatResource](#flatresource)> | null)** Flat resource data
 
 ### deserialise
 
@@ -200,11 +213,11 @@ Resource metadata lives under `$`; document metadata remains at document level.
 
 #### Parameters
 
-*   `response` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON:API response document
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Deserialisation options (optional, default `{}`)
+*   `response` **[JsonApiDocument](#jsonapidocument)** JSON:API document, including collection, null, meta-only or error-only documents
+*   `options` **[DeserialiseOptions](#deserialiseoptions)** Decoding options (optional, default `{}`)
 
-    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Unwrap documents containing only `data` (optional, default `false`)
-    *   `options.attributeCase` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Convert attribute names; nested JSON keys stay unchanged
+    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Unwrap only documents containing solely data; never recursively unwrap JSON attributes (optional, default `false`)
+    *   `options.attributeCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert attribute names. Default: unchanged. Nested JSON keys and extension attributes stay unchanged. Invalid names or collisions throw TypeError.
 
 #### Examples
 
@@ -213,7 +226,28 @@ deserialise({ data: { type: 'people', id: '1', attributes: { name: 'Ada' } } })
 // { data: { type: 'people', id: '1', name: 'Ada' } }
 ```
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Deserialised document without mutating input
+Casing enabled and disabled
+
+```javascript
+import { camel, deserialise } from 'kitsu-core'
+const document = { data: { type: 'people', id: '9', attributes: { 'first-name': 'Mina' } } }
+deserialise(document).data['first-name'] // 'Mina'
+deserialise(document, { attributeCase: camel }).data.firstName // 'Mina'
+```
+
+Resource metadata and document metadata
+
+```javascript
+const document = { data: { type: 'people', id: '9', meta: { editable: true } } }
+deserialise(document).data.$.meta.editable // true
+deserialise(document, { hoistData: true }).$.meta.editable // true
+const withMeta = { ...document, meta: { total: 1 } }
+const result = deserialise(withMeta, { hoistData: true })
+result.meta.total // 1; document metadata keeps the wrapper
+result.data.$.meta.editable // true
+```
+
+Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[FlatResource](#flatresource)> | [FlatResource](#flatresource) | null | [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined))** Independent decoded document, or primary data when hoisted; undefined for missing input
 
 ### error
 
@@ -256,10 +290,17 @@ Finds included resources by type and id, or type and lid.
 
 #### Parameters
 
-*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** Included resources
-*   `relationship` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Resource identifier
+*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[JsonApiResource](#jsonapiresource)>** Wire resources to search, in document order
+*   `relationship` **Partial<[ResourceIdentifier](#resourceidentifier)>** Identifier with type and id or lid; comparisons are case-sensitive
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Independent resource copy, or unresolved identifier
+#### Examples
+
+```javascript
+filterIncludes([{ type: 'people', lid: 'mina', attributes: { name: 'Mina' } }], { type: 'people', lid: 'mina' })
+// { type: 'people', lid: 'mina', attributes: { name: 'Mina' } }
+```
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Independent copy of the first match, unresolved identifier, or {} when type/identity is missing
 
 ### kebab
 
@@ -283,11 +324,12 @@ Resolves relationships into direct resources using document-local identity.
 
 #### Parameters
 
-*   `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Primary resource data
-*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** Included resources (optional, default `[]`)
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Attribute naming options
+*   `data` **([JsonApiResource](#jsonapiresource) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[JsonApiResource](#jsonapiresource)> | null)** Primary wire resources
+*   `included` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[JsonApiResource](#jsonapiresource)>** Included wire resources, matched by type plus id or lid (optional, default `[]`)
+*   `options` **[DeserialiseOptions](#deserialiseoptions)?** Attribute naming options
 
-    *   `options.attributeCase` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Convert attribute names; nested JSON keys stay unchanged
+    *   `options.attributeCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert attribute names. Default: unchanged. Nested JSON and extension attributes keep their names; invalid names or collisions throw TypeError.
+    *   `options.hoistData` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Accepted through the shared type, but unused by this resource helper (optional, default `false`)
 
 #### Examples
 
@@ -296,7 +338,32 @@ linkRelationships({ type: 'articles', id: '1', relationships: { author: { data: 
 // { type: 'articles', id: '1', author: null }
 ```
 
-Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Flat resource graph without mutating input
+```javascript
+import { camel, linkRelationships } from 'kitsu-core'
+const result = linkRelationships({ type: 'articles', id: '42', relationships: {
+  author: { data: { type: 'people', id: '9' } }
+} }, [{ type: 'people', id: '9', attributes: { 'first-name': 'Mina' } }], { attributeCase: camel })
+result.author.firstName // 'Mina'
+```
+
+Returns **([FlatResource](#flatresource) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[FlatResource](#flatresource)> | null)** Independent flat graph, preserving shared references, cycles and unresolved identifiers
+
+### paramKeyName
+
+Formats key names to correct array syntax
+
+#### Parameters
+
+*   `param` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | null)?** Nested parameter name; null or undefined produces an empty string
+
+#### Examples
+
+```javascript
+paramKeyName('title') // '[title]'
+paramKeyName('tags[]') // '[tags][]'
+```
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Key name in nested query-param format with optional array style suffix
 
 ### query
 
@@ -304,9 +371,9 @@ Constructs a URL query string for JSON:API parameters
 
 #### Parameters
 
-*   `params` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Parameters to parse
+*   `params` **([JsonObject](#jsonobject) | null)?** Parameters, including nested include, fields, sort, page, filter and extension families
 *   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Prefix for nested parameters - used internally (optional, default `undefined`)
-*   `traditional` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Use the traditional (default) or modern param serializer. Set to false if your server is running Ruby on Rails or other modern web frameworks (optional, default `true`)
+*   `traditional` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true repeats array keys; false appends \[] to array keys. Choose the convention accepted by your server. (optional, default `true`)
 
 #### Examples
 
@@ -317,10 +384,19 @@ query({
     title: {
       value: 'foo'
     }
-  }
+  },
  sort: '-id'
 })
 // filter%5Bslug%5D=cowboy-bebop&filter%5Btitle%5D%5Bvalue%5D=foo&sort=-id
+```
+
+Array modes and nested prefix
+
+```javascript
+query({ tag: ['bread', 'cake'] }) // 'tag=bread&tag=cake'
+query({ tag: ['bread', 'cake'] }, undefined, false) // 'tag%5B%5D=bread&tag%5B%5D=cake'
+query({ title: 'Bread' }, 'filter') // 'filter%5Btitle%5D=Bread'
+query({ include: '', fields: { articles: '' } }) // 'include=&fields%5Barticles%5D='
 ```
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** URL query string
@@ -332,15 +408,15 @@ Put resource metadata under `$` and explicit attribute overrides under `$.attrib
 
 #### Parameters
 
-*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Resource type
-*   `data` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** Flat primary data (optional, default `{}`)
-*   `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Request method (optional, default `POST`)
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Serialization options (optional, default `{}`)
+*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Resource type, required when data does not provide one
+*   `data` **([FlatResource](#flatresource) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[FlatResource](#flatresource)> | null)** Flat primary data, direct relationships and optional $ metadata (optional, default `{}`)
+*   `method` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Request method, case-insensitive; commonly POST, PATCH or DELETE (optional, default `'POST'`)
+*   `options` **[SerialiseOptions](#serialiseoptions)** Encoding options (optional, default `{}`)
 
-    *   `options.camelCaseTypes` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Transform inferred resource types
-    *   `options.pluralTypes` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Pluralize inferred resource types
-    *   `options.attributeCase` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Convert attribute names; nested JSON keys stay unchanged
-    *   `options.document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Additional top-level document members
+    *   `options.camelCaseTypes` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Transform inferred types before pluralTypes. Default: unchanged.
+    *   `options.pluralTypes` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Pluralize inferred types after camelCaseTypes. Default: unchanged.
+    *   `options.attributeCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert attribute names. Default: unchanged. Nested JSON keys and extension attributes stay unchanged. Invalid names or collisions throw TypeError.
+    *   `options.document` **[JsonApiDocument](#jsonapidocument)?** Additional document meta, links, jsonapi, included and extension members. included uses wire resources and merges by identity. data and errors throw TypeError.
     *   `options.relationship` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Serialize primary data as identifiers (optional, default `false`)
 
 #### Examples
@@ -350,7 +426,44 @@ serialise('articles', { title: 'Hello', author: { type: 'people', id: '9' } })
 // { data: { type: 'articles', attributes: { title: 'Hello' }, relationships: { author: { data: { type: 'people', id: '9' } } } } }
 ```
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** JSON:API document with deduplicated included resources
+Attribute casing enabled and disabled
+
+```javascript
+import { camel, kebab, serialise } from 'kitsu-core'
+serialise('people', { firstName: 'Mina' }).data.attributes // { firstName: 'Mina' }
+serialise('people', { firstName: 'Mina' }, 'POST', { attributeCase: kebab }).data.attributes
+// { 'first-name': 'Mina' }
+```
+
+Type callbacks and document metadata
+
+```javascript
+serialise('library-entry', { id: 0 }, 'PATCH', {
+  camelCaseTypes: camel,
+  pluralTypes: (type) => type === 'libraryEntry' ? 'libraryEntries' : type,
+  document: { meta: { requestId: 'demo-42' }, jsonapi: { version: '1.1' } }
+})
+// { data: { type: 'libraryEntries', id: '0' }, meta: { requestId: 'demo-42' }, jsonapi: { version: '1.1' } }
+```
+
+Explicit attributes and relationship clearing
+
+```javascript
+serialise('articles', { id: '42', $: {
+  attributes: { coordinates: [] },
+  relationships: { author: { data: null, meta: { editable: true } } }
+} }, 'PATCH')
+// attributes.coordinates stays an attribute; relationships.author.data is null
+```
+
+Relationship endpoint
+
+```javascript
+serialise('people', { id: '9' }, 'PATCH', { relationship: true })
+// { data: { type: 'people', id: '9' } }
+```
+
+Returns **[JsonApiDocument](#jsonapidocument)** Independent JSON:API document with deduplicated included resources
 
 ### snake
 
@@ -375,10 +488,10 @@ Split model name from the model's resource URL
 #### Parameters
 
 *   `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** URL path for the model
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Optional configuration for camelCase and pluralisation handling
+*   `options` **[SplitModelOptions](#splitmodeloptions)** Optional transformations for the last path segment (optional, default `{}`)
 
-    *   `options.resourceCase` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Convert libraryEntries to library-entries or library\_entries (default no conversion). To use parameter, import kebab or snake from kitsu-core (optional, default `s=>s`)
-    *   `options.pluralModel` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Pluralise models (default no pluralisation). To use parameter, import pluralize (or another pluralisation npm package) (optional, default `s=>s`)
+    *   `options.resourceCase` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Convert the last segment before pluralization. Default: unchanged. Use kebab or snake from kitsu-core.
+    *   `options.pluralModel` **function ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)): [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Pluralize the converted last segment. Default: unchanged. Supply a callback or pluralize library function.
 
 #### Examples
 
@@ -406,7 +519,7 @@ splitModel('libraryEntries', { resourceCase: snake })
 // [ 'libraryEntries', 'library_entries' ]
 ```
 
-Returns **\[[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)]** } Array containing the model name and the resource URL with pluralisation applied
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** Two strings: original last segment and transformed URL
 
 ### JsonObject
 
@@ -418,7 +531,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const attributes = { title: 'Moonlight Bread', tags: ['bread'] };
 ```
 
@@ -432,7 +544,6 @@ Type: [JsonObject](#jsonobject)
 #### Examples
 
 ```javascript
-"use strict";
 const meta = { total: 42 };
 ```
 
@@ -455,7 +566,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const link = { href: '/articles/42', title: 'Moonlight Bread', hreflang: 'en' };
 ```
 
@@ -469,7 +579,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const links = { self: '/articles/42', next: null };
 ```
 
@@ -490,7 +599,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const identifier = { type: 'people', id: '9', meta: { role: 'author' } };
 ```
 
@@ -515,7 +623,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const resource = { type: 'articles', id: '42', attributes: { title: 'Moonlight Bread' } };
 ```
 
@@ -536,7 +643,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const relationship = { data: null, meta: { editable: true } };
 ```
 
@@ -556,7 +662,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const jsonapi = { version: '1.1', profile: ['https://bakery.example/profiles/dates'] };
 ```
 
@@ -585,7 +690,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const error = { status: '422', title: 'Title required', source: { pointer: '/data/attributes/title' } };
 ```
 
@@ -609,7 +713,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const document = { data: { type: 'articles', id: '42' }, meta: { total: 1 } };
 ```
 
@@ -633,7 +736,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const envelope = { meta: { editable: true }, relationships: { author: { data: null } } };
 ```
 
@@ -653,7 +755,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const article = { type: 'articles', id: 0, title: 'Moonlight Bread', author: { type: 'people', id: '9' }, $: { meta: { editable: true } } };
 ```
 
@@ -676,7 +777,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const options = { attributeCase: kebab, document: { meta: { requestId: 'demo-42' } } };
 ```
 
@@ -694,7 +794,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const options = { resourceCase: kebab, pluralModel: (value) => `${value}s` };
 ```
 
@@ -715,6 +814,5 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const options = { attributeCase: camel, hoistData: true };
 ```

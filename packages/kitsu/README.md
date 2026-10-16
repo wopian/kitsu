@@ -424,7 +424,7 @@ Relationship DELETE sends identifiers without appending their IDs to the URL. Le
 ```javascript
 await api.delete('articles', '42') // DELETE /articles/42; no body
 await api.delete('articles/42/relationships/tags', ['3'], { document: { meta: { requestId: 'demo-42' } } })
-// DELETE /articles/42/relationships/tags; data: [{ type: tags, id: 3 }] with string values
+// DELETE /articles/42/relationships/tags; body: { data: [{ type: 'tags', id: '3' }] }
 ```
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[KitsuResponse](#kitsuresponse)>** Decoded response; empty responses retain HTTP details
@@ -594,7 +594,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const config = { params: { include: 'author' }, axiosOptions: { withCredentials: true } };
 ```
 
@@ -622,7 +621,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const options = { baseURL: 'https://bakery.example/api', attributeCase: 'kebab', timeout: 10000 };
 ```
 
@@ -647,7 +645,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const request = { method: 'PATCH', url: 'articles/42', type: 'articles', body: { id: '42', title: 'Moonlight Bread' } };
 ```
 
@@ -669,6 +666,5 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const result = { status: 200, data: { title: 'Moonlight Bread' } };
 ```

@@ -255,20 +255,28 @@ All code released under [MIT]
         *   [Examples](#examples-6)
 *   [KitsuNativeError](#kitsunativeerror)
     *   [Parameters](#parameters-7)
-*   [FetchOptions](#fetchoptions)
-    *   [Examples](#examples-7)
-*   [RequestConfig](#requestconfig)
     *   [Properties](#properties)
-    *   [Examples](#examples-8)
-*   [KitsuNativeOptions](#kitsunativeoptions)
-    *   [Properties](#properties-1)
-    *   [Examples](#examples-9)
-*   [ArbitraryRequest](#arbitraryrequest)
-    *   [Properties](#properties-2)
-    *   [Examples](#examples-10)
-*   [KitsuNativeResponse](#kitsunativeresponse)
-    *   [Properties](#properties-3)
+    *   [Examples](#examples-7)
+    *   [status](#status)
+        *   [Examples](#examples-8)
+    *   [headers](#headers)
+        *   [Examples](#examples-9)
+    *   [errors](#errors)
+        *   [Examples](#examples-10)
+*   [FetchOptions](#fetchoptions)
     *   [Examples](#examples-11)
+*   [RequestConfig](#requestconfig)
+    *   [Properties](#properties-1)
+    *   [Examples](#examples-12)
+*   [KitsuNativeOptions](#kitsunativeoptions)
+    *   [Properties](#properties-2)
+    *   [Examples](#examples-13)
+*   [ArbitraryRequest](#arbitraryrequest)
+    *   [Properties](#properties-3)
+    *   [Examples](#examples-14)
+*   [KitsuNativeResponse](#kitsunativeresponse)
+    *   [Properties](#properties-4)
+    *   [Examples](#examples-15)
 
 ### Kitsu
 
@@ -459,7 +467,7 @@ Relationship DELETE sends identifiers without appending their IDs to the URL. Le
 ```javascript
 await api.delete('articles', '42') // DELETE /articles/42; no body
 await api.delete('articles/42/relationships/tags', ['3'], { document: { meta: { requestId: 'demo-42' } } })
-// DELETE /articles/42/relationships/tags; data: [{ type: tags, id: 3 }] with string values
+// DELETE /articles/42/relationships/tags; body: { data: [{ type: 'tags', id: '3' }] }
 ```
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[KitsuNativeResponse](#kitsunativeresponse)>** Decoded response; empty responses retain HTTP details
@@ -534,11 +542,77 @@ HTTP and JSON parsing failures retain the original fetch response and JSON:API d
 #### Parameters
 
 *   `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Error message
-*   `response` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Original native Response, including HTTP status and headers
-*   `document` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Parsed JSON:API error document, when available
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Native Error constructor options
+*   `response` **[Response](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5)** Original native Fetch response, including HTTP status and headers
+*   `document` **JsonApiDocument?** Parsed JSON:API error document, when available
+*   `options` **ErrorOptions?** Native Error constructor options
 
     *   `options.cause` **any?** Underlying cause, such as the SyntaxError from an invalid JSON response
+
+#### Properties
+
+*   `status` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** HTTP status copied from response
+*   `headers` **[Headers](https://developer.mozilla.org/docs/Web/HTML/Element/header)** Native response headers
+*   `errors` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)\<JsonApiError>?** JSON:API errors from document.errors
+*   `response` **[Response](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5)** Original native Fetch response
+*   `document` **JsonApiDocument?** Parsed error document, including document metadata
+
+#### Examples
+
+Handle HTTP and response-parsing errors
+
+```javascript
+import Kitsu, { KitsuNativeError } from 'kitsu-native'
+const api = new Kitsu({ baseURL: 'https://bakery.example/api' })
+try {
+  await api.get('articles/42')
+} catch (error) {
+  if (error instanceof KitsuNativeError) {
+    console.log(error.status, error.headers.get('content-type'))
+    console.log(error.errors, error.document?.meta, error.cause)
+  } else {
+    throw error // Native network and abort errors propagate unchanged.
+  }
+}
+```
+
+Preserve a parsing cause
+
+```javascript
+const response = new Response('invalid JSON', { status: 200 })
+const error = new KitsuNativeError('Invalid JSON response', response, undefined, {
+  cause: new SyntaxError('Invalid JSON')
+})
+```
+
+#### status
+
+HTTP status copied from response.
+
+##### Examples
+
+```javascript
+422
+```
+
+#### headers
+
+Native Headers from response, without conversion to a plain object.
+
+##### Examples
+
+```javascript
+error.headers.get('content-type')
+```
+
+#### errors
+
+JSON:API errors from document.errors, absent for malformed JSON.
+
+##### Examples
+
+```javascript
+[{ status: '422', source: { header: 'Accept' } }]
+```
 
 ### FetchOptions
 
@@ -550,7 +624,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const options = { credentials: 'include', cache: 'no-store', redirect: 'error', signal: new AbortController().signal };
 ```
 
@@ -570,7 +643,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const config = { params: { include: 'author' }, fetchOptions: { cache: 'no-store' } };
 ```
 
@@ -599,7 +671,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const options = { baseURL: 'https://bakery.example/api', attributeCase: 'kebab', timeout: 10000 };
 ```
 
@@ -624,7 +695,6 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const request = { method: 'PATCH', url: 'articles/42', type: 'articles', body: { id: '42', title: 'Moonlight Bread' } };
 ```
 
@@ -646,6 +716,5 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 #### Examples
 
 ```javascript
-"use strict";
 const result = { status: 200, data: { title: 'Moonlight Bread' } };
 ```

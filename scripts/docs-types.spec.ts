@@ -29,19 +29,36 @@ export interface ClientOptions extends RequestOptions {
     expect(output).toContain("Example: `'Accept'`")
     expect(output).toContain('Additional members')
     // Nested source comments must never terminate the generated JSDoc block.
-    const parsed = ts.createSourceFile('docs.js', output, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS)
+    const parsed = ts.createSourceFile(
+      'docs.js',
+      output,
+      ts.ScriptTarget.Latest,
+      true,
+      ts.ScriptKind.JS,
+    )
     expect((parsed as ts.SourceFile & { parseDiagnostics: unknown[] }).parseDiagnostics).toEqual([])
     expect(output).not.toContain('const options: ClientOptions')
   })
 
   test.each([
-    ['missing interface description', '/** @example const options = {} */ export interface Options {}'],
+    [
+      'missing interface description',
+      '/** @example const options = {} */ export interface Options {}',
+    ],
     ['missing interface example', '/** Options. */ export interface Options {}'],
-    ['missing property docs', '/** Options. @example const options = {} */ export interface Options { timeout?: number }'],
-    ['missing property example', '/** Options. @example const options = {} */ export interface Options { /** Timeout. */ timeout?: number }'],
+    [
+      'missing property docs',
+      '/** Options. @example const options = {} */ export interface Options { timeout?: number }',
+    ],
+    [
+      'missing property example',
+      '/** Options. @example const options = {} */ export interface Options { /** Timeout. */ timeout?: number }',
+    ],
     ['missing alias docs', 'export type Options = string'],
   ])('rejects %s', (_, source) => {
-    expect(() => documentTypes(source, 'options.ts')).toThrow('needs a JSDoc description and @example')
+    expect(() => documentTypes(source, 'options.ts')).toThrow(
+      'needs a JSDoc description and @example',
+    )
   })
 
   test('all published interfaces and aliases have descriptions and examples', async () => {

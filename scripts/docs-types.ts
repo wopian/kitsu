@@ -68,13 +68,16 @@ export function documentTypes(source: string, fileName: string): string {
       const index = ts.isIndexSignatureDeclaration(member)
       const name = index ? member.parameters[0].name.getText(file) : member.name.getText(file)
       const { description, examples } = docs(member, `${prefix}${name}`)
-      const memberType = member.type!
+      const memberType = member.type
+      if (!memberType) throw new Error(`${fileName}: ${name} needs an explicit type`)
       const path = `${prefix}${name}`
       // Index signatures describe arbitrary members, not one literal option name.
       const detail = `${description} TypeScript: \`${text(memberType)}\`. ${examples.map((example) => `Example: \`${example.replace(/\s+/g, ' ')}\`.`).join(' ')}`
       if (index) lines.push(`Additional members (\`${text(member)}\`): ${detail}`)
       else {
-        lines.push(`@property {${type(memberType)}} ${member.questionToken ? `[${path}]` : path} ${detail}`)
+        lines.push(
+          `@property {${type(memberType)}} ${member.questionToken ? `[${path}]` : path} ${detail}`,
+        )
         if (ts.isTypeLiteralNode(memberType)) lines.push(...properties(memberType, `${path}.`))
       }
     }
@@ -86,7 +89,10 @@ export function documentTypes(source: string, fileName: string): string {
       const { description, examples } = docs(node, node.name.text)
       const lines = [description]
       if (ts.isTypeAliasDeclaration(node))
-        lines.push(`TypeScript: \`${text(node.type)}\`.`, `@typedef {${type(node.type)}} ${node.name.text}`)
+        lines.push(
+          `TypeScript: \`${text(node.type)}\`.`,
+          `@typedef {${type(node.type)}} ${node.name.text}`,
+        )
       else {
         const fields = properties(node)
         lines.push(
@@ -97,9 +103,13 @@ export function documentTypes(source: string, fileName: string): string {
       }
       for (const example of examples)
         lines.push(
-          `@example\n${ts.transpileModule(example, { compilerOptions: { target: ts.ScriptTarget.ESNext, module: ts.ModuleKind.ESNext } }).outputText.trim()}`,
+          `@example\n${ts.transpileModule(example, { compilerOptions: { target: ts.ScriptTarget.ESNext, module: ts.ModuleKind.ESNext, alwaysStrict: false } }).outputText.trim()}`,
         )
-      return `/**\n${lines.join('\n').split('\n').map((line) => ` * ${line}`).join('\n')}\n */\n`
+      return `/**\n${lines
+        .join('\n')
+        .split('\n')
+        .map((line) => ` * ${line}`)
+        .join('\n')}\n */\n`
     })
     .join('\n')
 }
