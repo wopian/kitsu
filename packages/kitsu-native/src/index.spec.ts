@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import KitsuNative, { KitsuNativeError, type KitsuNativeOptions } from './index.js'
+import Kitsu, { KitsuNativeError, type KitsuNativeOptions } from './index.js'
 
 function client(
   options: KitsuNativeOptions = {},
@@ -7,7 +7,7 @@ function client(
     new Response(null, { status: 204 }),
 ) {
   const calls: { url: string; options: RequestInit }[] = []
-  const api = new KitsuNative({
+  const api = new Kitsu({
     ...options,
     fetch: (async (url: string, options: RequestInit) => {
       calls.push({ url, options })
@@ -19,6 +19,7 @@ function client(
 
 describe('kitsu-native', () => {
   it('keeps transport and request internals private at runtime', async () => {
+    expect(Kitsu.name).toBe('Kitsu')
     const { api, calls } = client({ baseURL: 'https://private.invalid', timeout: 0 })
     for (const name of ['transport', 'baseURL', 'timeout', 'fetchOptions', 'model', 'send'])
       expect(name in api).toBe(false)
@@ -37,7 +38,7 @@ describe('kitsu-native', () => {
   })
   it('keeps synchronous conversion and injected transport failures as rejected promises', async () => {
     const failure = new Error('Synchronous failure')
-    const direct = new KitsuNative({
+    const direct = new Kitsu({
       fetch: (() => {
         throw failure
       }) as unknown as typeof fetch,
@@ -305,7 +306,7 @@ describe('kitsu-native', () => {
     const original = globalThis.fetch
     globalThis.fetch = (async () => new Response(null, { status: 204 })) as unknown as typeof fetch
     try {
-      expect(await new KitsuNative().get('articles')).toEqual({ status: 204 })
+      expect(await new Kitsu().get('articles')).toEqual({ status: 204 })
     } finally {
       globalThis.fetch = original
     }

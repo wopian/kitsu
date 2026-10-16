@@ -16,7 +16,7 @@
 
 <p align=center>A simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> client using Axios</p>
 
-<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v12 & previous major releases</p>
+<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu/MIGRATING.md>Migration guide</a> for v13 & previous major releases</p>
 
 #
 

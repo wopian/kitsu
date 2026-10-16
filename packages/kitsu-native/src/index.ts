@@ -15,20 +15,20 @@ import {
  * @param {Object} [options] Client options; fetch defaults to globalThis.fetch
  * @param {'none'|'kebab'|'snake'} [options.attributeCase=none] Convert resource attribute names to camelCase on reads and selected wire case on writes. Nested JSON, relationships, and queries stay unchanged.
  * @example
- * const api = new KitsuNative({ baseURL: 'https://kitsu.app/api/edge' })
+ * const api = new Kitsu({ baseURL: 'https://kitsu.app/api/edge' })
  * const response = await api.get('anime')
  */
-export default class KitsuNative {
+export default class Kitsu {
   query: (params?: JsonObject) => string
   camel: (value: string) => string
   resCase: (value: string) => string
   plural: typeof pluralise
   headers: Headers
   hoistData: boolean
-  fetch: KitsuNative['get']
-  update: KitsuNative['patch']
-  create: KitsuNative['post']
-  remove: KitsuNative['delete']
+  fetch: Kitsu['get']
+  update: Kitsu['patch']
+  create: Kitsu['post']
+  remove: Kitsu['delete']
   #transport: typeof globalThis.fetch
   #baseURL: string
   #timeout: number

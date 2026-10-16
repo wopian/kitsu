@@ -152,6 +152,7 @@ const native = new KitsuNative({ fetch: async (url, options) => {
 assert.equal(native.fetch, native.get); assert.equal(native.update, native.patch); assert.equal(native.create, native.post); assert.equal(native.remove, native.delete)
 assert.deepEqual(await native.patch('articles', { id: 0, title: 'Hi' }), { status: 204 })
 assert.equal(typeof KitsuNativeError, 'function')
+assert.equal(KitsuNative.name, 'Kitsu')
 const casedAxios = new Kitsu({ attributeCase: 'kebab', pluralize: false, camelCaseTypes: false, axiosOptions: { adapter: async config => {
   assert.deepEqual(JSON.parse(config.data), { data: { type: 'people', attributes: { 'first-name': 'Ada' } } })
   return { data: { data: { type: 'people', id: '1', attributes: { 'first-name': 'Ada' } } }, status: 201, statusText: 'Created', headers: {}, config }

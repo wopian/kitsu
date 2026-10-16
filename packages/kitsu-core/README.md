@@ -16,7 +16,7 @@
 
 <p align=center>Simple, lightweight & framework agnostic <a href=http://jsonapi.org>JSON:API</a> (de)serialisation components</p>
 
-<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md>Migration guide</a> for v12 & previous major releases</p>
+<p align=center><a href=https://github.com/wopian/kitsu/blob/master/packages/kitsu-core/MIGRATING.md>Migration guide</a> for v13 & previous major releases</p>
 
 #
 
