@@ -10,8 +10,11 @@ concurrency:
   cancel-in-progress: false
 jobs:
   publish:
-    if: github.repository == 'wopian/kitsu' && github.event.workflow_run.repository.full_name == github.repository
-    continue-on-error: true
+    # Failed measurements can still contain complete reports with explicit error rows.
+    if: >-
+      github.repository == 'wopian/kitsu' &&
+      github.event.workflow_run.repository.full_name == github.repository &&
+      contains(fromJSON('["success", "failure"]'), github.event.workflow_run.conclusion)
     timeout-minutes: 5
     runs-on: ubuntu-24.04
     permissions:
@@ -41,4 +44,4 @@ jobs:
         run: node --experimental-strip-types scripts/benchmark-publish.ts
       - name: Publishing summary
         if: failure()
-        run: echo 'Benchmark publication unavailable; existing results preserved. Inspect advisory job logs.' >> "$GITHUB_STEP_SUMMARY"
+        run: echo 'Benchmark publication failed; existing results preserved. Inspect job logs.' >> "$GITHUB_STEP_SUMMARY"

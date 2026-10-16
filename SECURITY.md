@@ -2,13 +2,14 @@
 
 ## Supported Versions
 
-
-| Version        | Node Version | New Features       | Bug Fixes          | Dependency Updates |
-| -------------: | :----------- | :----------------: | :----------------: | :----------------: |
-| 10.x           | 14-18+       | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| 10.0.0-alpha.x | 14-18+       | :x:                | :x:                | :x:                |
-| 9.x            | 10-18+       | :x:                | :white_check_mark: | :white_check_mark: |
-| < 9.0          | <= 12         | :x:                | :x:                | :x:                |
+| Version | Node Version  | New Features       | Bug Fixes          | Dependency Updates |
+| ------: | :------------ | :----------------: | :----------------: | :----------------: |
+| 13.x    | 22, 24, >= 26 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| 12.x    | 18, 20, >= 22 | :x:                | :white_check_mark: | :white_check_mark: |
+| 11.x    | 18, 20, >= 22 | :x:                | :white_check_mark: | :white_check_mark: |
+| 10.x	  | >= 14		  | :x:				   | :x:				| :x:				 |
+| 9.x	  | >= 10		  | :x:				   | :x:				| :x:				 |
+| < 9.x   | <= 12         | :x:                | :x:                | :x:                |
 
 ## Reporting a Vulnerability
 
