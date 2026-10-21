@@ -50,7 +50,7 @@
     "axios": "^1.8.4",
     "axios-mock-adapter": "^1.22.0",
     "json-stringify-safe": "^5.0.1",
-    "conventional-changelog-conventionalcommits": "~8.0.0",
+    "conventional-changelog-conventionalcommits": "~10.4.0",
     "documentation": "^14.0.0",
     "size-limit": "^14.0.0",
     "semantic-release": "~25.0.8",
