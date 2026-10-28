@@ -7,7 +7,7 @@
   },
   "engines": {
     "node": "22 || 24 || >= 26",
-    "bun": "1.4.3"
+    "bun": "1.4.4"
   },
   "workspaces": [
     "packages/*"
@@ -65,6 +65,6 @@
     ],
     "minimumReleaseAge": "3 days"
   },
-  "packageManager": "bun@1.4.3",
+  "packageManager": "bun@1.4.4",
   "type": "module"
 }
