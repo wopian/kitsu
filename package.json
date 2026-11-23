@@ -40,7 +40,7 @@
     "release": "node --experimental-strip-types scripts/release/publish.ts"
   },
   "devDependencies": {
-    "@biomejs/biome": "~2.5.7",
+    "@biomejs/biome": "~2.6.0",
     "@semantic-release/commit-analyzer": "~13.0.1",
     "@semantic-release/release-notes-generator": "~14.1.1",
     "@semantic-release/github": "~12.0.9",
