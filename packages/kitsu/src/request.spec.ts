@@ -66,7 +66,9 @@ describe('kitsu', () => {
       expect.assertions(1)
       const api = new Kitsu()
       adapter
-        .onGet(`anime/${getSingleWithIncludes.jsonapi.data.id}`, { include: 'author,comments' })
+        .onGet(`anime/${getSingleWithIncludes.jsonapi.data.id}`, {
+          params: { include: 'author,comments' },
+        })
         .reply(200, getSingleWithIncludes.jsonapi)
       const request = await api.request({
         method: 'GET',

@@ -107,7 +107,9 @@ describe('kitsu', () => {
       expect.assertions(1)
       const api = new Kitsu()
       adapter
-        .onGet(`anime/${getSingleWithIncludes.jsonapi.data.id}`, { include: 'author,comments' })
+        .onGet(`anime/${getSingleWithIncludes.jsonapi.data.id}`, {
+          params: { include: 'author,comments' },
+        })
         .reply(200, getSingleWithIncludes.jsonapi)
       const request = await api.get('anime/1', { params: { include: 'author,comments' } })
       expect(request).toEqual({ ...getSingleWithIncludes.kitsu, status: 200 })
@@ -166,7 +168,7 @@ describe('kitsu', () => {
     it('returns a JSON:API error object for invalid queries', async () => {
       expect.assertions(5)
       const api = new Kitsu()
-      adapter.onGet('articles', { include: 'author' }).reply(400, getError.jsonapi)
+      adapter.onGet('articles', { params: { include: 'author' } }).reply(400, getError.jsonapi)
       try {
         await api.get('articles', { params: { include: 'author' } })
       } catch ({ errors }: any) {

@@ -26,7 +26,7 @@ describe('kitsu', () => {
     it('sends and recieves headers', async () => {
       expect.assertions(2)
       const api = new Kitsu({ headers: { Authorization: true } })
-      adapter.onGet('/users', { filter: { self: true } }).reply((config: any) => {
+      adapter.onGet('/users', { params: { filter: { self: true } } }).reply((config: any) => {
         expect(config.headers).toMatchObject({
           Accept: 'application/vnd.api+json',
           'Content-Type': 'application/vnd.api+json',
@@ -43,7 +43,7 @@ describe('kitsu', () => {
     it('fetches the authenticated user', async () => {
       expect.assertions(1)
       const api = new Kitsu()
-      adapter.onGet('/users', { filter: { self: true } }).reply(200, {
+      adapter.onGet('/users', { params: { filter: { self: true } } }).reply(200, {
         data: [
           {
             id: '1',
@@ -65,7 +65,7 @@ describe('kitsu', () => {
       expect.assertions(5)
       const api = new Kitsu()
       adapter
-        .onGet('/users', { filter: { self: true }, include: 'author' })
+        .onGet('/users', { params: { filter: { self: true }, include: 'author' } })
         .reply(400, getError.jsonapi)
       try {
         await api.self({ params: { include: 'author' } })
