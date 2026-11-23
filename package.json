@@ -48,7 +48,7 @@
     "@types/pluralize": "^0.0.33",
     "@types/json-stringify-safe": "^5.0.3",
     "axios": "^1.8.4",
-    "axios-mock-adapter": "^1.22.0",
+    "axios-mock-adapter": "^2.0.0",
     "json-stringify-safe": "^5.0.1",
     "conventional-changelog-conventionalcommits": "~8.0.0",
     "documentation": "^14.0.0",
