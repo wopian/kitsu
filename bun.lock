@@ -31,7 +31,7 @@
         "kitsu": "workspace:*",
         "kitsu-core": "workspace:*",
         "kitsu-native": "workspace:*",
-        "ts-japi": "1.12.6",
+        "ts-japi": "1.12.8",
         "yayson": "4.4.0",
       },
     },
@@ -1023,7 +1023,7 @@
 
     "trough": ["trough@2.2.0", "", {}, "sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw=="],
 
-    "ts-japi": ["ts-japi@1.12.6", "", {}, "sha512-RU0nQlrEzXuymlLK6Tf+RUkxJ3KM1c8/ADQo4qmw0L1svxbPbrpB2MP1b6SVvYKI89CciE0PiO+201m33/5O/Q=="],
+    "ts-japi": ["ts-japi@1.12.8", "", {}, "sha512-gKd7t+iMSc1aKS5HV/P2ESv5Zg13x7rVYLG999vtTQh+uwr3zXSnIcemEHBu55/tU1ba5fp0HjYMqzb+Nnosdw=="],
 
     "tunnel": ["tunnel@0.0.6", "", {}, "sha512-1h/Lnq9yajKY2PEbBadPXj3VxsDDu844OnaAo52UVmIzIvwwtBPIuNvkjuzBlTWpfJyUbG3ez0KSBibQkj4ojg=="],
 

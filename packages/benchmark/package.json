@@ -14,7 +14,7 @@
     "kitsu": "workspace:*",
     "kitsu-core": "workspace:*",
     "kitsu-native": "workspace:*",
-    "ts-japi": "1.12.6",
+    "ts-japi": "1.12.8",
     "yayson": "4.4.0"
   }
 }
