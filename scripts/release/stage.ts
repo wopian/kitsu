@@ -39,7 +39,8 @@ export async function stagePackages(
         shell: process.platform === 'win32',
       }),
     )
-    const filename: string = packed[0].filename
+    const filename: unknown = (Array.isArray(packed) ? packed[0] : packed?.[name])?.filename
+    if (typeof filename !== 'string') throw new Error(`npm pack returned no filename for ${name}`)
     packages.push({
       name,
       filename,
