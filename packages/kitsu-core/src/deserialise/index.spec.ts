@@ -2,6 +2,31 @@ import { describe, expect, it } from 'bun:test'
 import { deserialise } from '../deserialise.js'
 
 describe('kitsu-core deserialise', () => {
+  it('links a single primary resource to itself by id and lid', () => {
+    const { data } = deserialise({
+      data: {
+        type: 'people',
+        id: '1',
+        lid: 'author',
+        relationships: {
+          byId: { data: { type: 'people', id: '1' } },
+          byLid: { data: { type: 'people', lid: 'author' } },
+          unresolved: { data: { type: 'people', lid: 'other' } },
+        },
+      },
+    })
+
+    expect(data.byId).toBe(data)
+    expect(data.byLid).toBe(data)
+    expect(data.unresolved).toEqual({ type: 'people', $: { lid: 'other' } })
+  })
+
+  it('rejects uncloneable values nested in metadata', () => {
+    expect(() => deserialise({ meta: { value: Symbol('value') } })).toThrow(
+      expect.objectContaining({ name: 'DataCloneError' }),
+    )
+  })
+
   it('keeps alternating types, unresolved targets, and document-local identity separate', () => {
     const resources = ['people', 'articles', 'people', 'comments'].map((type, index) =>
       Object.freeze({

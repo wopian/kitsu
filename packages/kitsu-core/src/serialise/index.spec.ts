@@ -4,6 +4,93 @@ import { camel } from '../camel.js'
 import { serialise } from '../serialise.js'
 
 describe('kitsu-core serialise', () => {
+  it('preserves explicit empty included with null primary data', () => {
+    expect(serialise(undefined, null, 'POST', { document: { included: [] } })).toEqual({
+      data: null,
+      included: [],
+    })
+  })
+
+  it('rejects aliases that link one id to different local ids', () => {
+    expect(() =>
+      serialise('people', [
+        { id: '1', $: { lid: 'first' } },
+        { $: { lid: 'second' } },
+        {
+          id: '1',
+          $: { lid: 'second' },
+        },
+      ]),
+    ).toThrow('Conflicting resources')
+  })
+
+  it('includes a full resource first encountered as saved linkage', () => {
+    const output = serialise('articles', [
+      {
+        id: '1',
+        $: {
+          lid: 'article',
+          relationships: { author: { data: { type: 'people', id: '7', lid: 'author' } } },
+        },
+      },
+      { id: '2', author: { type: 'people', id: '7', name: 'Ada' } },
+    ])
+    const author = { type: 'people', id: '7', lid: 'author' }
+
+    expect(output.data[0].relationships.author.data).toEqual(author)
+    expect(output.data[1].relationships.author.data).toEqual(author)
+    expect(output.included).toEqual([{ ...author, attributes: { name: 'Ada' } }])
+  })
+
+  it('requires a server id to patch a primary resource with a local id', () => {
+    expect(() => serialise('articles', { $: { lid: 'draft' } }, 'PATCH')).toThrow(
+      'PATCH requires an ID for the articles type',
+    )
+  })
+
+  it('requires an id or lid for a full related resource', () => {
+    expect(() => serialise('articles', { author: { type: 'people', name: 'Ada' } })).toThrow(
+      'Relationship requires id or lid',
+    )
+  })
+
+  it('requires linkage for metadata-only relationships on a resource with a local id', () => {
+    expect(() =>
+      serialise('articles', {
+        $: { lid: 'draft', relationships: { author: { meta: { visible: true } } } },
+      }),
+    ).toThrow('POST requires data: author')
+  })
+
+  it('rejects reserved explicit attributes on a resource with a local id', () => {
+    expect(() =>
+      serialise('articles', { $: { lid: 'draft', attributes: { id: 'reserved' } } }),
+    ).toThrow('Invalid field: id')
+  })
+
+  it('resolves to-many linkage in supplied resources and preserves metadata-only relationships', () => {
+    const output = serialise('articles', { id: '1', group: { type: 'groups', id: '2' } }, 'POST', {
+      document: {
+        included: [
+          {
+            type: 'groups',
+            id: '2',
+            relationships: {
+              policy: { meta: { visible: true } },
+              members: { data: [{ type: 'people', lid: 'author', meta: { role: 'owner' } }] },
+            },
+          },
+          { type: 'people', id: '7', lid: 'author' },
+        ],
+      },
+    })
+
+    expect(output.included[0].relationships).toEqual({
+      policy: { meta: { visible: true } },
+      members: { data: [{ type: 'people', id: '7', lid: 'author', meta: { role: 'owner' } }] },
+    })
+  })
+
   it('copies nested graphs independently across flat and cyclic resource collections', () => {
     for (const count of [1, 16, 17, 32]) {
       for (const linked of [false, true]) {
