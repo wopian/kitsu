@@ -53,7 +53,7 @@
     "conventional-changelog-conventionalcommits": "~8.0.0",
     "documentation": "^14.0.0",
     "size-limit": "^14.0.0",
-    "semantic-release": "~25.0.8",
+    "semantic-release": "~26.0.0",
     "typescript": "^6.0.0"
   },
   "renovate": {
