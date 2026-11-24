@@ -54,7 +54,7 @@
     "documentation": "^14.0.0",
     "size-limit": "^14.3.0",
     "semantic-release": "~26.0.1",
-    "typescript": "^6.0.0"
+    "typescript": "^7.0.0"
   },
   "renovate": {
     "extends": [
